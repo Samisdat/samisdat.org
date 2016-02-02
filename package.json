@@ -20,5 +20,7 @@
     "hexo-renderer-marked": "^0.2.4",
     "hexo-renderer-stylus": "^0.3.0",
     "hexo-server": "^0.1.2",
+    "hexo-staging": "^0.1.0",
+    "hexo-image": "0.1.0"
   }
 }
