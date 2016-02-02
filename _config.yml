@@ -75,4 +75,7 @@ theme: conway
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:Samisdat/samisdat.org.git
+  branch: deploy
+  message: 'Site updated: {{ now("YYYY-MM-DD HH:mm:ss") }}'
