@@ -5,7 +5,7 @@
   "hexo": {
     "version": "3.1.1"
   },
- "scripts": {
+  "scripts": {
     "prestart": "hexo generate -f",
     "start": "hexo server -s"
   },
