@@ -6,3 +6,5 @@ node_modules/
 public/
 .deploy*/._.DS_Store
 ._.*
+.__*
+._*
