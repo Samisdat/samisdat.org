@@ -1,5 +1,9 @@
 title: Once again - Diesmal mit Hexo.io
 date: 2015-11-28 23:30:42
+teaser: |+
+    bar **bold** foo
+    
+    bar **bold** foo
 tags:
 ---
 
