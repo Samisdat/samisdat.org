@@ -7,8 +7,8 @@ title: Samisdat
 subtitle:
 description:
 author: Bastian Pertz
-language:
-timezone:
+language: de
+timezone: Europe/Berlin 
 
 stagings:
   production:
