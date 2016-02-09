@@ -28,7 +28,7 @@ So richtig dick gesäht sind NodeJs Blog-Engines noch nicht, aber bei der Suche 
 
 ## Hexo
 
-[Hexo](https://hexo.io) nimmt Markdown Posts und das Templates, parst das zusammen und generiert daraus einfach statische HTML Seiten, die ich dann von einem Nginx ausliefern lassen. Hexo kann sich sogar selber um das Deployen der statischen Seiten auf den Nginx kümmern. 
+[Hexo](https://hexo.io) nimmt Markdown Posts und das Templates von der Platte, parst beides zusammen und generiert daraus einfach statische HTML Seiten, die ich dann von einem Nginx ausliefern lassen. Hexo kann sich sogar selber um das Deployen der statischen Seiten auf den Nginx kümmern. 
 
 Zum lokalen Entwickeln bringt hexo noch eine Server-Komponete mit, die das Markdown & Templates live zusammenbringt.
 
@@ -36,7 +36,7 @@ Das macht nach den ersten Wochen rumspielen einen recht soliden Eindruck und vor
 
 ## Layout
 
-Da ich sowieso weiß, dass ich niemals mit dem Layout oder dem Code dieser Seite zufrienden sein werde, habe ich beschlossen ~~zu versuchen~~, dass zu akkzeptieren.
+Da ich sowieso weiß, dass ich niemals mit dem Layout oder dem Code dieser Seite zufrienden sein werde, habe ich beschlossen ~~zu versuchen~~, dass zu akzeptieren.
 
 Diesmal ist der Plan, lieber heute eine Seite heute als morgen eine bessere.
 Daher hab ich auf meiner Platte geguckt, was da so rum liegt und das [Conway-Script](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) aus dem Header war schon ziemlich weit; darum hab ich dann noch ein bißchen Bootstrap gerotzt und das ist jetzt erstmal die 0.1.0.
