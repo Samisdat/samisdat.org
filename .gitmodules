@@ -1,0 +1,3 @@
+[submodule "themes/conway"]
+	path = themes/conway
+	url = https://github.com/Samisdat/conway-hexo.git
