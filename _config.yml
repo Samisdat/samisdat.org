@@ -70,6 +70,13 @@ pagination_dir: page
 ## Themes: http://hexo.io/themes/
 theme: conway
 
+# feed
+feed:
+  type: rss
+  path: rss.xml
+  limit: 20
+  hub:
+
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
