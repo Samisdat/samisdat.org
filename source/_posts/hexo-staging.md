@@ -1,25 +1,26 @@
 title: hexo-staging
 date: 2016-02-03 20:57:21
 teaser: |+
-    bar **bold** foo
+    Mit Bordmitteln hat Hexo kein Staging; daher hab ich mein erstes Hexo Plugin geschrieben. 
     
-    bar **bold** foo
+    Damit können einzelne Einstellungen in der _config.yml pro Staging geswitch werden.
+    Außerdem gibt es ein Conditional Tag mit dem in den Templates Code nur in einem definierten Staging genutzt werden kann.  
 tags:
 ---
 
-Das reine Rumprobieren mit Hexo und der Doku hat mich schon relativ weit gebracht .
+Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.
 
 Grundsätzlich hat Hexo zwei verschiedene Modi:
         
-* [hexo generate](https://hexo.io/docs/generating.html) läuft alle Routen durch, rendert die dazugehörigen Seiten und speichert sie als statische Files auf die Platte. Die generierten Dateien laden bei mir Produktivsystem und werden von einem Nginx ausgeliefert.
-* [hexo server](https://hexo.io/docs/server.html) startet einen Server und rendert dynamisch die angefragte Seite. Den Server nutze ich lokal zum Entwickeln.
+* [hexo generate](https://hexo.io/docs/generating.html) läuft alle Routen durch, rendert die dazugehörigen Seiten und speichert sie als statische Files auf die Platte. Die generierten Dateien laden bei mir im Live-System und werden da von einem Nginx ausgeliefert.
+* [hexo server](https://hexo.io/docs/server.html) startet einen Server und rendert dynamisch die angefragte Seite. Der Server ist etwas träge, hat aber einen Watcher und ich nutze das lokal zum Entwickeln.
 
-Die zwei Sachen getrennt zu haben ist schon praktisch, aber mir fehlte noch ein Staging mit dem ich zwischen **Development** und **Production** unterscheiden kann.
-Daher hab ich mein erstes Hexo Plugin geschrieben, dass Hexo im einfaches Staging unterstützt. 
+Die zwei Prozesse getrennt zu haben, ist schon praktisch, aber mir fehlte noch ein Staging mit dem ich zwischen **Development** und **Production** unterscheiden und switchen kann.
+Daher hab ich mein erstes Hexo Plugin geschrieben, dass Hexo um einen einfachen Staging-Mechanismus erweitert. 
 
 ## Installation
 
-Zur Installation einfach nur per **npm** installieren.
+Einfach nur per **npm** installieren:
   
 ```bash
 cd /root/of/your/hexo/project
@@ -30,7 +31,7 @@ npm install hexo-staging
 ## Staging in der _config.yml
 
 In der Config fügt mal einen neues **Stagings** ein; darin pro Staging die Einstellungen, die für das Staging geändert werden sollen.
-Der Staging Name ist überigens egal; ich benutze aus Gewohnheit **production** und **development**.  
+Die Staging Namen sind überigens egal; ich benutze **production** und **development**.  
 
 ```yaml
 title: "Samisdat"
@@ -76,4 +77,3 @@ Außer den stagebaren Einstellungen bringt das Plugin noch ein neues Conditional
     <%- css('style.min.css') %>
 <% } %>
 ```
-
