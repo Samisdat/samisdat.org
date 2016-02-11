@@ -11,8 +11,6 @@ language: de
 timezone: Europe/Berlin 
 
 stagings:
-  production:
-    url: https://samisdat.org
   development:
     title: Samisdat Development
     url: http://hexo.dev.pertz.eu
