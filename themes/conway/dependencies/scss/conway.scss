@@ -1,0 +1,50 @@
+$green: #C5CF9C;
+$lila: #807c8e;
+$grey: #D7D7D7;
+
+@import "bootstrap";
+@import "font_awesome";
+@import "animation";
+@import "highlightjs";
+
+@import "header";
+@import "main";
+@import "aside";
+@import "footer";
+
+body {
+    margin: 0;
+    background: $grey;
+    text-transform: lowercase;
+    font-weight: 200;
+}
+
+.wrap {
+    position: relative;
+    z-index: 1;
+    background: $grey;
+}
+.wrap .row{
+    background:mix($grey, #fff, 60%);
+}
+main{
+    background:mix($grey, #fff, 80%);
+    padding-top:$grid-gutter-width/2;
+}
+
+img.me{
+    width:100px;
+    height:100px;
+    border: 3px solid rgba(215, 215, 215, 0.7);
+    box-shadow: 0 0 1px 1px #807c8e;
+    border-radius:50px;
+    transform: translateZ(0);
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+    backface-visibility: hidden;
+}
+img.me:hover{
+    animation-name: buzz;
+    animation-duration: 0.75s;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+}

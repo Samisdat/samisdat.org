@@ -1,0 +1,11 @@
+<article class="archive-article archive-type-<%= post.layout %>">
+    <h1>
+        <a href="<%- url_for(post.path) %>">
+            <%- post.title %>
+        </a>
+    </h1>
+        <time datetime="<%= date_xml(post.date) %>" itemprop="datePublished">
+            <%= date(post.date, null) %>
+        </time>
+        
+</article>

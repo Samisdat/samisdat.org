@@ -1,0 +1,29 @@
+{
+  "default": [],
+  "lint":{
+      "description": "Check js and php files for errors and coding style",
+      "tasks": [
+          "jshint"
+      ]
+  },
+  "development": {
+    "description": "Compile sass with sourcemap",
+    "tasks": [
+      "sass:development"
+    ]
+  },
+  "production": {
+    "description": "Compile sass to minified css and skip sourcemap",
+    "tasks": [
+      "sass:production"
+    ]
+  },
+  "frontend": {
+    "description": "Compile sass when changes and push to client",
+    "tasks": [
+      "development",
+      "browserSync",
+      "watch:sass"
+    ]
+  }
+}
