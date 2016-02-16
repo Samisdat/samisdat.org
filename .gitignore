@@ -6,6 +6,8 @@ node_modules/
 public/
 .deploy*/._.DS_Store
 ._.*
-.__*
 ._*
 launch.json
+themes/conway/source/bower_components/*
+themes/conway/dependencies/bower_components
+themes/conway/source/css/
