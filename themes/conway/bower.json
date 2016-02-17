@@ -2,8 +2,8 @@
   "name": "conway",
   "version": "0.1.1",
   "dependencies": {
-    "bootstrap-sass-official": "3.3.*",
     "font-awesome": "fontawesome#~4.4.0",
-    "highlightjs": "~8.9.1"
+    "highlightjs": "~8.9.1",
+    "bootstrap": "4.0.0-alpha.2"
   }
 }
