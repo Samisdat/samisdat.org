@@ -4,8 +4,13 @@
 
 main{
     article{
-        padding-bottom: ($grid-gutter-width/2);
+        padding-bottom: $grid-gutter-width * 2;
+        
+        &:last-child{
+            padding-bottom: $grid-gutter-width/2;
+        }
     }
+    
 
     h1{
         margin-top:($grid-gutter-width/2);
@@ -47,5 +52,14 @@ main{
         img{
             width: 100%;
         }   
+    }
+    .more{
+        text-align: right;
+        
+        .btn-primary {
+              @include button-variant($btn-primary-color, #9996a5, #807c8e);
+              border-radius: 0px;
+        }
+
     }
 }
