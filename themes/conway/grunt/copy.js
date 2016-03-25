@@ -8,10 +8,10 @@ var copy = {
         flatten: true,
         filter: 'isFile'
     },
-    bootstrap: {
+    tether: {
         expand: true,
-        src: 'dependencies/bower_components/bootstrap-sass-official/assets/javascripts/bootstrap**',
-        dest: 'source/bower_components/bootstrap/javascripts/',
+        src: 'dependencies/bower_components/tether/dist/js/tether.min.js',
+        dest: 'source/bower_components/tether/javascripts/',
         flatten: true,
         filter: 'isFile'
     },
