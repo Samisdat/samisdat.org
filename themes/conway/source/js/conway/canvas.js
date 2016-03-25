@@ -53,11 +53,11 @@
 
             // lighten main column a little
             canvas.ctx.fillStyle = '#d2daab';
-            canvas.ctx.fillRect(main.offsetLeft, 0, main.width, canvas.height);
+            canvas.ctx.fillRect(main.offsetLeft, 0, main.width + aside.width, canvas.height);
 
             // lighten aside column a little more
             canvas.ctx.fillStyle = '#e0e5c4';
-            canvas.ctx.fillRect(aside.offsetLeft, 0, aside.width, canvas.height);
+            canvas.ctx.fillRect(main.offsetLeft, 0, aside.width, canvas.height);
 
             for (var row = 0; row < visibile.rows; row += 1) {
                 for (var column = 0; column < visibile.collums; column += 1) {
