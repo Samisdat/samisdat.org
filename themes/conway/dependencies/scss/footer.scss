@@ -11,11 +11,11 @@ footer{
     background:$lila;
     
     .row{  
-        background:mix($lila, #fff, 60%);
+        background:mix($lila, #fff, 80%);
     }
-    .col-md-8{  
+    .col-md-4{  
         padding-top:($grid-gutter-width/2);
         padding-bottom:($grid-gutter-width/2);    
-        background:mix($lila, #fff, 80%);
+        background:mix($lila, #fff, 60%);
     }
 }
