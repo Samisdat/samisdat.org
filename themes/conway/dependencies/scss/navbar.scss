@@ -1,6 +1,18 @@
 .navbar{
 	background: $lila;
     padding: 0;
+
+    a{
+        color:#201d2c;
+    }
+    a:hover{
+        color:lighten(#201d2c, 30%);
+    }
+
+    .navbar-nav.external .nav-item:first-child{
+        margin-left: $grid-gutter-width/2;
+    }
+
 	.row > div{
         background:mix($lila, #fff, 80%);
         @include media-breakpoint-down('sm') {
@@ -8,23 +20,3 @@
         }        
 	}
 }
-
-
-/*
-h1{
-    margin-top:0px;
-    margin-bottom:0px;
-    line-height: 55px;
-    background:mix($lila, #fff, 60%);
-    display: none;
-}
-h1 a{
-    display:block;
-    text-align:center;
-    color:#fff;
-    background:url(/images/logo.png) center center no-repeat;
-    height:55px;
-    overflow: hidden;
-    padding-top:55px;
-}
-*/
