@@ -52,12 +52,8 @@
             canvas.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
             // lighten main column a little
-            canvas.ctx.fillStyle = '#d2daab';
-            canvas.ctx.fillRect(main.offsetLeft, 0, main.width + aside.width, canvas.height);
-
-            // lighten aside column a little more
             canvas.ctx.fillStyle = '#e0e5c4';
-            canvas.ctx.fillRect(main.offsetLeft, 0, aside.width, canvas.height);
+            canvas.ctx.fillRect(aside.offsetLeft, 0, aside.width, canvas.height);
 
             for (var row = 0; row < visibile.rows; row += 1) {
                 for (var column = 0; column < visibile.collums; column += 1) {
@@ -119,7 +115,7 @@
                 return;
             }
 
-            requestAnimationFrame(loop);
+            //requestAnimationFrame(loop);
         };
 
         $('#conway').on('invisible', function(evt, data){
@@ -194,8 +190,8 @@
 
             main.offsetLeft = $('header .row').offset().left;
             main.width = parseInt($('header .col-md-4').css('margin-left'), 10);
-            aside.offsetLeft = $('header .col-md-4').offset().left;
-            aside.width = $('header .col-md-4').width() + parseInt($('header .col-md-4').css('padding-left'), 10) + parseInt($('header .col-md-4').css('padding-right'), 10);
+            aside.offsetLeft = $('nav .col-md-8').offset().left;
+            aside.width = $('nav .col-md-8').width() + parseInt($('header .col-md-4').css('padding-left'), 10) + parseInt($('header .col-md-4').css('padding-right'), 10);
         };
 
         var ready = function() {

@@ -18,10 +18,12 @@
 			if(fixed === false && scrollTop > 200){
 				fixed = true;
 				$navbar.addClass('navbar-fixed-top');
+				$('body').addClass('hasFixedNavbar');
 			}
 			else if(fixed === true && scrollTop <= 200){
 				fixed = false;
 				$navbar.removeClass('navbar-fixed-top');
+				$('body').removeClass('hasFixedNavbar');
 			}
 
 			if(invisible === false && scrollTop > 250){

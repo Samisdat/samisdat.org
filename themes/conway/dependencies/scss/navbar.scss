@@ -1,12 +1,11 @@
 .navbar{
 	background: $lila;
     padding: 0;
-	.row{
-	    background:#9995a6;
-	    background:mix($lila, #fff, 80%);
-	}
-	.col-md-4{
-	    background:mix($lila, #fff, 60%);
+	.row > div{
+        background:mix($lila, #fff, 80%);
+        @include media-breakpoint-down('sm') {
+          background:$lila;
+        }        
 	}
 }
 

@@ -22,14 +22,21 @@ body {
 
 .wrap {
     position: relative;
+    top:0;
     z-index: 1;
     background: $grey;
 }
+body.hasFixedNavbar{
+    .wrap{
+        padding-top: 0.25rem +  0.25rem + 1.1rem;        
+    }
+}
+
 .wrap .row{
-    background:mix($grey, #fff, 60%);
+    /*background:mix($grey, #fff, 60%);*/
 }
 main{
-    background:mix($grey, #fff, 80%);
+    background:mix($grey, #fff, 60%);
     padding-top:$grid-gutter-width/2;
 }
 
