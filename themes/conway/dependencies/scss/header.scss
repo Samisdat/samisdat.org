@@ -6,10 +6,16 @@ header{
 
     #conway{
         position: fixed;
-        top: 0;
+        top: 0px;
         width: 100%;
         z-index: -1;
         height: 200px;
+        background: #c5cf9c;
+
+        canvas{
+            background:mix(#c5cf9c, #fff, 60%);            
+            opacity: 0;
+        }
     }
     #conway.invisible {
         position: absolute;
