@@ -9,24 +9,9 @@
 					<ul class="nav navbar-nav">
 						<% site.data.nav.forEach(function(navItem){ %>
 						    <% if(undefined === navItem.children){ %>
-								<li class="nav-item active ">
-									<a class="nav-link" href="<%- navItem.url %>"><%- navItem.text %></a>
-								</li>						    
+								<%- partial('_partial/navbar-item', {item: navItem}) %>
 						    <% } else { %>
-								<li class="nav-item dropdown">
-									<a class="nav-link dropdown-toggle" href="<%- navItem.url %>" data-toggle="dropdown">
-										<%- navItem.text %>
-										<span class="caret"></span>
-									</a>
-									<ul class="dropdown-menu">
-								        <% navItem.children.forEach(function(child){ %>
-								        	<li class="nav-item active ">
-								            	<a class="nav-link" href="<%- navItem.url %>"><%- navItem.text %></a>
-								            </li>
-								        <% }) %>
-									</ul>
-								</li>
-
+						    	<%- partial('_partial/navbar-parent-item', {item: navItem}) %>
 						    <% } %>
 
 						<% }) %>
