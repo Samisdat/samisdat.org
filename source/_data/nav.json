@@ -1,0 +1,24 @@
+[
+	{
+		"text": "Blog",
+		"url": "/"
+	},
+	{
+		"text": "Projekte",
+		"url": "/projekts",
+		"children":[
+			{
+				"text": "Blog",
+				"url": "/"
+			},
+			{
+				"text": "Blog",
+				"url": "/"
+			}
+		]
+	},
+	{
+		"text": "About",
+		"url": "/about"
+	}
+]
