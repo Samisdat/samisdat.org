@@ -7,29 +7,29 @@
 				</button>
 				<div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
 					<ul class="nav navbar-nav">
-						<li class="nav-item active">
-							<a class="nav-link" href="#">Blog</a>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="foo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-								Projekte
-								<span class="caret"></span>
-							</a>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-								<li>
-									<a href="#">Liquid Scaling</a>
+						<% site.data.nav.forEach(function(navItem){ %>
+						    <% if(undefined === navItem.children){ %>
+								<li class="nav-item active ">
+									<a class="nav-link" href="<%- navItem.url %>"><%- navItem.text %></a>
+								</li>						    
+						    <% } else { %>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="<%- navItem.url %>" data-toggle="dropdown">
+										<%- navItem.text %>
+										<span class="caret"></span>
+									</a>
+									<ul class="dropdown-menu">
+								        <% navItem.children.forEach(function(child){ %>
+								        	<li class="nav-item active ">
+								            	<a class="nav-link" href="<%- navItem.url %>"><%- navItem.text %></a>
+								            </li>
+								        <% }) %>
+									</ul>
 								</li>
-								<li>
-									<a href="#">Hexo Staging</a>
-								</li>
-								<li>
-									<a href="#">Separated link</a>
-								</li>
-							</ul>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link" href="#">About</a>
-						</li>
+
+						    <% } %>
+
+						<% }) %>
 					</ul>
 				</div>
 				<ul class="nav navbar-nav external">
