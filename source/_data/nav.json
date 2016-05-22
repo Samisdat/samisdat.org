@@ -8,11 +8,11 @@
 		"url": "/projekts",
 		"children":[
 			{
-				"text": "Blog",
+				"text": "Hexo Staging",
 				"url": "/"
 			},
 			{
-				"text": "Blog",
+				"text": "Liquid scaling",
 				"url": "/"
 			}
 		]

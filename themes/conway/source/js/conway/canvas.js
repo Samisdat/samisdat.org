@@ -119,7 +119,7 @@
                 return;
             }
 
-            requestAnimationFrame(loop);
+            //requestAnimationFrame(loop);
         };
 
         $('#conway').on('invisible', function(evt, data){
