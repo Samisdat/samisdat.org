@@ -26,21 +26,6 @@
             data: {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
                 datasets: [{
-                    label: "My First dataset",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
-                    fill: false,
-                    borderDash: [5, 5],
-                }, {
-                    label: "My Second dataset",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
-                    fill: false,
-                    borderDash: [5, 5],
-                }, {
-                    label: "My Third dataset - No bezier",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
-                    lineTension: 0,
-                    fill: false,
-                }, {
                     label: "My Fourth dataset",
                     data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
                     fill: false,
@@ -86,73 +71,17 @@
             dataset.pointBorderWidth = 1;
         });
 
-        window.onload = function() {
-            var ctx = document.getElementById("canvas").getContext("2d");
-            window.myLine = new Chart(ctx, config);
-        };
+        var ready = function() {
+            $gitChart = $('.gitChart canvas');
 
-        $('#randomizeData').click(function() {
-            $.each(config.data.datasets, function(i, dataset) {
-                dataset.data = dataset.data.map(function() {
-                    return randomScalingFactor();
-                });
-
-            });
-
-            window.myLine.update();
-        });
-
-        $('#addDataset').click(function() {
-            var background = randomColor(0.5);
-            var newDataset = {
-                label: 'Dataset ' + config.data.datasets.length,
-                borderColor: background,
-                backgroundColor: background,
-                pointBorderColor: background,
-                pointBackgroundColor: background,
-                pointBorderWidth: 1,
-                fill: false,
-                data: [],
-            };
-
-            for (var index = 0; index < config.data.labels.length; ++index) {
-                newDataset.data.push(randomScalingFactor());
+            if(undefined === $gitChart.get(0)){
+                return;
             }
 
-            config.data.datasets.push(newDataset);
-            window.myLine.update();
-        });
+            var ctx = $gitChart.get(0).getContext('2d');
 
-        $('#addData').click(function() {
-            if (config.data.datasets.length > 0) {
-                var month = MONTHS[config.data.labels.length % MONTHS.length];
-                config.data.labels.push(month);
+            gitChart = new Chart(ctx, config);
 
-                $.each(config.data.datasets, function(i, dataset) {
-                    dataset.data.push(randomScalingFactor());
-                });
-
-                window.myLine.update();
-            }
-        });
-
-        $('#removeDataset').click(function() {
-            config.data.datasets.splice(0, 1);
-            window.myLine.update();
-        });
-
-        $('#removeData').click(function() {
-            config.data.labels.splice(-1, 1); // remove the label first
-
-            config.data.datasets.forEach(function(dataset, datasetIndex) {
-                dataset.data.pop();
-            });
-
-            window.myLine.update();
-        });
-
-
-            console.log($gitChart);
         };
 
         $(document).ready(ready);
