@@ -6,6 +6,7 @@ var concat = {
         src: [
             'source/bower_components/jquery/jquery.min.js',
             'source/bower_components/highlightjs/highlight.pack.min.js',
+            'source/bower_components/chartsjs/Chart.bundle.min.js',
             'source/js/lib/rAF.js',
             'source/js/conway/patterns.js',
             'source/js/conway/cell.js',
