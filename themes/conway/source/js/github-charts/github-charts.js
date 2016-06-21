@@ -12,64 +12,118 @@
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
         var randomScalingFactor = function() {
-            return Math.round(Math.random() * 100 * (Math.random() > 0.5 ? -1 : 1));
+            return Math.round(Math.random() * 25);
         };
-        var randomColorFactor = function() {
-            return Math.round(Math.random() * 255);
-        };
-        var randomColor = function(opacity) {
-            return 'rgba(' + randomColorFactor() + ',' + randomColorFactor() + ',' + randomColorFactor() + ',' + (opacity || '.3') + ')';
-        };
+
+        var data = (function(){
+
+            var repos = [
+                '/FreeCodeCamp/FreeCodeCamp',
+                '/fed135/Kalm',
+                '/gittips\/tips',
+                '/bahmutov/javascript-journey',
+                '/UDST/vizicities',
+                '/benjamn/reify',
+                '/angular/angular.js',
+                '/getify/You-Dont-Know-JS',
+                '/parkjs814/AlgorithmVisualizer',
+                '/facebook/react',
+                '/GoogleChrome/lighthouse',
+                '/nickberens360/atomic-docs',
+                '/airbnb/javascript',
+                '/weixin/tmt-workflow',
+                '/luruke/barba.js',
+                '/SamyPesse/gitkit-js',
+                '/vuejs/vue',
+                '/yoshuawuyts/choo',
+                '/nodejs/node',
+                '/reactjs/redux',
+                '/nylas/N1',
+                '/tj/react-enroute',
+                '/dvLden/Vidage',
+                '/weixin/WeFlow',
+                '/algolia/places'
+            ];
+
+            var dataSetConfig = {
+                fill: false,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 5,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 1,
+                pointHitRadius: 10                                    
+            };
+
+            var datasets = [];
+
+            repos.forEach(function(repo, index){
+
+                var position = index + 1;
+
+                var dataset = {
+                    label: repo,
+                    data: [position, position, position, position, position, position, position]
+                };
+
+                dataset = $.extend({}, dataset, dataSetConfig);
+                datasets.push(dataset);
+            })
+
+            return datasets;
+
+        })();
 
         var config = {
             type: 'line',
             data: {
                 labels: ["January", "February", "March", "April", "May", "June", "July"],
-                datasets: [{
-                    label: "My Fourth dataset",
-                    data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()],
-                    fill: false,
-                }]
+                datasets: data
             },
             options: {
                 responsive: true,
                 legend: {
-                    position: 'bottom',
+                    position: 'right',
                 },
                 hover: {
                     mode: 'label'
                 },
                 scales: {
                     xAxes: [{
-                        display: true,
+                        display: false,
                         scaleLabel: {
                             display: true,
-                            labelString: 'Month'
+                            labelString: 'Day'
                         }
                     }],
                     yAxes: [{
-                        display: true,
+                        display: false,
                         scaleLabel: {
-                            display: true,
-                            labelString: 'Value'
+                            display: false,
+                            labelString: 'Position'
+                        },
+                        ticks: {
+                            suggestedMin: -1,
+                            suggestedMax: 26,
                         }
+
                     }]
                 },
                 title: {
-                    display: true,
+                    display: false,
                     text: 'Chart.js Line Chart - Legend'
                 }
             }
         };
-
-        $.each(config.data.datasets, function(i, dataset) {
-            var background = randomColor(0.5);
-            dataset.borderColor = background;
-            dataset.backgroundColor = background;
-            dataset.pointBorderColor = background;
-            dataset.pointBackgroundColor = background;
-            dataset.pointBorderWidth = 1;
-        });
 
         var ready = function() {
             $gitChart = $('.gitChart canvas');

@@ -7,7 +7,7 @@ teaser:
 Lorem
 
 <div class="gitChart">
-    <canvas id="canvas"></canvas>
+    <canvas id="canvas" height="500"></canvas>
 </div>
 
 Ipsum
