@@ -7,13 +7,10 @@
     Samisdat.GithubChart = ( function() {
         
         var $gitChart;
-
-        var ready = function() {
-            $gitChart = $('.gitChart');
-
-
+        var gitChart;
 
         var MONTHS = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
         var randomScalingFactor = function() {
             return Math.round(Math.random() * 100 * (Math.random() > 0.5 ? -1 : 1));
         };
