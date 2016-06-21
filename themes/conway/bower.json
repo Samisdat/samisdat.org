@@ -5,6 +5,7 @@
     "font-awesome": "fontawesome#~4.4.0",
     "highlightjs": "~8.9.1",
     "bootstrap": "4.0.0-alpha.2",
-    "tether": "^1.2.0"
+    "tether": "^1.2.0",
+    "Chart.js": "^2.1.6"
   }
 }
