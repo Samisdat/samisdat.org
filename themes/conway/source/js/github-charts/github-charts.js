@@ -9,7 +9,7 @@
         var svg;
 
         var parseTime = d3.timeParse("%Y");
-        var margin = {top: 30, right: 50, bottom: 30, left: 30};
+        var margin = {top: 30, right: 250, bottom: 30, left: 30};
         var setupD3 = function(){
 
             svg = d3.select("svg");
@@ -29,7 +29,7 @@
                 } 
                 return d;
             }, function(error, data) {
-                console.log(data)
+
                 if (error){
                     throw error;    
                 } 
@@ -80,7 +80,8 @@
                 label.append("text")
                     .attr("dy", ".35em")
                     .text(function(d) { return d.value; })
-                    .filter(function(d, i) { return i === data.length - 1; })
+                    //.filter(function(d, i) { return i === data.length - 1; })
+                    .filter(function(d, i) { return 7 === 8; })
                     .append("tspan")
                     .attr("class", "label-key")
                     .text(function(d) { return " " + d.key; });
@@ -91,7 +92,20 @@
                     .attr("y", function(d) { return d.y - labelPadding; })
                     .attr("width", function(d) { return d.width + 2 * labelPadding; })
                     .attr("height", function(d) { return d.height + 2 * labelPadding; });
-            });
+
+                for(let i = 0, x = series.length; i < x; i += 1){
+                    var lastOfSerie = series[i][(series[i].length - 1)];
+
+                    svg.append("text")  
+                        .attr("transform", "translate(" + (margin.left + width + 10) + "," + (margin.top + y(lastOfSerie.value)) + ")")
+                        .attr("dy", ".35em")
+                        .attr("text-anchor", "start")
+                        .style("fill", "red")
+                        .text(lastOfSerie.key);                    
+
+                    }
+
+                });
         };
 
         var ready = function() {
