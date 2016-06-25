@@ -15,7 +15,7 @@ svg{
 }
 
 text {
-  font: 10px sans-serif;
+
 }
 
 .axis path,
@@ -40,11 +40,12 @@ text {
 
 .label-key {
   font-weight: bold;
+  text-align: right;
+  width: 100px;
 }
-
 </style>
 
-<svg width="700" height="500"></svg>
+<svg width="725" height="600"></svg>
 
 <script src="http://d3js.org/d3.v4.0.0-alpha.9.min.js"></script>
 
