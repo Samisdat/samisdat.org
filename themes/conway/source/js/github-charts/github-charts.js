@@ -8,89 +8,91 @@
         
         var svg;
 
+        var parseTime = d3.timeParse("%Y");
+        var margin = {top: 30, right: 50, bottom: 30, left: 30};
         var setupD3 = function(){
-            var margin = {top: 30, right: 50, bottom: 30, left: 50};
-            var width = 600 - margin.left - margin.right;
-            var height = 270 - margin.top - margin.bottom;
 
-            var parseDate = d3.time.format("%d-%b-%y").parse;
+            svg = d3.select("svg");
 
-            var x = d3.time.scale().range([0, width]);
-            var y = d3.scale.linear().range([height, 0]);
+            var width = +svg.attr("width") - margin.left - margin.right;
+            var height = +svg.attr("height") - margin.top - margin.bottom;
+            var labelPadding = 3;
 
-            var xAxis = d3.svg.axis().scale(x)
-                .orient("bottom").ticks(5);
+            var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-            var yAxis = d3.svg.axis().scale(y)
-                .orient("left").ticks(5);
-
-            var valueline = d3.svg.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.close); });
-                
-            var valueline2 = d3.svg.line()
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.open); });
-      
-            svg = d3.select("#foo")
-                .append("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                .append("g")
-                    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-            // Get the data
-            d3.csv("/images/data2b.csv", function(error, data) {
+            d3.requestTsv("/images/data.tsv", function(d) {
+                d.date = parseTime(d.date);
+                for (var k in d){
+                    if (k !== "date"){
+                        d[k] = +d[k];    
+                    } 
+                } 
+                return d;
+            }, function(error, data) {
                 console.log(data)
-                data.forEach(function(d) {
-                    d.date = parseDate(d.date);
-                    d.close = +d.close;
-                    d.open = +d.open;
+                if (error){
+                    throw error;    
+                } 
+
+                var series = data.columns.slice(1).map(function(key) {
+                    return data.map(function(d) {
+                        return {
+                            key: key,
+                            date: d.date,
+                            value: d[key]
+                        };
+                    });
                 });
-                
-                // Scale the range of the data
-                x.domain(d3.extent(data, function(d) { return d.date; }));
-                y.domain([0, d3.max(data, function(d) { return Math.max(d.close, d.open); })]);
 
-                svg.append("path")      // Add the valueline path.
-                    .attr("class", "line")
-                    .attr("d", valueline(data));
+                var x = d3.scaleTime()
+                    .domain([data[0].date, data[data.length - 1].date])
+                    .range([0, width]);
 
-                svg.append("path")      // Add the valueline2 path.
-                    .attr("class", "line")
-                    .style("stroke", "red")
-                    .attr("d", valueline2(data));
+                var y = d3.scaleLinear()
+                    .domain([25, 1])
+                    .range([height, 0]);
 
-                svg.append("g")         // Add the X Axis
-                    .attr("class", "x axis")
+                var z = d3.scaleCategory10();
+
+                g.append("g")
+                    .attr("class", "axis axis--x")
                     .attr("transform", "translate(0," + height + ")")
-                    .call(xAxis);
+                    .call(d3.axisBottom(x));
 
-                svg.append("g")         // Add the Y Axis
-                    .attr("class", "y axis")
-                    .call(yAxis);
+                var serie = g.selectAll(".serie")
+                    .data(series)
+                    .enter().append("g")
+                    .attr("class", "serie");
 
-                svg.append("text")
-                    .attr("transform", "translate(" + (width+3) + "," + y(data[0].open) + ")")
+                serie.append("path")
+                    .attr("class", "line")
+                    .style("stroke", function(d) { return z(d[0].key); })
+                    .attr("d", d3.line()
+                    .x(function(d) { return x(d.date); })
+                    .y(function(d) { return y(d.value); }));
+
+                var label = serie.selectAll(".label")
+                    .data(function(d) { return d; })
+                    .enter().append("g")
+                    .attr("class", "label")
+                    .attr("transform", function(d, i) { return "translate(" + x(d.date) + "," + y(d.value) + ")"; });
+
+                label.append("text")
                     .attr("dy", ".35em")
-                    .attr("text-anchor", "start")
-                    .style("fill", "red")
-                    .text("Open");
+                    .text(function(d) { return d.value; })
+                    .filter(function(d, i) { return i === data.length - 1; })
+                    .append("tspan")
+                    .attr("class", "label-key")
+                    .text(function(d) { return " " + d.key; });
 
-                svg.append("text")
-                    .attr("transform", "translate(" + (width+3) + "," + y(data[0].close) + ")")
-                    .attr("dy", ".35em")
-                    .attr("text-anchor", "start")
-                    .style("fill", "steelblue")
-                    .text("Close");
-
+                label.append("rect", "text")
+                    .datum(function() { return this.nextSibling.getBBox(); })
+                    .attr("x", function(d) { return d.x - labelPadding; })
+                    .attr("y", function(d) { return d.y - labelPadding; })
+                    .attr("width", function(d) { return d.width + 2 * labelPadding; })
+                    .attr("height", function(d) { return d.height + 2 * labelPadding; });
             });
-
         };
-
-
-
 
         var ready = function() {
             setupD3();
