@@ -71,11 +71,13 @@
                     .x(function(d) { return x(d.date); })
                     .y(function(d) { return y(d.value); }));
 
+                /*
                 var label = serie.selectAll(".label")
                     .data(function(d) { return d; })
                     .enter().append("g")
                     .attr("class", "label")
                     .attr("transform", function(d, i) { return "translate(" + x(d.date) + "," + y(d.value) + ")"; });
+
 
                 label.append("text")
                     .attr("dy", ".35em")
@@ -92,7 +94,7 @@
                     .attr("y", function(d) { return d.y - labelPadding; })
                     .attr("width", function(d) { return d.width + 2 * labelPadding; })
                     .attr("height", function(d) { return d.height + 2 * labelPadding; });
-
+                */
                 for(let i = 0, x = series.length; i < x; i += 1){
                     var lastOfSerie = series[i][(series[i].length - 1)];
 
