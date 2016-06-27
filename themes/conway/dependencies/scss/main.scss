@@ -63,3 +63,20 @@ main{
 
     }
 }
+
+
+.github-chart{
+    li{
+        a.github-user,
+        a.github-repo{
+            display: inline-block;
+        }
+
+        a.github-user{
+            background: lime;
+        }
+        a.github-repo{
+            background: purple;
+        }
+    }
+}

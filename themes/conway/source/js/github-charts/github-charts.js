@@ -9,8 +9,9 @@
         var svg;
 
         var parseTime = d3.timeParse("%Y");
+        var parseTime2 = d3.timeParse('%Y-%m-%d');
         var margin = {top: 30, right: 250, bottom: 30, left: 30};
-        var setupD3 = function(){
+        var setupD3 = function(dataFromDom){
 
             svg = d3.select("svg");
 
@@ -33,7 +34,7 @@
                 if (error){
                     throw error;    
                 } 
-
+                console.log(data[0])
                 var series = data.columns.slice(1).map(function(key) {
                     return data.map(function(d) {
                         return {
@@ -43,6 +44,8 @@
                         };
                     });
                 });
+
+                console.log(series)
 
                 var x = d3.scaleTime()
                     .domain([data[0].date, data[data.length - 1].date])
@@ -110,8 +113,101 @@
                 });
         };
 
+        
+
+        var createChart = function($githubChart){
+            var dates = $githubChart.data('dates');
+            
+            if(undefined === dates){
+                return;
+            }
+
+            var repos = {};
+
+            dates = dates.split(',');
+
+            var $repos = $githubChart.find('li');
+
+            var datas = [];
+
+            $repos.each(function(){
+                var positions = $(this).data('positions');
+                var stars = $(this).data('stars');
+
+                if(undefined === positions || undefined === stars){
+                    $(this.remove());
+                    return;
+                }
+
+                positions = positions.split(',');
+                stars = stars.split(',');
+
+                positions.forEach(function(item, index){
+                    positions[index] = parseInt(item, 10);
+                });
+
+                stars.forEach(function(item, index){
+                    stars[index] = parseInt(item, 10);
+                });
+
+                var repoName = $(this).find('a').text(); 
+
+                repos[repoName] = {
+                    positions: positions,
+                    stars: stars
+                };
+
+                var data = [];
+
+                positions.forEach(function(position, index){
+                    var date = parseTime2(dates[index]);
+                    data.push({
+                        data:date,
+                        key:repoName,
+                        value: position
+                    });
+                });
+
+                datas.push(data);
+
+            });
+            console.log(datas)
+            /*
+
+            var datas = [];
+
+            dates.forEach(function(date, index){
+
+                var data = [];
+
+                console.log(date, index);                    
+                date = parseTime2(date);
+
+                for(var repo in repos){
+                    data.push({
+                        date: date,
+                        key: repo,
+                        value: repos[repo].positions[index],
+                    })
+                }
+                console.log(data);                    
+            });
+            */
+
+        };
+
+        var fromDom = function(){
+
+            $('ul.github-chart').each(function(){
+                createChart($(this));
+            });
+
+        };
+
         var ready = function() {
             setupD3();
+
+            fromDom();
         };
 
         $(document).ready(ready);
