@@ -66,17 +66,62 @@ main{
 
 
 .github-chart{
+    list-style: none;
+    padding: 0px;
     li{
-        a.github-user,
-        a.github-repo{
-            display: inline-block;
-        }
+        list-style: none;
 
-        a.github-user{
-            background: lime;
-        }
         a.github-repo{
-            background: purple;
+            color:#6693cd;
+            font-weight: bold;
+            .prefix,
+            .slash{
+                font-weight: normal;
+            }
         }
     }
+
+
+}
+
+.github-chart-wrap{
+    svg{
+        width:100%;
+    }
+
+    text {
+
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 1.5px;
+    }
+
+    .label {
+      text-anchor: middle;
+    }
+
+    .label rect {
+      fill: white;
+    }
+
+    .label-key {
+      font-weight: bold;
+      text-align: right;
+      width: 100px;
+    }
+
+    .hover-line { 
+        stroke: white;  
+        fill: none;
+        stroke-width: 1px;
+    }    
 }

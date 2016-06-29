@@ -10,7 +10,8 @@
 
         var parseTime = d3.timeParse("%Y");
         var parseTime2 = d3.timeParse('%Y-%m-%d');
-        var margin = {top: 30, right: 250, bottom: 30, left: 30};
+        var margin = {top: 3, right: 0, bottom: 1   , left: 0};
+
         var setupD3 = function(dataFromDom){
 
             svg = d3.select("svg");
@@ -19,7 +20,8 @@
             var height = +svg.attr("height") - margin.top - margin.bottom;
             var labelPadding = 3;
 
-            var g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var g = svg.append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
                 var series = dataFromDom;
 
@@ -35,11 +37,12 @@
                     .range([height, 0]);
 
                 var z = d3.scaleCategory10();
+                /*
                 g.append("g")
                     .attr("class", "axis axis--x")
                     .attr("transform", "translate(0," + height + ")")
                     .call(d3.axisBottom(x));
-
+                */
                 var serie = g.selectAll(".serie")
                     .data(series)
                     .enter().append("g")
@@ -52,6 +55,7 @@
                     .x(function(d) { return x(d.date); })
                     .y(function(d) { return y(d.value); }));
 
+                /*
                 for(let i = 0, x = series.length; i < x; i += 1){
                     var lastOfSerie = series[i][(series[i].length - 1)];
 
@@ -63,6 +67,38 @@
                         .text(lastOfSerie.key);                    
 
                 }
+                */
+
+                var hoverLineGroup = svg.append("g")
+                    .attr("class", "hover-line");
+
+                var hoverLine = hoverLineGroup
+                    .append("line")
+                    .attr("x1", 10).attr("x2", 10) 
+                    .attr("y1", 0).attr("y2", height);    
+
+                svg.on("mouseover", function() { 
+                    console.log('mouseover')
+                }).on("mousemove", function() {
+                    console.log('mousemove', d3.mouse(this));
+                    var mouse_x = d3.mouse(this)[0];
+                    var mouse_y = d3.mouse(this)[1];
+                    var graph_y = y.invert(mouse_y);
+                    var graph_x = x.invert(mouse_x);
+                    console.log(graph_x);
+
+                    //var format = d3.time.format('%e %b');
+                    //format.parse(graph_x)
+                    //hoverDate.text(graph_x);
+                    //hoverDate.attr('x', mouse_x);
+                    console.log(x.invert(mouse_x));
+                    hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
+                    hoverLineGroup.style("opacity", 1);
+
+                })  .on("mouseout", function() {
+                    console.log('mouseout');
+                    //hoverLineGroup.style("opacity", 1e-6);
+                });
 
         };
 
@@ -127,17 +163,32 @@
 
         };
 
-        var fromDom = function(){
+        var markup = function($githubChart){
+            var $row = $('<div class="row github-chart-wrap">');
+            var $left = $('<div class="col-sm-7">');
+            var $svg = $('<svg width="725" height="600"></svg>');
+            var $right = $('<div class="col-sm-5">');
 
-            $('ul.github-chart').each(function(){
-                createChart($(this));
-            });
+            $githubChart.before($row);
+
+            $row.append($left.append($svg));
+            $row.append($right);
+            $githubChart.remove();
+            $right.append($githubChart);
+
+            $svg.attr('width', parseInt($left.width(), 10));
+            $svg.attr('height', parseInt($right.height(), 10));
 
         };
 
         var ready = function() {
 
-            fromDom();
+            $('ul.github-chart').each(function(){
+                markup($(this));
+
+                $(this).css('border', '1px solid red');
+                createChart($(this));
+            });
         };
 
         $(document).ready(ready);
