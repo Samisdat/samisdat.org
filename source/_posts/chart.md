@@ -56,13 +56,13 @@ text {
     <li data-positions="3,2,1,1,2,3,2" data-stars="90,310,200,300,300,300,210">
         <a class="github-repo" class="github-repo" href="https://github.com/chmln/flatpickr">flatpickr</a>
     </li>
-    <li data-positions="1,3,5,3,1,2,3" data-stars="100,300,200,300,300,300,290">
+    <li data-positions="1,3,5,3,3,2,3" data-stars="100,300,200,300,300,300,290">
         <a class="github-repo" class="github-repo" href="https://github.com/yoshuawuyts/choo">choo</a>
     </li>
     <li data-positions="2,1,2,5,5,5,4" data-stars="100,300,200,300,300,300,280">
         <a class="github-repo" class="github-repo" href="https://github.com/sindresorhus/emoj">emoj</a>
     </li>
-    <li data-positions="4,5,4,4,1,4,5" data-stars="100,300,200,300,300,300,270">
+    <li data-positions="4,5,4,4,4,4,5" data-stars="100,300,200,300,300,300,270">
         <a class="github-repo" href="https://github.com/infinitered/ignite">ignite</a>
     </li>
     <li data-positions="6,6,6,6,6,6,6" data-stars="100,300,200,300,300,300,260">
