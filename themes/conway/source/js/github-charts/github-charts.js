@@ -10,14 +10,14 @@
 
         var parseTime = d3.timeParse("%Y");
         var parseTime2 = d3.timeParse('%Y-%m-%d');
-        var margin = {top: 3, right: 0, bottom: 1   , left: 0};
+        var margin = {top: 30, right: 0, bottom: 1   , left: 0};
 
         var setupD3 = function(dataFromDom){
 
             svg = d3.select("svg");
 
-            var width = +svg.attr("width") - margin.left - margin.right;
-            var height = +svg.attr("height") - margin.top - margin.bottom;
+            var width = svg.attr("width") - margin.left - margin.right;
+            var height = svg.attr("height") - margin.top - margin.bottom;
             var labelPadding = 3;
 
             var g = svg.append("g")
@@ -68,6 +68,78 @@
 
                 }
                 */
+
+                var addInlineAxix = function(date){
+
+                    console.log(date)
+
+                    var values = [];
+
+                    series.forEach(function(serie){
+                        serie.forEach(function(data){
+                            
+                            if(data.date.getTime() === date.getTime()){
+                                values.push(data);
+                            }
+                        });
+                    });
+
+                    var hoverLineGroup = svg.append("g")
+                        .attr("class", "inlineAxis");
+   
+                    var hoverLine = hoverLineGroup
+                        .append("line")
+                        .attr("x1", x(date)).attr("x2", x(date)) 
+                        .attr("y1", 0).attr("y2", height);    
+                        
+                    values.forEach(function(value){
+
+                        hoverLineGroup.append('circle')
+                            .attr('r', 3)
+                            .attr('class', 'circle focusCircle')
+                            .attr('cx', x(date))
+                            .attr('cy', y(value.value) + margin.top)
+                        ;
+
+                        hoverLineGroup.append("text")  
+                            .style("fill", "black")
+                            .style("stroke", "black")
+                            .style("black", "blue")
+                            .text(value.key)    
+                            .attr('text-anchor', 'start')                            
+                            .attr('x', x(date))
+                            .attr('y', y(value.value) + margin.top )
+                        ;                    
+
+                    });
+                    var switchSide = false;
+                    hoverLineGroup.selectAll("text").each(function(d,i) { 
+                        if(width < (x(date) + this.getComputedTextLength())){
+                            switchSide = true;
+                        }
+                    });
+
+                    if(true === switchSide){
+
+                        hoverLineGroup.selectAll("text").each(function(d,i) { 
+                            d3.select(this).attr('text-anchor', 'end');                            
+
+                        });
+
+                    }
+                    
+
+                };
+
+                addInlineAxix(series[0][0].date);
+                addInlineAxix(series[0][1].date);
+                addInlineAxix(series[0][2].date);
+                addInlineAxix(series[0][3].date);
+                addInlineAxix(series[0][4].date);
+                addInlineAxix(series[0][5].date);
+                addInlineAxix(series[0][6].date);
+
+                
 
                 var hoverLineGroup = svg.append("g")
                     .attr("class", "hover-line");
@@ -165,19 +237,20 @@
 
         var markup = function($githubChart){
             var $row = $('<div class="row github-chart-wrap">');
-            var $left = $('<div class="col-sm-7">');
+            var $left = $('<div class="col-sm-12">');
             var $svg = $('<svg width="725" height="600"></svg>');
-            var $right = $('<div class="col-sm-5">');
+            //var $right = $('<div class="col-sm-5">');
 
             $githubChart.before($row);
 
             $row.append($left.append($svg));
-            $row.append($right);
+            //$row.append($right);
             $githubChart.remove();
-            $right.append($githubChart);
+            //$right.append($githubChart);
 
             $svg.attr('width', parseInt($left.width(), 10));
-            $svg.attr('height', parseInt($right.height(), 10));
+            //$svg.attr('height', parseInt($right.height(), 10));
+            $svg.attr('height', parseInt(500, 10));
 
         };
 

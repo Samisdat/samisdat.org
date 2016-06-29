@@ -124,4 +124,13 @@ main{
         fill: none;
         stroke-width: 1px;
     }    
+
+    .inlineAxis { 
+        stroke: red;  
+        fill: red;
+        stroke-width: 1px;
+    }   
+   .focusCircle {
+        fill: red;
+    }
 }
