@@ -69,34 +69,34 @@ text {
     <li data-positions="7,7,7,7,7,7,7" data-stars="100,300,200,300,300,300,250">
         <a class="github-repo" href="https://github.com/algolia/places">algolia/places</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="8,8,8,8,8,8,8" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/alexkuz/react-input-enhancement">react-input-enhancements</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="9,9,9,9,9,9,9" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/jondot/reactnativekatas">reactnativekatas</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="10,10,10,10,10,10,10" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/git-tips/tips">tips</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="15,14,13,12,11,11,11" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/facebook/react">react</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="13,12,11,11,12,13,12" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/vuejs/vue">vue</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="11,13,15,13,13,12,13" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/samypesse/gitkit-js">gitkit-js</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="12,11,12,15,15,15,14" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/angular/angular.js">angular.js</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="14,15,14,14,14,14,15" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/luruke/barba.js">barba.js</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="16,16,16,16,16,16,16" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/tj/react-enroute">react-enroute</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="17,17,17,17,17,17,17" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/futurice/metalsmith-prismic-templatmetal">smith-prismic-template</a>
     </li>
     <li data-stars="100,300,200,300,300,300,300">
