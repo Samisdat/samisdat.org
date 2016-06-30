@@ -71,8 +71,6 @@
 
                 var addInlineAxix = function(date){
 
-                    console.log(date)
-
                     var values = [];
 
                     series.forEach(function(serie){
@@ -84,24 +82,27 @@
                         });
                     });
 
-                    var hoverLineGroup = svg.append("g")
-                        .attr("class", "inlineAxis");
+                    var inlineAxisGroup = svg.append("g")
+                        .style("opacity", "0.5")
+                        .attr("class", "inlineAxis")
+                        .attr('id', 'date-' + date.getTime())
+                    ;
    
-                    var hoverLine = hoverLineGroup
+                    var inlineAxisLine = inlineAxisGroup
                         .append("line")
                         .attr("x1", x(date)).attr("x2", x(date)) 
                         .attr("y1", 0).attr("y2", height);    
                         
                     values.forEach(function(value){
 
-                        hoverLineGroup.append('circle')
+                        inlineAxisGroup.append('circle')
                             .attr('r', 3)
                             .attr('class', 'circle focusCircle')
                             .attr('cx', x(date))
                             .attr('cy', y(value.value) + margin.top)
                         ;
 
-                        hoverLineGroup.append("text")  
+                        inlineAxisGroup.append("text")  
                             .style("fill", "black")
                             .style("stroke", "black")
                             .style("black", "blue")
@@ -113,7 +114,7 @@
 
                     });
                     var switchSide = false;
-                    hoverLineGroup.selectAll("text").each(function(d,i) { 
+                    inlineAxisGroup.selectAll("text").each(function(d,i) { 
                         if(width < (x(date) + this.getComputedTextLength())){
                             switchSide = true;
                         }
@@ -121,7 +122,7 @@
 
                     if(true === switchSide){
 
-                        hoverLineGroup.selectAll("text").each(function(d,i) { 
+                        inlineAxisGroup.selectAll("text").each(function(d,i) { 
                             d3.select(this).attr('text-anchor', 'end');                            
 
                         });
@@ -149,23 +150,46 @@
                     .attr("x1", 10).attr("x2", 10) 
                     .attr("y1", 0).attr("y2", height);    
 
+                var bisectDate = d3.bisector(function(d) { return d[0]; }).left;    
+
                 svg.on("mouseover", function() { 
                     console.log('mouseover')
                 }).on("mousemove", function() {
-                    console.log('mousemove', d3.mouse(this));
+
                     var mouse_x = d3.mouse(this)[0];
                     var mouse_y = d3.mouse(this)[1];
-                    var graph_y = y.invert(mouse_y);
-                    var graph_x = x.invert(mouse_x);
-                    console.log(graph_x);
+                    
 
-                    //var format = d3.time.format('%e %b');
-                    //format.parse(graph_x)
-                    //hoverDate.text(graph_x);
-                    //hoverDate.attr('x', mouse_x);
-                    console.log(x.invert(mouse_x));
+                    var dateOnMouse = x.invert(mouse_x);
+
+                    var roundDate = function(date){
+                        if(12 < date.getHours()){
+                            date.setDate(date.getDate() + 1);
+                        }
+                        date.setHours(0);
+                        date.setMinutes(0);
+                        date.setSeconds(0);
+                        date.setMilliseconds(0);                    
+
+                        return date;
+                    };
+                    
+                    console.log(dateOnMouse, roundDate(dateOnMouse))
+                    var i = bisectDate(series, dateOnMouse);
+                    console.log(i)
+
                     hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
                     hoverLineGroup.style("opacity", 1);
+
+                    svg.selectAll('.inlineAxis').style('opacity', 0)
+
+                    svg.select('#date-' + dateOnMouse.getTime()).style('opacity', 1);
+                    
+                    /*
+                    svg.selectAll('.inlineAxis').each(function(){
+                        console.log(this)
+                    });
+                    */
 
                 })  .on("mouseout", function() {
                     console.log('mouseout');
