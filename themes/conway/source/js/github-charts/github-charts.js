@@ -12,6 +12,8 @@
         var parseTime2 = d3.timeParse('%Y-%m-%d');
         var margin = {top: 30, right: 0, bottom: 1   , left: 0};
 
+        var bisectDate = d3.bisector(function(d) { return d.date; }).left;
+
         var setupD3 = function(dataFromDom){
 
             svg = d3.select("svg");
@@ -37,12 +39,7 @@
                     .range([height, 0]);
 
                 var z = d3.scaleCategory10();
-                /*
-                g.append("g")
-                    .attr("class", "axis axis--x")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x));
-                */
+
                 var serie = g.selectAll(".serie")
                     .data(series)
                     .enter().append("g")
@@ -55,93 +52,6 @@
                     .x(function(d) { return x(d.date); })
                     .y(function(d) { return y(d.value); }));
 
-                /*
-                for(let i = 0, x = series.length; i < x; i += 1){
-                    var lastOfSerie = series[i][(series[i].length - 1)];
-
-                    svg.append("text")  
-                        .attr("transform", "translate(" + (margin.left + width + 10) + "," + (margin.top + y(lastOfSerie.value)) + ")")
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "start")
-                        .style("fill", "red")
-                        .text(lastOfSerie.key);                    
-
-                }
-                */
-
-                var addInlineAxix = function(date){
-
-                    var values = [];
-
-                    series.forEach(function(serie){
-                        serie.forEach(function(data){
-                            
-                            if(data.date.getTime() === date.getTime()){
-                                values.push(data);
-                            }
-                        });
-                    });
-
-                    var inlineAxisGroup = svg.append("g")
-                        .style("opacity", "0.5")
-                        .attr("class", "inlineAxis")
-                        .attr('id', 'date-' + date.getTime())
-                    ;
-   
-                    var inlineAxisLine = inlineAxisGroup
-                        .append("line")
-                        .attr("x1", x(date)).attr("x2", x(date)) 
-                        .attr("y1", 0).attr("y2", height);    
-                        
-                    values.forEach(function(value){
-
-                        inlineAxisGroup.append('circle')
-                            .attr('r', 3)
-                            .attr('class', 'circle focusCircle')
-                            .attr('cx', x(date))
-                            .attr('cy', y(value.value) + margin.top)
-                        ;
-
-                        inlineAxisGroup.append("text")  
-                            .style("fill", "black")
-                            .style("stroke", "black")
-                            .style("black", "blue")
-                            .text(value.key)    
-                            .attr('text-anchor', 'start')                            
-                            .attr('x', x(date))
-                            .attr('y', y(value.value) + margin.top )
-                        ;                    
-
-                    });
-                    var switchSide = false;
-                    inlineAxisGroup.selectAll("text").each(function(d,i) { 
-                        if(width < (x(date) + this.getComputedTextLength())){
-                            switchSide = true;
-                        }
-                    });
-
-                    if(true === switchSide){
-
-                        inlineAxisGroup.selectAll("text").each(function(d,i) { 
-                            d3.select(this).attr('text-anchor', 'end');                            
-
-                        });
-
-                    }
-                    
-
-                };
-
-                addInlineAxix(series[0][0].date);
-                addInlineAxix(series[0][1].date);
-                addInlineAxix(series[0][2].date);
-                addInlineAxix(series[0][3].date);
-                addInlineAxix(series[0][4].date);
-                addInlineAxix(series[0][5].date);
-                addInlineAxix(series[0][6].date);
-
-                
-
                 var hoverLineGroup = svg.append("g")
                     .attr("class", "hover-line");
 
@@ -150,10 +60,31 @@
                     .attr("x1", 10).attr("x2", 10) 
                     .attr("y1", 0).attr("y2", height);    
 
-                var bisectDate = d3.bisector(function(d) { return d[0]; }).left;    
+                series.forEach(function(serie){
+
+                    var firstOfSerie = serie[0];
+
+                        hoverLineGroup.append('circle')
+                            .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
+                            .attr('r', 5)
+                            .style("fill", z(firstOfSerie.key))
+                            .attr('cx', 0)
+                            .attr('cy', y(firstOfSerie.value) + margin.top)
+                        ;
+
+                        hoverLineGroup.append("text")  
+                            .style("fill", "black")
+                            .style("stroke", "black")
+                            .style("black", "blue")
+                            .text(firstOfSerie.key)    
+                            .attr('text-anchor', 'start')                            
+                            .attr('x', 0)
+                            .attr('y', y(firstOfSerie.value) + margin.top )
+
+                })                
 
                 svg.on("mouseover", function() { 
-                    console.log('mouseover')
+                    //console.log('mouseover')
                 }).on("mousemove", function() {
 
                     var mouse_x = d3.mouse(this)[0];
@@ -162,37 +93,27 @@
 
                     var dateOnMouse = x.invert(mouse_x);
 
-                    var roundDate = function(date){
-                        if(12 < date.getHours()){
-                            date.setDate(date.getDate() + 1);
-                        }
-                        date.setHours(0);
-                        date.setMinutes(0);
-                        date.setSeconds(0);
-                        date.setMilliseconds(0);                    
+                    hoverLineGroup
+                        .attr("transform", "translate(" + x(dateOnMouse) + "," + 0 + ")");;
 
-                        return date;
-                    };
-                    
-                    console.log(dateOnMouse, roundDate(dateOnMouse))
-                    var i = bisectDate(series, dateOnMouse);
-                    console.log(i)
+                    svg.selectAll('.serie path').each(function(serie){
+                        var point = this.getPointAtLength(mouse_x);
 
-                    hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
+                        point = point.y + margin.top;
+
+                        var firstOfSerie = serie[0];
+
+                        hoverLineGroup.select('#point-' + firstOfSerie.key.replace('/', '-'))
+                            //.attr('cx', x(dateOnMouse))
+                            .attr('cy', point)
+                        ;
+                    });
+
+                    //hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
                     hoverLineGroup.style("opacity", 1);
 
-                    svg.selectAll('.inlineAxis').style('opacity', 0)
-
-                    svg.select('#date-' + dateOnMouse.getTime()).style('opacity', 1);
-                    
-                    /*
-                    svg.selectAll('.inlineAxis').each(function(){
-                        console.log(this)
-                    });
-                    */
-
                 })  .on("mouseout", function() {
-                    console.log('mouseout');
+                    //console.log('mouseout');
                     //hoverLineGroup.style("opacity", 1e-6);
                 });
 
@@ -279,6 +200,7 @@
         };
 
         var ready = function() {
+            
 
             $('ul.github-chart').each(function(){
                 markup($(this));
