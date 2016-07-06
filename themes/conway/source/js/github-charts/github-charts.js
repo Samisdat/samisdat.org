@@ -11,9 +11,16 @@
         var svg;
         var inlineAxis;
 
+        var margin = {top: 30, right: 0, bottom: 1   , left: 0};
+        var width;
+        var height;
+
+        var x;
+        var y;
+        var z;
+
         var parseTime = d3.timeParse("%Y");
         var parseTime2 = d3.timeParse('%Y-%m-%d');
-        var margin = {top: 30, right: 0, bottom: 1   , left: 0};
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
@@ -32,6 +39,74 @@
         };
 
         var createInlineAxis = function(){
+            inlineAxis = svg.append("g")
+                .attr("class", "inlineAxis");
+
+            var hoverLine = inlineAxis
+                .append("line")
+                .attr("x1", 10).attr("x2", 10) 
+                .attr("y1", 0).attr("y2", height);    
+
+            series.forEach(function(serie){
+
+                var firstOfSerie = serie[0];
+
+                    inlineAxis.append('circle')
+                        .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
+                        .attr('r', 6)
+                        .style("fill", z(firstOfSerie.key))
+                        .attr('cx', 0)
+                        .attr('cy', y(firstOfSerie.value) + margin.top)
+                    ;
+
+                    inlineAxis.append("text")  
+                        .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
+                        .style("fill", "black")
+                        .style("stroke", "black")
+                        .style("black", "blue")
+                        .text(firstOfSerie.key)    
+                        .attr('text-anchor', 'start')                            
+                        //.attr('x', 0)
+                        //.attr('y', y(firstOfSerie.value) + margin.top )
+
+                        .attr("transform", "translate(" + 10 + "," + y(firstOfSerie.value) + ")")                            
+                    ;
+
+            });
+
+        };
+
+        var moveInlineAxis = function(xPos){
+
+            var dateOnMouse = x.invert(xPos);
+            
+            var dateRounded = roundDate(dateOnMouse);
+
+            inlineAxis
+                .attr("transform", "translate(" + x(dateOnMouse) + "," + margin.top + ")")
+            ;
+
+            svg.selectAll('.serie path').each(function(serie){
+                var point = this.getPointAtLength(xPos);
+
+                var item = serie[bisectDate(serie, dateRounded)];
+
+
+                point = point.y;
+
+                var firstOfSerie = serie[0];
+
+                inlineAxis.select('#point-' + firstOfSerie.key.replace('/', '-'))
+                    //.attr('cx', x(dateOnMouse))
+                    .attr('cy', point)
+                ;
+
+                inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'))
+                    //.attr('cx', x(dateOnMouse))
+                    .attr('cy', y(item.value))
+                ;
+
+            });
 
         };
 
@@ -39,8 +114,8 @@
 
             svg = d3.select("svg");
 
-            var width = svg.attr("width") - margin.left - margin.right;
-            var height = svg.attr("height") - margin.top - margin.bottom;
+            width = svg.attr("width") - margin.left - margin.right;
+            height = svg.attr("height") - margin.top - margin.bottom;
             var labelPadding = 3;
 
             var g = svg.append("g")
@@ -49,15 +124,15 @@
                 var firstDate = series[0][0].date;
                 var lastDate = series[0][(series[0].length - 1)].date;
 
-                var x = d3.scaleTime()
+                x = d3.scaleTime()
                     .domain([firstDate, lastDate])
                     .range([0, width]);
 
-                var y = d3.scaleLinear()
+                y = d3.scaleLinear()
                     .domain([25, 1])
                     .range([height, 0]);
 
-                var z = d3.scaleCategory10();
+                z = d3.scaleCategory10();
 
                 var serie = g.selectAll(".serie")
                     .data(series)
@@ -71,40 +146,8 @@
                     .x(function(d) { return x(d.date); })
                     .y(function(d) { return y(d.value); }));
 
-                var hoverLineGroup = svg.append("g")
-                    .attr("class", "hover-line");
+                createInlineAxis();
 
-                var hoverLine = hoverLineGroup
-                    .append("line")
-                    .attr("x1", 10).attr("x2", 10) 
-                    .attr("y1", 0).attr("y2", height);    
-
-                series.forEach(function(serie){
-
-                    var firstOfSerie = serie[0];
-
-                        hoverLineGroup.append('circle')
-                            .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
-                            .attr('r', 6)
-                            .style("fill", z(firstOfSerie.key))
-                            .attr('cx', 0)
-                            .attr('cy', y(firstOfSerie.value) + margin.top)
-                        ;
-
-                        hoverLineGroup.append("text")  
-                            .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
-                            .style("fill", "black")
-                            .style("stroke", "black")
-                            .style("black", "blue")
-                            .text(firstOfSerie.key)    
-                            .attr('text-anchor', 'start')                            
-                            //.attr('x', 0)
-                            //.attr('y', y(firstOfSerie.value) + margin.top )
-
-                            .attr("transform", "translate(" + 10 + "," + y(firstOfSerie.value) + ")")                            
-                        ;
-
-                })                
 
                 svg.on("mouseover", function() { 
                     //console.log('mouseover')
@@ -112,40 +155,8 @@
 
                     var mouse_x = d3.mouse(this)[0];
                     var mouse_y = d3.mouse(this)[1];
-                    
 
-                    var dateOnMouse = x.invert(mouse_x);
-                    
-                    var dateRounded = roundDate(dateOnMouse);
-
-                    hoverLineGroup
-                        .attr("transform", "translate(" + x(dateOnMouse) + "," + margin.top + ")")
-                    ;
-
-                    svg.selectAll('.serie path').each(function(serie){
-                        var point = this.getPointAtLength(mouse_x);
-
-                        var item = serie[bisectDate(serie, dateRounded)];
-
-
-                        point = point.y;
-
-                        var firstOfSerie = serie[0];
-
-                        hoverLineGroup.select('#point-' + firstOfSerie.key.replace('/', '-'))
-                            //.attr('cx', x(dateOnMouse))
-                            .attr('cy', point)
-                        ;
-
-                        hoverLineGroup.select('#label-' + firstOfSerie.key.replace('/', '-'))
-                            //.attr('cx', x(dateOnMouse))
-                            .attr('cy', y(item.value))
-                        ;
-
-                    });
-
-                    //hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
-                    hoverLineGroup.style("opacity", 1);
+                    moveInlineAxis(mouse_x);
 
                 })  .on("mouseout", function() {
                     //console.log('mouseout');
