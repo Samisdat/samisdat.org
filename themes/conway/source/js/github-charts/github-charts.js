@@ -1,10 +1,10 @@
 /*jslint browser: true, white: true, vars: true */
-/*global jQuery, Samisdat */
+/*global jQuery, Samisdat, d3 */
 (function($) {
 
-    "use strict";
+    'use strict';
 
-    var GithubChart = function($chartList) {
+    var githubChart = function($chartList) {
 
         var series = [];
 
@@ -21,8 +21,7 @@
 
         var labelSwitchThreshold;
 
-        var parseTime = d3.timeParse("%Y");
-        var parseTime2 = d3.timeParse('%Y-%m-%d');
+        var parseTime = d3.timeParse('%Y-%m-%d');
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
@@ -41,38 +40,37 @@
         };
 
         var createInlineAxis = function(){
-            inlineAxis = svg.append("g")
-                .attr("class", "inlineAxis");
+            inlineAxis = svg.append('g')
+                .attr('class', 'inlineAxis')
+            ;
 
             var hoverLine = inlineAxis
-                .append("line")
-                .attr("x1", 0).attr("x2", 0) 
-                .attr("y1", 0).attr("y2", height);    
+                .append('line')
+                .attr('x1', 0).attr('x2', 0) 
+                .attr('y1', 0).attr('y2', height)
+            ;    
 
             series.forEach(function(serie){
 
                 var firstOfSerie = serie[0];
 
-                    inlineAxis.append('circle')
-                        .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
-                        .attr('r', 6)
-                        .style("fill", z(firstOfSerie.key))
-                        .attr('cx', 0)
-                        .attr('cy', y(firstOfSerie.value) + margin.top)
-                    ;
+                inlineAxis.append('circle')
+                    .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
+                    .attr('r', 6)
+                    .style('fill', z(firstOfSerie.key))
+                    .attr('cx', 0)
+                    .attr('cy', y(firstOfSerie.value) + margin.top)
+                ;
 
-                    inlineAxis.append("text")  
-                        .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
-                        .style("fill", "black")
-                        .style("stroke", "black")
-                        .style("black", "blue")
-                        .text(firstOfSerie.key)    
-                        .attr('text-anchor', 'start')                            
-                        .attr("transform", "translate(" + 10 + "," + y(firstOfSerie.value) + ")")                            
-                    ;
-
-
-
+                inlineAxis.append('text')  
+                    .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
+                    .style('fill', 'black')
+                    .style('stroke', 'black')
+                    .style('black', 'blue')
+                    .text(firstOfSerie.key)    
+                    .attr('text-anchor', 'start')                            
+                    .attr('transform', 'translate(' + 10 + ',' + y(firstOfSerie.value) + ')')                            
+                ;
             });
 
             var labelWidth = 0;
@@ -82,7 +80,7 @@
                     labelWidth = this.getBBox().width;
                 }
 
-                d3.select(this).attr("width", this.getBBox().width);                
+                d3.select(this).attr('width', this.getBBox().width);                
 
             });
 
@@ -91,25 +89,18 @@
 
         var moveInlineAxis = function(xPos){
 
-            if(xPos > labelSwitchThreshold){
-                inlineAxis.selectAll('text').each(function(d,i) { 
-                    //d3.select(this).attr("transform", "translate(-" + this.getBBox().width + "," + 0 + ")")
-                });
-            }
-
-            var dateOnMouse = x.invert(xPos);
+            var dateOnPos = x.invert(xPos);
             
-            var dateRounded = roundDate(dateOnMouse);
+            var dateRounded = roundDate(dateOnPos);
 
             inlineAxis
-                .attr("transform", "translate(" + x(dateOnMouse) + "," + margin.top + ")")
+                .attr('transform', 'translate(' + x(dateOnPos) + ',' + margin.top + ')')
             ;
 
             svg.selectAll('.serie path').each(function(serie){
                 var point = this.getPointAtLength(xPos);
 
                 var item = serie[bisectDate(serie, dateRounded)];
-                console.log(item.key, item.value)
 
                 point = point.y;
 
@@ -121,76 +112,74 @@
 
                 var transformX = 10;
                 var label = inlineAxis.select('#label-' + item.key.replace('/', '-'));
+
                 if(xPos > labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
                     transformX = -10 - labelWidth;
                 }
                 
-                    label.attr("transform", "translate(" + transformX + "," + y(item.value) + ")")                                                
+                label
+                    .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')                                                
                 ;
-
-
             });
 
         };
 
         var setupD3 = function(){
 
-            svg = d3.select("svg");
+            svg = d3.select('svg');
 
-            width = svg.attr("width") - margin.left - margin.right;
-            height = svg.attr("height") - margin.top - margin.bottom;
+            width = svg.attr('width') - margin.left - margin.right;
+            height = svg.attr('height') - margin.top - margin.bottom;
             var labelPadding = 3;
 
-            var g = svg.append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            var g = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            ;
 
-                var firstDate = series[0][0].date;
-                var lastDate = series[0][(series[0].length - 1)].date;
+            var firstDate = series[0][0].date;
+            var lastDate = series[0][(series[0].length - 1)].date;
 
-                x = d3.scaleTime()
-                    .domain([firstDate, lastDate])
-                    .range([0, width]);
+            x = d3.scaleTime()
+                .domain([firstDate, lastDate])
+                .range([0, width]);
 
-                y = d3.scaleLinear()
-                    .domain([25, 1])
-                    .range([height, 0]);
+            y = d3.scaleLinear()
+                .domain([25, 1])
+                .range([height, 0]);
 
-                z = d3.scaleCategory10();
+            z = d3.scaleCategory10();
 
-                var serie = g.selectAll(".serie")
-                    .data(series)
-                    .enter().append("g")
-                    .attr("class", "serie");
+            var serie = g.selectAll('.serie')
+                .data(series)
+                .enter().append('g')
+                .attr('class', 'serie')
+            ;
 
-                serie.append("path")
-                    .attr("class", "line")
-                    .style("stroke", function(d) { return z(d[0].key); })
-                    .attr("d", d3.line()
-                    .x(function(d) { return x(d.date); })
-                    .y(function(d) { return y(d.value); }));
+            serie.append('path')
+                .attr('class', 'line')
+                .style('stroke', function(d) { return z(d[0].key); })
+                .attr('d', d3.line()
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.value); }))
+            ;
 
-                createInlineAxis();
+        };
 
+        var addEventListener = function(){
 
-                svg.on("mouseover", function() { 
-                    //console.log('mouseover')
-                }).on("mousemove", function() {
+            svg.on('mousemove', function() {
 
-                    var mouse_x = d3.mouse(this)[0];
-                    var mouse_y = d3.mouse(this)[1];
+                var mouse_x = d3.mouse(this)[0];
+                moveInlineAxis(mouse_x);
 
-                    moveInlineAxis(mouse_x);
-
-                })  .on("mouseout", function() {
-                    //console.log('mouseout');
-                    //hoverLineGroup.style("opacity", 1e-6);
-                });
+            });
 
         };
 
 
         var getSeriesFromDom = (function(){
+            
             var dates = $chartList.data('dates');
             
             if(undefined === dates){
@@ -233,7 +222,7 @@
                 var serie = [];
 
                 positions.forEach(function(position, index){
-                    var date = parseTime2(dates[index]);
+                    var date = parseTime(dates[index]);
                     serie.push({
                         date: date,
                         key: repoName,
@@ -251,7 +240,7 @@
             var $row = $('<div class="github-chart-wrap">');
             var $left = $('<div class="col-sm-12">');
             var $svg = $('<svg width="725" height="600"></svg>');
-            //var $right = $('<div class="col-sm-5">');
+            //var $right = $('<div class='col-sm-5'>');
 
             $chartList.before($row);
 
@@ -269,8 +258,10 @@
 
         markup();
         setupD3();
+        createInlineAxis();                
+        addEventListener();
 
-        moveInlineAxis(500)
+        moveInlineAxis(500);
 
     };
 
@@ -279,7 +270,7 @@
             
             $('ul.github-chart').each(function(){
 
-                GithubChart($(this));
+                githubChart($(this));
             });
         };
 
