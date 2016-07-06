@@ -4,9 +4,12 @@
 
     "use strict";
 
-    Samisdat.GithubChart = ( function() {
-        
+    var GithubChart = function($chartList) {
+
+        var series = [];
+
         var svg;
+        var inlineAxis;
 
         var parseTime = d3.timeParse("%Y");
         var parseTime2 = d3.timeParse('%Y-%m-%d');
@@ -14,7 +17,25 @@
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
-        var setupD3 = function(dataFromDom){
+        var roundDate = function(dateToRound){
+
+            var copiedDate = new Date(dateToRound.getTime());
+
+            if(12 < copiedDate.getHours()){
+                copiedDate.setDate(copiedDate.getDate() + 1);
+            }
+
+            copiedDate.setHours(0);
+            copiedDate.setMinutes(0, 0, 0);
+
+            return copiedDate;
+        };
+
+        var createInlineAxis = function(){
+
+        };
+
+        var setupD3 = function(){
 
             svg = d3.select("svg");
 
@@ -24,8 +45,6 @@
 
             var g = svg.append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-                var series = dataFromDom;
 
                 var firstDate = series[0][0].date;
                 var lastDate = series[0][(series[0].length - 1)].date;
@@ -66,20 +85,24 @@
 
                         hoverLineGroup.append('circle')
                             .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
-                            .attr('r', 5)
+                            .attr('r', 6)
                             .style("fill", z(firstOfSerie.key))
                             .attr('cx', 0)
                             .attr('cy', y(firstOfSerie.value) + margin.top)
                         ;
 
                         hoverLineGroup.append("text")  
+                            .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
                             .style("fill", "black")
                             .style("stroke", "black")
                             .style("black", "blue")
                             .text(firstOfSerie.key)    
                             .attr('text-anchor', 'start')                            
-                            .attr('x', 0)
-                            .attr('y', y(firstOfSerie.value) + margin.top )
+                            //.attr('x', 0)
+                            //.attr('y', y(firstOfSerie.value) + margin.top )
+
+                            .attr("transform", "translate(" + 10 + "," + y(firstOfSerie.value) + ")")                            
+                        ;
 
                 })                
 
@@ -92,14 +115,20 @@
                     
 
                     var dateOnMouse = x.invert(mouse_x);
+                    
+                    var dateRounded = roundDate(dateOnMouse);
 
                     hoverLineGroup
-                        .attr("transform", "translate(" + x(dateOnMouse) + "," + 0 + ")");;
+                        .attr("transform", "translate(" + x(dateOnMouse) + "," + margin.top + ")")
+                    ;
 
                     svg.selectAll('.serie path').each(function(serie){
                         var point = this.getPointAtLength(mouse_x);
 
-                        point = point.y + margin.top;
+                        var item = serie[bisectDate(serie, dateRounded)];
+
+
+                        point = point.y;
 
                         var firstOfSerie = serie[0];
 
@@ -107,6 +136,12 @@
                             //.attr('cx', x(dateOnMouse))
                             .attr('cy', point)
                         ;
+
+                        hoverLineGroup.select('#label-' + firstOfSerie.key.replace('/', '-'))
+                            //.attr('cx', x(dateOnMouse))
+                            .attr('cy', y(item.value))
+                        ;
+
                     });
 
                     //hoverLine.attr("x1", mouse_x).attr("x2", mouse_x)
@@ -119,8 +154,9 @@
 
         };
 
-        var createChart = function($githubChart){
-            var dates = $githubChart.data('dates');
+
+        var getSeriesFromDom = (function(){
+            var dates = $chartList.data('dates');
             
             if(undefined === dates){
                 return;
@@ -130,9 +166,7 @@
 
             dates = dates.split(',');
 
-            var $repos = $githubChart.find('li');
-
-            var datas = [];
+            var $repos = $chartList.find('li');
 
             $repos.each(function(){
                 var positions = $(this).data('positions');
@@ -161,56 +195,59 @@
                     stars: stars
                 };
 
-                var data = [];
+                var serie = [];
 
                 positions.forEach(function(position, index){
                     var date = parseTime2(dates[index]);
-                    data.push({
+                    serie.push({
                         date: date,
                         key: repoName,
                         value: position
                     });
                 });
 
-                datas.push(data);
+                series.push(serie);
 
             });
 
-            setupD3(datas);
-
-        };
+        })();
 
         var markup = function($githubChart){
-            var $row = $('<div class="row github-chart-wrap">');
+            var $row = $('<div class="github-chart-wrap">');
             var $left = $('<div class="col-sm-12">');
             var $svg = $('<svg width="725" height="600"></svg>');
             //var $right = $('<div class="col-sm-5">');
 
-            $githubChart.before($row);
+            $chartList.before($row);
 
             $row.append($left.append($svg));
             //$row.append($right);
-            $githubChart.remove();
+            $chartList.remove();
             //$right.append($githubChart);
 
             $svg.attr('width', parseInt($left.width(), 10));
             //$svg.attr('height', parseInt($right.height(), 10));
             $svg.attr('height', parseInt(500, 10));
+            $svg.css('border', '1px solid red');
 
         };
 
+        markup();
+        setupD3();
+
+    };
+
+    Samisdat.GithubCharts = ( function() {
         var ready = function() {
             
-
             $('ul.github-chart').each(function(){
-                markup($(this));
 
-                $(this).css('border', '1px solid red');
-                createChart($(this));
+                GithubChart($(this));
             });
         };
 
         $(document).ready(ready);
     }());
+
 
 })(jQuery);
