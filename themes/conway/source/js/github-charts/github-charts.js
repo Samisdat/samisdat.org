@@ -19,6 +19,8 @@
         var y;
         var z;
 
+        var labelSwitchThreshold;
+
         var parseTime = d3.timeParse("%Y");
         var parseTime2 = d3.timeParse('%Y-%m-%d');
 
@@ -44,7 +46,7 @@
 
             var hoverLine = inlineAxis
                 .append("line")
-                .attr("x1", 10).attr("x2", 10) 
+                .attr("x1", 0).attr("x2", 0) 
                 .attr("y1", 0).attr("y2", height);    
 
             series.forEach(function(serie){
@@ -66,17 +68,34 @@
                         .style("black", "blue")
                         .text(firstOfSerie.key)    
                         .attr('text-anchor', 'start')                            
-                        //.attr('x', 0)
-                        //.attr('y', y(firstOfSerie.value) + margin.top )
-
                         .attr("transform", "translate(" + 10 + "," + y(firstOfSerie.value) + ")")                            
                     ;
 
+
+
             });
 
+            var labelWidth = 0;
+
+            inlineAxis.selectAll('text').each(function(d,i) { 
+                if(this.getBBox().width > labelWidth){
+                    labelWidth = this.getBBox().width;
+                }
+
+                d3.select(this).attr("width", this.getBBox().width);                
+
+            });
+
+            labelSwitchThreshold = width - labelWidth + margin.left;
         };
 
         var moveInlineAxis = function(xPos){
+
+            if(xPos > labelSwitchThreshold){
+                inlineAxis.selectAll('text').each(function(d,i) { 
+                    //d3.select(this).attr("transform", "translate(-" + this.getBBox().width + "," + 0 + ")")
+                });
+            }
 
             var dateOnMouse = x.invert(xPos);
             
@@ -90,21 +109,26 @@
                 var point = this.getPointAtLength(xPos);
 
                 var item = serie[bisectDate(serie, dateRounded)];
-
+                console.log(item.key, item.value)
 
                 point = point.y;
 
                 var firstOfSerie = serie[0];
 
                 inlineAxis.select('#point-' + firstOfSerie.key.replace('/', '-'))
-                    //.attr('cx', x(dateOnMouse))
                     .attr('cy', point)
                 ;
 
-                inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'))
-                    //.attr('cx', x(dateOnMouse))
-                    .attr('cy', y(item.value))
+                var transformX = 10;
+                var label = inlineAxis.select('#label-' + item.key.replace('/', '-'));
+                if(xPos > labelSwitchThreshold){
+                    var labelWidth = parseInt(label.attr('width'), 10);
+                    transformX = -10 - labelWidth;
+                }
+                
+                    label.attr("transform", "translate(" + transformX + "," + y(item.value) + ")")                                                
                 ;
+
 
             });
 
@@ -245,6 +269,8 @@
 
         markup();
         setupD3();
+
+        moveInlineAxis(500)
 
     };
 
