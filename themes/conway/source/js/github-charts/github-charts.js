@@ -146,12 +146,24 @@
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             ;
 
+            var dates = [];
+
+            series[0].forEach(function(serie){
+                dates.push(serie.date)
+            });            
+
             var firstDate = series[0][0].date;
             var lastDate = series[0][(series[0].length - 1)].date;
 
             x = d3.scaleTime()
                 .domain([firstDate, lastDate])
                 .range([0, width]);
+
+            // Add the x Axis
+            svg.append("g")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom().scale(x).tickValues(dates))
+            ;
 
             y = d3.scaleLinear()
                 .domain([6, 1])
@@ -260,7 +272,7 @@
             var $svg = $('<svg width="' + width + '" height="' + height + '"></svg>');
 
             $svg.disableSelection();
-            
+
             $chartList.before($row);
 
             $row.append($svg);
