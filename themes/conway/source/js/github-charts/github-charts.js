@@ -120,7 +120,7 @@
                 ;
 
                 var transformX = 10;
-                var label = inlineAxis.select('#label-' + item.key.replace('/', '-'));
+                var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
 
                 if(xPos > labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
@@ -134,7 +134,7 @@
 
         };
 
-        var setupD3 = function(){
+        var createChart = function(){
 
             svg = d3.select('svg');
 
@@ -154,7 +154,7 @@
                 .range([0, width]);
 
             y = d3.scaleLinear()
-                .domain([25, 1])
+                .domain([6, 1])
                 .range([height, 0]);
 
             z = d3.scaleCategory10();
@@ -184,11 +184,17 @@
 
             });
 
+            svg.on('touchmove', function() {
+
+                var mouse_x = d3.mouse(this)[0];
+                moveInlineAxis(mouse_x);
+
+            });
+
         };
 
 
         var getSeriesFromDom = (function(){
-            
             var dates = $chartList.data('dates');
             
             if(undefined === dates){
@@ -245,33 +251,32 @@
 
         })();
 
-        var markup = function($githubChart){
+        var markup = function(){
+
+            var width = $chartList.width();
+            var height = $chartList.height();
+            
             var $row = $('<div class="github-chart-wrap">');
-            var $left = $('<div class="col-sm-12">');
-            var $svg = $('<svg width="725" height="600"></svg>');
-            //var $right = $('<div class='col-sm-5'>');
+            var $svg = $('<svg width="' + width + '" height="' + height + '"></svg>');
 
             $svg.disableSelection();
+            
             $chartList.before($row);
 
-            $row.append($left.append($svg));
-            //$row.append($right);
-            $chartList.remove();
-            //$right.append($githubChart);
+            $row.append($svg);
 
-            $svg.attr('width', parseInt($left.width(), 10));
-            //$svg.attr('height', parseInt($right.height(), 10));
-            $svg.attr('height', parseInt(500, 10));
+            $chartList.remove();
+
             $svg.css('border', '1px solid red');
 
         };
 
         markup();
-        setupD3();
+        createChart();
         createInlineAxis();                
         addEventListener();
 
-        moveInlineAxis(500);
+        moveInlineAxis(width - 50);
 
     };
 
