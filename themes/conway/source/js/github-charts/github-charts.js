@@ -4,6 +4,15 @@
 
     'use strict';
 
+    (function($){
+        $.fn.disableSelection = function() {
+            return this
+                     .attr('unselectable', 'on')
+                     .css('user-select', 'none')
+                     .on('selectstart', false);
+        };
+    })(jQuery);
+    
     var githubChart = function($chartList) {
 
         var series = [];
@@ -242,6 +251,7 @@
             var $svg = $('<svg width="725" height="600"></svg>');
             //var $right = $('<div class='col-sm-5'>');
 
+            $svg.disableSelection();
             $chartList.before($row);
 
             $row.append($left.append($svg));
