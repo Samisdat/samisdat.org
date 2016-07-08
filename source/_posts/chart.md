@@ -42,7 +42,7 @@ text {
 }
 </style>
 
-<script src="http://d3js.org/d3.v4.0.0-alpha.9.min.js"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
 
 <ul class="github-chart" data-dates="2015-07-20,2015-07-21,2015-07-22,2015-07-23,2015-07-24,2015-07-25,2015-07-26">
     <li data-positions="5,4,3,2,1,1,1" data-stars="100,300,200,300,300,300,300">
