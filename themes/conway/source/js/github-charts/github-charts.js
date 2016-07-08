@@ -140,17 +140,23 @@
 
             width = svg.attr('width') - margin.left - margin.right;
             height = svg.attr('height') - margin.top - margin.bottom;
-            var labelPadding = 3;
-
-            var g = svg.append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-            ;
 
             var dates = [];
 
             series[0].forEach(function(serie){
                 dates.push(serie.date)
             });            
+
+            var labelPadding = 3;
+
+            var axixBg = svg.append('g')
+                .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
+            ;
+
+            var g = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            ;
+
 
             var firstDate = series[0][0].date;
             var lastDate = series[0][(series[0].length - 1)].date;
@@ -160,16 +166,46 @@
                 .range([0, width]);
 
             // Add the x Axis
+            /*
+            var xAxis = d3.axisTop()
+                .scale(x)
+                .tickValues(dates)
+                .tickFormat(d3.timeFormat("%d.%m"))
+            ;
+
             svg.append("g")
                 .attr("transform", "translate(0," + height + ")")
-                .call(d3.axisBottom().scale(x).tickValues(dates))
+                .call(xAxis)
             ;
+            */
 
             y = d3.scaleLinear()
                 .domain([6, 1])
                 .range([height, 0]);
 
             z = d3.scaleCategory10();
+
+            dates.forEach(function(date, index){
+
+                var zebra = (0 === index % 2) ? 'odd' : 'even';
+                
+                axixBg.append('rect')
+                    .attr('class', 'axis-bg ' + zebra)
+                    .attr('x', x(date))
+                    .attr('y', 0)
+                    .attr('width', x(dates[1]))
+                    .attr('height', height + margin.top + margin.bottom)
+                ;
+                axixBg.append('text')  
+                    //.attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
+                    .attr('class', 'axis-bg-text')                        
+                    .style('fill', 'black')
+                    .text('foo')    
+                    .attr('text-anchor', 'start')                            
+                    .attr('transform', 'translate(' + x(date) + ',' + 12 + ')')                            
+                ;
+
+            })
 
             var serie = g.selectAll('.serie')
                 .data(series)
@@ -278,8 +314,6 @@
             $row.append($svg);
 
             $chartList.remove();
-
-            $svg.css('border', '1px solid red');
 
         };
 
