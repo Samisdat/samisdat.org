@@ -56,7 +56,7 @@
             var hoverLine = inlineAxis
                 .append('line')
                 .attr('x1', 0).attr('x2', 0) 
-                .attr('y1', 0).attr('y2', height)
+                .attr('y1', -1* margin.top).attr('y2', height)
             ;    
 
             series.forEach(function(serie){
@@ -68,7 +68,7 @@
                     .attr('r', 6)
                     .style('fill', z(firstOfSerie.key))
                     .attr('cx', 0)
-                    .attr('cy', y(firstOfSerie.value) + margin.top)
+                    .attr('cy', 0)
                 ;
 
                 inlineAxis.append('text')  
@@ -116,7 +116,7 @@
                 var firstOfSerie = serie[0];
 
                 inlineAxis.select('#point-' + firstOfSerie.key.replace('/', '-'))
-                    .attr('cy', point)
+                    .attr('transform', 'translate(' + 0 + ',' + point + ')')
                 ;
 
                 var transformX = 10;
