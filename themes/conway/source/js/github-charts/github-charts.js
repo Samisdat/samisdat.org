@@ -185,6 +185,8 @@
 
             z = d3.scaleCategory10();
 
+            var formatDayMonth = d3.timeFormat("%d.%m");
+
             dates.forEach(function(date, index){
 
                 var zebra = (0 === index % 2) ? 'odd' : 'even';
@@ -200,7 +202,7 @@
                     //.attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
                     .attr('class', 'axis-bg-text')                        
                     .style('fill', 'black')
-                    .text('foo')    
+                    .text(formatDayMonth(date))    
                     .attr('text-anchor', 'start')                            
                     .attr('transform', 'translate(' + x(date) + ',' + 12 + ')')                            
                 ;
