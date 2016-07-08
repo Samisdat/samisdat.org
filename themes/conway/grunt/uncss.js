@@ -1,11 +1,9 @@
-/*global module */
+'use strict';
 
-
-
-var uncss =  {
-   files: {
-      'source/css/<%= pkg.name %>.min.css': ['https://samisdat.org']
-    }    
+var uncss = {
+    files: {
+        'source/css/<%= pkg.name %>.min.css': ['https://samisdat.org']
+    }
 };
 
 module.exports = uncss;

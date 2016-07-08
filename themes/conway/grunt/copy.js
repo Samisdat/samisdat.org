@@ -1,4 +1,4 @@
-/*global module */
+'use strict';
 
 var copy = {
     fontawesome: {
@@ -22,7 +22,7 @@ var copy = {
         flatten: true,
         filter: 'isFile'
     },
-    highlighjs: {
+    highlighJs: {
         expand: true,
         src: [
             'dependencies/bower_components/highlightjs/highlight.pack.min.js',
@@ -31,14 +31,14 @@ var copy = {
         flatten: true,
         filter: 'isFile'
     },
-    highlighjs_css: {
+    highlighjsCss: {
         src: [
-            'dependencies/bower_components/highlightjs/styles/github.css' 
+            'dependencies/bower_components/highlightjs/styles/github.css'
         ],
         dest: 'dependencies/scss/highlightjs.scss',
         filter: 'isFile'
     },
-    chartsjs:{
+    chartsjs: {
         expand: true,
         src: [
             'dependencies/bower_components/Chart.js/dist/Chart.bundle.min.js',

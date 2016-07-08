@@ -1,4 +1,4 @@
-/*global module */
+'use strict';
 
 var sass = {
     development: {
@@ -6,16 +6,16 @@ var sass = {
             sourceMap: true
         },
         files: {
-            'source/css/<%= pkg.name %>.css' : 'dependencies/scss/<%= pkg.name %>.scss',
+            'source/css/<%= pkg.name %>.css': 'dependencies/scss/<%= pkg.name %>.scss',
         }
     },
     production: {
         options: {
             sourceMap: false,
-            outputStyle:'compressed'
+            outputStyle: 'compressed'
         },
         files: {
-          'source/css/<%= pkg.name %>.min.css' : 'dependencies/scss/<%= pkg.name %>.scss',
+            'source/css/<%= pkg.name %>.min.css': 'dependencies/scss/<%= pkg.name %>.scss',
         }
     }
 };

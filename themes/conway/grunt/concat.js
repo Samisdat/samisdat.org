@@ -1,4 +1,4 @@
-/*global module */
+'use strict';
 
 var concat = {
     options: {},
