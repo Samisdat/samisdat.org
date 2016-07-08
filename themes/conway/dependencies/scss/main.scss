@@ -128,4 +128,17 @@ main{
    .focusCircle {
         /*fill: red;*/
     }
+
+    .axis-bg{
+        fill: #fff;
+        fill-opacity: 0.2;
+        &.even{
+            fill-opacity: 0.4;            
+        }
+
+    }
+    .axis-bg-text{
+        font-size: 12px;
+    }
+
 }
