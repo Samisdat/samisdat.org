@@ -2,8 +2,7 @@
 
 var files = [
     'grunt/*.js',
-    'lib/**/*.js',
-    'test/**/*.js'
+    'source/js/github-charts/github-charts.js'
 ];
 
 var eslint = {

@@ -1,18 +1,15 @@
-/*jslint browser: true, white: true, vars: true */
-/*global jQuery, Samisdat, d3 */
+'use strict';
+
 (function($) {
 
-    'use strict';
 
-    (function($){
-        $.fn.disableSelection = function() {
-            return this
-                     .attr('unselectable', 'on')
-                     .css('user-select', 'none')
-                     .on('selectstart', false);
-        };
-    })(jQuery);
-    
+    $.fn.disableSelection = function() {
+        return this
+            .attr('unselectable', 'on')
+            .css('user-select', 'none')
+            .on('selectstart', false);
+    };
+
     var githubChart = function($chartList) {
 
         var series = [];
@@ -20,7 +17,7 @@
         var svg;
         var inlineAxis;
 
-        var margin = {top: 30, right: 0, bottom: 1   , left: 0};
+        var margin = {top: 30, right: 0, bottom: 1, left: 0};
         var width;
         var height;
 
@@ -38,7 +35,7 @@
 
             var copiedDate = new Date(dateToRound.getTime());
 
-            if(12 < copiedDate.getHours()){
+            if (12 < copiedDate.getHours()){
                 copiedDate.setDate(copiedDate.getDate() + 1);
             }
 
@@ -53,11 +50,11 @@
                 .attr('class', 'inlineAxis')
             ;
 
-            var hoverLine = inlineAxis
+            inlineAxis
                 .append('line')
-                .attr('x1', 0).attr('x2', 0) 
-                .attr('y1', -1* margin.top).attr('y2', height)
-            ;    
+                .attr('x1', 0).attr('x2', 0)
+                .attr('y1', -1 * margin.top).attr('y2', height)
+            ;
 
             series.forEach(function(serie){
 
@@ -71,25 +68,25 @@
                     .attr('cy', 0)
                 ;
 
-                inlineAxis.append('text')  
-                    .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
+                inlineAxis.append('text')
+                    .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))
                     .style('fill', 'black')
                     .style('stroke', 'black')
                     .style('black', 'blue')
-                    .text(firstOfSerie.key)    
-                    .attr('text-anchor', 'start')                            
-                    .attr('transform', 'translate(' + 10 + ',' + y(firstOfSerie.value) + ')')                            
+                    .text(firstOfSerie.key)
+                    .attr('text-anchor', 'start')
+                    .attr('transform', 'translate(' + 10 + ',' + y(firstOfSerie.value) + ')')
                 ;
             });
 
             var labelWidth = 0;
 
-            inlineAxis.selectAll('text').each(function(d,i) { 
-                if(this.getBBox().width > labelWidth){
+            inlineAxis.selectAll('text').each(function() {
+                if (this.getBBox().width > labelWidth){
                     labelWidth = this.getBBox().width;
                 }
 
-                d3.select(this).attr('width', this.getBBox().width);                
+                d3.select(this).attr('width', this.getBBox().width);
 
             });
 
@@ -99,7 +96,7 @@
         var moveInlineAxis = function(xPos){
 
             var dateOnPos = x.invert(xPos);
-            
+
             var dateRounded = roundDate(dateOnPos);
 
             inlineAxis
@@ -122,13 +119,13 @@
                 var transformX = 10;
                 var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
 
-                if(xPos > labelSwitchThreshold){
+                if (xPos > labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
                     transformX = -10 - labelWidth;
                 }
-                
+
                 label
-                    .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')                                                
+                    .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
                 ;
             });
 
@@ -144,10 +141,8 @@
             var dates = [];
 
             series[0].forEach(function(serie){
-                dates.push(serie.date)
-            });            
-
-            var labelPadding = 3;
+                dates.push(serie.date);
+            });
 
             var axixBg = svg.append('g')
                 .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
@@ -185,12 +180,12 @@
 
             z = d3.scaleCategory10();
 
-            var formatDayMonth = d3.timeFormat("%d.%m");
+            var formatDayMonth = d3.timeFormat('%d.%m');
 
             dates.forEach(function(date, index){
 
                 var zebra = (0 === index % 2) ? 'odd' : 'even';
-                
+
                 axixBg.append('rect')
                     .attr('class', 'axis-bg ' + zebra)
                     .attr('x', x(date))
@@ -198,16 +193,16 @@
                     .attr('width', x(dates[1]))
                     .attr('height', height + margin.top + margin.bottom)
                 ;
-                axixBg.append('text')  
-                    //.attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))                        
-                    .attr('class', 'axis-bg-text')                        
+                axixBg.append('text')
+                    //.attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))
+                    .attr('class', 'axis-bg-text')
                     .style('fill', 'black')
-                    .text(formatDayMonth(date))    
-                    .attr('text-anchor', 'start')                            
-                    .attr('transform', 'translate(' + x(date) + ',' + 12 + ')')                            
+                    .text(formatDayMonth(date))
+                    .attr('text-anchor', 'start')
+                    .attr('transform', 'translate(' + x(date) + ',' + 12 + ')')
                 ;
 
-            })
+            });
 
             var serie = g.selectAll('.serie')
                 .data(series)
@@ -229,25 +224,25 @@
 
             svg.on('mousemove', function() {
 
-                var mouse_x = d3.mouse(this)[0];
-                moveInlineAxis(mouse_x);
+                var mouseX = d3.mouse(this)[0];
+                moveInlineAxis(mouseX);
 
             });
 
             svg.on('touchmove', function() {
 
-                var mouse_x = d3.mouse(this)[0];
-                moveInlineAxis(mouse_x);
+                var mouseX = d3.mouse(this)[0];
+                moveInlineAxis(mouseX);
 
             });
 
         };
 
 
-        var getSeriesFromDom = (function(){
+        var getSeriesFromDom = function(){
             var dates = $chartList.data('dates');
-            
-            if(undefined === dates){
+
+            if (undefined === dates){
                 return;
             }
 
@@ -261,7 +256,7 @@
                 var positions = $(this).data('positions');
                 var stars = $(this).data('stars');
 
-                if(undefined === positions || undefined === stars){
+                if (undefined === positions || undefined === stars){
                     $(this.remove());
                     return;
                 }
@@ -277,7 +272,7 @@
                     stars[index] = parseInt(item, 10);
                 });
 
-                var repoName = $(this).find('a').text(); 
+                var repoName = $(this).find('a').text();
 
                 repos[repoName] = {
                     positions: positions,
@@ -299,15 +294,15 @@
 
             });
 
-        })();
+        };
 
         var markup = function(){
 
-            var width = $chartList.width();
-            var height = $chartList.height();
-            
+            var listWidth = $chartList.width();
+            var listHeight = $chartList.height();
+
             var $row = $('<div class="github-chart-wrap">');
-            var $svg = $('<svg width="' + width + '" height="' + height + '"></svg>');
+            var $svg = $('<svg width="' + listWidth + '" height="' + listHeight + '"></svg>');
 
             $svg.disableSelection();
 
@@ -319,9 +314,10 @@
 
         };
 
+        getSeriesFromDom();
         markup();
         createChart();
-        createInlineAxis();                
+        createInlineAxis();
         addEventListener();
 
         moveInlineAxis(width - 50);
@@ -330,7 +326,7 @@
 
     Samisdat.GithubCharts = ( function() {
         var ready = function() {
-            
+
             $('ul.github-chart').each(function(){
 
                 githubChart($(this));
