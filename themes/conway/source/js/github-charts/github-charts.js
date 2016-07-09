@@ -132,55 +132,12 @@
 
         };
 
-        var createChart = function(){
-
-            svg = d3.select('svg');
-
-            width = svg.attr('width') - margin.left - margin.right;
-            height = svg.attr('height') - margin.top - margin.bottom;
-
-            var dates = [];
-
-            series[0].forEach(function(serie){
-                dates.push(serie.date);
-            });
+        var createBackgroundAxis = function(){
+            var formatDayMonth = d3.timeFormat('%d.%m');
 
             var axixBg = svg.append('g')
                 .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
             ;
-
-            var g = svg.append('g')
-                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-            ;
-
-            var firstDate = dates.slice(0, 1).pop();
-            var lastDate = dates.slice(-1).pop();
-
-            x = d3.scaleTime()
-                .domain([firstDate, lastDate])
-                .range([0, width]);
-
-            // Add the x Axis
-            /*
-            var xAxis = d3.axisTop()
-                .scale(x)
-                .tickValues(dates)
-                .tickFormat(d3.timeFormat("%d.%m"))
-            ;
-
-            svg.append("g")
-                .attr("transform", "translate(0," + height + ")")
-                .call(xAxis)
-            ;
-            */
-
-            y = d3.scaleLinear()
-                .domain([6, 1])
-                .range([height, 0]);
-
-            z = d3.scaleCategory10();
-
-            var formatDayMonth = d3.timeFormat('%d.%m');
 
             dates.forEach(function(date, index){
 
@@ -203,6 +160,34 @@
                 ;
 
             });
+
+        };
+
+        var createChart = function(){
+
+            svg = d3.select('svg');
+
+            width = svg.attr('width') - margin.left - margin.right;
+            height = svg.attr('height') - margin.top - margin.bottom;
+
+            var firstDate = dates.slice(0, 1).pop();
+            var lastDate = dates.slice(-1).pop();
+
+            x = d3.scaleTime()
+                .domain([firstDate, lastDate])
+                .range([0, width]);
+
+            y = d3.scaleLinear()
+                .domain([6, 1])
+                .range([height, 0]);
+
+            z = d3.scaleOrdinal(d3.schemeCategory10);
+
+            createBackgroundAxis();
+
+            var g = svg.append('g')
+                .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+            ;
 
             var serie = g.selectAll('.serie')
                 .data(series)
