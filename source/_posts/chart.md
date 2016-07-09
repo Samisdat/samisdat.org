@@ -115,28 +115,28 @@ text {
     <li data-positions="17,17,17,17,17,17,17" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/futurice/metalsmith-prismic-templatmetal">smith-prismic-template</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="18,18,18,18,18,18,18" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/d3/d3">d3</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="19,19,19,19,19,19,19" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/michalsnik/aos">aos</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="20,20,20,20,20,20,20" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/airbnb/javascript">javascript</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="21,21,21,21,21,21,21" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/mrdoob/three.js">three.js</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="22,22,22,22,22,22,22" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/webpack/webpack">webpack</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="23,23,23,23,23,23,23" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/reactjs/redux">redux</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="24,24,24,24,24,24,24" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/facebook/jscodeshift">jscodeshift</a>
     </li>
-    <li data-stars="100,300,200,300,300,300,300">
+    <li data-positions="25,25,25,25,25,25,25" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/polygonplanet/chillout">chillout</a>
     </li>
 </ul>
