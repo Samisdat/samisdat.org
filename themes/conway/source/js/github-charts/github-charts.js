@@ -13,6 +13,7 @@
     var githubChart = function($chartList) {
 
         var series = [];
+        var dates = [];
 
         var svg;
         var inlineAxis;
@@ -152,9 +153,8 @@
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             ;
 
-
-            var firstDate = series[0][0].date;
-            var lastDate = series[0][(series[0].length - 1)].date;
+            var firstDate = dates.slice(0, 1).pop();
+            var lastDate = dates.slice(-1).pop();
 
             x = d3.scaleTime()
                 .domain([firstDate, lastDate])
@@ -240,7 +240,7 @@
 
 
         var getSeriesFromDom = function(){
-            var dates = $chartList.data('dates');
+            dates = $chartList.data('dates');
 
             if (undefined === dates){
                 return;
@@ -249,6 +249,10 @@
             var repos = {};
 
             dates = dates.split(',');
+
+            dates.forEach(function(date, index){
+                dates[index] = parseTime(date);
+            });
 
             var $repos = $chartList.find('li');
 
@@ -282,7 +286,7 @@
                 var serie = [];
 
                 positions.forEach(function(position, index){
-                    var date = parseTime(dates[index]);
+                    var date = dates[index];
                     serie.push({
                         date: date,
                         key: repoName,
