@@ -73,7 +73,6 @@
                     .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))
                     .style('fill', 'black')
                     .style('stroke', 'black')
-                    .style('black', 'blue')
                     .text(firstOfSerie.key)
                     .attr('text-anchor', 'start')
                     .attr('transform', 'translate(' + 10 + ',' + y(firstOfSerie.value) + ')')
@@ -150,16 +149,26 @@
                     .attr('width', x(dates[1]))
                     .attr('height', height + margin.top + margin.bottom)
                 ;
-                axixBg.append('text')
-                    //.attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))
-                    .attr('class', 'axis-bg-text')
-                    .style('fill', 'black')
-                    .text(formatDayMonth(date))
-                    .attr('text-anchor', 'start')
-                    .attr('transform', 'translate(' + x(date) + ',' + 12 + ')')
-                ;
-
             });
+
+            var firstDate = dates.slice(0, 1).pop();
+            var lastDate = dates.slice(-1).pop();
+
+            axixBg.append('text')
+                .attr('class', 'axis-bg-text')
+                .style('fill', 'black')
+                .text(formatDayMonth(firstDate))
+                .attr('text-anchor', 'start')
+                .attr('transform', 'translate(' + x(firstDate) + ',' + 12 + ')')
+            ;
+
+            axixBg.append('text')
+                .attr('class', 'axis-bg-text')
+                .style('fill', 'black')
+                .text(formatDayMonth(lastDate))
+                .attr('text-anchor', 'end')
+                .attr('transform', 'translate(' + x(lastDate) + ',' + 12 + ')')
+            ;
 
         };
 
@@ -309,7 +318,7 @@
         createInlineAxis();
         addEventListener();
 
-        moveInlineAxis(width - 50);
+        moveInlineAxis(width - 5);
 
     };
 
