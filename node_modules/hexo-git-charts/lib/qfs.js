@@ -1,0 +1,219 @@
+'use strict';
+
+var _ = require('lodash');
+var q = require('q');
+
+var fs = require('fs');
+
+    /**
+     * fs.exists is deprecated but fs.stat is not usable with memfs
+     */
+var fileExists = function(fileName){
+
+    var deferred = q.defer();
+
+    if ( true !== _.isString(fileName)){
+
+        deferred.reject();
+
+    }
+    else {
+
+        fs.exists(fileName, function(exists){
+
+            if (false === exists){
+                deferred.reject();
+            }
+            else {
+                deferred.resolve();
+            }
+
+        });
+
+    }
+
+    return deferred.promise;
+};
+
+var unlink = function(path){
+    var deferred = q.defer();
+
+    if (true !== _.isString(path)){
+
+        deferred.reject();
+
+    }
+    else {
+
+        fileExists(path)
+        .then(function(){
+
+            fs.unlink(path, function(error){
+
+                if (null !== error){
+                    deferred.reject();
+                    return;
+                }
+
+                deferred.resolve();
+
+            });
+
+        })
+        .fail(function(){
+            deferred.reject();
+        });
+
+    }
+
+    return deferred.promise;
+};
+
+var readFile = function(file){
+
+    var deferred = q.defer();
+
+    fs.readFile(
+            file,
+            {encoding: 'utf8'},
+            function(err, data){
+
+                if (null !== err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve(data);
+            }
+        );
+
+    return deferred.promise;
+
+};
+
+var mkdir = function(path){
+
+    var deferred = q.defer();
+
+    fs.mkdir(
+            path,
+            function(err){
+                if (err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve();
+            }
+        );
+
+    return deferred.promise;
+
+};
+
+var readdir = function(path){
+    var deferred = q.defer();
+
+    fs.readdir(
+            path,
+            function(err, files){
+                if (err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve(files);
+            }
+        );
+
+    return deferred.promise;
+};
+
+var writeFile = function(file, data){
+
+    var deferred = q.defer();
+
+    fs.writeFile(
+            file,
+            data,
+            {encoding: 'utf8'},
+            function(err){
+                if (err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve();
+            }
+        );
+
+    return deferred.promise;
+
+};
+
+var copyFile = function(source, destination){
+
+    var deferred = q.defer();
+
+    readFile(source)
+        .then(function(content){
+            return writeFile(destination, content);
+        })
+        .then(function(){
+            deferred.resolve();
+        })
+        .catch(function(){
+            deferred.reject();
+        });
+
+    return deferred.promise;
+
+};
+
+var appendFile = function(file, data){
+
+    var deferred = q.defer();
+
+    fs.appendFile(
+            file,
+            data,
+            {encoding: 'utf8'},
+            function(err){
+                if (err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve();
+            }
+        );
+
+    return deferred.promise;
+
+};
+
+var rename = function(oldPath, newPath){
+    var deferred = q.defer();
+
+    fs.rename(
+            oldPath,
+            newPath,
+            function(err){
+                if (err){
+                    deferred.reject(err);
+                    return;
+                }
+                deferred.resolve();
+            }
+        );
+
+    return deferred.promise;
+};
+
+module.exports = {
+    mkdir: mkdir,
+    readdir: readdir,
+    fileExists: fileExists,
+    unlink: unlink,
+    readFile: readFile,
+    writeFile: writeFile,
+    copyFile: copyFile,
+    appendFile: appendFile,
+    rename: rename
+};
+
