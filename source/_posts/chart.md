@@ -44,7 +44,7 @@ text {
 
 <script src="https://d3js.org/d3.v4.js"></script>
 
-<ul class="github-chart" data-dates="2015-07-20,2015-07-21,2015-07-22,2015-07-23,2015-07-24,2015-07-25,2015-07-26">
+<ul class="github-char" data-dates="2015-07-20,2015-07-21,2015-07-22,2015-07-23,2015-07-24,2015-07-25,2015-07-26">
     <li data-positions="5,4,3,2,1,1,1" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/freecodecamp/freecodecamp">freecodecamp/freecodecamp</a>
     </li>
@@ -62,8 +62,7 @@ text {
     </li>
 </ul>
 
-
-<ul class="github-char" data-dates="2015-07-20,2015-07-21,2015-07-22,2015-07-23,2015-07-24,2015-07-25,2015-07-26">
+<ul class="github-chart" data-dates="2015-07-20,2015-07-21,2015-07-22,2015-07-23,2015-07-24,2015-07-25,2015-07-26">
     <li data-positions="5,4,3,2,1,1,1" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/freecodecamp/freecodecamp">freecodecamp/freecodecamp</a>
     </li>
@@ -102,42 +101,6 @@ text {
     </li>
     <li data-positions="11,13,15,13,13,12,13" data-stars="100,300,200,300,300,300,300">
         <a class="github-repo" href="https://github.com/samypesse/gitkit-js">gitkit-js</a>
-    </li>
-    <li data-positions="12,11,12,15,15,15,14" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/angular/angular.js">angular.js</a>
-    </li>
-    <li data-positions="14,15,14,14,14,14,15" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/luruke/barba.js">barba.js</a>
-    </li>
-    <li data-positions="16,16,16,16,16,16,16" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/tj/react-enroute">react-enroute</a>
-    </li>
-    <li data-positions="17,17,17,17,17,17,17" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/futurice/metalsmith-prismic-templatmetal">smith-prismic-template</a>
-    </li>
-    <li data-positions="18,18,18,18,18,18,18" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/d3/d3">d3</a>
-    </li>
-    <li data-positions="19,19,19,19,19,19,19" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/michalsnik/aos">aos</a>
-    </li>
-    <li data-positions="20,20,20,20,20,20,20" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/airbnb/javascript">javascript</a>
-    </li>
-    <li data-positions="21,21,21,21,21,21,21" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/mrdoob/three.js">three.js</a>
-    </li>
-    <li data-positions="22,22,22,22,22,22,22" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/webpack/webpack">webpack</a>
-    </li>
-    <li data-positions="23,23,23,23,23,23,23" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/reactjs/redux">redux</a>
-    </li>
-    <li data-positions="24,24,24,24,24,24,24" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/facebook/jscodeshift">jscodeshift</a>
-    </li>
-    <li data-positions="25,25,25,25,25,25,25" data-stars="100,300,200,300,300,300,300">
-        <a class="github-repo" href="https://github.com/polygonplanet/chillout">chillout</a>
     </li>
 </ul>
 
