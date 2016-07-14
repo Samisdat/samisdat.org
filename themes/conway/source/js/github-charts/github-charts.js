@@ -182,12 +182,26 @@
             var firstDate = dates.slice(0, 1).pop();
             var lastDate = dates.slice(-1).pop();
 
+            var min = undefined;
+            var max = undefined;
+
+            series.forEach(function(serie){
+                serie.forEach(function(value){
+                    if(undefined === min || min > value.value){
+                        min = value.value;
+                    }
+                    if(undefined === max || max < value.value){
+                        max = value.value;
+                    }
+                });
+            });
+
             x = d3.scaleTime()
                 .domain([firstDate, lastDate])
                 .range([0, width]);
 
             y = d3.scaleLinear()
-                .domain([6, 1])
+                .domain([max, min])
                 .range([height, 0]);
 
             z = d3.scaleOrdinal(d3.schemeCategory10);
