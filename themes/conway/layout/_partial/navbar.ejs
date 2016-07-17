@@ -8,28 +8,26 @@
 				<div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
 					<ul class="nav navbar-nav">
 						<% site.data.nav.forEach(function(navItem){ %>
-						    <% if(undefined === navItem.children){ %>
-								<%- partial('_partial/navbar-item', {item: navItem}) %>
-						    <% } else { %>
-						    	<%- partial('_partial/navbar-parent-item', {item: navItem}) %>
-						    <% } %>
+
+							<%- partial('_partial/navbar-item', {item: navItem}) %>
 
 						<% }) %>
 					</ul>
-				</div>
-				<ul class="nav navbar-nav external">
-					<li class="nav-item">
-						<a class="nav-link" href="https://github.com/samisdat" target="_blank">
-							<i class="fa fa-github"></i> <span class="hidden-md-down">GitHub</span>
-						</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="https://twitter.com/samisdat" target="_blank">
-							<i class="fa fa-twitter"></i> <span class="hidden-md-down">Twitter</span>
-						</a>
-					</li>
-				</ul>
-			</div>
+					<ul class="nav navbar-nav external">
+						<li class="nav-item">
+							<a class="nav-link" href="https://github.com/samisdat" target="_blank">
+								<i class="fa fa-github"></i> <span class="hidden-md-down">GitHub</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="https://twitter.com/samisdat" target="_blank">
+								<i class="fa fa-twitter"></i> <span class="hidden-md-down">Twitter</span>
+							</a>
+						</li>
+					</ul>					
+				</div>			
+ 			</div>
+
 		</div>  
 	</div>
 </nav>
