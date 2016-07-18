@@ -27,6 +27,9 @@ header{
 
         a{
             color:#201d2c;
+            .fa{
+                width:18px;
+            }
         }
         a:hover{
             color:lighten(#201d2c, 20%);
