@@ -1,9 +1,11 @@
 [
 	{
+		"skip": true,
 		"text": "Blog",
 		"url": "/"
 	},
 	{
+		"skip": true,
 		"text": "Projekte",
 		"url": "/projekts",
 		"children":[
