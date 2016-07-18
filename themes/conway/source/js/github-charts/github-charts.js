@@ -18,7 +18,7 @@
         var svg;
         var inlineAxis;
 
-        var margin = {top: 30, right: 0, bottom: 1, left: 0};
+        var margin = {top: 40, right: 20, bottom: 10, left: 20};
         var width;
         var height;
 
@@ -95,6 +95,14 @@
 
         var moveInlineAxis = function(xPos){
 
+            if(margin.left > xPos){
+                xPos = margin.left;
+            }
+
+            if(margin.left + width < xPos){
+                xPos = margin.left + width;
+            }
+
             var dateOnPos = x.invert(xPos);
 
             var dateRounded = roundDate(dateOnPos);
@@ -144,7 +152,7 @@
 
                 axixBg.append('rect')
                     .attr('class', 'axis-bg ' + zebra)
-                    .attr('x', x(date))
+                    .attr('x', x(date) + margin.left)
                     .attr('y', 0)
                     .attr('width', x(dates[1]))
                     .attr('height', height + margin.top + margin.bottom)
@@ -159,7 +167,7 @@
                 .style('fill', 'black')
                 .text(formatDayMonth(firstDate))
                 .attr('text-anchor', 'start')
-                .attr('transform', 'translate(' + x(firstDate) + ',' + 12 + ')')
+                .attr('transform', 'translate(' + x(firstDate) + margin.left + ',' + 12 + ')')
             ;
 
             axixBg.append('text')
@@ -167,7 +175,7 @@
                 .style('fill', 'black')
                 .text(formatDayMonth(lastDate))
                 .attr('text-anchor', 'end')
-                .attr('transform', 'translate(' + x(lastDate) + ',' + 12 + ')')
+                .attr('transform', 'translate(' + (x(lastDate) + margin.left) + ',' + 12 + ')')
             ;
 
         };
@@ -264,7 +272,10 @@
 
             var $repos = $chartList.find('li');
 
-            $repos.each(function(){
+            $repos.each(function(index){
+                var fakePosition = Array.apply(index, { length: $repos.length })
+                fakePosition.fill(index + 1);
+
                 var positions = $(this).data('positions');
                 var stars = $(this).data('stars');
 
@@ -284,6 +295,8 @@
                     stars[index] = parseInt(item, 10);
                 });
 
+                //positions = fakePosition;
+
                 var repoName = $(this).find('a').text();
 
                 repos[repoName] = {
@@ -301,6 +314,8 @@
                         value: position
                     });
                 });
+
+                var lastSerieValue = serie[serie.length - 1];
 
                 series.push(serie);
 
@@ -332,7 +347,7 @@
         createInlineAxis();
         addEventListener();
 
-        moveInlineAxis(width - 5);
+        moveInlineAxis(width + margin.left);
 
     };
 
