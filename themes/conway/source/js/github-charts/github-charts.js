@@ -158,16 +158,32 @@
                 ;
 
                 var transformX = 10;
+
                 var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
+
+                var lastY = label.attr('data-last-y');
+                if(null !== lastY){
+                    lastY = lastY * 1;
+                }
+                label.attr('data-last-y', y(item.value));
 
                 if (xPos > labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
                     transformX = -10 - labelWidth;
                 }
 
-                label
-                    .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
-                ;
+                if(lastY === y(item.value)){
+                    label
+                        .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
+                    ;
+                }
+                else{
+                    label
+                        .attr('transform', 'translate(' + transformX + ',' + lastY + ')')
+                        .transition()
+                        .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
+                    ;
+                }
             });
 
         };
