@@ -19,6 +19,7 @@
         var inlineAxis;
 
         var margin = {top: 40, right: 20, bottom: 10, left: 20};
+        var radius = 20;
         var width;
         var height;
 
@@ -53,18 +54,53 @@
 
             inlineAxis
                 .append('line')
-                .attr('x1', 0).attr('x2', 0)
-                .attr('y1', -1 * margin.top).attr('y2', height)
+                .attr('x1', 0)
+                .attr('x2', 0)
+                .attr('y1', -1 * margin.top)
+                .attr('y2', height)
             ;
 
             series.forEach(function(serie){
 
                 var firstOfSerie = serie[0];
 
-                inlineAxis.append('circle')
+                var circle = inlineAxis.append('g')
                     .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
-                    .attr('r', 6)
+                ;
+
+                circle.append('rect')
+                    .attr('x', -radius)
+                    .attr('y', -radius)
                     .style('fill', z(firstOfSerie.key))
+                    .style('stroke', 'none')
+                    .style('opacity', 0.3)
+                    .attr('width', radius * 2)
+                    .attr('height', radius * 2)
+                ;
+                
+                circle.append('line')
+                    .attr('x1', -radius)
+                    .attr('x2', radius)
+                    .attr('y1', -radius)
+                    .attr('y2', radius)
+                    .style('fill', 'none')
+                    .style('stroke', '1px')
+                ;
+
+                circle.append('line')
+                    .attr('x1', -2*radius)
+                    .attr('x2', 2*radius)
+                    .attr('y1', 2*radius)
+                    .attr('y2', -2*radius)
+                    .style('fill', 'none')
+                    .style('stroke', '1px')
+                ;
+
+                circle.append('circle')
+                    .attr('r', radius)
+                    .style('fill', z(firstOfSerie.key))
+                    .style('stroke', 'none')
+                    .style('opacity', 0.3)
                     .attr('cx', 0)
                     .attr('cy', 0)
                 ;
@@ -93,7 +129,7 @@
             labelSwitchThreshold = width - labelWidth + margin.left;
         };
 
-        var moveInlineAxis = function(xPos){
+        var __moveInlineAxis = function(xPos){
 
             if(margin.left > xPos){
                 xPos = margin.left;
@@ -113,10 +149,83 @@
 
             svg.selectAll('.serie path').each(function(serie){
                 var point = this.getPointAtLength(xPos);
-
+                console.log(point)
                 var item = serie[bisectDate(serie, dateRounded)];
 
                 point = point.y;
+
+                var firstOfSerie = serie[0];
+
+                inlineAxis.select('#point-' + firstOfSerie.key.replace('/', '-'))
+                    .attr('transform', 'translate(' + 0 + ',' + point + ')')
+                ;
+
+                var transformX = 10;
+                var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
+
+                if (xPos > labelSwitchThreshold){
+                    var labelWidth = parseInt(label.attr('width'), 10);
+                    transformX = -10 - labelWidth;
+                }
+
+                label
+                    .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
+                ;
+            });
+
+        };
+
+
+        var moveInlineAxis = function(xPos){
+
+            if(margin.left > xPos){
+                xPos = margin.left;
+            }
+
+            if(margin.left + width < xPos){
+                xPos = margin.left + width;
+            }
+
+            var xValue = xPos - margin.left;
+
+            var dateOnPos = x.invert(xPos);
+
+            console.log(xPos, xValue, dateOnPos, x.invert(xValue))
+
+            var dateRounded = roundDate(dateOnPos);
+
+            inlineAxis
+                .attr('transform', 'translate(' + x(dateOnPos) + ',' + margin.top + ')')
+            ;
+
+            svg.selectAll('.serie path').each(function(serie){
+
+                var item = serie[bisectDate(serie, dateRounded)];
+
+                var pathEl = this;
+                var pathLength = pathEl.getTotalLength();
+
+                var offsetLeft = 0;
+
+                var x = xPos - offsetLeft; 
+
+                  var beginning = x, end = pathLength, target;
+
+                  var pos;
+
+                  while (true) {
+                    target = Math.floor((beginning + end) / 2);
+                    pos = pathEl.getPointAtLength(target);
+                    if ((target === end || target === beginning) && pos.x !== x) {
+                        break;
+                    }
+                    if (pos.x > x)      end = target;
+                    else if (pos.x < x) beginning = target;
+                    else                break; //position found
+                  }
+
+
+                var point = pos.y;
 
                 var firstOfSerie = serie[0];
 
@@ -229,7 +338,7 @@
             serie.append('path')
                 .attr('class', 'line')
                 .style('stroke', function(d) { return z(d[0].key); })
-                .attr('d', d3.line()
+                .attr('d', d3.line()/*.curve(d3.curveCatmullRom.alpha(1))*/
                 .x(function(d) { return x(d.date); })
                 .y(function(d) { return y(d.value); }))
             ;
@@ -317,7 +426,11 @@
 
                 var lastSerieValue = serie[serie.length - 1];
 
+                if(8 < index){
+                    return true;
+                }
                 series.push(serie);
+
 
             });
 
@@ -347,7 +460,9 @@
         createInlineAxis();
         addEventListener();
 
-        moveInlineAxis(width + margin.left);
+        //moveInlineAxis(width + margin.left);
+        //moveInlineAxis(margin.left);
+        moveInlineAxis(200);
 
     };
 
