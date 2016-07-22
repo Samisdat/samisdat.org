@@ -83,8 +83,8 @@
                     .style('fill', 'black')
                     .style('stroke', 'black')
                     .text(firstOfSerie.key)
-                    .attr('text-anchor', 'start')
-                    .attr('transform', 'translate(' + 10 + ',' + y(firstOfSerie.value) + ')')
+                    .attr('text-anchor', 'end')
+                    .attr('transform', 'translate(' + -20 + ',' + y(firstOfSerie.value) + ')')
                 ;
             });
 
@@ -99,7 +99,7 @@
 
             });
 
-            labelSwitchThreshold = width - labelWidth + margin.left;
+            labelSwitchThreshold = labelWidth + margin.left;
         };
 
         var moveInlineAxis = function(xPos){
@@ -157,7 +157,7 @@
                     .attr('transform', 'translate(' + 0 + ',' + point + ')')
                 ;
 
-                var transformX = 10;
+                var transformX = -10;
 
                 var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
 
@@ -167,9 +167,11 @@
                 }
                 label.attr('data-last-y', y(item.value));
 
-                if (xPos > labelSwitchThreshold){
+                console.log(lastY, y(item.value), lastY !== y(item.value))
+
+                if (xPos < labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
-                    transformX = -10 - labelWidth;
+                    transformX = labelWidth + 10;
                 }
 
                 if(lastY === y(item.value)){
@@ -184,6 +186,7 @@
                         .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
                     ;
                 }
+
             });
 
         };
@@ -366,9 +369,7 @@
 
                 var lastSerieValue = serie[serie.length - 1];
 
-                if(8 < index){
-                    return true;
-                }
+
                 series.push(serie);
 
 
