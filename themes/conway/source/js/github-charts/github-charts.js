@@ -84,7 +84,8 @@
                     .style('stroke', 'black')
                     .text(firstOfSerie.key)
                     .attr('text-anchor', 'end')
-                    .attr('transform', 'translate(' + -20 + ',' + y(firstOfSerie.value) + ')')
+                    .attr('x', -20)
+                    .attr('transform', 'translate(0,' + y(firstOfSerie.value) + ')')
                 ;
             });
 
@@ -167,8 +168,6 @@
                 }
                 label.attr('data-last-y', y(item.value));
 
-                console.log(lastY, y(item.value), lastY !== y(item.value))
-
                 if (xPos < labelSwitchThreshold){
                     var labelWidth = parseInt(label.attr('width'), 10);
                     transformX = labelWidth + 10;
@@ -176,14 +175,16 @@
 
                 if(lastY === y(item.value)){
                     label
-                        .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
+                        .attr('transform', 'translate(0,' + y(item.value) + ')')
+                        .attr('x',  transformX)
                     ;
                 }
                 else{
                     label
-                        .attr('transform', 'translate(' + transformX + ',' + lastY + ')')
+                        .attr('x', transformX)                    
+                        .attr('transform', 'translate(0,' + lastY + ')')
                         .transition()
-                        .attr('transform', 'translate(' + transformX + ',' + y(item.value) + ')')
+                        .attr('transform', 'translate(0,' + y(item.value) + ')')
                     ;
                 }
 
