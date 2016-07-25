@@ -6,6 +6,8 @@ teaser:
 
 Lorem ipsum et cetera  
 
+{% gitchart akfish hexo-math b82e65 %}
+
 <style>
 svg{
     width:100%;
