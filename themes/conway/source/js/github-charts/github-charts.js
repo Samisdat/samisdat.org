@@ -104,7 +104,6 @@
         };
 
         var moveInlineAxis = function(xPos){
-
             if(margin.left > xPos){
                 xPos = margin.left;
             }
@@ -134,21 +133,28 @@
 
                 var x = xValue; 
 
-                  var beginning = x, end = pathLength, target;
+                var beginning = x, end = pathLength, target;
 
-                  var pos;
+                var pos;
 
-                  while (true) {
+                while (true) {
                     target = Math.floor((beginning + end) / 2);
                     pos = pathEl.getPointAtLength(target);
+                    
                     if ((target === end || target === beginning) && pos.x !== x) {
                         break;
                     }
-                    if (pos.x > x)      end = target;
-                    else if (pos.x < x) beginning = target;
-                    else                break; //position found
-                  }
 
+                    if (pos.x > x){
+                        end = target;
+                    }      
+                    else if (pos.x < x){ 
+                        beginning = target;
+                    }
+                    else{
+                        break; //position found
+                    }
+                }
 
                 var point = pos.y;
 
@@ -166,6 +172,10 @@
                 if(null !== lastY){
                     lastY = lastY * 1;
                 }
+                else{
+                    lastY = y(item.value);   
+                }
+
                 label.attr('data-last-y', y(item.value));
 
                 if (xPos < labelSwitchThreshold){
@@ -402,9 +412,7 @@
         createInlineAxis();
         addEventListener();
 
-        //moveInlineAxis(width + margin.left);
-        //moveInlineAxis(margin.left);
-        moveInlineAxis(200);
+        moveInlineAxis(width + margin.left);
 
     };
 
