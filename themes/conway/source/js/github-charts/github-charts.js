@@ -289,12 +289,20 @@
                 .attr('class', 'serie')
             ;
 
+            var line = d3.line().curve(d3.curveMonotoneX)
+                .defined(function(d) { return d.value; })
+                .x(function(d) { return x(d.date); })
+                .y(function(d) { return y(d.value); });
+
             serie.append('path')
                 .attr('class', 'line')
                 .style('stroke', function(d) { return z(d[0].key); })
-                .attr('d', d3.line().curve(d3.curveMonotoneX)
+                .attr("d", line)
+                /*
+                .attr('d', d3.line()//.curve(d3.curveMonotoneX)
                 .x(function(d) { return x(d.date); })
                 .y(function(d) { return y(d.value); }))
+                */
             ;
 
         };
@@ -351,7 +359,14 @@
                 stars = stars.split(',');
 
                 positions.forEach(function(item, index){
-                    positions[index] = parseInt(item, 10);
+                    var value = null;
+                    if('' !== item){
+                        value = parseInt(item, 10);
+                    }
+
+                    positions[index] = value;
+
+
                 });
 
                 stars.forEach(function(item, index){
