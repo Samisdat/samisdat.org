@@ -103,6 +103,27 @@
             labelSwitchThreshold = labelWidth + margin.left;
         };
 
+        var getFirstValueOfSerie = function(serie){
+
+            var firstNotNullValue;
+
+            serie.forEach(function(value, index){
+                if(null === value.value){
+                    return true;
+                }
+
+                if(undefined !== firstNotNullValue){
+                    return false;
+                }
+
+                firstNotNullValue = index;
+            });
+
+            return serie[firstNotNullValue];
+        };
+
+        var lastDate;
+
         var moveInlineAxis = function(xPos){
             if(margin.left > xPos){
                 xPos = margin.left;
@@ -118,13 +139,60 @@
 
             var dateRounded = roundDate(dateOnPos);
 
+            if(lastDate === dateRounded){
+                return;
+            }
+
+            lastDate = dateRounded;
+
+            console.log(lastDate, dateRounded);
             inlineAxis
                 .attr('transform', 'translate(' + x(dateOnPos) + ',' + margin.top + ')')
             ;
 
+            var checkValueOnDate = function(date, serie){
+
+                var hasValueOnDate = false;
+
+                serie.forEach(function(day){
+                    if(date.toString() !== day.date.toString()){
+                        return true;
+                    }
+
+                    if(null === day.value){
+                        return true;
+                    }
+
+                    hasValueOnDate = true;
+                    return false;
+                    
+                });
+
+                return hasValueOnDate;
+            };
+
+            var hideInlineLabel = function(item){
+                inlineAxis.select('#point-' + item.key.replace('/', '-'))
+                    .style('opacity', 0)
+                ;
+
+
+                var label = inlineAxis.select('#label-' + item.key.replace('/', '-'))
+                    .style('opacity', 0)
+                ;
+
+            };
+
             svg.selectAll('.serie path').each(function(serie){
 
+                var hasValueOnDate = checkValueOnDate(dateRounded, serie);
+
                 var item = serie[bisectDate(serie, dateRounded)];
+                console.log(hasValueOnDate, item)
+                if(null === item.value){
+                    hideInlineLabel(item);
+                    return;
+                }
 
                 var pathEl = this;
                 var pathLength = pathEl.getTotalLength();
@@ -158,17 +226,43 @@
 
                 var point = pos.y;
 
-                var firstOfSerie = serie[0];
+                var firstOfSerie = getFirstValueOfSerie(serie);
 
                 inlineAxis.select('#point-' + firstOfSerie.key.replace('/', '-'))
                     .attr('transform', 'translate(' + 0 + ',' + point + ')')
+                    .style('opacity', 1)
                 ;
 
                 var transformX = -10;
 
-                var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'));
+                var label = inlineAxis.select('#label-' + firstOfSerie.key.replace('/', '-'))
+                    .style('opacity', 1)
+                ;
 
-                var lastY = label.attr('data-last-y');
+                console.log(label)
+
+                if (xPos < labelSwitchThreshold){
+                    var labelWidth = parseInt(label.attr('width'), 10);
+                    transformX = labelWidth + 10;
+                }
+
+                if(lastY === y(item.value)){
+                    label
+                        .attr('transform', 'translate(0,' + y(item.value) + ')')
+                        .attr('x',  transformX)
+                    ;
+                }
+                else{
+                    label
+                        .attr('x', transformX)                    
+                        .attr('transform', 'translate(0,' + y(item.value) + ')')
+                    ;
+                }
+
+
+                return;
+
+                var lastY = label.attr('data-last-y')   ;
                 if(null !== lastY){
                     lastY = lastY * 1;
                 }
@@ -289,6 +383,7 @@
                 .attr('class', 'serie')
             ;
 
+
             var line = d3.line().curve(d3.curveMonotoneX)
                 .defined(function(d) { return d.value; })
                 .x(function(d) { return x(d.date); })
@@ -304,6 +399,21 @@
                 .y(function(d) { return y(d.value); }))
                 */
             ;
+
+            series.forEach(function(serie){
+                serie.forEach(function(value){
+                    if(null === value.value){
+                        return true;
+                    }
+
+                    svg.append("circle")
+                        .attr("r", 4)
+                        .style('stroke', function(d) { return z(value.key); })
+                        .style('fill', function(d) { return z(value.key); })
+                        .attr("cx", x(value.date) + margin.left )
+                        .attr("cy", y(value.value) + margin.top );
+                });
+            });
 
         };
 
@@ -388,7 +498,7 @@
                     var date = dates[index];
                     serie.push({
                         date: date,
-                        key: repoName,
+                        key: $.trim(repoName),
                         value: position
                     });
                 });
@@ -417,13 +527,14 @@
 
             $row.append($svg);
 
-            $chartList.remove();
+            //$chartList.remove();
 
         };
 
         getSeriesFromDom();
         markup();
         createChart();
+
         createInlineAxis();
         addEventListener();
 
@@ -432,6 +543,7 @@
     };
 
     Samisdat.GithubCharts = ( function() {
+
         var ready = function() {
 
             $('ul.github-chart').each(function(){
