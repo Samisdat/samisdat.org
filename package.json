@@ -21,6 +21,8 @@
     "hexo-renderer-ejs": "^0.1.0",
     "hexo-renderer-marked": "^0.2.4",
     "hexo-server": "^0.1.2",
-    "hexo-staging": "^0.1.0"
+    "hexo-staging": "^0.1.0",
+    "hexo-gitcharts": "git+ssh://git@git.samisdat.org:samisdat/hexo-gitchart.git#master",
+    "hexo-image": "git+ssh://git@git.samisdat.org:samisdat/hexo-image.git#master"
   }
 }
