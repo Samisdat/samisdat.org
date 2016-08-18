@@ -165,19 +165,22 @@
                 .attr('class', 'line')
                 .style('stroke', function(d) { return z(d[0].index); })
                 .attr('d', line)
-                /*
-                .attr('d', d3.line()//.curve(d3.curveMonotoneX)
-                .x(function(d) { return x(d.date); })
-                .y(function(d) { return y(d.value); }))
-                */
+            ;
+
+            var labels = svg.append('g')
+                .attr('class', 'labels')
             ;
 
             series.forEach(function(serie){
-                console.log(serie[0].value)
-                serie.forEach(function(value){
+
+                var lastNonNullValue;
+
+                serie.forEach(function(value, index){
                     if(null === value.value){
                         return true;
                     }
+
+                    lastNonNullValue = index;
 
                     svg.append("circle")
                         .attr("r", 5)
@@ -186,7 +189,56 @@
                         .attr("cx", x(value.date) + margin.left )
                         .attr("cy", y(value.value) + margin.top );
                 });
+
+                if((serie.length -1 )!== lastNonNullValue){
+                    return;
+                }
+
+                var lastNonNullValue = serie[lastNonNullValue];
+
+                var label = labels.append('a')
+                    .attr('class', 'label')
+                    .attr('xlink:href', 'https://github.com/' + lastNonNullValue.key)
+                    .attr('target', '_blank')
+                ;
+
+                var bg = label.append("rect")
+
+                var xPos = x(lastNonNullValue.date) + margin.left;
+                var yPos = y(lastNonNullValue.value) + margin.top - 8;
+                
+                var text = label.append("text")
+                    //.style('stroke', function(d) { return z(lastNonNullValue.index); })
+                    //.style('fill', function(d) { return z(lastNonNullValue.index); })
+                    .attr("x", xPos)
+                    .attr("y", yPos)
+                    .text(lastNonNullValue.key)
+                    /*.on("click", function(){
+
+                        var url = 'https://github.com/' + d3.select(this).text();
+                        console.log(url)
+                    })*/
+                ;
+
+                console.log(lastNonNullValue)
+
             });
+
+            svg.selectAll('.label').each(function() {
+
+                var bg = d3.select(this).select('rect');
+                console.log(bg)
+
+                var labelBox = this.getBBox();
+
+                bg
+                    .attr("x", labelBox.x -2 )
+                    .attr("y", labelBox.y - 2)
+                    .attr("width", labelBox.width + 4)
+                    .attr("height", labelBox.height + 4)
+                ;
+            });
+
 
         };
 
@@ -271,7 +323,7 @@
         var markup = function(){
 
             var listWidth = $chartList.width();
-            var listHeight = $chartList.height();
+            var listHeight = $chartList.height() * 1.3;
 
             var $row = $('<div class="github-chart-wrap">');
             var $svg = $('<svg width="' + listWidth + '" height="' + listHeight + '"></svg>');
