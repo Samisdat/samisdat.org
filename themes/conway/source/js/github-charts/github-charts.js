@@ -38,18 +38,34 @@
 
         var bisectDate = d3.bisector(function(d) { return d.date; }).left;
 
+        var keyToId = function(key){
+
+            var id = key + '';
+            id.toLowerCase();
+
+            id = id.replace(/\//g, '-');
+            id = id.replace(/\./g, '-');
+
+            return id; 
+        };
+
         var roundDate = function(dateToRound){
 
-            var copiedDate = new Date(dateToRound.getTime());
+            var before = new Date(dateToRound.getTime());
+            before.setHours(0);
+            before.setMinutes(0, 0, 0);
 
-            if (12 < copiedDate.getHours()){
-                copiedDate.setDate(copiedDate.getDate() + 1);
-            }
+            var after = new Date(dateToRound.getTime());
 
-            copiedDate.setHours(0);
-            copiedDate.setMinutes(0, 0, 0);
+            after.setDate(after.getDate() + 1);
 
-            return copiedDate;
+            after.setHours(0);
+            after.setMinutes(0, 0, 0);
+
+            return {
+                before: before,
+                after: after                
+            };
         };
 
         var createInlineAxis = function(){
@@ -70,23 +86,25 @@
                 var firstOfSerie = serie[0];
 
                 inlineAxis.append('circle')
-                    .attr('id', 'point-' + firstOfSerie.key.replace('/', '-'))
+                    .attr('id', 'point-' + keyToId(firstOfSerie.key))
                     .attr('r', radius)
                     .style('fill', z(firstOfSerie.key))
                     .style('stroke', 'none')
                     .attr('cx', 0)
                     .attr('cy', 0)
                 ;
-
+                /*
                 inlineAxis.append('text')
                     .attr('id', 'label-' + firstOfSerie.key.replace('/', '-'))
                     .style('fill', 'black')
                     .style('stroke', 'black')
                     .text(firstOfSerie.key)
                     .attr('text-anchor', 'end')
+                    .style('opacity', 0)
                     .attr('x', -20)
                     .attr('transform', 'translate(0,' + y(firstOfSerie.value) + ')')
                 ;
+                */
             });
 
             var labelWidth = 0;
@@ -124,7 +142,7 @@
 
         var lastDate;
 
-        var moveInlineAxis = function(xPos){
+        var __moveInlineAxis = function(xPos){
             if(margin.left > xPos){
                 xPos = margin.left;
             }
@@ -296,6 +314,111 @@
 
         };
 
+        var checkValueOnDate = function(date, serie){
+
+            var hasValueOnDate = false;
+
+            serie.forEach(function(day){
+                if(date.toString() !== day.date.toString()){
+                    return true;
+                }
+
+                if(null === day.value){
+                    return true;
+                }
+
+                hasValueOnDate = true;
+                return false;
+                
+            });
+
+            return hasValueOnDate;
+        };
+
+        var moveInlineAxis = function(xPos){
+
+            if(margin.left > xPos){
+                xPos = margin.left;
+            }
+
+            if(margin.left + width < xPos){
+                xPos = margin.left + width;
+            }
+
+            var xValue = xPos - margin.left;
+
+            var dateOnPos = x.invert(xPos);
+
+            inlineAxis
+                .attr('transform', 'translate(' + x(dateOnPos) + ',' + margin.top + ')')
+            ;
+
+            var datesArounded = roundDate(dateOnPos);
+
+            svg.selectAll('.serie path').each(function(serie){
+
+                var hasValueBefore = checkValueOnDate(datesArounded.before, serie);
+                var hasValueAfter = checkValueOnDate(datesArounded.after, serie);
+
+                var firstOfSerie = getFirstValueOfSerie(serie);
+
+                var movingPoint = inlineAxis.select('#point-' + keyToId(firstOfSerie.key));
+
+
+                if(false === hasValueBefore || false === hasValueAfter){
+                    movingPoint.style('opacity', 0);
+                    return;
+                }
+
+                movingPoint.style('opacity', 1);
+
+                var item = serie[bisectDate(serie, datesArounded.before)];
+
+
+                var pathEl = this;
+                var pathLength = pathEl.getTotalLength();
+
+                var offsetLeft = 0;
+
+                var x = xValue; 
+
+                var beginning = x, end = pathLength, target;
+
+                var pos;
+
+                while (true) {
+                    target = Math.floor((beginning + end) / 2);
+                    pos = pathEl.getPointAtLength(target);
+                    
+                    if ((target === end || target === beginning) && pos.x !== x) {
+                        break;
+                    }
+
+                    if (pos.x > x){
+                        end = target;
+                    }      
+                    else if (pos.x < x){ 
+                        beginning = target;
+                    }
+                    else{
+                        break; //position found
+                    }
+                }
+
+                var point = pos.y;
+
+                movingPoint.attr('transform', 'translate(' + 0 + ',' + point + ')')
+
+                console.log(datesArounded.before, datesArounded.before);
+                console.log(serie[0].key, hasValueBefore, hasValueAfter);
+            });
+
+
+            console.log(dateOnPos, datesArounded);
+
+
+        };        
+
         var createBackgroundAxis = function(){
             var formatDayMonth = d3.timeFormat('%d.%m');
 
@@ -372,6 +495,8 @@
             z = d3.scaleOrdinal(d3.schemeCategory10);
 
             createBackgroundAxis();
+
+            createInlineAxis();
 
             var g = svg.append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
@@ -535,10 +660,9 @@
         markup();
         createChart();
 
-        createInlineAxis();
         addEventListener();
 
-        moveInlineAxis(width + margin.left);
+        moveInlineAxis(width + margin.left - 1);
 
     };
 
