@@ -24,6 +24,7 @@
             left: 10
         };
         
+
         var radius = 5;
         var width;
         var height;
@@ -187,7 +188,36 @@
                         .style('stroke', function(d) { return z(value.index); })
                         .style('fill', function(d) { return z(value.index); })
                         .attr("cx", x(value.date) + margin.left )
-                        .attr("cy", y(value.value) + margin.top );
+                        .attr("cy", y(value.value) + margin.top )
+
+                        .on('click', function(){
+                            svg.select('.labels')
+                                .style('opacity', 0)
+                            ;
+
+                            var tip = svg.select('.tooltip-label')
+                                .style('opacity', 1)
+                            ;
+
+                            var xPos = x(value.date) + margin.left;
+                            var yPos = y(value.value) + margin.top - 8;
+
+                            var text = tip.select('text')
+                                .attr("x", xPos)
+                                .attr("y", yPos)                            
+                                .text(value.key)
+                            ;
+
+                            console.log(d3.selectAll(text).getBBox());
+
+
+                            tip.select('rect')
+                                .style('stroke', function(d) { return z(value.index); })
+                            ;
+
+                            console.log(tip)
+                        })
+                    ;
                 });
 
                 if((serie.length -1 )!== lastNonNullValue){
@@ -203,12 +233,12 @@
                 ;
 
                 var bg = label.append("rect")
-
+                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
+                   
                 var xPos = x(lastNonNullValue.date) + margin.left;
                 var yPos = y(lastNonNullValue.value) + margin.top - 8;
                 
                 var text = label.append("text")
-                    //.style('stroke', function(d) { return z(lastNonNullValue.index); })
                     //.style('fill', function(d) { return z(lastNonNullValue.index); })
                     .attr("x", xPos)
                     .attr("y", yPos)
@@ -220,14 +250,12 @@
                     })*/
                 ;
 
-                console.log(lastNonNullValue)
 
             });
 
             svg.selectAll('.label').each(function() {
 
                 var bg = d3.select(this).select('rect');
-                console.log(bg)
 
                 var labelBox = this.getBBox();
 
@@ -238,6 +266,17 @@
                     .attr("height", labelBox.height + 4)
                 ;
             });
+
+            var tooltip = svg.append('g')
+                .attr('class', 'tooltip-label')
+                .style('opacity', 0)
+                //.attr('xlink:href', 'https://github.com/' + lastNonNullValue.key)
+                //.attr('target', '_blank')
+            ;
+
+            var bg = tooltip.append("rect")
+                           
+            var text = tooltip.append("text")
 
 
         };
