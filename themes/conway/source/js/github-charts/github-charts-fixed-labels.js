@@ -74,9 +74,34 @@
 
             var axixBg = svg.append('g')
                 .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
+                .attr('style', 'opacity: 0.5')                
             ;
 
             dates.forEach(function(date, index){
+
+                axixBg.append('rect')
+                    .attr('class', 'axis-bg-date-label')
+                    .attr('x', x(date) + margin.left - radius)
+                    .attr('y', margin.top)
+                    .attr('width', radius * 2)
+                    .attr('height', height)
+                ;
+
+                axixBg.append('text')
+                    .attr('class', 'axis-bg-date-label')
+                    .text(formatDayMonth(date))
+                    .attr('x', x(date) + margin.left - radius)
+                    .attr('y', margin.top)
+                ;
+                
+            });
+
+            return;
+            dates.forEach(function(date, index){
+
+                if(index + 1 === dates.length ){
+                    return false;
+                }
 
                 var zebra = (0 === index % 2) ? 'odd' : 'even';
 
@@ -88,6 +113,8 @@
                     .attr('height', height + margin.top + margin.bottom)
                 ;
             });
+
+            return;
 
             var firstDate = dates.slice(0, 1).pop();
             var lastDate = dates.slice(-1).pop();
@@ -144,8 +171,19 @@
 
             z = d3.scaleOrdinal(d3.schemeCategory10);
 
+            svg.append('rect')
+                .attr('x', margin.left)
+                .attr('y', margin.top)
+                .attr('width', width)
+                .attr('height', height)
+                .attr('stroke', 'red')
+                .attr('fill', 'blue')
+            ;
+
+
             createBackgroundAxis();
 
+            return;
             var g = svg.append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             ;

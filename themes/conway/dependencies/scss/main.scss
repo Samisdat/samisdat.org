@@ -140,15 +140,24 @@ main{
     }
 
     .axis-bg{
-        fill: #fff;
-        fill-opacity: 0.2;
-        &.even{
-            fill-opacity: 0.4;            
+        fill: #f5f5f5;
+        &.even,&.date-label{
+            fill: #f5f5f5;
         }
 
     }
     .axis-bg-text{
         font-size: 12px;
+    }
+    text.axis-bg-date-label{
+        fill: black;
+        text-anchor: middle;
+        &:first-of-type{
+            text-anchor: start;
+        }
+        &:last-child{
+            text-anchor: end;
+        }
     }
 
 }
