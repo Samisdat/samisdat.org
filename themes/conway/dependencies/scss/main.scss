@@ -106,14 +106,18 @@ main{
       stroke-width: 2.5px;
     }
 
-    .label {
+    .label, .tooltip-label {
       text-anchor: end;
     }
-    .label text{
+    .label text
+    .tooltip-label text
+    {
       cursor: pointer;
     }
 
-    .label rect {
+    .label rect,
+    .tooltip-label rect
+    {
       fill: white;
       opacity: 0.7;
     }
