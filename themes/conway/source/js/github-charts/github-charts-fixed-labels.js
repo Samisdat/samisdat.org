@@ -74,7 +74,7 @@
 
             var axixBg = svg.append('g')
                 .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
-                .attr('style', 'opacity: 0.5')                
+                .attr('class', 'axis-bg')                
             ;
 
             dates.forEach(function(date, index){
@@ -93,7 +93,7 @@
                     .attr('x', x(date) + margin.left - radius)
                     .attr('y', margin.top)
                 ;
-                
+
             });
 
             return;
@@ -171,19 +171,8 @@
 
             z = d3.scaleOrdinal(d3.schemeCategory10);
 
-            svg.append('rect')
-                .attr('x', margin.left)
-                .attr('y', margin.top)
-                .attr('width', width)
-                .attr('height', height)
-                .attr('stroke', 'red')
-                .attr('fill', 'blue')
-            ;
-
-
             createBackgroundAxis();
 
-            return;
             var g = svg.append('g')
                 .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
             ;
@@ -222,7 +211,7 @@
                     lastNonNullValue = index;
 
                     svg.append("circle")
-                        .attr("r", 5)
+                        .attr("r", 4)
                         .style('stroke', function(d) { return z(value.index); })
                         .style('fill', function(d) { return z(value.index); })
                         .attr("cx", x(value.date) + margin.left )
@@ -272,20 +261,27 @@
 
                 var bg = label.append("rect")
                     .style('stroke', function(d) { return z(lastNonNullValue.index); })
+                    .attr('rx', '2')
+                    .attr('ry', '2')
+                ;
+
+                var highlightCircle = labels.append("circle")
+                    .attr("r", 7)
+                    .style('fill', 'white')
+                    .style('stroke-width', '1')
+                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
+                    .attr("cx", x(lastNonNullValue.date) + margin.left )
+                    .attr("cy", y(lastNonNullValue.value) + margin.top )
+                    
                    
                 var xPos = x(lastNonNullValue.date) + margin.left;
                 var yPos = y(lastNonNullValue.value) + margin.top - 8;
                 
                 var text = label.append("text")
                     //.style('fill', function(d) { return z(lastNonNullValue.index); })
-                    .attr("x", xPos)
-                    .attr("y", yPos)
+                    .attr("x", xPos - 4)
+                    .attr("y", yPos + 1)
                     .text(lastNonNullValue.key)
-                    /*.on("click", function(){
-
-                        var url = 'https://github.com/' + d3.select(this).text();
-                        console.log(url)
-                    })*/
                 ;
 
 
@@ -298,9 +294,9 @@
                 var labelBox = this.getBBox();
 
                 bg
-                    .attr("x", labelBox.x -2 )
+                    .attr("x", labelBox.x - 4 )
                     .attr("y", labelBox.y - 2)
-                    .attr("width", labelBox.width + 4)
+                    .attr("width", labelBox.width + 8)
                     .attr("height", labelBox.height + 4)
                 ;
             });
