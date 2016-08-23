@@ -168,6 +168,74 @@
 
             });
         };
+
+        var roundDate = function(dateToRound){
+
+            var copiedDate = new Date(dateToRound.getTime());
+
+            if (12 < copiedDate.getHours()){
+                copiedDate.setDate(copiedDate.getDate() + 1);
+            }
+
+            copiedDate.setHours(0);
+            copiedDate.setMinutes(0, 0, 0);
+
+            return copiedDate;
+        };
+
+        var createInlineAxis = function(){
+            
+            inlineAxis = svg.append('line')
+                .attr('class', 'inlineAxis')            
+                .attr('x1', 0)
+                .attr('x2', 0)
+                .attr('y1', -1 * margin.top)
+                .attr('y2', height)
+            ;
+        };
+
+        var moveInlineAxis = function(xPos){
+            if(margin.left > xPos){
+                xPos = margin.left;
+            }
+
+            if(margin.left + width < xPos){
+                xPos = margin.left + width;
+            }
+
+            var xValue = xPos - margin.left;
+
+
+            inlineAxis
+                .attr('transform', 'translate(' + xPos + ',' + margin.top + ')')
+            ;
+
+            var dateOnPos = x.invert(xPos);
+
+            var dateRounded = roundDate(dateOnPos);
+
+            console.log(dateRounded);
+
+        };
+
+        var addEventListener = function(){
+
+            svg.on('mousemove', function() {
+
+                var mouseX = d3.mouse(this)[0];
+                moveInlineAxis(mouseX);
+
+            });
+
+            svg.on('touchmove', function() {
+
+                var mouseX = d3.mouse(this)[0];
+                moveInlineAxis(mouseX);
+
+            });
+
+        };
+
         var createChart = function(){
 
             svg = d3.select('svg');
@@ -201,6 +269,7 @@
                 .range([height, 0]);
 
             z = d3.scaleOrdinal(d3.schemeCategory10);
+            createInlineAxis();
 
             createBackgroundAxis();
 
@@ -447,6 +516,7 @@
         markup();
         createChart();
 
+        addEventListener();
     };
 
     Samisdat.GithubCharts = ( function() {
