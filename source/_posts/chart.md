@@ -8,4 +8,4 @@ teaser:
 
 lorem
 
-{% gitchart javascript 2016-08-18 %}
+{% gitchart javascript 2016-08-22 %}
