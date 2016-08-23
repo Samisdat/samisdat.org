@@ -137,6 +137,37 @@
 
         };
 
+        var addDataPoints = function(){
+
+            var dataPoints = svg.append('g')
+                .attr('class', 'data-points')
+            ;
+
+            series.forEach(function(serie){
+
+                serie.forEach(function(value, index){
+                    if(null === value.value){
+                        return true;
+                    }
+
+                    dataPoints.append("circle")
+                        .attr("label", 'data-point')
+                        .attr("r", 4)
+                        .style('stroke', function(d) { return z(value.index); })
+                        .style('fill', function(d) { return z(value.index); })
+                        .attr("cx", x(value.date) + margin.left )
+                        .attr("cy", y(value.value) + margin.top )
+
+                        .on('click', function(){
+
+                            console.log('clicked a datapoint')
+
+                        })
+                    ;
+                });
+
+            });
+        };
         var createChart = function(){
 
             svg = d3.select('svg');
@@ -195,6 +226,7 @@
                 .attr('d', line)
             ;
 
+            addDataPoints();
             var labels = svg.append('g')
                 .attr('class', 'labels')
             ;
