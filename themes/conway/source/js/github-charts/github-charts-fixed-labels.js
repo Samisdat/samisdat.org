@@ -80,6 +80,7 @@
             dates.forEach(function(date, index){
 
                 axixBg.append('rect')
+                    .attr('id', 'axis-bg-date-label-' + getDateFormated(date))
                     .attr('class', 'axis-bg-date-label')
                     .attr('x', x(date) + margin.left - radius)
                     .attr('y', margin.top)
@@ -183,6 +184,14 @@
             return copiedDate;
         };
 
+        var dateFormat = d3.timeFormat('%y-%m-%d');
+
+        var getDateFormated = function(date){
+            
+            return dateFormat(date);
+
+        };
+
         var createInlineAxis = function(){
             
             inlineAxis = svg.append('line')
@@ -215,6 +224,17 @@
             var dateRounded = roundDate(dateOnPos);
 
             console.log(dateRounded);
+
+            var dateLabel = d3.select('.axis-bg-date-label.active')
+                .classed('active', false);
+            ;
+
+            var dateLabel = d3.select('#axis-bg-date-label-' + getDateFormated(dateRounded))
+                .classed('active', true);
+            ;
+
+            console.log(dateLabel);
+
 
         };
 

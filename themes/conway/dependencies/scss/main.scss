@@ -144,8 +144,14 @@ main{
         &.even,&.date-label{
             fill: #f5f5f5;
         }
+    .axis-bg-date-label{
+        fill: #f5f5f5;
 
+        &.active{
+            fill: lighten(#f5f5f5, 60);
+        }
     }
+    
     .axis-bg-text{
         font-size: 12px;
     }
