@@ -37,16 +37,6 @@ var copy = {
         ],
         dest: 'dependencies/scss/highlightjs.scss',
         filter: 'isFile'
-    },
-    chartsjs: {
-        expand: true,
-        src: [
-            'dependencies/bower_components/Chart.js/dist/Chart.bundle.min.js',
-        ],
-        dest: 'source/bower_components/chartsjs/',
-        flatten: true,
-        filter: 'isFile'
-
     }
 
 };
