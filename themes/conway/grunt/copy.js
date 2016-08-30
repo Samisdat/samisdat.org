@@ -1,6 +1,13 @@
 'use strict';
 
 var copy = {
+    bootstrap: {
+        expand: false,
+        src: 'dependencies/bower_components/bootstrap/dist/js/bootstrap.min.js',
+        dest: 'source/bower_components/bootstrap/javascripts/bootstrap.min.js',
+        flatten: true,
+        filter: 'isFile'
+    },
     fontawesome: {
         expand: true,
         src: 'dependencies/bower_components/font-awesome/fonts/**',
