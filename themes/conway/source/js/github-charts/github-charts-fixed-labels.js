@@ -79,17 +79,19 @@
 
             dates.forEach(function(date, index){
 
-                axixBg.append('rect')
+                var label = axixBg  .append('g')
                     .attr('id', 'axis-bg-date-label-' + getDateFormated(date))
                     .attr('class', 'axis-bg-date-label')
+                ;
+
+                label.append('rect')
                     .attr('x', x(date) + margin.left - radius)
                     .attr('y', margin.top)
                     .attr('width', radius * 2)
                     .attr('height', height)
                 ;
 
-                axixBg.append('text')
-                    .attr('class', 'axis-bg-date-label')
+                label.append('text')
                     .text(formatDayMonth(date))
                     .attr('x', x(date) + margin.left - radius)
                     .attr('y', margin.top)
@@ -203,6 +205,20 @@
             ;
         };
 
+        var activeDay;
+
+        var activateDay = function(){
+
+            var dateLabel = d3.select('.axis-bg-date-label.active')
+                .classed('active', false);
+            ;
+
+            var dateLabel = d3.select('#axis-bg-date-label-' + getDateFormated(activeDay))
+                .classed('active', true);
+            ;
+
+        };
+
         var moveInlineAxis = function(xPos){
             if(margin.left > xPos){
                 xPos = margin.left;
@@ -223,18 +239,10 @@
 
             var dateRounded = roundDate(dateOnPos);
 
-            console.log(dateRounded);
-
-            var dateLabel = d3.select('.axis-bg-date-label.active')
-                .classed('active', false);
-            ;
-
-            var dateLabel = d3.select('#axis-bg-date-label-' + getDateFormated(dateRounded))
-                .classed('active', true);
-            ;
-
-            console.log(dateLabel);
-
+            if(activeDay !== dateRounded){
+                activeDay = dateRounded;
+                activateDay();
+            }
 
         };
 
