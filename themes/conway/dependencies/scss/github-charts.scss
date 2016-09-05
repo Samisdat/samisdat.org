@@ -78,26 +78,33 @@
         &.even,&.date-label{
             fill: #f5f5f5;
         }
-        .axis-bg-date-label{
-            fill: #f5f5f5;
 
-            &.active{
+        g.axis-bg-date-label{
+            rect{
+                fill: #f5f5f5;
+            }
+
+            &.active rect{
                 fill: lighten(#f5f5f5, 60);
             }
-        }
-    
-        .axis-bg-text{
-            font-size: 12px;
-        }
-        text.axis-bg-date-label{
-            fill: black;
-            text-anchor: middle;
-            &:first-of-type{
+            text{
+                font-size: 12px;
+                opacity: 0;
+
+                fill: black;
+                text-anchor: middle;
+            }
+            &:first-of-type text{
                 text-anchor: start;
             }
-            &:last-child{
+            &:last-child text{
                 text-anchor: end;
             }
+
+            &.active text{
+                opacity: 1;
+            }
+
         }
     }
 }
