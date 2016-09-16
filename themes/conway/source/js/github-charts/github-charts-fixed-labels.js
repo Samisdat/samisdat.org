@@ -205,6 +205,28 @@
             ;
         };
 
+        var checkValueOnDate = function(serie){
+
+            var hasValueOnDate = false;
+
+            serie.forEach(function(day){
+
+                if(activeDay.toString() !== day.date.toString()){
+                    return true;
+                }
+
+                if(null === day.value){
+                    return true;
+                }
+
+                hasValueOnDate = day;
+                return false;
+                
+            });
+
+            return hasValueOnDate;
+        };
+
         var activeDay;
 
         var activateDay = function(){
@@ -216,6 +238,159 @@
             var dateLabel = d3.select('#axis-bg-date-label-' + getDateFormated(activeDay))
                 .classed('active', true);
             ;
+
+            svg.select("g.datapoints-highlights").selectAll("*").remove();
+            svg.select("g.datapoints-highlights").remove();
+
+            var highlights = svg.append('g')
+                .attr('class', 'datapoints-highlights')
+            ;
+
+            var labels = highlights.append('g')
+                .attr('class', 'labels')
+            ;
+
+            svg.selectAll('.serie path').each(function(serie){
+
+                var hasValueOnDate = checkValueOnDate(serie);
+                
+                if(false === hasValueOnDate){
+                    return true;
+                }
+
+                var label = labels.append('a')
+                    .attr('class', 'label')
+                    .attr('xlink:href', 'https://github.com/' + hasValueOnDate.key)
+                    .attr('target', '_blank')
+                ;
+
+                var bg = label.append("rect")
+                    .style('stroke', function(d) { return z(hasValueOnDate.index); })
+                    .attr('rx', '2')
+                    .attr('ry', '2')
+                ;
+
+                var highlightCircle = labels.append("circle")
+                    .attr("r", 7)
+                    .style('fill', 'white')
+                    .style('stroke-width', '1')
+                    .style('stroke', function(d) { return z(hasValueOnDate.index); })
+                    .attr("cx", x(hasValueOnDate.date) + margin.left )
+                    .attr("cy", y(hasValueOnDate.value) + margin.top )
+                    
+                   
+                var xPos = x(hasValueOnDate.date) + margin.left;
+                var yPos = y(hasValueOnDate.value) + margin.top - 8;
+                
+                var text = label.append("text")
+                    //.style('fill', function(d) { return z(lastNonNullValue.index); })
+                    .attr("x", xPos - 4)
+                    .attr("y", yPos + 1)
+                    .text(hasValueOnDate.key)
+                ;
+
+            });         
+
+            /*
+            series.forEach(function(serie){
+
+                var lastNonNullValue;
+
+                serie.forEach(function(value, index){
+                    if(null === value.value){
+                        return true;
+                    }
+
+                    lastNonNullValue = index;
+
+                    svg.append("circle")
+                        .attr("r", 4)
+                        .style('stroke', function(d) { return z(value.index); })
+                        .style('fill', function(d) { return z(value.index); })
+                        .attr("cx", x(value.date) + margin.left )
+                        .attr("cy", y(value.value) + margin.top )
+
+                        .on('click', function(){
+                            svg.select('.labels')
+                                .style('opacity', 0)
+                            ;
+
+                            var tip = svg.select('.tooltip-label')
+                                .style('opacity', 1)
+                            ;
+
+                            var xPos = x(value.date) + margin.left;
+                            var yPos = y(value.value) + margin.top - 8;
+
+                            var text = tip.select('text')
+                                .attr("x", xPos)
+                                .attr("y", yPos)                            
+                                .text(value.key)
+                            ;
+
+
+                            tip.select('rect')
+                                .style('stroke', function(d) { return z(value.index); })
+                            ;
+
+                            console.log(tip)
+                        })
+                    ;
+                });
+
+                if((serie.length -1 )!== lastNonNullValue){
+                    return;
+                }
+
+                var lastNonNullValue = serie[lastNonNullValue];
+
+                var label = labels.append('a')
+                    .attr('class', 'label')
+                    .attr('xlink:href', 'https://github.com/' + lastNonNullValue.key)
+                    .attr('target', '_blank')
+                ;
+
+                var bg = label.append("rect")
+                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
+                    .attr('rx', '2')
+                    .attr('ry', '2')
+                ;
+
+                var highlightCircle = labels.append("circle")
+                    .attr("r", 7)
+                    .style('fill', 'white')
+                    .style('stroke-width', '1')
+                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
+                    .attr("cx", x(lastNonNullValue.date) + margin.left )
+                    .attr("cy", y(lastNonNullValue.value) + margin.top )
+                    
+                   
+                var xPos = x(lastNonNullValue.date) + margin.left;
+                var yPos = y(lastNonNullValue.value) + margin.top - 8;
+                
+                var text = label.append("text")
+                    //.style('fill', function(d) { return z(lastNonNullValue.index); })
+                    .attr("x", xPos - 4)
+                    .attr("y", yPos + 1)
+                    .text(lastNonNullValue.key)
+                ;
+
+
+            });
+            */
+            svg.selectAll('.label').each(function() {
+
+                var bg = d3.select(this).select('rect');
+
+                var labelBox = this.getBBox();
+
+                bg
+                    .attr("x", labelBox.x - 4 )
+                    .attr("y", labelBox.y - 2)
+                    .attr("width", labelBox.width + 8)
+                    .attr("height", labelBox.height + 4)
+                ;
+            });
 
         };
 
@@ -239,8 +414,10 @@
 
             var dateRounded = roundDate(dateOnPos);
 
-            if(activeDay !== dateRounded){
+
+            if(undefined === activeDay || activeDay.toString() !== dateRounded.toString()){
                 activeDay = dateRounded;
+
                 activateDay();
             }
 
@@ -324,123 +501,6 @@
             ;
 
             addDataPoints();
-            var labels = svg.append('g')
-                .attr('class', 'labels')
-            ;
-
-            series.forEach(function(serie){
-
-                var lastNonNullValue;
-
-                serie.forEach(function(value, index){
-                    if(null === value.value){
-                        return true;
-                    }
-
-                    lastNonNullValue = index;
-
-                    svg.append("circle")
-                        .attr("r", 4)
-                        .style('stroke', function(d) { return z(value.index); })
-                        .style('fill', function(d) { return z(value.index); })
-                        .attr("cx", x(value.date) + margin.left )
-                        .attr("cy", y(value.value) + margin.top )
-
-                        .on('click', function(){
-                            svg.select('.labels')
-                                .style('opacity', 0)
-                            ;
-
-                            var tip = svg.select('.tooltip-label')
-                                .style('opacity', 1)
-                            ;
-
-                            var xPos = x(value.date) + margin.left;
-                            var yPos = y(value.value) + margin.top - 8;
-
-                            var text = tip.select('text')
-                                .attr("x", xPos)
-                                .attr("y", yPos)                            
-                                .text(value.key)
-                            ;
-
-                            console.log(d3.selectAll(text).getBBox());
-
-
-                            tip.select('rect')
-                                .style('stroke', function(d) { return z(value.index); })
-                            ;
-
-                            console.log(tip)
-                        })
-                    ;
-                });
-
-                if((serie.length -1 )!== lastNonNullValue){
-                    return;
-                }
-
-                var lastNonNullValue = serie[lastNonNullValue];
-
-                var label = labels.append('a')
-                    .attr('class', 'label')
-                    .attr('xlink:href', 'https://github.com/' + lastNonNullValue.key)
-                    .attr('target', '_blank')
-                ;
-
-                var bg = label.append("rect")
-                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
-                    .attr('rx', '2')
-                    .attr('ry', '2')
-                ;
-
-                var highlightCircle = labels.append("circle")
-                    .attr("r", 7)
-                    .style('fill', 'white')
-                    .style('stroke-width', '1')
-                    .style('stroke', function(d) { return z(lastNonNullValue.index); })
-                    .attr("cx", x(lastNonNullValue.date) + margin.left )
-                    .attr("cy", y(lastNonNullValue.value) + margin.top )
-                    
-                   
-                var xPos = x(lastNonNullValue.date) + margin.left;
-                var yPos = y(lastNonNullValue.value) + margin.top - 8;
-                
-                var text = label.append("text")
-                    //.style('fill', function(d) { return z(lastNonNullValue.index); })
-                    .attr("x", xPos - 4)
-                    .attr("y", yPos + 1)
-                    .text(lastNonNullValue.key)
-                ;
-
-
-            });
-
-            svg.selectAll('.label').each(function() {
-
-                var bg = d3.select(this).select('rect');
-
-                var labelBox = this.getBBox();
-
-                bg
-                    .attr("x", labelBox.x - 4 )
-                    .attr("y", labelBox.y - 2)
-                    .attr("width", labelBox.width + 8)
-                    .attr("height", labelBox.height + 4)
-                ;
-            });
-
-            var tooltip = svg.append('g')
-                .attr('class', 'tooltip-label')
-                .style('opacity', 0)
-                //.attr('xlink:href', 'https://github.com/' + lastNonNullValue.key)
-                //.attr('target', '_blank')
-            ;
-
-            var bg = tooltip.append("rect")
-                           
-            var text = tooltip.append("text")
-
 
         };
 

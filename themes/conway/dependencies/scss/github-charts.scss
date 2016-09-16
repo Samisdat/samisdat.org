@@ -81,7 +81,7 @@
 
         g.axis-bg-date-label{
             rect{
-                fill: #f5f5f5;
+                fill: darken(#f5f5f5, 10);
             }
 
             &.active rect{
