@@ -160,12 +160,6 @@
                         .style('fill', function(d) { return z(value.index); })
                         .attr("cx", x(value.date) + margin.left )
                         .attr("cy", y(value.value) + margin.top )
-
-                        .on('click', function(){
-
-                            console.log('clicked a datapoint')
-
-                        })
                     ;
                 });
 
