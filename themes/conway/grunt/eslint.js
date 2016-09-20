@@ -2,7 +2,7 @@
 
 var files = [
     'grunt/*.js',
-    'source/js/github-charts/github-charts.js'
+    'source/js/github-charts/github-charts-fixed-labels.js'
 ];
 
 var eslint = {

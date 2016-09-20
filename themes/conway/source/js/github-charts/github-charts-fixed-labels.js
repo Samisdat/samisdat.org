@@ -18,12 +18,11 @@
         var inlineAxis;
 
         var margin = {
-            top: 30, 
-            right: 6, 
-            bottom: 10, 
+            top: 30,
+            right: 6,
+            bottom: 10,
             left: 10
         };
-        
 
         var radius = 5;
         var width;
@@ -33,124 +32,9 @@
         var y;
         var z;
 
-        var labelSwitchThreshold;
+        var activeDay;
 
         var parseTime = d3.timeParse('%Y-%m-%d');
-
-        var bisectDate = d3.bisector(function(d) { return d.date; }).left;
-
-        var keyToId = function(key){
-
-            var id = key + '';
-            id.toLowerCase();
-
-            id = id.replace(/\//g, '-');
-            id = id.replace(/\./g, '-');
-
-            return id; 
-        };
-
-        var getFirstValueOfSerie = function(serie){
-
-            var firstNotNullValue;
-
-            serie.forEach(function(value, index){
-                if(null === value.value){
-                    return true;
-                }
-
-                if(undefined !== firstNotNullValue){
-                    return false;
-                }
-
-                firstNotNullValue = index;
-            });
-
-            return serie[firstNotNullValue];
-        };
-
-        var createBackgroundAxis = function(){
-            var formatDayMonth = d3.timeFormat('%d.%m');
-
-            var axixBg = svg.append('g')
-                .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
-                .attr('class', 'axis-bg')                
-            ;
-
-            dates.forEach(function(date, index){
-
-                var label = axixBg  .append('g')
-                    .attr('id', 'axis-bg-date-label-' + getDateFormated(date))
-                    .attr('class', 'axis-bg-date-label')
-                ;
-
-                label.append('rect')
-                    .attr('class', 'axis-bg-date-bar')                
-                    .attr('x', x(date) + margin.left - radius)
-                    .attr('y', margin.top)
-                    .attr('width', radius * 2)
-                    .attr('height', height)
-                ;
-
-                var textBg = label.append('rect')
-                    .attr('class', 'axis-bg-date-text-bg')                
-                ;
-
-                var text = label.append('text')
-                    .text(formatDayMonth(date))
-                    .attr('x', x(date) + margin.left)
-                    .attr('y', margin.top - 10)
-                ;
-
-                var bBox = text.node().getBBox();
-
-                var xPos = bBox.x + bBox.width / 2;
-
-                if(0 === index){
-                    xPos = margin.left;
-                }
-
-                if(dates.length === (index + 1)){
-                    xPos = bBox.x;
-                }
-
-
-                textBg
-                    .attr('x', xPos - 3)
-                    .attr('y', bBox.y - 1)
-                    .attr('width', bBox.width + 6)
-                    .attr('height', bBox.height + 2)
-                ;                
-
-            });
-
-        };
-
-        var addDataPoints = function(){
-
-            var dataPoints = svg.append('g')
-                .attr('class', 'data-points')
-            ;
-
-            series.forEach(function(serie){
-
-                serie.forEach(function(value, index){
-                    if(null === value.value){
-                        return true;
-                    }
-
-                    dataPoints.append("circle")
-                        .attr("label", 'data-point')
-                        .attr("r", 4)
-                        .style('stroke', function(d) { return z(value.index); })
-                        .style('fill', function(d) { return z(value.index); })
-                        .attr("cx", x(value.date) + margin.left )
-                        .attr("cy", y(value.value) + margin.top )
-                    ;
-                });
-
-            });
-        };
 
         var roundDate = function(dateToRound){
 
@@ -169,15 +53,102 @@
         var dateFormat = d3.timeFormat('%y-%m-%d');
 
         var getDateFormated = function(date){
-            
+
             return dateFormat(date);
 
         };
 
+
+        var createBackgroundAxis = function(){
+            var formatDayMonth = d3.timeFormat('%d.%m');
+
+            var axixBg = svg.append('g')
+                .attr('transform', 'translate(' + 0 + ',' + 0 + ')')
+                .attr('class', 'axis-bg')
+            ;
+
+            dates.forEach(function(date, index){
+
+                var label = axixBg .append('g')
+                    .attr('id', 'axis-bg-date-label-' + getDateFormated(date))
+                    .attr('class', 'axis-bg-date-label')
+                ;
+
+                label.append('rect')
+                    .attr('class', 'axis-bg-date-bar')
+                    .attr('x', x(date) + margin.left - radius)
+                    .attr('y', margin.top)
+                    .attr('width', radius * 2)
+                    .attr('height', height)
+                ;
+
+                var textBg = label.append('rect')
+                    .attr('class', 'axis-bg-date-text-bg')
+                ;
+
+                var text = label.append('text')
+                    .text(formatDayMonth(date))
+                    .attr('x', x(date) + margin.left)
+                    .attr('y', margin.top - 10)
+                ;
+
+                var bBox = text.node().getBBox();
+
+                var xPos = bBox.x + bBox.width / 2;
+
+                if (0 === index){
+                    xPos = margin.left;
+                }
+
+                if (dates.length === (index + 1)){
+                    xPos = bBox.x;
+                }
+
+
+                textBg
+                    .attr('x', xPos - 3)
+                    .attr('y', bBox.y - 1)
+                    .attr('width', bBox.width + 6)
+                    .attr('height', bBox.height + 2)
+                ;
+
+            });
+
+        };
+
+        var addDataPoints = function(){
+
+            var dataPoints = svg.append('g')
+                .attr('class', 'data-points')
+            ;
+
+            series.forEach(function(serie){
+
+                serie.forEach(function(value){
+                    if (null === value.value){
+                        return true;
+                    }
+
+                    dataPoints.append('circle')
+                        .attr('label', 'data-point')
+                        .attr('r', 4)
+                        .style('stroke', function() { return z(value.index); })
+                        .style('fill', function() { return z(value.index); })
+                        .attr('cx', x(value.date) + margin.left )
+                        .attr('cy', y(value.value) + margin.top )
+                    ;
+
+                    return true;
+
+                });
+
+            });
+        };
+
         var createInlineAxis = function(){
-            
+
             inlineAxis = svg.append('line')
-                .attr('class', 'inlineAxis')            
+                .attr('class', 'inlineAxis')
                 .attr('x1', 0)
                 .attr('x2', 0)
                 .attr('y1', -1 * margin.top)
@@ -191,36 +162,34 @@
 
             serie.forEach(function(day){
 
-                if(activeDay.toString() !== day.date.toString()){
+                if (activeDay.toString() !== day.date.toString()){
                     return true;
                 }
 
-                if(null === day.value){
+                if (null === day.value){
                     return true;
                 }
 
                 hasValueOnDate = day;
                 return false;
-                
+
             });
 
             return hasValueOnDate;
         };
 
-        var activeDay;
-
         var activateDay = function(){
 
-            var dateLabel = d3.select('.axis-bg-date-label.active')
+            d3.select('.axis-bg-date-label.active')
                 .classed('active', false);
             ;
 
-            var dateLabel = d3.select('#axis-bg-date-label-' + getDateFormated(activeDay))
+            d3.select('#axis-bg-date-label-' + getDateFormated(activeDay))
                 .classed('active', true);
             ;
 
-            svg.select("g.datapoints-highlights").selectAll("*").remove();
-            svg.select("g.datapoints-highlights").remove();
+            svg.select('g.datapoints-highlights').selectAll('*').remove();
+            svg.select('g.datapoints-highlights').remove();
 
             var highlights = svg.append('g')
                 .attr('class', 'datapoints-highlights')
@@ -235,8 +204,8 @@
             svg.selectAll('.serie path').each(function(serie){
 
                 var hasValueOnDate = checkValueOnDate(serie);
-                
-                if(false === hasValueOnDate){
+
+                if (false === hasValueOnDate){
                     return true;
                 }
 
@@ -246,50 +215,53 @@
                     .attr('target', '_blank')
                 ;
 
-                var bg = label.append("rect")
-                    .style('stroke', function(d) { return z(hasValueOnDate.index); })
+                label.append('rect')
+                    .style('stroke', function() { return z(hasValueOnDate.index); })
                     .attr('rx', '2')
                     .attr('ry', '2')
                 ;
 
-                var highlightCircle = labels.append("circle")
-                    .attr("r", 7)
+                labels.append('circle')
+                    .attr('r', 7)
                     .style('fill', 'white')
                     .style('stroke-width', '1')
-                    .style('stroke', function(d) { return z(hasValueOnDate.index); })
-                    .attr("cx", x(hasValueOnDate.date) + margin.left )
-                    .attr("cy", y(hasValueOnDate.value) + margin.top )
-                    
-                    labels.append("circle")
-                        .attr("label", 'data-point')
-                        .attr("r", 4)
-                        .style('stroke', function(d) { return z(hasValueOnDate.index); })
-                        .style('fill', function(d) { return z(hasValueOnDate.index); })
-                        .attr("cx", x(hasValueOnDate.date) + margin.left )
-                        .attr("cy", y(hasValueOnDate.value) + margin.top )
-                    ;
-                   
+                    .style('stroke', function() { return z(hasValueOnDate.index); })
+                    .attr('cx', x(hasValueOnDate.date) + margin.left )
+                    .attr('cy', y(hasValueOnDate.value) + margin.top )
+                ;
+
+                labels.append('circle')
+                    .attr('label', 'data-point')
+                    .attr('r', 4)
+                    .style('stroke', function() { return z(hasValueOnDate.index); })
+                    .style('fill', function() { return z(hasValueOnDate.index); })
+                    .attr('cx', x(hasValueOnDate.date) + margin.left )
+                    .attr('cy', y(hasValueOnDate.value) + margin.top )
+                ;
+
                 xPos = x(hasValueOnDate.date) + margin.left;
                 var yPos = y(hasValueOnDate.value) + margin.top - 8;
-                
-                var text = label.append("text")
+
+                label.append('text')
                     //.style('fill', function(d) { return z(lastNonNullValue.index); })
-                    .attr("x", xPos - 4)
-                    .attr("y", yPos + 1)
+                    .attr('x', xPos - 4)
+                    .attr('y', yPos + 1)
                     .text(hasValueOnDate.key)
                 ;
 
-            });         
+                return true;
+
+            });
 
             var switchSide = false;
             svg.selectAll('.label').each(function() {
 
-                if(true === switchSide){
+                if (true === switchSide){
                     return true;
                 }
                 var labelBox = this.getBBox();
 
-                if(xPos < labelBox.width){
+                if (xPos < labelBox.width){
                     switchSide = true;
                     return true;
                 }
@@ -299,37 +271,37 @@
 
             svg.selectAll('.label').each(function() {
 
-                if(true === switchSide){
+                if (true === switchSide){
 
                     var text = d3.select(this).select('text');
 
                     text
                         .attr('text-anchor', 'start' )
-                    ;                                        
-                }    
+                    ;
+                }
 
                 var labelBox = this.getBBox();
 
-                if(true === switchSide){
+                if (true === switchSide){
 
                     text
                         .attr('x', labelBox.x + 10)
-                    ;                                        
+                    ;
                 }
 
                 var bg = d3.select(this).select('rect');
 
-                var x = labelBox.x - 4;
+                var xPosBg = labelBox.x - 4;
 
-                if(true === switchSide){
-                    x += 10;
+                if (true === switchSide){
+                    xPosBg += 10;
                 }
 
                 bg
-                    .attr("x",  x )
-                    .attr("y", labelBox.y - 2 )
-                    .attr("width", labelBox.width + 8)
-                    .attr("height", labelBox.height + 4)
+                    .attr('x', xPosBg )
+                    .attr('y', labelBox.y - 2 )
+                    .attr('width', labelBox.width + 8)
+                    .attr('height', labelBox.height + 4)
                 ;
 
             });
@@ -337,16 +309,13 @@
         };
 
         var moveInlineAxis = function(xPos){
-            if(margin.left > xPos){
+            if (margin.left > xPos){
                 xPos = margin.left;
             }
 
-            if(margin.left + width < xPos){
+            if (margin.left + width < xPos){
                 xPos = margin.left + width;
             }
-
-            var xValue = xPos - margin.left;
-
 
             inlineAxis
                 .attr('transform', 'translate(' + xPos + ',' + margin.top + ')')
@@ -357,7 +326,7 @@
             var dateRounded = roundDate(dateOnPos);
 
 
-            if(undefined === activeDay || activeDay.toString() !== dateRounded.toString()){
+            if (undefined === activeDay || activeDay.toString() !== dateRounded.toString()){
                 activeDay = dateRounded;
 
                 activateDay();
@@ -393,15 +362,15 @@
             var firstDate = dates.slice(0, 1).pop();
             var lastDate = dates.slice(-1).pop();
 
-            var min = undefined;
-            var max = undefined;
+            var min;
+            var max;
 
             series.forEach(function(serie){
                 serie.forEach(function(value){
-                    if(undefined === min || min > value.value){
+                    if (undefined === min || min > value.value){
                         min = value.value;
                     }
-                    if(undefined === max || max < value.value){
+                    if (undefined === max || max < value.value){
                         max = value.value;
                     }
                 });
@@ -464,7 +433,7 @@
             var $repos = $chartList.find('li');
 
             $repos.each(function(index){
-                var fakePosition = Array.apply(index, { length: $repos.length })
+                var fakePosition = Array.apply(index, { length: $repos.length });
                 fakePosition.fill(index + 1);
 
                 var positions = $(this).data('positions');
@@ -478,19 +447,19 @@
                 positions = positions.split(',');
                 stars = stars.split(',');
 
-                positions.forEach(function(item, index){
+                positions.forEach(function(item, posIndex){
                     var value = null;
-                    if('' !== item){
+                    if ('' !== item){
                         value = parseInt(item, 10);
                     }
 
-                    positions[index] = value;
+                    positions[posIndex] = value;
 
 
                 });
 
-                stars.forEach(function(item, index){
-                    stars[index] = parseInt(item, 10);
+                stars.forEach(function(item, starIndex){
+                    stars[starIndex] = parseInt(item, 10);
                 });
 
                 //positions = fakePosition;
@@ -513,9 +482,6 @@
                         value: position
                     });
                 });
-
-                var lastSerieValue = serie[serie.length - 1];
-
 
                 series.push(serie);
 
@@ -549,7 +515,7 @@
         addEventListener();
 
         activeDay = dates[ (dates.length - 1 )];
-        activeDay = dates[ 1 ];
+
         activateDay();
     };
 
@@ -558,7 +524,6 @@
         var ready = function() {
 
             $('ul.github-chart').each(function(){
-
                 githubChart($(this));
             });
         };
