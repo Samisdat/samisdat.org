@@ -124,45 +124,6 @@
 
             });
 
-            return;
-            dates.forEach(function(date, index){
-
-                if(index + 1 === dates.length ){
-                    return false;
-                }
-
-                var zebra = (0 === index % 2) ? 'odd' : 'even';
-
-                axixBg.append('rect')
-                    .attr('class', 'axis-bg ' + zebra)
-                    .attr('x', x(date) + margin.left)
-                    .attr('y', 0)
-                    .attr('width', x(dates[1]))
-                    .attr('height', height + margin.top + margin.bottom)
-                ;
-            });
-
-            return;
-
-            var firstDate = dates.slice(0, 1).pop();
-            var lastDate = dates.slice(-1).pop();
-
-            axixBg.append('text')
-                .attr('class', 'axis-bg-text')
-                .style('fill', 'black')
-                .text(formatDayMonth(firstDate))
-                .attr('text-anchor', 'start')
-                .attr('transform', 'translate(' + x(firstDate) + margin.left + ',' + 12 + ')')
-            ;
-
-            axixBg.append('text')
-                .attr('class', 'axis-bg-text')
-                .style('fill', 'black')
-                .text(formatDayMonth(lastDate))
-                .attr('text-anchor', 'end')
-                .attr('transform', 'translate(' + (x(lastDate) + margin.left) + ',' + 12 + ')')
-            ;
-
         };
 
         var addDataPoints = function(){
