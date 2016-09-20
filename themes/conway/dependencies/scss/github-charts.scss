@@ -80,13 +80,24 @@
         }
 
         g.axis-bg-date-label{
-            rect{
+            rect.axis-bg-date-bar{
                 fill: darken(#f5f5f5, 10);
             }
-
-            &.active rect{
-                fill: lighten(#f5f5f5, 60);
+            rect.axis-bg-date-text-bg{
+                opacity: 0;                    
             }
+
+            &.active{
+                rect.axis-bg-date-bar{
+                    fill: lighten(#f5f5f5, 60);
+                }
+                rect.axis-bg-date-text-bg{
+                    fill: lighten(#f5f5f5, 60);                    
+                    opacity: 1;                    
+                }
+            }
+
+
             text{
                 font-size: 12px;
                 opacity: 0;
