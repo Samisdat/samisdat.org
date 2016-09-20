@@ -18,7 +18,7 @@
         var inlineAxis;
 
         var margin = {
-            top: 20, 
+            top: 30, 
             right: 6, 
             bottom: 10, 
             left: 10
@@ -85,17 +85,42 @@
                 ;
 
                 label.append('rect')
+                    .attr('class', 'axis-bg-date-bar')                
                     .attr('x', x(date) + margin.left - radius)
                     .attr('y', margin.top)
                     .attr('width', radius * 2)
                     .attr('height', height)
                 ;
 
-                label.append('text')
-                    .text(formatDayMonth(date))
-                    .attr('x', x(date) + margin.left - radius)
-                    .attr('y', margin.top)
+                var textBg = label.append('rect')
+                    .attr('class', 'axis-bg-date-text-bg')                
                 ;
+
+                var text = label.append('text')
+                    .text(formatDayMonth(date))
+                    .attr('x', x(date) + margin.left)
+                    .attr('y', margin.top - 10)
+                ;
+
+                var bBox = text.node().getBBox();
+
+                var xPos = bBox.x + bBox.width / 2;
+
+                if(0 === index){
+                    xPos = margin.left;
+                }
+
+                if(dates.length === (index + 1)){
+                    xPos = bBox.x;
+                }
+
+
+                textBg
+                    .attr('x', xPos - 3)
+                    .attr('y', bBox.y - 1)
+                    .attr('width', bBox.width + 6)
+                    .attr('height', bBox.height + 2)
+                ;                
 
             });
 
