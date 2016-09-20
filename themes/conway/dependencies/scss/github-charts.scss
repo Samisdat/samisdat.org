@@ -93,6 +93,8 @@
                 }
                 rect.axis-bg-date-text-bg{
                     fill: lighten(#f5f5f5, 60);                    
+                    stroke: darken(#f5f5f5, 10);
+                    stroke-width: 1px;                    
                     opacity: 1;                    
                 }
             }
