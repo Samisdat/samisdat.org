@@ -2,37 +2,44 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://samisdat.org/404/index.html</loc>
+    <loc>http://hexo.dev.pertz.eu/githubcharts.js.html</loc>
     
-    <lastmod>2016-02-25T22:05:35.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://samisdat.org/once-again.html</loc>
-    
-    <lastmod>2016-02-11T22:13:32.000Z</lastmod>
+    <lastmod>2016-10-10T21:55:03.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://samisdat.org/hexo-staging.html</loc>
+    <loc>http://hexo.dev.pertz.eu/once-again.html</loc>
     
-    <lastmod>2016-02-11T22:13:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://samisdat.org/impressum/index.html</loc>
-    
-    <lastmod>2016-02-11T22:13:32.000Z</lastmod>
+    <lastmod>2016-09-05T19:59:23.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://samisdat.org/en/once-again.html</loc>
+    <loc>http://hexo.dev.pertz.eu/404/index.html</loc>
     
-    <lastmod>2016-02-11T22:13:32.000Z</lastmod>
+    <lastmod>2016-09-05T19:59:23.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hexo.dev.pertz.eu/hexo-staging.html</loc>
+    
+    <lastmod>2016-09-05T19:59:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hexo.dev.pertz.eu/en/once-again.html</loc>
+    
+    <lastmod>2016-09-05T19:59:20.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://hexo.dev.pertz.eu/impressum/index.html</loc>
+    
+    <lastmod>2016-09-05T19:59:20.000Z</lastmod>
     
   </url>
   

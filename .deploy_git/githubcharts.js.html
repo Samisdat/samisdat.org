@@ -1,28 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Samisdat Development</title>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      
+  <title>GithubCharts.js | Samisdat Development</title>
   
-  <link href="/rss.xml" rel="self"/>
+  <link rel="alternate" href="/rss.xml" title="Samisdat Development" type="application/rss+xml">
+  <link rel="icon" href="/favicon.ico">
+ 
+  <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700%7CSource+Sans+Pro:400,500,700' rel='stylesheet' type='text/css'>
   
-  <link href="http://hexo.dev.pertz.eu/"/>
-  <updated>2016-10-10T21:55:03.000Z</updated>
-  <id>http://hexo.dev.pertz.eu/</id>
+        <link rel="stylesheet" href="/css/conway.css">
   
-  <author>
-    <name>Bastian Pertz</name>
+ 
+</head>
+<body>
+    <header>
+    <div id="conway">
+        <canvas></canvas>
+    </div>
+    <nav class="navbar navbar-default">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">                
+				<button class="navbar-toggler hidden-sm-up" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+					&#9776;
+				</button>
+				<div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
+					<ul class="nav navbar-nav">
+						
+
+						    
+
+						    
+
+						    
+					</ul>
+					<ul class="nav navbar-nav pull-xs-right external">
+						<li class="nav-item">
+							<a class="nav-link" href="https://github.com/samisdat" target="_blank">
+								<i class="fa fa-github"></i> <span class="hidden-md-down">GitHub</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="https://twitter.com/samisdat" target="_blank">
+								<i class="fa fa-twitter"></i> <span class="hidden-md-down">Twitter</span>
+							</a>
+						</li>
+					</ul>					
+				</div>			
+ 			</div>
+
+		</div>  
+	</div>
+</nav>
+</header>
+    <div class="wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 content">
+                    <article id="post-githubcharts.js" class="article article-type-post">
+    <time datetime="2016-06-21T17:37:59.000Z">
+        2016-06-21
+    </time>
+    <h1>
+        <a href="/githubcharts.js.html">
+            GithubCharts.js
+        </a>
+    </h1>
     
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>GithubCharts.js</title>
-    <link href="http://hexo.dev.pertz.eu/githubcharts.js.html"/>
-    <id>http://hexo.dev.pertz.eu/githubcharts.js.html</id>
-    <published>2016-06-21T17:37:59.000Z</published>
-    <updated>2016-10-10T21:55:03.000Z</updated>
-    
-    <content type="html"><![CDATA[<script src="https://d3js.org/d3.v4.js"></script>
+        <script src="https://d3js.org/d3.v4.js"></script>
 
 
 <ul class="github-chart" data-dates="2016-10-02,2016-10-03,2016-10-04,2016-10-05,2016-10-06,2016-10-07,2016-10-08,2016-10-09">
@@ -1055,119 +1103,47 @@
   </li>
 
 </ul>
-]]></content>
+
     
-    <summary type="html">
-    
-      &lt;script src=&quot;https://d3js.org/d3.v4.js&quot;&gt;&lt;/script&gt;
+</article>
+                </main>
+            </div>
+        </div>
+    </div>
+    <footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2">
+                <a href="/impressum/"><i class="fa fa-creative-commons"></i> 2016 Bastian Pertz</a><br>
+                Just a bunch of files generated with <a href="http://hexo.io/" target="_blank">hexo</a>
+            </div>            
+        </div>  
+    </div>
+</footer>
+
+<script>
+    var Samisdat = {};
+    Samisdat.Conway = {};
+</script>
 
 
-&lt;ul class=&quot;github-chart&quot; data-dates=&quot;2016-10-02,2016-10-03,2016-10-04,2016-10-05,2016-10
+    <script src="/bower_components/jquery/jquery.min.js"></script>
+    <script src="/bower_components/tether/javascripts/tether.min.js"></script>
+    <script src="/bower_components/bootstrap/javascripts/bootstrap.min.js"></script>
+    <script src="/bower_components/highlightjs/highlight.pack.min.js"></script>
+    <script src="/js/lib/rAF.js"></script>
+    <script src="/js/conway/patterns.js"></script>
+    <script src="/js/conway/cell.js"></script>
+    <script src="/js/conway/population.js"></script>
+    <script src="/js/conway/generation.js"></script>
+    <script src="/js/conway/observation.js"></script>
+    <script src="/js/conway/canvas.js"></script>
+    <script src="/js/github-charts/github-charts-fixed-labels.js"></script>
     
-    </summary>
     
-    
-  </entry>
-  
-  <entry>
-    <title>hexo-staging</title>
-    <link href="http://hexo.dev.pertz.eu/hexo-staging.html"/>
-    <id>http://hexo.dev.pertz.eu/hexo-staging.html</id>
-    <published>2016-02-03T19:57:21.000Z</published>
-    <updated>2016-09-05T19:59:20.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.</p>
-<p>Grundsätzlich hat Hexo zwei verschiedene Modi:</p>
-<ul>
-<li><a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">hexo generate</a> läuft alle Routen durch, rendert die dazugehörigen Seiten und speichert sie als statische Files auf die Platte. Die generierten Dateien laden bei mir im Live-System und werden da von einem Nginx ausgeliefert.</li>
-<li><a href="https://hexo.io/docs/server.html" target="_blank" rel="external">hexo server</a> startet einen Server und rendert dynamisch die angefragte Seite. Der Server ist etwas träge, hat aber einen Watcher und ich nutze das lokal zum Entwickeln.</li>
-</ul>
-<p>Die zwei Prozesse getrennt zu haben, ist schon praktisch, aber mir fehlte noch ein Staging mit dem ich zwischen <strong>Development</strong> und <strong>Production</strong> unterscheiden und switchen kann.
-Daher hab ich mein erstes Hexo Plugin geschrieben, dass Hexo um einen einfachen Staging-Mechanismus erweitert. </p>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Einfach nur per <strong>npm</strong> installieren:</p>
-<pre><code class="bash">cd /root/of/your/hexo/project
+    <script type='text/javascript' id="__bs_script__">//<![CDATA[
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.15.0.js'><\/script>".replace("HOST", location.hostname));
+    //]]></script>
 
-npm install hexo-staging
-</code></pre>
-<h2 id="Staging-in-der-config-yml"><a href="#Staging-in-der-config-yml" class="headerlink" title="Staging in der _config.yml"></a>Staging in der _config.yml</h2><p>In der Config fügt mal einen neues <strong>Stagings</strong> ein; darin pro Staging die Einstellungen, die für das Staging geändert werden sollen.
-Die Staging Namen sind überigens egal; ich benutze <strong>production</strong> und <strong>development</strong>.  </p>
-<pre><code class="yaml">title: &quot;Samisdat&quot;
-url: &quot;http://example.com&quot;
-
-stagings:
-  development:
-    title: &quot;Samisdat Dev&quot;
-    url: &quot;http://example.local&quot;
-</code></pre>
-<p>Ob die Einstellungen korrekt sind, läßt sich leicht testen:</p>
-<pre><code class="bash">hexo config url
-#http://example.com
-</code></pre>
-<p>Per Parameter läßt sich das jeweilige Staging aktivieren und dann sollten auch die Einstellungen ensprechen überschrieben sein.</p>
-<pre><code class="bash">hexo config url --staging development
-#http://example.local
-</code></pre>
-<p>Folgende Hexo Befehle akzeptieren ein Staging per Parameter</p>
-<pre><code class="bash">hexo config
-hexo deploy
-hexo generate
-hexo server
-</code></pre>
-<h2 id="Conditional-Tag"><a href="#Conditional-Tag" class="headerlink" title="Conditional Tag"></a>Conditional Tag</h2><p>Außer den stagebaren Einstellungen bringt das Plugin noch ein neues Conditional Tag für die Templates mit:</p>
-<pre><code class="ejs">&lt;% if (true === is_staging(&quot;development&quot;)){ %&gt;
-    &lt;%- css(&#39;style.css&#39;) %&gt;
-&lt;% } else { %&gt;        
-    &lt;%- css(&#39;style.min.css&#39;) %&gt;
-&lt;% } %&gt;
-</code></pre>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.&lt;/p&gt;
-&lt;p&gt;Grundsätzlich hat Hexo zwei versch
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>Once again - Diesmal mit Hexo.io</title>
-    <link href="http://hexo.dev.pertz.eu/once-again.html"/>
-    <id>http://hexo.dev.pertz.eu/once-again.html</id>
-    <published>2015-11-28T22:30:42.000Z</published>
-    <updated>2016-09-05T19:59:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<div class="img third right"><img src="https://img.samisdat.org/resize/width/245/https://pbs.twimg.com/profile_images/476729162707644418/mQZOTo9f.png" class="img-responsive" alt="Hexo Logo"></div>
-
-<p>Nachdem ich jahrelang weder Lust noch Zeit hatte, um hier was zu schrieben, habe ich zumindest wieder Lust bekommen.</p>
-<p>Die vorherige Inkarnation von samisdat.org wurde von Textpattern angetrieben.
-Da ich mich in letzter Zeit intensiv mit NodeJS beschäftigt habe, war klar, dass ich von PHP weg wollte.</p>
-<h2 id="Ghost"><a href="#Ghost" class="headerlink" title="Ghost"></a>Ghost</h2><p>Viel erwartet hatte ich da von Ghost und ich hab das Projekt auch mit gebacked, aber so richtig überzeugend ist das nicht aus den Startlöchern gekommen:</p>
-<ul>
-<li>Viel Ressourcen scheinen durch die <a href="https://ghost.org/pricing/" target="_blank" rel="external">Ghost Plattform</a> mit gehosteten Blogs gebunden zu sein</li>
-<li>Das Dashboard war eines der Features, dass auf Kickstarter prominent hervorgehoben wurde und das mir richtig gut gefallen hat. Aber das ist mitterweile komplett aus dem Projekt <a href="https://blog.ghost.org/year-2/#thedashboard" target="_blank" rel="external">gekickt worden</a></li>
-<li>Plugins werden offensichtlich mit <a href="https://github.com/TryGhost/Ghost-App" target="_blank" rel="external">sehr niedriger Prio</a> vorangebracht und funktionieren im wesentlichen noch nicht</li>
-</ul>
-<p>Ich hab einige Abende in Ghost versenkt, bevor ich es beiseite gelegt habe und mich nach was anderem umgesehen habe. </p>
-<p>So richtig dick gesäht sind NodeJs Blog-Engines noch nicht, aber bei der Suche bin ich auf Hexo.io gestoßen.</p>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p><a href="https://hexo.io" target="_blank" rel="external">Hexo</a> nimmt Markdown Posts und Templates von der Platte, parst beides zusammen und generiert daraus einfach statische HTML Seiten, die ich dann von einem Nginx ausliefern lassen. 
-Hexo könnte sich sogar selber um das Deployen der Seiten kümmern. </p>
-<p>Und zum lokalen Entwickeln bringt hexo noch eine Server-Komponete mit, die das Markdown &amp; Templates live zusammenbringt.</p>
-<p>Das macht nach den ersten Wochen rumspielen einen recht soliden Eindruck und vor allem kann ich mich an allen möglichen Stellen in Hexo reinhängen und Verhalten anpassen oder erweitern. </p>
-<h2 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h2><p>Da ich sowieso weiß, dass ich nicht mit dem Layout oder dem Code dieser Seite zufrieden sein werde, habe ich beschlossen <del>zu versuchen</del>, dass zu akzeptieren oder zumindest zu tolerieren.</p>
-<p>Diesmal ist der Plan, lieber heute eine Seite heute als morgen eine bessere.
-Daher hab ich auf meiner Platte geguckt, was da so rum liegt und das <a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank" rel="external">Conway-Script</a> aus dem Header war schon ziemlich weit; darum hab ich dann noch ein bißchen Bootstrap gerotzt und das ist jetzt erstmal die 0.1.0.</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;img third right&quot;&gt;&lt;img src=&quot;https://img.samisdat.org/resize/width/245/https://pbs.twimg.com/profile_images/476729162707644418/mQZ
-    
-    </summary>
-    
-    
-  </entry>
-  
-</feed>
+</body>
+</html>

@@ -41,6 +41,11 @@
             width: undefined
         };
 
+        var bgColors = {
+            dark: undefined,
+            light: undefined
+        };
+
         var render = function() {
 
             var populationPos = {
@@ -48,16 +53,11 @@
                 left: Math.floor(visibile.collums / 2)
             };
 
-            canvas.ctx.fillStyle = '#c5cf9c';
+            canvas.ctx.fillStyle = bgColors.dark;
             canvas.ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // lighten main column a little
-            canvas.ctx.fillStyle = '#d2daab';
+            canvas.ctx.fillStyle = bgColors.light;
             canvas.ctx.fillRect(main.offsetLeft, 0, main.width, canvas.height);
-
-            // lighten aside column a little more
-            canvas.ctx.fillStyle = '#e0e5c4';
-            canvas.ctx.fillRect(aside.offsetLeft, 0, aside.width, canvas.height);
 
             for (var row = 0; row < visibile.rows; row += 1) {
                 for (var column = 0; column < visibile.collums; column += 1) {
@@ -119,7 +119,7 @@
                 return;
             }
 
-            requestAnimationFrame(loop);
+            //requestAnimationFrame(loop);
         };
 
         $('#conway').on('invisible', function(evt, data){
@@ -178,6 +178,8 @@
                 return false;
             }
 
+            $canvas.find('canvas').css('opacity', 1);
+
             canvas.ctx = $canvas.find('canvas').get(0).getContext('2d');
 
             if (!canvas.ctx) {
@@ -192,13 +194,15 @@
 
         var getColumns = function(){
 
-            main.offsetLeft = $('header .row').offset().left;
-            main.width = parseInt($('header .col-md-4').css('margin-left'), 10);
-            aside.offsetLeft = $('header .col-md-4').offset().left;
-            aside.width = $('header .col-md-4').width() + parseInt($('header .col-md-4').css('padding-left'), 10) + parseInt($('header .col-md-4').css('padding-right'), 10);
+            main.offsetLeft = $('nav .col-md-8').offset().left;
+            main.width = $('nav .col-md-8').outerWidth();
         };
 
         var ready = function() {
+
+            bgColors.dark = $('#conway').css('background-color');
+            bgColors.light = $('#conway canvas').css('background-color');
+
             getColumns();
             $(window).resize(getColumns);
 

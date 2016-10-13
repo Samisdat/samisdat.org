@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       
-  <title>hexo-staging | Samisdat Development</title>
+  <title>Archives: 2016/6 | Samisdat Development</title>
   
   <link rel="alternate" href="/rss.xml" title="Samisdat Development" type="application/rss+xml">
   <link rel="icon" href="/favicon.ico">
@@ -60,63 +60,35 @@
         <div class="container">
             <div class="row">
                 <main class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 content">
-                    <article id="post-hexo-staging" class="article article-type-post">
-    <time datetime="2016-02-03T19:57:21.000Z">
-        2016-02-03
-    </time>
+                    
+  
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2016" class="archive-year">2016</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
     <h1>
-        <a href="/hexo-staging.html">
-            hexo-staging
+        <a href="/githubcharts.js.html">
+            GithubCharts.js
         </a>
     </h1>
-    
-        <p>Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.</p>
-<p>Grundsätzlich hat Hexo zwei verschiedene Modi:</p>
-<ul>
-<li><a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">hexo generate</a> läuft alle Routen durch, rendert die dazugehörigen Seiten und speichert sie als statische Files auf die Platte. Die generierten Dateien laden bei mir im Live-System und werden da von einem Nginx ausgeliefert.</li>
-<li><a href="https://hexo.io/docs/server.html" target="_blank" rel="external">hexo server</a> startet einen Server und rendert dynamisch die angefragte Seite. Der Server ist etwas träge, hat aber einen Watcher und ich nutze das lokal zum Entwickeln.</li>
-</ul>
-<p>Die zwei Prozesse getrennt zu haben, ist schon praktisch, aber mir fehlte noch ein Staging mit dem ich zwischen <strong>Development</strong> und <strong>Production</strong> unterscheiden und switchen kann.
-Daher hab ich mein erstes Hexo Plugin geschrieben, dass Hexo um einen einfachen Staging-Mechanismus erweitert. </p>
-<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>Einfach nur per <strong>npm</strong> installieren:</p>
-<pre><code class="bash">cd /root/of/your/hexo/project
-
-npm install hexo-staging
-</code></pre>
-<h2 id="Staging-in-der-config-yml"><a href="#Staging-in-der-config-yml" class="headerlink" title="Staging in der _config.yml"></a>Staging in der _config.yml</h2><p>In der Config fügt mal einen neues <strong>Stagings</strong> ein; darin pro Staging die Einstellungen, die für das Staging geändert werden sollen.
-Die Staging Namen sind überigens egal; ich benutze <strong>production</strong> und <strong>development</strong>.  </p>
-<pre><code class="yaml">title: &quot;Samisdat&quot;
-url: &quot;http://example.com&quot;
-
-stagings:
-  development:
-    title: &quot;Samisdat Dev&quot;
-    url: &quot;http://example.local&quot;
-</code></pre>
-<p>Ob die Einstellungen korrekt sind, läßt sich leicht testen:</p>
-<pre><code class="bash">hexo config url
-#http://example.com
-</code></pre>
-<p>Per Parameter läßt sich das jeweilige Staging aktivieren und dann sollten auch die Einstellungen ensprechen überschrieben sein.</p>
-<pre><code class="bash">hexo config url --staging development
-#http://example.local
-</code></pre>
-<p>Folgende Hexo Befehle akzeptieren ein Staging per Parameter</p>
-<pre><code class="bash">hexo config
-hexo deploy
-hexo generate
-hexo server
-</code></pre>
-<h2 id="Conditional-Tag"><a href="#Conditional-Tag" class="headerlink" title="Conditional Tag"></a>Conditional Tag</h2><p>Außer den stagebaren Einstellungen bringt das Plugin noch ein neues Conditional Tag für die Templates mit:</p>
-<pre><code class="ejs">&lt;% if (true === is_staging(&quot;development&quot;)){ %&gt;
-    &lt;%- css(&#39;style.css&#39;) %&gt;
-&lt;% } else { %&gt;        
-    &lt;%- css(&#39;style.min.css&#39;) %&gt;
-&lt;% } %&gt;
-</code></pre>
-
-    
+        <time datetime="2016-06-21T17:37:59.000Z" itemprop="datePublished">
+            2016-06-21
+        </time>
+        
 </article>
+  
+  
+    </div></section>
+  
+
                 </main>
             </div>
         </div>
