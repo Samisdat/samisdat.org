@@ -4,14 +4,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       
-  <title>Archives: 2016/2 | Samisdat Development</title>
+  <title>Archives: 2016/2 | Samisdat</title>
   
-  <link rel="alternate" href="/rss.xml" title="Samisdat Development" type="application/rss+xml">
+  <link rel="alternate" href="/rss.xml" title="Samisdat" type="application/rss+xml">
   <link rel="icon" href="/favicon.ico">
  
   <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700%7CSource+Sans+Pro:400,500,700' rel='stylesheet' type='text/css'>
-  
-        <link rel="stylesheet" href="/css/conway.css">
+          
+        <link rel="stylesheet" href="/css/conway.min.css">
   
  
 </head>
@@ -109,24 +109,24 @@
     Samisdat.Conway = {};
 </script>
 
-
-    <script src="/bower_components/jquery/jquery.min.js"></script>
-    <script src="/bower_components/tether/javascripts/tether.min.js"></script>
-    <script src="/bower_components/bootstrap/javascripts/bootstrap.min.js"></script>
-    <script src="/bower_components/highlightjs/highlight.pack.min.js"></script>
-    <script src="/js/lib/rAF.js"></script>
-    <script src="/js/conway/patterns.js"></script>
-    <script src="/js/conway/cell.js"></script>
-    <script src="/js/conway/population.js"></script>
-    <script src="/js/conway/generation.js"></script>
-    <script src="/js/conway/observation.js"></script>
-    <script src="/js/conway/canvas.js"></script>
-    <script src="/js/github-charts/github-charts-fixed-labels.js"></script>
-    
-    
-    <script type='text/javascript' id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.15.0.js'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
+        
+    <script src="/js/conway.js"></script>
+    <!-- Piwik -->
+    <script type="text/javascript">
+    var _paq = _paq || [];
+    _paq.push(["setDomains", ["*.samisdat.org"]]);
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+        var u="//piwik.samisdat.org/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 2]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+    })();
+    </script>
+    <noscript><p><img src="//piwik.samisdat.org/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
+    <!-- End Piwik Code -->
 
 </body>
 </html>
