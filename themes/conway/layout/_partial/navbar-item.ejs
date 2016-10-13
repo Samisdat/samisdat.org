@@ -1,0 +1,15 @@
+<% if(undefined === item.children){ %>
+    <li class="nav-item">
+        <a class="nav-link" href="<%- item.url %>"><%- item.text %></a>
+    </li>
+<% } else{ %>
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="<%- item.url %>"><%- item.text %></a>
+        <div class="dropdown-menu">
+            <% item.children.forEach(function(child){ %>
+                <a class="dropdown-item" href="<%- child.url %>"><%- child.text %></a>
+            <% }) %>
+        </div>        
+    </li>
+<% } %>
+

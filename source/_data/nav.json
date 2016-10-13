@@ -1,0 +1,27 @@
+[
+	{
+		"skip": true,
+		"text": "Blog",
+		"url": "/"
+	},
+	{
+		"skip": true,
+		"text": "Projekte",
+		"url": "/projekts",
+		"children":[
+			{
+				"text": "Hexo Staging",
+				"url": "/"
+			},
+			{
+				"text": "Liquid scaling",
+				"url": "/"
+			}
+		]
+	},
+	{
+		"skip": true,		
+		"text": "About",
+		"url": "/about"
+	}
+]

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Samisdat</title>
+  
+  <link href="/rss.xml" rel="self"/>
+  
+  <link href="http://samisdat.org/"/>
+  <updated>2016-02-11T22:13:32.000Z</updated>
+  <id>http://samisdat.org/</id>
+  
+  <author>
+    <name>Bastian Pertz</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>hexo-staging</title>
+    <link href="http://samisdat.org/hexo-staging.html"/>
+    <id>http://samisdat.org/hexo-staging.html</id>
+    <published>2016-02-03T19:57:21.000Z</published>
+    <updated>2016-02-11T22:13:32.000Z</updated>
+    
+    <content type="html">&lt;p&gt;Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.&lt;/p&gt;
+&lt;p&gt;Grundsätzlich hat Hexo zwei verschiedene Modi:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo generate&lt;/a&gt; läuft alle Routen durch, rendert die dazugehörigen Seiten und speichert sie als statische Files auf die Platte. Die generierten Dateien laden bei mir im Live-System und werden da von einem Nginx ausgeliefert.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;hexo server&lt;/a&gt; startet einen Server und rendert dynamisch die angefragte Seite. Der Server ist etwas träge, hat aber einen Watcher und ich nutze das lokal zum Entwickeln.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Die zwei Prozesse getrennt zu haben, ist schon praktisch, aber mir fehlte noch ein Staging mit dem ich zwischen &lt;strong&gt;Development&lt;/strong&gt; und &lt;strong&gt;Production&lt;/strong&gt; unterscheiden und switchen kann.&lt;br&gt;Daher hab ich mein erstes Hexo Plugin geschrieben, dass Hexo um einen einfachen Staging-Mechanismus erweitert. &lt;/p&gt;
+&lt;h2 id=&quot;Installation&quot;&gt;Installation&lt;/h2&gt;&lt;p&gt;Einfach nur per &lt;strong&gt;npm&lt;/strong&gt; installieren:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;cd /root/of/your/hexo/project
+
+npm install hexo-staging
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;Staging_in_der__config-yml&quot;&gt;Staging in der _config.yml&lt;/h2&gt;&lt;p&gt;In der Config fügt mal einen neues &lt;strong&gt;Stagings&lt;/strong&gt; ein; darin pro Staging die Einstellungen, die für das Staging geändert werden sollen.&lt;br&gt;Die Staging Namen sind überigens egal; ich benutze &lt;strong&gt;production&lt;/strong&gt; und &lt;strong&gt;development&lt;/strong&gt;.  &lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;yaml&quot;&gt;title: &amp;quot;Samisdat&amp;quot;
+url: &amp;quot;http://example.com&amp;quot;
+
+stagings:
+  development:
+    title: &amp;quot;Samisdat Dev&amp;quot;
+    url: &amp;quot;http://example.local&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Ob die Einstellungen korrekt sind, läßt sich leicht testen:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;hexo config url
+#http://example.com
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Per Parameter läßt sich das jeweilige Staging aktivieren und dann sollten auch die Einstellungen ensprechen überschrieben sein.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;hexo config url --staging development
+#http://example.local
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Folgende Hexo Befehle akzeptieren ein Staging per Parameter&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;hexo config
+hexo deploy
+hexo generate
+hexo server
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&quot;Conditional_Tag&quot;&gt;Conditional Tag&lt;/h2&gt;&lt;p&gt;Außer den stagebaren Einstellungen bringt das Plugin noch ein neues Conditional Tag für die Templates mit:&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&quot;ejs&quot;&gt;&amp;lt;% if (true === is_staging(&amp;quot;development&amp;quot;)){ %&amp;gt;
+    &amp;lt;%- css(&amp;#39;style.css&amp;#39;) %&amp;gt;
+&amp;lt;% } else { %&amp;gt;        
+    &amp;lt;%- css(&amp;#39;style.min.css&amp;#39;) %&amp;gt;
+&amp;lt;% } %&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.&lt;/p&gt;
+&lt;p&gt;Grundsätzlich hat Hexo zwei versch
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Once again - Diesmal mit Hexo.io</title>
+    <link href="http://samisdat.org/once-again.html"/>
+    <id>http://samisdat.org/once-again.html</id>
+    <published>2015-11-28T22:30:42.000Z</published>
+    <updated>2016-02-11T22:13:32.000Z</updated>
+    
+    <content type="html">&lt;div class=&quot;img third right&quot;&gt;&lt;img src=&quot;https://img.samisdat.org/resize/width/245/https://pbs.twimg.com/profile_images/476729162707644418/mQZOTo9f.png&quot; class=&quot;img-responsive&quot; alt=&quot;Hexo Logo&quot;&gt;&lt;/div&gt;
+
+&lt;p&gt;Nachdem ich jahrelang weder Lust noch Zeit hatte, um hier was zu schrieben, habe ich zumindest wieder Lust bekommen.&lt;/p&gt;
+&lt;p&gt;Die vorherige Inkarnation von samisdat.org wurde von Textpattern angetrieben.&lt;br&gt;Da ich mich in letzter Zeit intensiv mit NodeJS beschäftigt habe, war klar, dass ich von PHP weg wollte.&lt;/p&gt;
+&lt;h2 id=&quot;Ghost&quot;&gt;Ghost&lt;/h2&gt;&lt;p&gt;Viel erwartet hatte ich da von Ghost und ich hab das Projekt auch mit gebacked, aber so richtig überzeugend ist das nicht aus den Startlöchern gekommen:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Viel Ressourcen scheinen durch die &lt;a href=&quot;https://ghost.org/pricing/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Ghost Plattform&lt;/a&gt; mit gehosteten Blogs gebunden zu sein&lt;/li&gt;
+&lt;li&gt;Das Dashboard war eines der Features, dass auf Kickstarter prominent hervorgehoben wurde und das mir richtig gut gefallen hat. Aber das ist mitterweile komplett aus dem Projekt &lt;a href=&quot;https://blog.ghost.org/year-2/#thedashboard&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;gekickt worden&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Plugins werden offensichtlich mit &lt;a href=&quot;https://github.com/TryGhost/Ghost-App&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;sehr niedriger Prio&lt;/a&gt; vorangebracht und funktionieren im wesentlichen noch nicht&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ich hab einige Abende in Ghost versenkt, bevor ich es beiseite gelegt habe und mich nach was anderem umgesehen habe. &lt;/p&gt;
+&lt;p&gt;So richtig dick gesäht sind NodeJs Blog-Engines noch nicht, aber bei der Suche bin ich auf Hexo.io gestoßen.&lt;/p&gt;
+&lt;h2 id=&quot;Hexo&quot;&gt;Hexo&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://hexo.io&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt; nimmt Markdown Posts und das Templates von der Platte, parst beides zusammen und generiert daraus einfach statische HTML Seiten, die ich dann von einem Nginx ausliefern lassen.&lt;br&gt;Hexo kann sich sogar selber um das Deployen auf verschiendenen Wegen der Seiten kümmern. &lt;/p&gt;
+&lt;p&gt;Zum lokalen Entwickeln bringt hexo noch eine Server-Komponete mit, die das Markdown &amp;amp; Templates live zusammenbringt.&lt;/p&gt;
+&lt;p&gt;Das macht nach den ersten Wochen rumspielen einen recht soliden Eindruck und vor allem kann ich mich an allen möglichen Stellen in Hexo reinhängen und Verhalten anpassen oder erweitern. &lt;/p&gt;
+&lt;h2 id=&quot;Layout&quot;&gt;Layout&lt;/h2&gt;&lt;p&gt;Da ich sowieso weiß, dass ich nicht mit dem Layout oder dem Code dieser Seite zufrienden sein werde, habe ich beschlossen &lt;del&gt;zu versuchen&lt;/del&gt;, dass zu akzeptieren oder zumindest zu tolerieren.&lt;/p&gt;
+&lt;p&gt;Diesmal ist der Plan, lieber heute eine Seite heute als morgen eine bessere.&lt;br&gt;Daher hab ich auf meiner Platte geguckt, was da so rum liegt und das &lt;a href=&quot;https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Conway-Script&lt;/a&gt; aus dem Header war schon ziemlich weit; darum hab ich dann noch ein bißchen Bootstrap gerotzt und das ist jetzt erstmal die 0.1.0.&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;img third right&quot;&gt;&lt;img src=&quot;https://img.samisdat.org/resize/width/245/https://pbs.twimg.com/profile_images/476729162707644418/mQZ
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
