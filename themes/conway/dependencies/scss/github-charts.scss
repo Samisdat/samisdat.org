@@ -1,0 +1,123 @@
+.github-chart{
+    border:1px solid green;
+    list-style: none;
+    padding: 0px;
+
+    li{
+        list-style: none;
+
+        a.github-repo{
+            color:#6693cd;
+            font-weight: bold;
+            .prefix,
+            .slash{
+                font-weight: normal;
+            }
+        }
+    }
+
+
+}
+
+.github-chart-wrap{
+    svg{
+        width:100%;
+    }
+
+    text {
+
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+
+    .line {
+      fill: none;
+      stroke-width: 2.5px;
+    }
+
+    .label, .tooltip-label {
+      text-anchor: end;
+    }
+    .label text
+    .tooltip-label text
+    {
+      cursor: pointer;
+    }
+
+    .label rect,
+    .tooltip-label rect
+    {
+      fill: white;
+      opacity: 0.7;
+    }
+
+    .label-key {
+      font-weight: bold;
+      text-align: right;
+      width: 100px;
+    }
+
+    line.inlineAxis{ 
+
+        stroke: white;  
+        fill: none;
+        stroke-width: 1px;
+    }    
+
+   .focusCircle {
+        /*fill: red;*/
+    }
+
+    .axis-bg{
+        fill: #f5f5f5;
+        &.even,&.date-label{
+            fill: #f5f5f5;
+        }
+
+        g.axis-bg-date-label{
+            rect.axis-bg-date-bar{
+                fill: darken(#f5f5f5, 10);
+            }
+            rect.axis-bg-date-text-bg{
+                opacity: 0;                    
+            }
+
+            &.active{
+                rect.axis-bg-date-bar{
+                    fill: lighten(#f5f5f5, 60);
+                }
+                rect.axis-bg-date-text-bg{
+                    fill: lighten(#f5f5f5, 60);                    
+                    stroke: darken(#f5f5f5, 10);
+                    stroke-width: 1px;                    
+                    opacity: 1;                    
+                }
+            }
+
+
+            text{
+                font-size: 12px;
+                opacity: 0;
+
+                fill: black;
+                text-anchor: middle;
+            }
+            &:first-of-type text{
+                text-anchor: start;
+            }
+            &:last-child text{
+                text-anchor: end;
+            }
+
+            &.active text{
+                opacity: 1;
+            }
+
+        }
+    }
+}

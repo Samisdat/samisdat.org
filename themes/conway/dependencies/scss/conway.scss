@@ -1,0 +1,31 @@
+$green: #C5CF9C;
+$lila: #807c8e;
+$grey: #D7D7D7;
+
+@import "bootstrap";
+@import "font_awesome";
+@import "highlightjs";
+
+//@import "navbar";
+@import "header";
+@import "main";
+@import "github-charts";
+@import "footer";
+
+body {
+    margin: 0;
+    background: $grey;
+    text-transform: lowercase;
+    font-weight: 200;
+}
+
+.wrap {
+    position: relative;
+    top:0;
+    z-index: 1;
+    background: $grey;
+}
+main{
+    background:mix($grey, #fff, 60%);
+    padding-top:$grid-gutter-width/2;
+}

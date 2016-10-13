@@ -1,0 +1,49 @@
+header{
+        
+    margin-top:200px;
+    width:100%;
+
+    #conway{
+        position: fixed;
+        top: 0px;
+        width: 100%;
+        z-index: -1;
+        height: 200px;
+        background: #c5cf9c;
+
+        canvas{
+            background:mix(#c5cf9c, #fff, 60%);            
+            opacity: 0;
+        }
+    }
+    #conway.invisible {
+        position: absolute;
+        left:0px;
+    }
+
+    .navbar{
+        background: $lila;
+        padding: 0;
+
+        a{
+            color:#201d2c;
+            .fa{
+                width:18px;
+            }
+        }
+        a:hover{
+            color:lighten(#201d2c, 20%);
+        }
+
+        .navbar-nav.external .nav-item:first-child{
+            margin-left: $grid-gutter-width/2;
+        }
+
+        .row > div{
+            background:mix($lila, #fff, 80%);
+            @include media-breakpoint-down('sm') {
+              background:$lila;
+            }        
+        }
+    }    
+}
