@@ -4,9 +4,9 @@
   
   <link href="/rss.xml" rel="self"/>
   
-  <link href="http://samisdat.org/"/>
-  <updated>2016-10-19T20:54:37.000Z</updated>
-  <id>http://samisdat.org/</id>
+  <link href="https://samisdat.org/"/>
+  <updated>2016-10-19T21:22:44.000Z</updated>
+  <id>https://samisdat.org/</id>
   
   <author>
     <name>Bastian Pertz</name>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Github Trending Javascript - Vom 12.10 bis zum 19.10.2016</title>
-    <link href="http://samisdat.org/githubcharts.js.html"/>
-    <id>http://samisdat.org/githubcharts.js.html</id>
-    <published>2016-10-13T17:37:59.000Z</published>
-    <updated>2016-10-19T20:54:37.000Z</updated>
+    <link href="https://samisdat.org/githubcharts.js.html"/>
+    <id>https://samisdat.org/githubcharts.js.html</id>
+    <published>2016-10-19T17:37:59.000Z</published>
+    <updated>2016-10-19T21:22:44.000Z</updated>
     
     <content type="html"><![CDATA[<script src="https://d3js.org/d3.v4.js"></script>
 
@@ -274,10 +274,10 @@
   
   <entry>
     <title>hexo-staging</title>
-    <link href="http://samisdat.org/hexo-staging.html"/>
-    <id>http://samisdat.org/hexo-staging.html</id>
+    <link href="https://samisdat.org/hexo-staging.html"/>
+    <id>https://samisdat.org/hexo-staging.html</id>
     <published>2016-02-03T19:57:21.000Z</published>
-    <updated>2016-09-05T19:59:20.000Z</updated>
+    <updated>2016-10-19T20:37:19.000Z</updated>
     
     <content type="html"><![CDATA[<p>Mit Rum- und Ausprobieren und ein Doku-Lesen bin ich mit mich Hexo schon relativ weit gekommen.</p>
 <p>Grundsätzlich hat Hexo zwei verschiedene Modi:</p>
@@ -337,8 +337,8 @@ hexo server
   
   <entry>
     <title>Once again - Diesmal mit Hexo.io</title>
-    <link href="http://samisdat.org/once-again.html"/>
-    <id>http://samisdat.org/once-again.html</id>
+    <link href="https://samisdat.org/once-again.html"/>
+    <id>https://samisdat.org/once-again.html</id>
     <published>2015-11-28T22:30:42.000Z</published>
     <updated>2016-10-13T21:04:44.000Z</updated>
     
