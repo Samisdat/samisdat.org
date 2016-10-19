@@ -1,5 +1,5 @@
 title: Github Trending Javascript - Vom 12.10 bis zum 19.10.2016
-date: 2016-10-13 19:37:59
+date: 2016-10-19 19:37:59
 teaser: |+ 
     <p>Auf <a href="https://github.com/">github</a> gibt es unter <a href="https://github.com/trending/">GitHub Trending</a> quasi <em>die</em> OpenSource-Charts.</p>
 
