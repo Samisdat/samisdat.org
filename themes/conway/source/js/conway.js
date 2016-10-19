@@ -1538,6 +1538,7 @@ literal:"ip eip rip al ah bl bh cl ch dl dh sil dil bpl spl r8b r9b r10b r11b r1
 		var fixed = false;
 
 		var scroll = function(){
+
 			
 			var scrollTop = $(window).scrollTop();
 

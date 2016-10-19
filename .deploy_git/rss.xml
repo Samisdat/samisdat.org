@@ -5,7 +5,7 @@
   <link href="/rss.xml" rel="self"/>
   
   <link href="http://samisdat.org/"/>
-  <updated>2016-10-13T21:04:44.000Z</updated>
+  <updated>2016-10-19T20:54:37.000Z</updated>
   <id>http://samisdat.org/</id>
   
   <author>
@@ -16,279 +16,243 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Github Trending Javascript - Vom 5.10 bis zum 13.10.2016</title>
+    <title>Github Trending Javascript - Vom 12.10 bis zum 19.10.2016</title>
     <link href="http://samisdat.org/githubcharts.js.html"/>
     <id>http://samisdat.org/githubcharts.js.html</id>
     <published>2016-10-13T17:37:59.000Z</published>
-    <updated>2016-10-13T21:04:44.000Z</updated>
+    <updated>2016-10-19T20:54:37.000Z</updated>
     
     <content type="html"><![CDATA[<script src="https://d3js.org/d3.v4.js"></script>
 
 
-<ul class="github-chart" data-dates="2016-10-06,2016-10-07,2016-10-08,2016-10-09,2016-10-10,2016-10-11,2016-10-12,2016-10-13">
+<ul class="github-chart" data-dates="2016-10-12,2016-10-13,2016-10-14,2016-10-15,2016-10-16,2016-10-17,2016-10-18,2016-10-19">
 
 
-  <li data-positions=",,,,,1,1,1" data-stars=",,,,,4218,10355,12441">
-      <a class="github-repo" href="https://github.com//yarnpkg/yarn" target="_blank" rel="external">
-        yarnpkg/yarn
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,4,2" data-stars=",,,,,,1554,4393">
+  <li data-positions="4,2,2,2,2,2,2,1" data-stars="1554,4612,5876,6455,6826,7596,8258,8104">
       <a class="github-repo" href="https://github.com//naptha/tesseract.js" target="_blank" rel="external">
         naptha/tesseract.js
       </a>
   </li>
 
-  <li data-positions="1,1,1,1,1,2,2,3" data-stars="2476,2466,2497,2582,2762,2907,2930,2973">
+  <li data-positions="1,1,1,1,1,1,1,2" data-stars="10355,12604,13670,14120,14428,15062,12228,6228">
+      <a class="github-repo" href="https://github.com//yarnpkg/yarn" target="_blank" rel="external">
+        yarnpkg/yarn
+      </a>
+  </li>
+
+  <li data-positions="2,3,3,3,3,3,3,3" data-stars="2930,2986,3019,3000,2980,2901,2810,2819">
       <a class="github-repo" href="https://github.com//FreeCodeCamp/FreeCodeCamp" target="_blank" rel="external">
         FreeCodeCamp/FreeCodeCamp
       </a>
   </li>
 
-  <li data-positions=",,,21,7,5,5,4" data-stars=",,,274,639,1124,1337,1413">
-      <a class="github-repo" href="https://github.com//jiahaog/nativefier" target="_blank" rel="external">
-        jiahaog/nativefier
-      </a>
-  </li>
-
-  <li data-positions="4,2,2,2,2,3,3,5" data-stars="703,1089,1314,1477,1667,1815,1723,1279">
-      <a class="github-repo" href="https://github.com//wulkano/kap" target="_blank" rel="external">
-        wulkano/kap
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,8,6" data-stars=",,,,,,730,1031">
-      <a class="github-repo" href="https://github.com//airen/DemoHouse" target="_blank" rel="external">
-        airen/DemoHouse
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,23,7" data-stars=",,,,,,291,1083">
+  <li data-positions="23,6,4,4,4,4,4,4" data-stars="291,1134,1506,1651,1736,1895,1948,1931">
       <a class="github-repo" href="https://github.com//FormidableLabs/nodejs-dashboard" target="_blank" rel="external">
         FormidableLabs/nodejs-dashboard
       </a>
   </li>
 
-  <li data-positions="3,4,5,5,4,6,7,8" data-stars="843,864,836,923,944,963,983,1000">
-      <a class="github-repo" href="https://github.com//vuejs/vue" target="_blank" rel="external">
-        vuejs/vue
+  <li data-positions="8,7,7,7,6,6,6,5" data-stars="730,1039,1177,1260,1316,1381,1516,1785">
+      <a class="github-repo" href="https://github.com//airen/DemoHouse" target="_blank" rel="external">
+        airen/DemoHouse
       </a>
   </li>
 
-  <li data-positions="8,5,4,3,3,4,6,9" data-stars="547,797,938,1069,1184,1302,1192,989">
-      <a class="github-repo" href="https://github.com//dempfi/ayu" target="_blank" rel="external">
-        dempfi/ayu
-      </a>
-  </li>
-
-  <li data-positions=",,,,,11,11,10" data-stars=",,,,,498,599,701">
-      <a class="github-repo" href="https://github.com//verekia/js-stack-from-scratch" target="_blank" rel="external">
-        verekia/js-stack-from-scratch
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,,11" data-stars=",,,,,,,647">
-      <a class="github-repo" href="https://github.com//justjavac/awesome-wechat-weapp" target="_blank" rel="external">
-        justjavac/awesome-wechat-weapp
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,,12" data-stars=",,,,,,,674">
+  <li data-positions=",10,6,6,5,5,5,6" data-stars=",813,1310,1443,1518,1632,1685,1722">
       <a class="github-repo" href="https://github.com//styled-components/styled-components" target="_blank" rel="external">
         styled-components/styled-components
       </a>
   </li>
 
-  <li data-positions=",,14,9,11,9,9,13" data-stars=",,333,447,566,603,635,668">
-      <a class="github-repo" href="https://github.com//web-pal/DBGlass" target="_blank" rel="external">
-        web-pal/DBGlass
+  <li data-positions="11,11,10,10,10,9,7,7" data-stars="599,703,744,756,814,864,969,964">
+      <a class="github-repo" href="https://github.com//verekia/js-stack-from-scratch" target="_blank" rel="external">
+        verekia/js-stack-from-scratch
       </a>
   </li>
 
-  <li data-positions="7,7,7,7,9,8,10,14" data-stars="564,520,530,535,536,557,576,603">
-      <a class="github-repo" href="https://github.com//facebook/react" target="_blank" rel="external">
-        facebook/react
+  <li data-positions=",,13,9,8,8,8,8" data-stars=",,640,791,800,850,869,852">
+      <a class="github-repo" href="https://github.com//sentsin/layui" target="_blank" rel="external">
+        sentsin/layui
       </a>
   </li>
 
-  <li data-positions="6,6,6,6,6,7,12,15" data-stars="626,639,655,650,632,600,562,539">
-      <a class="github-repo" href="https://github.com//facebookincubator/create-react-app" target="_blank" rel="external">
-        facebookincubator/create-react-app
+  <li data-positions=",,,19,18,13,12,9" data-stars=",,,374,471,600,696,737">
+      <a class="github-repo" href="https://github.com//mikeal/roll-call" target="_blank" rel="external">
+        mikeal/roll-call
       </a>
   </li>
 
-  <li data-positions=",,,,24,21,14,16" data-stars=",,,,213,246,396,554">
-      <a class="github-repo" href="https://github.com//serverless/serverless" target="_blank" rel="external">
-        serverless/serverless
+  <li data-positions="7,8,8,8,9,10,9,10" data-stars="983,997,993,912,788,739,688,646">
+      <a class="github-repo" href="https://github.com//vuejs/vue" target="_blank" rel="external">
+        vuejs/vue
       </a>
   </li>
 
-  <li data-positions="15,12,11,10,12,12,13,17" data-stars="257,250,283,288,308,328,364,368">
-      <a class="github-repo" href="https://github.com//twbs/bootstrap" target="_blank" rel="external">
-        twbs/bootstrap
-      </a>
-  </li>
-
-  <li data-positions="17,14,15,14,14,14,15,18" data-stars="274,284,287,301,320,331,330,328">
-      <a class="github-repo" href="https://github.com//airbnb/javascript" target="_blank" rel="external">
-        airbnb/javascript
-      </a>
-  </li>
-
-  <li data-positions=",,,,,,,19" data-stars=",,,,,,,345">
+  <li data-positions=",19,19,16,12,12,11,11" data-stars=",360,490,567,603,666,712,651">
       <a class="github-repo" href="https://github.com//hkirat/notification-logger" target="_blank" rel="external">
         hkirat/notification-logger
       </a>
   </li>
 
-  <li data-positions="20,15,17,19,19,18,18,20" data-stars="256,269,265,259,259,264,280,291">
-      <a class="github-repo" href="https://github.com//d3/d3" target="_blank" rel="external">
-        d3/d3
+  <li data-positions="14,15,14,12,11,11,10,12" data-stars="396,568,631,642,655,693,715,630">
+      <a class="github-repo" href="https://github.com//serverless/serverless" target="_blank" rel="external">
+        serverless/serverless
       </a>
   </li>
 
-  <li data-positions="18,16,16,16,16,16,17,21" data-stars="267,258,273,279,280,297,285,285">
-      <a class="github-repo" href="https://github.com//reactjs/redux" target="_blank" rel="external">
-        reactjs/redux
+  <li data-positions=",,,,,20,14,13" data-stars=",,,,,359,522,580">
+      <a class="github-repo" href="https://github.com//mike-schultz/materialette" target="_blank" rel="external">
+        mike-schultz/materialette
       </a>
   </li>
 
-  <li data-positions=",25,23,20,17,17,16,22" data-stars=",202,227,268,295,313,318,309">
-      <a class="github-repo" href="https://github.com//zeit/hyper" target="_blank" rel="external">
-        zeit/hyper
+  <li data-positions="10,13,15,14,13,14,13,14" data-stars="576,607,577,552,538,534,546,533">
+      <a class="github-repo" href="https://github.com//facebook/react" target="_blank" rel="external">
+        facebook/react
       </a>
   </li>
 
-  <li data-positions="23,22,22,22,22,20,22,23" data-stars="220,205,204,217,226,246,248,279">
+  <li data-positions=",,,,,,,15" data-stars=",,,,,,,524">
+      <a class="github-repo" href="https://github.com//paulsonnentag/swip" target="_blank" rel="external">
+        paulsonnentag/swip
+      </a>
+  </li>
+
+  <li data-positions="13,17,18,18,15,15,15,16" data-stars="364,371,390,376,380,380,390,380">
+      <a class="github-repo" href="https://github.com//twbs/bootstrap" target="_blank" rel="external">
+        twbs/bootstrap
+      </a>
+  </li>
+
+  <li data-positions=",,,,,18,16,17" data-stars=",,,,,388,501,510">
+      <a class="github-repo" href="https://github.com//amark/gun" target="_blank" rel="external">
+        amark/gun
+      </a>
+  </li>
+
+  <li data-positions=",,,,,,21,18" data-stars=",,,,,,322,408">
+      <a class="github-repo" href="https://github.com//justjavac/free-programming-books-zh_CN" target="_blank" rel="external">
+        justjavac/free-programming-books-zh_CN
+      </a>
+  </li>
+
+  <li data-positions="12,16,16,17,16,16,18,19" data-stars="562,532,517,498,486,488,413,390">
+      <a class="github-repo" href="https://github.com//facebookincubator/create-react-app" target="_blank" rel="external">
+        facebookincubator/create-react-app
+      </a>
+  </li>
+
+  <li data-positions=",,,,,23,19,20" data-stars=",,,,,336,400,407">
+      <a class="github-repo" href="https://github.com//haadcode/orbit" target="_blank" rel="external">
+        haadcode/orbit
+      </a>
+  </li>
+
+  <li data-positions=",,,,,25,20,21" data-stars=",,,,,299,350,385">
+      <a class="github-repo" href="https://github.com//chemzqm/wept" target="_blank" rel="external">
+        chemzqm/wept
+      </a>
+  </li>
+
+  <li data-positions=",,,,,,,22" data-stars=",,,,,,,400">
+      <a class="github-repo" href="https://github.com//maxwellito/vivus" target="_blank" rel="external">
+        maxwellito/vivus
+      </a>
+  </li>
+
+  <li data-positions="22,22,21,22,22,24,22,23" data-stars="248,280,296,303,295,297,306,316">
       <a class="github-repo" href="https://github.com//nodejs/node" target="_blank" rel="external">
         nodejs/node
       </a>
   </li>
 
-  <li data-positions="22,20,19,17,18,19,20,24" data-stars="256,256,277,283,282,279,285,290">
-      <a class="github-repo" href="https://github.com//webpack/webpack" target="_blank" rel="external">
-        webpack/webpack
+  <li data-positions="15,18,20,20,21,22,23,24" data-stars="330,329,328,323,305,308,304,308">
+      <a class="github-repo" href="https://github.com//airbnb/javascript" target="_blank" rel="external">
+        airbnb/javascript
       </a>
   </li>
 
-  <li data-positions=",,,,,,,25" data-stars=",,,,,,,300">
-      <a class="github-repo" href="https://github.com//Bottr-js/Bottr" target="_blank" rel="external">
-        Bottr-js/Bottr
+  <li data-positions="17,21,23,,23,,,25" data-stars="285,286,279,,259,,,274">
+      <a class="github-repo" href="https://github.com//reactjs/redux" target="_blank" rel="external">
+        reactjs/redux
       </a>
   </li>
 
-  <li style="display:none;" data-positions="21,19,,,,,," data-stars="270,271,,,,,,">
-      <a class="github-repo" href="https://github.com//kaktus/kaktus" target="_blank" rel="external">
-        kaktus/kaktus
+  <li style="display:none;" data-positions="18,20,24,24,24,,25," data-stars="280,288,278,270,264,,263,">
+      <a class="github-repo" href="https://github.com//d3/d3" target="_blank" rel="external">
+        d3/d3
       </a>
   </li>
 
-  <li style="display:none;" data-positions="2,3,3,4,5,10,19," data-stars="983,1029,1045,1019,874,538,301,">
+  <li style="display:none;" data-positions="19,,,,,,," data-stars="301,,,,,,,">
       <a class="github-repo" href="https://github.com//debugger22/github-audio" target="_blank" rel="external">
         debugger22/github-audio
       </a>
   </li>
 
-  <li style="display:none;" data-positions="19,17,18,23,,,," data-stars="289,280,293,243,,,,">
-      <a class="github-repo" href="https://github.com//Jianru-Lin/lambda-view" target="_blank" rel="external">
-        Jianru-Lin/lambda-view
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions="24,13,12,12,13,13,21," data-stars="237,319,347,357,362,360,285,">
+  <li style="display:none;" data-positions="21,,,,,,," data-stars="285,,,,,,,">
       <a class="github-repo" href="https://github.com//anvaka/time" target="_blank" rel="external">
         anvaka/time
       </a>
   </li>
 
-  <li style="display:none;" data-positions="25,,,,,,," data-stars="210,,,,,,,">
-      <a class="github-repo" href="https://github.com//osrec/currencyFormatter.js" target="_blank" rel="external">
-        osrec/currencyFormatter.js
+  <li style="display:none;" data-positions="16,23,,,,,," data-stars="318,296,,,,,,">
+      <a class="github-repo" href="https://github.com//zeit/hyper" target="_blank" rel="external">
+        zeit/hyper
       </a>
   </li>
 
-  <li style="display:none;" data-positions="16,,,,,,," data-stars="344,,,,,,,">
-      <a class="github-repo" href="https://github.com//ankane/pghero" target="_blank" rel="external">
-        ankane/pghero
+  <li style="display:none;" data-positions="3,5,9,11,14,19,," data-stars="1723,1220,890,674,532,371,,">
+      <a class="github-repo" href="https://github.com//wulkano/kap" target="_blank" rel="external">
+        wulkano/kap
       </a>
   </li>
 
-  <li style="display:none;" data-positions=",21,20,18,15,15,24," data-stars=",252,269,293,328,337,279,">
-      <a class="github-repo" href="https://github.com//mmckegg/ferment" target="_blank" rel="external">
-        mmckegg/ferment
+  <li style="display:none;" data-positions="9,14,17,21,,,," data-stars="635,668,541,353,,,,">
+      <a class="github-repo" href="https://github.com//web-pal/DBGlass" target="_blank" rel="external">
+        web-pal/DBGlass
       </a>
   </li>
 
-  <li style="display:none;" data-positions="14,9,8,8,10,,," data-stars="363,491,557,572,582,,,">
-      <a class="github-repo" href="https://github.com//verekia/modern-js-stack-training" target="_blank" rel="external">
-        verekia/modern-js-stack-training
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions="13,,,,,,," data-stars="413,,,,,,,">
-      <a class="github-repo" href="https://github.com//iview/iview" target="_blank" rel="external">
-        iview/iview
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions=",,,,25,23,25," data-stars=",,,,165,179,201,">
+  <li style="display:none;" data-positions="25,,,,,,," data-stars="201,,,,,,,">
       <a class="github-repo" href="https://github.com//angular/angular.js" target="_blank" rel="external">
         angular/angular.js
       </a>
   </li>
 
-  <li style="display:none;" data-positions="11,11,13,15,,,," data-stars="463,366,342,318,,,,">
-      <a class="github-repo" href="https://github.com//Leaflet/Leaflet" target="_blank" rel="external">
-        Leaflet/Leaflet
+  <li style="display:none;" data-positions=",12,12,15,19,21,24," data-stars=",647,664,568,421,342,298,">
+      <a class="github-repo" href="https://github.com//justjavac/awesome-wechat-weapp" target="_blank" rel="external">
+        justjavac/awesome-wechat-weapp
       </a>
   </li>
 
-  <li style="display:none;" data-positions="10,18,24,,,,," data-stars="486,276,224,,,,,">
-      <a class="github-repo" href="https://github.com//nolanlawson/optimize-js" target="_blank" rel="external">
-        nolanlawson/optimize-js
+  <li style="display:none;" data-positions="6,9,11,13,17,17,," data-stars="1192,937,732,614,504,404,,">
+      <a class="github-repo" href="https://github.com//dempfi/ayu" target="_blank" rel="external">
+        dempfi/ayu
       </a>
   </li>
 
-  <li style="display:none;" data-positions="9,,,,,,," data-stars="488,,,,,,,">
-      <a class="github-repo" href="https://github.com//postlight/awesome-cms" target="_blank" rel="external">
-        postlight/awesome-cms
+  <li style="display:none;" data-positions="5,4,5,5,7,7,17," data-stars="1337,1420,1462,1462,1271,946,472,">
+      <a class="github-repo" href="https://github.com//jiahaog/nativefier" target="_blank" rel="external">
+        jiahaog/nativefier
       </a>
   </li>
 
-  <li style="display:none;" data-positions=",23,21,13,8,,," data-stars=",223,269,340,605,,,">
-      <a class="github-repo" href="https://github.com//FreeCodeCampChina/freecodecamp.cn" target="_blank" rel="external">
-        FreeCodeCampChina/freecodecamp.cn
+  <li style="display:none;" data-positions=",24,22,23,20,,," data-stars=",304,324,337,343,,,">
+      <a class="github-repo" href="https://github.com//Bottr-js/Bottr" target="_blank" rel="external">
+        Bottr-js/Bottr
       </a>
   </li>
 
-  <li style="display:none;" data-positions=",24,25,25,23,24,," data-stars=",203,206,213,216,215,,">
-      <a class="github-repo" href="https://github.com//Dogfalo/materialize" target="_blank" rel="external">
-        Dogfalo/materialize
+  <li style="display:none;" data-positions="20,25,25,25,25,,," data-stars="285,285,283,281,272,,,">
+      <a class="github-repo" href="https://github.com//webpack/webpack" target="_blank" rel="external">
+        webpack/webpack
       </a>
   </li>
 
-  <li style="display:none;" data-positions=",,,24,21,22,," data-stars=",,,237,262,240,,">
-      <a class="github-repo" href="https://github.com//systemjs/systemjs" target="_blank" rel="external">
-        systemjs/systemjs
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions="5,8,10,11,20,,," data-stars="653,502,433,374,284,,,">
-      <a class="github-repo" href="https://github.com//christinecha/choreographer-js" target="_blank" rel="external">
-        christinecha/choreographer-js
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions="12,10,9,,,,," data-stars="397,404,409,,,,,">
-      <a class="github-repo" href="https://github.com//getify/You-Dont-Know-JS" target="_blank" rel="external">
-        getify/You-Dont-Know-JS
-      </a>
-  </li>
-
-  <li style="display:none;" data-positions=",,,,,25,," data-stars=",,,,,219,,">
-      <a class="github-repo" href="https://github.com//babel/babel-preset-env" target="_blank" rel="external">
-        babel/babel-preset-env
+  <li style="display:none;" data-positions="24,,,,,,," data-stars="279,,,,,,,">
+      <a class="github-repo" href="https://github.com//mmckegg/ferment" target="_blank" rel="external">
+        mmckegg/ferment
       </a>
   </li>
 
@@ -301,7 +265,7 @@
       &lt;script src=&quot;https://d3js.org/d3.v4.js&quot;&gt;&lt;/script&gt;
 
 
-&lt;ul class=&quot;github-chart&quot; data-dates=&quot;2016-10-06,2016-10-07,2016-10-08,2016-10-09,2016-10
+&lt;ul class=&quot;github-chart&quot; data-dates=&quot;2016-10-12,2016-10-13,2016-10-14,2016-10-15,2016-10
     
     </summary>
     

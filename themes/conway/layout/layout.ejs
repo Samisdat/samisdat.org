@@ -1,6 +1,6 @@
-<%- partial('_partial/head') %>
+<%- partial('_partial/head', null, {cache: true}) %>
 <body>
-    <%- partial('_partial/header') %>
+    <%- partial('_partial/header', null, {cache: true}) %>
     <div class="wrap">
         <div class="container">
             <div class="row">
@@ -10,6 +10,6 @@
             </div>
         </div>
     </div>
-    <%- partial('_partial/footer', null, {cache: !config.relative_link}) %>
+    <%- partial('_partial/footer', null, {cache: true}) %>
 </body>
 </html>
