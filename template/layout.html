@@ -5,9 +5,13 @@
             <div class="row">
                 <main class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 content">
 
-                    {{#each articles }}
-                        <a href="{{ path }}">{{ title }}</a>
-                    {{/each}}
+                    <ul>
+                        {{#each articles }}
+                            <li><a href="{{ path }}">{{ title }}</a><br>
+                                {{{ teaser }}}
+                            </li>
+                        {{/each}}
+                    </ul>
 
                 </main>
             </div>
