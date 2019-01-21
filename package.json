@@ -2,8 +2,8 @@
   "name": "samisdat",
   "version": "1.0.0",
   "private": true,
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
+    "moment": "^2.23.0"
   }
 }
