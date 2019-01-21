@@ -7,15 +7,6 @@
 				</button>
 				<div class="collapse navbar-toggleable-xs" id="collapsingNavbar">
 					<ul class="nav navbar-nav">
-						<% site.data.nav.forEach(function(navItem){ %>
-
-						    <% if(true === navItem.skip){ 
-					    		return;
-						    } %>
-
-							<%- partial('_partial/navbar-item', {item: navItem}) %>
-
-						<% }) %>
 					</ul>
 					<ul class="nav navbar-nav pull-xs-right external">
 						<li class="nav-item">
