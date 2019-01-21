@@ -1,15 +1,17 @@
-<%- partial('_partial/head', null, {cache: true}) %>
+{{> body-open }}
 <body>
-    <%- partial('_partial/header', null, {cache: true}) %>
+    {{> header }}
     <div class="wrap">
         <div class="container">
             <div class="row">
                 <main class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2 content">
-                    <%- body %>
+
+                    {{#each articles }}
+                        <a href="{{ path }}">{{ title }}</a>
+                    {{/each}}
+
                 </main>
             </div>
         </div>
     </div>
-    <%- partial('_partial/footer', null, {cache: true}) %>
-</body>
-</html>
+{{> body-close }}

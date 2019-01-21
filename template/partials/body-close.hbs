@@ -14,40 +14,7 @@
     Samisdat.Conway = {};
 </script>
 
-<% if (true === is_staging('development')){ %>
-    <%- js('bower_components/jquery/jquery.min.js') %>
-    <%- js('bower_components/tether/javascripts/tether.min.js') %>
-    <%- js('bower_components/bootstrap/javascripts/bootstrap.min.js') %>
-    <%- js('bower_components/highlightjs/highlight.pack.min.js') %>
-    <%- js('js/lib/rAF.js') %>
-    <%- js('js/conway/patterns.js') %>
-    <%- js('js/conway/cell.js') %>
-    <%- js('js/conway/population.js') %>
-    <%- js('js/conway/generation.js') %>
-    <%- js('js/conway/observation.js') %>
-    <%- js('js/conway/canvas.js') %>
-    <%- js('js/github-charts/github-charts-fixed-labels.js') %>
-    <%- js('js/app.js') %>
-    
-    <script type='text/javascript' id="__bs_script__">//<![CDATA[
-        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.2.15.0.js'><\/script>".replace("HOST", location.hostname));
-    //]]></script>
-<% } else { %>        
-    <%- js('js/conway.js') %>
-    <!-- Piwik -->
-    <script type="text/javascript">
-    var _paq = _paq || [];
-    _paq.push(["setDomains", ["*.samisdat.org"]]);
-    _paq.push(['trackPageView']);
-    _paq.push(['enableLinkTracking']);
-    (function() {
-        var u="//piwik.samisdat.org/";
-        _paq.push(['setTrackerUrl', u+'piwik.php']);
-        _paq.push(['setSiteId', 2]);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-    })();
-    </script>
-    <noscript><p><img src="//piwik.samisdat.org/piwik.php?idsite=2" style="border:0;" alt="" /></p></noscript>
-    <!-- End Piwik Code -->
-<% } %>
+    <script src="https://samisdat.org/js/conway.js"></script>
+
+</body>
+</html>
