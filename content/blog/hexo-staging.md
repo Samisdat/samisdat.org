@@ -1,7 +1,7 @@
 ---
 title: hexo-staging
 date: 2016-02-03 20:57:21
-layout: blog.html
+layout: blog.hbs
 collection: blog
 teaser: |+
     Mit Bordmitteln hat Hexo kein Staging; daher hab ich mein erstes Hexo Plugin geschrieben. 
