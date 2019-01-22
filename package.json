@@ -4,6 +4,8 @@
   "private": true,
   "devDependencies": {},
   "dependencies": {
+    "metalsmith": "^2.1.0",
+    "metalsmith-redirect": "^2.1.0",
     "moment": "^2.23.0"
   }
 }
