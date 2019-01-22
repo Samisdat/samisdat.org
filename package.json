@@ -4,8 +4,12 @@
   "private": true,
   "devDependencies": {},
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
+    "font-awesome": "^4.4.0",
+    "highlightjs": "^8.7.0",
     "metalsmith": "^2.1.0",
     "metalsmith-redirect": "^2.1.0",
     "moment": "^2.23.0"
+    "tether": "^1.2.0"
   }
 }
