@@ -1,7 +1,7 @@
 ---
 title: Impressum
 date: 2015-11-20 19:04:24
-layout: blog.html
+layout: blog.hbs
 collection: page
 ---
 

@@ -1,7 +1,7 @@
 ---
 title: Once again - Diesmal mit Hexo.io
 date: 2015-11-28 23:30:42
-layout: blog.html
+layout: blog.hbs
 collection: hbs
 teaser: |+
     <div class="img third right"><img src="https://img.samisdat.org/resize/width/245/https://pbs.twimg.com/profile_images/476729162707644418/mQZOTo9f.png" class="img-responsive" alt="Hexo Logo"></div>
