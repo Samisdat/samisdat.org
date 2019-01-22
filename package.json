@@ -9,7 +9,7 @@
     "highlightjs": "^8.7.0",
     "metalsmith": "^2.1.0",
     "metalsmith-redirect": "^2.1.0",
-    "moment": "^2.23.0"
+    "moment": "^2.23.0",
     "tether": "^1.2.0"
   }
 }
