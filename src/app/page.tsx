@@ -1,8 +1,12 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import {Panorama} from "@/components/Panorama";
 
 export default function Home() {
   return (
+      <>
+        <Panorama />
+
     <div className={styles.page}>
       <main className={styles.main}>
         <Image
@@ -90,6 +94,6 @@ export default function Home() {
           Go to nextjs.org →
         </a>
       </footer>
-    </div>
+    </div></>
   );
 }
