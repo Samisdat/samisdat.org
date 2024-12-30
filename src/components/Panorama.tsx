@@ -1,4 +1,5 @@
 import { Cars } from '@/components/Cars';
+import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
 import { Sun } from '@/components/Heaven/Sun';
 
@@ -714,6 +715,7 @@ export const Panorama = () => {
                     }}
                 />
             </g>
+            <Clock />
         </svg>
     );
 };
