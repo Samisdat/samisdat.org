@@ -1,29 +1,21 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useTal } from '@/lib/TalContext';
 
 export const Clock = () => {
-    const [seconds, setSeconds] = useState<number | undefined>(undefined);
-    const [minutes, setMinutes] = useState<number | undefined>(undefined);
-    const [hours, setHours] = useState<number | undefined>(undefined);
+    const { date, animate } = useTal();
 
-    useEffect(() => {
-        const date = new Date();
+    if (!date || !animate) {
+        return null;
+    }
 
-        const _seconds = date.getSeconds();
-        let _minutes = date.getMinutes();
-        let _hours = date.getHours();
-        _hours = _hours > 12 ? _hours - 12 : _hours;
+    const seconds = date.getSeconds();
+    let minutes = date.getMinutes();
+    let hours = date.getHours();
+    hours = hours > 12 ? hours - 12 : hours;
 
-        _minutes = _minutes * 60 + _seconds;
-        _hours = _hours * 3600 + _minutes;
-
-        setSeconds(_seconds);
-        setMinutes(_minutes);
-        setHours(_hours);
-    }, []);
-
-    console.log(seconds, minutes, hours);
+    minutes = minutes * 60 + seconds;
+    hours = hours * 3600 + minutes;
 
     return (
         <svg
@@ -51,7 +43,7 @@ export const Clock = () => {
                 y1="31"
                 x2="31"
                 y2="15"
-                {...(hours ? { transform: `rotate(${360 * (hours / 43200)} ,31,31)` } : {})}
+                transform={`rotate(${360 * (hours / 43200)} ,31,31)`}
             />
             <line
                 id="minute"
@@ -64,7 +56,7 @@ export const Clock = () => {
                 y1="31"
                 x2="31"
                 y2="10"
-                {...(minutes ? { transform: `rotate(${360 * (minutes / 3600)} ,31,31)` } : {})}
+                transform={`rotate(${360 * (minutes / 3600)} ,31,31)`}
             />
 
             <circle
@@ -85,7 +77,7 @@ export const Clock = () => {
                 y1="30.5"
                 x2="30.5"
                 y2="4"
-                {...(seconds ? { transform: `rotate(${360 * (seconds / 60)} ,31,31)` } : {})}
+                transform={`rotate(${360 * (seconds / 60)} ,31,31)`}
             />
             <defs>
                 <animateTransform
