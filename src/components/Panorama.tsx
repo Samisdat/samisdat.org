@@ -1,11 +1,6 @@
 import { Cars } from '@/components/Cars';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
-import { Moon } from '@/components/Heaven/Moon';
-import { Sun } from '@/components/Heaven/Sun';
-
-//<svg width="100%" height="100%" viewBox="0 0 7223 2223"
-//     style={{fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2}}>
 
 export const Panorama = () => {
     return (
@@ -23,6 +18,7 @@ export const Panorama = () => {
             {/* */}
             <g id="Layer8">
                 <Heaven />
+                {/* 
                 <g id="_0100">
                     <path
                         d="M524.001,154.018l9.026,-0.04l0.394,5.381l-9.885,0.21l0.465,-5.551Z"
@@ -716,8 +712,8 @@ export const Panorama = () => {
                         fill: '#232e1b',
                     }}
                 />
-            </g> {/**/}
-
+            */}
+            </g>
             <Clock />
         </svg>
     );
