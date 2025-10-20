@@ -2,7 +2,7 @@
 
 import { useTal } from '@/lib/TalContext';
 
-export const Clock = () => {
+export const Clock = (): JSX.Element | null => {
     const { date, animate } = useTal();
 
     if (!date || !animate) {

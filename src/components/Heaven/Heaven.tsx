@@ -1,6 +1,6 @@
 import { dayLength } from '@/components/const';
 
-export const Heaven = () => {
+export const Heaven = (): JSX.Element => {
     return (
         <>
             <defs>

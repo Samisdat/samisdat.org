@@ -1,13 +1,14 @@
-import { Cars } from '@/components/Cars';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
 
-export const Panorama = () => {
+export const Panorama = (): JSX.Element => {
     return (
         <svg
             width="100%"
             height="100%"
             viewBox="0 0 1500 400"
+            role="img"
+            aria-label="Animiertes Wuppertal Stadtpanorama mit Tag-Nacht-Zyklus"
             style={{
                 fillRule: 'evenodd',
                 clipRule: 'evenodd',
@@ -15,6 +16,8 @@ export const Panorama = () => {
                 strokeMiterlimit: 2,
             }}
         >
+            <title>Wuppertal Panorama</title>
+            <desc>Eine animierte Stadtlandschaft von Wuppertal mit Schwebebahn, Gebäuden und Tag-Nacht-Wechsel</desc>
             {/* */}
             <g id="Layer8">
                 <Heaven />
