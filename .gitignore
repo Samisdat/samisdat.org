@@ -41,5 +41,5 @@ yarn-error.log*
 next-env.d.ts
 
 # tina
-.tina/__generated__
+tina/__generated__
 public/admin
