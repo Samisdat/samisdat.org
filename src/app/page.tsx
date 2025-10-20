@@ -1,5 +1,4 @@
 import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
@@ -32,34 +31,32 @@ export default function Home() {
         </Typography>
       </Box>
 
-      <Grid container spacing={4}>
+      <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 4 }}>
         {posts.map((post) => (
-          <Grid item xs={12} md={6} key={post.slug}>
-            <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardContent sx={{ flexGrow: 1 }}>
-                <Typography variant="h5" component="h2" gutterBottom>
-                  {post.title}
-                </Typography>
-                <Box sx={{ mb: 2 }}>
-                  <Chip 
-                    label={formatDate(post.date)} 
-                    size="small" 
-                    sx={{ mr: 1 }}
-                  />
-                  <Chip 
-                    label={post.author} 
-                    size="small" 
-                    variant="outlined"
-                  />
-                </Box>
-                <Typography color="text.secondary">
-                  {post.content.substring(0, 150)}...
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          <Card key={post.slug} sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <CardContent sx={{ flexGrow: 1 }}>
+              <Typography variant="h5" component="h2" gutterBottom>
+                {post.title}
+              </Typography>
+              <Box sx={{ mb: 2 }}>
+                <Chip 
+                  label={formatDate(post.date)} 
+                  size="small" 
+                  sx={{ mr: 1 }}
+                />
+                <Chip 
+                  label={post.author} 
+                  size="small" 
+                  variant="outlined"
+                />
+              </Box>
+              <Typography color="text.secondary">
+                {post.content.substring(0, 150)}...
+              </Typography>
+            </CardContent>
+          </Card>
         ))}
-      </Grid>
+      </Box>
     </Container>
   );
 }
