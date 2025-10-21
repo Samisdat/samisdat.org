@@ -79,55 +79,6 @@ export const Clock = (): JSX.Element | null => {
                 y2="4"
                 transform={`rotate(${360 * (seconds / 60)} ,31,31)`}
             />
-            <defs>
-                <animateTransform
-                    type="rotate"
-                    fill="remove"
-                    restart="always"
-                    calcMode="linear"
-                    accumulate="none"
-                    additive="sum"
-                    xlinkHref="#hour"
-                    repeatCount="indefinite"
-                    dur="60s"
-                    to="360 31 31"
-                    from="0 31 31"
-                    attributeName="transform"
-                    attributeType="xml"
-                ></animateTransform>
-
-                <animateTransform
-                    type="rotate"
-                    fill="remove"
-                    restart="always"
-                    calcMode="linear"
-                    accumulate="none"
-                    additive="sum"
-                    xlinkHref="#minute"
-                    repeatCount="indefinite"
-                    dur="10s"
-                    to="360 31 31"
-                    from="0 31 31"
-                    attributeName="transform"
-                    attributeType="xml"
-                ></animateTransform>
-
-                <animateTransform
-                    type="rotate"
-                    fill="remove"
-                    restart="always"
-                    calcMode="linear"
-                    accumulate="none"
-                    additive="sum"
-                    xlinkHref="#second"
-                    repeatCount="indefinite"
-                    dur="1s"
-                    to="360 30.5 30.5"
-                    from="0 30.5 30.5"
-                    attributeName="transform"
-                    attributeType="xml"
-                ></animateTransform>
-            </defs>
         </svg>
     );
 };
