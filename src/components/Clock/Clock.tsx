@@ -3,15 +3,15 @@
 import { useTal } from '@/lib/TalContext';
 
 export const Clock = (): JSX.Element | null => {
-    const { date, animate } = useTal();
+    const { time, animate } = useTal();
 
-    if (!date || !animate) {
+    if (!time || !animate) {
         return null;
     }
 
-    const seconds = date.getSeconds();
-    let minutes = date.getMinutes();
-    let hours = date.getHours();
+    const seconds = time.getSeconds();
+    let minutes = time.getMinutes();
+    let hours = time.getHours();
     hours = hours > 12 ? hours - 12 : hours;
 
     minutes = minutes * 60 + seconds;
