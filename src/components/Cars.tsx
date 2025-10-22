@@ -1,4 +1,4 @@
-export const Cars = (): JSX.Element => {
+export const Cars = () => {
     const duration = '80s';
     const start = 100;
     const stop = 1400;

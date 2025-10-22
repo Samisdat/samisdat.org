@@ -2,7 +2,10 @@
 
 import { useTal } from '@/lib/TalContext';
 import { useEffect, useRef, useState } from 'react';
+import SunCalc from 'suncalc';
 
+const WUPPERTAL_LAT = 51.2562;
+const WUPPERTAL_LON = 7.1508;
 const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
 
 interface Point {
@@ -16,27 +19,53 @@ export const Heaven = () => {
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({ x: 146.43, y: 306 });
 
-    const millisOfDay = time.getTime() % MILLISECONDS_PER_DAY;
-    const progress = millisOfDay / MILLISECONDS_PER_DAY;
-    const isDay = progress < 0.5;
+    const sunTimes = SunCalc.getTimes(time, WUPPERTAL_LAT, WUPPERTAL_LON);
+    const sunrise = sunTimes.sunrise.getTime();
+    const sunset = sunTimes.sunset.getTime();
+    const dawn = sunTimes.dawn.getTime();
+    const dusk = sunTimes.dusk.getTime();
+
+    const currentTime = time.getTime();
+    const isDay = currentTime >= sunrise && currentTime < sunset;
+
+    const celestialProgress = (() => {
+        if (isDay) {
+            const dayDuration = sunset - sunrise;
+            return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
+        } else {
+            const nextDay = new Date(time);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const nextSunrise = SunCalc.getTimes(nextDay, WUPPERTAL_LAT, WUPPERTAL_LON).sunrise.getTime();
+
+            if (currentTime >= sunset) {
+                const nightDuration = nextSunrise - sunset;
+                return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
+            } else {
+                const prevDay = new Date(time);
+                prevDay.setDate(prevDay.getDate() - 1);
+                const prevSunset = SunCalc.getTimes(prevDay, WUPPERTAL_LAT, WUPPERTAL_LON).sunset.getTime();
+                const nightDuration = sunrise - prevSunset;
+                const timeSincePrevSunset = (MILLISECONDS_PER_DAY - (prevSunset % MILLISECONDS_PER_DAY)) + (currentTime % MILLISECONDS_PER_DAY);
+                return Math.max(0, Math.min(1, timeSincePrevSunset / nightDuration));
+            }
+        }
+    })();
 
     const skyOpacity = (() => {
-        if (isDay) {
-            if (progress < 0.05) return progress / 0.05;
-            if (progress > 0.45) return 1 - (progress - 0.45) / 0.05;
-            return 1;
-        } else {
-            if (progress < 0.55) return 1 - (progress - 0.5) / 0.05;
-            if (progress > 0.95) return (progress - 0.95) / 0.05;
-            return 0;
-        }
+        const dawnDuration = sunrise - dawn;
+        const duskDuration = dusk - sunset;
+
+        if (currentTime < dawn) return 0;
+        if (currentTime < sunrise) return (currentTime - dawn) / dawnDuration;
+        if (currentTime < sunset) return 1;
+        if (currentTime < dusk) return 1 - (currentTime - sunset) / duskDuration;
+        return 0;
     })();
 
     useEffect(() => {
         if (!pathRef.current) return;
 
         const pathLength = pathRef.current.getTotalLength();
-        const celestialProgress = isDay ? progress * 2 : (progress - 0.5) * 2;
         const distance = pathLength * celestialProgress;
         const point = pathRef.current.getPointAtLength(distance);
 
@@ -45,7 +74,7 @@ export const Heaven = () => {
         } else {
             setMoonPosition({ x: point.x, y: point.y });
         }
-    }, [time, isDay, progress]);
+    }, [time, isDay, celestialProgress]);
 
     return (
         <>

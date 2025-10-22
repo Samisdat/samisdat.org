@@ -1,7 +1,9 @@
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
+import { ReactElement } from 'react';
+import { Cars } from './Cars';
 
-export const Panorama = (): JSX.Element => {
+export const Panorama = (): ReactElement => {
     return (
         <svg
             width="100%"
@@ -21,7 +23,6 @@ export const Panorama = (): JSX.Element => {
             {/* */}
             <g id="Layer8">
                 <Heaven />
-                {/* 
                 <g id="_0100">
                     <path
                         d="M524.001,154.018l9.026,-0.04l0.394,5.381l-9.885,0.21l0.465,-5.551Z"
@@ -715,7 +716,6 @@ export const Panorama = (): JSX.Element => {
                         fill: '#232e1b',
                     }}
                 />
-            */}
             </g>
             <Clock />
         </svg>

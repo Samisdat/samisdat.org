@@ -1,7 +1,7 @@
 import { useTal } from '@/lib/TalContext';
 import { ChangeEvent } from 'react';
 
-export const TimeFactor = (): JSX.Element | null => {
+export const TimeFactor = () => {
     const { timeFactor, setTimeFactor } = useTal();
 
     if (undefined === timeFactor) {
@@ -21,7 +21,7 @@ export const TimeFactor = (): JSX.Element | null => {
                 onChange={onChange}
                 type="range"
                 min="0"
-                max="2000"
+                max="5000"
                 defaultValue={timeFactor}
                 step="250"
             />
