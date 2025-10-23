@@ -1,36 +1,80 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# @samisdat/wtal-panorama
 
-## Getting Started
+A React component that displays an animated Wuppertal panorama with realistic astronomical sun and moon movements based on real-time calculations.
 
-First, run the development server:
+## Features
+
+- 🌅 **Realistic Astronomy**: Uses [SunCalc](https://github.com/mourner/suncalc) for accurate sunrise, sunset, and twilight times
+- 📍 **Location-Based**: Calculated for Wuppertal, Germany (51.2562°N, 7.1508°E)
+- 🌓 **Seasonal Variation**: Automatically adapts to seasons (longer summer days, shorter winter days)
+- ⏰ **Time Control**: Adjustable time factor for faster/slower animations
+- 🎨 **SVG-Based**: Smooth, scalable vector graphics
+- ⚡ **Next.js Ready**: Built for React and Next.js applications
+
+## Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install @samisdat/wtal-panorama
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Basic Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```tsx
+import { WtalPanorama } from '@samisdat/wtal-panorama';
 
-## Learn More
+export default function App() {
+  return (
+    <div>
+      <WtalPanorama />
+    </div>
+  );
+}
+```
 
-To learn more about Next.js, take a look at the following resources:
+### Advanced Usage (with TalProvider)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+If you want to use the panorama with custom controls or access to the time context:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```tsx
+import { TalProvider, Panorama } from '@samisdat/wtal-panorama';
 
-## Deploy on Vercel
+export default function App() {
+  return (
+    <TalProvider>
+      <Panorama />
+      {/* Add your custom controls here */}
+    </TalProvider>
+  );
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## How It Works
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The panorama uses:
+- **SunCalc** to calculate precise sunrise and sunset times for Wuppertal
+- **React State** to animate the sun and moon positions along a defined SVG path
+- **TalContext** (Time Acceleration Layer) to control simulation speed
+- Automatic transitions between day/night with realistic dawn and dusk phases
+
+### Time Calculations
+
+- Day period: Sunrise to Sunset (variable based on season)
+- Night period: Sunset to Sunrise (next day)
+- Twilight transitions: Using astronomical dawn/dusk calculations
+- Position calculation: Linear interpolation along SVG path based on time progress
+
+## Dependencies
+
+- React >= 18.0.0
+- Next.js >= 14.0.0
+- SunCalc ^1.9.0
+
+## License
+
+MIT
+
+## Repository
+
+[https://github.com/Samisdat/wtal-panorama](https://github.com/Samisdat/wtal-panorama)
