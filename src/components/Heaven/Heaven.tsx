@@ -117,12 +117,7 @@ export const Heaven = () => {
                 opacity={skyOpacity}
             />
 
-            {!isDay && (
-                <Stars
-                    opacity={1 - skyOpacity}
-                    time={time}
-                />
-            )}
+            {!isDay && <Stars opacity={1 - skyOpacity} />}
 
             {isDay && (
                 <circle
