@@ -1,19 +1,50 @@
 {
-  "name": "wtal-panorama",
+  "name": "@samisdat/wtal-panorama",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc.cjs"
+    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc.cjs",
+    "prepublishOnly": "npm run build:lib"
   },
-  "dependencies": {
-    "next": "^15.5.6",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "suncalc": "^1.9.0"
+  "keywords": [
+    "wuppertal",
+    "panorama",
+    "svg",
+    "animation",
+    "sun",
+    "moon",
+    "astronomy",
+    "react",
+    "suncalc"
+  ],
+  "author": "Samisdat",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Samisdat/wtal-panorama.git"
+  },
+  "peerDependencies": {
+    "react": ">=19.0.0",
+    "react-dom": ">=19.0.0"
   },
   "devDependencies": {
     "@types/node": "^24",
@@ -21,10 +52,15 @@
     "@types/react-dom": "^19",
     "@types/suncalc": "^1.9.2",
     "eslint": "^9",
-    "eslint-config-next": "15.5.6",
+    "eslint-config-next": "16.0.0",
+    "next": "^16.0.0",
     "prettier": "^3.6.2",
     "prettier-plugin-multiline-arrays": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.3.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "suncalc": "^1.9.0",
+    "tsup": "^8.5.0",
     "typescript": "^5"
   }
 }
