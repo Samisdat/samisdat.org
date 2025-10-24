@@ -5,9 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import SunCalc from 'suncalc';
 import { Stars } from './Stars';
 
-const WUPPERTAL_LAT = 51.2562;
-const WUPPERTAL_LON = 7.1508;
-const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+const lat = 51.2562;
+const lng = 7.1508;
+const milisecsPerDay = 24 * 60 * 60 * 1000;
 
 interface Point {
     x: number;
@@ -20,7 +20,7 @@ export const Heaven = () => {
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({ x: 146.43, y: 306 });
 
-    const sunTimes = SunCalc.getTimes(time, WUPPERTAL_LAT, WUPPERTAL_LON);
+    const sunTimes = SunCalc.getTimes(time, lat, lng);
     const sunrise = sunTimes.sunrise.getTime();
     const sunset = sunTimes.sunset.getTime();
     const dawn = sunTimes.dawn.getTime();
@@ -36,7 +36,7 @@ export const Heaven = () => {
         } else {
             const nextDay = new Date(time);
             nextDay.setDate(nextDay.getDate() + 1);
-            const nextSunrise = SunCalc.getTimes(nextDay, WUPPERTAL_LAT, WUPPERTAL_LON).sunrise.getTime();
+            const nextSunrise = SunCalc.getTimes(nextDay, lat, lng).sunrise.getTime();
 
             if (currentTime >= sunset) {
                 const nightDuration = nextSunrise - sunset;
@@ -44,10 +44,10 @@ export const Heaven = () => {
             } else {
                 const prevDay = new Date(time);
                 prevDay.setDate(prevDay.getDate() - 1);
-                const prevSunset = SunCalc.getTimes(prevDay, WUPPERTAL_LAT, WUPPERTAL_LON).sunset.getTime();
+                const prevSunset = SunCalc.getTimes(prevDay, lat, lng).sunset.getTime();
                 const nightDuration = sunrise - prevSunset;
                 const timeSincePrevSunset =
-                    MILLISECONDS_PER_DAY - (prevSunset % MILLISECONDS_PER_DAY) + (currentTime % MILLISECONDS_PER_DAY);
+                    milisecsPerDay - (prevSunset % milisecsPerDay) + (currentTime % milisecsPerDay);
                 return Math.max(0, Math.min(1, timeSincePrevSunset / nightDuration));
             }
         }

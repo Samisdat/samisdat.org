@@ -4,11 +4,11 @@ interface StarsProps {
     opacity?: number;
 }
 
-const STAR_COUNT = 200;
+const numberOfStarts = 200;
 
 export const Stars = ({ opacity = 1 }: StarsProps) => {
     const stars = useMemo(() => {
-        return Array.from({ length: STAR_COUNT }, (_, i) => {
+        return Array.from({ length: numberOfStarts }, (_, i) => {
             const seed = i * 9999;
             const random = (n: number) => (Math.sin(seed + n) * 10000) % 1;
 
