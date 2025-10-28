@@ -21,7 +21,7 @@ export const TimeFactor = () => {
                 onChange={onChange}
                 type="range"
                 min="0"
-                max="5000"
+                max="10000"
                 defaultValue={timeFactor}
                 step="250"
             />
