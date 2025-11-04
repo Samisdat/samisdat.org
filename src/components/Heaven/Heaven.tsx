@@ -9,7 +9,6 @@ import { Sun } from './Sun';
 
 const LAT = 51.2562;
 const LNG = 7.1508;
-const MILISECS_PER_DAY = 24 * 60 * 60 * 1000;
 
 interface Point {
     x: number;
