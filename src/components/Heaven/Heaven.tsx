@@ -29,11 +29,10 @@ export const Heaven = () => {
             const dayDuration = sunset - sunrise;
             return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
         } else {
-            const nextDay = new Date(time);
-            nextDay.setDate(nextDay.getDate() + 1);
-            const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise.getTime();
-
             if (currentTime >= sunset) {
+                const nextDay = new Date(time);
+                nextDay.setDate(nextDay.getDate() + 1);
+                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise.getTime();
                 const nightDuration = nextSunrise - sunset;
                 return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
             } else {
@@ -41,9 +40,7 @@ export const Heaven = () => {
                 prevDay.setDate(prevDay.getDate() - 1);
                 const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset.getTime();
                 const nightDuration = sunrise - prevSunset;
-                const timeSincePrevSunset =
-                    MILISECS_PER_DAY - (prevSunset % MILISECS_PER_DAY) + (currentTime % MILISECS_PER_DAY);
-                return Math.max(0, Math.min(1, timeSincePrevSunset / nightDuration));
+                return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
             }
         }
     })();
@@ -60,7 +57,7 @@ export const Heaven = () => {
         } else {
             setMoonPosition({ x: point.x, y: point.y });
         }
-    }, [time, isDay, celestialProgress]);
+    }, [celestialProgress, isDay]);
 
     return (
         <g id={'heaven'}>
@@ -99,13 +96,6 @@ export const Heaven = () => {
                 height="400"
                 fill="url(#heavenGradient)"
                 opacity={skyOpacity}
-            />
-
-            <path
-                style={{ stroke: '#f00' }}
-                strokeWidth={3}
-                id="sunAndMoonPath"
-                d="M146.43,306C146.43,306 145.247,257.566 145.428,210.872C146.02,58.59 416.844,41 751.152,41C1085.46,41 1356.31,56.184 1356.88,210.872C1357.06,260.153 1357.32,306 1357.32,306"
             />
 
             {!isDay && <Stars opacity={1 - skyOpacity} />}
