@@ -43,3 +43,6 @@ next-env.d.ts
 # tina
 tina/__generated__
 public/admin
+
+*storybook.log
+storybook-static
