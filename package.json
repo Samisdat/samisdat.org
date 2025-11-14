@@ -30,23 +30,26 @@
     "tinacms": "^2.9.3"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.2",
     "@eslint/eslintrc": "^3",
     "@storybook/addon-a11y": "^10.0.7",
     "@storybook/addon-docs": "^10.0.7",
     "@storybook/addon-vitest": "^10.0.7",
+    "@storybook/nextjs-vite": "^10.0.7",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitest/browser-playwright": "^4.0.9",
+    "@vitest/coverage-v8": "^4.0.9",
+    "@wyw-in-js/vite": "^0.8.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "eslint-plugin-storybook": "^10.0.7",
+    "playwright": "^1.56.1",
     "storybook": "^10.0.7",
     "typescript": "^5",
-    "@storybook/nextjs-vite": "^10.0.7",
-    "vitest": "^4.0.9",
-    "playwright": "^1.56.1",
-    "@vitest/browser-playwright": "^4.0.9",
-    "@vitest/coverage-v8": "^4.0.9"
+    "vitest": "^4.0.9"
   }
 }

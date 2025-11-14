@@ -1,4 +1,6 @@
 import type { Preview } from '@storybook/nextjs-vite'
+// Import global styles - Linaria will extract these at build time
+import '../src/components/globalStyle'
 
 const preview: Preview = {
   parameters: {

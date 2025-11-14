@@ -34,6 +34,9 @@ const eslintConfig = [
       // TypeScript rules
       ...typescript.configs.recommended.rules,
       
+      // Disable no-undef for TypeScript files (TypeScript handles this)
+      "no-undef": "off",
+      
       // React rules
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",

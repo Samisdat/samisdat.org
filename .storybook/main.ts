@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs-vite";
+import wyw from "@wyw-in-js/vite";
 
 const config: StorybookConfig = {
   "stories": [
@@ -17,6 +18,19 @@ const config: StorybookConfig = {
   },
   "staticDirs": [
     "../public"
-  ]
+  ],
+  async viteFinal(config) {
+    // Add WYW-in-JS (Linaria) plugin for Vite
+    config.plugins = config.plugins || [];
+    config.plugins.push(
+      wyw({
+        include: ["**/*.{ts,tsx,js,jsx}"],
+        babelOptions: {
+          presets: ["@babel/preset-typescript", "@babel/preset-react"],
+        },
+      })
+    );
+    return config;
+  },
 };
 export default config;
