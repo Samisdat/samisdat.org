@@ -1,7 +1,4 @@
 import PageContent from "./page-content";
-import "@fontsource/libre-baskerville"; // Defaults to weight 400
-import "@fontsource/libre-baskerville/400.css"; // Specify weight
-import "@fontsource/libre-baskerville/400-italic.css"; // Specify weight and style
 export default function Home() {
   return <PageContent />;
 
