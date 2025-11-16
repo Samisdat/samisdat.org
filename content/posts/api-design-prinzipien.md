@@ -8,4 +8,10 @@ Eine gut gestaltete API ist intuitiv, konsistent und leicht zu verwenden.
 
 ## REST vs GraphQL
 
+asdfasdfsdf
+
+```javascript
+as
+```
+
 Beide Ansätze haben ihre Vor- und Nachteile. Die Wahl hängt von deinen spezifischen Anforderungen ab.

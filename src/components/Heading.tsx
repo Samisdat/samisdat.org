@@ -1,33 +1,35 @@
 import { styled } from "@linaria/react";
 import { FC, HTMLAttributes, ComponentType } from "react";
 
+const fontFamily = `font-family: var(--font-serif);`;
+
 const H1 = styled.h1`
-  background: lime;
   font-size: var(--typo-h1-size);
+  ${fontFamily}
 `;
 const H2 = styled.h2`
-  background: red;
   font-size: var(--typo-h2-size);
+  ${fontFamily}
 `;
 
 const H3 = styled.h3`
-  background: blue;
   font-size: var(--typo-h3-size);
+  ${fontFamily}
 `;
 
 const H4 = styled.h4`
-  background: yellow;
   font-size: var(--typo-h4-size);
+  ${fontFamily}
 `;
 
 const H5 = styled.h5`
-  background: grey;
   font-size: var(--typo-h5-size);
+  ${fontFamily}
 `;
 
 const H6 = styled.h6`
-  background: lightgrey;
   font-size: var(--typo-h6-size);
+  ${fontFamily}
 `;
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;
