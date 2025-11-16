@@ -1,9 +1,11 @@
-// globalStyles.ts
+import "normalize.css";
 import { css } from "@linaria/core";
 
 export const globalStyles = css`
   :global() {
     :root {
+      --backgroundColor: #2a1f31;
+      --mainTextColor: #d3cbc6;
       --typo-h1-size: 3rem;
       --typo-h2-size: 2.75rem;
       --typo-h3-size: 2.25rem;
@@ -14,28 +16,14 @@ export const globalStyles = css`
 
     html {
       font-size: 20px;
+      background-color: var(--backgroundColor);
+      color: var(--mainTextColor);
+      font-family: var(--font-sans);
+
     }
-    html,
     body {
-      border: 50px solid black;
+      font-family: var(--font-sans);
+letter-spacing: 0.01em;
     }
 
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-    }
-
-    a {
-      color: rebeccapurple;
-      text-decoration: none;
-    }
-    a::after {
-      content: "find be";
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-  }
 `;

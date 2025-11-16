@@ -1,16 +1,28 @@
-"use client";
+import { css } from "@linaria/core";
+import { WtalPanorama } from "@samisdat/wtal-panorama";
 
-import React from "react";
-import dynamic from "next/dynamic";
+const panaoramaStyling = css`
+  width: 100%;
+  aspect-ratio: 1500/430;
+  @keyframes panorama-scroll-watcher {
+    0% {
+      transform: translatey(0%);
+    }
 
-const WtalPanorama = dynamic(
-  () =>
-    import("@samisdat/wtal-panorama").then((mod) => ({
-      default: mod.WtalPanorama,
-    })),
-  { ssr: false }
-);
+    100% {
+      transform: translatey(-100%);
+    }
+  }
+  & #_4100 {
+    animation: panorama-scroll-watcher linear;
+    animation-timeline: scroll();
+  }
+`;
 
 export function PanoramaWrapper() {
-  return <WtalPanorama />;
+  return (
+    <div className={panaoramaStyling}>
+      <WtalPanorama />
+    </div>
+  );
 }
