@@ -1,5 +1,5 @@
 export const RedCurch = () => (
-    <g id="_3000-red-church">
+    <>
         <path
             d="M463.128,241.283l52.987,48.825l-105.974,0l52.987,-48.825Z"
             style={{
@@ -45,5 +45,5 @@ export const RedCurch = () => (
                 fill: '#b1423c',
             }}
         />
-    </g>
+    </>
 );
