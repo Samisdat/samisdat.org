@@ -39,40 +39,57 @@ import { Before } from './Track/Before';
 import { Behind } from './Track/Behind';
 import { Track } from './Track/Track';
 
+import { styled } from '@linaria/react';
+
+// Create a styled component
+const Svg = styled.svg`
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 2;
+`;
+
 export const Panorama = (): ReactElement => {
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
 
     return (
-        <svg
+        <Svg
             width="100%"
             height="100%"
             viewBox="0 0 1500 430"
             role="img"
             aria-label="Animiertes Wuppertal Stadtpanorama mit Tag-Nacht-Zyklus"
-            style={{
-                fillRule: 'evenodd',
-                clipRule: 'evenodd',
-                strokeLinejoin: 'round',
-                strokeMiterlimit: 2,
-            }}
+            style={{}}
         >
             <g id="Layer8">
                 <Heaven />
-                <WaterTowerLichtscheid />
-                <Hill010 />
-                <University />
-                <Hill020 />
-                <WaterTowerNaechstebreck />
-                <Hill030 />
-                <Hill040 />
-                <Hill050 />
-                <Tower1 />
-                <Tower2 />
-                <Hill060 />
-                <Tower3 />
-                <Hill070 />
-                <g id="Layer29">
+                <g>
+                    <WaterTowerLichtscheid />
+                    <Hill010 />
+                </g>
+                <g>
+                    <University />
+                    <Hill020 />
+                    <Hill040 />
+                </g>
+                <g>
+                    <WaterTowerNaechstebreck />
+                    <Hill030 />
+                </g>
+                <g>
+                    <Hill050 />
+                    <Tower1 />
+                </g>
+                <g>
+                    <Tower2 />
+                    <Hill060 />
+                </g>
+                <g>
+                    <Tower3 />
+                    <Hill070 />
+                </g>
+                <g>
                     <Wupper />
                     <Behind />
                     <Cars />
@@ -82,24 +99,34 @@ export const Panorama = (): ReactElement => {
                     <Oligsmuehle />
                     <AlterMarkt />
                 </g>
-                <BeyenburgerDom />
-                <Hill080 />
+                <g>
+                    <BeyenburgerDom />
+                    <Hill080 />
+                </g>
+                <g>
+                    <Vohwinkel />
+                    <Hill090 />
+                    <RedCurch />
+                </g>
+                <g>
+                    <SchauspielHaus />
+                    <Hill100 />
+                    <BlueHouse />
+                    <GreenHouse />
+                </g>
+                <g>
+                    <LilaCurch />
+                    <Hill110 />
+                </g>
+                <g>
+                    <Hill120 />
+                    <GreenTower />
+                </g>
 
-                <Hill090 />
-                <RedCurch />
-                <LilaCurch />
-                <Hill100 />
-                <SchauspielHaus />
-                <BlueHouse />
-                <GreenHouse />
-
-                <Hill110 />
-                <GelberTurm />
-                <GreenTower />
-                <Vohwinkel />
-
-                <Hill120 />
-                <Hill130 />
+                <g>
+                    <GelberTurm />
+                    <Hill130 />
+                </g>
             </g>
             <Clock />
             <style>{`
@@ -109,6 +136,6 @@ export const Panorama = (): ReactElement => {
                 transition: opacity 0.5s ease-in-out;
             }
         `}</style>
-        </svg>
+        </Svg>
     );
 };
