@@ -41,12 +41,29 @@ import { Track } from './Track/Track';
 
 import { styled } from '@linaria/react';
 
-// Create a styled component
 const Svg = styled.svg`
     fill-rule: evenodd;
     clip-rule: evenodd;
     stroke-linejoin: round;
     stroke-miterlimit: 2;
+`;
+
+const Layer = styled.g`
+    @keyframes paralax-move {
+        from {
+            transform: translateY(0);
+        }
+
+        to {
+            transform: translateY(-100%);
+        }
+    }
+    animation-name: paralax-move;
+    animation-timing-function: linear;
+    animation-fill-mode: both;
+    animation-duration: 1ms;
+    animation-timeline: scroll(root);
+    animation-range: 0 ${props => props.speed || 500}px;
 `;
 
 export const Panorama = (): ReactElement => {
@@ -99,36 +116,37 @@ export const Panorama = (): ReactElement => {
                     <Oligsmuehle />
                     <AlterMarkt />
                 </g>
-                <g>
+                <Layer speed={300}>
                     <BeyenburgerDom />
                     <Hill080 />
-                </g>
-                <g>
+                </Layer>
+                <Layer speed={280}>
                     <Vohwinkel />
                     <Hill090 />
                     <RedCurch />
-                </g>
-                <g>
+                </Layer>
+                <Layer speed={260}>
                     <SchauspielHaus />
                     <Hill100 />
                     <BlueHouse />
                     <GreenHouse />
-                </g>
-                <g>
+                </Layer>
+                <Layer speed={240}>
                     <LilaCurch />
                     <Hill110 />
-                </g>
-                <g>
+                </Layer>
+                <Layer speed={220}>
                     <Hill120 />
                     <GreenTower />
-                </g>
-
-                <g>
+                </Layer>
+                <Layer speed={200}>
                     <GelberTurm />
                     <Hill130 />
-                </g>
+                </Layer>
             </g>
-            <Clock />
+            <Layer speed={200}>
+                <Clock />
+            </Layer>
             <style>{`
             .illumination {
                 fill: #ffcb77;
