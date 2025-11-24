@@ -1,7 +1,9 @@
-import type { NextConfig } from 'next';
+import withLinaria, { LinariaConfig } from 'next-with-linaria';
 
-const nextConfig: NextConfig = {
-    /* config options here */
+const nextConfig: LinariaConfig = {
+    linaria: {
+        fastCheck: true,
+    },
 };
 
-export default nextConfig;
+export default withLinaria(nextConfig);
