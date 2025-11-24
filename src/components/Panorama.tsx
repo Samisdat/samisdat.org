@@ -41,7 +41,22 @@ import { Track } from './Track/Track';
 
 import { styled } from '@linaria/react';
 
+const PanoramaWrapper = styled.div`
+    position: relative;
+    background: lime;
+    width: 100%;
+    aspect-ratio: 1360/430;
+    text-align: center;
+    overflow: hidden;
+`;
+
 const Svg = styled.svg`
+    position: absolute;
+    left: 50%;
+    display: block;
+    height: 100%;
+    transform: translateX(-50%);
+    aspect-ratio: 1500/430;
     fill-rule: evenodd;
     clip-rule: evenodd;
     stroke-linejoin: round;
@@ -70,90 +85,89 @@ export const Panorama = (): ReactElement => {
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
 
+    // 1360
     return (
-        <Svg
-            width="100%"
-            height="100%"
-            viewBox="0 0 1500 430"
-            role="img"
-            aria-label="Animiertes Wuppertal Stadtpanorama mit Tag-Nacht-Zyklus"
-            style={{}}
-        >
-            <g id="Layer8">
-                <Heaven />
-                <g>
-                    <WaterTowerLichtscheid />
-                    <Hill010 />
+        <PanoramaWrapper>
+            <Svg
+                height="100%"
+                viewBox="0 0 1500 430"
+            >
+                <g id="Layer8">
+                    <Heaven />
+                    <g>
+                        <WaterTowerLichtscheid />
+                        <Hill010 />
+                    </g>
+                    <g>
+                        <University />
+                        <Hill020 />
+                        <Hill040 />
+                    </g>
+                    <g>
+                        <WaterTowerNaechstebreck />
+                        <Hill030 />
+                    </g>
+                    <g>
+                        <Hill050 />
+                        <Tower1 />
+                    </g>
+                    <g>
+                        <Tower2 />
+                        <Hill060 />
+                    </g>
+                    <g>
+                        <Tower3 />
+                        <Hill070 />
+                    </g>
+                    <g>
+                        <Wupper />
+                        <Behind />
+                        <Cars />
+                        <Track />
+                        <Before />
+                        <Townhall />
+                        <Oligsmuehle />
+                        <AlterMarkt />
+                    </g>
+                    <Layer speed={300}>
+                        <BeyenburgerDom />
+                        <Hill080 />
+                    </Layer>
+                    <Layer speed={280}>
+                        <Vohwinkel />
+                        <Hill090 />
+                        <RedCurch />
+                    </Layer>
+                    <Layer speed={260}>
+                        <SchauspielHaus />
+                        <Hill100 />
+                        <BlueHouse />
+                        <GreenHouse />
+                    </Layer>
+                    <Layer speed={240}>
+                        <LilaCurch />
+                        <Hill110 />
+                    </Layer>
+                    <Layer speed={220}>
+                        <Hill120 />
+                        <GreenTower />
+                    </Layer>
+                    <Layer speed={200}>
+                        <GelberTurm />
+                        <Hill130 />
+                    </Layer>
                 </g>
-                <g>
-                    <University />
-                    <Hill020 />
-                    <Hill040 />
-                </g>
-                <g>
-                    <WaterTowerNaechstebreck />
-                    <Hill030 />
-                </g>
-                <g>
-                    <Hill050 />
-                    <Tower1 />
-                </g>
-                <g>
-                    <Tower2 />
-                    <Hill060 />
-                </g>
-                <g>
-                    <Tower3 />
-                    <Hill070 />
-                </g>
-                <g>
-                    <Wupper />
-                    <Behind />
-                    <Cars />
-                    <Track />
-                    <Before />
-                    <Townhall />
-                    <Oligsmuehle />
-                    <AlterMarkt />
-                </g>
-                <Layer speed={300}>
-                    <BeyenburgerDom />
-                    <Hill080 />
-                </Layer>
-                <Layer speed={280}>
-                    <Vohwinkel />
-                    <Hill090 />
-                    <RedCurch />
-                </Layer>
-                <Layer speed={260}>
-                    <SchauspielHaus />
-                    <Hill100 />
-                    <BlueHouse />
-                    <GreenHouse />
-                </Layer>
-                <Layer speed={240}>
-                    <LilaCurch />
-                    <Hill110 />
-                </Layer>
-                <Layer speed={220}>
-                    <Hill120 />
-                    <GreenTower />
-                </Layer>
                 <Layer speed={200}>
-                    <GelberTurm />
-                    <Hill130 />
+                    <Clock />
                 </Layer>
-            </g>
-            <Layer speed={200}>
-                <Clock />
-            </Layer>
-            <style>{`
+                <style>{`
             .illumination {
                 fill: #ffcb77;
                 opacity: ${windowOpacity};
                 transition: opacity 0.5s ease-in-out;
             }
         `}</style>
-        </Svg>
+            </Svg>
+        </PanoramaWrapper>
     );
 };
