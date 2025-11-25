@@ -93,33 +93,35 @@ export const Panorama = (): ReactElement => {
                 viewBox="0 0 1500 430"
             >
                 <g id="Layer8">
-                    <Heaven />
-                    <g>
+                    <Layer speed={460}>
+                        <Heaven />
+                    </Layer>
+                    <Layer speed={440}>
                         <WaterTowerLichtscheid />
                         <Hill010 />
-                    </g>
-                    <g>
+                    </Layer>
+                    <Layer speed={420}>
                         <University />
                         <Hill020 />
                         <Hill040 />
-                    </g>
-                    <g>
+                    </Layer>
+                    <Layer speed={400}>
                         <WaterTowerNaechstebreck />
                         <Hill030 />
-                    </g>
-                    <g>
+                    </Layer>
+                    <Layer speed={380}>
                         <Hill050 />
                         <Tower1 />
-                    </g>
-                    <g>
                         <Tower2 />
+                    </Layer>
+                    <Layer speed={360}>
                         <Hill060 />
-                    </g>
-                    <g>
+                    </Layer>
+                    <Layer speed={340}>
                         <Tower3 />
                         <Hill070 />
-                    </g>
-                    <g>
+                    </Layer>
+                    <Layer speed={320}>
                         <Wupper />
                         <Behind />
                         <Cars />
@@ -128,7 +130,7 @@ export const Panorama = (): ReactElement => {
                         <Townhall />
                         <Oligsmuehle />
                         <AlterMarkt />
-                    </g>
+                    </Layer>
                     <Layer speed={300}>
                         <BeyenburgerDom />
                         <Hill080 />
