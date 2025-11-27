@@ -70,15 +70,14 @@ const Layer = styled.g`
         }
 
         to {
-            transform: translateY(-100%);
+            transform: translateY(calc(var(--speed) * 50));
         }
     }
     animation-name: paralax-move;
-    animation-timing-function: linear;
+    animation-timing-function: ease-out;
     animation-fill-mode: both;
     animation-duration: 1ms;
     animation-timeline: scroll(root);
-    animation-range: 0 ${props => props.speed || 500}px;
 `;
 
 export const Panorama = (): ReactElement => {
@@ -93,35 +92,59 @@ export const Panorama = (): ReactElement => {
                 viewBox="0 0 1500 430"
             >
                 <g id="Layer8">
-                    <Layer speed={460}>
+                    <Layer
+                        speed={460}
+                        style={{ '--speed': '13px' }}
+                    >
                         <Heaven />
                     </Layer>
-                    <Layer speed={440}>
+                    <Layer
+                        speed={440}
+                        style={{ '--speed': '12px' }}
+                    >
                         <WaterTowerLichtscheid />
                         <Hill010 />
                     </Layer>
-                    <Layer speed={420}>
+                    <Layer
+                        speed={420}
+                        style={{ '--speed': '11px' }}
+                    >
                         <University />
                         <Hill020 />
                         <Hill040 />
                     </Layer>
-                    <Layer speed={400}>
+                    <Layer
+                        speed={400}
+                        style={{ '--speed': '10px' }}
+                    >
                         <WaterTowerNaechstebreck />
                         <Hill030 />
                     </Layer>
-                    <Layer speed={380}>
+                    <Layer
+                        speed={380}
+                        style={{ '--speed': '9px' }}
+                    >
                         <Hill050 />
                         <Tower1 />
                         <Tower2 />
                     </Layer>
-                    <Layer speed={360}>
+                    <Layer
+                        speed={360}
+                        style={{ '--speed': '8px' }}
+                    >
                         <Hill060 />
                     </Layer>
-                    <Layer speed={340}>
+                    <Layer
+                        speed={340}
+                        style={{ '--speed': '7px' }}
+                    >
                         <Tower3 />
                         <Hill070 />
                     </Layer>
-                    <Layer speed={320}>
+                    <Layer
+                        speed={320}
+                        style={{ '--speed': '6px' }}
+                    >
                         <Wupper />
                         <Behind />
                         <Cars />
@@ -131,30 +154,48 @@ export const Panorama = (): ReactElement => {
                         <Oligsmuehle />
                         <AlterMarkt />
                     </Layer>
-                    <Layer speed={300}>
+                    <Layer
+                        speed={300}
+                        style={{ '--speed': '5px' }}
+                    >
                         <BeyenburgerDom />
                         <Hill080 />
                     </Layer>
-                    <Layer speed={280}>
+                    <Layer
+                        speed={280}
+                        style={{ '--speed': '4px' }}
+                    >
                         <Vohwinkel />
                         <Hill090 />
                         <RedCurch />
                     </Layer>
-                    <Layer speed={260}>
+                    <Layer
+                        speed={260}
+                        style={{ '--speed': '3px' }}
+                    >
                         <SchauspielHaus />
                         <Hill100 />
                         <BlueHouse />
                         <GreenHouse />
                     </Layer>
-                    <Layer speed={240}>
+                    <Layer
+                        speed={240}
+                        style={{ '--speed': '2px' }}
+                    >
                         <LilaCurch />
                         <Hill110 />
                     </Layer>
-                    <Layer speed={220}>
+                    <Layer
+                        speed={220}
+                        style={{ '--speed': '1px' }}
+                    >
                         <Hill120 />
                         <GreenTower />
                     </Layer>
-                    <Layer speed={200}>
+                    <Layer
+                        speed={0}
+                        style={{ '--speed': '0px' }}
+                    >
                         <GelberTurm />
                         <Hill130 />
                     </Layer>
@@ -162,13 +203,6 @@ export const Panorama = (): ReactElement => {
                 <Layer speed={200}>
                     <Clock />
                 </Layer>
-                <style>{`
-            .illumination {
-                fill: #ffcb77;
-                opacity: ${windowOpacity};
-                transition: opacity 0.5s ease-in-out;
-            }
-        `}</style>
             </Svg>
         </PanoramaWrapper>
     );
