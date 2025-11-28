@@ -1,49 +1,47 @@
+import { css } from '@linaria/core';
+
+const redCurchBaseCss =css`
+    fill: #bb2a42;
+`;
+const redCurchLightCss =css`
+    fill: #e42124;
+`;
+const redCurchFrontCss =css`
+    fill: #ef8888;
+`;
+
 export const RedCurch = () => (
-    <>
+    <g data-id="3000-red-church">
         <path
-            d="M463.128,241.283l52.987,48.825l-105.974,0l52.987,-48.825Z"
-            style={{
-                fill: '#bb2a42',
-            }}
+            className={redCurchBaseCss}
+            d="M536.128,276.283l52.987,48.825l-105.974,0l52.987,-48.825Z"
         />
         <path
-            d="M463.128,241.283l21.796,48.825l-43.592,0l21.796,-48.825Z"
-            style={{
-                fill: '#e42124',
-            }}
+            className={redCurchLightCss}
+            d="M536.128,276.283l21.796,48.825l-43.592,0l21.796,-48.825Z"
         />
         <path
-            d="M516.115,309.63l0,-19.522l-105.974,0l-0,17.941l105.974,1.581Z"
-            style={{
-                fill: '#ef8888',
-            }}
+            className={redCurchFrontCss}
+            d="M589.115,344.63l0,-19.522l-105.974,0l-0,17.941l105.974,1.581Z"
         />
         <path
-            d="M409.986,239.015l16.094,49.993l-0.246,19.951l-32.336,-0.35l0.395,-19.601l16.093,-49.993Z"
-            style={{
-                fill: '#c63144',
-            }}
+            className={redCurchBaseCss}
+            d="M482.986,274.015l16.094,49.993l-0.246,19.951l-32.336,-0.35l0.395,-19.601l16.093,-49.993Z"
         />
         <path
-            d="M409.896,254.429l8.704,34.968l-0.133,19.562l-17.49,-0.273l0.214,-19.289l8.705,-34.968Z"
-            style={{
-                fill: '#e7282b',
-            }}
+            className={redCurchLightCss}
+            d="M482.896,289.429l8.704,34.968l-0.133,19.562l-17.49,-0.273l0.214,-19.289l8.705,-34.968Z"
         />
         <rect
-            x={486.046}
-            y={295.686}
-            width={9.851}
-            height={13.64}
-            style={{
-                fill: '#bc2d44',
-            }}
+            className={redCurchBaseCss}
+            x="559.046"
+            y="330.686"
+            width="9.851"
+            height="13.64"
         />
         <path
-            d="M519.959,308.751l-132.643,-2.505l-0,4.264l132.643,2.505l-0,-4.264Z"
-            style={{
-                fill: '#b1423c',
-            }}
+            className={redCurchBaseCss}
+            d="M592.959,343.751l-132.643,-2.505l-0,4.264l132.643,2.505l-0,-4.264Z"
         />
-    </>
+    </g>
 );
