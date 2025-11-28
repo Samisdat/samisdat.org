@@ -40,12 +40,13 @@ import { Behind } from './Track/Behind';
 import { Track } from './Track/Track';
 
 import { styled } from '@linaria/react';
+import {PanoramaRaw} from "@/components/PanoramaRaw";
 
 const PanoramaWrapper = styled.div`
     position: relative;
     background: lime;
     width: 100%;
-    aspect-ratio: 1360/430;
+    aspect-ratio: 1260/500;
     text-align: center;
     overflow: hidden;
 `;
@@ -87,6 +88,8 @@ export const Panorama = (): ReactElement => {
     // 1360
     return (
         <PanoramaWrapper>
+            <PanoramaRaw/>
+            {/*
             <Svg
                 height="100%"
                 viewBox="0 0 1500 430"
@@ -203,7 +206,7 @@ export const Panorama = (): ReactElement => {
                 <Layer speed={200}>
                     <Clock />
                 </Layer>
-            </Svg>
+            </Svg>*/}
         </PanoramaWrapper>
     );
 };
