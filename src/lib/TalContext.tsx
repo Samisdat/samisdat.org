@@ -47,11 +47,11 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         const dawnDuration = sunrise - dawn;
         const duskDuration = dusk - sunset;
 
-        let skyOpacity = 0;
-        if (currentTime < dawn) skyOpacity = 0;
-        else if (currentTime < sunrise) skyOpacity = (currentTime - dawn) / dawnDuration;
-        else if (currentTime < sunset) skyOpacity = 1;
-        else if (currentTime < dusk) skyOpacity = 1 - (currentTime - sunset) / duskDuration;
+        let skyOpacity = 1;
+        if (currentTime < dawn) skyOpacity = 1;
+        else if (currentTime < sunrise) skyOpacity = 1 - (currentTime - dawn) / dawnDuration;
+        else if (currentTime < sunset) skyOpacity = 0;
+        else if (currentTime < dusk) skyOpacity = (currentTime - sunset) / duskDuration;
 
         let windowOpacity = 0;
         if (currentTime >= sunset && currentTime < dusk) {

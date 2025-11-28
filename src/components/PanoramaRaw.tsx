@@ -1,5 +1,6 @@
 import {ReactElement} from 'react';
 import { styled } from '@linaria/react';
+import {Heaven} from "@/components/Heaven/Heaven";
 
 const Svg = styled.svg`
     position: absolute;
@@ -31,6 +32,9 @@ export const PanoramaRaw = (): ReactElement => {
                         <circle
                             id="sun" cx="849.994" cy="76" r="30" style={{fill: '#f0ff5e'}}/>
                     </g>
+                </g>
+                <g opacity="1">
+                <Heaven  />
                 </g>
                 <g id="Layer30">
                     <g id="WaterTowerLichtscheid">

@@ -4,7 +4,6 @@ import { useTal } from '@/lib/TalContext';
 import { useEffect, useRef, useState } from 'react';
 import SunCalc from 'suncalc';
 import { Moon } from './Moon';
-import { Stars } from './Stars';
 import { Sun } from './Sun';
 
 const LAT = 51.2562;
@@ -15,9 +14,18 @@ interface Point {
     y: number;
 }
 
+import { css } from '@linaria/core';
+
+const nightCss =css`
+    fill: #0c101d;
+`;
+
 export const Heaven = () => {
-    const { time, sunTimes } = useTal();
+
     const pathRef = useRef<SVGPathElement>(null);
+
+    const { time, sunTimes } = useTal();
+
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({ x: 146.43, y: 306 });
 
@@ -62,7 +70,7 @@ export const Heaven = () => {
         <g id={'heaven'}>
             <defs>
                 <linearGradient
-                    id="heavenGradient"
+                    id="dayskyGradient"
                     x1="0%"
                     y1="0%"
                     x2="0%"
@@ -70,34 +78,38 @@ export const Heaven = () => {
                 >
                     <stop
                         offset="0%"
-                        style={{ stopColor: '#2F95E5', stopOpacity: 1 }}
+                        style={{ stopColor: '#0376BF' }}
                     />
                     <stop
+                        offset="10%"
+                        style={{ stopColor: '#0376BF' }}
+                    />
+                    <stop
+                        offset="60%"
+                        style={{ stopColor: '#A8D0F5' }}
+                    />
+
+                    <stop
                         offset="100%"
-                        style={{ stopColor: '#72B7ED', stopOpacity: 1 }}
+                        style={{ stopColor: '#A8D0F5' }}
                     />
                 </linearGradient>
 
                 <path
                     ref={pathRef}
                     id="sunAndMoonPath"
-                    d="M146.43,306C146.43,306 145.247,257.566 145.428,210.872C146.02,58.59 416.844,41 751.152,41C1085.46,41 1356.31,56.184 1356.88,210.872C1357.06,260.153 1357.32,306 1357.32,306"
+                    d="M432.747,275.894c-0,-0 -0.819,-23.505 -0.693,-55.807c0.409,-105.344 187.757,-167.513 419.022,-167.513c231.264,0 418.626,81.505 419.021,188.513c0.126,34.091 0.305,34.807 0.305,34.807"
                 />
-            </defs>
-            <rect
-                x="0"
-                width="1500"
-                height="400"
-            />
-            <rect
-                x="0"
-                width="1500"
-                height="400"
-                fill="url(#heavenGradient)"
-                opacity={skyOpacity}
-            />
 
-            {!isDay && <Stars opacity={1 - skyOpacity} />}
+            </defs>
+
+            <rect
+                x="0"
+                width="1700"
+                height="500"
+                fill="url(#dayskyGradient)"
+            />
+            <path className={nightCss} id="night" d="M0,-0l0,500l1700,-0l0,-500l-1700,-0Z" opacity={skyOpacity} />
 
             {isDay && (
                 <Sun
@@ -112,6 +124,9 @@ export const Heaven = () => {
                     y={moonPosition.y}
                 />
             )}
+
         </g>
-    );
-};
+    )
+
+}
+
