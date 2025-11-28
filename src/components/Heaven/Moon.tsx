@@ -14,7 +14,6 @@ const craterCss = css`
     fill: #dcdcdc
 `;
 
-
 export const Moon: FC<MoonProps> = ({x, y}) => (
     <g transform={`translate(${x - 25}, ${y - 25/**/})`}>
         <circle className={moonCss} cx="25" cy="25" r="25"/>
