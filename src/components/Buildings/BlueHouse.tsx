@@ -1,23 +1,23 @@
 import { css } from '@linaria/core';
 
-const blueHouseLightCss =css`
+const blueHouseLightCss = css`
     fill: #55989e;
 `;
 
-const blueHouseDarkCss =css`
+const blueHouseDarkCss = css`
     fill: #314a74;
 `;
 
-const blueHouseRoofCss =css`
+const blueHouseRoofCss = css`
     fill: #272129;
 `;
 
-const blueHouseWindowfCss =css`
+const blueHouseWindowfCss = css`
     fill: #272129;
 `;
 
 export const BlueHouse = () => (
-    <g data-id="_3500-blaues-haus" >
+    <g data-id="_3500-blaues-haus">
         <path
             className={blueHouseDarkCss}
             d="M1297.33,289.36l14.961,-1.814l4.385,5.141l0.676,49.714l-19.625,2.273l-0.397,-55.314Z"

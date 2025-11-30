@@ -1,16 +1,16 @@
-import {FC} from "react";
 import { css } from '@linaria/core';
+import { FC } from 'react';
 
 const alterMarktCss = css`
     fill: #5b5b5e;
 `;
 
 interface AlterMarktProps {
-    beforeTrack?:boolean;
+    beforeTrack?: boolean;
 }
 
-export const AlterMarkt:FC<AlterMarktProps> = ({beforeTrack=false}) => {
-    if(beforeTrack) {
+export const AlterMarkt: FC<AlterMarktProps> = ({ beforeTrack = false }) => {
+    if (beforeTrack) {
         return (
             <g data-id="2600-bridge">
                 <path
@@ -30,5 +30,5 @@ export const AlterMarkt:FC<AlterMarktProps> = ({beforeTrack=false}) => {
             className={alterMarktCss}
             d="M1331.52,345.768l7.384,0l8.746,-109.854l-3.764,-0.152l-12.366,110.006Z"
         />
-    )
+    );
 };

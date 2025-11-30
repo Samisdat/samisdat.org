@@ -1,14 +1,13 @@
 import { css } from '@linaria/core';
 
-const towerDarkCss =css`
+const towerDarkCss = css`
     fill: #2f1927;
 `;
-const towerLightCss =css`
+const towerLightCss = css`
     fill: #867474;
 `;
 
 export const Tower2 = () => (
-
     <g data-id="Tower2">
         <path
             className={towerDarkCss}
@@ -31,5 +30,4 @@ export const Tower2 = () => (
             d="M452.499,117.634c-0,0.364 -0.017,0.748 -0.017,0.748c0,-0 -0.003,-0.003 -0.005,-0.004c-0.842,-0.505 -1.353,-1.165 -1.353,-1.886c0,-1.586 2.464,-2.874 5.499,-2.874c3.035,-0 5.498,1.288 5.498,2.874c0,0.735 -0.552,1.366 -1.4,1.915c-0.02,0.012 0.006,-0.408 0.006,-0.772c0,-1.19 -1.828,-2.157 -4.104,-2.157c-2.276,0 -4.124,0.966 -4.124,2.156Z"
         />
     </g>
-
 );

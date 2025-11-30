@@ -1,14 +1,14 @@
 import { css } from '@linaria/core';
 
-const towerBaseCss =css`
+const towerBaseCss = css`
     fill: #f1ab97;
 `;
 
-const towerDarkCss =css`
+const towerDarkCss = css`
     fill: #893532;
 `;
 
-const towerWindowCss =css`
+const towerWindowCss = css`
     fill: #f1ab97;
 `;
 
@@ -39,7 +39,6 @@ export const Tower3 = () => (
             y="252.158"
             width="4.627"
             height="4.007"
-
         />
     </g>
 );

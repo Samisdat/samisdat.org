@@ -1,14 +1,14 @@
 import { css } from '@linaria/core';
 
-const universityBaseCss =css`
+const universityBaseCss = css`
     fill: #fc815d;
 `;
 
-const universityDarkCss =css`
+const universityDarkCss = css`
     fill: #3f4f2d;
 `;
 
-const universityLightCss =css`
+const universityLightCss = css`
     fill: #809672;
 `;
 

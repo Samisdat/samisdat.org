@@ -7,7 +7,7 @@ import { useTal } from '@/lib/TalContext';
 import { ReactElement } from 'react';
 import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
-import {LilaChurch} from './Buildings/LilaChurch';
+import { LilaChurch } from './Buildings/LilaChurch';
 import { RedCurch } from './Buildings/RedCurch';
 import { Tower1 } from './Buildings/Tower1';
 import { Tower2 } from './Buildings/Tower2';
@@ -25,15 +25,15 @@ import { Track } from './Track/Track';
 
 import { styled } from '@linaria/react';
 
-import {PanoramaRaw} from "@/components/PanoramaRaw";
-import {Hill1110} from "@/components/Hills/Hill1100";
-import {Hill1310} from "@/components/Hills/Hill1300";
-import {Hill2800} from "@/components/Hills/Hill2800";
-import {Hill2900} from "@/components/Hills/Hill2900";
-import {Hill3200} from "@/components/Hills/Hill3200";
-import {Hill3300} from "@/components/Hills/Hill3300";
-import {Hill3800} from "@/components/Hills/Hill3800";
-import {Hill4100} from "@/components/Hills/Hill4100";
+import { Hill1110 } from '@/components/Hills/Hill1100';
+import { Hill1310 } from '@/components/Hills/Hill1300';
+import { Hill2800 } from '@/components/Hills/Hill2800';
+import { Hill2900 } from '@/components/Hills/Hill2900';
+import { Hill3200 } from '@/components/Hills/Hill3200';
+import { Hill3300 } from '@/components/Hills/Hill3300';
+import { Hill3800 } from '@/components/Hills/Hill3800';
+import { Hill4100 } from '@/components/Hills/Hill4100';
+import { PanoramaRaw } from '@/components/PanoramaRaw';
 
 const PanoramaWrapper = styled.div`
     position: relative;
@@ -75,7 +75,6 @@ const Layer = styled.g`
     animation-timeline: scroll(root);
 
     --speed: ${props => props.speed || 0}px;
-
 `;
 
 export const Panorama = (): ReactElement => {
@@ -84,93 +83,70 @@ export const Panorama = (): ReactElement => {
 
     return (
         <PanoramaWrapper>
-            <PanoramaRaw/>
-            <Svg height="100%" viewBox="0 0 1700 500"
-                 style={{fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2}}>
-                <Heaven  />
-                <Layer
-                    speed={13}
-                >
-                    <WaterTowerLichtscheid/>
-                    <Hill010/>
+            <PanoramaRaw />
+            <Svg
+                height="100%"
+                viewBox="0 0 1700 500"
+                style={{ fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2 }}
+            >
+                <Heaven />
+                <Layer speed={13}>
+                    <WaterTowerLichtscheid />
+                    <Hill010 />
                 </Layer>
-                <Layer
-                    speed={12}
-                >
-                    <University/>
-                    <Hill020/>
-                    <Hill040/>
+                <Layer speed={12}>
+                    <University />
+                    <Hill020 />
+                    <Hill040 />
                 </Layer>
-                <Layer
-                    speed={11}
-                >
-                    <WaterTowerNaechstebreck/>
-                    <Hill030/>
+                <Layer speed={11}>
+                    <WaterTowerNaechstebreck />
+                    <Hill030 />
                 </Layer>
-                <Layer
-                    speed={10}
-                >
-                <Tower2/>
-                    <Hill050/>
+                <Layer speed={10}>
+                    <Tower2 />
+                    <Hill050 />
                 </Layer>
-                <Layer
-                    speed={9}
-                >
-                    <Tower1/>
-                    <Hill1110/>
+                <Layer speed={9}>
+                    <Tower1 />
+                    <Hill1110 />
                 </Layer>
-                <Layer
-                    speed={8}
-                >
-                    <Tower3/>
-                    <Hill1310/>
+                <Layer speed={8}>
+                    <Tower3 />
+                    <Hill1310 />
                 </Layer>
-                <Layer
-                    speed={7}
-                >
-                    <BeyenburgerDom/>
-                    <Hill2800/>
+                <Layer speed={7}>
+                    <BeyenburgerDom />
+                    <Hill2800 />
                 </Layer>
-                <Layer
-                    speed={6}
-                >
-                <Track/>
+                <Layer speed={6}>
+                    <Track />
                 </Layer>
-                <Layer
-                    speed={5}
-                >
-                    <Hill2900/>
-                    <Vohwinkel/>
-                    <RedCurch/>
+                <Layer speed={5}>
+                    <Hill2900 />
+                    <Vohwinkel />
+                    <RedCurch />
                 </Layer>
-                <Layer
-                    speed={4}
-                >
-                    <Hill3200/>
-                    <LilaChurch/>
+                <Layer speed={4}>
+                    <Hill3200 />
+                    <LilaChurch />
                 </Layer>
-                <Layer
-                    speed={3}
-                >
-                <Tower3 />
-                <Hill3300/>
+                <Layer speed={3}>
+                    <Tower3 />
+                    <Hill3300 />
                 </Layer>
-                <Layer
-                    speed={2}
-                >
-                    <GreenHouse/>
-                    <Hill3200/>
+                <Layer speed={2}>
+                    <GreenHouse />
+                    <Hill3200 />
                 </Layer>
-                <BlueHouse/>
-                <Layer
-                    speed={1}
-                >
-                    <GreenTower/>
-                    <Hill3800/>
+                <BlueHouse />
+                <Layer speed={1}>
+                    <GreenTower />
+                    <Hill3800 />
                 </Layer>
                 <Layer>
-                    <GelberTurm/>
-                    <Hill4100/>
+                    <GelberTurm />
+                    <Hill4100 />
                     <Clock />
                 </Layer>
             </Svg>

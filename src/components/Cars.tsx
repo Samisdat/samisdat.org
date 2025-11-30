@@ -5,12 +5,11 @@ const start = 100;
 const stop = 1400;
 
 const carCss = css`
-    fill: #00AFEB; 
+    fill: #00afeb;
     stroke: #000051;
-    stroke-width:3;
-    width:81px;
-    height:11px;
-
+    stroke-width: 3;
+    width: 81px;
+    height: 11px;
 `;
 
 export const Cars = () => (
@@ -18,7 +17,7 @@ export const Cars = () => (
         <rect
             className={carCss}
             x={start}
-            y={"309"}
+            y={'309'}
         >
             <animate
                 attributeName="x"
@@ -30,7 +29,7 @@ export const Cars = () => (
         <rect
             className={carCss}
             x={1330}
-            y={"309"}
+            y={'309'}
         >
             <animate
                 attributeName="x"

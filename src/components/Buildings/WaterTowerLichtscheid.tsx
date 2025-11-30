@@ -1,12 +1,12 @@
 import { css } from '@linaria/core';
 
-const waterTower1Css =css`
+const waterTower1Css = css`
     fill: #601107;
 `;
-const waterTower2Css =css`
+const waterTower2Css = css`
     fill: #ca3949;
 `;
-const waterTower3Css =css`
+const waterTower3Css = css`
     fill: #ea6467;
 `;
 

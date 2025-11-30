@@ -1,14 +1,14 @@
 import { css } from '@linaria/core';
 
-const lilaChurchBaseCss =css`
+const lilaChurchBaseCss = css`
     fill: #d9aba3;
 `;
 
-const lilaChurchRoofCss =css`
+const lilaChurchRoofCss = css`
     fill: #3d262d;
 `;
 
-const lilaChurchWindowCss =css`
+const lilaChurchWindowCss = css`
     fill: #3d262d;
 `;
 

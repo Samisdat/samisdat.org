@@ -8,5 +8,5 @@ export const WtalPanorama = () => (
     </TalProvider>
 );
 
-export {default as Panorama} from './components/Panorama'
+export { default as Panorama } from './components/Panorama';
 export { TalProvider } from './lib/TalContext';

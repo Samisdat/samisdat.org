@@ -1,10 +1,10 @@
 import { css } from '@linaria/core';
 
-const towerLightCss =css`
+const towerLightCss = css`
     fill: #cba09f;
 `;
 
-const towerDarkCss =css`
+const towerDarkCss = css`
     fill: #3d242e;
 `;
 

@@ -1,12 +1,12 @@
 import { css } from '@linaria/core';
 
-const redCurchBaseCss =css`
+const redCurchBaseCss = css`
     fill: #bb2a42;
 `;
-const redCurchLightCss =css`
+const redCurchLightCss = css`
     fill: #e42124;
 `;
-const redCurchFrontCss =css`
+const redCurchFrontCss = css`
     fill: #ef8888;
 `;
 

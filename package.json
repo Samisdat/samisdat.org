@@ -23,7 +23,7 @@
     "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
     "start": "next start",
     "lint": "eslint .",
-    "format": "prettier --write \"./**/*.{js,jsx,ts,tsx,css,md,json}\" --config ./.prettierrc.cjs",
+    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "prepublishOnly": "npm run build:lib"
   },
   "keywords": [

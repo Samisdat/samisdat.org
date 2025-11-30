@@ -1,18 +1,18 @@
 import { css } from '@linaria/core';
 
-const greenTowerBaseCss =css`
+const greenTowerBaseCss = css`
     fill: #a0b491;
 `;
 
-const greenTowerWindowCss =css`
+const greenTowerWindowCss = css`
     fill: #536d46;
 `;
 
-const greenTowerDarkCss =css`
+const greenTowerDarkCss = css`
     fill: #536d46;
 `;
 
-export const GreenTower =  () => (
+export const GreenTower = () => (
     <g data-id="3900-green-tower">
         <path
             className={greenTowerDarkCss}
@@ -31,4 +31,4 @@ export const GreenTower =  () => (
             d="M670.899,334.844l2.055,0.008l-0.668,19.09l-1.749,-0l0.362,-19.098Zm9.93,0l2.056,0.008l0.325,19.09l-1.75,-0l-0.631,-19.098Zm5.462,0l2.055,0.008l0.822,19.09l-1.75,-0l-1.127,-19.098Zm-20.358,0l2.056,0.008l-1.165,19.09l-1.749,-0l0.858,-19.098Z"
         />
     </g>
-)
+);

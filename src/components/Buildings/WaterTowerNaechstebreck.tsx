@@ -1,12 +1,12 @@
 import { css } from '@linaria/core';
 
-const waterTowerNaechstebreck1Css =css`
+const waterTowerNaechstebreck1Css = css`
     fill: #af3b24;
 `;
-const waterTowerNaechstebreck2Css =css`
+const waterTowerNaechstebreck2Css = css`
     fill: #6c0705;
 `;
-const waterTowerNaechstebreck3Css =css`
+const waterTowerNaechstebreck3Css = css`
     fill: #d44431;
 `;
 
@@ -25,5 +25,4 @@ export const WaterTowerNaechstebreck = () => (
             d="M1218.11,207.944l0.057,5.414c0,0 12.676,-4.906 26.653,-4.757c15.699,0.167 27.527,5.507 27.527,5.507l0.228,-5.765c-0,0 -12.635,-5.279 -27.671,-5.329c-15.127,-0.05 -26.794,4.93 -26.794,4.93Z"
         />
     </g>
-
 );

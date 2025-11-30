@@ -16,12 +16,11 @@ interface Point {
 
 import { css } from '@linaria/core';
 
-const nightCss =css`
+const nightCss = css`
     fill: #0c101d;
 `;
 
 export const Heaven = () => {
-
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, sunTimes } = useTal();
@@ -100,7 +99,6 @@ export const Heaven = () => {
                     id="sunAndMoonPath"
                     d="M432.747,275.894c-0,-0 -0.819,-23.505 -0.693,-55.807c0.409,-105.344 187.757,-167.513 419.022,-167.513c231.264,0 418.626,81.505 419.021,188.513c0.126,34.091 0.305,34.807 0.305,34.807"
                 />
-
             </defs>
 
             <rect
@@ -109,7 +107,12 @@ export const Heaven = () => {
                 height="500"
                 fill="url(#dayskyGradient)"
             />
-            <path className={nightCss} id="night" d="M0,-0l0,500l1700,-0l0,-500l-1700,-0Z" opacity={skyOpacity} />
+            <path
+                className={nightCss}
+                id="night"
+                d="M0,-0l0,500l1700,-0l0,-500l-1700,-0Z"
+                opacity={skyOpacity}
+            />
 
             {isDay && (
                 <Sun
@@ -124,9 +127,6 @@ export const Heaven = () => {
                     y={moonPosition.y}
                 />
             )}
-
         </g>
-    )
-
-}
-
+    );
+};

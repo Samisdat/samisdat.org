@@ -1,5 +1,5 @@
-import { FC } from 'react';
 import { css } from '@linaria/core';
+import { FC } from 'react';
 
 interface SunProps {
     x: number;
@@ -7,11 +7,12 @@ interface SunProps {
 }
 
 const sunCss = css`
-    fill: #F0FF5E;
+    fill: #f0ff5e;
 `;
 
 export const Sun: FC<SunProps> = ({ x, y }) => (
-    <circle className={sunCss}
+    <circle
+        className={sunCss}
         cx={x}
         cy={y}
         r="25"

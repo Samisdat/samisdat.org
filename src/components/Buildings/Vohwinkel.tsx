@@ -1,16 +1,16 @@
 import { css } from '@linaria/core';
 
-const vohwinkelRoofCss =css`
+const vohwinkelRoofCss = css`
     fill: #7b1b13;
 `;
 
-const vohwinkelDarkCss =css`
+const vohwinkelDarkCss = css`
     fill: #f73c2c;
 `;
-const vohwinkelLightCss =css`
+const vohwinkelLightCss = css`
     fill: #f6af90;
 `;
-const vohwinkelWindowCss =css`
+const vohwinkelWindowCss = css`
     fill: #7b1b13;
 `;
 
