@@ -1,5 +1,5 @@
 'use client';
-import { Panorama } from './components/Panorama';
+import Panorama from './components/Panorama';
 import { TalProvider } from './lib/TalContext';
 
 export const WtalPanorama = () => (
@@ -8,5 +8,5 @@ export const WtalPanorama = () => (
     </TalProvider>
 );
 
-export { Panorama } from './components/Panorama';
+export {default as Panorama} from './components/Panorama'
 export { TalProvider } from './lib/TalContext';
