@@ -3,7 +3,6 @@ import { css } from '@linaria/core';
 import { AlterMarkt } from '@/components/Buildings/AlterMarkt';
 import { BridgeZoo } from '@/components/Buildings/BridgeZoo';
 import { Oligsmuehle } from '@/components/Buildings/Oligsmuehle';
-import { SchauspielHaus } from '@/components/Buildings/SchauspielHaus';
 import { Townhall } from '@/components/Buildings/Townhall';
 import { Wupper } from '@/components/Buildings/Wupper';
 import { Cars } from '@/components/Cars';
@@ -27,7 +26,6 @@ export const Track = () => (
         />
         <Hill2200 />
         <BridgeZoo beforeTrack={true} />
-        <SchauspielHaus />
         <Townhall />
         <Oligsmuehle />
         <AlterMarkt beforeTrack={true} />
