@@ -4,7 +4,7 @@ import { GreenTower } from '@/components/Buildings/GreenTower';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
 import { useTal } from '@/lib/TalContext';
-import {ReactElement, RefObject, useRef} from 'react';
+import { FC, ReactElement, RefObject, useRef } from 'react';
 import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
@@ -37,9 +37,10 @@ import { Hill3800 } from '@/components/Hills/Hill3800';
 import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBAck } from '@/components/Hills/VohwinkelBack';
-import {useParallaxPosition} from "@/components/hook/useParallaxPosition";
-import {useParallaxMouse} from "@/components/hook/useParallaxMouse";
-import {HTMLDivElement} from "happy-dom";
+import { useParallaxMouse } from '@/components/hook/useParallaxMouse';
+import { ParallaxCoords, useParallaxPosition } from '@/components/hook/useParallaxPosition';
+import { css } from '@linaria/core';
+import { HTMLDivElement } from 'happy-dom';
 
 const PanoramaWrapper = styled.div`
     position: relative;
@@ -64,7 +65,40 @@ const Svg = styled.svg`
     stroke-miterlimit: 2;
 `;
 
+interface ParallaxLayerProps extends SVGGElement {
+    speed: number;
+    depth: number;
+    coords: ParallaxCoords;
+}
+
+const stableCss = css`
+    transition: transform 10ms ease;
+`;
+
+export const __ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, coords, children, ...props }) => {
+    const x = coords.x * depth || 0;
+    const y = coords.y * depth || 0;
+
+    console.log(x, y);
+
+    const style = {
+        transform: `translate(${x}px, ${y}px)`,
+    };
+
+    return (
+        <g
+            className={stableCss}
+            style={style}
+        >
+            {children}
+        </g>
+    );
+};
+
 export const ParallaxLayer = styled.g`
+    ${stableCss};
+
+    /*
     @keyframes paralax-move {
         from {
             transform: translateY(0);
@@ -82,92 +116,152 @@ export const ParallaxLayer = styled.g`
 
     --speed: ${props => props.speed || 0}px;
     --parallaxX: ${props => props.x || 0}px;
+    
+     */
 `;
 
-export const Panorama = (): ReactElement => {
+const parallax = (depth: number, coords: ParallaxCoords) => {
+    const x = coords.x * depth || 0;
+    const y = coords.y * depth || 0;
 
-    const { coords, handleMouseMove, handleMouseLeave } =
-        useParallaxPosition();
+    console.log(x, y, coords.x);
+
+    return { transform: `translate(${x}px, ${y}px)` };
+};
+
+export const Panorama = (): ReactElement => {
+    const { coords, handleMouseMove, handleMouseLeave } = useParallaxPosition();
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
 
+    const modifier = 3;
+
     return (
         <>
-        <PanoramaWrapper
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-
-        >
-            <Svg
-                height="100%"
-                viewBox="0 0 1700 500"
-                style={{ fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2 }}
+            <PanoramaWrapper
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
             >
-                <Heaven />
-                <ParallaxLayer speed={15}>
-                    <WaterTowerLichtscheid />
-                    <Hill010 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={13}>
-                    <University />
-                    <Hill020 />
-                    <Hill040 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={12}>
-                    <WaterTowerNaechstebreck />
-                    <Hill030 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={11}>
-                    <Tower2 />
-                    <Hill050 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={10}>
-                    <Tower1 />
-                    <Hill1110 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={9}>
-                    <Elisenturm />
-                    <Hardt />
-                </ParallaxLayer>
-                <ParallaxLayer speed={8}>
-                    <BeyenburgerDom />
-                    <Hill2800 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={7}>
-                    <Track />
-                </ParallaxLayer>
-                <ParallaxLayer speed={6}>
-                    <Hill2900 />
-                    <RedCurch />
-                </ParallaxLayer>
-                <ParallaxLayer speed={5}>
-                    <LilaChurch />
-                    <LilaChurchHill />
-                </ParallaxLayer>
-                <ParallaxLayer speed={4}>
-                    <Hill100 />
-                    <GreenHouse />
-                    <BlueHouse />
-                </ParallaxLayer>
-                <ParallaxLayer speed={3}>
-                    <SchauspielHaus />
-                    <Hill3200 />
-                    <SchauspielHausCanopy />
-                </ParallaxLayer>
-                <ParallaxLayer speed={2}>
-                    <VohwinkelBAck />
-                    <Vohwinkel />
-                    <Hill3800 />
-                </ParallaxLayer>
-                <ParallaxLayer speed={1} depth={1}>
-                    <GreenTower />
-                    <BeforeGreenTower />
-                </ParallaxLayer>
-                <GelberTurm />
-                <Hill4100 />
-                <Clock />
-                {/*
+                <Svg
+                    height="100%"
+                    viewBox="0 0 1700 500"
+                    style={{ fillRule: 'evenodd', clipRule: 'evenodd', strokeLinejoin: 'round', strokeMiterlimit: 2 }}
+                >
+                    <Heaven />
+                    <ParallaxLayer
+                        speed={15}
+                        style={{ ...parallax(-7 * modifier, coords) }}
+                    >
+                        <WaterTowerLichtscheid />
+                        <Hill010 />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={13}
+                        style={{ ...parallax(-6 * modifier, coords) }}
+                    >
+                        <University />
+                        <Hill020 />
+                        <Hill040 />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={12}
+                        style={{ ...parallax(-5 * modifier, coords) }}
+                    >
+                        <WaterTowerNaechstebreck />
+                        <Hill030 />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={11}
+                        style={{ ...parallax(-4 * modifier, coords) }}
+                    >
+                        <Tower2 />
+                        <Hill050 />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={10}
+                        style={{ ...parallax(-3 * modifier, coords) }}
+                    >
+                        <Tower1 />
+                        <Hill1110 />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={9}
+                        style={{ ...parallax(-2 * modifier, coords) }}
+                    >
+                        <Elisenturm />
+                        <Hardt />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={8}
+                        style={{ ...parallax(-1 * modifier, coords) }}
+                    >
+                        <BeyenburgerDom />
+                        <Hill2800 />
+                    </ParallaxLayer>
+
+                    <ParallaxLayer
+                        speed={7}
+                        style={{ ...parallax(0, coords) }}
+                    >
+                        <Track />
+                    </ParallaxLayer>
+
+                    <ParallaxLayer
+                        speed={6}
+                        style={{ ...parallax(1 * modifier, coords) }}
+                    >
+                        <Hill2900 />
+                        <RedCurch />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={5}
+                        style={{ ...parallax(2 * modifier, coords) }}
+                    >
+                        <LilaChurch />
+                        <LilaChurchHill />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={4}
+                        style={{ ...parallax(3 * modifier, coords) }}
+                    >
+                        <Hill100 />
+                        <GreenHouse />
+                        <BlueHouse />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={3}
+                        style={{ ...parallax(4 * modifier, coords) }}
+                    >
+                        <SchauspielHaus />
+                        <Hill3200 />
+                        <SchauspielHausCanopy />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={2}
+                        style={{ ...parallax(5 * modifier, coords) }}
+                    >
+                        <VohwinkelBAck />
+                        <Vohwinkel />
+                        <Hill3800 />
+                    </ParallaxLayer>
+
+                    <ParallaxLayer
+                        speed={1}
+                        style={{ ...parallax(6 * modifier, coords) }}
+                    >
+                        <GreenTower />
+                        <BeforeGreenTower />
+                    </ParallaxLayer>
+                    <ParallaxLayer
+                        speed={1}
+                        style={{ ...parallax(7 * modifier, coords) }}
+                    >
+                        <GelberTurm />
+                        <Hill4100 />
+                        <Clock />
+                    </ParallaxLayer>
+                    {/*
 
                 <ParallaxLayer speed={4}>
                     <Hill2250/>
@@ -184,14 +278,11 @@ export const Panorama = (): ReactElement => {
                     <Hill4100 />
                 </ParallaxLayer>
                 */}
-            </Svg>
-        </PanoramaWrapper>
+                </Svg>
+            </PanoramaWrapper>
             <div>
                 {coords.x}/{coords.y}/
             </div>
-
-    </>
-
-
-);
+        </>
+    );
 };

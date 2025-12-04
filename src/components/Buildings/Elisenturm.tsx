@@ -12,7 +12,7 @@ const towerWindowCss = css`
     fill: #f1ab97;
 `;
 
-export const Tower3 = () => (
+export const Elisenturm = () => (
     <g id="Tower3">
         <path
             className={towerDarkCss}

@@ -1,5 +1,6 @@
 'use client';
 
+import { ParallaxLayer } from '@/components/Panorama';
 import { useTal } from '@/lib/TalContext';
 import { useEffect, useRef, useState } from 'react';
 import SunCalc from 'suncalc';
