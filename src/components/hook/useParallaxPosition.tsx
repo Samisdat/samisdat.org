@@ -1,67 +1,70 @@
-import { MouseEvent, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  MouseEvent,
+  RefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export type ParallaxCoords = {
-    x: number;
-    y: number;
+  x: number;
+  y: number;
 };
 
-export const useParallaxPosition = () => {
-    const [coords, setCoords] = useState<ParallaxCoords>({ x: 0, y: 0 });
+export const useParallaxPosition = (ref: RefObject<HTMLDivElement | null>) => {
+  const [coords, setCoords] = useState<ParallaxCoords>({ x: 0, y: 0 });
 
-    const frameRef = useRef<number | null>(null);
-    const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
+  const frameRef = useRef<number | null>(null);
+  const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
-    const handleMouseMove = useCallback((event: MouseEvent<HTMLElement>) => {
-        const rect = event.currentTarget.getBoundingClientRect();
+  const handleMouseMove = useCallback((event: MouseEvent) => {
+    if (!ref.current) {
+      return;
+    }
 
-        const relativeX = (event.clientX - rect.left) / rect.width;
-        const relativeY = (event.clientY - rect.top) / rect.height;
+    console.log("handleMouseMove");
 
-        const x = (relativeX - 0.5) * 2;
-        const y = (relativeY - 0.5) * 2;
+    const rect = ref.current.getBoundingClientRect();
 
-        const next: ParallaxCoords = { x, y };
+    const relativeX = (event.clientX - rect.left) / rect.width;
+    const relativeY = (event.clientY - rect.top) / rect.height;
 
-        // Letzte geplante Animation canceln, wir wollen nur die neueste
-        if (frameRef.current !== null) {
-            cancelAnimationFrame(frameRef.current);
-        }
+    const x = (relativeX - 0.5) * 2;
+    const y = (relativeY - 0.5) * 2;
 
-        frameRef.current = requestAnimationFrame(() => {
-            const prev = lastCoordsRef.current;
+    const next: ParallaxCoords = { x, y };
 
-            if (prev.x === next.x && prev.y === next.y) return;
+    // Letzte geplante Animation canceln, wir wollen nur die neueste
+    if (frameRef.current !== null) {
+      cancelAnimationFrame(frameRef.current);
+    }
 
-            lastCoordsRef.current = next;
-            setCoords(next);
-        });
-    }, []);
+    frameRef.current = requestAnimationFrame(() => {
+      const prev = lastCoordsRef.current;
 
-    const handleMouseLeave = useCallback(() => {
-        const next: ParallaxCoords = { x: 0, y: 0 };
+      if (prev.x === next.x && prev.y === next.y) return;
 
-        if (frameRef.current !== null) {
-            cancelAnimationFrame(frameRef.current);
-        }
+      lastCoordsRef.current = next;
+      setCoords(next);
+    });
+  }, []);
 
-        frameRef.current = requestAnimationFrame(() => {
-            const prev = lastCoordsRef.current;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) {
+      return;
+    }
 
-            if (prev.x === next.x && prev.y === next.y) return;
+    el.addEventListener("mousemove", handleMouseMove);
 
-            lastCoordsRef.current = next;
-            setCoords(next);
-        });
-    }, []);
+    return () => {
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+        el.removeEventListener("mousemove", handleMouseMove);
+      }
+    };
+  }, []);
 
-    // Cleanup beim Unmount
-    useEffect(() => {
-        return () => {
-            if (frameRef.current !== null) {
-                cancelAnimationFrame(frameRef.current);
-            }
-        };
-    }, []);
-
-    return { coords, handleMouseMove, handleMouseLeave };
+  return { coords };
 };

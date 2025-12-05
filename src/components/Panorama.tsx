@@ -71,10 +71,6 @@ interface ParallaxLayerProps extends SVGGElement {
     coords: ParallaxCoords;
 }
 
-const stableCss = css`
-    transition: transform 10ms ease;
-`;
-
 export const __ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, coords, children, ...props }) => {
     const x = coords.x * depth || 0;
     const y = coords.y * depth || 0;
@@ -94,6 +90,11 @@ export const __ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, coords, 
         </g>
     );
 };
+
+const stableCss = css`
+    transition: transform 10ms ease;
+    transform: translate(10px, 30px);
+`;
 
 export const ParallaxLayer = styled.g`
     ${stableCss};
@@ -126,11 +127,15 @@ const parallax = (depth: number, coords: ParallaxCoords) => {
 
     console.log(x, y, coords.x);
 
+
     return { transform: `translate(${x}px, ${y}px)` };
 };
 
 export const Panorama = (): ReactElement => {
-    const { coords, handleMouseMove, handleMouseLeave } = useParallaxPosition();
+
+    const ref = useRef<HTMLDivElement | null>(null);
+
+    const { coords } = useParallaxPosition(ref);
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
@@ -140,8 +145,7 @@ export const Panorama = (): ReactElement => {
     return (
         <>
             <PanoramaWrapper
-                onMouseMove={handleMouseMove}
-                onMouseLeave={handleMouseLeave}
+                ref={ref}
             >
                 <Svg
                     height="100%"
@@ -261,23 +265,6 @@ export const Panorama = (): ReactElement => {
                         <Hill4100 />
                         <Clock />
                     </ParallaxLayer>
-                    {/*
-
-                <ParallaxLayer speed={4}>
-                    <Hill2250/>
-                </ParallaxLayer>
-                <ParallaxLayer speed={4}>
-                    <Hill3200 />
-                </ParallaxLayer>
-
-                <ParallaxLayer speed={1}>
-                    <Vohwinkel />
-                    <Hill3800 />
-                </ParallaxLayer>
-                <ParallaxLayer>
-                    <Hill4100 />
-                </ParallaxLayer>
-                */}
                 </Svg>
             </PanoramaWrapper>
             <div>
