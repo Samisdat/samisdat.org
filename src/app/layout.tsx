@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import './globalStyle';
 
 export const metadata: Metadata = {
     title: 'Panorama',

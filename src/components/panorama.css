@@ -1,0 +1,385 @@
+:root {
+  --backgroundColor: #2a1f31;
+  --mainTextColor: #d3cbc6;
+}
+
+html {
+  font-size: 20px;
+  background-color: var(--backgroundColor);
+  color: var(--mainTextColor);
+  font-family: sans-serif;
+
+}
+body {
+  letter-spacing: 0.01em;
+}
+
+body {
+  border: 10px solid red;
+}
+
+.panorama {
+  position: relative;
+  background: lime;
+  border-bottom: 10px solid red;
+  width: 100%;
+  aspect-ratio: 1280/500;
+  text-align: center;
+  overflow: hidden;
+}
+
+.panorama svg {
+  position: absolute;
+  left: 50%;
+  display: block;
+  height: 100%;
+  transform: translateX(-50%);
+  aspect-ratio: 1700/500;
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  stroke-linejoin: round;
+  stroke-miterlimit: 2;
+}
+
+.panorama g.parallax {
+  transition: transform 10ms ease;
+  transform: translate(10px, 30px);
+}
+
+/*
+@keyframes paralax-move {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(calc(var(--speed) * 40));
+    }
+}
+animation-name: paralax-move;
+animation-timing-function: linear;
+animation-fill-mode: both;
+animation-duration: 1ms;
+animation-timeline: scroll(root);
+
+--speed: ${props => props.speed || 0}px;
+--parallaxX: ${props => props.x || 0}px;
+
+ */
+
+.panorama .alter-markt {
+  fill: #5b5b5e;
+}
+
+.panorama .beyenburger-dom-roof {
+  fill: #802014;
+}
+
+.panorama .beyenburger-dom-light {
+  fill: #f37f6b;
+}
+
+.panorama .beyenburger-dom-window {
+  fill: #7f1f14;
+}
+
+.blueHouseLightCss {
+  fill: #55989e;
+}
+.blueHouseDarkCss {
+  fill: #314a74;
+}
+.blueHouseRoofCss {
+  fill: #272129;
+}
+.blueHouseWindowfCss {
+  fill: #272129;
+}
+.bridgeZooDarkCss {
+  fill: #85281c;
+}
+.bridgeZooLightCss {
+  fill: #b9502b;
+}
+.bridgeZooFrontCss {
+  fill: #b25d3e;
+}
+
+.towerBaseCss {
+  fill: #f1ab97;
+}
+
+.towerDarkCss {
+  fill: #893532;
+}
+
+.towerWindowCss {
+  fill: #f1ab97;
+}
+
+.gelberTurmBaseCss {
+  fill: #ffd101;
+}
+.gelberTurmLightCss {
+  fill: #d98c00;
+}
+.gelberTurmDarkCss {
+  fill: #9b690d;
+}
+
+.greenHouseLight1Css {
+  fill: #82a582;
+}
+
+.greenHouseRoofCss {
+  fill: #101500;
+}
+
+.greenHouseDark1Css {
+  fill: #101500;
+}
+
+.greenHouseLight2Css {
+  fill: #3d5224;
+}
+
+.greenHouseDark2Css {
+  fill: #272f11;
+}
+
+.greenTowerBaseCss {
+  fill: #a0b491;
+}
+
+.greenTowerWindowCss {
+  fill: #536d46;
+}
+
+.greenTowerDarkCss {
+  fill: #536d46;
+}
+
+.lilaChurchBaseCss {
+  fill: #d9aba3;
+}
+
+.lilaChurchRoofCss {
+  fill: #3d262d;
+}
+
+.lilaChurchWindowCss {
+  fill: #3d262d;
+}
+.oligsmuehleCss {
+  fill: #4c4760;
+}
+
+.redCurchBaseCss {
+  fill: #bb2a42;
+}
+.redCurchLightCss {
+  fill: #e42124;
+}
+.redCurchFrontCss {
+  fill: #ef8888;
+}
+.schauspielHausCss {
+  fill: #fbd739;
+}
+
+.schauspielHausWindowCss {
+  fill: #280d00;
+}
+
+.schauspielHausCanopyCss {
+  fill: #bf8200;
+}
+
+.towerLightCss {
+  fill: #cba09f;
+}
+
+.towerDarkCss {
+  fill: #3d242e;
+}
+
+.towerDarkCss {
+  fill: #2f1927;
+}
+.towerLightCss {
+  fill: #867474;
+}
+
+.tower2DarkCss {
+  fill: #2f1927;
+}
+.tower2LightCss {
+  fill: #867474;
+}
+
+.townhallLightCss {
+  fill: #f5633a;
+}
+.townhallDarkCss {
+  fill: #f6201d;
+}
+.townhallRoofCss {
+  fill: #4d1d34;
+}
+.townhallWindowCss {
+  fill: #85281c;
+}
+
+.universityBaseCss {
+  fill: #fc815d;
+}
+
+.universityDarkCss {
+  fill: #3f4f2d;
+}
+
+.universityLightCss {
+  fill: #809672;
+}
+
+.vohwinkelRoofCss {
+  fill: #7b1b13;
+}
+
+.vohwinkelDarkCss {
+  fill: #f73c2c;
+}
+.vohwinkelLightCss {
+  fill: #f6af90;
+}
+.vohwinkelWindowCss {
+  fill: #7b1b13;
+}
+
+.waterTower1Css {
+  fill: #601107;
+}
+.waterTower2Css {
+  fill: #ca3949;
+}
+.waterTower3Css {
+  fill: #ea6467;
+}
+
+.waterTowerNaechstebreck1Css {
+  fill: #af3b24;
+}
+.waterTowerNaechstebreck2Css {
+  fill: #6c0705;
+}
+.waterTowerNaechstebreck3Css {
+  fill: #d44431;
+}
+
+.wupperCss {
+  fill: #3a83a4;
+}
+.shoreCss {
+  fill: #295e25;
+}
+
+.nightCss {
+  fill: #0c101d;
+}
+
+.moonCss {
+  fill: #ececec;
+}
+
+.craterCss {
+  fill: #dcdcdc;
+}
+
+.sunCss {
+  fill: #f0ff5e;
+}
+
+.hardtCss {
+  fill: #247039;
+}
+
+.hill010Css {
+  fill: #c3b60d;
+}
+
+.hillBeforeGreenTower {
+  fill: #2a1f31;
+}
+.vohwinkelBack {
+  fill: #005d37;
+}
+.lilaChurchHill {
+  fill: #2e6a2a;
+}
+
+.hill4100 {
+  fill: #2a1f31;
+}
+
+.hill3800 {
+  fill: #232e1b;
+}
+
+.hill3300 {
+  fill: #164623;
+}
+
+.hill100Css {
+  fill: #164623;
+}
+
+.hill3200 {
+  fill: #2e6a2a;
+}
+
+.hill2900 {
+  fill: #005d37;
+}
+
+.hill2800 {
+  fill: #232e1b;
+}
+
+.hill2250 {
+  fill: #164623;
+}
+
+.hill2200 {
+  fill: #164623;
+}
+
+.hill1110Css {
+  fill: #6d6c13;
+}
+
+.hill050Css {
+  fill: #1c592d;
+}
+
+.hill040Css {
+  fill: #30964c;
+}
+.hill030Css {
+  fill: #a39a0d;
+}
+
+.hill020Css {
+  fill: #617502;
+}
+
+.trackCss {
+  fill: #f6a590;
+}
+
+.carCss {
+  fill: #00afeb;
+  stroke: #000051;
+  stroke-width: 3;
+  width: 81px;
+  height: 11px;
+}
