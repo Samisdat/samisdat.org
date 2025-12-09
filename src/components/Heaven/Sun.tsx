@@ -6,5 +6,5 @@ interface SunProps {
 }
 
 export const Sun: FC<SunProps> = ({ x, y }) => (
-  <circle className={"sunCss"} cx={x} cy={y} r="25" />
+  <circle className={"sun"} cx={x} cy={y} r="25" />
 );

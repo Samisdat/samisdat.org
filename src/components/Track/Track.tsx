@@ -14,7 +14,7 @@ export const Track = () => (
     <BridgeZoo />
     <Cars />
     <path
-      className={"trackCss"}
+      className={"track"}
       data-id="2100-track"
       d="M0,305.215l0,5.353l1700,0.333l0,-4.798l-1700,-0.888Z"
     />

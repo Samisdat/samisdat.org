@@ -1,12 +1,12 @@
 :root {
-  --backgroundColor: #2a1f31;
-  --mainTextColor: #d3cbc6;
+  --backgroundcolor: #2a1f31;
+  --maintextcolor: #d3cbc6;
 }
 
 html {
   font-size: 20px;
-  background-color: var(--backgroundColor);
-  color: var(--mainTextColor);
+  background-color: var(--backgroundcolor);
+  color: var(--maintextcolor);
   font-family: sans-serif;
 
 }
@@ -33,7 +33,7 @@ body {
   left: 50%;
   display: block;
   height: 100%;
-  transform: translateX(-50%);
+  transform: translatex(-50%);
   aspect-ratio: 1700/500;
   fill-rule: evenodd;
   clip-rule: evenodd;
@@ -49,11 +49,11 @@ body {
 /*
 @keyframes paralax-move {
     from {
-        transform: translateY(0);
+        transform: translatey(0);
     }
 
     to {
-        transform: translateY(calc(var(--speed) * 40));
+        transform: translatey(calc(var(--speed) * 40));
     }
 }
 animation-name: paralax-move;
@@ -63,7 +63,7 @@ animation-duration: 1ms;
 animation-timeline: scroll(root);
 
 --speed: ${props => props.speed || 0}px;
---parallaxX: ${props => props.x || 0}px;
+--parallaxx: ${props => props.x || 0}px;
 
  */
 
@@ -83,237 +83,228 @@ animation-timeline: scroll(root);
   fill: #7f1f14;
 }
 
-.blueHouseLightCss {
+.blue-house-light {
   fill: #55989e;
 }
-.blueHouseDarkCss {
+.blue-house-dark {
   fill: #314a74;
 }
-.blueHouseRoofCss {
+.blue-house-roof {
   fill: #272129;
 }
-.blueHouseWindowfCss {
+.blue-house-window {
   fill: #272129;
 }
-.bridgeZooDarkCss {
+
+.bridge-zoo-dark {
   fill: #85281c;
 }
-.bridgeZooLightCss {
+.bridge-zoo-light {
   fill: #b9502b;
 }
-.bridgeZooFrontCss {
+.bridge-zoo-front {
   fill: #b25d3e;
 }
 
-.towerBaseCss {
+.elisenturm-base {
   fill: #f1ab97;
 }
 
-.towerDarkCss {
+.elisenturm-dark {
   fill: #893532;
 }
 
-.towerWindowCss {
+.elisenturm-window {
   fill: #f1ab97;
 }
 
-.gelberTurmBaseCss {
+.gelber-turm-base {
   fill: #ffd101;
 }
-.gelberTurmLightCss {
+.gelber-turm-light {
   fill: #d98c00;
 }
-.gelberTurmDarkCss {
+.gelber-turm-dark {
   fill: #9b690d;
 }
 
-.greenHouseLight1Css {
+.green-house-light1 {
   fill: #82a582;
 }
 
-.greenHouseRoofCss {
+.green-house-roof {
   fill: #101500;
 }
 
-.greenHouseDark1Css {
+.green-house-dark1 {
   fill: #101500;
 }
 
-.greenHouseLight2Css {
+.green-house-light2 {
   fill: #3d5224;
 }
 
-.greenHouseDark2Css {
+.green-house-dark2 {
   fill: #272f11;
 }
 
-.greenTowerBaseCss {
+.green-tower-base {
   fill: #a0b491;
 }
 
-.greenTowerWindowCss {
+.green-tower-window {
   fill: #536d46;
 }
 
-.greenTowerDarkCss {
+.green-tower-dark {
   fill: #536d46;
 }
 
-.lilaChurchBaseCss {
+.lila-church-base {
   fill: #d9aba3;
 }
 
-.lilaChurchRoofCss {
+.lila-church-roof {
   fill: #3d262d;
 }
 
-.lilaChurchWindowCss {
+.lila-church-window {
   fill: #3d262d;
 }
-.oligsmuehleCss {
+.oligsmuehle {
   fill: #4c4760;
 }
 
-.redCurchBaseCss {
+.red-church-base {
   fill: #bb2a42;
 }
-.redCurchLightCss {
+.red-church-light {
   fill: #e42124;
 }
-.redCurchFrontCss {
+.red-church-front {
   fill: #ef8888;
 }
-.schauspielHausCss {
+.schauspielhaus {
   fill: #fbd739;
 }
 
-.schauspielHausWindowCss {
+.schauspielhaus-window {
   fill: #280d00;
 }
 
-.schauspielHausCanopyCss {
+.schauspielhaus-canopy {
   fill: #bf8200;
 }
 
-.towerLightCss {
+.tower-light {
   fill: #cba09f;
 }
 
-.towerDarkCss {
+.tower-dark {
   fill: #3d242e;
 }
 
-.towerDarkCss {
+.tower-dark {
   fill: #2f1927;
 }
-.towerLightCss {
+.towerlight {
   fill: #867474;
 }
 
-.tower2DarkCss {
+.tower2-dark {
   fill: #2f1927;
 }
-.tower2LightCss {
+.tower2-light {
   fill: #867474;
 }
 
-.townhallLightCss {
+.townhall-light {
   fill: #f5633a;
 }
-.townhallDarkCss {
+.townhall-dark {
   fill: #f6201d;
 }
-.townhallRoofCss {
+.townhall-roof {
   fill: #4d1d34;
 }
-.townhallWindowCss {
+.townhall-window {
   fill: #85281c;
 }
 
-.universityBaseCss {
+.university-base {
   fill: #fc815d;
 }
 
-.universityDarkCss {
+.university-dark {
   fill: #3f4f2d;
 }
 
-.universityLightCss {
+.university-light {
   fill: #809672;
 }
 
-.vohwinkelRoofCss {
+.vohwinkel-roof {
   fill: #7b1b13;
 }
 
-.vohwinkelDarkCss {
+.vohwinkel-dark {
   fill: #f73c2c;
 }
-.vohwinkelLightCss {
+.vohwinkel-light {
   fill: #f6af90;
 }
-.vohwinkelWindowCss {
+.vohwinkel-window {
   fill: #7b1b13;
 }
 
-.waterTower1Css {
-  fill: #601107;
+.water-tower-dark {
+  fill: #6c0705;
 }
-.waterTower2Css {
-  fill: #ca3949;
+.water-tower-base {
+  fill: #d44431;
 }
-.waterTower3Css {
+.water-tower-light {
   fill: #ea6467;
 }
 
-.waterTowerNaechstebreck1Css {
-  fill: #af3b24;
-}
-.waterTowerNaechstebreck2Css {
-  fill: #6c0705;
-}
-.waterTowerNaechstebreck3Css {
-  fill: #d44431;
-}
-
-.wupperCss {
+.wupper {
   fill: #3a83a4;
 }
-.shoreCss {
+.shore {
   fill: #295e25;
 }
 
-.nightCss {
+.night {
   fill: #0c101d;
 }
 
-.moonCss {
+.moon {
   fill: #ececec;
 }
 
-.craterCss {
+.crater {
   fill: #dcdcdc;
 }
 
-.sunCss {
+.sun {
   fill: #f0ff5e;
 }
 
-.hardtCss {
+.hardt {
   fill: #247039;
 }
 
-.hill010Css {
+.hill010 {
   fill: #c3b60d;
 }
 
-.hillBeforeGreenTower {
+.hill-before-green-tower {
   fill: #2a1f31;
 }
-.vohwinkelBack {
+.vohwinkel-back {
   fill: #005d37;
 }
-.lilaChurchHill {
+.lila-church-hill {
   fill: #2e6a2a;
 }
 
@@ -329,7 +320,7 @@ animation-timeline: scroll(root);
   fill: #164623;
 }
 
-.hill100Css {
+.hill100 {
   fill: #164623;
 }
 
@@ -353,30 +344,30 @@ animation-timeline: scroll(root);
   fill: #164623;
 }
 
-.hill1110Css {
+.hill1110 {
   fill: #6d6c13;
 }
 
-.hill050Css {
+.hill050 {
   fill: #1c592d;
 }
 
-.hill040Css {
+.hill040 {
   fill: #30964c;
 }
-.hill030Css {
+.hill030 {
   fill: #a39a0d;
 }
 
-.hill020Css {
+.hill020 {
   fill: #617502;
 }
 
-.trackCss {
+.track {
   fill: #f6a590;
 }
 
-.carCss {
+.car {
   fill: #00afeb;
   stroke: #000051;
   stroke-width: 3;

@@ -90,7 +90,7 @@ export const Heaven = () => {
 
       <rect x="0" width="1700" height="500" fill="url(#dayskyGradient)" />
       <path
-        className={"nightCss"}
+        className={"night"}
         id="night"
         d="M0,-0l0,500l1700,-0l0,-500l-1700,-0Z"
         opacity={skyOpacity}

@@ -4,7 +4,7 @@ const stop = 1400;
 
 export const Cars = () => (
   <>
-    <rect className={"carCss"} x={start} y={"309"}>
+    <rect className={"car"} x={start} y={"309"}>
       <animate
         attributeName="x"
         values={`${start};${stop};${start}`}
@@ -12,7 +12,7 @@ export const Cars = () => (
         repeatCount="indefinite"
       />
     </rect>
-    <rect className={"carCss"} x={1330} y={"309"}>
+    <rect className={"car"} x={1330} y={"309"}>
       <animate
         attributeName="x"
         values={`${stop};${start};${stop}`}
