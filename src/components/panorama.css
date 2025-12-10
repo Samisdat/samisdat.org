@@ -1,96 +1,70 @@
 :root {
-    --color-slate-gray: #5b5b5e;
-    --color-brick-red-dark: #802014;
-    --color-coral-light: #f37f6b;
-    --color-brick-red: #7f1f14;
+  --color-slate-gray: #5b5b5e;
+  --color-coral-light: #f37f6b;
+  --color-brick-red: #7f1f14;
 
-    --color-aqua-gray: #55989e;
-    --color-steel-blue: #314a74;
-    --color-smoky-black: #272129;
+  --color-aqua-gray: #55989e;
+  --color-steel-blue: #314a74;
 
-    --color-rust-red: #85281c;
-    --color-terracotta: #b9502b;
-    --color-copper-brown: #b25d3e;
+  --color-terracotta: #b9502b;
+  --color-copper-brown: #b25d3e;
 
-    --color-apricot: #f1ab97;
-    --color-mahogany: #893532;
+  --color-sunflower-yellow: #fbd739;
+  --color-golden-ochre: #bf8200;
+  --color-dark-ochre: #9b690d;
 
-    --color-sunflower-yellow: #fbd739;
-    --color-golden-ochre: #bf8200;
-    --color-dark-ochre: #9b690d;
+  --color-moss-green-light: #82a582;
 
-    --color-moss-green-light: #82a582;
-    --color-black-green: #101500;
-    --color-forest-green-dark: #272f11;
-    --color-wild-forest-green: #3d5224;
+  --color-moss-green: #536d46;
 
-    --color-sage-green: #a0b491;
-    --color-moss-green: #536d46;
+  --color-dusty-rose: #d9aba3;
 
-    --color-dusty-rose: #d9aba3;
-    --color-aubergine: #3d262d;
+  --color-crimson-dark: #bb2a42;
+  --color-bright-red: #e42124;
 
-    --color-lavender-gray: #4c4760;
+  --color-espresso: #280d00;
 
-    --color-crimson-dark: #bb2a42;
-    --color-bright-red: #e42124;
-    --color-soft-rose: #ef8888;
+  --color-dusty-pink: #cba09f;
+  --color-mauve-gray: #867474;
 
-    --color-espresso: #280d00;
+  --color-moss-olive: #3f4f2d;
 
-    --color-dusty-pink: #cba09f;
-    --color-deep-aubergine: #2f1927;
-    --color-mauve-gray: #867474;
+  --color-fire-red: #f73c2c;
 
-    --color-mandarin: #f5633a;
-    --color-tomato-red: #f6201d;
-    --color-plum-brown: #4d1d34;
+  --color-wine-red: #6c0705;
+  --color-brick-orange: #d44431;
 
-    --color-salmon-orange: #fc815d;
-    --color-moss-olive: #3f4f2d;
-    --color-light-sage: #809672;
+  --color-river-blue: #3a83a4;
+  --color-pine-green: #295e25;
 
-    --color-brick-red-deep: #7b1b13;
-    --color-fire-red: #f73c2c;
-    --color-peach-rose: #f6af90;
+  --color-midnight-blue: #0c101d;
+  --color-moon-gray: #ececec;
+  --color-crater-gray: #dcdcdc;
+  --color-neon-yellow: #f0ff5e;
 
-    --color-wine-red: #6c0705;
-    --color-brick-orange: #d44431;
-    --color-coral-rose: #ea6467;
+  --color-forest-green: #247039;
+  --color-mustard-yellow: #c3b60d;
 
-    --color-river-blue: #3a83a4;
-    --color-pine-green: #295e25;
+  --color-aubergine: #2a1f31;
+  --color-emerald-dark: #005d37;
+  --color-forest-hill: #2e6a2a;
 
-    --color-midnight-blue: #0c101d;
-    --color-moon-gray: #ececec;
-    --color-crater-gray: #dcdcdc;
-    --color-neon-yellow: #f0ff5e;
+  --color-dark-moss: #232e1b;
+  --color-pine-dark: #164623;
 
-    --color-forest-green: #247039;
-    --color-mustard-yellow: #c3b60d;
+  --color-olive-moss: #6d6c13;
+  --color-deep-pine: #1c592d;
+  --color-spring-green: #30964c;
+  --color-olive-green: #a39a0d;
+  --color-warm-olive: #617502;
 
-    --color-deep-violet: #2a1f31;
-    --color-emerald-dark: #005d37;
-    --color-forest-hill: #2e6a2a;
+  --color-apricot: #f6a590;
 
-    --color-dark-moss: #232e1b;
-    --color-pine-dark: #164623;
+  --color-sky-blue: #00afeb;
+  --color-midnight-indigo: #000051;
 
-    --color-olive-moss: #6d6c13;
-    --color-deep-pine: #1c592d;
-    --color-spring-green: #30964c;
-    --color-olive-green: #a39a0d;
-    --color-warm-olive: #617502;
-
-    --color-rosewood: #f6a590;
-
-    --color-sky-blue: #00afeb;
-    --color-midnight-indigo: #000051;
-
-  --backgroundcolor: var(--color-deep-violet);
+  --backgroundcolor: var(--color-aubergine);
   --maintextcolor: #d3cbc6;
-
-
 }
 
 html {
@@ -98,7 +72,6 @@ html {
   background-color: var(--backgroundcolor);
   color: var(--maintextcolor);
   font-family: sans-serif;
-
 }
 body {
   letter-spacing: 0.01em;
@@ -161,12 +134,15 @@ animation-timeline: scroll(root);
   fill: var(--color-slate-gray);
 }
 
+.beyenburger-dom-base {
+  fill: var(--color-fire-red);
+}
 .panorama .beyenburger-dom-roof {
-  fill: var(--color-brick-red-dark);
+  fill: var(--color-brick-red);
 }
 
 .panorama .beyenburger-dom-light {
-  fill: var(--color-coral-light);
+  fill: var(--color-apricot);
 }
 
 .panorama .beyenburger-dom-window {
@@ -181,11 +157,11 @@ animation-timeline: scroll(root);
 }
 .blue-house-roof,
 .blue-house-window {
-  fill: var(--color-smoky-black);
+  fill: var(--color-aubergine);
 }
 
 .bridge-zoo-dark {
-  fill: var(--color-rust-red);
+  fill: var(--color-brick-red);
 }
 .bridge-zoo-light {
   fill: var(--color-terracotta);
@@ -200,7 +176,7 @@ animation-timeline: scroll(root);
 }
 
 .elisenturm-dark {
-  fill: var(--color-mahogany);
+  fill: var(--color-brick-red);
 }
 
 .gelber-turm-base {
@@ -219,19 +195,19 @@ animation-timeline: scroll(root);
 
 .green-house-roof,
 .green-house-dark1 {
-  fill: var(--color-black-green);
+  fill: var(--color-dark-moss);
 }
 
 .green-house-light2 {
-  fill: var(--color-wild-forest-green);
+  fill: var(--color-moss-olive);
 }
 
 .green-house-dark2 {
-  fill: var(--color-forest-green-dark);
+  fill: var(--color-dark-moss);
 }
 
 .green-tower-base {
-  fill: var(--color-sage-green);
+  fill: var(--color-moss-green-light);
 }
 
 .green-tower-window,
@@ -249,17 +225,17 @@ animation-timeline: scroll(root);
 }
 
 .oligsmuehle {
-  fill: var(--color-lavender-gray);
+  fill: var(--color-slate-gray);
 }
 
 .red-church-base {
   fill: var(--color-crimson-dark);
 }
 .red-church-light {
-  fill: var(--color-bright-red);
+  fill: var(--color-fire-red);
 }
 .red-church-front {
-  fill: var(--color-soft-rose);
+  fill: var(--color-coral-light);
 }
 
 .schauspielhaus {
@@ -267,7 +243,7 @@ animation-timeline: scroll(root);
 }
 
 .schauspielhaus-window {
-  fill: var(--color-espresso);
+  fill: var(--color-aubergine);
 }
 
 .schauspielhaus-canopy {
@@ -275,12 +251,12 @@ animation-timeline: scroll(root);
 }
 
 .tower-light {
-  fill: var(--color-dusty-pink);
+  fill: var(--color-apricot);
 }
 
 .tower-dark,
 .tower2-dark {
-  fill: var(--color-deep-aubergine);
+  fill: var(--color-aubergine);
 }
 
 .towerlight,
@@ -289,48 +265,49 @@ animation-timeline: scroll(root);
 }
 
 .townhall-light {
-  fill: var(--color-mandarin);
+  fill: var(--color-coral-light);
 }
 .townhall-dark {
-  fill: var(--color-tomato-red);
+  fill: var(--color-bright-red);
 }
 .townhall-roof {
-  fill: var(--color-plum-brown);
+  fill: var(--color-aubergine);
 }
 .townhall-window {
-  fill: var(--color-rust-red);
+  fill: var(--color-brick-red);
 }
 
 .university-base {
-  fill: var(--color-salmon-orange);
+  fill: var(--color-coral-light);
 }
 .university-dark {
   fill: var(--color-moss-olive);
 }
 .university-light {
-  fill: var(--color-light-sage);
+  fill: var(--color-moss-green-light);
 }
 
 .vohwinkel-roof,
 .vohwinkel-window {
-  fill: var(--color-brick-red-deep);
+  fill: var(--color-brick-red);
 }
 
 .vohwinkel-dark {
   fill: var(--color-fire-red);
+  fill: var(--color-bright-red);
 }
 .vohwinkel-light {
-  fill: var(--color-peach-rose);
+  fill: var(--color-apricot);
 }
 
 .water-tower-dark {
   fill: var(--color-wine-red);
 }
 .water-tower-base {
-  fill: var(--color-brick-orange);
+  fill: var(--color-crimson-dark);
 }
 .water-tower-light {
-  fill: var(--color-coral-rose);
+  fill: var(--color-coral-light);
 }
 
 .wupper {
@@ -366,7 +343,7 @@ animation-timeline: scroll(root);
 
 .hill-before-green-tower,
 .hill4100 {
-  fill: var(--color-deep-violet);
+  fill: var(--color-aubergine);
 }
 
 .vohwinkel-back,
@@ -412,7 +389,7 @@ animation-timeline: scroll(root);
 }
 
 .track {
-  fill: var(--color-rosewood);
+  fill: var(--color-apricot);
 }
 
 .car {
