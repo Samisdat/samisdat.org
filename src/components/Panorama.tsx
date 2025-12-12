@@ -4,7 +4,7 @@ import { GreenTower } from "@/components/Buildings/GreenTower";
 import { Clock } from "@/components/Clock/Clock";
 import { Heaven } from "@/components/Heaven/Heaven";
 import { useTal } from "@/lib/TalContext";
-import { FC, ReactElement, RefObject, useRef } from "react";
+import { ReactElement, useRef } from "react";
 import { BeyenburgerDom } from "./Buildings/BeyenburgerDom";
 import { BlueHouse } from "./Buildings/BlueHouse";
 import { Elisenturm } from "./Buildings/Elisenturm";
@@ -42,23 +42,13 @@ import {
   ParallaxCoords,
   useParallaxPosition,
 } from "@/components/hook/useParallaxPosition";
-import { HTMLDivElement } from "happy-dom";
 
 import "./panorama.css";
-
-const parallax = (depth: number, coords: ParallaxCoords) => {
-  const x = coords.x * depth || 0;
-  const y = coords.y * depth || 0;
-
-  console.log(x, y, coords.x);
-
-  return { transform: `translate(${x}px, ${y}px)` };
-};
 
 export const Panorama = (): ReactElement => {
   const ref = useRef<HTMLDivElement | null>(null);
 
-  const { coords } = useParallaxPosition(ref);
+  useParallaxPosition(ref);
 
   const { sunTimes } = useTal();
   const { windowOpacity } = sunTimes;
@@ -79,133 +69,74 @@ export const Panorama = (): ReactElement => {
           }}
         >
           <Heaven />
-          <g
-            className="parallax"
-            speed={15}
-            style={{ ...parallax(-7 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={15} data-depth={-7}>
             <WaterTowerLichtscheid />
             <Hill010 />
           </g>
-          <g
-            className="parallax"
-            speed={13}
-            style={{ ...parallax(-6 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={13} data-depth={-6}>
             <University />
             <Hill020 />
             <Hill040 />
           </g>
-          <g
-            className="parallax"
-            speed={12}
-            style={{ ...parallax(-5 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={12} data-depth={-5}>
             <WaterTowerNaechstebreck />
             <Hill030 />
           </g>
-          <g
-            className="parallax"
-            speed={11}
-            style={{ ...parallax(-4 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={11} data-depth={-4}>
             <Tower2 />
             <Hill050 />
           </g>
-          <g
-            className="parallax"
-            speed={10}
-            style={{ ...parallax(-3 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={10} data-depth={-3}>
             <Tower1 />
             <Hill1110 />
           </g>
-          <g
-            className="parallax"
-            speed={9}
-            style={{ ...parallax(-2 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={9} data-depth={-2}>
             <Elisenturm />
             <Hardt />
           </g>
-          <g
-            className="parallax"
-            speed={8}
-            style={{ ...parallax(-1 * modifier, coords) }}
-          >
+          <g className="parallax" speed={8} data-speed={8} data-depth={-1}>
             <BeyenburgerDom />
             <Hill2800 />
           </g>
 
-          <g className="parallax" speed={7} style={{ ...parallax(0, coords) }}>
+          <g className="parallax" speed={7} data-speed={7} data-depth={0}>
             <Track />
           </g>
 
-          <g
-            className="parallax"
-            speed={6}
-            style={{ ...parallax(1 * modifier, coords) }}
-          >
+          <g className="parallax" speed={6} data-speed={6} data-depth={1}>
             <Hill2900 />
             <RedCurch />
           </g>
-          <g
-            className="parallax"
-            speed={5}
-            style={{ ...parallax(2 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={5} data-depth={2}>
             <LilaChurch />
             <LilaChurchHill />
           </g>
-          <g
-            className="parallax"
-            speed={4}
-            style={{ ...parallax(3 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={4} data-depth={3}>
             <Hill100 />
             <GreenHouse />
             <BlueHouse />
           </g>
-          <g
-            className="parallax"
-            speed={3}
-            style={{ ...parallax(4 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={3} data-depth={4}>
             <SchauspielHaus />
             <Hill3200 />
             <SchauspielHausCanopy />
           </g>
-          <g
-            className="parallax"
-            speed={2}
-            style={{ ...parallax(5 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={2} data-depth={5}>
             <VohwinkelBack />
             <Vohwinkel />
             <Hill3800 />
           </g>
 
-          <g
-            className="parallax"
-            speed={1}
-            style={{ ...parallax(6 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={1} data-depth={6}>
             <GreenTower />
             <BeforeGreenTower />
           </g>
-          <g
-            className="parallax"
-            speed={1}
-            style={{ ...parallax(7 * modifier, coords) }}
-          >
+          <g className="parallax" data-speed={1} data-depth={7}>
             <GelberTurm />
             <Hill4100 />
-            <Clock />
           </g>
+          <Clock />
         </svg>
-      </div>
-      <div>
-        {coords.x}/{coords.y}/
       </div>
     </>
   );

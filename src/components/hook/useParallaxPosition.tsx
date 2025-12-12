@@ -1,70 +1,100 @@
-import {
-  MouseEvent,
-  RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 
 export type ParallaxCoords = {
   x: number;
   y: number;
 };
 
-export const useParallaxPosition = (ref: RefObject<HTMLDivElement | null>) => {
-  const [coords, setCoords] = useState<ParallaxCoords>({ x: 0, y: 0 });
+const parallax = (depth: number, coords: ParallaxCoords) => {
+  const x = coords.x * depth || 0;
+  const y = coords.y * depth || 0;
 
+  return { transform: `translate(${x}px, ${y}px)` };
+};
+
+export const useParallaxPosition = (ref: RefObject<HTMLDivElement | null>) => {
   const frameRef = useRef<number | null>(null);
   const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
-  const handleMouseMove = useCallback((event: MouseEvent) => {
-    if (!ref.current) {
-      return;
+  const doParallax = () => {
+    const el = ref.current;
+    if (!el) return;
+
+    const layers = el.querySelectorAll<SVGGElement>("g[data-depth] ");
+
+    for (const layer of layers) {
+      const depthAttr = layer.getAttribute("data-depth");
+
+      if (!depthAttr) {
+        return;
+      }
+
+      const depth = parseInt(depthAttr);
+
+      const x = lastCoordsRef.current.x * depth || 0;
+      const y = lastCoordsRef.current.y * depth || 0;
+
+      layer.style.setProperty("--parallax-x", `${3 * x}px`);
+      layer.style.setProperty("--parallax-y", `${3 * y}px`);
     }
+  };
 
-    console.log("handleMouseMove");
+  const handlePointerMove = useCallback(
+    (event: PointerEvent) => {
+      const el = ref.current;
+      if (!el) return;
 
-    const rect = ref.current.getBoundingClientRect();
+      const rect = el.getBoundingClientRect();
 
-    const relativeX = (event.clientX - rect.left) / rect.width;
-    const relativeY = (event.clientY - rect.top) / rect.height;
+      // Guard against zero size (extreme edge cases)
+      if (rect.width === 0 || rect.height === 0) return;
 
-    const x = (relativeX - 0.5) * 2;
-    const y = (relativeY - 0.5) * 2;
+      // Clamp to [0, 1] so we don't go wild when pointer leaves the element slightly
+      const relativeX = Math.min(
+        1,
+        Math.max(0, (event.clientX - rect.left) / rect.width),
+      );
+      const relativeY = Math.min(
+        1,
+        Math.max(0, (event.clientY - rect.top) / rect.height),
+      );
 
-    const next: ParallaxCoords = { x, y };
+      // Map to [-1, 1]
+      const x = (relativeX - 0.5) * 2;
+      const y = (relativeY - 0.5) * 2;
 
-    // Letzte geplante Animation canceln, wir wollen nur die neueste
-    if (frameRef.current !== null) {
-      cancelAnimationFrame(frameRef.current);
-    }
+      const next: ParallaxCoords = { x, y };
 
-    frameRef.current = requestAnimationFrame(() => {
-      const prev = lastCoordsRef.current;
+      // Cancel the last scheduled animation frame, we only care about the latest
+      if (frameRef.current !== null) {
+        cancelAnimationFrame(frameRef.current);
+      }
 
-      if (prev.x === next.x && prev.y === next.y) return;
+      frameRef.current = requestAnimationFrame(() => {
+        const prev = lastCoordsRef.current;
 
-      lastCoordsRef.current = next;
-      setCoords(next);
-    });
-  }, []);
+        if (prev.x === next.x && prev.y === next.y) return;
+
+        lastCoordsRef.current = next;
+
+        doParallax();
+      });
+    },
+    [ref],
+  );
 
   useEffect(() => {
     const el = ref.current;
-    if (!el) {
-      return;
-    }
+    if (!el) return;
 
-    el.addEventListener("mousemove", handleMouseMove);
+    el.addEventListener("pointermove", handlePointerMove);
 
     return () => {
       if (frameRef.current !== null) {
         cancelAnimationFrame(frameRef.current);
-        el.removeEventListener("mousemove", handleMouseMove);
       }
-    };
-  }, []);
 
-  return { coords };
+      el.removeEventListener("pointermove", handlePointerMove);
+    };
+  }, [handlePointerMove, ref]);
 };

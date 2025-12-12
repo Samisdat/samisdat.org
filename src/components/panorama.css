@@ -77,21 +77,15 @@ body {
   letter-spacing: 0.01em;
 }
 
-body {
-  border: 10px solid red;
-}
-
 .panorama {
   position: relative;
-  background: lime;
-  border-bottom: 10px solid red;
   width: 100%;
   aspect-ratio: 1280/500;
   text-align: center;
   overflow: hidden;
 }
 
-.panorama svg {
+.panorama > svg {
   position: absolute;
   left: 50%;
   display: block;
@@ -106,7 +100,7 @@ body {
 
 .panorama g.parallax {
   transition: transform 10ms ease;
-  transform: translate(10px, 30px);
+  transform: translate(var(--parallax-x), var(--parallax-y));
 }
 
 /*
@@ -294,7 +288,6 @@ animation-timeline: scroll(root);
 
 .vohwinkel-dark {
   fill: var(--color-fire-red);
-  fill: var(--color-bright-red);
 }
 .vohwinkel-light {
   fill: var(--color-apricot);
