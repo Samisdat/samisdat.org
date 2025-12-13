@@ -35,7 +35,7 @@ import { Hill3800 } from '@/components/Hills/Hill3800';
 import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
-import { ParallaxCoords, useParallaxPosition } from '@/components/hook/useParallaxPosition';
+import { ParallaxCoords, mouseParallax } from '@/components/hook/mouseParallax';
 
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
@@ -43,7 +43,7 @@ import { ParallaxLayer } from './ParallaxLayer';
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    useParallaxPosition(ref);
+    mouseParallax(ref);
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;

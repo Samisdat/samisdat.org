@@ -1,18 +1,11 @@
-import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 export type ParallaxCoords = {
     x: number;
     y: number;
 };
 
-const parallax = (depth: number, coords: ParallaxCoords) => {
-    const x = coords.x * depth || 0;
-    const y = coords.y * depth || 0;
-
-    return { transform: `translate(${x}px, ${y}px)` };
-};
-
-export const useParallaxPosition = (ref: RefObject<HTMLDivElement | null>) => {
+export const mouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
     const frameRef = useRef<number | null>(null);
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
@@ -34,8 +27,8 @@ export const useParallaxPosition = (ref: RefObject<HTMLDivElement | null>) => {
             const x = lastCoordsRef.current.x * depth || 0;
             const y = lastCoordsRef.current.y * depth || 0;
 
-            layer.style.setProperty('--parallax-x', `${3 * x}px`);
-            layer.style.setProperty('--parallax-y', `${3 * y}px`);
+            layer.style.setProperty('--parallax-x', `${4 * x}px`);
+            layer.style.setProperty('--parallax-y', `${4 * y}px`);
         }
     };
 
