@@ -97,32 +97,30 @@ body {
   stroke-linejoin: round;
   stroke-miterlimit: 2;
 }
+@keyframes parallaxScroll {
+  from {
+    transform: translateX(0) translateY(0);
+  }
+  to {
+    transform: translateY(calc(var(--speed) * 40px));
+    transform: translateX(var(--parallax-x))
+      translateY(calc(var(--speed) * 40px + var(--parallax-y)));
+  }
+}
 
-.panorama g.parallax {
+.panorama g.parallax-scroll {
+  animation-name: parallaxScroll;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-duration: 1ms;
+  animation-timeline: scroll(root);
+}
+
+.panorama g.parallax-mouse {
   transition: transform 10ms ease;
   transform: translate(var(--parallax-x), var(--parallax-y));
+  transform: translateX(var(--parallax-x)) translateY(var(--parallax-y));
 }
-
-/*
-@keyframes paralax-move {
-    from {
-        transform: translatey(0);
-    }
-
-    to {
-        transform: translatey(calc(var(--speed) * 40));
-    }
-}
-animation-name: paralax-move;
-animation-timing-function: linear;
-animation-fill-mode: both;
-animation-duration: 1ms;
-animation-timeline: scroll(root);
-
---speed: ${props => props.speed || 0}px;
---parallaxx: ${props => props.x || 0}px;
-
- */
 
 .panorama .alter-markt {
   fill: var(--color-slate-gray);
