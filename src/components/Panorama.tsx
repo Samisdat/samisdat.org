@@ -35,15 +35,15 @@ import { Hill3800 } from '@/components/Hills/Hill3800';
 import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
-import { ParallaxCoords, mouseParallax } from '@/components/hook/mouseParallax';
 
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
+import {useMouseParallax} from "@/components/hook/useMouseParallax";
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    mouseParallax(ref);
+    useMouseParallax(ref);
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
