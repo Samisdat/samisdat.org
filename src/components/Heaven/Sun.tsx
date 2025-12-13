@@ -1,10 +1,15 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 interface SunProps {
-  x: number;
-  y: number;
+    x: number;
+    y: number;
 }
 
 export const Sun: FC<SunProps> = ({ x, y }) => (
-  <circle className={"sun"} cx={x} cy={y} r="25" />
+    <circle
+        className={'sun'}
+        cx={x}
+        cy={y}
+        r="25"
+    />
 );

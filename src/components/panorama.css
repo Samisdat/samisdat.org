@@ -103,8 +103,6 @@ body {
   }
   to {
     transform: translateY(calc(var(--speed) * 40px));
-    transform: translateX(var(--parallax-x))
-      translateY(calc(var(--speed) * 40px + var(--parallax-y)));
   }
 }
 
