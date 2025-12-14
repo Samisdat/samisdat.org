@@ -1,25 +1,18 @@
-import { PanoramaWrapper } from "@/components/PanoramaWrapper";
 import { Page } from "@/components/Page";
-import { ScrollWatcher } from "@/components/ScrollWatcher";
-import { Post } from "@/components/Post";
 import { Container } from "@/components/Container";
 import { Colophon } from "@/components/Colophon";
-import { Navi } from "@/components/Navi";
-import { Quote } from "@/components/Quote";
+import { WtalPanorama } from "@samisdat/wtal-panorama";
+import "@samisdat/wtal-panorama/style.css";
+import { LongPost } from "@/components/LongPost";
 
 export default function PageContent() {
   return (
-    <>
-      <ScrollWatcher />
-      <Page>
-        <PanoramaWrapper />
-        <Quote />
-        <Container>
-          <Navi />
-          <Post />
-          <Colophon />
-        </Container>
-      </Page>
-    </>
+    <Page>
+      <WtalPanorama />
+      <Container>
+        <LongPost />
+        <Colophon />
+      </Container>
+    </Page>
   );
 }
