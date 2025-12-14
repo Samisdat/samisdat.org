@@ -1,6 +1,6 @@
 {
   "name": "@samisdat/wtal-panorama",
-  "version": "0.6.0",
+  "version": "0.0.1",
   "private": false,
   "type": "module",
   "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
@@ -27,7 +27,7 @@
     "start": "next start",
     "lint": "eslint .",
     "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
-    "prepublishOnly": "npm run build:lib"
+    "prepublish": "npm run build:lib"
   },
   "keywords": [
     "wuppertal",
