@@ -3,9 +3,15 @@ import {
   Source_Serif_4,
   Source_Sans_3,
   Source_Code_Pro,
+  Inter,
 } from "next/font/google";
 
 import "../components/globalStyle";
+import { Page } from "@/components/Page";
+import { WtalPanorama } from "@samisdat/wtal-panorama";
+import { Container } from "@/components/Container";
+import "@samisdat/wtal-panorama/style.css";
+import { Colophon } from "@/components/Colophon";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -37,7 +43,15 @@ export default function RootLayout({
       lang="de"
       className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Page>
+          <WtalPanorama />
+          <Container>
+            {children}
+            <Colophon />
+          </Container>
+        </Page>
+      </body>
     </html>
   );
 }
