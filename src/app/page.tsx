@@ -1,7 +1,8 @@
 import { Heading } from "@/components/Heading";
 import { Paragraph } from "@/components/Paragraph";
 import { styled } from "@linaria/react";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 const Logo = styled.h1`
   font-size: var(--typo-h1-size);
   font-family: var(--font-inter), sans-serif;
@@ -12,6 +13,7 @@ const Logo = styled.h1`
 export default function Home() {
   return (
     <>
+        <FontAwesomeIcon icon={faThumbsUp} />
       <Paragraph>
         Ich hab im Januar 2010 meine Ausbildung beendet und arbeite seitdem als
         Developer
