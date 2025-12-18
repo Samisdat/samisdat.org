@@ -3,7 +3,7 @@ import {
   Source_Serif_4,
   Source_Sans_3,
   Source_Code_Pro,
-  Inter,
+  Playwrite_NO,
 } from "next/font/google";
 
 import "../components/globalStyle";
@@ -37,6 +37,10 @@ const sourceCode = Source_Code_Pro({
   variable: "--font-code",
 });
 
+const playwrite = Playwrite_NO({
+  variable: "--font-italic",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,7 +49,7 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable}`}
+      className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
     >
       <body>
         <Page>
