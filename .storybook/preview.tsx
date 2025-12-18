@@ -1,0 +1,45 @@
+import type { Preview } from '@storybook/react';
+import '../src/components/globalStyle'
+
+import {
+    Source_Serif_4,
+    Source_Sans_3,
+    Source_Code_Pro,
+    Playwrite_NO,
+} from "next/font/google";
+
+const sourceSerif = Source_Serif_4({
+    subsets: ["latin"],
+    variable: "--font-serif",
+});
+
+const sourceSans = Source_Sans_3({
+    subsets: ["latin"],
+    variable: "--font-sans",
+});
+
+const sourceCode = Source_Code_Pro({
+    subsets: ["latin"],
+    variable: "--font-code",
+});
+
+const playwrite = Playwrite_NO({
+    variable: "--font-italic",
+    subsets: ["latin"],
+    weight: "variable",
+    display: "swap",
+});
+
+const preview: Preview = {
+  decorators: [
+    Story => (
+        <main
+            className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
+        >
+            <Story />
+            </main>
+    )
+  ]
+};
+
+export default preview;

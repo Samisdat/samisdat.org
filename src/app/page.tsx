@@ -1,18 +1,41 @@
 import { Heading } from "@/components/Heading";
 import { Paragraph } from "@/components/Paragraph";
 import { styled } from "@linaria/react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-const Logo = styled.h1`
-  font-size: var(--typo-h1-size);
-  font-family: var(--font-inter), sans-serif;
-  font-weight: 450;
-  letter-spacing: 0.03em;
-`;
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 
-export default function Home() {
+import { compileMDX } from "next-mdx-remote/rsc";
+import { promises as fs } from "fs";
+import path from "path";
+
+export default async function Home() {
+  const mdxPath = path.join(process.cwd(), "content/", `home.mdx`);
+
+  const content = await fs.readFile(mdxPath, "utf-8");
+
+  const components = {
+    //em:
+  };
+  interface Frontmatter {
+    title: string;
+  }
+
+  const data = await compileMDX<Frontmatter>({
+    source: content,
+    options: {
+      parseFrontmatter: true,
+    },
+    components,
+  });
+
   return (
     <>
+      <Heading>{data.frontmatter.title}</Heading>
+      {data.content}
+    </>
+  );
+}
+/*
         <FontAwesomeIcon icon={faThumbsUp} />
       <Paragraph>
         Ich hab im Januar 2010 meine Ausbildung beendet und arbeite seitdem als
@@ -61,5 +84,5 @@ export default function Home() {
         Dann freue mich mich nach der Recherche noch mal drüber
       </Paragraph>
     </>
-  );
-}
+  );}
+      */
