@@ -15,7 +15,7 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
         };
 
         const boundingClientRect = ref.current.getBoundingClientRect();
-        
+
         const { x, y } = lastCoordsRef.current;
 
         ref.current.style.setProperty('--parallax-x', String(x));

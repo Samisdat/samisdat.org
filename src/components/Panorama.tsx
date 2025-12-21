@@ -47,9 +47,7 @@ export const Panorama = (): ReactElement => {
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
-
-    const modifier = 3;
-
+    
     return (
         <>
             <div
