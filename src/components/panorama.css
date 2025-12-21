@@ -101,25 +101,11 @@ body {
 .panorama svg g.parallax-scroll {
 
   transition: transform 10ms ease;
-
-  /*
-  transform:
-          translateY(calc(50px * var(--scroll, 0) * var(--speed, 0)));
-
-  */
   transform:
           translateX(calc(4px * var(--parallax-x) * var(--depth)))
-          translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(50px * var(--scroll, 0) * var(--speed, 0))))
-;
+          translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(25px * var(--scroll, 0) * var(--speed, 0))))
+  ;
 
-
-  /*
-  transform:
-          translateX(calc(4px * var(--parallax-x) * var(--depth)))
-          translateY(var(--parallax-y))
-;
-*/
-  /*transform: translateY(calc(var(--scroll)));*/
 }
 
 .panorama .alter-markt {

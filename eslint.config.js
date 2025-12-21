@@ -8,47 +8,39 @@ import prettierConfig from 'eslint-config-prettier';
 export default [
     js.configs.recommended,
     prettierConfig,
+
     {
-        files: ['**/*.{js,jsx,ts,tsx}'],
+        files: ['**/*.{ts,tsx}'],
         languageOptions: {
             parser: tsParser,
-            parserOptions: {
-                ecmaVersion: 'latest',
-                sourceType: 'module',
-            },
-            globals: {
-                // Browser globals
-                console: 'readonly',
-                document: 'readonly',
-                window: 'readonly',
-                setTimeout: 'readonly',
-                clearTimeout: 'readonly',
-                requestAnimationFrame: 'readonly',
-                cancelAnimationFrame: 'readonly',
-                performance: 'readonly',
-                HTMLInputElement: 'readonly',
-                SVGPathElement: 'readonly',
-                // React
-                React: 'readonly',
-                JSX: 'readonly',
-                // Node globals
-                process: 'readonly',
-                __dirname: 'readonly',
-                __filename: 'readonly',
-                Buffer: 'readonly',
-                global: 'readonly',
-            },
+            parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
         },
         plugins: {
-            '@next/next': next,
             '@typescript-eslint': tseslint,
+            '@next/next': next,
         },
         rules: {
             ...tseslint.configs.recommended.rules,
             ...next.configs.recommended.rules,
             ...next.configs['core-web-vitals'].rules,
+
+            // IMPORTANT: TS kennt undef besser als ESLint
+            'no-undef': 'off',
         },
     },
+
+    {
+        files: ['**/*.{js,jsx}'],
+        languageOptions: {
+            parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
+        },
+        plugins: { '@next/next': next },
+        rules: {
+            ...next.configs.recommended.rules,
+            ...next.configs['core-web-vitals'].rules,
+        },
+    },
+
     {
         ignores: [
             '.next/**',

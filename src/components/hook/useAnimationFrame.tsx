@@ -3,15 +3,19 @@ import { useEffect, useRef } from 'react';
 type FrameCallback = (deltaTime: number) => void;
 
 export function useAnimationFrame(callback: FrameCallback) {
+    const callbackRef = useRef<FrameCallback>(callback);
     const requestAnimationFrameRef = useRef<number | null>(null);
     const previousTimeRef = useRef<number | null>(null);
 
     useEffect(() => {
+        callbackRef.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
         const animate = (time: number) => {
             if (previousTimeRef.current !== null) {
-                callback(time - previousTimeRef.current);
+                callbackRef.current(time - previousTimeRef.current);
             }
-
             previousTimeRef.current = time;
             requestAnimationFrameRef.current = requestAnimationFrame(animate);
         };
@@ -23,5 +27,5 @@ export function useAnimationFrame(callback: FrameCallback) {
                 cancelAnimationFrame(requestAnimationFrameRef.current);
             }
         };
-    }, [callback]);
+    }, []);
 }

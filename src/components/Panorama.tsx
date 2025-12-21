@@ -165,7 +165,7 @@ export const Panorama = (): ReactElement => {
                     </ParallaxLayer>
 
                     <ParallaxLayer
-                        speed={0}
+                        speed={1}
                         depth={6}
                     >
                         <GelberTurm />
