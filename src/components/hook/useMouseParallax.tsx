@@ -8,32 +8,23 @@ export type ParallaxCoords = { x: number; y: number };
 export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
-    const svgRef = useRef<SVGSVGElement | null>(null);
-
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
-
-        svgRef.current = el.querySelector<SVGSVGElement>('svg');
-    }, [ref]);
-
     const doParallax = useCallback(() => {
-        const svg = svgRef.current;
-        if (!svg) return;
 
-        const boundingClientRect = svg.getBoundingClientRect();
+        if (null === ref.current) {
+            return
+        };
 
-        console.log();
-
+        const boundingClientRect = ref.current.getBoundingClientRect();
+        
         const { x, y } = lastCoordsRef.current;
 
-        svg.style.setProperty('--parallax-x', String(x));
-        svg.style.setProperty('--parallax-y', String(y));
-        svg.style.setProperty(
+        ref.current.style.setProperty('--parallax-x', String(x));
+        ref.current.style.setProperty('--parallax-y', String(y));
+        ref.current.style.setProperty(
             '--scroll',
             String(Math.min(Math.abs(boundingClientRect.y) / boundingClientRect.height, 1))
         );
-    }, []);
+    }, [ref]);
 
     useAnimationFrame(doParallax);
 
