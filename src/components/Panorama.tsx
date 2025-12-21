@@ -4,7 +4,7 @@ import { GreenTower } from '@/components/Buildings/GreenTower';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
 import { useTal } from '@/lib/TalContext';
-import { ReactElement, useRef } from 'react';
+import {ReactElement, use, useEffect, useRef} from 'react';
 import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
@@ -39,6 +39,7 @@ import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 import { useMouseParallax } from '@/components/hook/useMouseParallax';
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
+import {useAnimationFrame} from "@/components/hook/useAnimationFrame";
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -47,7 +48,21 @@ export const Panorama = (): ReactElement => {
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
-    
+
+    const applyTwilight = ()=>{
+
+        if(null === ref.current){
+            return
+        }
+
+        ref.current.style.setProperty('--twilight', String(windowOpacity));
+
+    }
+
+    useAnimationFrame(applyTwilight);
+
+    console.log(sunTimes.windowOpacity)
+
     return (
         <>
             <div
@@ -57,12 +72,6 @@ export const Panorama = (): ReactElement => {
                 <svg
                     height="100%"
                     viewBox="0 0 1700 500"
-                    style={{
-                        fillRule: 'evenodd',
-                        clipRule: 'evenodd',
-                        strokeLinejoin: 'round',
-                        strokeMiterlimit: 2,
-                    }}
                 >
                     <Heaven />
                     <ParallaxLayer
@@ -163,14 +172,14 @@ export const Panorama = (): ReactElement => {
                     </ParallaxLayer>
 
                     <ParallaxLayer
-                        speed={1}
+                        speed={2}
                         depth={6}
                     >
                         <GelberTurm />
                         <Hill4100 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={0}
+                        speed={1}
                         depth={7}
                     >
                         <GreenTower />
