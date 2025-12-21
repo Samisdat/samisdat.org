@@ -9,13 +9,14 @@ interface ParallaxLayerProps {
 export const ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, children }) => (
     <g
         className="parallax-scroll"
-        style={{ ['--speed' as string]: String(speed) } as CSSProperties}
+        data-depth={depth}
+        style={
+            {
+                ['--speed' as string]: String(speed),
+                ['--depth' as string]: String(depth),
+            } as CSSProperties
+        }
     >
-        <g
-            className="parallax-mouse"
-            data-depth={depth}
-        >
-            {children}
-        </g>
+        {children}
     </g>
 );

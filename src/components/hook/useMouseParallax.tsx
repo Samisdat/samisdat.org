@@ -1,3 +1,6 @@
+'use client';
+
+import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
 export type ParallaxCoords = {
@@ -6,6 +9,8 @@ export type ParallaxCoords = {
 };
 
 export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
+    const visiblePercent = useRef<number>(1);
+
     const frameRef = useRef<number | null>(null);
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
@@ -13,24 +18,19 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
         const el = ref.current;
         if (!el) return;
 
-        const layers = el.querySelectorAll<SVGGElement>('g[data-depth]');
+        const svg = el.querySelector<SVGGElement>('svg');
 
-        for (const layer of layers) {
-            const depthAttr = layer.getAttribute('data-depth');
+        if (!svg) return;
 
-            if (!depthAttr) {
-                continue;
-            }
+        const x = lastCoordsRef.current.x;
+        const y = lastCoordsRef.current.y;
 
-            const depth = parseInt(depthAttr);
-
-            const x = lastCoordsRef.current.x * depth || 0;
-            const y = lastCoordsRef.current.y * depth || 0;
-
-            layer.style.setProperty('--parallax-x', `${4 * x}px`);
-            layer.style.setProperty('--parallax-y', `${4 * y}px`);
-        }
+        svg.style.setProperty('--parallax-x', `${x}`);
+        svg.style.setProperty('--parallax-y', `${y}`);
+        svg.style.setProperty('--scroll', `${1 - visiblePercent.current}`);
     };
+
+    useAnimationFrame(doParallax);
 
     const handlePointerMove = useCallback(
         (event: PointerEvent) => {
@@ -52,20 +52,11 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
 
             const next: ParallaxCoords = { x, y };
 
-            // Cancel the last scheduled animation frame, we only care about the latest
-            if (frameRef.current !== null) {
-                cancelAnimationFrame(frameRef.current);
-            }
+            const prev = lastCoordsRef.current;
 
-            frameRef.current = requestAnimationFrame(() => {
-                const prev = lastCoordsRef.current;
+            if (prev.x === next.x && prev.y === next.y) return;
 
-                if (prev.x === next.x && prev.y === next.y) return;
-
-                lastCoordsRef.current = next;
-
-                doParallax();
-            });
+            lastCoordsRef.current = next;
         },
         [ref]
     );
@@ -84,4 +75,34 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
             el.removeEventListener('pointermove', handlePointerMove);
         };
     }, [handlePointerMove, ref]);
+
+    useEffect(() => {
+        if (typeof window === 'undefined') {
+            return;
+        }
+        if (!('IntersectionObserver' in window)) {
+            return;
+        }
+
+        const element = ref.current;
+        if (!element) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const visibleHeight = entry.intersectionRect.height;
+                const totalHeight = entry.boundingClientRect.height;
+
+                const percent = totalHeight > 0 ? visibleHeight / totalHeight : 0;
+
+                visiblePercent.current = Math.min(1, Math.max(0, percent));
+            },
+            {
+                threshold: Array.from({ length: 101 }, (_, i) => i / 100),
+            }
+        );
+
+        observer.observe(element);
+
+        return () => observer.disconnect();
+    }, [visiblePercent]);
 };
