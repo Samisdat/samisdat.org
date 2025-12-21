@@ -1,70 +1,59 @@
 :root {
-  --color-slate-gray: #5b5b5e;
-  --color-coral-light: #f37f6b;
-  --color-brick-red: #7f1f14;
 
-  --color-aqua-gray: #55989e;
-  --color-steel-blue: #314a74;
+  --color-slate-gray: hsl(240 2% 36%);
+  --color-moon-gray: hsl(0 0% 93%);
+  --color-crater-gray: hsl(0 0% 86%);
+  --color-mauve-gray: hsl(0 10% 49%);
 
-  --color-terracotta: #b9502b;
-  --color-copper-brown: #b25d3e;
+  --color-brick-red: hsl(6 73% 29%);
+  --color-crimson-dark: hsl(350 63% 45%);
+  --color-bright-red: hsl(359 78% 51%);
+  --color-fire-red: hsl(5 92% 57%);
+  --color-wine-red: hsl(2 90% 23%);
+  --color-brick-orange: hsl(8 64% 51%);
 
-  --color-sunflower-yellow: #fbd739;
-  --color-golden-ochre: #bf8200;
-  --color-dark-ochre: #9b690d;
+  --color-terracotta: hsl(14 63% 44%);
+  --color-copper-brown: hsl(18 49% 47%);
+  --color-apricot: hsl(14 84% 76%);
+  --color-espresso: hsl(20 100% 8%);
 
-  --color-moss-green-light: #82a582;
+  --color-sunflower-yellow: hsl(48 96% 60%);
+  --color-golden-ochre: hsl(41 100% 37%);
+  --color-dark-ochre: hsl(38 84% 33%);
+  --color-mustard-yellow: hsl(55 86% 41%);
+  --color-neon-yellow: hsl(65 100% 68%);
 
-  --color-moss-green: #536d46;
+  --color-aqua-gray: hsl(186 31% 47%);
+  --color-steel-blue: hsl(216 41% 32%);
+  --color-river-blue: hsl(201 48% 44%);
+  --color-sky-blue: hsl(196 100% 46%);
+  --color-midnight-blue: hsl(230 41% 8%);
+  --color-midnight-indigo: hsl(240 100% 16%);
 
-  --color-dusty-rose: #d9aba3;
+  --color-moss-green-light: hsl(120 18% 58%);
+  --color-moss-green: hsl(95 21% 35%);
+  --color-moss-olive: hsl(85 26% 25%);
+  --color-forest-green: hsl(146 51% 29%);
+  --color-pine-green: hsl(114 44% 26%);
+  --color-forest-hill: hsl(112 40% 30%);
+  --color-emerald-dark: hsl(155 100% 18%);
+  --color-dark-moss: hsl(90 25% 14%);
+  --color-pine-dark: hsl(135 54% 18%);
+  --color-deep-pine: hsl(145 53% 23%);
+  --color-spring-green: hsl(145 52% 39%);
 
-  --color-crimson-dark: #bb2a42;
-  --color-bright-red: #e42124;
+  --color-olive-moss: hsl(59 69% 25%);
+  --color-olive-green: hsl(55 84% 34%);
+  --color-warm-olive: hsl(69 95% 23%);
 
-  --color-espresso: #280d00;
+  --color-dusty-rose: hsl(10 33% 74%);
+  --color-dusty-pink: hsl(6 33% 71%);
+  --color-coral-light: hsl(9 84% 68%);
+  --color-aubergine: hsl(273 22% 15%);
 
-  --color-dusty-pink: #cba09f;
-  --color-mauve-gray: #867474;
-
-  --color-moss-olive: #3f4f2d;
-
-  --color-fire-red: #f73c2c;
-
-  --color-wine-red: #6c0705;
-  --color-brick-orange: #d44431;
-
-  --color-river-blue: #3a83a4;
-  --color-pine-green: #295e25;
-
-  --color-midnight-blue: #0c101d;
-  --color-moon-gray: #ececec;
-  --color-crater-gray: #dcdcdc;
-  --color-neon-yellow: #f0ff5e;
-
-  --color-forest-green: #247039;
-  --color-mustard-yellow: #c3b60d;
-
-  --color-aubergine: #2a1f31;
-  --color-emerald-dark: #005d37;
-  --color-forest-hill: #2e6a2a;
-
-  --color-dark-moss: #232e1b;
-  --color-pine-dark: #164623;
-
-  --color-olive-moss: #6d6c13;
-  --color-deep-pine: #1c592d;
-  --color-spring-green: #30964c;
-  --color-olive-green: #a39a0d;
-  --color-warm-olive: #617502;
-
-  --color-apricot: #f6a590;
-
-  --color-sky-blue: #00afeb;
-  --color-midnight-indigo: #000051;
 
   --backgroundcolor: var(--color-aubergine);
-  --maintextcolor: #d3cbc6;
+  --maintextcolor: hsl(30 8% 82%);
 }
 
 html {
@@ -133,9 +122,12 @@ body {
 .blue-house-dark {
   fill: var(--color-steel-blue);
 }
-.blue-house-roof,
+.blue-house-roof{
+  fill: var(--color-aubergine);
+}
 .blue-house-window {
   fill: var(--color-aubergine);
+  
 }
 
 .bridge-zoo-dark {
