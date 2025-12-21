@@ -9,7 +9,6 @@ interface ParallaxLayerProps {
 export const ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, children }) => (
     <g
         className="parallax-scroll"
-        data-depth={depth}
         style={
             {
                 ['--speed' as string]: String(speed),
