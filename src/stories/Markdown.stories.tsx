@@ -1,17 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/nextjs-vite";
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import {Markdown} from "@/components/Markdown";
-import {serialize} from "@/components/Markdown/serialise";
+import { Markdown } from '@/components/Markdown';
+import { serialize } from '@/components/Markdown/serialise';
 
 const meta = {
-  title: "Typo/Markdown",
-  component: Markdown,
-  tags: ["autodocs"],
+    title: 'Typo/Markdown',
+    component: Markdown,
+    tags: ['autodocs'],
 } satisfies Meta<typeof Markdown>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-
 
 const serializedSource = await serialize(`
 # Hei
@@ -43,11 +42,11 @@ Lorem \`inline\` ipsum
 
 # Hei
 
+When assigning grid children, we can do so using the line numbers (eg. grid-column: 2), but as we learned in [“An Interactive Guide to CSS Grid”](https://www.joshwcomeau.com/css/interactive-guide-to-grid/#grid-areas), we can also create named sub-sections of the grid, and assign children using these unique area names.
 `);
 
 export const Test: Story = {
-  args: {
-    serializedSource
-  },
+    args: {
+        serializedSource,
+    },
 };
-

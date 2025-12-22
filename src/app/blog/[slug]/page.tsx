@@ -1,43 +1,39 @@
-import { compileMDX } from "next-mdx-remote/rsc";
-import { promises as fs } from "fs";
-import path from "path";
-import { Heading } from "@/components/Heading";
+import { Heading } from '@/components/Heading';
+import { promises as fs } from 'fs';
+import { compileMDX } from 'next-mdx-remote/rsc';
+import path from 'path';
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { slug } = await params;
+export default async function ProjectPage({ params }: { params: { slug: string } }) {
+    const { slug } = await params;
 
-  console.log(slug);
+    console.log(slug);
 
-  const mdxPath = path.join(process.cwd(), "content/posts", `${slug}.mdx`);
+    const mdxPath = path.join(process.cwd(), 'content/posts', `${slug}.mdx`);
 
-  try {
-    const content = await fs.readFile(mdxPath, "utf-8");
+    try {
+        const content = await fs.readFile(mdxPath, 'utf-8');
 
-    console.log(content);
-    const components = {};
-    interface Frontmatter {
-      title: string;
-    }
+        console.log(content);
+        const components = {};
+        interface Frontmatter {
+            title: string;
+        }
 
-    const data = await compileMDX<Frontmatter>({
-      source: content,
-      options: {
-        parseFrontmatter: true,
-      },
-      components,
-    });
+        const data = await compileMDX<Frontmatter>({
+            source: content,
+            options: {
+                parseFrontmatter: true,
+            },
+            components,
+        });
 
-    console.log(data);
+        console.log(data);
 
-    return (
-      <>
-        <Heading>{data.frontmatter.title}</Heading>
-        {data.content}
-      </>
-    );
-  } catch (err) {}
+        return (
+            <>
+                <Heading>{data.frontmatter.title}</Heading>
+                {data.content}
+            </>
+        );
+    } catch (err) {}
 }
