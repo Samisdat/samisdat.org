@@ -52,18 +52,6 @@
   --color-aubergine: hsl(273 22% 15%);
 
 
-  --backgroundcolor: var(--color-aubergine);
-  --maintextcolor: hsl(30 8% 82%);
-}
-
-html {
-  font-size: 20px;
-  background-color: var(--backgroundcolor);
-  color: var(--maintextcolor);
-  font-family: sans-serif;
-}
-body {
-  letter-spacing: 0.01em;
 }
 
 .panorama {
