@@ -9,10 +9,9 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
     const doParallax = useCallback(() => {
-
         if (null === ref.current) {
-            return
-        };
+            return;
+        }
 
         const boundingClientRect = ref.current.getBoundingClientRect();
 
