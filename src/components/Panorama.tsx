@@ -165,11 +165,13 @@ export const Panorama = (): ReactElement => {
                         <VohwinkelBack />
                         <Vohwinkel />
                         <Hill3800 />
+                        <Clock />
                     </ParallaxLayer>
 
                     <ParallaxLayer
                         speed={2}
                         depth={6}
+                        cap={true}
                     >
                         <GelberTurm />
                         <Hill4100 />
@@ -177,12 +179,11 @@ export const Panorama = (): ReactElement => {
                     <ParallaxLayer
                         speed={1}
                         depth={7}
+                        cap={true}
                     >
                         <GreenTower />
                         <BeforeGreenTower />
                     </ParallaxLayer>
-
-                    <Clock />
                 </svg>
             </div>
         </>

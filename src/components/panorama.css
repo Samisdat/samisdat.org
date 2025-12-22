@@ -1,358 +1,357 @@
 :root {
+    --color-slate-gray: oklch(45% 0.01 270);
+    --color-moon-gray: oklch(93% 0.002 260);
+    --color-crater-gray: oklch(87% 0.003 260);
+    --color-mauve-gray: oklch(55% 0.02 10);
 
-  --color-slate-gray: hsl(240 2% 36%);
-  --color-moon-gray: hsl(0 0% 93%);
-  --color-crater-gray: hsl(0 0% 86%);
-  --color-mauve-gray: hsl(0 10% 49%);
+    --color-brick-red: oklch(38% 0.12 30);
+    --color-crimson-dark: oklch(52% 0.16 20);
+    --color-bright-red: oklch(60% 0.2 30);
+    --color-fire-red: oklch(65% 0.23 35);
+    --color-wine-red: oklch(32% 0.14 25);
+    --color-brick-orange: oklch(58% 0.16 40);
 
-  --color-brick-red: hsl(6 73% 29%);
-  --color-crimson-dark: hsl(350 63% 45%);
-  --color-bright-red: hsl(359 78% 51%);
-  --color-fire-red: hsl(5 92% 57%);
-  --color-wine-red: hsl(2 90% 23%);
-  --color-brick-orange: hsl(8 64% 51%);
+    --color-terracotta: oklch(52% 0.14 45);
+    --color-copper-brown: oklch(54% 0.1 50);
+    --color-apricot: oklch(80% 0.1 55);
+    --color-espresso: oklch(15% 0.04 50);
 
-  --color-terracotta: hsl(14 63% 44%);
-  --color-copper-brown: hsl(18 49% 47%);
-  --color-apricot: hsl(14 84% 76%);
-  --color-espresso: hsl(20 100% 8%);
+    --color-sunflower-yellow: oklch(78% 0.2 90);
+    --color-golden-ochre: oklch(55% 0.16 80);
+    --color-dark-ochre: oklch(50% 0.14 75);
+    --color-mustard-yellow: oklch(58% 0.18 95);
+    --color-neon-yellow: oklch(85% 0.23 105);
 
-  --color-sunflower-yellow: hsl(48 96% 60%);
-  --color-golden-ochre: hsl(41 100% 37%);
-  --color-dark-ochre: hsl(38 84% 33%);
-  --color-mustard-yellow: hsl(55 86% 41%);
-  --color-neon-yellow: hsl(65 100% 68%);
+    --color-aqua-gray: oklch(58% 0.07 210);
+    --color-steel-blue: oklch(40% 0.08 255);
+    --color-river-blue: oklch(55% 0.1 225);
+    --color-sky-blue: oklch(65% 0.18 215);
+    --color-midnight-blue: oklch(12% 0.03 255);
+    --color-midnight-indigo: oklch(20% 0.12 275);
 
-  --color-aqua-gray: hsl(186 31% 47%);
-  --color-steel-blue: hsl(216 41% 32%);
-  --color-river-blue: hsl(201 48% 44%);
-  --color-sky-blue: hsl(196 100% 46%);
-  --color-midnight-blue: hsl(230 41% 8%);
-  --color-midnight-indigo: hsl(240 100% 16%);
+    --color-moss-green-light: oklch(62% 0.06 135);
+    --color-moss-green: oklch(42% 0.07 130);
+    --color-moss-olive: oklch(32% 0.07 125);
+    --color-forest-green: oklch(38% 0.1 150);
+    --color-pine-green: oklch(35% 0.09 135);
+    --color-forest-hill: oklch(40% 0.08 140);
+    --color-emerald-dark: oklch(30% 0.15 160);
+    --color-dark-moss: oklch(22% 0.06 120);
+    --color-pine-dark: oklch(25% 0.1 145);
+    --color-deep-pine: oklch(32% 0.11 150);
+    --color-spring-green: oklch(50% 0.12 155);
 
-  --color-moss-green-light: hsl(120 18% 58%);
-  --color-moss-green: hsl(95 21% 35%);
-  --color-moss-olive: hsl(85 26% 25%);
-  --color-forest-green: hsl(146 51% 29%);
-  --color-pine-green: hsl(114 44% 26%);
-  --color-forest-hill: hsl(112 40% 30%);
-  --color-emerald-dark: hsl(155 100% 18%);
-  --color-dark-moss: hsl(90 25% 14%);
-  --color-pine-dark: hsl(135 54% 18%);
-  --color-deep-pine: hsl(145 53% 23%);
-  --color-spring-green: hsl(145 52% 39%);
+    --color-olive-moss: oklch(34% 0.08 110);
+    --color-olive-green: oklch(46% 0.1 108);
+    --color-warm-olive: oklch(38% 0.12 115);
 
-  --color-olive-moss: hsl(59 69% 25%);
-  --color-olive-green: hsl(55 84% 34%);
-  --color-warm-olive: hsl(69 95% 23%);
-
-  --color-dusty-rose: hsl(10 33% 74%);
-  --color-dusty-pink: hsl(6 33% 71%);
-  --color-coral-light: hsl(9 84% 68%);
-  --color-aubergine: hsl(273 22% 15%);
-
-
+    --color-dusty-rose: oklch(78% 0.06 30);
+    --color-dusty-pink: oklch(75% 0.06 25);
+    --color-coral-light: oklch(72% 0.14 35);
+    --color-aubergine: oklch(22% 0.05 300);
 }
 
 .panorama {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1280/500;
-  text-align: center;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1280/500;
+    text-align: center;
+    overflow: hidden;
 }
 
 .panorama > svg {
-  position: absolute;
-  left: 50%;
-  display: block;
-  height: 100%;
-  transform: translatex(-50%);
-  aspect-ratio: 1700/500;
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-  stroke-linejoin: round;
-  stroke-miterlimit: 2;
+    position: absolute;
+    left: 50%;
+    display: block;
+    height: 100%;
+    transform: translatex(-50%);
+    aspect-ratio: 1700/500;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 2;
 }
 
 .panorama svg g.parallax-scroll {
+    transition: transform 10ms ease;
+    transform: translateX(calc(4px * var(--parallax-x) * var(--depth)))
+        translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--speed, 0))));
+}
 
-  transition: transform 10ms ease;
-  transform:
-          translateX(calc(4px * var(--parallax-x) * var(--depth)))
-          translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--speed, 0))))
-  ;
-
+.panorama svg g.parallax-scroll.cap {
+    transform: translateX(calc(4px * var(--parallax-x) * var(--depth)))
+        translateY(
+            min(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--speed, 0))), 16px)
+        );
 }
 
 .panorama .alter-markt {
-  fill: var(--color-slate-gray);
+    fill: var(--color-slate-gray);
 }
 
 .beyenburger-dom-base {
-  fill: var(--color-fire-red);
+    fill: var(--color-fire-red);
 }
 .panorama .beyenburger-dom-roof {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 
 .panorama .beyenburger-dom-light {
-  fill: var(--color-apricot);
+    fill: var(--color-apricot);
 }
 
 .panorama .beyenburger-dom-window {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 
 .blue-house-light {
-  fill: var(--color-aqua-gray);
+    fill: var(--color-aqua-gray);
 }
 .blue-house-dark {
-  fill: var(--color-steel-blue);
+    fill: var(--color-steel-blue);
 }
-.blue-house-roof{
-  fill: var(--color-aubergine);
+.blue-house-roof {
+    fill: var(--color-aubergine);
 }
 .blue-house-window {
-  fill: var(--color-aubergine);
-
+    fill: var(--color-aubergine);
 }
 
 .bridge-zoo-dark {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 .bridge-zoo-light {
-  fill: var(--color-terracotta);
+    fill: var(--color-terracotta);
 }
 .bridge-zoo-front {
-  fill: var(--color-copper-brown);
+    fill: var(--color-copper-brown);
 }
 
 .elisenturm-base,
 .elisenturm-window {
-  fill: var(--color-apricot);
+    fill: var(--color-apricot);
 }
 
 .elisenturm-dark {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 
 .gelber-turm-base {
-  fill: var(--color-sunflower-yellow);
+    fill: var(--color-sunflower-yellow);
 }
 .gelber-turm-light {
-  fill: var(--color-golden-ochre);
+    fill: var(--color-golden-ochre);
 }
 .gelber-turm-dark {
-  fill: var(--color-dark-ochre);
+    fill: var(--color-dark-ochre);
 }
 
 .green-house-light1 {
-  fill: var(--color-moss-green-light);
+    fill: var(--color-moss-green-light);
 }
 
 .green-house-roof,
 .green-house-dark1 {
-  fill: var(--color-dark-moss);
+    fill: var(--color-dark-moss);
 }
 
 .green-house-light2 {
-  fill: var(--color-moss-olive);
+    fill: var(--color-moss-olive);
 }
 
 .green-house-dark2 {
-  fill: var(--color-dark-moss);
+    fill: var(--color-dark-moss);
 }
 
 .green-tower-base {
-  fill: var(--color-moss-green-light);
+    fill: var(--color-moss-green-light);
 }
 
 .green-tower-window,
 .green-tower-dark {
-  fill: var(--color-moss-green);
+    fill: var(--color-moss-green);
 }
 
 .lila-church-base {
-  fill: var(--color-dusty-rose);
+    fill: var(--color-dusty-rose);
 }
 
 .lila-church-roof,
 .lila-church-window {
-  fill: var(--color-aubergine);
+    fill: var(--color-aubergine);
 }
 
 .oligsmuehle {
-  fill: var(--color-slate-gray);
+    fill: var(--color-slate-gray);
 }
 
 .red-church-base {
-  fill: var(--color-crimson-dark);
+    fill: var(--color-crimson-dark);
 }
 .red-church-light {
-  fill: var(--color-fire-red);
+    fill: var(--color-fire-red);
 }
 .red-church-front {
-  fill: var(--color-coral-light);
+    fill: var(--color-coral-light);
 }
 
 .schauspielhaus {
-  fill: var(--color-sunflower-yellow);
+    fill: var(--color-sunflower-yellow);
 }
 
 .schauspielhaus-window {
-  fill: var(--color-aubergine);
+    fill: var(--color-aubergine);
 }
 
 .schauspielhaus-canopy {
-  fill: var(--color-golden-ochre);
+    fill: var(--color-golden-ochre);
 }
 
 .tower-light {
-  fill: var(--color-apricot);
+    fill: var(--color-apricot);
 }
 
 .tower-dark,
 .tower2-dark {
-  fill: var(--color-aubergine);
+    fill: var(--color-aubergine);
 }
 
 .towerlight,
 .tower2-light {
-  fill: var(--color-mauve-gray);
+    fill: var(--color-mauve-gray);
 }
 
 .townhall-light {
-  fill: var(--color-coral-light);
+    fill: var(--color-coral-light);
 }
 .townhall-dark {
-  fill: var(--color-bright-red);
+    fill: var(--color-bright-red);
 }
 .townhall-roof {
-  fill: var(--color-aubergine);
+    fill: var(--color-aubergine);
 }
 .townhall-window {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 
 .university-base {
-  fill: var(--color-coral-light);
+    fill: var(--color-coral-light);
 }
 .university-dark {
-  fill: var(--color-moss-olive);
+    fill: var(--color-moss-olive);
 }
 .university-light {
-  fill: var(--color-moss-green-light);
+    fill: var(--color-moss-green-light);
 }
 
 .vohwinkel-roof,
 .vohwinkel-window {
-  fill: var(--color-brick-red);
+    fill: var(--color-brick-red);
 }
 
 .vohwinkel-dark {
-  fill: var(--color-fire-red);
+    fill: var(--color-fire-red);
 }
 .vohwinkel-light {
-  fill: var(--color-apricot);
+    fill: var(--color-apricot);
 }
 
 .water-tower-dark {
-  fill: var(--color-wine-red);
+    fill: var(--color-wine-red);
 }
 .water-tower-base {
-  fill: var(--color-crimson-dark);
+    fill: var(--color-crimson-dark);
 }
 .water-tower-light {
-  fill: var(--color-coral-light);
+    fill: var(--color-coral-light);
 }
 
 .wupper {
-  fill: var(--color-river-blue);
+    fill: var(--color-river-blue);
 }
 .shore {
-  fill: var(--color-pine-green);
+    fill: var(--color-pine-green);
 }
 
 .night {
-  fill: var(--color-midnight-blue);
+    fill: var(--color-midnight-blue);
 }
 
 .moon {
-  fill: var(--color-moon-gray);
+    fill: var(--color-moon-gray);
 }
 
 .crater {
-  fill: var(--color-crater-gray);
+    fill: var(--color-crater-gray);
 }
 
 .sun {
-  fill: var(--color-neon-yellow);
+    fill: var(--color-neon-yellow);
 }
 
 .hardt {
-  fill: var(--color-forest-green);
+    fill: var(--color-forest-green);
 }
 
 .hill010 {
-  fill: var(--color-mustard-yellow);
+    fill: var(--color-mustard-yellow);
 }
 
 .hill-before-green-tower,
 .hill4100 {
-  fill: var(--color-aubergine);
+    fill: var(--color-aubergine);
 }
 
 .vohwinkel-back,
 .hill2900 {
-  fill: var(--color-emerald-dark);
+    fill: var(--color-emerald-dark);
 }
 
 .lila-church-hill,
 .hill3200 {
-  fill: var(--color-forest-hill);
+    fill: var(--color-forest-hill);
 }
 
 .hill3800,
 .hill2800 {
-  fill: var(--color-dark-moss);
+    fill: var(--color-dark-moss);
 }
 
 .hill3300,
 .hill100,
 .hill2250,
 .hill2200 {
-  fill: var(--color-pine-dark);
+    fill: var(--color-pine-dark);
 }
 
 .hill1110 {
-  fill: var(--color-olive-moss);
+    fill: var(--color-olive-moss);
 }
 
 .hill050 {
-  fill: var(--color-deep-pine);
+    fill: var(--color-deep-pine);
 }
 
 .hill040 {
-  fill: var(--color-spring-green);
+    fill: var(--color-spring-green);
 }
 
 .hill030 {
-  fill: var(--color-olive-green);
+    fill: var(--color-olive-green);
 }
 
 .hill020 {
-  fill: var(--color-warm-olive);
+    fill: var(--color-warm-olive);
 }
 
 .track {
-  fill: var(--color-apricot);
+    fill: var(--color-apricot);
 }
 
 .car {
-  fill: var(--color-sky-blue);
-  stroke: var(--color-midnight-indigo);
-  stroke-width: 3;
-  width: 81px;
-  height: 11px;
+    fill: var(--color-sky-blue);
+    stroke: var(--color-midnight-indigo);
+    stroke-width: 3;
+    width: 81px;
+    height: 11px;
 }

@@ -4,11 +4,12 @@ interface ParallaxLayerProps {
     speed: number;
     depth: number;
     children: ReactNode;
+    cap?: boolean;
 }
 
-export const ParallaxLayer: FC<ParallaxLayerProps> = ({ speed, depth, children }) => (
+export const ParallaxLayer: FC<ParallaxLayerProps> = ({ cap = false, speed, depth, children }) => (
     <g
-        className="parallax-scroll"
+        className={`parallax-scroll${cap ? ' cap' : ''}`}
         style={
             {
                 ['--speed' as string]: String(speed),
