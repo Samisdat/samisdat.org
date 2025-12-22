@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs"
   },
   "dependencies": {
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
@@ -17,7 +18,7 @@
     "@linaria/react": "^6.3.0",
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
-    "@samisdat/wtal-panorama": "^0.0.1",
+    "@samisdat/wtal-panorama": "file:samisdat-wtal-panorama-0.0.1.tgz",
     "@wyw-in-js/babel-preset": "^0.8.0",
     "fs-extra": "^11.3.2",
     "gray-matter": "^4.0.3",
@@ -27,8 +28,8 @@
     "normalize.css": "^8.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "rehype-autolink-headings": "^7.1.0",
     "rehype-accessible-emojis": "^0.3.2",
+    "rehype-autolink-headings": "^7.1.0",
     "rehype-pretty-code": "^0.14.1",
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
@@ -53,8 +54,11 @@
     "@wyw-in-js/vite": "^0.8.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.0.10",
-    "playwright": "^1.57.0",
     "eslint-plugin-storybook": "^10.1.8",
+    "playwright": "^1.57.0",
+    "prettier": "^3.7.3",
+    "prettier-plugin-multiline-arrays": "^4.0.3",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "storybook": "^10.1.8",
     "typescript": "^5.9.3",
     "vitest": "^4.0.9"

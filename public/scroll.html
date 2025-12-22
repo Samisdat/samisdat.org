@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="de">
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Scroll → CSS Variablen</title>
+
+<style>
+    @property --bg { syntax: "<number>"; inherits: true; initial-value: 255; }
+    @property --fg { syntax: "<number>"; inherits: true; initial-value: 20; }
+
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font: 16px/1.6 system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+        --bg: 255;
+        --fg: 20;
+        background: rgb(var(--bg) var(--bg) var(--bg));
+        color: rgb(var(--fg) var(--fg) var(--fg));
+
+        animation: theme linear both;
+        animation-timeline: --main;
+        /* Start wenn main's TOP am TOP ist, Ende nach 200px Scroll */
+        animation-range: cover 0px cover 200px;
+    }
+
+    @keyframes theme {
+        from { --bg: 255; --fg: 20; }
+        to   { --bg: 10;  --fg: 245; }
+    }
+
+    main {
+        view-timeline-name: --main;
+        view-timeline-axis: block;
+    }
+
+    header, main { max-width: 70ch; margin: 0 auto; padding: 24px; }
+    header { min-height: 120vh; }
+    main { min-height: 200vh; }
+</style>
+
+<body>
+<header>
+    <h1>Scroll runter bis &lt;main&gt; oben ankommt</h1>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Duis sagittis ipsum. Praesent mauris.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Duis sagittis ipsum. Praesent mauris.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Duis sagittis ipsum. Praesent mauris.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Duis sagittis ipsum. Praesent mauris.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nisi. Duis sagittis ipsum. Praesent mauris.</p>
+</header>
+
+<main>
+    <h2>&lt;main&gt; Trigger</h2>
+    <p>Ab jetzt: sobald dieser Block oben anliegt, läuft die Farbänderung über 200px.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+    <p>Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris.</p>
+    <p>Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.</p>
+    <p>Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh.</p>
+    <p>Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.</p>
+    <p>Proin ut ligula vel nunc egestas porttitor. Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa.</p>
+    <p>Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+</main>
+</body>
+</html>

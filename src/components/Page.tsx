@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from 'react';
 
 /*
 const PageStyled = styled("div")({
@@ -8,6 +8,4 @@ const PageStyled = styled("div")({
 
  */
 
-export const Page: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => (
-  <div>{children}</div>
-);
+export const Page: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => <div>{children}</div>;
