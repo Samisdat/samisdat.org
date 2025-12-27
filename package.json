@@ -7,11 +7,15 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "eslint",
+    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs"
   },
   "dependencies": {
+    "@codesandbox/sandpack-react": "^2.20.0",
+    "@codesandbox/sandpack-themes": "^2.0.21",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@linaria/core": "^6.3.0",
@@ -54,6 +58,7 @@
     "@wyw-in-js/vite": "^0.8.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.0.10",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-storybook": "^10.1.8",
     "playwright": "^1.57.0",
     "prettier": "^3.7.3",

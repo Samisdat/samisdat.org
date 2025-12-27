@@ -1,14 +1,7 @@
 /*
  */
 
-import {
-    Sandpack,
-    SandpackCodeEditor,
-    SandpackFileExplorer,
-    SandpackLayout,
-    SandpackPreview,
-    SandpackProvider,
-} from '@codesandbox/sandpack-react';
+import { SandpackCodeEditor, SandpackLayout, SandpackPreview, SandpackProvider } from '@codesandbox/sandpack-react';
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 
@@ -19,7 +12,12 @@ const SandboxStyling = styled.div``;
 // https://github.com/codesandbox/sandpack/blob/main/sandpack-react/src/templates/runtime/react-typescript.ts
 
 export interface SandboxProps extends HTMLAttributes<HTMLDivElement> {
+    name: string;
+    slug: string;
+    mdxDir: string;
+
     template?: 'static' | 'react-ts';
+
     showOpenInCodeSandbox?: boolean;
     showNavigator?: boolean;
     showLineNumbers?: boolean;
