@@ -36,6 +36,8 @@ const sourceCode = Source_Code_Pro({
 
 const playwrite = Playwrite_NO({
     variable: '--font-italic',
+    weight: 'variable',
+    display: 'swap',
 });
 
 export default function RootLayout({

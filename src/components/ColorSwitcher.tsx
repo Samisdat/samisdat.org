@@ -1,39 +1,36 @@
 'use client';
+import { useMediaQuery } from '@/hooks/useMediaQuery';
 import { useEffect, useState } from 'react';
 
-type ColorTheme = 'system' | 'light' | 'dark';
+type ColorTheme = 'light' | 'dark';
 
 export const ColorSwitcher = () => {
+    const prefersLight = useMediaQuery(`(prefers-color-scheme: light)`, false);
+
     const [theme, setTheme] = useState<ColorTheme>(() => {
-        if (typeof window === 'undefined') return 'system';
-        return (localStorage.getItem('theme') as ColorTheme) ?? 'system';
+        if (typeof window === 'undefined') return 'dark';
+        return ((sessionStorage.getItem('theme') as ColorTheme) ?? prefersLight) ? 'light' : 'dark';
     });
 
+    console.log(prefersLight);
+
     useEffect(() => {
+        console.log(theme);
+
         const root = document.documentElement;
 
-        if (theme === 'system') {
+        if (prefersLight && 'light' === theme) {
             root.removeAttribute('data-theme');
         } else {
             root.setAttribute('data-theme', theme);
         }
 
-        localStorage.setItem('theme', theme);
+        sessionStorage.setItem('theme', theme);
     }, [theme]);
 
     return (
         <>
-            <label>
-                <input
-                    type={'radio'}
-                    value={'system'}
-                    checked={theme === 'system'}
-                    onChange={() => {
-                        setTheme('system');
-                    }}
-                />
-                System
-            </label>
+            <label></label>
             <label>
                 <input
                     type={'radio'}

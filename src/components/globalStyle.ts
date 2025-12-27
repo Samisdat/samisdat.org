@@ -10,19 +10,10 @@ export const globalStyles = css`
             --color-soft-ivory: oklch(96.27% 0.034 30.2);
             --color-deep-aubergine: oklch(27.65% 0.092 230.5);
 
-            color-scheme: light;
+            color-scheme: dark;
 
-            --background-color: color-mix(
-                in oklab,
-                var(--color-aubergine) calc((1 - var(--mix)) * 100%),
-                var(--color-soft-ivory) calc(var(--mix) * 100%)
-            );
-
-            --foreground-color: color-mix(
-                in oklab,
-                var(--color-warm-ivory) calc((1 - var(--mix)) * 100%),
-                var(--color-deep-aubergine) calc(var(--mix) * 100%)
-            );
+            --background-color: var(--color-aubergine);
+            --foreground-color: var(--color-warm-ivory);
 
             --typo-h1-size: 3rem;
             --typo-h2-size: 2.75rem;
@@ -54,12 +45,21 @@ export const globalStyles = css`
             );
         }
 
-        @media (prefers-color-scheme: dark) {
+        @media (prefers-color-scheme: light) {
             :root:not([data-theme]) {
-                color-scheme: dark;
+                color-scheme: light;
 
-                --background-color: var(--color-aubergine);
-                --foreground-color: var(--color-warm-ivory);
+                --background-color: color-mix(
+                    in oklab,
+                    var(--color-aubergine) calc((1 - var(--mix)) * 100%),
+                    var(--color-soft-ivory) calc(var(--mix) * 100%)
+                );
+
+                --foreground-color: color-mix(
+                    in oklab,
+                    var(--color-warm-ivory) calc((1 - var(--mix)) * 100%),
+                    var(--color-deep-aubergine) calc(var(--mix) * 100%)
+                );
             }
         }
 
@@ -71,6 +71,12 @@ export const globalStyles = css`
             transition:
                 background-color 100ms ease,
                 color 100ms ease;
+        }
+
+        .hill-before-green-tower,
+        .hill4100 {
+            fill: var(--background-color);
+            transition: fill 100ms ease;
         }
         .storybook-wrapper {
             font-family: var(--font-sans);

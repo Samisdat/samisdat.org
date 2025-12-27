@@ -6,10 +6,12 @@ import tsParser from "@typescript-eslint/parser";
 import reactPlugin from "eslint-plugin-react";
 import reactHooksPlugin from "eslint-plugin-react-hooks";
 import nextPlugin from "@next/eslint-plugin-next";
+import prettierConfig from 'eslint-config-prettier';
 
 const eslintConfig = [
   // Base JavaScript configuration
   js.configs.recommended,
+  prettierConfig,
   
   // TypeScript configuration
   {

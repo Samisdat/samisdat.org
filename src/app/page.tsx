@@ -1,39 +1,40 @@
 import { Heading } from '@/components/Heading';
 import { Paragraph } from '@/components/Paragraph';
-import { faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { faCircle, faDesktop, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+
+import { faCircle as faCircleRegular } from '@fortawesome/free-regular-svg-icons';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { styled } from '@linaria/react';
 
 import { ColorSwitcher } from '@/components/ColorSwitcher';
+import { Markdown } from '@/components/Markdown';
+import { Frontmatter, serialize } from '@/components/Markdown/serialise';
 import { promises as fs } from 'fs';
-import { compileMDX } from 'next-mdx-remote/rsc';
 import path from 'path';
 
 export default async function Home() {
-    const mdxPath = path.join(process.cwd(), 'content/', `home.mdx`);
+    const slug = 'home';
+
+    const mdxDir = path.join(process.cwd(), 'content');
+    const mdxPath = path.join(mdxDir, `${slug}.mdx`);
 
     const content = await fs.readFile(mdxPath, 'utf-8');
 
-    const components = {
-        //em:
-    };
-    interface Frontmatter {
-        title: string;
-    }
-
-    const data = await compileMDX<Frontmatter>({
-        source: content,
-        options: {
-            parseFrontmatter: true,
-        },
-        components,
-    });
+    const serializedSource = await serialize(content);
+    const frontmatter = serializedSource.frontmatter as unknown as Frontmatter;
 
     return (
         <>
-            <Heading>{data.frontmatter.title}</Heading>
-            {data.content}
+            <Heading>{frontmatter.title}</Heading>
+            <Markdown
+                serializedSource={serializedSource}
+                mdxDir={mdxDir}
+                slug={slug}
+            />
             <ColorSwitcher />
+            <FontAwesomeIcon icon={faDesktop} />
+            <FontAwesomeIcon icon={faCircle} />
+            <FontAwesomeIcon icon={faCircleRegular} />
             <FontAwesomeIcon icon={faThumbsUp} />
             <Paragraph>Ich hab im Januar 2010 meine Ausbildung beendet und arbeite seitdem als Developer</Paragraph>
             <Paragraph>Das sind 16 Jahre</Paragraph>

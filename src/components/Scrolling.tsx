@@ -9,7 +9,7 @@ export const Scrolling: FC<HTMLAttributes<HTMLDivElement>> = () => {
     const updateMix = () => {
         document.documentElement.style.setProperty(
             '--mix',
-            String(Math.min(100, Math.max(0, window.pageYOffset - ref.current)) / 100)
+            String(Math.min(100, Math.max(0, window.pageYOffset - ref.current / 2)) / 100)
         );
     };
     useAnimationFrame(updateMix);
