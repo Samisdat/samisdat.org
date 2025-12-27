@@ -30,7 +30,10 @@ export const globalStyles = css`
             --foreground-color: var(--color-warm-ivory);
         }
 
+        /*
         :root[data-theme='light'] {
+
+            
             color-scheme: light;
 
             background-color: color-mix(
@@ -43,6 +46,7 @@ export const globalStyles = css`
                 var(--color-warm-ivory) calc((1 - var(--mix)) * 100%),
                 var(--color-deep-aubergine) calc(var(--mix) * 100%)
             );
+          
         }
 
         @media (prefers-color-scheme: light) {
@@ -62,6 +66,7 @@ export const globalStyles = css`
                 );
             }
         }
+         */
 
         html {
             font-size: 20px;

@@ -56,7 +56,7 @@ export default function RootLayout({
                     <WtalPanorama />
                     <Container>
                         {children}
-                        <Colophon />
+
                     </Container>
                 </Page>
             </body>

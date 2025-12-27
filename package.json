@@ -9,8 +9,7 @@
     "lint": "eslint",
     "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs"
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
