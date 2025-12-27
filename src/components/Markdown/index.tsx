@@ -1,6 +1,10 @@
+'use client';
+
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 
+import { Frontmatter } from '@/components/Markdown/serialise';
+import { Sandbox } from '@/components/Sandbox';
 import { Typo } from '@/components/Typo';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { Link } from '../Link';
@@ -30,10 +34,11 @@ const components = {
         />
     ),
     a: props => <Link {...props} />,
+    Sandbox: props => <Sandbox {...props} />,
 };
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
-    serializedSource: MDXRemoteSerializeResult;
+    serializedSource: MDXRemoteSerializeResult<Frontmatter>;
 }
 
 export const Markdown: FC<MarkdownProps> = ({ serializedSource }) => {

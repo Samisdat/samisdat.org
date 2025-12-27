@@ -9,8 +9,14 @@ const shikiOptions = {
     theme: 'vitesse-light',
 };
 
+export interface Frontmatter {
+    title: string;
+    date: string;
+}
+
 export const serialize = async (source: string) => {
-    const parsed = await serializeMdx(source, {
+    const parsed = await serializeMdx<Frontmatter>(source, {
+        parseFrontmatter: true,
         mdxOptions: {
             remarkPlugins: [remarkGfm],
             rehypePlugins: [
