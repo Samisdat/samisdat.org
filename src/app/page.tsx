@@ -22,7 +22,6 @@ export default async function Home() {
 
     return (
         <>
-
             <Heading>
                 <FontAwesomeIcon icon={faHand} />
                 {frontmatter.title}

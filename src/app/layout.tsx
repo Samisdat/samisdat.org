@@ -54,10 +54,7 @@ export default function RootLayout({
                 <Scrolling />
                 <Page>
                     <WtalPanorama />
-                    <Container>
-                        {children}
-
-                    </Container>
+                    <Container>{children}</Container>
                 </Page>
             </body>
         </html>
