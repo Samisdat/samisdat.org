@@ -8,7 +8,8 @@ import { Sandbox } from '@/components/Sandbox';
 import { Typo } from '@/components/Typo';
 import type { MDXRemoteProps } from 'next-mdx-remote';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
-import { SvgAnimation } from '../Demo/Animations/Svg';
+import { SvgAnimate } from '../Demo/Animations/SvgAnimate';
+import { SvgPathWithJs } from '../Demo/Animations/SvgPathWithJs';
 import { Link } from '../Link';
 const MarkdownStyling = styled.div``;
 
@@ -46,8 +47,15 @@ export const Markdown: FC<MarkdownProps> = ({ serializedSource, slug, mdxDir }) 
                 mdxDir={mdxDir}
             />
         ),
-        SvgAnimation: props => (
-            <SvgAnimation
+        SvgAnimate: props => (
+            <SvgAnimate
+                {...props}
+                slug={slug}
+                mdxDir={mdxDir}
+            />
+        ),
+        SvgPathWithJs: props => (
+            <SvgPathWithJs
                 {...props}
                 slug={slug}
                 mdxDir={mdxDir}
