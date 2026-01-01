@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useRef, useState,useEffect} from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
 const SvgAnimationStyling = styled.div`
@@ -38,12 +38,20 @@ const dayLength = 3600;
 export const SvgPathWithJs = () => {
     const pathRef = useRef<SVGPathElement>(null);
 
+    const lengthRef = useRef<number | null>(null);
+
     const [time, setTime] = useState<number>(0);
     const [speed, setSpeed] = useState<number>(10);
 
+    useEffect(() => {
+        if (pathRef.current) {
+            lengthRef.current = pathRef.current.getTotalLength();
+        }
+    }, []);
+
     const next = () => {
         setTime(prev => {
-            if (prev > dayLength) {
+            if (prev >= dayLength) {
                 return 0;
             }
             return prev + speed;
@@ -53,19 +61,19 @@ export const SvgPathWithJs = () => {
     useAnimationFrame(next);
 
     const getPoint = (): Point => {
-        if (!pathRef.current) {
+        if (!pathRef.current || !lengthRef.current) {
             return { cx: 40, cy: 260 };
         }
 
-        const pathLength = pathRef.current.getTotalLength();
-        const distance = (pathLength * time) / dayLength;
+        const distance = (lengthRef.current * time) / dayLength;
         const point = pathRef.current.getPointAtLength(distance);
 
         return { cx: point.x, cy: point.y };
     };
 
     const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        setSpeed(parseInt(evt.target.value, 10));
+        const value = parseInt(evt.target.value, 10);
+        setSpeed(Number.isNaN(value) ? 0 : value);
     };
 
     return (
@@ -77,7 +85,7 @@ export const SvgPathWithJs = () => {
                     name="speed"
                     min="0"
                     max="40"
-                    defaultValue={speed}
+                    value={speed}
                     onChange={onChange}
                 />
             </label>
