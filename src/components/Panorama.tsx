@@ -71,14 +71,14 @@ export const Panorama = (): ReactElement => {
                 >
                     <Heaven />
                     <ParallaxLayer
-                        speed={15}
+                        scrollspeed={15}
                         depth={-7}
                     >
                         <WaterTowerLichtscheid />
                         <Hill010 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={14}
+                        scrollspeed={14}
                         depth={-6}
                     >
                         <University />
@@ -86,35 +86,35 @@ export const Panorama = (): ReactElement => {
                         <Hill040 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={13}
+                        scrollspeed={13}
                         depth={-5}
                     >
                         <WaterTowerNaechstebreck />
                         <Hill030 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={12}
+                        scrollspeed={12}
                         depth={-4}
                     >
                         <Tower2 />
                         <Hill050 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={11}
+                        scrollspeed={11}
                         depth={-3}
                     >
                         <Tower1 />
                         <Hill1110 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={10}
+                        scrollspeed={10}
                         depth={-2}
                     >
                         <Elisenturm />
                         <Hardt />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={9}
+                        scrollspeed={9}
                         depth={-1}
                     >
                         <BeyenburgerDom />
@@ -122,28 +122,28 @@ export const Panorama = (): ReactElement => {
                     </ParallaxLayer>
 
                     <ParallaxLayer
-                        speed={8}
+                        scrollspeed={8}
                         depth={0}
                     >
                         <Track />
                     </ParallaxLayer>
 
                     <ParallaxLayer
-                        speed={7}
+                        scrollspeed={7}
                         depth={1}
                     >
                         <Hill2900 />
                         <RedCurch />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={6}
+                        scrollspeed={6}
                         depth={2}
                     >
                         <LilaChurch />
                         <LilaChurchHill />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={5}
+                        scrollspeed={5}
                         depth={3}
                     >
                         <Hill100 />
@@ -151,7 +151,7 @@ export const Panorama = (): ReactElement => {
                         <BlueHouse />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={4}
+                        scrollspeed={4}
                         depth={4}
                     >
                         <SchauspielHaus />
@@ -159,7 +159,7 @@ export const Panorama = (): ReactElement => {
                         <SchauspielHausCanopy />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={3}
+                        scrollspeed={3}
                         depth={5}
                     >
                         <VohwinkelBack />
@@ -169,7 +169,7 @@ export const Panorama = (): ReactElement => {
                     </ParallaxLayer>
 
                     <ParallaxLayer
-                        speed={2}
+                        scrollspeed={2}
                         depth={6}
                         cap={true}
                     >
@@ -177,7 +177,7 @@ export const Panorama = (): ReactElement => {
                         <Hill4100 />
                     </ParallaxLayer>
                     <ParallaxLayer
-                        speed={1}
+                        scrollspeed={1}
                         depth={7}
                         cap={true}
                     >

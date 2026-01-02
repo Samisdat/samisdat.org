@@ -1,18 +1,18 @@
 import { CSSProperties, FC, ReactNode } from 'react';
 
 interface ParallaxLayerProps {
-    speed: number;
+    scrollspeed: number;
     depth: number;
     children: ReactNode;
     cap?: boolean;
 }
 
-export const ParallaxLayer: FC<ParallaxLayerProps> = ({ cap = false, speed, depth, children }) => (
+export const ParallaxLayer: FC<ParallaxLayerProps> = ({ cap = false, scrollspeed, depth, children }) => (
     <g
         className={`parallax-scroll${cap ? ' cap' : ''}`}
         style={
             {
-                ['--speed' as string]: String(speed),
+                ['--scrollspeed' as string]: String(scrollspeed),
                 ['--depth' as string]: String(depth),
             } as CSSProperties
         }

@@ -112,7 +112,7 @@ export const Heaven = () => {
                 opacity={skyOpacity}
             />
             <ParallaxLayer
-                speed={15}
+                scrollspeed={15}
                 depth={-7}
             >
                 {isDay && (

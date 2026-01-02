@@ -75,13 +75,16 @@
 .panorama svg g.parallax-scroll {
     transition: transform 10ms ease;
     transform: translateX(calc(4px * var(--parallax-x) * var(--depth)))
-        translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--speed, 0))));
+        translateY(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--scrollspeed, 0))));
 }
 
 .panorama svg g.parallax-scroll.cap {
     transform: translateX(calc(4px * var(--parallax-x) * var(--depth)))
         translateY(
-            min(calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--speed, 0))), 16px)
+            min(
+                calc(4px * var(--parallax-y) * var(--depth) + calc(15px * var(--scroll, 0) * var(--scrollspeed, 0))),
+                16px
+            )
         );
 }
 
