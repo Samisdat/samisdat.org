@@ -355,3 +355,29 @@
     width: 81px;
     height: 11px;
 }
+
+.panorama .clock .clockHandHour,
+.panorama .clock .clockHandMinute {
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+}
+.panorama .clock .clockHandSecond {
+    stroke: #d53a1f;
+    stroke-width: 1;
+}
+.panorama .clock .clockHandHour,
+.panorama .clock .clockHandMinute,
+.panorama .clock .clockHandSecond {
+    transform-box: fill-box;
+    transform-origin: 50% 100%;
+}
+.panorama .clock .clockHandHour {
+    transform: rotate(calc(360deg * ((var(--hour) + (var(--minute) / 60)) / 12)));
+}
+.panorama .clock .clockHandMinute {
+    transform: rotate(calc(360deg * ((var(--minute) + (var(--second) / 60)) / 12)));
+}
+.panorama .clock .clockHandSecond {
+    transform: rotate(calc(360deg * var(--second) / 60));
+}

@@ -31,7 +31,7 @@ export const Clock = () => {
 
     const seconds = time.getSeconds();
     const minutes = time.getMinutes();
-    const hours = time.getHours() + minutes / 60;
+    const hours = time.getHours();
 
     return (
         <svg
@@ -61,7 +61,7 @@ export const Clock = () => {
                 x2="31"
                 y2="10"
             />
-            {0 === timeFactor && (
+            {100 >= timeFactor && (
                 <line
                     className="clockHandSecond"
                     x1="30.5"
