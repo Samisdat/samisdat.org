@@ -23,7 +23,7 @@ export const TimeFactor = () => {
                 min="0"
                 max="10000"
                 defaultValue={timeFactor}
-                step="250"
+                step="50"
             />
         </div>
     );
