@@ -9,6 +9,7 @@ import { Typo } from '@/components/Typo';
 import type { MDXRemoteProps } from 'next-mdx-remote';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import { SvgAnimate } from '../Demo/Animations/SvgAnimate';
+import { SvgCombined } from '../Demo/Animations/SvgCombined';
 import { SvgPathWithJs } from '../Demo/Animations/SvgPathWithJs';
 import { Link } from '../Link';
 const MarkdownStyling = styled.div``;
@@ -56,6 +57,13 @@ export const Markdown: FC<MarkdownProps> = ({ serializedSource, slug, mdxDir }) 
         ),
         SvgPathWithJs: props => (
             <SvgPathWithJs
+                {...props}
+                slug={slug}
+                mdxDir={mdxDir}
+            />
+        ),
+        SvgCombined: props => (
+            <SvgCombined
                 {...props}
                 slug={slug}
                 mdxDir={mdxDir}
