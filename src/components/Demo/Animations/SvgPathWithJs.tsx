@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { ChangeEvent, useRef, useState,useEffect} from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
 const SvgAnimationStyling = styled.div`
