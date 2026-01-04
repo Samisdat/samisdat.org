@@ -1,36 +1,17 @@
+"use client"
 /*
  */
 
 import { SandpackCodeEditor, SandpackLayout, SandpackPreview, SandpackProvider } from '@codesandbox/sandpack-react';
 import { styled } from '@linaria/react';
-import { FC, HTMLAttributes } from 'react';
+import { FC } from 'react';
 
 import { nightOwl } from '@codesandbox/sandpack-themes';
+import { SandboxProps } from './props';
 
 const SandboxStyling = styled.div``;
 
 // https://github.com/codesandbox/sandpack/blob/main/sandpack-react/src/templates/runtime/react-typescript.ts
-
-export interface SandboxProps extends HTMLAttributes<HTMLDivElement> {
-    name: string;
-    slug: string;
-    mdxDir: string;
-
-    template?: 'static' | 'react-ts';
-
-    showOpenInCodeSandbox?: boolean;
-    showNavigator?: boolean;
-    showLineNumbers?: boolean;
-    showInlineErrors?: boolean;
-    showRefreshButton?: boolean;
-    showRestartButton?: boolean;
-    showTabs?: boolean;
-    showConsoleButton?: boolean;
-    showConsole?: boolean;
-    closableTabs?: boolean;
-    wrapContent?: boolean;
-    resizablePanels?: boolean;
-}
 
 export const Sandbox: FC<SandboxProps> = ({
     template = 'react-ts',
