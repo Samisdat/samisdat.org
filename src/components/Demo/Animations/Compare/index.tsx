@@ -1,3 +1,6 @@
+import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { styled } from '@linaria/react';
 import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
@@ -65,13 +68,13 @@ export const DemoAnimationsCompare = () => {
                     type="button"
                     onClick={handlePlayPause}
                 >
-                    {isPlaying ? 'Pause' : 'Play'}
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
                 </button>
                 <button
                     type="button"
                     onClick={handleReset}
                 >
-                    Reset
+                    <FontAwesomeIcon icon={faReply} />
                 </button>
             </div>
             <Smil
