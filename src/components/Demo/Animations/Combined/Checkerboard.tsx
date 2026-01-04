@@ -1,4 +1,4 @@
-export const Checkerboard = ({ width, height }: { width: number; height: number }) => (
+export const DemoAnimationsCombinedCheckerboard = ({ width, height }: { width: number; height: number }) => (
     <>
         <defs>
             <pattern
