@@ -62,8 +62,8 @@ export const Markdown: FC<MarkdownProps> = ({ serializedSource, slug, mdxDir }) 
                 mdxDir={mdxDir}
             />
         ),
-        SvgCombined: props => (
-            <SvgCombined
+        DemoAnimationsCombined: props => (
+            <DemoAnimationsCombined
                 {...props}
                 slug={slug}
                 mdxDir={mdxDir}
