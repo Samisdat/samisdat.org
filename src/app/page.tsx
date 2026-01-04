@@ -1,4 +1,5 @@
 import { Heading } from '@/components/Heading';
+import { Markdown } from '@/components/Markdown';
 
 import { faHand } from '@fortawesome/free-regular-svg-icons';
 
@@ -7,7 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { promises as fs } from 'fs';
 import path from 'path';
 
-import {parseMarkdown} from "../components/Markdown/compile";
+import { parseMarkdown } from '@/components/Markdown/compile';
 
 export default async function Home() {
     const slug = 'home';
@@ -17,16 +18,18 @@ export default async function Home() {
 
     const content = await fs.readFile(mdxPath, 'utf-8');
 
-    const {frontmatter, MDXContent} = await parseMarkdown(content);
+    const { frontmatter, MDXContent } = await parseMarkdown(content);
 
     return (
         <>
-
             <Heading>
                 <FontAwesomeIcon icon={faHand} />
                 {frontmatter.title}
             </Heading>
-            <MDXContent
+            <Markdown
+                MDXContent={MDXContent}
+                slug={slug}
+                mdxDir={mdxDir}
             />
         </>
     );
