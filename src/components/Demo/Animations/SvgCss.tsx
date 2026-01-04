@@ -1,3 +1,5 @@
+'use client';
+
 import { styled } from '@linaria/react';
 import { CSSProperties, ChangeEvent, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
