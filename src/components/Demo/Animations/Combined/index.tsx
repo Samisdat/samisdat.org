@@ -1,7 +1,7 @@
 import { styled } from '@linaria/react';
 import { useEffect, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../../hooks/useAnimationFrame';
-import {Checkerboard} from "./Checkerboard";
+import { Checkerboard } from './Checkerboard';
 
 const ANIMATION_DURATION = 5000; // ms for one direction
 const ANIMATION_DISTANCE = 160; // px to travel
@@ -81,7 +81,10 @@ const SmilCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombined
                 ref={svgRef}
                 viewBox="0 0 200 30"
             >
-                <Checkerboard/>
+                <Checkerboard
+                    width={230}
+                    height={30}
+                />
                 <circle
                     cx={START_X}
                     cy={15}
@@ -125,10 +128,11 @@ const CssCircleAnimationStyled = styled(AnimationContainer)`
 const CssCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombinedProps) => {
     return (
         <CssCircleAnimationStyled>
-            <svg
-                viewBox="0 0 200 30"
-            >
-                <Checkerboard/>
+            <svg viewBox="0 0 200 30">
+                <Checkerboard
+                    width={230}
+                    height={30}
+                />
                 <circle
                     key={resetTrigger}
                     className={`css ${isPlaying ? 'playing' : ''}`}
@@ -196,10 +200,11 @@ const JsCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombinedPr
 
     return (
         <JsCircleAnimationStyled>
-            <svg
-                viewBox="0 0 200 30"
-            >
-                <Checkerboard/>
+            <svg viewBox="0 0 200 30">
+                <Checkerboard
+                    width={230}
+                    height={30}
+                />
                 <circle
                     ref={circleRef}
                     className="js"
