@@ -1,30 +1,44 @@
-import { compile, run } from '@mdx-js/mdx'
-import * as runtime from 'react/jsx-runtime'
+import { compile, run } from '@mdx-js/mdx';
+import * as runtime from 'react/jsx-runtime';
 
-import remarkFrontmatter from 'remark-frontmatter'
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter'
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
+import { Frontmatter } from './Frontmatter';
 
-export const parseMarkdown = async (markdown: string): any => {
+interface ParseMarkdownResult {
+    MDXContent: React.ComponentType;
+    frontmatter: Frontmatter;
+}
 
-    const code = String(
-        await compile(markdown, { outputFormat: 'function-body',remarkPlugins: [
-                remarkFrontmatter,
-                // `name` = wie der Export heißen soll:
-                [remarkMdxFrontmatter, { name: 'frontmatter' }],
-            ], })
-    )
-
-    // Run the compiled code with the runtime and get the default export
-    const { default: MDXContent, frontmatter } = await run(code, {
-        ...runtime,
-        baseUrl: import.meta.url,
-    })
-
-    console.log(MDXContent, frontmatter)
-
-    return {
-        MDXContent,
-        frontmatter
+export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResult> => {
+    if (!markdown || typeof markdown !== 'string') {
+        throw new Error('Invalid markdown input: expected non-empty string');
     }
 
-}
+    try {
+        const code = String(
+            await compile(markdown, {
+                outputFormat: 'function-body',
+                remarkPlugins: [
+                    remarkFrontmatter,
+                    // Export frontmatter as named export 'frontmatter'
+                    [remarkMdxFrontmatter, { name: 'frontmatter' }],
+                ],
+            })
+        );
+
+        // Run the compiled code with the runtime and get the default export
+        const { default: MDXContent, frontmatter } = await run(code, {
+            ...runtime,
+            baseUrl: import.meta.url,
+        });
+
+        return {
+            MDXContent,
+            frontmatter: (frontmatter ?? {}) as Frontmatter,
+        };
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        throw new Error(`Failed to parse markdown: ${errorMessage}`);
+    }
+};
