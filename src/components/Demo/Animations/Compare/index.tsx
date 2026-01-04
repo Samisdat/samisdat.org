@@ -1,15 +1,10 @@
 import { styled } from '@linaria/react';
 import { useState } from 'react';
-import { DemoAnimationsCombinedCss } from './Css';
-import { DemoAnimationsCombinedJs } from './Js';
-import { DemoAnimationsCombinedSmil } from './Smil';
+import { Css } from './Css';
+import { Js } from './Js';
+import { Smil } from './Smil';
 
-export interface DemoAnimationsCombinedProps {
-    isPlaying: boolean;
-    resetTrigger: number;
-}
-
-const SvgCombinedStyling = styled.div`
+const DemoAnimationsCompareStyling = styled.div`
     max-width: 450px;
 
     .controls {
@@ -19,7 +14,7 @@ const SvgCombinedStyling = styled.div`
     }
 `;
 
-export const DemoAnimationsCombined = () => {
+export const DemoAnimationsCompare = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [resetCounter, setResetCounter] = useState(0);
 
@@ -33,7 +28,7 @@ export const DemoAnimationsCombined = () => {
     };
 
     return (
-        <SvgCombinedStyling>
+        <DemoAnimationsCompareStyling>
             <div className="controls">
                 <button
                     type="button"
@@ -48,18 +43,18 @@ export const DemoAnimationsCombined = () => {
                     Reset
                 </button>
             </div>
-            <DemoAnimationsCombinedSmil
+            <Smil
                 isPlaying={isPlaying}
                 resetTrigger={resetCounter}
             />
-            <DemoAnimationsCombinedCss
+            <Css
                 isPlaying={isPlaying}
                 resetTrigger={resetCounter}
             />
-            <DemoAnimationsCombinedJs
+            <Js
                 isPlaying={isPlaying}
                 resetTrigger={resetCounter}
             />
-        </SvgCombinedStyling>
+        </DemoAnimationsCompareStyling>
     );
 };

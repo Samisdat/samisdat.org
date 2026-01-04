@@ -1,17 +1,24 @@
 import { useAnimationFrame } from '@/hooks/useAnimationFrame';
 import { useEffect, useRef } from 'react';
 import { styled } from 'storybook/theming';
-import { DemoAnimationsCombinedProps } from '.';
-import { DemoAnimationsCombinedCheckerboard } from './Checkerboard';
-import { ANIMATION_DISTANCE, ANIMATION_DURATION, AnimationContainer, CIRCLE_RADIUS, CIRCLE_Y, START_X } from './shared';
+import { Checkerboard } from './Checkerboard';
+import {
+    ANIMATION_DISTANCE,
+    ANIMATION_DURATION,
+    CIRCLE_RADIUS,
+    CIRCLE_Y,
+    DemoAnimationsCompareProps,
+    START_X,
+    SvgStyling,
+} from './shared';
 
-const JsCircleAnimationStyled = styled(AnimationContainer)`
-    & svg circle.js {
+const JsStyling = styled(SvgStyling)`
+    & circle.js {
         fill: var(--color-emerald-dark);
     }
 `;
 
-export const DemoAnimationsCombinedJs = ({ isPlaying, resetTrigger }: DemoAnimationsCombinedProps) => {
+export const Js = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => {
     const circleRef = useRef<SVGCircleElement | null>(null);
     const timeRef = useRef(0);
     const leftRef = useRef(true);
@@ -59,20 +66,18 @@ export const DemoAnimationsCombinedJs = ({ isPlaying, resetTrigger }: DemoAnimat
     useAnimationFrame(next);
 
     return (
-        <JsCircleAnimationStyled>
-            <svg viewBox="0 0 200 30">
-                <DemoAnimationsCombinedCheckerboard
-                    width={230}
-                    height={30}
-                />
-                <circle
-                    ref={circleRef}
-                    className="js"
-                    cx={START_X}
-                    cy={CIRCLE_Y}
-                    r={CIRCLE_RADIUS}
-                />
-            </svg>
-        </JsCircleAnimationStyled>
+        <JsStyling viewBox="0 0 200 30">
+            <Checkerboard
+                width={230}
+                height={30}
+            />
+            <circle
+                ref={circleRef}
+                className="js"
+                cx={START_X}
+                cy={CIRCLE_Y}
+                r={CIRCLE_RADIUS}
+            />
+        </JsStyling>
     );
 };
