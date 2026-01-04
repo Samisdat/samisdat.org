@@ -1,8 +1,9 @@
 import { styled } from '@linaria/react';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
 import { Js } from './Js';
 import { Smil } from './Smil';
+import { config } from './shared';
 
 const DemoAnimationsCompareStyling = styled.div`
     max-width: 450px;
@@ -15,6 +16,8 @@ const DemoAnimationsCompareStyling = styled.div`
 `;
 
 export const DemoAnimationsCompare = () => {
+    const timerRef = useRef(null);
+
     const [isPlaying, setIsPlaying] = useState(false);
     const [resetCounter, setResetCounter] = useState(0);
 
@@ -26,6 +29,21 @@ export const DemoAnimationsCompare = () => {
         setIsPlaying(false);
         setResetCounter(prev => prev + 1);
     };
+
+    useEffect(() => {
+        if (isPlaying) {
+            timerRef.current = setTimeout(() => {
+                console.log('10 sekunden rum. einmal reset und pause');
+
+                setIsPlaying(false);
+            }, config.totalDuration);
+        }
+
+        // 👇 Cleanup
+        return () => {
+            clearTimeout(timerRef.current);
+        };
+    }, [isPlaying, resetCounter, timerRef]);
 
     return (
         <DemoAnimationsCompareStyling>
