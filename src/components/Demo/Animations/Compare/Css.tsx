@@ -1,15 +1,6 @@
 import { styled } from 'storybook/theming';
 import { Checkerboard } from './Checkerboard';
-import {
-    ANIMATION_DISTANCE,
-    ANIMATION_DURATION,
-    ANIMATION_REPEATS,
-    CIRCLE_RADIUS,
-    CIRCLE_Y,
-    DemoAnimationsCompareProps,
-    START_X,
-    SvgStyling,
-} from './shared';
+import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 const CssCircleAnimationStyled = styled(SvgStyling)`
     @keyframes slide {
@@ -17,13 +8,13 @@ const CssCircleAnimationStyled = styled(SvgStyling)`
             transform: translateX(0);
         }
         to {
-            transform: translateX(${ANIMATION_DISTANCE}px);
+            transform: translateX(${config.distance}px);
         }
     }
 
     & svg circle.css {
         fill: var(--color-sunflower-yellow);
-        animation: slide ${ANIMATION_DURATION}ms linear ${ANIMATION_REPEATS} alternate;
+        animation: slide ${config.duration}ms linear ${config.repeats} alternate;
         animation-play-state: paused;
     }
 
@@ -42,9 +33,9 @@ export const Css = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => 
             <circle
                 key={resetTrigger}
                 className={`css ${isPlaying ? 'playing' : ''}`}
-                cx={START_X}
-                cy={CIRCLE_Y}
-                r={CIRCLE_RADIUS}
+                cx={config.startX}
+                cy={config.circleY}
+                r={config.circleRadius}
             />
         </svg>
     </CssCircleAnimationStyled>

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { Checkerboard } from './Checkerboard';
-import { CIRCLE_RADIUS, DemoAnimationsCompareProps, END_X, START_X, SvgStyling, TOTAL_DURATION } from './shared';
+import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => {
     const svgRef = useRef<SVGSVGElement | null>(null);
@@ -42,15 +42,15 @@ export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) =>
                 height={30}
             />
             <circle
-                cx={START_X}
-                cy={15}
-                r={CIRCLE_RADIUS}
+                cx={config.startX}
+                cy={config.circleY}
+                r={config.circleRadius}
                 fill="var(--color-fire-red)"
             >
                 <animate
                     attributeName="cx"
-                    values={`${START_X};${END_X};${START_X}`}
-                    dur={`${TOTAL_DURATION}ms`}
+                    values={`${config.startX};${config.endX};${config.startX}`}
+                    dur={`${config.totalDuration}ms`}
                     repeatCount="1"
                     begin="0s"
                 />
