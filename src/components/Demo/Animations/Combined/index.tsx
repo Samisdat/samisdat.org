@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 import { useEffect, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../../hooks/useAnimationFrame';
+import {Checkerboard} from "./Checkerboard";
 
 const ANIMATION_DURATION = 5000; // ms for one direction
 const ANIMATION_DISTANCE = 160; // px to travel
@@ -80,39 +81,7 @@ const SmilCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombined
                 ref={svgRef}
                 viewBox="0 0 200 30"
             >
-                <defs>
-                    <pattern
-                        id="checkerboard-smil"
-                        width="10"
-                        height="10"
-                        patternUnits="userSpaceOnUse"
-                    >
-                        <rect
-                            width="10"
-                            height="10"
-                            fill="#e8e8e8"
-                        />
-                        <rect
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                        <rect
-                            x="5"
-                            y="5"
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                    </pattern>
-                </defs>
-                <rect
-                    x="0"
-                    y="0"
-                    width="200"
-                    height="30"
-                    fill="url(#checkerboard-smil)"
-                />
+                <Checkerboard/>
                 <circle
                     cx={START_X}
                     cy={15}
@@ -159,39 +128,7 @@ const CssCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombinedP
             <svg
                 viewBox="0 0 200 30"
             >
-                <defs>
-                    <pattern
-                        id="checkerboard-css"
-                        width="10"
-                        height="10"
-                        patternUnits="userSpaceOnUse"
-                    >
-                        <rect
-                            width="10"
-                            height="10"
-                            fill="#e8e8e8"
-                        />
-                        <rect
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                        <rect
-                            x="5"
-                            y="5"
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                    </pattern>
-                </defs>
-                <rect
-                    x="0"
-                    y="0"
-                    width="200"
-                    height="30"
-                    fill="url(#checkerboard-css)"
-                />
+                <Checkerboard/>
                 <circle
                     key={resetTrigger}
                     className={`css ${isPlaying ? 'playing' : ''}`}
@@ -262,39 +199,7 @@ const JsCircleAnimation = ({ isPlaying, resetTrigger }: DemoAnimationsCombinedPr
             <svg
                 viewBox="0 0 200 30"
             >
-                <defs>
-                    <pattern
-                        id="checkerboard-js"
-                        width="10"
-                        height="10"
-                        patternUnits="userSpaceOnUse"
-                    >
-                        <rect
-                            width="10"
-                            height="10"
-                            fill="#e8e8e8"
-                        />
-                        <rect
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                        <rect
-                            x="5"
-                            y="5"
-                            width="5"
-                            height="5"
-                            fill="#cfcfcf"
-                        />
-                    </pattern>
-                </defs>
-                <rect
-                    x="0"
-                    y="0"
-                    width="200"
-                    height="30"
-                    fill="url(#checkerboard-js)"
-                />
+                <Checkerboard/>
                 <circle
                     ref={circleRef}
                     className="js"
