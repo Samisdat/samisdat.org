@@ -16,7 +16,7 @@ const DemoAnimationsCompareStyling = styled.div`
 `;
 
 export const DemoAnimationsCompare = () => {
-    const timerRef = useRef(null);
+    const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [resetCounter, setResetCounter] = useState(0);
