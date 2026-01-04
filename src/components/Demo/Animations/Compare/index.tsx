@@ -28,22 +28,35 @@ export const DemoAnimationsCompare = () => {
     const handleReset = () => {
         setIsPlaying(false);
         setResetCounter(prev => prev + 1);
+
+        if (timerRef.current !== null) {
+            clearTimeout(timerRef.current);
+            timerRef.current = null;
+        }
     };
 
     useEffect(() => {
-        if (isPlaying) {
-            timerRef.current = setTimeout(() => {
-                console.log('10 sekunden rum. einmal reset und pause');
-
-                setIsPlaying(false);
-            }, config.totalDuration);
+        if (!isPlaying) {
+            if (timerRef.current !== null) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+            }
+            return;
         }
 
-        // 👇 Cleanup
+        timerRef.current = setTimeout(() => {
+            setIsPlaying(false);
+            setResetCounter(prev => prev + 1);
+            timerRef.current = null;
+        }, config.totalDuration);
+
         return () => {
-            clearTimeout(timerRef.current);
+            if (timerRef.current !== null) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+            }
         };
-    }, [isPlaying, resetCounter, timerRef]);
+    }, [isPlaying]);
 
     return (
         <DemoAnimationsCompareStyling>
