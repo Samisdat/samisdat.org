@@ -1,0 +1,93 @@
+@import url("https://unpkg.com/normalize.css/normalize.css");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap");
+
+:root {
+    --color-aubergine: oklch(22% 0.05 300);
+    --color-warm-ivory: oklch(84.97% 0.037 29.7);
+
+    --color-soft-ivory: oklch(96.27% 0.034 30.2);
+    --color-deep-aubergine: oklch(27.65% 0.092 230.5);
+
+    color-scheme: dark;
+
+    --mix: 0.6;
+
+    --background-color: var(--color-aubergine);
+    --foreground-color: var(--color-warm-ivory);
+
+    --font-body: "Source Sans 3", sans-serif;
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+
+    --background-color: var(--color-aubergine);
+    --foreground-color: var(--color-warm-ivory);
+}
+
+:root[data-theme="light"] {
+    color-scheme: light;
+
+    --background-color: color-mix(
+            in oklab,
+            var(--color-aubergine) calc((1 - var(--mix, 0.6)) * 100%),
+            var(--color-soft-ivory) calc(var(--mix, 0.6) * 100%)
+    );
+
+    --foreground-color: color-mix(
+            in oklab,
+            var(--color-warm-ivory) calc((1 - var(--mix, 0.6)) * 100%),
+            var(--color-deep-aubergine) calc(var(--mix, 0.6) * 100%)
+    );
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme]) {
+        color-scheme: light;
+
+        --background-color: color-mix(
+                in oklab,
+                var(--color-aubergine) calc((1 - var(--mix, 0.6)) * 100%),
+                var(--color-soft-ivory) calc(var(--mix, 0.6) * 100%)
+        );
+
+        --foreground-color: color-mix(
+                in oklab,
+                var(--color-warm-ivory) calc((1 - var(--mix, 0.6)) * 100%),
+                var(--color-deep-aubergine) calc(var(--mix, 0.6) * 100%)
+        );
+    }
+}
+
+/* ---------------------------
+   Base "Layout"
+---------------------------- */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--background-color);
+    color: var(--foreground-color);
+
+    padding: 1.5rem;
+    line-height: 1.5;
+}
+
+a {
+    color: currentColor;
+    text-underline-offset: 3px;
+}
+
+a:hover {
+    text-decoration: underline;
+}

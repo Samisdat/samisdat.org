@@ -1,0 +1,7 @@
+{
+    "dependencies": {},
+    "devDependencies": {
+        "typescript": "^4.0.0"
+    },
+    "main": "/index.ts"
+}
