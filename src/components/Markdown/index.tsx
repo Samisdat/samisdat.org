@@ -43,40 +43,34 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
             <SandpackServer
                 {...props}
                 slug={slug}
-                mdxDir={mdxDir}
             />
         ),
         SvgCss: (props: any) => (
             <SvgCss
                 {...props}
                 slug={slug}
-                mdxDir={mdxDir}
             />
         ),
         SvgAnimate: (props: any) => (
             <SvgAnimate
                 {...props}
-                slug={slug}
                 mdxDir={mdxDir}
             />
         ),
         SvgPathWithJs: (props: any) => (
             <SvgPathWithJs
                 {...props}
-                slug={slug}
-                mdxDir={mdxDir}
             />
         ),
         DemoAnimationsCombined: (props: any) => (
             <DemoAnimationsCompare
                 {...props}
                 slug={slug}
-                mdxDir={mdxDir}
             />
         ),
     };
 
-    console.log('Markdown', slug, mdxDir);
+    console.log('Markdown', slug);
 
     return (
         <MarkdownStyling>

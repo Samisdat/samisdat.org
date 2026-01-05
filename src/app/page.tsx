@@ -29,7 +29,6 @@ export default async function Home() {
             <Markdown
                 MDXContent={MDXContent}
                 slug={slug}
-                mdxDir={mdxDir}
             />
         </>
     );
