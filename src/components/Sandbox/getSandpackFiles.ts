@@ -34,11 +34,36 @@ export const getSandpackFiles = async (opts: {
 
     const files: SandpackFiles = {};
 
+    // Directories to exclude from Sandpack
+    const EXCLUDED_DIRS = new Set(['node_modules', '.git', 'build', 'dist', '.next', 'coverage', '.cache']);
+
+    // Files to exclude from Sandpack
+    const EXCLUDED_FILES = new Set([
+        'package-lock.json',
+        'yarn.lock',
+        'pnpm-lock.yaml',
+        '.DS_Store',
+        '.gitignore',
+        '.env',
+        '.env.local',
+    ]);
+
     const walk = (dir: string) => {
         const entries = fs.readdirSync(dir, { withFileTypes: true });
 
         for (const entry of entries) {
+            // Skip excluded directories
+            if (entry.isDirectory() && EXCLUDED_DIRS.has(entry.name)) {
+                continue;
+            }
+
+            // Skip excluded files
+            if (entry.isFile() && EXCLUDED_FILES.has(entry.name)) {
+                continue;
+            }
+
             const fullPath = path.join(dir, entry.name);
+
             if (entry.isDirectory()) {
                 walk(fullPath);
             } else {
