@@ -38,6 +38,7 @@ export const Sandbox: FC<SandboxProps> = ({
               exportOptions: {
                   apiToken,
                   privacy: 'public' as const,
+                  openInNewWindow: true,
               },
           }
         : undefined;
@@ -46,11 +47,10 @@ export const Sandbox: FC<SandboxProps> = ({
         <SandboxStyling {...props}>
             Hei
             <SandpackProvider
-                template={template}
                 theme={nightOwl}
                 files={files}
                 options={{
-                    visibleFiles: ['/App.tsx', '/index.tsx'],
+                    visibleFiles: ['/src/App.tsx', '/src/index.tsx'],
                     activeFile: '/index.tsx',
                 }}
                 customSetup={customSetup}
