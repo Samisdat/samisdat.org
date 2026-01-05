@@ -1,24 +1,20 @@
-import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 
 import { Typo } from '@/components/Typo';
 
-import { DemoAnimationsCompare } from '../Demo/Animations/Compare';
-import { SvgAnimate } from '../Demo/Animations/SvgAnimate';
-import { SvgCss } from '../Demo/Animations/SvgCss';
-import { SvgPathWithJs } from '../Demo/Animations/SvgPathWithJs';
+import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { Link } from '../Link';
-import { SandpackServer } from '../Sandbox/server';
-
-const MarkdownStyling = styled.div``;
+import { Sandbox } from '../Sandbox';
+import { DemoAnimationsCompare, SvgAnimate, SvgCss, SvgPathWithJs } from './ClientAnimations';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
     slug?: string;
     mdxDir?: string;
+    sandboxFiles?: Record<string, SandpackFiles>;
 }
 
-export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
+export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxFiles }) => {
     const components = {
         p: (props: any) => (
             <Typo
@@ -39,12 +35,15 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
             />
         ),
         a: (props: any) => <Link {...props} />,
-        Sandbox: (props: any) => (
-            <SandpackServer
-                {...props}
-                slug={slug}
-            />
-        ),
+        Sandbox: (props: any) => {
+            const files = sandboxFiles?.[props.name];
+            return (
+                <Sandbox
+                    {...props}
+                    files={files}
+                />
+            );
+        },
         SvgCss: (props: any) => (
             <SvgCss
                 {...props}
@@ -57,11 +56,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
                 mdxDir={mdxDir}
             />
         ),
-        SvgPathWithJs: (props: any) => (
-            <SvgPathWithJs
-                {...props}
-            />
-        ),
+        SvgPathWithJs: (props: any) => <SvgPathWithJs {...props} />,
         DemoAnimationsCombined: (props: any) => (
             <DemoAnimationsCompare
                 {...props}
@@ -71,8 +66,8 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
     };
 
     return (
-        <MarkdownStyling>
+        <div>
             <MDXContent components={components} />
-        </MarkdownStyling>
+        </div>
     );
 };

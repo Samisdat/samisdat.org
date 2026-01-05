@@ -1,5 +1,5 @@
 import { Heading } from '@/components/Heading';
-import { Markdown } from '@/components/Markdown';
+import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
 import { parseMarkdown } from '@/components/Markdown/compile';
 import { getPostContent, getPublishedPostSlugs } from '@/lib/posts';
 import { notFound } from 'next/navigation';
@@ -10,7 +10,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
     try {
         const content = getPostContent(slug);
-        const { frontmatter, MDXContent } = await parseMarkdown(content);
+        const { frontmatter } = await parseMarkdown(content);
 
         if (!frontmatter.published) {
             return notFound();
@@ -21,8 +21,8 @@ export default async function PostPage({ params }: { params: { slug: string } })
         return (
             <>
                 <Heading>{frontmatter.title}</Heading>
-                <Markdown
-                    MDXContent={MDXContent}
+                <MarkdownServer
+                    content={content}
                     mdxDir={mdxDir}
                     slug={slug}
                 />
