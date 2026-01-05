@@ -8,12 +8,14 @@ import { FC } from 'react';
 
 import { nightOwl } from '@codesandbox/sandpack-themes';
 import { SandboxProps } from './props';
+import {SandpackFiles} from "@codesandbox/sandpack-react/dist/types";
 
 const SandboxStyling = styled.div``;
 
 // https://github.com/codesandbox/sandpack/blob/main/sandpack-react/src/templates/runtime/react-typescript.ts
 
 export const Sandbox: FC<SandboxProps> = ({
+    files,
     template = 'react-ts',
     showOpenInCodeSandbox = true,
     showNavigator = false,
@@ -26,27 +28,16 @@ export const Sandbox: FC<SandboxProps> = ({
     wrapContent = true,
     ...props
 }) => {
+
+    console.log(files)
+
     return (
         <SandboxStyling {...props}>
             Hei
             <SandpackProvider
                 template={template}
                 theme={nightOwl}
-                files={{
-                    '/App.tsx': {
-                        code: `export default function App(): JSX.Element {
-  return <h1>Hell   o world</h1>
-}
-`,
-                    },
-
-                    '/foo.tsx': {
-                        code: `export default function App(): JSX.Element {
-  return <h1>Hell   o world</h1>
-}
-`,
-                    },
-                }}
+                files={files}
             >
                 <SandpackLayout>
                     <SandpackCodeEditor

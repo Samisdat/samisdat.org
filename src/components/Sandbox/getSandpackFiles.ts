@@ -1,28 +1,35 @@
 import type { SandpackFiles } from '@codesandbox/sandpack-react';
 import fs from 'fs';
 import path from 'path';
+import { createSandpackFiles } from './createSandpackFiles';
+import { SandboxProps } from './props';
 
-const SANDBOX_ROOT = path.join(process.cwd(), 'sandboxes');
-
-function isSafeSegment(seg: string) {
-    // Very simple hardening: no ".." etc.
+// Very simple hardening: no ".." etc.
+const isSafeSegment = (seg: string) => {
     return !seg.includes('..') && !path.isAbsolute(seg);
-}
+};
 
-export async function getSandpackFiles(opts: { slug: string; name: string; mdxDir: string }): Promise<SandpackFiles> {
-    const { slug, name, mdxDir } = opts;
+export const getSandpackFiles = async (opts: {
+    slug: string;
+    name: string;
+    template: SandboxProps['template'];
+}): Promise<SandpackFiles> => {
+    const { slug, name, template } = opts;
 
-    console.log(slug, name, mdxDir);
+    const sandboxDir = path.join(process.cwd(), 'codesandboxes');
+
+    console.log(slug, name, template, sandboxDir);
 
     if (!isSafeSegment(slug) || !isSafeSegment(name)) {
         throw new Error('Invalid slug or name');
     }
 
-    const baseDir = path.join(SANDBOX_ROOT, slug, name);
+    const baseDir = path.join(sandboxDir, slug, name);
 
     // Check directory exists
     if (!fs.existsSync(baseDir) || !fs.statSync(baseDir).isDirectory()) {
-        throw new Error(`Sandbox directory not found: ${baseDir}`);
+        console.log('Creating SANDBOX directory');
+        await createSandpackFiles({ slug, name, template, dir: baseDir });
     }
 
     const files: SandpackFiles = {};
@@ -46,5 +53,7 @@ export async function getSandpackFiles(opts: { slug: string; name: string; mdxDi
 
     walk(baseDir);
 
+    console.log(files);
+
     return files;
-}
+};

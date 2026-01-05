@@ -7,7 +7,7 @@ export interface SandboxProps extends HTMLAttributes<HTMLDivElement> {
     mdxDir: string;
 
     files?: SandpackFiles;
-    template?: 'static' | 'react-ts' | 'vanilla';
+    template?: 'react-ts' | 'vanilla';
 
     showOpenInCodeSandbox?: boolean;
     showNavigator?: boolean;
