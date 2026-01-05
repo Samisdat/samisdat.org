@@ -13,7 +13,7 @@ import rehypeSlug from 'rehype-slug';
 import { Frontmatter } from './Frontmatter';
 
 const shikiOptions = {
-    theme: 'vitesse-light',
+    theme: 'tokyo-night',
 };
 
 interface ParseMarkdownResult {
