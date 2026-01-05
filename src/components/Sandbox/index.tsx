@@ -1,4 +1,4 @@
-"use client"
+'use client';
 /*
  */
 
@@ -8,7 +8,6 @@ import { FC } from 'react';
 
 import { nightOwl } from '@codesandbox/sandpack-themes';
 import { SandboxProps } from './props';
-import {SandpackFiles} from "@codesandbox/sandpack-react/dist/types";
 
 const SandboxStyling = styled.div``;
 
@@ -28,8 +27,7 @@ export const Sandbox: FC<SandboxProps> = ({
     wrapContent = true,
     ...props
 }) => {
-
-    console.log(files)
+    console.log(files);
 
     return (
         <SandboxStyling {...props}>
