@@ -29,6 +29,19 @@ export const Sandbox: FC<SandboxProps> = ({
 }) => {
     console.log(files);
 
+    // Get CodeSandbox API token from environment
+    const apiToken = process.env.NEXT_PUBLIC_CODESANDBOX_API_TOKEN;
+
+    // Build custom setup only if API token is available
+    const customSetup = apiToken
+        ? {
+              exportOptions: {
+                  apiToken,
+                  privacy: 'public' as const,
+              },
+          }
+        : undefined;
+
     return (
         <SandboxStyling {...props}>
             Hei
@@ -36,6 +49,11 @@ export const Sandbox: FC<SandboxProps> = ({
                 template={template}
                 theme={nightOwl}
                 files={files}
+                options={{
+                    visibleFiles: ['/App.tsx', '/index.tsx'],
+                    activeFile: '/index.tsx',
+                }}
+                customSetup={customSetup}
             >
                 <SandpackLayout>
                     <SandpackCodeEditor
