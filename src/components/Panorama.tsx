@@ -4,7 +4,7 @@ import { GreenTower } from '@/components/Buildings/GreenTower';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
 import { useTal } from '@/lib/TalContext';
-import { ReactElement, useRef } from 'react';
+import { Activity, ReactElement, useRef } from 'react';
 import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
@@ -38,11 +38,14 @@ import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 
 import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
 import { useMouseParallax } from '@/components/hook/useMouseParallax';
+import { useMatchMediaQuery } from './hook/useMatchMediaQuery';
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
+
+    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
 
     useMouseParallax(ref);
 
@@ -165,7 +168,6 @@ export const Panorama = (): ReactElement => {
                         <VohwinkelBack />
                         <Vohwinkel />
                         <Hill3800 />
-                        <Clock />
                     </ParallaxLayer>
 
                     <ParallaxLayer
@@ -184,6 +186,10 @@ export const Panorama = (): ReactElement => {
                         <GreenTower />
                         <BeforeGreenTower />
                     </ParallaxLayer>
+
+                    <Activity mode={reduceMotion ? 'hidden' : 'visible'}>
+                        <Clock />
+                    </Activity>
                 </svg>
             </div>
         </>

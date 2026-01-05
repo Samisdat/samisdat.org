@@ -37,7 +37,7 @@ export const Clock = () => {
         <svg
             className="clock"
             x={220}
-            y={390}
+            y={420}
             style={
                 {
                     ['--hour' as string]: String(hours),

@@ -2,10 +2,13 @@
 
 import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
+import { useMatchMediaQuery } from './useMatchMediaQuery';
 
 export type ParallaxCoords = { x: number; y: number };
 
 export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
+    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
+
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
     const doParallax = useCallback(() => {
@@ -13,22 +16,26 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
             return;
         }
 
-        const boundingClientRect = ref.current.getBoundingClientRect();
-
         const { x, y } = lastCoordsRef.current;
 
         ref.current.style.setProperty('--parallax-x', String(x));
         ref.current.style.setProperty('--parallax-y', String(y));
-        ref.current.style.setProperty(
-            '--scroll',
-            String(Math.min(Math.abs(boundingClientRect.y) / boundingClientRect.height, 1))
-        );
-    }, [ref]);
+
+        const boundingClientRect = ref.current.getBoundingClientRect();
+
+        const scroll = reduceMotion ? 0 : Math.min(Math.abs(boundingClientRect.y) / boundingClientRect.height, 1);
+
+        ref.current.style.setProperty('--scroll', String(scroll));
+    }, [ref, reduceMotion]);
 
     useAnimationFrame(doParallax);
 
     const handlePointerMove = useCallback(
         (event: PointerEvent) => {
+            if (reduceMotion) {
+                return;
+            }
+
             const el = ref.current;
             if (!el) return;
 
@@ -46,8 +53,14 @@ export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
 
             lastCoordsRef.current = { x, y };
         },
-        [ref]
+        [ref, reduceMotion]
     );
+
+    useEffect(() => {
+        if (reduceMotion) {
+            lastCoordsRef.current = { x: 0, y: 0 };
+        }
+    }, [reduceMotion]);
 
     useEffect(() => {
         const el = ref.current;

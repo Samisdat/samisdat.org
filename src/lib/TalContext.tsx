@@ -1,3 +1,4 @@
+import { useMatchMediaQuery } from '@/components/hook/useMatchMediaQuery';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import SunCalc from 'suncalc';
 
@@ -26,6 +27,7 @@ interface TalContextType {
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
 export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());
@@ -87,10 +89,16 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     useEffect(() => {
         const tick = (now: number) => {
             if (lastFrameRef.current != null) {
-                const deltaReal = now - lastRealTimeRef.current; // in ms
+                const deltaReal = now - lastRealTimeRef.current;
                 const deltaSim = deltaReal * timeFactor;
-                simulatedTimeRef.current += deltaSim;
-                setTime(new Date(simulatedTimeRef.current));
+
+                if (!reduceMotion) {
+                    simulatedTimeRef.current += deltaSim;
+                }
+
+                setTime(() => {
+                    return new Date(simulatedTimeRef.current);
+                });
             }
             lastRealTimeRef.current = now;
             lastFrameRef.current = requestAnimationFrame(tick);
@@ -100,7 +108,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return () => {
             if (lastFrameRef.current) cancelAnimationFrame(lastFrameRef.current);
         };
-    }, [timeFactor]);
+    }, [timeFactor, reduceMotion]);
 
     return (
         <TalContext.Provider value={{ animate, time, timeFactor, setTimeFactor, sunTimes }}>
