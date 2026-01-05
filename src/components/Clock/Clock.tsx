@@ -64,10 +64,10 @@ export const Clock = () => {
             {100 >= timeFactor && (
                 <line
                     className="clockHandSecond"
-                    x1="30.5"
-                    y1="30.5"
-                    x2="30.5"
-                    y2="4"
+                    x1="31"
+                    y1="31"
+                    x2="31"
+                    y2="8"
                 />
             )}
         </svg>
