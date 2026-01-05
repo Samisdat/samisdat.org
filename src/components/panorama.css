@@ -364,6 +364,7 @@
     stroke: #fff;
     stroke-width: 3;
     stroke-miterlimit: 10;
+    stroke-linecap: round;
 }
 .panorama .clock .clockHandSecond {
     stroke: #d53a1f;
