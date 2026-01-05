@@ -3,8 +3,6 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Placeholder } from '@/components/Placeholder';
 import { Container as ContainerComponent } from '../components/Container';
 
-console.log(Placeholder);
-
 const meta = {
     title: 'Layout/Container',
     component: ContainerComponent,

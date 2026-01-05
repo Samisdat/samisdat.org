@@ -12,10 +12,7 @@ export const ColorSwitcher = () => {
         return ((sessionStorage.getItem('theme') as ColorTheme) ?? prefersLight) ? 'light' : 'dark';
     });
 
-    console.log(prefersLight);
-
     useEffect(() => {
-        console.log(theme);
 
         const root = document.documentElement;
 

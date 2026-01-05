@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,300..900;1,300..900&display=swap");
 
 :root {
-    --color-aubergine: oklch(22% 0.05 300);
-    --color-warm-ivory: oklch(84.97% 0.037 29.7);
+    --color-aubergine: oklch(13% 0.05 300);
+    --color-warm-ivory: oklch(90% 0.037 29.7);
 
     --color-soft-ivory: oklch(96.27% 0.034 30.2);
     --color-deep-aubergine: oklch(27.65% 0.092 230.5);

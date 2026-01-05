@@ -16,6 +16,8 @@ const SandboxStyling = styled.div``;
 export const Sandbox: FC<SandboxProps> = ({
     files,
     template = 'react-ts',
+    visibleFiles,
+    activeFile,
     showOpenInCodeSandbox = true,
     showNavigator = false,
     showLineNumbers = true,
@@ -27,7 +29,6 @@ export const Sandbox: FC<SandboxProps> = ({
     wrapContent = true,
     ...props
 }) => {
-    console.log(files);
 
     // Get CodeSandbox API token from environment
     const apiToken = process.env.NEXT_PUBLIC_CODESANDBOX_API_TOKEN;
@@ -45,13 +46,12 @@ export const Sandbox: FC<SandboxProps> = ({
 
     return (
         <SandboxStyling {...props}>
-            Hei
             <SandpackProvider
                 theme={nightOwl}
                 files={files}
                 options={{
-                    visibleFiles: ['/src/App.tsx', '/src/index.tsx'],
-                    activeFile: '/index.tsx',
+                    visibleFiles,
+                    activeFile,
                 }}
                 customSetup={customSetup}
             >

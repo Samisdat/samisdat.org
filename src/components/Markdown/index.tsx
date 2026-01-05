@@ -70,8 +70,6 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir }) => {
         ),
     };
 
-    console.log('Markdown', slug);
-
     return (
         <MarkdownStyling>
             <MDXContent components={components} />
