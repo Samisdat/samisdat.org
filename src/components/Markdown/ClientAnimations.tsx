@@ -7,16 +7,26 @@ export const DemoAnimationsCompare = dynamic(
     { ssr: false }
 );
 
-export const SvgAnimate = dynamic(
-    () => import('../Demo/Animations/SvgAnimate').then(mod => ({ default: mod.SvgAnimate })),
+export const DemoAnimationsSvg = dynamic(
+    () => import('../Demo/Animations/DemoAnimationsSvg').then(mod => ({ default: mod.DemoAnimationsSvg })),
     { ssr: false }
 );
 
-export const SvgCss = dynamic(() => import('../Demo/Animations/SvgCss').then(mod => ({ default: mod.SvgCss })), {
-    ssr: false,
-});
+export const DemoAnimationsCss = dynamic(
+    () => import('../Demo/Animations/DemoAnimationsCss').then(mod => ({ default: mod.DemoAnimationsCss })),
+    {
+        ssr: false,
+    }
+);
 
-export const SvgPathWithJs = dynamic(
-    () => import('../Demo/Animations/SvgPathWithJs').then(mod => ({ default: mod.SvgPathWithJs })),
+export const DemoAnimationsJsAttributes = dynamic(
+    () =>
+        import('../Demo/Animations/DemoAnimationsJsAttributes').then(mod => ({
+            default: mod.DemoAnimationsJsAttributes,
+        })),
+    { ssr: false }
+);
+export const DemoAnimationsMorph = dynamic(
+    () => import('../Demo/Animations/DemoAnimationsMorph').then(mod => ({ default: mod.DemoAnimationsMorph })),
     { ssr: false }
 );

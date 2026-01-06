@@ -4,7 +4,7 @@ import { styled } from '@linaria/react';
 import { CSSProperties, ChangeEvent, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
-const SvgCssStyling = styled.div`
+const Styling = styled.div`
     max-width: 450px;
     & svg {
         fill-rule: evenodd;
@@ -78,7 +78,7 @@ const SvgContent = () => (
     </>
 );
 
-export const SvgCss = () => {
+export const DemoAnimationsCss = () => {
     const [time, setTime] = useState(() => new Date());
     const [speed, setSpeed] = useState(1000);
 
@@ -101,7 +101,7 @@ export const SvgCss = () => {
     const hour = time.getHours();
 
     return (
-        <SvgCssStyling>
+        <Styling>
             <label>
                 Geschwindigkeit
                 <input
@@ -125,6 +125,6 @@ export const SvgCss = () => {
             >
                 <SvgContent />
             </svg>
-        </SvgCssStyling>
+        </Styling>
     );
 };

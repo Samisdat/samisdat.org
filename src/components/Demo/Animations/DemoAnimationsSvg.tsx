@@ -2,8 +2,9 @@
 
 import { styled } from '@linaria/react';
 import { ChangeEvent, useRef } from 'react';
+import { DemoAnimationsMorph } from './DemoAnimationsMorph';
 
-const SvgAnimationStyling = styled.div`
+const Styling = styled.div`
     max-width: 450px;
 
     & svg {
@@ -96,7 +97,7 @@ const Svg = () => (
     </svg>
 );
 
-export const SvgAnimate = () => {
+export const DemoAnimationsSvg = () => {
     const ref = useRef<HTMLDivElement>(null);
 
     const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -108,7 +109,7 @@ export const SvgAnimate = () => {
     };
 
     return (
-        <SvgAnimationStyling ref={ref}>
+        <Styling ref={ref}>
             <label>
                 Geschwindigkeit
                 <input
@@ -121,6 +122,6 @@ export const SvgAnimate = () => {
                 />
             </label>
             <Svg />
-        </SvgAnimationStyling>
+        </Styling>
     );
 };

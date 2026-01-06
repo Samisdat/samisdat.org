@@ -5,7 +5,13 @@ import { Typo } from '@/components/Typo';
 import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
-import { DemoAnimationsCompare, SvgAnimate, SvgCss, SvgPathWithJs } from './ClientAnimations';
+import {
+    DemoAnimationsCompare,
+    DemoAnimationsCss,
+    DemoAnimationsJsAttributes,
+    DemoAnimationsMorph,
+    DemoAnimationsSvg,
+} from './ClientAnimations';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -44,25 +50,11 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
                 />
             );
         },
-        SvgCss: (props: any) => (
-            <SvgCss
-                {...props}
-                slug={slug}
-            />
-        ),
-        SvgAnimate: (props: any) => (
-            <SvgAnimate
-                {...props}
-                mdxDir={mdxDir}
-            />
-        ),
-        SvgPathWithJs: (props: any) => <SvgPathWithJs {...props} />,
-        DemoAnimationsCombined: (props: any) => (
-            <DemoAnimationsCompare
-                {...props}
-                slug={slug}
-            />
-        ),
+        DemoAnimationsCss: () => <DemoAnimationsCss />,
+        DemoAnimationsSvg: () => <DemoAnimationsSvg />,
+        DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,
+        DemoAnimationsCompare: () => <DemoAnimationsCompare />,
+        DemoAnimationsMorph: () => <DemoAnimationsMorph />,
     };
 
     return (

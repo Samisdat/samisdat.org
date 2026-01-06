@@ -4,7 +4,7 @@ import { styled } from '@linaria/react';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
-const SvgAnimationStyling = styled.div`
+const Styling = styled.div`
     max-width: 450px;
 
     & svg {
@@ -37,7 +37,7 @@ interface Point {
 
 const dayLength = 3600;
 
-export const SvgPathWithJs = () => {
+export const DemoAnimationsJsAttributes = () => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const lengthRef = useRef<number | null>(null);
@@ -79,7 +79,7 @@ export const SvgPathWithJs = () => {
     };
 
     return (
-        <SvgAnimationStyling>
+        <Styling>
             <label>
                 Geschwindigkeit
                 <input
@@ -111,6 +111,6 @@ export const SvgPathWithJs = () => {
                     {...getPoint()}
                 />
             </svg>
-        </SvgAnimationStyling>
+        </Styling>
     );
 };
