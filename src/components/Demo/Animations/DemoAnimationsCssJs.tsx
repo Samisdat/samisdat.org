@@ -5,7 +5,7 @@ import { CSSProperties, ChangeEvent, useRef, useState } from 'react';
 import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
 const Styling = styled.div`
-    max-width: 150px;
+    max-width: 450px;
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -26,23 +26,15 @@ const Styling = styled.div`
         transform-box: fill-box;
         transform-origin: 50% 100%;
     }
-    @keyframes rotate {
-        from {
-            transform: rotate(0deg);
-        }
-        to {
-            transform: rotate(360deg);
-        }
-    }
     & svg .hourHand {
-        animation: rotate calc(1s * 60 * 12) linear infinite;
+        transform: rotate(calc(360deg * ((var(--hour) + var(--minute) / 60) / 12)));
     }
     & svg .minuteHand {
-        animation: rotate calc(1s * 60) linear infinite;
+        transform: rotate(calc(360deg * ((var(--minute) + (var(--second) / 60)) / 60)));
     }
     & svg .secondHand {
         fill: #e00;
-        animation: rotate calc(1s) linear infinite;
+        transform: rotate(calc(360deg * var(--second) / 60));
     }
     & svg .secondHandCover {
         fill: #e00;
@@ -86,10 +78,51 @@ const SvgContent = () => (
     </>
 );
 
-export const DemoAnimationsCss = () => {
+export const DemoAnimationsCssJs = () => {
+    const [time, setTime] = useState(() => new Date());
+    const [speed, setSpeed] = useState(1000);
+
+    const simulatedTimeRef = useRef(time.getTime());
+
+    const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
+        setSpeed(parseInt(evt.currentTarget.value, 10));
+    };
+
+    const next = (delta: number) => {
+        const deltaSim = delta * speed;
+        simulatedTimeRef.current += deltaSim;
+        setTime(new Date(simulatedTimeRef.current));
+    };
+
+    useAnimationFrame(next);
+
+    const second = time.getSeconds();
+    const minute = time.getMinutes();
+    const hour = time.getHours();
+
     return (
         <Styling>
-            <svg viewBox="0 0 300 300">
+            <label>
+                Geschwindigkeit
+                <input
+                    type="range"
+                    name="speed"
+                    min="1"
+                    max="3000"
+                    value={speed}
+                    onChange={onChange}
+                />
+            </label>
+            <svg
+                viewBox="0 0 300 300"
+                style={
+                    {
+                        ['--hour' as string]: String(hour),
+                        ['--minute' as string]: String(minute),
+                        ['--second' as string]: String(second),
+                    } as CSSProperties
+                }
+            >
                 <SvgContent />
             </svg>
         </Styling>

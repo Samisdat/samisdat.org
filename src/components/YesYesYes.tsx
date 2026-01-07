@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 const HandStyling = styled.div`
-    
     width: 50px;
     & svg {
         fill-rule: evenodd;
@@ -16,10 +15,10 @@ const HandStyling = styled.div`
         fill-rule: nonzero;
         fill: currentColor;
     }
-    & svg path.thumb{
+    & svg path.thumb {
         fill: none;
         stroke: currentColor;
-        stroke-width:48px;
+        stroke-width: 48px;
     }
 `;
 

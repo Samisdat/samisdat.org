@@ -19,6 +19,13 @@ export const DemoAnimationsCss = dynamic(
     }
 );
 
+export const DemoAnimationsCssJs = dynamic(
+    () => import('../Demo/Animations/DemoAnimationsCssJs').then(mod => ({ default: mod.DemoAnimationsCssJs })),
+    {
+        ssr: false,
+    }
+);
+
 export const DemoAnimationsJsAttributes = dynamic(
     () =>
         import('../Demo/Animations/DemoAnimationsJsAttributes').then(mod => ({

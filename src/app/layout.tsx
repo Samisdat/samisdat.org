@@ -52,9 +52,9 @@ export default function RootLayout({
             lang="de"
             className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
         >
-        <head>
-            <SandPackCSS />
-        </head>
+            <head>
+                <SandPackCSS />
+            </head>
             <body>
                 <Scrolling />
                 <Page>

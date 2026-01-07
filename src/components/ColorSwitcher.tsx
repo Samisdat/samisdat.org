@@ -13,7 +13,6 @@ export const ColorSwitcher = () => {
     });
 
     useEffect(() => {
-
         const root = document.documentElement;
 
         if (prefersLight && 'light' === theme) {

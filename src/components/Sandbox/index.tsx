@@ -29,7 +29,6 @@ export const Sandbox: FC<SandboxProps> = ({
     wrapContent = true,
     ...props
 }) => {
-
     // Get CodeSandbox API token from environment
     const apiToken = process.env.NEXT_PUBLIC_CODESANDBOX_API_TOKEN;
 

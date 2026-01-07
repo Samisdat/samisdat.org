@@ -8,6 +8,7 @@ import { Sandbox } from '../Sandbox';
 import {
     DemoAnimationsCompare,
     DemoAnimationsCss,
+    DemoAnimationsCssJs,
     DemoAnimationsJsAttributes,
     DemoAnimationsMorph,
     DemoAnimationsSvg,
@@ -51,6 +52,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
             );
         },
         DemoAnimationsCss: () => <DemoAnimationsCss />,
+        DemoAnimationsCssJs: () => <DemoAnimationsCssJs />,
         DemoAnimationsSvg: () => <DemoAnimationsSvg />,
         DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,
         DemoAnimationsCompare: () => <DemoAnimationsCompare />,

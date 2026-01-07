@@ -9,6 +9,8 @@ import { promises as fs } from 'fs';
 import path from 'path';
 
 import { parseMarkdown } from '@/components/Markdown/compile';
+import { NoNoNo } from '../components/NoNoNo';
+import { YesYesYes } from '../components/YesYesYes';
 
 export default async function Home() {
     const slug = 'home';
@@ -23,6 +25,8 @@ export default async function Home() {
     return (
         <>
             <Heading>
+                <YesYesYes />
+                <NoNoNo />
                 <FontAwesomeIcon icon={faHand} />
                 {frontmatter.title}
             </Heading>
