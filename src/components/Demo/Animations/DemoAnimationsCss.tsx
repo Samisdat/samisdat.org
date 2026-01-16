@@ -1,8 +1,6 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { CSSProperties, ChangeEvent, useRef, useState } from 'react';
-import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
 
 const Styling = styled.div`
     max-width: 150px;

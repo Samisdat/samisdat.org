@@ -1,23 +1,31 @@
 'use client';
 
+import { useAnimationFrame } from '@/hooks/useAnimationFrame';
 import { styled } from '@linaria/react';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
+import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 const Styling = styled.div`
     max-width: 150px;
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
         stroke-linejoin: round;
         stroke-miterlimit: 2;
     }
+
     & svg .face {
         fill: #fff;
         fill-rule: nonzero;
     }
+
     & svg .dial {
         fill-rule: nonzero;
     }
+
     & svg .hourHand,
     & svg .minuteHand,
     & svg .secondHand {
@@ -25,16 +33,25 @@ const Styling = styled.div`
         transform-box: fill-box;
         transform-origin: 50% 100%;
     }
+
     & svg .hourHand {
         transform: rotate(calc(1deg * var(--hour, 0)));
     }
+
     & svg .minuteHand {
         transform: rotate(calc(1deg * var(--minute, 0)));
     }
+
+    & svg.paused .hourHand,
+    & svg.paused .minuteHand {
+        transition: transform 0.1s linear;
+    }
+
     & svg .secondHand {
         fill: #e00;
         transform: rotate(calc(1deg * var(--second, 0)));
     }
+
     & svg .secondHandCover {
         fill: #e00;
     }
@@ -50,7 +67,6 @@ const SvgContent = () => (
             className="dial"
             d="M144.75,15l10.5,0l0,41.1l-10.5,0l0,-41.1Zm68.463,15.612l8.574,4.95l-16.5,28.578l-8.574,-4.95l16.5,-28.578Zm51.225,47.601l4.95,8.574l-28.578,16.5l-4.95,-8.574l28.578,-16.5Zm-102.714,-62.724l4.774,0.501l-1.38,13.128l-4.773,-0.502l1.379,-13.127Zm13.997,1.962l4.695,0.998l-2.745,12.912l-4.695,-0.998l2.745,-12.912Zm13.714,3.415l4.565,1.483l-4.079,12.554l-4.565,-1.483l4.079,-12.554Zm13.282,4.829l4.385,1.953l-5.369,12.058l-4.385,-1.952l5.369,-12.059Zm24.692,13.677l3.884,2.821l-7.759,10.679l-3.883,-2.821l7.758,-10.679Zm11.14,8.698l3.567,3.211l-8.832,9.81l-3.567,-3.212l8.832,-9.809Zm10.17,9.814l3.211,3.567l-9.809,8.832l-3.212,-3.567l9.81,-8.832Zm9.088,10.823l2.821,3.884l-10.679,7.758l-2.821,-3.883l10.679,-7.759Zm14.545,24.191l1.953,4.385l-12.059,5.369l-1.952,-4.385l12.058,-5.369Zm5.299,13.102l1.483,4.565l-12.554,4.079l-1.483,-4.565l12.554,-4.079Zm3.9,13.584l0.998,4.695l-12.912,2.745l-0.998,-4.695l12.912,-2.745Zm2.459,13.918l0.501,4.774l-13.127,1.379l-0.502,-4.773l13.128,-1.38Zm0.99,11.248l0,10.5l-41.1,0l0,-10.5l41.1,0Zm-15.612,68.463l-4.95,8.574l-28.578,-16.5l4.95,-8.574l28.578,16.5Zm-47.601,51.225l-8.574,4.95l-16.5,-28.578l8.574,-4.95l16.5,28.578Zm62.724,-102.714l-0.501,4.774l-13.128,-1.38l0.502,-4.773l13.127,1.379Zm-1.962,13.997l-0.998,4.695l-12.912,-2.745l0.998,-4.695l12.912,2.745Zm-3.415,13.714l-1.483,4.565l-12.554,-4.079l1.483,-4.565l12.554,4.079Zm-4.829,13.282l-1.953,4.385l-12.058,-5.369l1.952,-4.385l12.059,5.369Zm-13.677,24.692l-2.821,3.884l-10.679,-7.759l2.821,-3.883l10.679,7.758Zm-8.698,11.14l-3.211,3.567l-9.81,-8.832l3.212,-3.567l9.809,8.832Zm-9.814,10.17l-3.567,3.211l-8.832,-9.809l3.567,-3.212l8.832,9.81Zm-10.823,9.088l-3.884,2.821l-7.758,-10.679l3.883,-2.821l7.759,10.679Zm-24.191,14.545l-4.385,1.953l-5.369,-12.059l4.385,-1.952l5.369,12.058Zm-13.102,5.299l-4.565,1.483l-4.079,-12.554l4.565,-1.483l4.079,12.554Zm-13.584,3.9l-4.695,0.998l-2.745,-12.912l4.695,-0.998l2.745,12.912Zm-13.918,2.459l-4.774,0.501l-1.379,-13.127l4.773,-0.502l1.38,13.128Zm-11.248,0.99l-10.5,0l-0,-41.1l10.5,0l-0,41.1Zm-68.463,-15.612l-8.574,-4.95l16.5,-28.578l8.574,4.95l-16.5,28.578Zm-51.225,-47.601l-4.95,-8.574l28.578,-16.5l4.95,8.574l-28.578,16.5Zm102.714,62.724l-4.774,-0.501l1.38,-13.128l4.773,0.502l-1.379,13.127Zm-13.997,-1.962l-4.695,-0.998l2.745,-12.912l4.695,0.998l-2.745,12.912Zm-13.714,-3.415l-4.565,-1.483l4.079,-12.554l4.565,1.483l-4.079,12.554Zm-13.282,-4.829l-4.385,-1.953l5.369,-12.058l4.385,1.952l-5.369,12.059Zm-24.692,-13.677l-3.884,-2.821l7.759,-10.679l3.883,2.821l-7.758,10.679Zm-11.14,-8.698l-3.567,-3.211l8.832,-9.81l3.567,3.212l-8.832,9.809Zm-10.17,-9.814l-3.211,-3.567l9.809,-8.832l3.212,3.567l-9.81,8.832Zm-9.088,-10.823l-2.821,-3.884l10.679,-7.758l2.821,3.883l-10.679,7.759Zm-14.545,-24.191l-1.953,-4.385l12.059,-5.369l1.952,4.385l-12.058,5.369Zm-5.299,-13.102l-1.483,-4.565l12.554,-4.079l1.483,4.565l-12.554,4.079Zm-3.9,-13.584l-0.998,-4.695l12.912,-2.745l0.998,4.695l-12.912,2.745Zm-2.459,-13.918l-0.501,-4.774l13.127,-1.379l0.502,4.773l-13.128,1.38Zm-0.99,-11.248l-0,-10.5l41.1,0l-0,10.5l-41.1,0Zm15.612,-68.463l4.95,-8.574l28.578,16.5l-4.95,8.574l-28.578,-16.5Zm47.601,-51.225l8.574,-4.95l16.5,28.578l-8.574,4.95l-16.5,-28.578Zm-62.724,102.714l0.501,-4.774l13.128,1.38l-0.502,4.773l-13.127,-1.379Zm1.962,-13.997l0.998,-4.695l12.912,2.745l-0.998,4.695l-12.912,-2.745Zm3.415,-13.714l1.483,-4.565l12.554,4.079l-1.483,4.565l-12.554,-4.079Zm4.829,-13.282l1.953,-4.385l12.058,5.369l-1.952,4.385l-12.059,-5.369Zm13.677,-24.692l2.821,-3.884l10.679,7.759l-2.821,3.883l-10.679,-7.758Zm8.698,-11.14l3.211,-3.567l9.81,8.832l-3.212,3.567l-9.809,-8.832Zm9.814,-10.17l3.567,-3.211l8.832,9.809l-3.567,3.212l-8.832,-9.81Zm10.823,-9.088l3.884,-2.821l7.758,10.679l-3.883,2.821l-7.759,-10.679Zm24.191,-14.545l4.385,-1.953l5.369,12.059l-4.385,1.952l-5.369,-12.058Zm13.102,-5.299l4.565,-1.483l4.079,12.554l-4.565,1.483l-4.079,-12.554Zm13.584,-3.9l4.695,-0.998l2.745,12.912l-4.695,0.998l-2.745,-12.912Zm13.918,-2.459l4.774,-0.501l1.379,13.127l-4.773,0.502l-1.38,-13.128Z"
         />
-
         <path
             className="hourHand"
             d="M143.1,150l13.8,0l0,-77.9l-6.9,-6.9l-6.9,6.9l0,77.9Z"
@@ -76,69 +92,155 @@ const SvgContent = () => (
         />
     </>
 );
-
 export const DemoAnimationsCssJs = () => {
     const timeMsRef = useRef<number>(Date.now());
+    const speedRef = useRef<number>(1);
+
+    const [hour, setHour] = useState<number>(new Date(timeMsRef.current).getHours());
+    const [minute, setMinute] = useState<number>(new Date(timeMsRef.current).getMinutes());
+    const [second, setSecond] = useState<number>(new Date(timeMsRef.current).getSeconds());
 
     const ref = useRef<SVGSVGElement | null>(null);
+    const [isPlaying, setIsPlaying] = useState(true);
 
-    useEffect(() => {
-        const el = ref.current;
-        if (!el) return;
+    const updateCssProps = () => {
+        const element = ref.current;
+        if (!element) return;
 
-        const tick = () => {
-            timeMsRef.current = Date.now();
-            const now = new Date(timeMsRef.current);
-            const seconds = now.getSeconds();
-            const minutes = now.getMinutes();
-            const hours = now.getHours();
+        const now = new Date(timeMsRef.current);
+        const seconds = now.getSeconds();
+        const minutes = now.getMinutes();
+        const hours = now.getHours();
 
-            const secondAngle = seconds * 6;
-            const minuteAngle = (minutes + seconds / 60) * 6;
-            const hourAngle = ((hours % 12) + minutes / 60 + seconds / 3600) * 30;
+        const secondAngle = seconds * 6;
+        const minuteAngle = minutes * 6; // entkoppelt von seconds
+        const hourAngle = ((hours % 12) + minutes / 60) * 30; // sinnvoll, aber ohne seconds
 
-            el.style.setProperty('--second', String(secondAngle));
-            el.style.setProperty('--minute', String(minuteAngle));
-            el.style.setProperty('--hour', String(hourAngle));
-        };
+        element.style.setProperty('--second', String(secondAngle));
+        element.style.setProperty('--minute', String(minuteAngle));
+        element.style.setProperty('--hour', String(hourAngle));
+    };
 
-        tick(); // initial setzen
-        const id = setInterval(tick, 1000);
-        return () => clearInterval(id);
-    }, []);
+    const tick = (delta: number) => {
+        if (!isPlaying) return;
+
+        timeMsRef.current += delta * speedRef.current;
+
+        if (12 >= new Date(timeMsRef.current).getHours()) {
+            const reset = new Date(timeMsRef.current);
+            reset.setHours(0);
+            timeMsRef.current = reset.getTime();
+        }
+
+        updateCssProps();
+    };
+
+    useAnimationFrame(tick);
+
+    const handlePlayPause = () => {
+        setIsPlaying(prev => !prev);
+    };
+
+    const handleReset = () => {
+        setIsPlaying(false);
+
+        timeMsRef.current = Date.now();
+        const now = new Date(timeMsRef.current);
+
+        setHour(now.getHours());
+        setMinute(now.getMinutes());
+        setSecond(now.getSeconds());
+
+        updateCssProps();
+    };
+
+    const onChangeSpeed = (evt: ChangeEvent<HTMLInputElement>) => {
+        speedRef.current = parseInt(evt.target.value, 10);
+    };
 
     const onChangeHour = (evt: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(evt.target.value, 10);
+        const now = new Date(timeMsRef.current);
+
+        now.setHours(value);
+        timeMsRef.current = now.getTime();
+
+        setHour(value);
     };
 
     const onChangeMinute = (evt: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(evt.target.value, 10);
+        const now = new Date(timeMsRef.current);
+
+        now.setMinutes(value);
+        timeMsRef.current = now.getTime();
+
+        setMinute(value);
     };
 
     const onChangeSecond = (evt: ChangeEvent<HTMLInputElement>) => {
         const value = parseInt(evt.target.value, 10);
+        const now = new Date(timeMsRef.current);
+
+        now.setSeconds(value);
+        timeMsRef.current = now.getTime();
+
+        setSecond(value);
     };
+
+    useEffect(() => {
+        if (!isPlaying) updateCssProps();
+    }, [isPlaying, hour, minute, second]);
 
     return (
         <Styling>
+            <div className="controls">
+                <button
+                    type="button"
+                    onClick={handlePlayPause}
+                    aria-label={isPlaying ? 'Pause' : 'Play'}
+                >
+                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+                </button>
+
+                <button
+                    type="button"
+                    onClick={handleReset}
+                    aria-label="Reset"
+                >
+                    <FontAwesomeIcon icon={faReply} />
+                </button>
+            </div>
+
+            <label>
+                speed
+                <input
+                    type="range"
+                    min="-200"
+                    max="200"
+                    defaultValue={1}
+                    onChange={onChangeSpeed}
+                />
+            </label>
+
             <label>
                 hour
                 <input
                     type="range"
                     min="0"
-                    max="24"
-                    value={0}
+                    max="11"
+                    value={hour}
                     onChange={onChangeHour}
                 />
             </label>
 
             <label>
-                second
+                minute
                 <input
                     type="range"
                     min="0"
-                    max="60"
-                    value={0}
+                    max="59"
+                    value={minute}
                     onChange={onChangeMinute}
                 />
             </label>
@@ -148,8 +250,8 @@ export const DemoAnimationsCssJs = () => {
                 <input
                     type="range"
                     min="0"
-                    max="60"
-                    value={0}
+                    max="59"
+                    value={second}
                     onChange={onChangeSecond}
                 />
             </label>
@@ -157,6 +259,7 @@ export const DemoAnimationsCssJs = () => {
             <svg
                 ref={ref}
                 viewBox="0 0 300 300"
+                className={isPlaying ? '' : 'paused'}
             >
                 <SvgContent />
             </svg>
