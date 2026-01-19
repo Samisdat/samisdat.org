@@ -91,3 +91,55 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+div.compare{
+    max-width: 450px;
+}
+
+div.compare .controls {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+svg {
+    max-width: 450px;
+    width: 100%;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 1;
+    display: block;
+
+    & circle {
+        fill-rule: nonzero;
+        stroke: var(--color-aubergine);
+        stroke-width: 0.5px;
+    }
+
+    @keyframes slide {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(160px);
+        }
+    }
+    & circle.css {
+        fill: var(--color-sunflower-yellow);
+        animation: slide 5000ms linear 2 alternate;
+        animation-play-state: paused;
+    }
+
+    & circle.css.playing {
+        animation-play-state: running;
+    }
+
+    & circle.js {
+        fill: var(--color-emerald-dark);
+    }
+    & circle.jscss {
+        fill: var(--color-aqua-gray);
+        transform: translateX(calc(1px * var(--posX)));
+    }
+}
