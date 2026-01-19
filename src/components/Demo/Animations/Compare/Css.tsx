@@ -24,19 +24,17 @@ const CssCircleAnimationStyled = styled(SvgStyling)`
 `;
 
 export const Css = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => (
-    <CssCircleAnimationStyled>
-        <svg viewBox="0 0 200 30">
-            <Checkerboard
-                width={230}
-                height={30}
-            />
-            <circle
-                key={resetTrigger}
-                className={`css ${isPlaying ? 'playing' : ''}`}
-                cx={config.startX}
-                cy={config.circleY}
-                r={config.circleRadius}
-            />
-        </svg>
+    <CssCircleAnimationStyled viewBox="0 0 200 30">
+        <Checkerboard
+            width={230}
+            height={30}
+        />
+        <circle
+            key={resetTrigger}
+            className={`css ${isPlaying ? 'playing' : ''}`}
+            cx={config.startX}
+            cy={config.circleY}
+            r={config.circleRadius}
+        />
     </CssCircleAnimationStyled>
 );
