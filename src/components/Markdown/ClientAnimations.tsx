@@ -37,3 +37,7 @@ export const DemoAnimationsMorph = dynamic(
     () => import('../Demo/Animations/DemoAnimationsMorph').then(mod => ({ default: mod.DemoAnimationsMorph })),
     { ssr: false }
 );
+export const DemoParallaxSectors = dynamic(
+    () => import('../Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
+    { ssr: true }
+);

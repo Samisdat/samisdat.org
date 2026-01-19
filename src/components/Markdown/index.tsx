@@ -12,6 +12,7 @@ import {
     DemoAnimationsJsAttributes,
     DemoAnimationsMorph,
     DemoAnimationsSvg,
+    DemoParallaxSectors,
 } from './ClientAnimations';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
@@ -57,6 +58,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,
         DemoAnimationsCompare: () => <DemoAnimationsCompare />,
         DemoAnimationsMorph: () => <DemoAnimationsMorph />,
+        DemoParallaxSectors: () => <DemoParallaxSectors />,
     };
 
     return (
