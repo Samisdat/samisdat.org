@@ -122,12 +122,12 @@ svg {
             transform: translateX(0);
         }
         to {
-            transform: translateX(160px);
+            transform: translateX(var(--distance));
         }
     }
     & circle.css {
         fill: var(--color-sunflower-yellow);
-        animation: slide 5000ms linear 2 alternate;
+        animation: slide var(--duration) linear var(--repeats) alternate;
         animation-play-state: paused;
     }
 
