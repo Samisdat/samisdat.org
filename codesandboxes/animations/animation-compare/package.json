@@ -10,6 +10,7 @@
         "eject": "react-scripts eject"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^7.1.0",
         "@fortawesome/free-solid-svg-icons": "^7.1.0",
         "@fortawesome/react-fontawesome": "^3.1.1",
         "react": "^19.0.0",
