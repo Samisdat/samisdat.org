@@ -1,4 +1,4 @@
-import { styled } from 'storybook/theming';
+import { styled } from '@linaria/react';
 
 type DemoAnimationsCompareConfig = {
     duration: number;

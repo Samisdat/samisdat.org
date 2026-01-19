@@ -1,4 +1,4 @@
-import { styled } from 'storybook/theming';
+import { styled } from '@linaria/react';
 import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 

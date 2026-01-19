@@ -1,6 +1,6 @@
 import { useAnimationFrame } from '@/hooks/useAnimationFrame';
+import { styled } from '@linaria/react';
 import { CSSProperties, useEffect, useRef } from 'react';
-import { styled } from 'storybook/theming';
 import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
