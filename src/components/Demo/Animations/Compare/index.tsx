@@ -7,6 +7,7 @@ import { styled } from '@linaria/react';
 import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
 import { Js } from './Js';
+import { JsCss } from './JsCss';
 import { Smil } from './Smil';
 import { config } from './shared';
 
@@ -88,6 +89,10 @@ export const DemoAnimationsCompare = () => {
                 resetTrigger={resetCounter}
             />
             <Js
+                isPlaying={isPlaying}
+                resetTrigger={resetCounter}
+            />
+            <JsCss
                 isPlaying={isPlaying}
                 resetTrigger={resetCounter}
             />
