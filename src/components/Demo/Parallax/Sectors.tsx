@@ -1,7 +1,7 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { ChangeEvent, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const Styling = styled.div`
     max-width: 450px;
@@ -11,7 +11,8 @@ const Styling = styled.div`
         height: 300px;
         background: var(--color-soft-ivory);
     }
-    & svg path {
+    & svg path,
+    & svg line {
         fill: none;
         stroke: var(--color-aubergine);
         stroke-width: 2px;
@@ -19,45 +20,78 @@ const Styling = styled.div`
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
     }
+    & svg circle {
+        fill: red;
+    }
 `;
 
-const Svg = () => (
-    <svg
-        height="100%"
-        viewBox="0 0 150 100"
-    >
-        <path d="M0,50l148,0" />
-        <path d="M75,0l0,98" />
-        <path d="M143.362,45.362l4.638,4.638l-4.638,4.638" />
-        <path d="M79.638,93.362l-4.638,4.638l-4.638,-4.638" />
-    </svg>
-);
+export type ParallaxCoords = { x: number; y: number };
 
 export const DemoParallaxSectors = () => {
     const ref = useRef<HTMLDivElement>(null);
 
-    const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        if (!ref.current) {
-            return;
-        }
+    const [coords, setCoords] = useState({ x: 0, y: 0 });
 
-        ref.current.querySelector('animate')?.setAttribute('dur', `${evt.currentTarget.value}s`);
-    };
+    const handlePointerMove = useCallback(
+        (event: PointerEvent) => {
+            const el = ref.current;
+            if (!el) {
+                return;
+            }
+
+            const rect = el.getBoundingClientRect();
+            if (rect.width === 0 || rect.height === 0) return;
+
+            const relativeX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
+            const relativeY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+
+            const x = (relativeX - 0.5) * 2;
+            const y = (relativeY - 0.5) * 2;
+
+            setCoords({
+                x,
+                y,
+            });
+        },
+        [ref]
+    );
+
+    useEffect(() => {
+        const el = ref.current;
+        if (!el) return;
+
+        el.addEventListener('pointermove', handlePointerMove, { passive: true });
+        return () => el.removeEventListener('pointermove', handlePointerMove);
+    }, [handlePointerMove, ref]);
 
     return (
         <Styling ref={ref}>
-            <label>
-                Geschwindigkeit
-                <input
-                    type="range"
-                    name="speed"
-                    min="1"
-                    max="60"
-                    defaultValue={'40'}
-                    onChange={onChange}
+            <svg
+                height="100%"
+                viewBox="0 0 150 100"
+            >
+                <path d="M0,50l148,0" />
+                <path d="M75,0l0,98" />
+                <path d="M143.362,45.362l4.638,4.638l-4.638,4.638" />
+                <path d="M79.638,93.362l-4.638,4.638l-4.638,-4.638" />
+                <line
+                    x1="75"
+                    y1="50"
+                    x2={coords.x * 75 + 75}
+                    y2={coords.y * 50 + 50}
+                    stroke="black"
                 />
-            </label>
-            <Svg />
+                <circle
+                    cx="75"
+                    cy="50"
+                    r="2"
+                />
+                <circle
+                    cx={coords.x * 75 + 75}
+                    cy={coords.y * 50 + 50}
+                    r="2"
+                />
+            </svg>
         </Styling>
     );
 };
