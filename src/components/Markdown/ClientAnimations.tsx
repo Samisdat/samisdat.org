@@ -41,3 +41,7 @@ export const DemoParallaxSectors = dynamic(
     () => import('../Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
     { ssr: true }
 );
+export const DemoParallaxHills = dynamic(
+    () => import('../Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
+    { ssr: true }
+);
