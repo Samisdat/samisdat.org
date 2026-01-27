@@ -3,33 +3,47 @@
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-const Styling = styled.div`
-    max-width: 450px;
+import { Code } from '@/components/Code';
+import { Grid } from '@/components/Grid';
 
+import { codeToHtml } from 'shiki';
+
+const Card = styled.div``;
+
+const Styling = styled.div`
+    aspect-ratio: 15/10;
     & svg {
-        width: 450px;
-        height: 300px;
-        background: var(--color-soft-ivory);
+        border-radius: 0.5rem;
+        border: 1px solid lab(from var(--background-color) calc(l + 30) a b);
+        background-color: lab(from var(--background-color) calc(l + 10) a b);
     }
     & svg text {
         font-family: monospace;
         font-size: 7px;
+        fill: var(--foreground-color);
     }
     & svg path,
     & svg line {
         fill: none;
-        stroke: var(--color-aubergine);
-        stroke-width: 2px;
+        stroke: var(--foreground-color);
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
     }
+    & svg line.bold {
+        stroke-width: 3px;
+    }
     & svg circle {
-        fill: red;
+        fill: lab(56.32% 68.31 23.33);
     }
 `;
 
-type Coord = { x: number; y: number };
+type Position = { x: number; y: number };
+type Coord = {
+    pixel: Position;
+    relative: Position;
+    norm: Position;
+};
 
 const formatSigned2 = (value: number): string => {
     return `${value > 0 ? '+' : ''}${value.toFixed(2)}`;
@@ -38,7 +52,16 @@ const formatSigned2 = (value: number): string => {
 export const DemoParallaxSectors = () => {
     const ref = useRef<HTMLDivElement>(null);
 
-    const [coords, setCoords] = useState<Coord>({ x: 0, y: 0 });
+    const [json, setJson] = useState<string>('');
+
+    const [coords, setCoords] = useState<Coord>(() => {
+        const start: Position = { x: 0, y: 0 };
+        return {
+            pixel: start,
+            relative: start,
+            norm: start,
+        };
+    });
 
     const handlePointerMove = useCallback((event: PointerEvent) => {
         const el = ref.current;
@@ -49,15 +72,25 @@ export const DemoParallaxSectors = () => {
         const rect = el.getBoundingClientRect();
         if (rect.width === 0 || rect.height === 0) return;
 
-        const relativeX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-        const relativeY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
+        const pixel: Position = {
+            x: Math.max(0, event.clientX - rect.left),
+            y: Math.max(0, event.clientY - rect.top),
+        };
 
-        const x = (relativeX - 0.5) * 2;
-        const y = (relativeY - 0.5) * 2;
+        const relative: Position = {
+            x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
+            y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)),
+        };
+
+        const norm = {
+            x: (relative.x - 0.5) * 2,
+            y: (relative.y - 0.5) * 2,
+        };
 
         setCoords({
-            x,
-            y,
+            pixel,
+            relative,
+            norm,
         });
     }, []);
 
@@ -70,47 +103,50 @@ export const DemoParallaxSectors = () => {
     }, [handlePointerMove]);
 
     return (
-        <Styling ref={ref}>
-            <svg
-                height="100%"
-                viewBox="0 0 150 100"
-            >
-                <path d="M0,50l148,0" />
-                <path d="M75,0l0,98" />
-                <path d="M143.362,45.362l4.638,4.638l-4.638,4.638" />
-                <path d="M79.638,93.362l-4.638,4.638l-4.638,-4.638" />
-                <text y="85">
-                    <tspan
-                        x="3"
-                        dy="0"
-                    >
-                        x: {formatSigned2(coords.x)}
-                    </tspan>
-                    <tspan
-                        x="3"
-                        dy="10"
-                    >
-                        y: {formatSigned2(coords.y)}
-                    </tspan>
-                </text>
-                <line
-                    x1="75"
-                    y1="50"
-                    x2={coords.x * 75 + 75}
-                    y2={coords.y * 50 + 50}
-                    stroke="black"
-                />
-                <circle
-                    cx="75"
-                    cy="50"
-                    r="2"
-                />
-                <circle
-                    cx={coords.x * 75 + 75}
-                    cy={coords.y * 50 + 50}
-                    r="2"
-                />
-            </svg>
-        </Styling>
+        <Card>
+            <Grid container>
+                <Grid
+                    small={8}
+                    medium={4}
+                    orderSmall={1}
+                >
+                    <Styling ref={ref}>
+                        <svg
+                            width="100%"
+                            viewBox="0 0 150 100"
+                        >
+                            <path d="M0,50l148,0" />
+                            <path d="M75,0l0,98" />
+                            <path d="M143.362,45.362l4.638,4.638l-4.638,4.638" />
+                            <path d="M79.638,93.362l-4.638,4.638l-4.638,-4.638" />
+                            <line
+                                className="bold"
+                                x1="75"
+                                y1="50"
+                                x2={coords.norm.x * 75 + 75}
+                                y2={coords.norm.y * 50 + 50}
+                                stroke="black"
+                            />
+                            <circle
+                                cx={coords.norm.x * 75 + 75}
+                                cy={coords.norm.y * 50 + 50}
+                                r="2"
+                            />
+                        </svg>
+                    </Styling>
+                </Grid>
+                <Grid
+                    small={8}
+                    medium={4}
+                >
+                    <p>Mouse Position</p>
+                    <Code>
+                        {JSON.stringify({ x: coords.pixel.x.toFixed(2), y: coords.pixel.y.toFixed(2) }, null, 2)}
+                    </Code>
+                    <p>Normalisiert</p>
+                    <Code>{JSON.stringify({ x: coords.norm.x.toFixed(2), y: coords.norm.y.toFixed(2) }, null, 2)}</Code>
+                </Grid>
+            </Grid>
+        </Card>
     );
 };

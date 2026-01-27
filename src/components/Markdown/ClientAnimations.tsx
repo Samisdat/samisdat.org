@@ -45,3 +45,7 @@ export const DemoParallaxHills = dynamic(
     () => import('../Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
     { ssr: true }
 );
+export const DemoParallaxCircles = dynamic(
+    () => import('../Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
+    { ssr: true }
+);

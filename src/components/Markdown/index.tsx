@@ -12,6 +12,7 @@ import {
     DemoAnimationsJsAttributes,
     DemoAnimationsMorph,
     DemoAnimationsSvg,
+    DemoParallaxCircles,
     DemoParallaxHills,
     DemoParallaxSectors,
 } from './ClientAnimations';
@@ -61,6 +62,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoAnimationsMorph: () => <DemoAnimationsMorph />,
         DemoParallaxSectors: () => <DemoParallaxSectors />,
         DemoParallaxHills: () => <DemoParallaxHills />,
+        DemoParallaxCircles: () => <DemoParallaxCircles />,
     };
 
     return (
