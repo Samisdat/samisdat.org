@@ -1,4 +1,5 @@
 'use client';
+
 import { Panorama } from './components/Panorama';
 import { TalProvider } from './lib/TalContext';
 
