@@ -1,78 +1,78 @@
 {
-  "name": "@samisdat/wtal-panorama",
-  "version": "0.0.1",
-  "private": false,
-  "type": "module",
-  "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
-  "main": "./dist/index.cjs",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.cjs",
-      "import": "./dist/index.js"
+    "name": "@samisdat/wtal-panorama",
+    "version": "0.0.2",
+    "private": false,
+    "type": "module",
+    "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        "./package.json": "./package.json",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "require": "./dist/index.cjs",
+            "import": "./dist/index.js"
+        },
+        "./style.css": "./src/components/panorama.css"
     },
-    "./style.css": "./src/components/panorama.css"
-  },
-  "files": [
-    "dist",
-    "src/components/panorama.css"
-  ],
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
-    "start": "next start",
-    "lint": "eslint .",
-    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
-    "prepublish": "npm run build:lib"
-  },
-  "keywords": [
-    "wuppertal",
-    "panorama",
-    "svg",
-    "animation",
-    "sun",
-    "moon",
-    "astronomy",
-    "react",
-    "suncalc"
-  ],
-  "author": "Bastian Pertz <bastian@pertz.eu> (httsps://samisdat.org/)",
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Samisdat/wtal-panorama.git"
-  },
-  "peerDependencies": {
-    "react": ">=19.2.3",
-    "react-dom": ">=19.2.3"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.39.0",
-    "@next/eslint-plugin-next": "^16.0.1",
-    "@types/node": "^24",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@types/suncalc": "^1.9.2",
-    "@typescript-eslint/eslint-plugin": "^8.46.2",
-    "@typescript-eslint/parser": "^8.46.2",
-    "eslint": "^9.39.0",
-    "eslint-config-next": "16.0.0",
-    "eslint-config-prettier": "^10.1.8",
-    "next": "^16.0.10",
-    "prettier": "3.7.3",
-    "prettier-plugin-multiline-arrays": "^4.0.3",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "react": "19.2.0",
-    "react-dom": "19.2.0",
-    "suncalc": "^1.9.0",
-    "tsup": "^8.5.0",
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "astronomy-engine": "^2.1.1"
-  }
+    "files": [
+        "dist",
+        "src/components/panorama.css"
+    ],
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
+        "start": "next start",
+        "lint": "eslint .",
+        "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
+        "prepublish": "npm run build:lib"
+    },
+    "keywords": [
+        "wuppertal",
+        "panorama",
+        "svg",
+        "animation",
+        "sun",
+        "moon",
+        "astronomy",
+        "react",
+        "suncalc"
+    ],
+    "author": "Bastian Pertz <bastian@pertz.eu> (httsps://samisdat.org/)",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Samisdat/wtal-panorama.git"
+    },
+    "peerDependencies": {
+        "react": ">=19.2.3",
+        "react-dom": ">=19.2.3"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.39.0",
+        "@next/eslint-plugin-next": "^16.0.1",
+        "@types/node": "^24",
+        "@types/react": "^19",
+        "@types/react-dom": "^19",
+        "@types/suncalc": "^1.9.2",
+        "@typescript-eslint/eslint-plugin": "^8.46.2",
+        "@typescript-eslint/parser": "^8.46.2",
+        "eslint": "^9.39.0",
+        "eslint-config-next": "16.0.0",
+        "eslint-config-prettier": "^10.1.8",
+        "next": "^16.0.10",
+        "prettier": "3.7.3",
+        "prettier-plugin-multiline-arrays": "^4.0.3",
+        "prettier-plugin-organize-imports": "^4.3.0",
+        "react": "19.2.0",
+        "react-dom": "19.2.0",
+        "suncalc": "^1.9.0",
+        "tsup": "^8.5.0",
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "astronomy-engine": "^2.1.1"
+    }
 }
