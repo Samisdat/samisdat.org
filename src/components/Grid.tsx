@@ -40,7 +40,7 @@ const GridItemStyling = styled.div<{
 
 export const Grid: FC<GridProps> = ({
     container = false,
-    small = 8, // Default auf volle Breite
+    small = 8,
     medium,
     large,
     orderSmall,
