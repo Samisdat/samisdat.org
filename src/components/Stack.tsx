@@ -13,30 +13,44 @@ interface StackProps extends HTMLAttributes<HTMLDivElement> {
     orderLarge?: number;
 }
 
-const StackContainerStyling = styled.div`
+interface StackContainerProps {
+    $directionSmall?: FlexDirection;
+    $directionMedium?: FlexDirection;
+    $directionLarge?: FlexDirection;
+}
+
+interface StackItemProps {
+    $orderSmall?: number | string;
+    $orderMedium?: number | string;
+    $orderLarge?: number | string;
+}
+
+const StackContainerStyling = styled.div<StackContainerProps>`
     display: flex;
-    flex-direction: ${(props: any) => props.$directionSmall || 'column'};
+    gap: 1rem;
+    flex-direction: ${props => props.$directionSmall || 'column'};
     width: 100%;
 
     @media (min-width: 768px) {
-        flex-direction: ${(props: any) => (props.$directionMedium ?? props.$directionSmall) || 'column'};
+        flex-direction: ${props => (props.$directionMedium ?? props.$directionSmall) || 'column'};
     }
 
     @media (min-width: 1024px) {
-        flex-direction: ${(props: any) =>
+        flex-direction: ${props =>
             (props.$directionLarge ?? props.$directionMedium ?? props.$directionSmall) || 'column'};
     }
 `;
 
-const StackItemStyling = styled.div`
-    order: ${(props: any) => props.$orderSmall ?? 'auto'};
+const StackItemStyling = styled.div<StackItemProps>`
+    flex: 1;
+    order: ${props => props.$orderSmall ?? 'auto'};
 
     @media (min-width: 768px) {
-        order: ${(props: any) => props.$orderMedium ?? props.$orderSmall ?? 'auto'};
+        order: ${props => props.$orderMedium ?? props.$orderSmall ?? 'auto'};
     }
 
     @media (min-width: 1024px) {
-        order: ${(props: any) => props.$orderLarge ?? props.$orderMedium ?? props.$orderSmall ?? 'auto'};
+        order: ${props => props.$orderLarge ?? props.$orderMedium ?? props.$orderSmall ?? 'auto'};
     }
 `;
 
