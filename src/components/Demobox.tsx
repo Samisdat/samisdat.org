@@ -1,12 +1,6 @@
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 
-type DemoBoxColors = 'blue' | 'yellow' | 'red';
-
-interface DemoBoxProps extends HTMLAttributes<HTMLDivElement> {
-    color?: DemoBoxColors;
-}
-
 const demoBoxColors = {
     red: {
         background: 'lab(56.32% 68.31 23.33)',
@@ -19,9 +13,16 @@ const demoBoxColors = {
     },
 };
 
+type DemoBoxColors = keyof typeof demoBoxColors;
+
+interface DemoBoxProps extends HTMLAttributes<HTMLDivElement> {
+    color?: DemoBoxColors;
+}
+
 const DemoBoxStyling = styled.div<{
     $color: DemoBoxColors;
 }>`
+    padding: 1rem;
     background: ${props => demoBoxColors[props.$color].background};
 `;
 
