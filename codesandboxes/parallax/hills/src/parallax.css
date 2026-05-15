@@ -1,6 +1,7 @@
-div.hill {
+div.hills {
     aspect-ratio: 450/600;
-    background-color: red;
+    max-height: 500px;
+    margin: 0 auto;
 }
 svg {
     width: 100%;
