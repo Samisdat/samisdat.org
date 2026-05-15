@@ -3,8 +3,10 @@ import { FC, HTMLAttributes } from 'react';
 import { Typo } from '@/components/Typo';
 
 import { SandpackFiles } from '@codesandbox/sandpack-react';
+import { Grid } from '../Grid';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
+import { Stack } from '../Stack';
 import {
     DemoAnimationsCompare,
     DemoAnimationsCss,
@@ -45,6 +47,12 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
             />
         ),
         a: (props: any) => <Link {...props} />,
+        Grid: (props: any) => {
+            return <Grid {...props} />;
+        },
+        Stack: (props: any) => {
+            return <Stack {...props} />;
+        },
         Sandbox: (props: any) => {
             const files = sandboxFiles?.[props.name];
             return (
