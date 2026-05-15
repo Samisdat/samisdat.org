@@ -91,5 +91,12 @@ export const globalStyles = css`
             font-family: var(--font-sans);
             letter-spacing: 0.01em;
         }
+
+        div.background-color {
+            background-color: var(--background-color);
+        }
+        div.foreground-color-color {
+            background-color: var(--foreground-color);
+        }
     }
 `;
