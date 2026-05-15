@@ -23,6 +23,7 @@ const DemoBoxStyling = styled.div<{
     $color: DemoBoxColors;
 }>`
     padding: 1rem;
+    margin-bottom: 1rem;
     background: ${props => demoBoxColors[props.$color].background};
 `;
 
