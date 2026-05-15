@@ -4,11 +4,32 @@ import 'normalize.css';
 export const globalStyles = css`
     :global() {
         :root {
-            --color-aubergine: oklch(22% 0.05 300);
-            --color-warm-ivory: oklch(84.97% 0.037 29.7);
+            /* base */
+            --hue-aubergine: 300;
+            --hue-ivory: 30;
 
-            --color-soft-ivory: oklch(96.27% 0.034 30.2);
-            --color-deep-aubergine: oklch(27.65% 0.092 230.5);
+            /* base */
+
+            --color-aubergine: oklch(22% 0.05 var(--hue-aubergine));
+            --color-ivory: oklch(84.97% 0.037 var(--hue-ivory));
+
+            /* aubergine range */
+
+            --color-aubergine-deep: oklch(from var(--color-aubergine) calc(l - 0.07) c h);
+            --color-aubergine-soft: oklch(from var(--color-aubergine) calc(l + 0.08) calc(c * 1.2) h);
+            --color-aubergine-soft-2: oklch(from var(--color-aubergine) calc(l + 0.15) calc(c * 1.2) h);
+            --color-aubergine-border: oklch(from var(--color-aubergine) calc(l + 0.22) calc(c * 1) h);
+            --color-aubergine-muted: oklch(from var(--color-aubergine) calc(l + 0.35) calc(c * 0.8) h);
+            --color-aubergine-faded: oklch(from var(--color-aubergine) calc(l + 0.5) calc(c * 0.6) h);
+
+            /* ivory Scale */
+
+            --color-ivory-soft: oklch(from var(--color-ivory) calc(l + 0.11) c h);
+            --color-ivory-deep: oklch(from var(--color-ivory) calc(l - 0.55) calc(c * 2) h);
+
+            /* legacy, rm after refactoring*/
+            --color-soft-ivory: var(--color-ivory-soft);
+            --color-deep-aubergine: var(--color-aubergine-deep);
 
             color-scheme: dark;
 
@@ -92,10 +113,16 @@ export const globalStyles = css`
             letter-spacing: 0.01em;
         }
 
+        div.color {
+            width: 100px;
+            height: 100px;
+            border: 1px solid red;
+        }
+
         div.background-color {
             background-color: var(--background-color);
         }
-        div.foreground-color-color {
+        div.foreground-color {
             background-color: var(--foreground-color);
         }
     }
