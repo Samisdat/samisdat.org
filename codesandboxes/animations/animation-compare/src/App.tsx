@@ -1,7 +1,7 @@
 'use client';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
