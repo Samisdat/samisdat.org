@@ -32,6 +32,16 @@ export const globalStyles = css`
             --color-deep-aubergine: var(--color-aubergine-deep);
             --color-warm-ivory: var(--color-ivory);
 
+            /* accents  */
+            --color-red: oklch(64% 0.22 10);
+            --color-orange: oklch(73% 0.16 60);
+            --color-yellow: oklch(83% 0.16 85);
+            --color-green: oklch(68% 0.17 155);
+            --color-teal: oklch(78% 0.11 190);
+            --color-blue: oklch(62% 0.19 265);
+            --color-purple: oklch(60% 0.22 305);
+            --color-pink: oklch(75% 0.13 355);
+
             color-scheme: dark;
 
             --background-color: var(--color-aubergine);
@@ -125,6 +135,40 @@ export const globalStyles = css`
         }
         div.foreground-color {
             background-color: var(--foreground-color);
+        }
+        div.foreground-color {
+            background-color: var(--foreground-color);
+        }
+        div.red {
+            background-color: var(--color-red);
+        }
+
+        div.orange {
+            background-color: var(--color-orange);
+        }
+
+        div.yellow {
+            background-color: var(--color-yellow);
+        }
+
+        div.green {
+            background-color: var(--color-green);
+        }
+
+        div.teal {
+            background-color: var(--color-teal);
+        }
+
+        div.blue {
+            background-color: var(--color-blue);
+        }
+
+        div.purple {
+            background-color: var(--color-purple);
+        }
+
+        div.pink {
+            background-color: var(--color-pink);
         }
     }
 `;
