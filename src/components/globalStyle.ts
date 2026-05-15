@@ -51,6 +51,16 @@ export const globalStyles = css`
             --bg-elevated-2: var(--color-aubergine-soft-2);
             --bg-sunken: var(--color-aubergine-deep);
 
+            /* text */
+            --fg: var(--color-ivory);
+            --fg-muted: var(--color-aubergine-faded);
+            --fg-subtle: var(--color-aubergine-muted);
+
+            /* borders */
+            --border: var(--color-aubergine-border);
+            --border-subtle: color-mix(in oklab, var(--color-aubergine-border) 50%, transparent);
+            --border-strong: var(--color-aubergine-muted);
+
             --background-color: var(--bg);
             --foreground-color: var(--color-ivory);
 

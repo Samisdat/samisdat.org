@@ -16,18 +16,22 @@ const Styling = styled.div`
     aspect-ratio: 15/10;
     & svg {
         border-radius: 0.5rem;
-        border: 1px solid lab(from var(--background-color) calc(l + 30) a b);
-        background-color: lab(from var(--background-color) calc(l + 10) a b);
+        border: 1px solid var(--border);
+        background-color: var(--bg-elevated);
+
+        &:hover {
+            border-color: var(--border-strong);
+        }
     }
     & svg text {
         font-family: monospace;
         font-size: 7px;
-        fill: var(--foreground-color);
+        fill: var(--fg);
     }
     & svg path,
     & svg line {
         fill: none;
-        stroke: var(--foreground-color);
+        stroke: var(--fg);
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
@@ -36,7 +40,7 @@ const Styling = styled.div`
         stroke-width: 3px;
     }
     & svg circle {
-        fill: lab(56.32% 68.31 23.33);
+        fill: var(--color-red);
     }
 `;
 
