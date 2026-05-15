@@ -30,11 +30,12 @@ export const globalStyles = css`
             /* legacy, rm after refactoring*/
             --color-soft-ivory: var(--color-ivory-soft);
             --color-deep-aubergine: var(--color-aubergine-deep);
+            --color-warm-ivory: var(--color-ivory);
 
             color-scheme: dark;
 
             --background-color: var(--color-aubergine);
-            --foreground-color: var(--color-warm-ivory);
+            --foreground-color: var(--color-ivory);
 
             --typo-h1-size: 3rem;
             --typo-h2-size: 2.75rem;
