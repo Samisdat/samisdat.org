@@ -30,7 +30,6 @@ export const globalStyles = css`
             /* legacy, rm after refactoring*/
             --color-soft-ivory: var(--color-ivory-soft);
             --color-deep-aubergine: var(--color-aubergine-deep);
-            --color-warm-ivory: var(--color-ivory);
 
             /* accents  */
             --color-red: oklch(64% 0.22 10);
@@ -42,9 +41,17 @@ export const globalStyles = css`
             --color-purple: oklch(60% 0.22 305);
             --color-pink: oklch(75% 0.13 355);
 
+            /* /base */
+
             color-scheme: dark;
 
-            --background-color: var(--color-aubergine);
+            /* Surfaces */
+            --bg: var(--color-aubergine);
+            --bg-elevated: var(--color-aubergine-soft);
+            --bg-elevated-2: var(--color-aubergine-soft-2);
+            --bg-sunken: var(--color-aubergine-deep);
+
+            --background-color: var(--bg);
             --foreground-color: var(--color-ivory);
 
             --typo-h1-size: 3rem;
@@ -59,7 +66,7 @@ export const globalStyles = css`
             color-scheme: dark;
 
             --background-color: var(--color-aubergine);
-            --foreground-color: var(--color-warm-ivory);
+            --foreground-color: var(--color-ivory);
         }
 
         /*
