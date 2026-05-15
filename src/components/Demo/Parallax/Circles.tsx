@@ -1,6 +1,5 @@
 'use client';
 
-import { Grid } from '@/components/Grid';
 import { styled } from '@linaria/react';
 import { CSSProperties, useRef } from 'react';
 import { useParallax } from './useParallax';
@@ -27,13 +26,13 @@ const Styling = styled.div`
     & rect {
         fill: lab(from var(--background-color) calc(l + 10) a b);
     }
-    & circle.first {
+    & circle.red {
         fill: lab(56.32% 68.31 23.33);
     }
-    & circle.second {
+    & circle.blue {
         fill: lab(55.29% 14.38 -64.44);
     }
-    & circle.third {
+    & circle.yellow {
         fill: lab(70.04% 23.01 74.24);
     }
 `;
@@ -45,68 +44,49 @@ export const DemoParallaxCircles = () => {
 
     return (
         <>
-            <Grid container>
-                <Grid
-                    small={8}
-                    medium={4}
-                >
-                    Lorem
-                </Grid>
+            <div className="color orange"></div>
+            <div className="color red"></div>
+            <div className="color blue"></div>
 
-                <Grid
-                    small={8}
-                    medium={4}
-                    orderSmall={1}
+            <Styling ref={ref}>
+                <svg
+                    viewBox="0 0 400 400"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    xmlSpace="preserve"
                 >
-                    <Styling ref={ref}>
-                        <svg
-                            viewBox="0 0 400 400"
-                            version="1.1"
-                            xmlns="http://www.w3.org/2000/svg"
-                            xmlnsXlink="http://www.w3.org/1999/xlink"
-                            xmlSpace="preserve"
-                        >
-                            <rect
-                                x1={0}
-                                x2={400}
-                                y1={400}
-                                y2={400}
-                                width="400"
-                                height="400"
-                            />
+                    <rect
+                        x1={0}
+                        x2={400}
+                        y1={400}
+                        y2={400}
+                        width="400"
+                        height="400"
+                    />
 
-                            <circle
-                                className={'first parallax'}
-                                style={
-                                    {
-                                        ['--depth' as string]: String(-1),
-                                    } as CSSProperties
-                                }
-                                cx="200"
-                                cy="125"
-                                r="100"
-                            />
-                            <circle
-                                className={'third'}
-                                cx="200"
-                                cy="205"
-                                r="100"
-                            />
-                            <circle
-                                className={'second parallax'}
-                                style={
-                                    {
-                                        ['--depth' as string]: String(1),
-                                    } as CSSProperties
-                                }
-                                cx="200"
-                                cy="275"
-                                r="100"
-                            />
-                        </svg>
-                    </Styling>
-                </Grid>
-            </Grid>
+                    <circle
+                        className={'red parallax'}
+                        style={{ '--depth': -1 } as CSSProperties}
+                        cx="200"
+                        cy="125"
+                        r="100"
+                    />
+                    <circle
+                        className={'yellow'}
+                        cx="200"
+                        cy="205"
+                        r="100"
+                    />
+                    <circle
+                        className={'blue parallax'}
+                        style={{ '--depth': 1 } as CSSProperties}
+                        cx="200"
+                        cy="275"
+                        r="100"
+                    />
+                </svg>
+            </Styling>
         </>
     );
 };

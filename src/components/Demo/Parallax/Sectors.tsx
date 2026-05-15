@@ -6,6 +6,8 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Code } from '@/components/Code';
 import { Grid } from '@/components/Grid';
 
+import { DemoBox } from '@/components/Demobox';
+import { Stack } from '@/components/Stack';
 import { codeToHtml } from 'shiki';
 
 const Card = styled.div``;
@@ -103,13 +105,29 @@ export const DemoParallaxSectors = () => {
     }, [handlePointerMove]);
 
     return (
-        <Card>
-            <Grid container>
-                <Grid
-                    small={8}
-                    medium={4}
+        <>
+            <Stack
+                container
+                directionSmall="column"
+                directionMedium="row"
+            >
+                <Stack
                     orderSmall={1}
+                    orderMedium={2}
                 >
+                    <DemoBox>Mobile 1. (oben) / Tablet 2. (rechts)</DemoBox>
+                    <p>Mouse Position</p>
+                    <Code>
+                        {JSON.stringify({ x: coords.pixel.x.toFixed(2), y: coords.pixel.y.toFixed(2) }, null, 2)}
+                    </Code>
+                    <p>Normalisiert</p>
+                    <Code>{JSON.stringify({ x: coords.norm.x.toFixed(2), y: coords.norm.y.toFixed(2) }, null, 2)}</Code>
+                </Stack>
+                <Stack
+                    orderSmall={2}
+                    orderMedium={1}
+                >
+                    <DemoBox color="red">Mobile 2. (unten) / Tablet 1. (links)</DemoBox>{' '}
                     <Styling ref={ref}>
                         <svg
                             width="100%"
@@ -134,19 +152,22 @@ export const DemoParallaxSectors = () => {
                             />
                         </svg>
                     </Styling>
+                </Stack>
+            </Stack>
+
+            <Card>
+                <Grid container>
+                    <Grid
+                        small={8}
+                        medium={4}
+                        orderSmall={1}
+                    ></Grid>
+                    <Grid
+                        small={8}
+                        medium={4}
+                    ></Grid>
                 </Grid>
-                <Grid
-                    small={8}
-                    medium={4}
-                >
-                    <p>Mouse Position</p>
-                    <Code>
-                        {JSON.stringify({ x: coords.pixel.x.toFixed(2), y: coords.pixel.y.toFixed(2) }, null, 2)}
-                    </Code>
-                    <p>Normalisiert</p>
-                    <Code>{JSON.stringify({ x: coords.norm.x.toFixed(2), y: coords.norm.y.toFixed(2) }, null, 2)}</Code>
-                </Grid>
-            </Grid>
-        </Card>
+            </Card>
+        </>
     );
 };
