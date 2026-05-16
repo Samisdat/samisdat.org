@@ -22,6 +22,7 @@
     ],
     "scripts": {
         "dev": "next dev",
+        "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
         "build": "next build",
         "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
         "start": "next start",
