@@ -1,4 +1,7 @@
 import { compile, run } from '@mdx-js/mdx';
+import { readFileSync } from 'node:fs';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import * as runtime from 'react/jsx-runtime';
 
 import remarkFrontmatter from 'remark-frontmatter';
@@ -12,8 +15,10 @@ import rehypeSlug from 'rehype-slug';
 
 import { Frontmatter } from './Frontmatter';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
 const shikiOptions = {
-    theme: 'tokyo-night',
+    /*theme: 'tokyo-night',*/
+    theme: JSON.parse(readFileSync(join(__dirname, 'samisdat-color-theme.json'), 'utf-8')),
 };
 
 interface ParseMarkdownResult {
