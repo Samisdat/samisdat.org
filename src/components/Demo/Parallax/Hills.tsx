@@ -49,7 +49,7 @@ const ParallaxLayer = ({ depth, children, mix }: { depth: number; mix?: number; 
         style={
             {
                 ['--depth' as string]: String(depth),
-                ['--mix' as string]: `${String(mix * 8)}%`,
+                ['--mix' as string]: `${String((mix ?? 0) * 8)}%`,
             } as CSSProperties
         }
     >
