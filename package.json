@@ -8,6 +8,8 @@
     "dev:lib": "pnpm --filter @samisdat/wtal-panorama dev:lib",
     "dev": "pnpm --filter blog dev",
     "dev:all": "pnpm dev:lib & pnpm dev",
-    "build": "pnpm run build:lib && pnpm --filter blog build"
+    "build": "pnpm run build:lib && pnpm --filter blog build",
+    "storybook": "pnpm --filter storybook dev",
+    "build-storybook": "pnpm --filter storybook build"
   }
 }

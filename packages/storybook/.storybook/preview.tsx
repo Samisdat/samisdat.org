@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import '../src/components/globalStyle';
+import '../../website/src/components/globalStyle';
 
 import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'next/font/google';
 

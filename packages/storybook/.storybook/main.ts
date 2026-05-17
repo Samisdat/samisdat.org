@@ -1,5 +1,10 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 import wyw from '@wyw-in-js/vite';
+import path from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
     stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -8,8 +13,15 @@ const config: StorybookConfig = {
         name: '@storybook/nextjs-vite',
         options: {},
     },
-    staticDirs: ['../public'],
+    staticDirs: ['../../website/public'],
     async viteFinal(config) {
+        // Resolve @/* alias to website/src
+        config.resolve = config.resolve || {};
+        config.resolve.alias = {
+            ...config.resolve.alias,
+            '@': path.resolve(__dirname, '../../website/src'),
+        };
+
         // Add WYW-in-JS (Linaria) plugin for Vite
         config.plugins = config.plugins || [];
         config.plugins.push(

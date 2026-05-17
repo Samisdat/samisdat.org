@@ -1,0 +1,11 @@
+{
+  "extends": "../website/tsconfig.json",
+  "compilerOptions": {
+    "plugins": [],
+    "paths": {
+      "@/*": ["../website/src/*"]
+    }
+  },
+  "include": [".storybook/**/*", "src/**/*"],
+  "exclude": ["node_modules"]
+}
