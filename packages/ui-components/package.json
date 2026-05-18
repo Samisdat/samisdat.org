@@ -1,0 +1,30 @@
+{
+  "name": "@samisdat/ui-components",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {},
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.1",
+    "@linaria/core": "^6.3.0",
+    "@linaria/react": "^6.3.0",
+    "@wyw-in-js/babel-preset": "^0.8.0",
+    "fs-extra": "^11.3.2",
+    "normalize.css": "^8.0.1",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "shiki": "^3.20.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.3",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "16.0.10",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.3",
+    "prettier-plugin-multiline-arrays": "^4.0.3",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "^5.9.3"
+  }
+}
