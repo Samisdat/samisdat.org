@@ -1,12 +1,12 @@
 import { FC, HTMLAttributes } from 'react';
 
-import { Typo } from '@/components/Typo';
+import { Typo } from '@samisdat/ui-components/Typo';
+import { Grid } from '@samisdat/ui-components/Grid';
+import { Stack } from '@samisdat/ui-components/Stack';
 
 import { SandpackFiles } from '@codesandbox/sandpack-react';
-import { Grid } from '../Grid';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
-import { Stack } from '../Stack';
 import {
     DemoAnimationsCompare,
     DemoAnimationsCss,

@@ -4,7 +4,7 @@ import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'ne
 import { Colophon } from '@/components/Colophon';
 import { SandPackCSS } from '@/components/Sandbox/SandPackCSS';
 
-import { Container } from '@/components/Container';
+import { Container } from '@samisdat/ui-components/Container';
 import { Page } from '@/components/Page';
 import { WtalPanorama } from '@samisdat/wtal-panorama';
 import '@samisdat/wtal-panorama/style.css';
@@ -14,7 +14,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
 import { Scrolling } from '@/components/Scrolling';
-import '../components/globalStyle';
+import '@samisdat/ui-components/globalStyle';
 
 export const metadata: Metadata = {
     title: 'Create Next App',

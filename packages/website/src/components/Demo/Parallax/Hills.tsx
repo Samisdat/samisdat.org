@@ -1,6 +1,6 @@
 'use client';
 
-import { Grid } from '@/components/Grid';
+import { Grid } from '@samisdat/ui-components/Grid';
 import { styled } from '@linaria/react';
 import { CSSProperties, ReactNode, useRef } from 'react';
 import { useParallax } from './useParallax';

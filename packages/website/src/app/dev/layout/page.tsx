@@ -1,7 +1,7 @@
 import { DemoBox } from '@/components/Demobox';
-import { Grid } from '@/components/Grid';
+import { Grid } from '@samisdat/ui-components/Grid';
 import { Heading } from '@samisdat/ui-components/Heading';
-import { Stack } from '@/components/Stack';
+import { Stack } from '@samisdat/ui-components/Stack';
 
 export default async function Home() {
     return (

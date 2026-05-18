@@ -1,5 +1,5 @@
 import type { Preview } from '@storybook/react';
-import '../../website/src/components/globalStyle';
+import '@samisdat/ui-components/globalStyle';
 
 import '@fontsource-variable/source-serif-4';
 import '@fontsource-variable/source-sans-3';

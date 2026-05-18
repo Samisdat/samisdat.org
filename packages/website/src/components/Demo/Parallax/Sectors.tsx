@@ -4,10 +4,10 @@ import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Code } from '@/components/Code';
-import { Grid } from '@/components/Grid';
+import { Grid } from '@samisdat/ui-components/Grid';
 
 import { DemoBox } from '@/components/Demobox';
-import { Stack } from '@/components/Stack';
+import { Stack } from '@samisdat/ui-components/Stack';
 import { codeToHtml } from 'shiki';
 
 const Card = styled.div``;
