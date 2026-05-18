@@ -1,4 +1,4 @@
-import { DemoBox } from '@/components/Demobox';
+import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Heading } from '@samisdat/ui-components/Heading';
 import { Stack } from '@samisdat/ui-components/Stack';

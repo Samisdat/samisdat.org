@@ -6,7 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Code } from '@/components/Code';
 import { Grid } from '@samisdat/ui-components/Grid';
 
-import { DemoBox } from '@/components/Demobox';
+import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { codeToHtml } from 'shiki';
 
