@@ -1,8 +1,11 @@
+// This file has been automatically migrated to valid ESM format by Storybook.
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 import wyw from '@wyw-in-js/vite';
-import path from 'node:path';
+import path, { dirname } from 'node:path';
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
