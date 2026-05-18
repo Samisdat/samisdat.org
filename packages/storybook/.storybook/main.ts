@@ -2,10 +2,7 @@
 import type { StorybookConfig } from '@storybook/nextjs-vite';
 import wyw from '@wyw-in-js/vite';
 import path, { dirname } from 'node:path';
-import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-
-const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -24,6 +21,14 @@ const config: StorybookConfig = {
             ...config.resolve.alias,
             '@': path.resolve(__dirname, '../../website/src'),
         };
+
+        // Externalize next/image to avoid rolldown resolution issues
+        config.build = config.build || {};
+        config.build.rolldownOptions = config.build.rolldownOptions || {};
+        config.build.rolldownOptions.external = [
+            ...(config.build.rolldownOptions.external || []),
+            'next/image',
+        ];
 
         // Add WYW-in-JS (Linaria) plugin for Vite
         config.plugins = config.plugins || [];

@@ -11,6 +11,10 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^5.2.1",
+    "@fontsource-variable/source-code-pro": "^5.2.7",
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@fontsource-variable/source-serif-4": "^5.2.9",
+    "@fontsource/playwrite-no": "^5.2.7",
     "@storybook/addon-a11y": "^10.4.0",
     "@storybook/addon-docs": "^10.4.0",
     "@storybook/addon-vitest": "^10.4.0",
@@ -25,18 +29,5 @@
     "storybook": "^10.4.0",
     "typescript": "^5",
     "vitest": "^4.0.9"
-  },
-  "pnpm": {
-    "overrides": {
-      "next@>=15.6.0-canary.0 <16.1.5": ">=16.1.5",
-      "next@>=16.0.0-beta.0 <16.0.11": ">=16.0.11",
-      "next@>=16.0.0-beta.0 <16.1.7": ">=16.1.7",
-      "next@>=16.0.1 <16.1.7": ">=16.1.7",
-      "next@>=16.0.0-beta.0 <16.1.5": ">=16.1.5",
-      "next@>=16.0.0-beta.0 <16.2.3": ">=16.2.3",
-      "postcss@<8.5.10": ">=8.5.10",
-      "next@>=16.0.0 <16.2.5": ">=16.2.5",
-      "next@>=16.0.0 <16.2.6": ">=16.2.6"
-    }
   }
 }
