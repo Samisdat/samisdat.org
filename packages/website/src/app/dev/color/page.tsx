@@ -1,4 +1,4 @@
-import { Heading } from '@/components/Heading';
+import { Heading } from '@samisdat/ui-components/Heading';
 
 export default async function Home() {
     return (

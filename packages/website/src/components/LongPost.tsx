@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
-import { Heading } from './Heading';
+import { Heading } from '@samisdat/ui-components/Heading';
 
 const PostStyled = styled.main`
     width: min(100%, 80ch);

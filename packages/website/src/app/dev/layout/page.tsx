@@ -1,6 +1,6 @@
 import { DemoBox } from '@/components/Demobox';
 import { Grid } from '@/components/Grid';
-import { Heading } from '@/components/Heading';
+import { Heading } from '@samisdat/ui-components/Heading';
 import { Stack } from '@/components/Stack';
 
 export default async function Home() {

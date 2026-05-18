@@ -2,6 +2,11 @@
   "name": "@samisdat/ui-components",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./Heading": "./src/Heading/index.tsx"
+  },
   "scripts": {},
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.2.0",

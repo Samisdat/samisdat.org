@@ -1,4 +1,4 @@
-import { Heading } from '@/components/Heading';
+import { Heading } from '@samisdat/ui-components/Heading';
 import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
 import { parseMarkdown } from '@/components/Markdown/compile';
 import { getPostContent, getPublishedPostSlugs } from '@/lib/posts';

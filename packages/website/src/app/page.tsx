@@ -1,5 +1,5 @@
-import { Heading } from '@/components/Heading';
 import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
+import { Heading } from '@samisdat/ui-components/Heading';
 
 import { faHand } from '@fortawesome/free-regular-svg-icons';
 
