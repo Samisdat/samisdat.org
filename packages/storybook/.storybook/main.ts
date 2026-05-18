@@ -12,9 +12,11 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
+    "@storybook/addon-vitest",
+    "@storybook/addon-themes",
   ],
   framework: "@storybook/react-vite",
-  staticDirs: ["../../website/public"],
+  staticDirs: ["../public"],
   async viteFinal(config) {
     // Resolve @/* alias to website/src
     config.resolve = config.resolve || {};
