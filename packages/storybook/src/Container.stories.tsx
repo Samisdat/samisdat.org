@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import { Placeholder } from '@/components/Placeholder';
 import { Container as ContainerComponent } from '@/components/Container';
