@@ -12,13 +12,8 @@ const config: StorybookConfig = {
     "@chromatic-com/storybook",
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
-    "@storybook/addon-vitest",
-    "@storybook/addon-themes",
   ],
-  framework: {
-    name: "@storybook/react-vite",
-    options: {},
-  },
+  framework: "@storybook/react-vite",
   staticDirs: ["../../website/public"],
   async viteFinal(config) {
     // Resolve @/* alias to website/src
@@ -27,14 +22,6 @@ const config: StorybookConfig = {
       ...config.resolve.alias,
       "@": path.resolve(__dirname, "../../website/src"),
     };
-
-    // Externalize next/image to avoid rolldown resolution issues
-    config.build = config.build || {};
-    config.build.rolldownOptions = config.build.rolldownOptions || {};
-    config.build.rolldownOptions.external = [
-      ...(config.build.rolldownOptions.external || []),
-      "next/image",
-    ];
 
     // Add WYW-in-JS (Linaria) plugin for Vite
     config.plugins = config.plugins || [];
