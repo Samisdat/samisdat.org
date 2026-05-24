@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ColorSwitcher } from "@samsidat/ui-components/ColorSwitcher";
+import { ColorSwitcher as ColorSwitcherComponent } from "@samisdat/ui-components/ColorSwitcher";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: "Tools/ColorSwitcher",
-  component: ColorSwitcher,
+  component: ColorSwitcherComponent,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-} satisfies Meta<typeof ColorSwitcher>;
+} satisfies Meta<typeof ColorSwitcherComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
