@@ -5,8 +5,14 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    "./*": "./src/*/index.tsx",
-    "./globalStyle": "./src/globalstyle.ts"
+    "./*": {
+      "types": "./src/*/index.tsx",
+      "import": "./src/*/index.tsx"
+    },
+    "./globalStyle": {
+      "types": "./src/globalstyle.ts",
+      "import": "./src/globalstyle.ts"
+    }
   },
   "scripts": {},
   "dependencies": {

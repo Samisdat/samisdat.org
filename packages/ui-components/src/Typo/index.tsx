@@ -1,43 +1,45 @@
-import { styled } from '@linaria/react';
-import { FC, HTMLAttributes } from 'react';
+import { styled } from "@linaria/react";
+import { FC, HTMLAttributes } from "react";
 
-const variantParagraph = 'p';
-const variantEm = 'em';
-const variantStrong = 'strong';
+const variantParagraph = "p" as const;
+const variantEm = "em" as const;
+const variantStrong = "strong" as const;
 
-type Variant = typeof variantParagraph | typeof variantEm | typeof variantStrong;
+const variants = [variantParagraph, variantEm, variantStrong] as const;
+
+export type Variant = (typeof variants)[number];
 
 const ParagraphStyling = styled.p`
-    font-family: var(--font-sans);
+  font-family: var(--font-sans);
 `;
 
 const EmStyling = styled.em`
-    font-family: var(--font-italic);
+  font-family: var(--font-italic);
 
-    strong & {
-        font-weight: 400;
-        text-shadow:
-            0.4px 0 0 currentColor,
-            -0.4px 0 0 currentColor;
-    }
+  strong & {
+    font-weight: 400;
+    text-shadow:
+      0.4px 0 0 currentColor,
+      -0.4px 0 0 currentColor;
+  }
 `;
 
 const BoldStyling = styled.strong`
-    font-family: var(--font-sans);
+  font-family: var(--font-sans);
 `;
 
 const htmlTags: { [key in Variant]: any } = {
-    p: ParagraphStyling,
-    em: EmStyling,
-    strong: BoldStyling,
-};
+  p: ParagraphStyling,
+  em: EmStyling,
+  strong: BoldStyling,
+} as const;
 
-interface TypoProps extends HTMLAttributes<HTMLDivElement> {
-    variant: Variant;
+export interface TypoProps extends HTMLAttributes<HTMLDivElement> {
+  variant?: Variant;
 }
 
-export const Typo: FC<TypoProps> = ({ variant, children, ...props }) => {
-    const HtmlTag = htmlTags[variant];
+export const Typo: FC<TypoProps> = ({ variant = "p", children, ...props }) => {
+  const HtmlTag = htmlTags[variant];
 
-    return <HtmlTag {...props}>{children}</HtmlTag>;
+  return <HtmlTag {...props}>{children}</HtmlTag>;
 };
