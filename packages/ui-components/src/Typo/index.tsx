@@ -5,7 +5,7 @@ const variantParagraph = "p" as const;
 const variantEm = "em" as const;
 const variantStrong = "strong" as const;
 
-const variants = [variantParagraph, variantEm, variantStrong] as const;
+export const variants = [variantParagraph, variantEm, variantStrong] as const;
 
 export type Variant = (typeof variants)[number];
 

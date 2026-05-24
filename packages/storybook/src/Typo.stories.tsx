@@ -1,11 +1,18 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Typo as TypoComponent } from "@samisdat/ui-components/Typo";
+import { Typo as TypoComponent, variants } from "@samisdat/ui-components/Typo";
 
 const meta = {
   title: "Typo/Typo",
   component: TypoComponent,
   tags: ["autodocs"],
+  argTypes: {
+    variant: {
+      control: { type: "select" },
+      options: variants,
+      description: "Text variant style",
+    },
+  },
 } satisfies Meta<typeof TypoComponent>;
 
 export default meta;
