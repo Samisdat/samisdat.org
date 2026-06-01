@@ -1,12 +1,32 @@
-import type { Preview } from "@storybook/react";
+import type { Preview, Decorator } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { themes } from "storybook/theming";
+import { useEffect } from "react";
 import "@samisdat/ui-components/globalStyle";
 
 import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/source-sans-3";
 import "@fontsource-variable/source-code-pro";
 import "@fontsource/playwrite-no";
+
+// Decorator to sync docs theme with global theme
+const withDocsTheme: Decorator = (Story, context) => {
+  useEffect(() => {
+    const theme = context.globals.theme;
+    const docsTheme = theme === "light" ? themes.light : themes.dark;
+    
+    // Update docs container background and text color
+    if (typeof document !== "undefined") {
+      const sbDocsContainer = document.querySelector(".sbdocs");
+      if (sbDocsContainer instanceof HTMLElement) {
+        sbDocsContainer.style.backgroundColor = docsTheme.appBg || "";
+        sbDocsContainer.style.color = docsTheme.textColor || "";
+      }
+    }
+  }, [context.globals.theme]);
+
+  return <Story />;
+};
 
 const preview: Preview = {
   decorators: [
@@ -18,6 +38,7 @@ const preview: Preview = {
       defaultTheme: "dark",
       attributeName: "data-theme",
     }),
+    withDocsTheme,
     (Story) => {
       // Set CSS variables on the document root for font availability
       const root =
