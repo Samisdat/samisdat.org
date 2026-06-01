@@ -27,6 +27,7 @@
     "normalize.css": "^8.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
+    "react-shiki": "^0.10.1",
     "shiki": "^3.20.0"
   },
   "devDependencies": {
