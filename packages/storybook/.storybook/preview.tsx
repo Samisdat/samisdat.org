@@ -1,5 +1,6 @@
 import type { Preview } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
+import { themes } from "storybook/theming";
 import "@samisdat/ui-components/globalStyle";
 
 import "@fontsource-variable/source-serif-4";
@@ -41,6 +42,9 @@ const preview: Preview = {
   ],
 
   parameters: {
+    docs: {
+      theme: themes.dark,
+    },
     themes: {
       default: "dark",
       list: [
