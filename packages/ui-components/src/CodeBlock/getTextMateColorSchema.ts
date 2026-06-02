@@ -10,7 +10,7 @@ export const getTextMateColorSchema = (
   const neutralBgAlpha66 = "#33264766";
 
   // Foreground colors
-  const white = "#ff000";
+  const white = "#ffffff";
   const lightestFg = "#faefed";
   const lightFg = "#ebdedb";
   const lightFgAlpha14 = "#ebdedb14";
