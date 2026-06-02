@@ -1,10 +1,17 @@
 import { useShikiHighlighter } from "react-shiki";
+import { getTextMateColorSchema } from "./getTextMateColorSchema";
 
-import theme from "./samisdat-color-theme.json";
+export const CodeBlock = ({
+  code,
+  language,
+}: {
+  code: string;
+  language: "jsx" | "tsx" | "css";
+}) => {
+  const theme = getTextMateColorSchema("dark");
 
-console.log(theme);
+  console.log(theme);
 
-export const CodeBlock = ({ code, language }) => {
   const highlightedCode = useShikiHighlighter(code, language, theme);
 
   return <figure>{highlightedCode}</figure>;
