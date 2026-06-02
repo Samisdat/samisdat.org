@@ -3,322 +3,407 @@ import type { ThemeRegistration } from "shiki";
 export const getTextMateColorSchema = (
   mode: "dark" | "light" = "dark",
 ): ThemeRegistration => {
-  const color1 = "#0f051d";
+  // Base colors
+  const darkestBg = "#0f051d";
+  const darkBg = "#1e142e";
+  const neutralBg = "#332647";
+  const neutralBgAlpha66 = "#33264766";
+
+  // Foreground colors
+  const white = "#ff000";
+  const lightestFg = "#faefed";
+  const lightFg = "#ebdedb";
+  const lightFgAlpha14 = "#ebdedb14";
+  const lightFgAlpha1a = "#ebdedb1a";
+  const lightFgAlpha21 = "#ebdedb21";
+  const lightFgAlpha45 = "#ebdedb45";
+  const neutralFg = "#a7a1b5";
+  const neutralFgAlpha8a = "#a7a1b58a";
+  const mutedFg = "#7b728c";
+  const dimFg = "#574c6a";
+  const darkFg = "#45385b";
+
+  // Primary purple
+  const purple = "#a050e6";
+  const purpleAlpha33 = "#a050e633";
+  const purpleAlpha45 = "#a050e645";
+  const purpleAlpha54 = "#a050e654";
+  const purpleAlpha66 = "#a050e666";
+  const purpleAlphaAb = "#a050e6ab";
+  const darkPurple = "#7025aa";
+  const darkPurpleAlpha45 = "#7025aa45";
+  const darkPurpleAlphaAb = "#7025aaab";
+  const darkPurpleAlphaDe = "#7025aade";
+  const purpleBadge = "#31184899";
+
+  // Blue
+  const blue = "#4c7df7";
+  const blueAlpha1f = "#4c7df71f";
+  const blueAlpha26 = "#4c7df726";
+  const blueAlpha33 = "#4c7df733";
+  const blueAlpha40 = "#4c7df740";
+  const blueAlpha45 = "#4c7df745";
+  const blueAlpha4c = "#4c7df74c";
+  const blueAlpha54 = "#4c7df754";
+  const darkBlue = "#2247af";
+  const darkBlueAlpha5c = "#2247af5c";
+
+  // Cyan/Teal
+  const cyan = "#51cec7";
+  const cyanAlpha26 = "#51cec726";
+  const cyanAlpha40 = "#51cec740";
+  const teal = "#60ddc0";
+  const tealAlpha1f = "#60ddc01f";
+  const lightCyan = "#76efe7";
+  const darkTeal = "#00928c";
+  const darkTealAlpha45 = "#00928c45";
+  const brightCyan = "#32d8ff";
+
+  // Green
+  const green = "#00b667";
+  const greenAlpha1f = "#00b6671f";
+  const greenAlpha26 = "#00b66726";
+  const greenAlpha40 = "#00b66740";
+  const greenAlpha66 = "#00b66766";
+  const darkGreen = "#007d33";
+
+  // Yellow/Orange
+  const yellow = "#f7be2b";
+  const yellowAlpha1f = "#f7be2b1f";
+  const orange = "#ef8c24";
+  const orangeAlpha87 = "#ef8c2487";
+  const orangeAlphaB0 = "#ef8c24b0";
+  const orangeAlphaCc = "#ef8c24cc";
+  const darkOrange = "#af5600";
+
+  // Red/Pink
+  const red = "#f2396d";
+  const redAlpha21 = "#f2396d21";
+  const redAlpha40 = "#f2396d40";
+  const darkRed = "#b70045";
+  const pink = "#ee8ab2";
+  const darkPink = "#b64e7c";
+
+  // Special backgrounds
+  const darkestBgAlpha4a = "#0f051d4a";
+  const redBg = "#4d1221";
+  const orangeBg = "#4d2c0e";
+  const shadowBlack = "#00000033";
 
   const colorSchema: ThemeRegistration = {
     name: "parallax",
     displayName: "Parallax",
     type: "dark",
     colors: {
-      "activityBar.background": color1,
-      "activityBar.border": color1,
-      "activityBar.inactiveForeground": "#574c6a",
-      "activityBarBadge.background": "#a050e6",
-      "activityBarBadge.foreground": "#ffffff",
-      "activityBarTop.foreground": "#a7a1b5",
-      "activityBarTop.inactiveForeground": "#574c6a",
-      "badge.background": "#31184899",
-      "badge.foreground": "#ebdedb",
-      "breadcrumb.activeSelectionForeground": "#ebdedb",
-      "breadcrumb.background": color1,
-      "breadcrumb.foreground": "#a7a1b5",
-      "breadcrumbPicker.background": color1,
-      "button.foreground": "#ffffff",
-      "button.hoverBackground": "#a050e6ab",
-      "button.secondaryBackground": "#574c6a",
-      "charts.blue": "#4c7df7",
-      "charts.foreground": "#ebdedb",
-      "charts.green": "#00b667",
-      "charts.lines": color1,
-      "charts.purple": "#a050e6",
-      "charts.red": "#f2396d",
-      "charts.yellow": "#f7be2b",
-      "chat.avatarBackground": "#7025aa",
-      "chat.avatarForeground": "#ebdedb",
-      "chat.requestBorder": color1,
-      "chat.slashCommandBackground": color1,
-      "debugConsole.errorForeground": "#b70045",
-      "debugConsole.infoForeground": "#a7a1b5",
-      "debugConsole.sourceForeground": "#a7a1b5",
-      "debugConsole.warningForeground": "#af5600",
-      "debugConsoleInputIcon.foreground": "#60ddc0",
-      "debugExceptionWidget.background": color1,
-      "debugIcon.breakpointDisabledForeground": "#574c6a",
-      "debugIcon.breakpointForeground": "#f2396d",
-      "debugIcon.breakpointUnverifiedForeground": "#b70045",
-      "debugTokenExpression.boolean": "#ef8c24",
-      "debugTokenExpression.error": "#b70045",
-      "debugTokenExpression.name": "#51cec7",
-      "debugTokenExpression.number": "#ef8c24",
-      "debugTokenExpression.string": "#00b667",
-      "debugTokenExpression.value": "#ebdedb",
-      "debugView.stateLabelBackground": color1,
-      "debugView.valueChangedHighlight": "#7025aaab",
-      descriptionForeground: "#a7a1b5",
-      "diffEditor.diagonalFill": "#332647",
-      "diffEditor.insertedLineBackground": "#00b6671f",
-      "diffEditor.insertedTextBackground": "#00b6671f",
-      "diffEditor.removedLineBackground": "#f2396d21",
-      "diffEditor.removedTextBackground": "#f2396d21",
-      "diffEditor.unchangedCodeBackground": "#33264766",
-      "diffEditorGutter.insertedLineBackground": "#00b66726",
-      "diffEditorGutter.removedLineBackground": "#f2396d21",
-      "diffEditorOverview.insertedForeground": "#00b66726",
-      "diffEditorOverview.removedForeground": "#f2396d21",
-      disabledForeground: "#574c6a",
-      "dropdown.background": color1,
-      "dropdown.listBackground": color1,
-      "editor.findMatchBackground": "#a050e666",
-      "editor.findMatchBorder": "#f7be2b",
-      "editor.findMatchHighlightBackground": "#a050e666",
-      "editor.findRangeHighlightBackground": "#4c7df733",
-      "editor.focusedStackFrameHighlightBackground": "#60ddc01f",
-      "editor.foldBackground": "#0f051d4a",
-      "editor.foreground": "#ebdedb",
-      "editor.inactiveSelectionBackground": "#4c7df726",
-      "editor.lineHighlightBackground": "#332647",
-      "editor.rangeHighlightBackground": "#4c7df71f",
-      "editor.selectionBackground": "#4c7df74c",
-      "editor.selectionHighlightBackground": "#4c7df745",
-      "editor.stackFrameHighlightBackground": "#f7be2b1f",
-      "editor.wordHighlightBackground": "#4c7df745",
-      "editor.wordHighlightStrongBackground": "#4c7df754",
-      "editorBracketHighlight.foreground1": "#4c7df7",
-      "editorBracketHighlight.foreground2": "#51cec7",
-      "editorBracketHighlight.foreground3": "#a050e6",
-      "editorBracketHighlight.foreground4": "#60ddc0",
-      "editorBracketHighlight.foreground5": "#00b667",
-      "editorBracketHighlight.foreground6": "#ef8c24",
-      "editorBracketHighlight.unexpectedBracket.foreground": "#f2396d",
-      "editorBracketMatch.background": color1,
-      "editorBracketPairGuide.activeBackground1": "#4c7df7",
-      "editorBracketPairGuide.activeBackground2": "#51cec7",
-      "editorBracketPairGuide.activeBackground3": "#a050e6",
-      "editorBracketPairGuide.activeBackground4": "#60ddc0",
-      "editorBracketPairGuide.activeBackground5": "#00b667",
-      "editorBracketPairGuide.activeBackground6": "#ef8c24",
-      "editorCodeLens.foreground": "#7b728c",
-      "editorCursor.foreground": "#faefed",
-      "editorError.foreground": "#f2396d",
-      "editorGhostText.foreground": "#574c6a",
-      "editorGroup.border": color1,
-      "editorGroupHeader.border": color1,
-      "editorGroupHeader.noTabsBackground": color1,
-      "editorGroupHeader.tabsBackground": color1,
-      "editorGroupHeader.tabsBorder": color1,
-      "editorGutter.deletedBackground": "#b70045",
-      "editorGutter.modifiedBackground": "#2247af",
-      "editorHint.foreground": "#00928c",
-      "editorHoverWidget.background": color1,
-      "editorHoverWidget.border": color1,
-      "editorIndentGuide.background1": "#45385b",
-      "editorInfo.foreground": "#00928c",
-      "editorInlayHint.foreground": "#574c6a",
-      "editorLightBulb.foreground": "#f7be2b",
-      "editorLightBulbAutoFix.foreground": "#f7be2b",
-      "editorLineNumber.activeForeground": "#a7a1b5",
-      "editorLineNumber.foreground": "#45385b",
-      "editorLink.activeForeground": "#60ddc0",
-      "editorMarkerNavigation.background": color1,
-      "editorOverviewRuler.border": color1,
-      "editorOverviewRuler.bracketMatchForeground": color1,
-      "editorOverviewRuler.errorForeground": "#f2396d",
-      "editorOverviewRuler.findMatchForeground": "#ebdedb45",
-      "editorOverviewRuler.infoForeground": "#51cec7",
-      "editorOverviewRuler.modifiedForeground": "#2247af",
-      "editorOverviewRuler.rangeHighlightForeground": "#ebdedb45",
-      "editorOverviewRuler.selectionHighlightForeground": "#ebdedb21",
-      "editorOverviewRuler.warningForeground": "#ef8c24",
-      "editorOverviewRuler.wordHighlightForeground": "#a050e654",
-      "editorOverviewRuler.wordHighlightStrongForeground": "#a050e666",
-      "editorPane.background": "#1e142e",
-      "editorRuler.foreground": color1,
-      "editorSuggestWidget.background": color1,
-      "editorSuggestWidget.border": color1,
-      "editorSuggestWidget.selectedBackground": "#332647",
-      "editorWarning.foreground": "#ef8c24",
-      "editorWhitespace.foreground": "#45385b",
-      "editorWidget.background": color1,
-      "editorWidget.border": color1,
-      "editorWidget.resizeBorder": "#4c7df733",
-      errorForeground: "#b70045",
-      "extensionBadge.remoteBackground": "#7025aa",
-      "extensionBadge.remoteForeground": "#ffffff",
-      "extensionButton.prominentBackground": "#7025aade",
-      "extensionButton.prominentForeground": "#ffffff",
-      "extensionButton.prominentHoverBackground": "#a050e6ab",
-      focusBorder: "#4c7df733",
-      foreground: "#a7a1b5",
-      "gitDecoration.addedResourceForeground": "#00b667",
-      "gitDecoration.conflictingResourceForeground": "#ef8c24cc",
-      "gitDecoration.deletedResourceForeground": "#b70045",
-      "gitDecoration.ignoredResourceForeground": "#7b728c",
-      "gitDecoration.modifiedResourceForeground": "#4c7df7",
-      "gitDecoration.renamedResourceForeground": "#51cec7",
-      "gitDecoration.stageDeletedResourceForeground": "#b70045",
-      "gitDecoration.stageModifiedResourceForeground": "#4c7df7",
-      "gitDecoration.untrackedResourceForeground": "#00b667",
-      "gitlens.gutterBackgroundColor": "#0f051d",
-      "gitlens.gutterUncommittedForegroundColor": "#4c7df7",
-      "gitlens.trailingLineForegroundColor": "#574c6a",
-      "icon.foreground": "#a7a1b5",
-      "inlineChat.foreground": "#ebdedb",
-      "inlineChatDiff.inserted": "#00b66740",
-      "inlineChatDiff.removed": "#f2396d40",
-      "inlineChatInput.background": color1,
-      "input.background": color1,
-      "input.border": color1,
-      "input.placeholderForeground": "#a7a1b58a",
-      "inputOption.activeBackground": "#a050e645",
-      "inputOption.activeForeground": "#faefed",
-      "inputValidation.errorBackground": "#4d1221",
-      "inputValidation.errorBorder": "#b70045",
-      "inputValidation.errorForeground": "#ebdedb",
-      "inputValidation.infoBackground": "#2247af5c",
-      "inputValidation.infoBorder": "#2247af",
-      "inputValidation.infoForeground": "#ebdedb",
-      "inputValidation.warningBackground": "#4d2c0e",
-      "inputValidation.warningBorder": "#af5600",
-      "inputValidation.warningForeground": "#ffffff",
-      "list.activeSelectionBackground": "#332647",
-      "list.activeSelectionForeground": "#ebdedb",
-      "list.deemphasizedForeground": "#a7a1b5",
-      "list.dropBackground": "#332647",
-      "list.errorForeground": "#b70045",
-      "list.focusBackground": "#332647",
-      "list.focusForeground": "#ebdedb",
-      "list.highlightForeground": "#4c7df7",
-      "list.hoverBackground": color1,
-      "list.inactiveSelectionBackground": "#332647",
-      "list.inactiveSelectionForeground": "#ebdedb",
-      "list.invalidItemForeground": "#af5600",
-      "list.warningForeground": "#af5600",
-      "listFilterWidget.background": color1,
-      "listFilterWidget.outline": "#7025aa",
-      "menu.background": color1,
-      "menu.border": color1,
-      "menu.selectionBackground": "#332647",
-      "menu.selectionForeground": "#ebdedb",
-      "menu.separatorBackground": color1,
-      "menubar.selectionBorder": "#332647",
-      "menubar.selectionForeground": "#ebdedb",
-      "merge.currentContentBackground": "#00928c45",
-      "merge.currentHeaderBackground": "#51cec726",
-      "merge.incomingContentBackground": "#7025aa45",
-      "merge.incomingHeaderBackground": "#7025aaab",
-      "mergeEditor.change.background": "#51cec726",
-      "mergeEditor.change.word.background": "#51cec740",
-      "mergeEditor.conflict.handled.minimapOverViewRuler": "#00b667",
-      "mergeEditor.conflict.handledFocused.border": "#00b66766",
-      "mergeEditor.conflict.handledUnfocused.border": "#00b66726",
-      "mergeEditor.conflict.unhandled.minimapOverViewRuler": "#ef8c24",
-      "mergeEditor.conflict.unhandledFocused.border": "#ef8c24b0",
-      "mergeEditor.conflict.unhandledUnfocused.border": "#ef8c2487",
-      "minimapGutter.addedBackground": "#007d33",
-      "minimapGutter.deletedBackground": "#b70045",
-      "minimapGutter.modifiedBackground": "#2247af",
-      "multiDiffEditor.border": "#1e142e",
-      "multiDiffEditor.headerBackground": "#1e142e",
-      "notebook.cellBorderColor": color1,
-      "notebook.cellEditorBackground": color1,
-      "notebook.editorBackground": "#1e142e",
-      "notebook.focusedCellBorder": "#2247af",
-      "notificationCenterHeader.background": color1,
-      "notifications.background": color1,
-      "notificationsInfoIcon.foreground": "#00928c",
-      "notificationsWarningIcon.foreground": "#af5600",
-      "panel.background": color1,
-      "panel.border": color1,
-      "panelInput.border": color1,
-      "panelTitle.activeBorder": color1,
-      "panelTitle.inactiveForeground": "#7b728c",
-      "peekView.border": color1,
-      "peekViewEditor.background": color1,
-      "peekViewResult.background": color1,
-      "peekViewResult.lineForeground": "#ebdedb",
-      "peekViewResult.matchHighlightBackground": "#a050e666",
-      "peekViewResult.selectionBackground": "#a050e633",
-      "peekViewResult.selectionForeground": "#ebdedb",
-      "peekViewTitle.background": color1,
-      "peekViewTitleLabel.foreground": "#ebdedb",
-      "pickerGroup.border": color1,
-      "progressBar.background": "#7025aa",
-      "sash.hoverBorder": "#2247af",
-      "scmGraph.foreground1": "#ef8c24",
-      "scmGraph.foreground2": "#f7be2b",
-      "scmGraph.foreground3": "#00b667",
-      "scmGraph.foreground4": "#4c7df7",
-      "scmGraph.foreground5": "#a050e6",
-      "scmGraph.historyItemBaseRefColor": "#7025aa",
-      "scmGraph.historyItemHoverAdditionsForeground": "#00b667",
-      "scmGraph.historyItemHoverDefaultLabelForeground": "#ebdedb",
-      "scmGraph.historyItemHoverDeletionsForeground": "#f2396d",
-      "scmGraph.historyItemHoverLabelForeground": "#1e142e",
-      "scmGraph.historyItemRefColor": "#2247af",
-      "scmGraph.historyItemRemoteRefColor": "#00b667",
-      "scrollbar.shadow": "#00000033",
-      "scrollbarSlider.activeBackground": "#ebdedb21",
-      "scrollbarSlider.background": "#ebdedb14",
-      "scrollbarSlider.hoverBackground": "#ebdedb1a",
-      "selection.background": "#4c7df740",
-      "settings.headerForeground": "#4c7df7",
-      "sideBar.background": color1,
-      "sideBar.border": color1,
-      "sideBar.foreground": "#a7a1b5",
-      "sideBarSectionHeader.background": color1,
-      "sideBarSectionHeader.border": color1,
-      "sideBarTitle.foreground": "#a7a1b5",
-      "statusBar.background": color1,
-      "statusBar.border": color1,
-      "statusBar.debuggingBackground": color1,
-      "statusBar.foreground": "#a7a1b5",
-      "statusBar.noFolderBackground": color1,
-      "statusBarItem.activeBackground": color1,
-      "statusBarItem.prominentBackground": color1,
-      "tab.activeBackground": "#1e142e",
-      "tab.activeBorder": "#a050e6",
-      "tab.activeForeground": "#ebdedb",
-      "tab.activeModifiedBorder": "#1e142e",
-      "tab.border": color1,
-      "tab.inactiveBackground": color1,
-      "tab.inactiveModifiedBorder": "#332647",
-      "tab.lastPinnedBorder": "#332647",
-      "tab.unfocusedActiveBorder": "#332647",
-      "tab.unfocusedActiveForeground": "#ebdedb",
-      "tab.unfocusedHoverForeground": "#ebdedb",
-      "tab.unfocusedInactiveForeground": "#a7a1b5",
-      "terminal.ansiBlack": "#45385b",
-      "terminal.ansiBlue": "#4c7df7",
-      "terminal.ansiBrightBlack": "#574c6a",
-      "terminal.ansiBrightBlue": "#4c7df7",
-      "terminal.ansiBrightCyan": "#76efe7",
-      "terminal.ansiBrightGreen": "#00b667",
-      "terminal.ansiBrightMagenta": "#a050e6",
-      "terminal.ansiBrightRed": "#f2396d",
-      "terminal.ansiBrightWhite": "#faefed",
-      "terminal.ansiBrightYellow": "#f7be2b",
-      "terminal.ansiCyan": "#51cec7",
-      "terminal.ansiGreen": "#007d33",
-      "terminal.ansiMagenta": "#7025aa",
-      "terminal.ansiRed": "#b70045",
-      "terminal.ansiWhite": "#ebdedb",
-      "terminal.ansiYellow": "#ef8c24",
-      "terminal.background": color1,
-      "terminal.selectionBackground": "#4c7df74c",
-      "textBlockQuote.background": color1,
-      "textCodeBlock.background": color1,
-      "textLink.foreground": "#4c7df7",
-      "textPreformat.foreground": "#a7a1b5",
-      "textSeparator.foreground": "#45385b",
-      "titleBar.activeBackground": color1,
-      "titleBar.border": color1,
-      "titleBar.inactiveBackground": color1,
-      "toolbar.activeBackground": "#332647",
-      "toolbar.hoverBackground": "#332647",
-      "tree.indentGuidesStroke": "#45385b",
-      "walkThrough.embeddedEditorBackground": color1,
-      "window.activeBorder": color1,
-      "window.inactiveBorder": color1,
+      "activityBar.background": darkestBg,
+      "activityBar.border": darkestBg,
+      "activityBar.inactiveForeground": dimFg,
+      "activityBarBadge.background": purple,
+      "activityBarBadge.foreground": white,
+      "activityBarTop.foreground": neutralFg,
+      "activityBarTop.inactiveForeground": dimFg,
+      "badge.background": purpleBadge,
+      "badge.foreground": lightFg,
+      "breadcrumb.activeSelectionForeground": lightFg,
+      "breadcrumb.background": darkestBg,
+      "breadcrumb.foreground": neutralFg,
+      "breadcrumbPicker.background": darkestBg,
+      "button.foreground": white,
+      "button.hoverBackground": purpleAlphaAb,
+      "button.secondaryBackground": dimFg,
+      "charts.blue": blue,
+      "charts.foreground": lightFg,
+      "charts.green": green,
+      "charts.lines": darkestBg,
+      "charts.purple": purple,
+      "charts.red": red,
+      "charts.yellow": yellow,
+      "chat.avatarBackground": darkPurple,
+      "chat.avatarForeground": lightFg,
+      "chat.requestBorder": darkestBg,
+      "chat.slashCommandBackground": darkestBg,
+      "debugConsole.errorForeground": darkRed,
+      "debugConsole.infoForeground": neutralFg,
+      "debugConsole.sourceForeground": neutralFg,
+      "debugConsole.warningForeground": darkOrange,
+      "debugConsoleInputIcon.foreground": teal,
+      "debugExceptionWidget.background": darkestBg,
+      "debugIcon.breakpointDisabledForeground": dimFg,
+      "debugIcon.breakpointForeground": red,
+      "debugIcon.breakpointUnverifiedForeground": darkRed,
+      "debugTokenExpression.boolean": orange,
+      "debugTokenExpression.error": darkRed,
+      "debugTokenExpression.name": cyan,
+      "debugTokenExpression.number": orange,
+      "debugTokenExpression.string": green,
+      "debugTokenExpression.value": lightFg,
+      "debugView.stateLabelBackground": darkestBg,
+      "debugView.valueChangedHighlight": darkPurpleAlphaAb,
+      descriptionForeground: neutralFg,
+      "diffEditor.diagonalFill": neutralBg,
+      "diffEditor.insertedLineBackground": greenAlpha1f,
+      "diffEditor.insertedTextBackground": greenAlpha1f,
+      "diffEditor.removedLineBackground": redAlpha21,
+      "diffEditor.removedTextBackground": redAlpha21,
+      "diffEditor.unchangedCodeBackground": neutralBgAlpha66,
+      "diffEditorGutter.insertedLineBackground": greenAlpha26,
+      "diffEditorGutter.removedLineBackground": redAlpha21,
+      "diffEditorOverview.insertedForeground": greenAlpha26,
+      "diffEditorOverview.removedForeground": redAlpha21,
+      disabledForeground: dimFg,
+      "dropdown.background": darkestBg,
+      "dropdown.listBackground": darkestBg,
+      "editor.findMatchBackground": purpleAlpha66,
+      "editor.findMatchBorder": yellow,
+      "editor.findMatchHighlightBackground": purpleAlpha66,
+      "editor.findRangeHighlightBackground": blueAlpha33,
+      "editor.focusedStackFrameHighlightBackground": tealAlpha1f,
+      "editor.foldBackground": darkestBgAlpha4a,
+      "editor.foreground": lightFg,
+      "editor.inactiveSelectionBackground": blueAlpha26,
+      "editor.lineHighlightBackground": neutralBg,
+      "editor.rangeHighlightBackground": blueAlpha1f,
+      "editor.selectionBackground": blueAlpha4c,
+      "editor.selectionHighlightBackground": blueAlpha45,
+      "editor.stackFrameHighlightBackground": yellowAlpha1f,
+      "editor.wordHighlightBackground": blueAlpha45,
+      "editor.wordHighlightStrongBackground": blueAlpha54,
+      "editorBracketHighlight.foreground1": blue,
+      "editorBracketHighlight.foreground2": cyan,
+      "editorBracketHighlight.foreground3": purple,
+      "editorBracketHighlight.foreground4": teal,
+      "editorBracketHighlight.foreground5": green,
+      "editorBracketHighlight.foreground6": orange,
+      "editorBracketHighlight.unexpectedBracket.foreground": red,
+      "editorBracketMatch.background": darkestBg,
+      "editorBracketPairGuide.activeBackground1": blue,
+      "editorBracketPairGuide.activeBackground2": cyan,
+      "editorBracketPairGuide.activeBackground3": purple,
+      "editorBracketPairGuide.activeBackground4": teal,
+      "editorBracketPairGuide.activeBackground5": green,
+      "editorBracketPairGuide.activeBackground6": orange,
+      "editorCodeLens.foreground": mutedFg,
+      "editorCursor.foreground": lightestFg,
+      "editorError.foreground": red,
+      "editorGhostText.foreground": dimFg,
+      "editorGroup.border": darkestBg,
+      "editorGroupHeader.border": darkestBg,
+      "editorGroupHeader.noTabsBackground": darkestBg,
+      "editorGroupHeader.tabsBackground": darkestBg,
+      "editorGroupHeader.tabsBorder": darkestBg,
+      "editorGutter.deletedBackground": darkRed,
+      "editorGutter.modifiedBackground": darkBlue,
+      "editorHint.foreground": darkTeal,
+      "editorHoverWidget.background": darkestBg,
+      "editorHoverWidget.border": darkestBg,
+      "editorIndentGuide.background1": darkFg,
+      "editorInfo.foreground": darkTeal,
+      "editorInlayHint.foreground": dimFg,
+      "editorLightBulb.foreground": yellow,
+      "editorLightBulbAutoFix.foreground": yellow,
+      "editorLineNumber.activeForeground": neutralFg,
+      "editorLineNumber.foreground": darkFg,
+      "editorLink.activeForeground": teal,
+      "editorMarkerNavigation.background": darkestBg,
+      "editorOverviewRuler.border": darkestBg,
+      "editorOverviewRuler.bracketMatchForeground": darkestBg,
+      "editorOverviewRuler.errorForeground": red,
+      "editorOverviewRuler.findMatchForeground": lightFgAlpha45,
+      "editorOverviewRuler.infoForeground": cyan,
+      "editorOverviewRuler.modifiedForeground": darkBlue,
+      "editorOverviewRuler.rangeHighlightForeground": lightFgAlpha45,
+      "editorOverviewRuler.selectionHighlightForeground": lightFgAlpha21,
+      "editorOverviewRuler.warningForeground": orange,
+      "editorOverviewRuler.wordHighlightForeground": purpleAlpha54,
+      "editorOverviewRuler.wordHighlightStrongForeground": purpleAlpha66,
+      "editorPane.background": darkBg,
+      "editorRuler.foreground": darkestBg,
+      "editorSuggestWidget.background": darkestBg,
+      "editorSuggestWidget.border": darkestBg,
+      "editorSuggestWidget.selectedBackground": neutralBg,
+      "editorWarning.foreground": orange,
+      "editorWhitespace.foreground": darkFg,
+      "editorWidget.background": darkestBg,
+      "editorWidget.border": darkestBg,
+      "editorWidget.resizeBorder": blueAlpha33,
+      errorForeground: darkRed,
+      "extensionBadge.remoteBackground": darkPurple,
+      "extensionBadge.remoteForeground": white,
+      "extensionButton.prominentBackground": darkPurpleAlphaDe,
+      "extensionButton.prominentForeground": white,
+      "extensionButton.prominentHoverBackground": purpleAlphaAb,
+      focusBorder: blueAlpha33,
+      foreground: neutralFg,
+      "gitDecoration.addedResourceForeground": green,
+      "gitDecoration.conflictingResourceForeground": orangeAlphaCc,
+      "gitDecoration.deletedResourceForeground": darkRed,
+      "gitDecoration.ignoredResourceForeground": mutedFg,
+      "gitDecoration.modifiedResourceForeground": blue,
+      "gitDecoration.renamedResourceForeground": cyan,
+      "gitDecoration.stageDeletedResourceForeground": darkRed,
+      "gitDecoration.stageModifiedResourceForeground": blue,
+      "gitDecoration.untrackedResourceForeground": green,
+      "gitlens.gutterBackgroundColor": darkestBg,
+      "gitlens.gutterUncommittedForegroundColor": blue,
+      "gitlens.trailingLineForegroundColor": dimFg,
+      "icon.foreground": neutralFg,
+      "inlineChat.foreground": lightFg,
+      "inlineChatDiff.inserted": greenAlpha40,
+      "inlineChatDiff.removed": redAlpha40,
+      "inlineChatInput.background": darkestBg,
+      "input.background": darkestBg,
+      "input.border": darkestBg,
+      "input.placeholderForeground": neutralFgAlpha8a,
+      "inputOption.activeBackground": purpleAlpha45,
+      "inputOption.activeForeground": lightestFg,
+      "inputValidation.errorBackground": redBg,
+      "inputValidation.errorBorder": darkRed,
+      "inputValidation.errorForeground": lightFg,
+      "inputValidation.infoBackground": darkBlueAlpha5c,
+      "inputValidation.infoBorder": darkBlue,
+      "inputValidation.infoForeground": lightFg,
+      "inputValidation.warningBackground": orangeBg,
+      "inputValidation.warningBorder": darkOrange,
+      "inputValidation.warningForeground": white,
+      "list.activeSelectionBackground": neutralBg,
+      "list.activeSelectionForeground": lightFg,
+      "list.deemphasizedForeground": neutralFg,
+      "list.dropBackground": neutralBg,
+      "list.errorForeground": darkRed,
+      "list.focusBackground": neutralBg,
+      "list.focusForeground": lightFg,
+      "list.highlightForeground": blue,
+      "list.hoverBackground": darkestBg,
+      "list.inactiveSelectionBackground": neutralBg,
+      "list.inactiveSelectionForeground": lightFg,
+      "list.invalidItemForeground": darkOrange,
+      "list.warningForeground": darkOrange,
+      "listFilterWidget.background": darkestBg,
+      "listFilterWidget.outline": darkPurple,
+      "menu.background": darkestBg,
+      "menu.border": darkestBg,
+      "menu.selectionBackground": neutralBg,
+      "menu.selectionForeground": lightFg,
+      "menu.separatorBackground": darkestBg,
+      "menubar.selectionBorder": neutralBg,
+      "menubar.selectionForeground": lightFg,
+      "merge.currentContentBackground": darkTealAlpha45,
+      "merge.currentHeaderBackground": cyanAlpha26,
+      "merge.incomingContentBackground": darkPurpleAlpha45,
+      "merge.incomingHeaderBackground": darkPurpleAlphaAb,
+      "mergeEditor.change.background": cyanAlpha26,
+      "mergeEditor.change.word.background": cyanAlpha40,
+      "mergeEditor.conflict.handled.minimapOverViewRuler": green,
+      "mergeEditor.conflict.handledFocused.border": greenAlpha66,
+      "mergeEditor.conflict.handledUnfocused.border": greenAlpha26,
+      "mergeEditor.conflict.unhandled.minimapOverViewRuler": orange,
+      "mergeEditor.conflict.unhandledFocused.border": orangeAlphaB0,
+      "mergeEditor.conflict.unhandledUnfocused.border": orangeAlpha87,
+      "minimapGutter.addedBackground": darkGreen,
+      "minimapGutter.deletedBackground": darkRed,
+      "minimapGutter.modifiedBackground": darkBlue,
+      "multiDiffEditor.border": darkBg,
+      "multiDiffEditor.headerBackground": darkBg,
+      "notebook.cellBorderColor": darkestBg,
+      "notebook.cellEditorBackground": darkestBg,
+      "notebook.editorBackground": darkBg,
+      "notebook.focusedCellBorder": darkBlue,
+      "notificationCenterHeader.background": darkestBg,
+      "notifications.background": darkestBg,
+      "notificationsInfoIcon.foreground": darkTeal,
+      "notificationsWarningIcon.foreground": darkOrange,
+      "panel.background": darkestBg,
+      "panel.border": darkestBg,
+      "panelInput.border": darkestBg,
+      "panelTitle.activeBorder": darkestBg,
+      "panelTitle.inactiveForeground": mutedFg,
+      "peekView.border": darkestBg,
+      "peekViewEditor.background": darkestBg,
+      "peekViewResult.background": darkestBg,
+      "peekViewResult.lineForeground": lightFg,
+      "peekViewResult.matchHighlightBackground": purpleAlpha66,
+      "peekViewResult.selectionBackground": purpleAlpha33,
+      "peekViewResult.selectionForeground": lightFg,
+      "peekViewTitle.background": darkestBg,
+      "peekViewTitleLabel.foreground": lightFg,
+      "pickerGroup.border": darkestBg,
+      "progressBar.background": darkPurple,
+      "sash.hoverBorder": darkBlue,
+      "scmGraph.foreground1": orange,
+      "scmGraph.foreground2": yellow,
+      "scmGraph.foreground3": green,
+      "scmGraph.foreground4": blue,
+      "scmGraph.foreground5": purple,
+      "scmGraph.historyItemBaseRefColor": darkPurple,
+      "scmGraph.historyItemHoverAdditionsForeground": green,
+      "scmGraph.historyItemHoverDefaultLabelForeground": lightFg,
+      "scmGraph.historyItemHoverDeletionsForeground": red,
+      "scmGraph.historyItemHoverLabelForeground": darkBg,
+      "scmGraph.historyItemRefColor": darkBlue,
+      "scmGraph.historyItemRemoteRefColor": green,
+      "scrollbar.shadow": shadowBlack,
+      "scrollbarSlider.activeBackground": lightFgAlpha21,
+      "scrollbarSlider.background": lightFgAlpha14,
+      "scrollbarSlider.hoverBackground": lightFgAlpha1a,
+      "selection.background": blueAlpha40,
+      "settings.headerForeground": blue,
+      "sideBar.background": darkestBg,
+      "sideBar.border": darkestBg,
+      "sideBar.foreground": neutralFg,
+      "sideBarSectionHeader.background": darkestBg,
+      "sideBarSectionHeader.border": darkestBg,
+      "sideBarTitle.foreground": neutralFg,
+      "statusBar.background": darkestBg,
+      "statusBar.border": darkestBg,
+      "statusBar.debuggingBackground": darkestBg,
+      "statusBar.foreground": neutralFg,
+      "statusBar.noFolderBackground": darkestBg,
+      "statusBarItem.activeBackground": darkestBg,
+      "statusBarItem.prominentBackground": darkestBg,
+      "tab.activeBackground": darkBg,
+      "tab.activeBorder": purple,
+      "tab.activeForeground": lightFg,
+      "tab.activeModifiedBorder": darkBg,
+      "tab.border": darkestBg,
+      "tab.inactiveBackground": darkestBg,
+      "tab.inactiveModifiedBorder": neutralBg,
+      "tab.lastPinnedBorder": neutralBg,
+      "tab.unfocusedActiveBorder": neutralBg,
+      "tab.unfocusedActiveForeground": lightFg,
+      "tab.unfocusedHoverForeground": lightFg,
+      "tab.unfocusedInactiveForeground": neutralFg,
+      "terminal.ansiBlack": darkFg,
+      "terminal.ansiBlue": blue,
+      "terminal.ansiBrightBlack": dimFg,
+      "terminal.ansiBrightBlue": blue,
+      "terminal.ansiBrightCyan": lightCyan,
+      "terminal.ansiBrightGreen": green,
+      "terminal.ansiBrightMagenta": purple,
+      "terminal.ansiBrightRed": red,
+      "terminal.ansiBrightWhite": lightestFg,
+      "terminal.ansiBrightYellow": yellow,
+      "terminal.ansiCyan": cyan,
+      "terminal.ansiGreen": darkGreen,
+      "terminal.ansiMagenta": darkPurple,
+      "terminal.ansiRed": darkRed,
+      "terminal.ansiWhite": lightFg,
+      "terminal.ansiYellow": orange,
+      "terminal.background": darkestBg,
+      "terminal.selectionBackground": blueAlpha4c,
+      "textBlockQuote.background": darkestBg,
+      "textCodeBlock.background": darkestBg,
+      "textLink.foreground": blue,
+      "textPreformat.foreground": neutralFg,
+      "textSeparator.foreground": darkFg,
+      "titleBar.activeBackground": darkestBg,
+      "titleBar.border": darkestBg,
+      "titleBar.inactiveBackground": darkestBg,
+      "toolbar.activeBackground": neutralBg,
+      "toolbar.hoverBackground": neutralBg,
+      "tree.indentGuidesStroke": darkFg,
+      "walkThrough.embeddedEditorBackground": darkestBg,
+      "window.activeBorder": darkestBg,
+      "window.inactiveBorder": darkestBg,
     },
     tokenColors: [
       {
@@ -362,7 +447,7 @@ export const getTextMateColorSchema = (
           "string.quoted.docstring.multi.python constant.character.escape",
         ],
         settings: {
-          foreground: "#7b728c",
+          foreground: mutedFg,
         },
       },
       {
@@ -382,7 +467,7 @@ export const getTextMateColorSchema = (
           "log.date",
         ],
         settings: {
-          foreground: "#574c6a",
+          foreground: dimFg,
         },
       },
       {
@@ -393,7 +478,7 @@ export const getTextMateColorSchema = (
           "comment.block.documentation entity.name.type.instance",
         ],
         settings: {
-          foreground: "#a7a1b5",
+          foreground: neutralFg,
         },
       },
       {
@@ -406,7 +491,7 @@ export const getTextMateColorSchema = (
           "constant.other.caps",
         ],
         settings: {
-          foreground: "#ef8c24",
+          foreground: orange,
         },
       },
       {
@@ -419,7 +504,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "",
-          foreground: "#00b667",
+          foreground: green,
         },
       },
       {
@@ -428,31 +513,31 @@ export const getTextMateColorSchema = (
           "constant.other.color.rgb-value.hex punctuation.definition.constant",
         ],
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: ["invalid", "invalid.illegal"],
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: "invalid.deprecated",
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "storage.type",
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: ["meta.var.expr storage.type", "storage.modifier"],
         settings: {
-          foreground: "#7025aa",
+          foreground: darkPurple,
         },
       },
       {
@@ -464,7 +549,7 @@ export const getTextMateColorSchema = (
           "punctuation.section.tag.twig",
         ],
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
@@ -478,14 +563,14 @@ export const getTextMateColorSchema = (
           "meta.tag.blade keyword.other.type.php",
         ],
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
         scope: ["keyword.operator.spread", "keyword.operator.rest"],
         settings: {
           fontStyle: "bold",
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
@@ -518,7 +603,7 @@ export const getTextMateColorSchema = (
           "meta.embedded.inline.phpx punctuation.definition.tag.end.html",
         ],
         settings: {
-          foreground: "#32d8ff",
+          foreground: brightCyan,
         },
       },
       {
@@ -531,19 +616,19 @@ export const getTextMateColorSchema = (
           "meta.import keyword.other",
         ],
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
         scope: ["keyword", "keyword.control", "keyword.other.important"],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "keyword.other.DML",
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
@@ -557,13 +642,13 @@ export const getTextMateColorSchema = (
           "keyword.operator.or.regexp",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "entity.name.tag",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
@@ -574,7 +659,7 @@ export const getTextMateColorSchema = (
           "meta.tag",
         ],
         settings: {
-          foreground: "#ee8ab2",
+          foreground: pink,
         },
       },
       {
@@ -583,7 +668,7 @@ export const getTextMateColorSchema = (
           "text.html.php meta.embedded.block.html meta.tag.metadata.script.end.html punctuation.definition.tag.begin.html text.html.basic",
         ],
         settings: {
-          foreground: "#b64e7c",
+          foreground: darkPink,
         },
       },
       {
@@ -596,7 +681,7 @@ export const getTextMateColorSchema = (
           "constant.other",
         ],
         settings: {
-          foreground: "#f7be2b",
+          foreground: yellow,
         },
       },
       {
@@ -611,13 +696,13 @@ export const getTextMateColorSchema = (
           "meta.embedded.inline.phpx constant.other.php",
         ],
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "meta.array.literal variable",
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
@@ -632,7 +717,7 @@ export const getTextMateColorSchema = (
           "meta.block entity.name.label",
         ],
         settings: {
-          foreground: "#60ddc0",
+          foreground: teal,
         },
       },
       {
@@ -643,32 +728,32 @@ export const getTextMateColorSchema = (
           "meta.function-call variable.other.object.property",
         ],
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
         scope: "variable.other.object.property",
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope:
           "meta.objectliteral meta.object.member meta.objectliteral meta.object.member meta.objectliteral meta.object.member meta.object-literal.key",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
         scope: "source.cpp meta.block variable.other",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: "support.other.variable",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
@@ -680,7 +765,7 @@ export const getTextMateColorSchema = (
           "storage.type.cs",
         ],
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
@@ -694,7 +779,7 @@ export const getTextMateColorSchema = (
           "meta.object-literal entity.name.function",
         ],
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
@@ -705,7 +790,7 @@ export const getTextMateColorSchema = (
           "meta.function.parameter variable",
         ],
         settings: {
-          foreground: "#f7be2b",
+          foreground: yellow,
         },
       },
       {
@@ -717,7 +802,7 @@ export const getTextMateColorSchema = (
           "keyword.other.unit",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
@@ -729,14 +814,14 @@ export const getTextMateColorSchema = (
           "variable.other.declaration",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "entity.other.inherited-class",
         settings: {
           fontStyle: "",
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
@@ -757,19 +842,19 @@ export const getTextMateColorSchema = (
           "variable.other.constant.object",
         ],
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
         scope: "entity.name",
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "support.function",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
@@ -785,13 +870,13 @@ export const getTextMateColorSchema = (
           "support.type.map.key",
         ],
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
         scope: ["support.constant.font-name", "meta.definition.variable"],
         settings: {
-          foreground: "#00b667",
+          foreground: green,
         },
       },
       {
@@ -800,19 +885,19 @@ export const getTextMateColorSchema = (
           "meta.at-rule.mixin.scss entity.name.function.scss",
         ],
         settings: {
-          foreground: "#00b667",
+          foreground: green,
         },
       },
       {
         scope: "entity.other.attribute-name.id",
         settings: {
-          foreground: "#ee8ab2",
+          foreground: pink,
         },
       },
       {
         scope: "entity.name.tag.css",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
@@ -823,13 +908,13 @@ export const getTextMateColorSchema = (
           "entity.name.tag.reference",
         ],
         settings: {
-          foreground: "#f7be2b",
+          foreground: yellow,
         },
       },
       {
         scope: "meta.property-list",
         settings: {
-          foreground: "#faefed",
+          foreground: lightestFg,
         },
       },
       {
@@ -839,7 +924,7 @@ export const getTextMateColorSchema = (
           "meta.property-list meta.at-rule.else",
         ],
         settings: {
-          foreground: "#ef8c24",
+          foreground: orange,
         },
       },
       {
@@ -847,13 +932,13 @@ export const getTextMateColorSchema = (
           "entity.other.attribute-name.parent-selector-suffix punctuation.definition.entity.css",
         ],
         settings: {
-          foreground: "#60ddc0",
+          foreground: teal,
         },
       },
       {
         scope: "meta.property-list meta.property-list",
         settings: {
-          foreground: "#faefed",
+          foreground: lightestFg,
         },
       },
       {
@@ -863,7 +948,7 @@ export const getTextMateColorSchema = (
           "meta.at-rule.include keyword.control.at-rule.include",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
@@ -880,19 +965,19 @@ export const getTextMateColorSchema = (
           "keyword.control punctuation.definition.keyword",
         ],
         settings: {
-          foreground: "#7025aa",
+          foreground: darkPurple,
         },
       },
       {
         scope: "meta.property-list meta.at-rule.include",
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "support.constant.property-value",
         settings: {
-          foreground: "#ef8c24",
+          foreground: orange,
         },
       },
       {
@@ -902,19 +987,19 @@ export const getTextMateColorSchema = (
           "variable.other.class.js",
         ],
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "variable.language",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: "variable.other punctuation.definition.variable",
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
@@ -924,7 +1009,7 @@ export const getTextMateColorSchema = (
           "keyword.other.this",
         ],
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
@@ -934,13 +1019,13 @@ export const getTextMateColorSchema = (
           "text.html.basic entity.other.attribute-name",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "text.html constant.character.entity",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
@@ -949,13 +1034,13 @@ export const getTextMateColorSchema = (
           "meta.directive.vue entity.other.attribute-name.html",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "source.sass keyword.control",
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
@@ -966,43 +1051,43 @@ export const getTextMateColorSchema = (
           "meta.property-list meta.property-value",
         ],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "markup.inserted",
         settings: {
-          foreground: "#00b667",
+          foreground: green,
         },
       },
       {
         scope: "markup.deleted",
         settings: {
-          foreground: "#b70045",
+          foreground: darkRed,
         },
       },
       {
         scope: "markup.changed",
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
         scope: "string.regexp",
         settings: {
-          foreground: "#76efe7",
+          foreground: lightCyan,
         },
       },
       {
         scope: "punctuation.definition.group",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: ["constant.other.character-class.regexp"],
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
@@ -1011,25 +1096,25 @@ export const getTextMateColorSchema = (
           "punctuation.definition.character-class.regexp",
         ],
         settings: {
-          foreground: "#f7be2b",
+          foreground: yellow,
         },
       },
       {
         scope: "keyword.operator.quantifier.regexp",
         settings: {
-          foreground: "#32d8ff",
+          foreground: brightCyan,
         },
       },
       {
         scope: "constant.character.escape.backslash",
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "constant.character.escape",
         settings: {
-          foreground: "#32d8ff",
+          foreground: brightCyan,
         },
       },
       {
@@ -1038,26 +1123,26 @@ export const getTextMateColorSchema = (
           "tag.decorator.js punctuation.definition.tag.js",
         ],
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
         scope: "keyword.other.unit",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: "text.html.markdown markup.inline.raw.markdown",
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope:
           "text.html.markdown markup.inline.raw.markdown punctuation.definition.raw.markdown",
         settings: {
-          foreground: "#574c6a",
+          foreground: dimFg,
         },
       },
       {
@@ -1067,7 +1152,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#32d8ff",
+          foreground: brightCyan,
         },
       },
       {
@@ -1077,7 +1162,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
@@ -1087,7 +1172,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
@@ -1097,7 +1182,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#2247af",
+          foreground: darkBlue,
         },
       },
       {
@@ -1107,7 +1192,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
@@ -1117,21 +1202,21 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold",
-          foreground: "#a7a1b5",
+          foreground: neutralFg,
         },
       },
       {
         scope: ["markup.italic", "markup.italic punctuation"],
         settings: {
           fontStyle: "italic",
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: ["markup.bold", "markup.bold punctuation"],
         settings: {
           fontStyle: "bold",
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
@@ -1141,7 +1226,7 @@ export const getTextMateColorSchema = (
         ],
         settings: {
           fontStyle: "bold italic",
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
@@ -1153,7 +1238,7 @@ export const getTextMateColorSchema = (
       {
         scope: "markup.quote punctuation.definition.blockquote.markdown",
         settings: {
-          foreground: "#574c6a",
+          foreground: dimFg,
         },
       },
       {
@@ -1170,7 +1255,7 @@ export const getTextMateColorSchema = (
           "string.other.link.description.title.markdown",
         ],
         settings: {
-          foreground: "#60ddc0",
+          foreground: teal,
         },
       },
       {
@@ -1180,83 +1265,83 @@ export const getTextMateColorSchema = (
           "variable.language.fenced.markdown",
         ],
         settings: {
-          foreground: "#32d8ff",
+          foreground: brightCyan,
         },
       },
       {
         scope: "meta.separator",
         settings: {
           fontStyle: "bold",
-          foreground: "#7b728c",
+          foreground: mutedFg,
         },
       },
       {
         scope: "markup.table",
         settings: {
-          foreground: "#faefed",
+          foreground: lightestFg,
         },
       },
       {
         scope:
           "source.json meta.structure.dictionary.json support.type.property-name.json",
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
         scope:
           "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
         scope:
           "source.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json meta.structure.dictionary.value.json meta.structure.dictionary.json support.type.property-name.json",
         settings: {
-          foreground: "#51cec7",
+          foreground: cyan,
         },
       },
       {
         scope: "token.info-token",
         settings: {
-          foreground: "#00928c",
+          foreground: darkTeal,
         },
       },
       {
         scope: "token.warn-token",
         settings: {
-          foreground: "#f7be2b",
+          foreground: yellow,
         },
       },
       {
         scope: "token.error-token",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: "token.debug-token",
         settings: {
-          foreground: "#a050e6",
+          foreground: purple,
         },
       },
       {
         scope: "entity.tag.apacheconf",
         settings: {
-          foreground: "#f2396d",
+          foreground: red,
         },
       },
       {
         scope: ["meta.preprocessor"],
         settings: {
-          foreground: "#60ddc0",
+          foreground: teal,
         },
       },
       {
         scope: "source.env",
         settings: {
-          foreground: "#4c7df7",
+          foreground: blue,
         },
       },
       {
@@ -1280,13 +1365,13 @@ export const getTextMateColorSchema = (
           "punctuation.section",
         ],
         settings: {
-          foreground: "#faefed",
+          foreground: lightestFg,
         },
       },
       {
         scope: ["meta.embedded.block"],
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
@@ -1297,13 +1382,13 @@ export const getTextMateColorSchema = (
           "text.log",
         ],
         settings: {
-          foreground: "#ebdedb",
+          foreground: lightFg,
         },
       },
       {
         scope: "punctuation.definition.list_item.markdown",
         settings: {
-          foreground: "#faefed",
+          foreground: lightestFg,
         },
       },
     ],
