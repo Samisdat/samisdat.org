@@ -1,5 +1,8 @@
 import { css } from "@linaria/core";
 import "normalize.css";
+import { color } from "./tokens/color";
+
+console.log(color.aubergine);
 
 export const globalStyles = css`
   :global() {
@@ -10,7 +13,7 @@ export const globalStyles = css`
 
       /* base */
 
-      --color-aubergine: oklch(22% 0.05 var(--hue-aubergine));
+      --color-aubergine: ${color.aubergine};
       --color-ivory: oklch(84.97% 0.037 var(--hue-ivory));
 
       /* aubergine range */
@@ -139,6 +142,9 @@ export const globalStyles = css`
     figure {
       display: block;
       margin: 0;
+    }
+    figure pre {
+      padding: 1rem;
     }
 
     html {
