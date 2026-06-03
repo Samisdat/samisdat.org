@@ -1,5 +1,5 @@
+import { getColorHexMap } from "@samisdat/ui-components/tokens/colorToHex";
 import type { ThemeRegistration } from "shiki";
-import { getColorHexMap } from "../tokens/colorToHex";
 
 export const getTextMateColorSchema = (
   mode: "dark" | "light" = "dark",
