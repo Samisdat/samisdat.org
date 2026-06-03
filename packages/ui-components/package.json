@@ -12,6 +12,14 @@
     "./globalStyle": {
       "types": "./src/globalstyle.ts",
       "import": "./src/globalstyle.ts"
+    },
+    "./utils/getTextMateColorSchema": {
+      "types": "./src/utils/getTextMateColorSchema/index.ts",
+      "import": "./src/utils/getTextMateColorSchema/index.ts"
+    },
+    "./tokens/colorToHex": {
+      "types": "./src/tokens/colorToHex.ts",
+      "import": "./src/tokens/colorToHex.ts"
     }
   },
   "scripts": {},

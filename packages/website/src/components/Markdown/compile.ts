@@ -13,12 +13,16 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 
+import { getTextMateColorSchema } from '@samisdat/ui-components/utils/getTextMateColorSchema';
+
 import { Frontmatter } from './Frontmatter';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
+const theme = getTextMateColorSchema('dark');
+
+console.log(theme);
+
 const shikiOptions = {
-    /*theme: 'tokyo-night',*/
-    theme: JSON.parse(readFileSync(join(__dirname, 'samisdat-color-theme.json'), 'utf-8')),
+    theme,
 };
 
 interface ParseMarkdownResult {
