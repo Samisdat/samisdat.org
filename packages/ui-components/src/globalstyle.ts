@@ -100,43 +100,21 @@ export const globalStyles = css`
       --foreground-color: var(--color-ivory);
     }
 
-    /*
-        :root[data-theme='light'] {
+    :root[data-theme="light"] {
+      color-scheme: light;
 
-            
-            color-scheme: light;
+      --background-color: var(--color-ivory);
+      --foreground-color: var(--color-aubergine);
+    }
 
-            background-color: color-mix(
-                in oklab,
-                var(--color-aubergine) calc((1 - var(--mix)) * 100%),
-                var(--color-soft-ivory) calc(var(--mix) * 100%)
-            );
-            --foreground-color: color-mix(
-                in oklab,
-                var(--color-warm-ivory) calc((1 - var(--mix)) * 100%),
-                var(--color-deep-aubergine) calc(var(--mix) * 100%)
-            );
-          
-        }
+    @media (prefers-color-scheme: light) {
+      :root:not([data-theme]) {
+        color-scheme: light;
 
-        @media (prefers-color-scheme: light) {
-            :root:not([data-theme]) {
-                color-scheme: light;
-
-                --background-color: color-mix(
-                    in oklab,
-                    var(--color-aubergine) calc((1 - var(--mix)) * 100%),
-                    var(--color-soft-ivory) calc(var(--mix) * 100%)
-                );
-
-                --foreground-color: color-mix(
-                    in oklab,
-                    var(--color-warm-ivory) calc((1 - var(--mix)) * 100%),
-                    var(--color-deep-aubergine) calc(var(--mix) * 100%)
-                );
-            }
-        }
-         */
+        --background-color: var(--color-ivory);
+        --foreground-color: var(--color-aubergine);
+      }
+    }
 
     /** Pick a css reset */
     figure {
@@ -174,16 +152,19 @@ export const globalStyles = css`
     div.color {
       width: 100px;
       height: 100px;
-      border: 1px solid red;
+      border: 10px solid red;
     }
 
-    div.background-color {
+    div.aubergine.color {
+      background-color: var(--color-aubergine);
+    }
+    div.ivory.color {
+      background-color: var(--color-ivory);
+    }
+    div.background.color {
       background-color: var(--background-color);
     }
-    div.foreground-color {
-      background-color: var(--foreground-color);
-    }
-    div.foreground-color {
+    div.foreground.color {
       background-color: var(--foreground-color);
     }
     div.red {
