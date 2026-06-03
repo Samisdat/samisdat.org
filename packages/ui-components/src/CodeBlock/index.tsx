@@ -1,5 +1,5 @@
 import { useShikiHighlighter } from "react-shiki";
-import { getTextMateColorSchema } from "../utils/getZexzMateColorSchema";
+import { getTextMateColorSchema } from "../utils/getTextMateColorSchema";
 
 export const CodeBlock = ({
   code,

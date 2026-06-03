@@ -173,6 +173,9 @@ importers:
       '@wyw-in-js/babel-preset':
         specifier: ^0.8.0
         version: 0.8.1(typescript@5.9.3)
+      culori:
+        specifier: ^4.0.2
+        version: 4.0.2
       fs-extra:
         specifier: ^11.3.2
         version: 11.3.5
@@ -4276,6 +4279,11 @@ packages:
   /csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
     dev: true
+
+  /culori@4.0.2:
+    resolution: {integrity: sha512-1+BhOB8ahCn4O0cep0Sh2l9KCOfOdY+BXJnKMHFFzDEouSr/el18QwXEMRlOj9UY5nCeA8UN3a/82rUWRBeyBw==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
 
   /d@1.0.2:
     resolution: {integrity: sha512-MOqHvMWF9/9MX6nza0KgvFH4HpMU0EF5uUDXqX/BtxtU8NfB0QzRtJ8Oe/6SuS4kbhyzVJwjd97EA4PKrzJ8bw==}

@@ -1,4 +1,4 @@
-import { getColorHexMap } from "@samisdat/ui-components/tokens/colorToHex";
+import { getColorHexMap } from "../../tokens/colorToHex";
 import type { ThemeRegistration } from "shiki";
 
 export const getTextMateColorSchema = (
