@@ -1,6 +1,6 @@
 import { css } from "@linaria/core";
 import "normalize.css";
-import { color } from "./tokens/color";
+import { color } from "../tokens/color";
 
 console.log(color.aubergine);
 

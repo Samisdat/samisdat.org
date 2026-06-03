@@ -9,9 +9,13 @@
       "types": "./src/*/index.tsx",
       "import": "./src/*/index.tsx"
     },
+    "./style/globalStyle": {
+      "types": "./src/style/globalstyle.ts",
+      "import": "./src/style/globalstyle.ts"
+    },
     "./globalStyle": {
-      "types": "./src/globalstyle.ts",
-      "import": "./src/globalstyle.ts"
+      "types": "./src/style/globalstyle.ts",
+      "import": "./src/style/globalstyle.ts"
     },
     "./utils/getTextMateColorSchema": {
       "types": "./src/utils/getTextMateColorSchema/index.ts",

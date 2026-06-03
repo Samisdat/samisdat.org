@@ -2,7 +2,7 @@ import type { Preview, Decorator } from "@storybook/react";
 import { withThemeByDataAttribute } from "@storybook/addon-themes";
 import { themes } from "storybook/theming";
 import { useEffect } from "react";
-import "@samisdat/ui-components/globalStyle";
+import "@samisdat/ui-components/style/globalStyle";
 
 import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/source-sans-3";
@@ -14,7 +14,7 @@ const withDocsTheme: Decorator = (Story, context) => {
   useEffect(() => {
     const theme = context.globals.theme;
     const docsTheme = theme === "light" ? themes.light : themes.dark;
-    
+
     // Update docs container background and text color
     if (typeof document !== "undefined") {
       const sbDocsContainer = document.querySelector(".sbdocs");
