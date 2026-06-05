@@ -1,5 +1,5 @@
 import { formatHex, parse } from "culori";
-import { color } from "./color";
+import { primitiveColors } from "./color/primitives";
 
 /**
  * Converts a color token from OKLCH to Hex format
@@ -30,7 +30,7 @@ function colorTokenToHex(colorValue: string): string {
 export function getColorHexMap(): Record<string, string> {
   const hexMap: Record<string, string> = {};
 
-  for (const [key, value] of Object.entries(color)) {
+  for (const [key, value] of Object.entries(primitiveColors)) {
     hexMap[key] = colorTokenToHex(value);
   }
 

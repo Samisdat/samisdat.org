@@ -1,64 +1,20 @@
 import { css } from "@linaria/core";
 import "normalize.css";
-import { color } from "../tokens/color";
+import { colorProperties } from "./colorProperties";
+import { colorClassNames } from "./colorClassNames";
+import { colorVars } from "./colorVars";
 
-console.log(color.aubergine);
+console.log(colorProperties);
+console.log(colorClassNames);
 
 export const globalStyles = css`
   :global() {
+    ${colorProperties}
     :root {
-      /* base */
-      --hue-aubergine: 300;
-      --hue-ivory: 30;
-
-      /* base */
-
-      --color-aubergine: ${color.aubergine};
-      --color-ivory: oklch(84.97% 0.037 var(--hue-ivory));
-
-      /* aubergine range */
-
-      --color-aubergine-deep: oklch(
-        from var(--color-aubergine) calc(l - 0.07) c h
-      );
-      --color-aubergine-soft: oklch(
-        from var(--color-aubergine) calc(l + 0.08) calc(c * 1.2) h
-      );
-      --color-aubergine-soft-2: oklch(
-        from var(--color-aubergine) calc(l + 0.15) calc(c * 1.2) h
-      );
-      --color-aubergine-border: oklch(
-        from var(--color-aubergine) calc(l + 0.22) calc(c * 1) h
-      );
-      --color-aubergine-muted: oklch(
-        from var(--color-aubergine) calc(l + 0.35) calc(c * 0.8) h
-      );
-      --color-aubergine-faded: oklch(
-        from var(--color-aubergine) calc(l + 0.5) calc(c * 0.6) h
-      );
-
-      /* ivory Scale */
-
-      --color-ivory-soft: oklch(from var(--color-ivory) calc(l + 0.11) c h);
-      --color-ivory-deep: oklch(
-        from var(--color-ivory) calc(l - 0.55) calc(c * 2) h
-      );
-
+      ${colorVars}
       /* legacy, rm after refactoring*/
       --color-soft-ivory: var(--color-ivory-soft);
       --color-deep-aubergine: var(--color-aubergine-deep);
-
-      /* accents  */
-      --color-red: oklch(64% 0.22 10);
-      --color-orange: oklch(73% 0.16 60);
-      --color-yellow: oklch(83% 0.16 85);
-      --color-green: oklch(68% 0.17 155);
-      --color-teal: oklch(78% 0.11 190);
-      --color-blue: oklch(62% 0.19 265);
-      --color-purple: oklch(60% 0.22 305);
-      --color-pink: oklch(75% 0.13 355);
-
-      /* /base */
 
       color-scheme: dark;
 
@@ -152,51 +108,16 @@ export const globalStyles = css`
     div.color {
       width: 100px;
       height: 100px;
-      border: 10px solid red;
+      margin: 1rem;
     }
 
-    div.aubergine.color {
-      background-color: var(--color-aubergine);
-    }
-    div.ivory.color {
-      background-color: var(--color-ivory);
-    }
     div.background.color {
       background-color: var(--background-color);
     }
     div.foreground.color {
       background-color: var(--foreground-color);
     }
-    div.red {
-      background-color: var(--color-red);
-    }
 
-    div.orange {
-      background-color: var(--color-orange);
-    }
-
-    div.yellow {
-      background-color: var(--color-yellow);
-    }
-
-    div.green {
-      background-color: var(--color-green);
-    }
-
-    div.teal {
-      background-color: var(--color-teal);
-    }
-
-    div.blue {
-      background-color: var(--color-blue);
-    }
-
-    div.purple {
-      background-color: var(--color-purple);
-    }
-
-    div.pink {
-      background-color: var(--color-pink);
-    }
+    ${colorClassNames}
   }
 `;

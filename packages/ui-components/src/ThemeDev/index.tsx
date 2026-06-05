@@ -1,5 +1,6 @@
 import { styled } from "@linaria/react";
 import { FC, HTMLAttributes } from "react";
+import { color } from "../tokens/color/derived";
 
 const ThemeDevStyling = styled.div`
   width: min(100% - 2rem, 1024px);
@@ -8,10 +9,13 @@ const ThemeDevStyling = styled.div`
 
 export const ThemeDev: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => (
   <ThemeDevStyling>
-    <div class="color aubergine"></div>
-    <div class="color ivory"></div>
-    <div class="color background"></div>
-    <div class="color foreground"></div>
+    {Object.keys(color).map((mappedColor) => (
+      <div key={mappedColor} className={`color ${mappedColor}`}>
+        {mappedColor}
+      </div>
+    ))}
+    <div className="color background">background</div>
+    <div className="color foreground">foreground</div>
     {children}
   </ThemeDevStyling>
 );
