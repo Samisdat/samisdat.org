@@ -1,10 +1,9 @@
-import { color } from "../tokens/color/derived";
+import { themedColors } from "../tokens/themes";
 
-// Generate CSS class rules for color display
-export const colorClassNames = Object.entries(color)
-  .map(([name, value]) => {
+export const colorClassNames = themedColors
+  .map((name) => {
     return `div.color.${name} {
-  background-color: ${value};
+  background-color: var(--color-${name});
 }`;
   })
   .join("\n");
