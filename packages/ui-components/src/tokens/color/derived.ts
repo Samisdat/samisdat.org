@@ -21,27 +21,28 @@ export const color = {
   "teal-on-dark": "var(--primitive-teal)",
   "blue-on-dark": "var(--primitive-blue)",
   "purple-on-dark": "var(--primitive-purple)",
-  "pink-on-dark": "var(--primitive-pink)",
+  "pink-on-dark":
+    "oklch(from var(--primitive-pink) l calc(c * 1.4) calc(h - 15))",
   "cyan-on-dark": "var(--primitive-cyan)",
 
   "red-on-light":
-    "oklch(from var(--primitive-red)    calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-red)    calc(l - 0.12) calc(c * 1.6) calc(h - 8))",
   "orange-on-light":
-    "oklch(from var(--primitive-orange) calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-orange) calc(l - 0.15) calc(c * 1.4) calc(h - 5))",
   "yellow-on-light":
-    "oklch(from var(--primitive-yellow) calc(l - 0.30) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-yellow) calc(l - 0.10) calc(c * 1.8) h)",
   "green-on-light":
-    "oklch(from var(--primitive-green)  calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-green)  calc(l - 0.15) calc(c * 1.5) h)",
   "teal-on-light":
-    "oklch(from var(--primitive-teal)   calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-teal)   calc(l - 0.15) calc(c * 1.4) calc(h - 10))",
   "blue-on-light":
-    "oklch(from var(--primitive-blue)   calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-blue)   calc(l - 0.15) calc(c * 1.5) calc(h + 10))",
   "purple-on-light":
-    "oklch(from var(--primitive-purple) calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-purple) calc(l - 0.15) calc(c * 1.5) h)",
   "pink-on-light":
-    "oklch(from var(--primitive-pink)   calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-pink)   calc(l - 0.08) calc(c * 1.5) h)",
   "cyan-on-light":
-    "oklch(from var(--primitive-cyan)   calc(l - 0.25) calc(c * 1.1) h)",
+    "oklch(from var(--primitive-cyan)   calc(l - 0.15) calc(c * 1.4) calc(h - 10))",
 } as const;
 
 export type ColorToken = typeof color;

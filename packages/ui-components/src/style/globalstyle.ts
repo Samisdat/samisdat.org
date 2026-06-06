@@ -50,8 +50,8 @@ export const globalStyles = css`
 
     html {
       font-size: 20px;
-      background-color: var(--color-bg);
-      color: var(--color-fg);
+      background-color: var(--color-background);
+      color: var(--color-foreground);
       font-family: var(--font-sans);
       transition:
         background-color 100ms ease,
@@ -60,7 +60,7 @@ export const globalStyles = css`
 
     .hill-before-green-tower,
     .hill4100 {
-      fill: var(--color-bg);
+      fill: var(--color-background);
       transition: fill 100ms ease;
     }
     .storybook-wrapper {
@@ -78,11 +78,11 @@ export const globalStyles = css`
       margin: 1rem;
     }
 
-    div.color.bg {
-      background-color: var(--color-bg);
+    div.color.background {
+      background-color: var(--color-background);
     }
-    div.color.fg {
-      background-color: var(--color-fg);
+    div.color.foreground {
+      background-color: var(--color-foreground);
     }
 
     ${colorClassNames}

@@ -14,6 +14,5 @@ export const ThemeDev: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => (
         {mappedColor}
       </div>
     ))}
-    {children}
   </ThemeDevStyling>
 );

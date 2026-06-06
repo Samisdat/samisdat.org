@@ -10,7 +10,7 @@ export const primitiveColors = {
   teal: "oklch(78% 0.11 190)",
   blue: "oklch(62% 0.19 265)",
   purple: "oklch(60% 0.22 305)",
-  pink: "oklch(75% 0.13 355)",
+  pink: "oklch(72% 0.20 345)",
   cyan: "oklch(65% 0.15 200)",
 };
 
