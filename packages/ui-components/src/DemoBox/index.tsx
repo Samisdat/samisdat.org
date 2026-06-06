@@ -11,6 +11,24 @@ const demoBoxColors = {
   yellow: {
     background: "var(--color-yellow)",
   },
+  orange: {
+    background: "var(--color-orange)",
+  },
+  green: {
+    background: "var(--color-green)",
+  },
+  teal: {
+    background: "var(--color-teal)",
+  },
+  purple: {
+    background: "var(--primitive-purple)",
+  },
+  pink: {
+    background: "var(--color-pink)",
+  },
+  cyan: {
+    background: "var(--color-cyan)",
+  },
 };
 
 type DemoBoxColors = keyof typeof demoBoxColors;
