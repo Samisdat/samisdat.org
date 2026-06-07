@@ -15,7 +15,15 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
-        border: 1px solid lab(from var(--background-color) calc(l + 30) a b);
+
+ border: 1px solid var(--color-background-muted);
+  background-color: var(--color-background-secondary);
+
+        &:hover {
+            border-color: var(--color-foreground-subtle);
+        }
+    }
+ 
     }
     & .parallax {
         transition: transform 10ms ease;
@@ -24,16 +32,16 @@ const Styling = styled.div`
     }
 
     & rect {
-        fill: lab(from var(--background-color) calc(l + 10) a b);
+        fill: var(--color-background-secondary); 
     }
     & circle.red {
-        fill: lab(56.32% 68.31 23.33);
+        fill: var(--color-red); 
     }
     & circle.blue {
-        fill: lab(55.29% 14.38 -64.44);
+        fill: var(--color-blue); 
     }
     & circle.yellow {
-        fill: lab(70.04% 23.01 74.24);
+        fill: var(--color-yellow); 
     }
 `;
 
