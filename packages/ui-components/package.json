@@ -24,6 +24,14 @@
     "./tokens/colorToHex": {
       "types": "./src/tokens/colorToHex.ts",
       "import": "./src/tokens/colorToHex.ts"
+    },
+    "./tokens/themes": {
+      "types": "./src/tokens/themes.ts",
+      "import": "./src/tokens/themes.ts"
+    },
+    "./tokens/color": {
+      "types": "./src/tokens/color/index.ts",
+      "import": "./src/tokens/color/index.ts"
     }
   },
   "scripts": {},

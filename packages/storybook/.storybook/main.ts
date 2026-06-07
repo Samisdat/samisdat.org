@@ -35,6 +35,11 @@ const config: StorybookConfig = {
         },
       }),
     );
+
+    // Enable HMR for monorepo workspace files
+    config.server = config.server || {};
+    config.server.middlewareMode = false;
+
     return config;
   },
 };
