@@ -4,34 +4,34 @@ import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { Code } from '@/components/Code';
+import { CodeBlock } from '@samisdat/ui-components/CodeBlock';
 import { Grid } from '@samisdat/ui-components/Grid';
 
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { codeToHtml } from 'shiki';
 
-const Card = styled.div``;
-
 const Styling = styled.div`
     aspect-ratio: 15/10;
     & svg {
         border-radius: 0.5rem;
-        border: 1px solid var(--border);
-        background-color: var(--bg-elevated);
+ border: 1px solid var(--color-background-muted);
+  background-color: var(--color-background-secondary);
 
         &:hover {
-            border-color: var(--border-strong);
+            border-color: var(--color-foreground-subtle);
         }
     }
-    & svg text {
+    & svg text { 
         font-family: monospace;
         font-size: 7px;
-        fill: var(--fg);
+        fill: var(  --color-background-secondary);
+);
     }
     & svg path,
     & svg line {
         fill: none;
-        stroke: var(--fg);
+        stroke: var(--color-foreground);
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
@@ -121,11 +121,16 @@ export const DemoParallaxSectors = () => {
                 >
                     <DemoBox>Mobile 1. (oben) / Tablet 2. (rechts)</DemoBox>
                     <p>Mouse Position</p>
-                    <Code>
-                        {JSON.stringify({ x: coords.pixel.x.toFixed(2), y: coords.pixel.y.toFixed(2) }, null, 2)}
-                    </Code>
+                    <CodeBlock
+                        language="json"
+                        code={JSON.stringify({ x: coords.pixel.x.toFixed(2), y: coords.pixel.y.toFixed(2) }, null, 2)}
+                    />
                     <p>Normalisiert</p>
-                    <Code>{JSON.stringify({ x: coords.norm.x.toFixed(2), y: coords.norm.y.toFixed(2) }, null, 2)}</Code>
+                                        <CodeBlock
+                        language="json"
+                code={
+                    JSON.stringify({ x: coords.norm.x.toFixed(2), y: coords.norm.y.toFixed(2) }, null, 2)}
+                    />
                 </Stack>
                 <Stack
                     orderSmall={2}
@@ -159,19 +164,17 @@ export const DemoParallaxSectors = () => {
                 </Stack>
             </Stack>
 
-            <Card>
-                <Grid container>
-                    <Grid
-                        small={8}
-                        medium={4}
-                        orderSmall={1}
-                    ></Grid>
-                    <Grid
-                        small={8}
-                        medium={4}
-                    ></Grid>
-                </Grid>
-            </Card>
+            <Grid container>
+                <Grid
+                    small={8}
+                    medium={4}
+                    orderSmall={1}
+                ></Grid>
+                <Grid
+                    small={8}
+                    medium={4}
+                ></Grid>
+            </Grid>
         </>
     );
 };

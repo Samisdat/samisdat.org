@@ -6,7 +6,7 @@ export const CodeBlock = ({
   language,
 }: {
   code: string;
-  language: "jsx" | "tsx" | "css";
+  language: "jsx" | "tsx" | "css" | "json";
 }) => {
   const theme = getTextMateColorSchema("dark");
 
