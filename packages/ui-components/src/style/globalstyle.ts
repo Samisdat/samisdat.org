@@ -20,6 +20,8 @@ export const globalStyles = css`
       --typo-h4-size: 1.75rem;
       --typo-h5-size: 1.25rem;
       --typo-h6-size: 1rem;
+
+      --header-height: calc(100vw * 500 / 1280);
     }
 
     :root[data-theme="dark"] {
@@ -35,7 +37,22 @@ export const globalStyles = css`
     }
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
-        ${toCSS(lightTheme)}
+        ${toCSS(lightTheme)}/*
+        animation-rangeimation: to-light linear both;
+        animation-timeline: scroll();
+        animation-range: calc(var(--header-height) + 20px)
+          calc(var(--header-height) + 50px);
+*/
+      }
+    }
+    @keyframes to-light {
+      from {
+        --primitive-aubergine: oklch(84.97% 0.037 30);
+        --primitive-ivory: oklch(22% 0.05 300);
+      }
+      to {
+        --primitive-aubergine: oklch(22% 0.05 300);
+        --primitive-ivory: oklch(84.97% 0.037 30);
       }
     }
 
