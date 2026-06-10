@@ -13,6 +13,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
 config.autoAddCss = false;
 
+import { Navi } from '@/components/Navi';
 import { Scrolling } from '@/components/Scrolling';
 import '@samisdat/ui-components/globalStyle';
 
@@ -59,6 +60,7 @@ export default function RootLayout({
                 <Scrolling />
                 <Page>
                     <WtalPanorama />
+                    <Navi />
                     <Container>{children}</Container>
                 </Page>
             </body>
