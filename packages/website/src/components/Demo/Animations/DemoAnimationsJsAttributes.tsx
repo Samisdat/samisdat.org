@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
-import { useAnimationFrame } from '../../../hooks/useAnimationFrame';
+import { useAnimationFrame } from '@samisdat/tools';
 
 const Styling = styled.div`
     max-width: 450px;

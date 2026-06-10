@@ -1,6 +1,6 @@
 'use client';
 
-import { useAnimationFrame } from '@/hooks/useAnimationFrame';
+import { useAnimationFrame } from '@samisdat/tools';
 import { FC, HTMLAttributes, useEffect, useRef } from 'react';
 
 export const Scrolling: FC<HTMLAttributes<HTMLDivElement>> = () => {

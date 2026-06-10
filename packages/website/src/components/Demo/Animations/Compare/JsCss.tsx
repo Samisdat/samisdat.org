@@ -1,4 +1,4 @@
-import { useAnimationFrame } from '@/hooks/useAnimationFrame';
+import { useAnimationFrame } from '@samisdat/tools';
 import { styled } from '@linaria/react';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { Checkerboard } from './Checkerboard';

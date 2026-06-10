@@ -1,6 +1,6 @@
 'use client';
 
-import { useAnimationFrame } from '@/hooks/useAnimationFrame';
+import { useAnimationFrame } from '@samisdat/tools';
 import { styled } from '@linaria/react';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
