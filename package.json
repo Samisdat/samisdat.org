@@ -11,5 +11,11 @@
     "build": "pnpm run build:lib && pnpm --filter blog build",
     "storybook": "pnpm --filter storybook dev",
     "build-storybook": "pnpm --filter storybook build"
+  },
+  "dependencies": {
+    "chrome-remote-interface": "^0.34.0"
+  },
+  "devDependencies": {
+    "puppeteer": "^25.1.0"
   }
 }
