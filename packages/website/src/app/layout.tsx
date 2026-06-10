@@ -2,10 +2,9 @@ import type { Metadata } from 'next';
 import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'next/font/google';
 
 import { Colophon } from '@/components/Colophon';
-import { SandPackCSS } from '@/components/Sandbox/SandPackCSS';
 
-import { Container } from '@samisdat/ui-components/Container';
 import { Page } from '@/components/Page';
+import { Container } from '@samisdat/ui-components/Container';
 import { WtalPanorama } from '@samisdat/wtal-panorama';
 import '@samisdat/wtal-panorama/style.css';
 
@@ -53,9 +52,6 @@ export default function RootLayout({
             lang="de"
             className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
         >
-            <head>
-                <SandPackCSS />
-            </head>
             <body>
                 <Scrolling />
                 <Page>

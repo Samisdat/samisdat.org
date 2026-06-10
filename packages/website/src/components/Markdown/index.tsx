@@ -7,6 +7,7 @@ import { Stack } from '@samisdat/ui-components/Stack';
 import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
+import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import {
     DemoAnimationsCompare,
     DemoAnimationsCss,
@@ -73,8 +74,11 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoParallaxCircles: () => <DemoParallaxCircles />,
     };
 
+    const hasSandbox = sandboxFiles && Object.keys(sandboxFiles).length > 0;
+
     return (
         <div>
+            {hasSandbox && <SandPackCSS />}
             <MDXContent components={components} />
         </div>
     );
