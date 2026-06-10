@@ -36,6 +36,7 @@
   },
   "scripts": {},
   "dependencies": {
+    "@samisdat/tools": "workspace:*",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
