@@ -2,29 +2,21 @@ import { faGithubSquare } from '@fortawesome/free-brands-svg-icons';
 import { faSquareRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
-import { ColorSwitcher } from '@samisdat/ui-components/ColorSwitcher';
 import { Container } from '@samisdat/ui-components/Container';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 const StickyShell = styled.header`
     position: sticky;
     top: 0;
-    /* über den Parallax-Layern des Panoramas */
     z-index: 10;
 `;
 
 const Bar = styled.div`
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: var(--space-4, 1rem);
-    padding: var(--space-3, 0.75rem) var(--space-5, 1.5rem);
-
     background: var(--primitive-aubergine);
-    color: var(--primitive-ivory);
 
-    border-bottom: 10px solid transparent;
+    border-bottom: 1px solid transparent;
     transition: border-color 320ms ease;
 
     @supports (animation-timeline: scroll()) {
@@ -45,6 +37,14 @@ const Bar = styled.div`
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
+`;
+
+const BarCenter = styled.div`
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-4, 1rem);
+    padding: var(--space-3, 0.75rem) var(--space-5, 1.5rem);
 `;
 
 const SwitcherSlot = styled.div`
@@ -98,24 +98,28 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
     <>
         <StickyShell>
             <Bar>
-                <SwitcherSlot>
-                    <ColorSwitcher />
-                </SwitcherSlot>
+                <Container>
+                    <BarCenter>
+                        <SwitcherSlot>
+                            <ThemeSwitcher />
+                        </SwitcherSlot>
 
-                <StyledLink href="/">
-                    <DomainStyling>samisdat</DomainStyling>
-                    <DotStyling>.</DotStyling>
-                    <TldStyling>org</TldStyling>
-                </StyledLink>
+                        <StyledLink href="/">
+                            <DomainStyling>samisdat</DomainStyling>
+                            <DotStyling>.</DotStyling>
+                            <TldStyling>org</TldStyling>
+                        </StyledLink>
 
-                <IconNav aria-label="Externe Links">
-                    <a href="https://github.com/Samisdat/">
-                        <FontAwesomeIcon icon={faGithubSquare} />
-                    </a>
-                    <a href="/rss">
-                        <FontAwesomeIcon icon={faSquareRss} />
-                    </a>
-                </IconNav>
+                        <IconNav aria-label="Externe Links">
+                            <a href="https://github.com/Samisdat/">
+                                <FontAwesomeIcon icon={faGithubSquare} />
+                            </a>
+                            <a href="/rss">
+                                <FontAwesomeIcon icon={faSquareRss} />
+                            </a>
+                        </IconNav>
+                    </BarCenter>
+                </Container>
             </Bar>
         </StickyShell>
     </>

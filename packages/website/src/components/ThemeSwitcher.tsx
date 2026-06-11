@@ -1,11 +1,17 @@
-"use client";
-import { useMediaQuery } from "@samisdat/tools";
-import { useEffect, useState } from "react";
+'use client';
 
-type ColorTheme = "light" | "dark";
+import { ThemeSwitcher as ThemeSwitcherUi } from '@samisdat/ui-components/ThemeSwitcher';
 
-export const ColorSwitcher = () => {
+import { useMediaQuery } from '@samisdat/tools';
+import { useEffect, useState } from 'react';
+
+type ColorTheme = 'light' | 'dark';
+
+export const ThemeSwitcher = () => {
+    /*
   const prefersLight = useMediaQuery(`(prefers-color-scheme: light)`, false);
+
+console.log(prefersLight)
 
   const [theme, setTheme] = useState<ColorTheme>(() => {
     if (typeof window === "undefined") return "dark";
@@ -30,31 +36,10 @@ export const ColorSwitcher = () => {
     sessionStorage.setItem("theme", theme);
   }, [theme]);
 
-  return (
-    <>
-      <label></label>
-      <label>
-        <input
-          type={"radio"}
-          value={"system"}
-          checked={theme === "light"}
-          onChange={() => {
-            setTheme("light");
-          }}
-        />
-        Light
-      </label>
-      <label>
-        <input
-          type={"radio"}
-          value={"system"}
-          checked={theme === "dark"}
-          onChange={() => {
-            setTheme("dark");
-          }}
-        />
-        Dark
-      </label>
-    </>
-  );
+  */
+    return (
+        <>
+            <ThemeSwitcherUi />
+        </>
+    );
 };
