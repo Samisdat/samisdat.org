@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { CodeBlock } from "@samisdat/ui-components/CodeBlock";
+import { CodeBlock } from "../CodeBlock";
 
 const meta = {
   title: "CodeBlock",

@@ -1,22 +1,20 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Paragraph as ParagraphComponent } from "@samisdat/ui-components/Paragraph";
+import { ThemeSwitcher } from "../ThemeSwitcher";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Typo/Paragraph",
-  component: ParagraphComponent,
+  title: "Tools/ThemeSwitcher",
+  component: ThemeSwitcher,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
-} satisfies Meta<typeof ParagraphComponent>;
+} satisfies Meta<typeof ThemeSwitcher>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Paragraph: Story = {
-  args: {
-    children: "Paragraph",
-  },
+export const Dark: Story = {
+  args: {},
 };

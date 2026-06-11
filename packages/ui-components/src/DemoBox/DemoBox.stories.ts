@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { DemoBox } from "@samisdat/ui-components/DemoBox";
+import { DemoBox } from "../DemoBox";
 
 const meta = {
   title: "DemoBox",

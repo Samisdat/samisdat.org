@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { ThemeDev as ThemeDevComponent } from "@samisdat/ui-components/ThemeDev";
-import { DemoBox } from "@samisdat/ui-components/DemoBox";
+import { ThemeDev as ThemeDevComponent } from "../ThemeDev";
+import { DemoBox } from "../DemoBox";
 
 const meta = {
   title: "Layout/ThemeDev",

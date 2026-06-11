@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Typo as TypoComponent, variants } from "@samisdat/ui-components/Typo";
+import { Typo as TypoComponent, variants } from "../Typo";
 
 const meta = {
   title: "Typo/Typo",

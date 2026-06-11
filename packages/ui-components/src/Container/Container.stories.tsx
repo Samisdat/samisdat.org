@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Container as ContainerComponent } from "@samisdat/ui-components/Container";
-import { DemoBox } from "@samisdat/ui-components/DemoBox";
+import { Container as ContainerComponent } from "../Container";
+import { DemoBox } from "../DemoBox";
 
 const meta = {
   title: "Layout/Container",
