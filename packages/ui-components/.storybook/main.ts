@@ -22,7 +22,7 @@ const config: StorybookConfig = {
     config.resolve = config.resolve || {};
     config.resolve.alias = {
       ...config.resolve.alias,
-      "@": path.resolve(__dirname, "../../website/src"),
+      "@": path.resolve(__dirname, "../website/src"),
     };
 
     // Add WYW-in-JS (Linaria) plugin for Vite

@@ -34,7 +34,11 @@
       "import": "./src/tokens/color/index.ts"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "test": "vitest"
+  },
   "dependencies": {
     "@samisdat/tools": "workspace:*",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
@@ -53,13 +57,33 @@
     "shiki": "^3.20.0"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.28.5",
+    "@babel/preset-typescript": "^7.28.5",
+    "@chromatic-com/storybook": "^5.2.1",
     "@eslint/eslintrc": "^3.3.3",
+    "@fontsource-variable/source-code-pro": "^5.2.7",
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@fontsource-variable/source-serif-4": "^5.2.9",
+    "@fontsource/playwrite-no": "^5.2.7",
+    "@storybook/addon-a11y": "^10.4.0",
+    "@storybook/addon-docs": "^10.4.0",
+    "@storybook/addon-themes": "^10.4.0",
+    "@storybook/addon-vitest": "^10.4.0",
+    "@storybook/react": "^10.4.0",
+    "@storybook/react-vite": "^10.4.0",
+    "@vitest/browser-playwright": "^4.0.9",
+    "@vitest/coverage-v8": "^4.0.9",
+    "@wyw-in-js/vite": "^0.8.0",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-storybook": "^10.4.0",
+    "playwright": "^1.57.0",
     "prettier": "^3.7.3",
     "prettier-plugin-multiline-arrays": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "typescript": "^5.9.3"
+    "storybook": "^10.4.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.9"
   }
 }

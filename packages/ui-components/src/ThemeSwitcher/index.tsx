@@ -1,6 +1,9 @@
 "use client";
 
+import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "@linaria/react";
+
 type ColorTheme = "light" | "dark";
 
 const Pill = styled.div`
@@ -15,8 +18,8 @@ export const ThemeSwitcher = ({ theme = "dark", setTheme }) => {
   return (
     <>
       <Pill>
-        <button>🌙</button>
-        <button>☀️</button>
+        <FontAwesomeIcon icon={faMoon} />
+        <FontAwesomeIcon icon={faSun} />
       </Pill>
     </>
   );
