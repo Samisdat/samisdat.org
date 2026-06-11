@@ -30,6 +30,7 @@ const config: StorybookConfig = {
     config.plugins.push(
       wyw({
         include: ["**/*.{ts,tsx,js,jsx}"],
+        exclude: ["**/node_modules/**", "**/.cache/**"],
         babelOptions: {
           presets: ["@babel/preset-typescript", "@babel/preset-react"],
         },
