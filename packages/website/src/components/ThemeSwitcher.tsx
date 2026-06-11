@@ -1,45 +1,58 @@
 'use client';
 
-import { ThemeSwitcher as ThemeSwitcherUi } from '@samisdat/ui-components/ThemeSwitcher';
+import { ThemeName, ThemeSwitcher as ThemeSwitcherUi } from '@samisdat/ui-components/ThemeSwitcher';
 
 import { useMediaQuery } from '@samisdat/tools';
 import { useEffect, useState } from 'react';
 
-type ColorTheme = 'light' | 'dark';
-
 export const ThemeSwitcher = () => {
-    /*
-  const prefersLight = useMediaQuery(`(prefers-color-scheme: light)`, false);
+    const prefers: ThemeName = useMediaQuery(`(prefers-color-scheme: light)`, false) ? 'light' : 'dark';
 
-console.log(prefersLight)
+    const [theme, setTheme] = useState<ThemeName>(() => {
+        if (typeof window === 'undefined') {
+            return 'dark';
+        }
 
-  const [theme, setTheme] = useState<ColorTheme>(() => {
-    if (typeof window === "undefined") return "dark";
-    return ((sessionStorage.getItem("theme") as ColorTheme) ?? prefersLight)
-      ? "light"
-      : "dark";
-  });
+        const sessionTheme = sessionStorage.getItem('theme');
 
-  useEffect(() => {
-    const root = document.documentElement;
+        if (!sessionTheme) {
+            return prefers;
+        }
 
-    if (prefersLight && "light" === theme) {
-      root.removeAttribute("data-theme");
-      return;
-    } else if (!prefersLight && "dark" === theme) {
-      root.removeAttribute("data-theme");
-      return;
-    } else {
-      root.setAttribute("data-theme", theme);
-    }
+        if ('light' === sessionTheme) {
+            return 'light';
+        }
+        return 'dark';
+    });
 
-    sessionStorage.setItem("theme", theme);
-  }, [theme]);
+    useEffect(() => {
+        if (theme === prefers) {
+            sessionStorage.removeItem('theme');
+            return;
+        }
+        sessionStorage.setItem('theme', theme);
+    }, [theme, prefers]);
 
-  */
+    useEffect(() => {
+        const root = document.documentElement;
+
+        if (prefers === 'light' && 'light' === theme) {
+            root.removeAttribute('data-theme');
+            return;
+        } else if (prefers === 'dark' && 'dark' === theme) {
+            root.removeAttribute('data-theme');
+            return;
+        } else {
+            root.setAttribute('data-theme', theme);
+        }
+    }, [theme, prefers]);
+
     return (
         <>
-            <ThemeSwitcherUi />
+            <ThemeSwitcherUi
+                theme={theme}
+                onUpdate={setTheme}
+            />
         </>
     );
 };
