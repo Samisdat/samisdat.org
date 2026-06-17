@@ -1,7 +1,6 @@
 "use client";
 
 import { styled } from "@linaria/react";
-import { useState } from "react";
 
 const duration = 0.7;
 
@@ -12,7 +11,6 @@ const MiniPanoWrapper = styled.div`
   height: 2rem;
   aspect-ratio: 179/59;
   overflow: hidden;
-  margin-bottom: 10px;
 `;
 
 const MiniPanoSvg = styled.svg`
