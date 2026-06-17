@@ -14,7 +14,7 @@ const StickyShell = styled.header`
 `;
 
 const Bar = styled.div`
-    background: var(--primitive-aubergine);
+    background: var(--color-background);
 
     border-bottom: 1px solid transparent;
     transition: border-color 320ms ease;
@@ -28,9 +28,11 @@ const Bar = styled.div`
     @keyframes header-border-fade {
         from {
             border-color: transparent;
+            background: var(--color-background);
         }
         to {
             border-color: var(--color-accent-primary, var(--primitive-pink));
+            background: var(--color-background-secondary);
         }
     }
 
@@ -79,7 +81,7 @@ const IconNav = styled.nav`
 
     & a {
         display: inline-flex;
-        color: var(--primitive-ivory);
+        color: var(--color-foreground);
         transition: color 160ms ease;
     }
 
