@@ -57,6 +57,8 @@
     "shiki": "^3.20.0"
   },
   "devDependencies": {
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^5.2.1",
