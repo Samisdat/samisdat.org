@@ -71,40 +71,27 @@ export const ThemeSwitcher = ({
   onUpdate,
 }: ThemeSwitcherProps) => {
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+    const checked = e.target.checked;
 
-    onUpdate(value as ThemeName);
+    console.log(checked);
+
+    onUpdate(checked ? "dark" : "light");
   };
   return (
-    <>
-      <MiniPano />
-      <Pill>
-        <Fieldset>
-          <Legend>ThemeSwitcher</Legend>
-          <Label>
-            <FontAwesomeIcon icon={faSun} aria-hidden={true} />
-            <ScreenreaderOnly>Light</ScreenreaderOnly>
-            <HiddenInput
-              type="radio"
-              name="themeSwitcher"
-              value="light"
-              onChange={onChange}
-              checked={"light" === theme}
-            />
-          </Label>
-          <Label>
-            <FontAwesomeIcon icon={faMoon} aria-hidden={true} />
-            <ScreenreaderOnly>Dark</ScreenreaderOnly>
-            <HiddenInput
-              type="radio"
-              name="themeSwitcher"
-              value="dark"
-              onChange={onChange}
-              checked={"dark" === theme}
-            />
-          </Label>
-        </Fieldset>
-      </Pill>
-    </>
+    <fieldset>
+      <legend>Farbschema</legend>
+      <label>
+        {"dark" === theme
+          ? "Dark Mode eingeschaltet"
+          : "Light Mode eingeschaltet"}
+        <input
+          type="checkbox"
+          aria-description={"Aktiv: dark"}
+          checked={"dark" === theme}
+          onChange={onChange}
+        />
+        <MiniPano />
+      </label>
+    </fieldset>
   );
 };
