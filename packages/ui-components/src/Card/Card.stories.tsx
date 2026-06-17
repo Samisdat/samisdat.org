@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Card as CardComponent } from "./Card";
-import { Typo } from "./Typo";
+import { Card as CardComponent } from "./";
+import { Typo } from "../Typo";
 
 const meta = {
   title: "Layout/Card",

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Paragraph as ParagraphComponent } from "../Paragraph";
+import { Paragraph as ParagraphComponent } from ".";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

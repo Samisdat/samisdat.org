@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { Container as ContainerComponent } from "../Container";
+import { Container as ContainerComponent } from ".";
 import { DemoBox } from "../DemoBox";
 
 const meta = {

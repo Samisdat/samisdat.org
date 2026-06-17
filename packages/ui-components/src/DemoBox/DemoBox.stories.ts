@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { DemoBox } from "../DemoBox";
+import { DemoBox } from ".";
 
 const meta = {
   title: "DemoBox",
