@@ -4,6 +4,7 @@ import { faMoon, faSun } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { styled } from "@linaria/react";
 import { ChangeEvent } from "react";
+import { MiniPano } from "./MiniPano";
 
 export type ThemeName = "light" | "dark";
 
@@ -76,6 +77,7 @@ export const ThemeSwitcher = ({
   };
   return (
     <>
+      <MiniPano />
       <Pill>
         <Fieldset>
           <Legend>ThemeSwitcher</Legend>
