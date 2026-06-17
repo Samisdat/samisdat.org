@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+allowBuilds:
+  es5-ext: true
+  esbuild: true
+  puppeteer: true
+  sharp: true
+  unrs-resolver: true
