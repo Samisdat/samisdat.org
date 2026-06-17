@@ -1,5 +1,5 @@
-import { faGithubSquare } from '@fortawesome/free-brands-svg-icons';
-import { faSquareRss } from '@fortawesome/free-solid-svg-icons';
+import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
@@ -112,10 +112,13 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
 
                         <IconNav aria-label="Externe Links">
                             <a href="https://github.com/Samisdat/">
-                                <FontAwesomeIcon icon={faGithubSquare} />
+                                <FontAwesomeIcon icon={faGithub} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/bastian-pertz">
+                                <FontAwesomeIcon icon={faLinkedin} />
                             </a>
                             <a href="/rss">
-                                <FontAwesomeIcon icon={faSquareRss} />
+                                <FontAwesomeIcon icon={faRss} />
                             </a>
                         </IconNav>
                     </BarCenter>
