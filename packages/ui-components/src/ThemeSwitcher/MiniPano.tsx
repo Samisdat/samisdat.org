@@ -5,49 +5,71 @@ import { styled } from "@linaria/react";
 const duration = 0.7;
 
 const MiniPanoWrapper = styled.div`
-  background: var(--color-foreground);
+  background: var(--color-foreground-muted);
   padding: 1px;
   border-radius: 1rem;
   height: 2rem;
   aspect-ratio: 179/59;
   overflow: hidden;
+  &:hover {
+    background: var(--color-foreground);
+  }
+  fieldset:focus-within & {
+    background: var(--color-foreground);
+    outline: 2px solid var(--color-foreground);
+  }
 `;
 
 const MiniPanoSvg = styled.svg`
   border-radius: 1rem;
   --end: 122px; // funny -> even this is px, it is rendered as viewBox units
-  .heaven.day {
+
+  .heaven {
     fill: #00afeb;
+    transition: fill ${duration}s;
   }
-  .heaven.night {
+  fieldset:has(input:checked) & .heaven {
     fill: #0b101e;
-    opacity: 1;
-    transition: opacity 1s;
-  }
-  fieldset:has(input:not(:checked)) & .heaven.night {
-    opacity: 0;
   }
 
-  .celestialBodies {
+  .orbs {
     transform: translateX(0%);
     transition: transform ${duration}s;
   }
-  fieldset:has(input:checked) & .celestialBodies {
+  fieldset:has(input:checked) & .orbs {
     transform: translateX(var(--end));
   }
-  .moon {
-    fill: #ededed;
-    opacity: 1;
-    transition: opacity ${0.8 * duration}s;
+
+  .orbs .sun {
+    --orb-color: 240 255 94;
   }
+  .orbs .moon {
+    --orb-color: 237 237 237;
+  }
+  .orbs .orb {
+    fill: rgb(var(--orb-color));
+    stroke: rgb(var(--orb-color) / 0.19);
+    stroke-width: 0px;
+    stroke-linejoin: round;
+    transition:
+      opacity ${0.8 * duration}s,
+      stroke-width 0.2s;
+  }
+
+  &:hover .orbs .orb {
+    stroke-width: 12px;
+  }
+  .moon {
+    opacity: 1;
+  }
+
   fieldset:has(input:not(:checked)) & .moon {
     opacity: 0;
   }
   .sun {
-    fill: #f0ff5e;
     opacity: 1;
-    transition: opacity 0.8s;
   }
+
   fieldset:has(input:checked) & .sun {
     opacity: 0;
   }
@@ -63,17 +85,10 @@ export const MiniPano = () => (
         width="216"
         height="124.5"
       />
-      <rect
-        className="heaven night"
-        x="-16.336"
-        y="-40.292"
-        width="216"
-        height="124.5"
-      />
-      <g className="celestialBodies">
-        <circle className="sun" cx="29.255" cy="29.103" r="22.5" />
+      <g className="orbs">
+        <circle className="orb sun" cx="29.255" cy="29.103" r="22.5" />
         <path
-          className="moon"
+          className="orb moon"
           d="M29.998,6.756c12.074,0.392 21.757,10.318 21.757,22.488c0,12.418 -10.082,22.5 -22.5,22.5c-8.326,-0 -15.602,-4.533 -19.493,-11.262c0.247,0.008 0.495,0.012 0.743,0.012c12.418,-0 22.5,-10.082 22.5,-22.5c0,-4.092 -1.094,-7.93 -3.007,-11.238Z"
         />
       </g>
