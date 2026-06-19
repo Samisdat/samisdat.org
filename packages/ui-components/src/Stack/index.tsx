@@ -5,6 +5,7 @@ import { breakpoints } from '../tokens/breakpoints';
 
 type FlexDirection = 'row' | 'column';
 type AlignItems = 'stretch' | 'center' | 'start' | 'end' | 'baseline';
+type JustifyContent = 'start' | 'end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 
 interface StackContainerProps extends HTMLAttributes<HTMLDivElement> {
     container: true;
@@ -12,6 +13,7 @@ interface StackContainerProps extends HTMLAttributes<HTMLDivElement> {
     directionMedium?: FlexDirection;
     directionLarge?: FlexDirection;
     align?: AlignItems;
+    justify?: JustifyContent;
     gap?: string;
 }
 
@@ -31,13 +33,14 @@ const StackContainerStyling = styled.div<{
     $directionMedium?: FlexDirection;
     $directionLarge?: FlexDirection;
     $align?: AlignItems;
+    $justify?: JustifyContent;
     $gap?: string;
 }>`
     display: flex;
     gap: ${props => props.$gap ?? '1rem'};
     align-items: ${props => props.$align ?? 'stretch'};
+    justify-content: ${props => props.$justify ?? 'start'};
     flex-direction: ${props => props.$directionSmall ?? 'column'};
-    width: 100%;
 
     @media (min-width: ${breakpoints.medium}) {
         flex-direction: ${props => props.$directionMedium ?? props.$directionSmall ?? 'column'};
@@ -76,6 +79,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
             directionMedium,
             directionLarge,
             align,
+            justify,
             gap,
             children,
             ...rest
@@ -88,6 +92,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
                 $directionMedium={directionMedium}
                 $directionLarge={directionLarge}
                 $align={align}
+                $justify={justify}
                 $gap={gap}
                 {...rest}
             >
