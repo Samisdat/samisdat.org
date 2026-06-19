@@ -4,12 +4,14 @@ import React, { forwardRef, HTMLAttributes } from 'react';
 import { breakpoints } from '../tokens/breakpoints';
 
 type FlexDirection = 'row' | 'column';
+type AlignItems = 'stretch' | 'center' | 'start' | 'end' | 'baseline';
 
 interface StackContainerProps extends HTMLAttributes<HTMLDivElement> {
     container: true;
     directionSmall?: FlexDirection;
     directionMedium?: FlexDirection;
     directionLarge?: FlexDirection;
+    align?: AlignItems;
     gap?: string;
 }
 
@@ -28,10 +30,12 @@ const StackContainerStyling = styled.div<{
     $directionSmall?: FlexDirection;
     $directionMedium?: FlexDirection;
     $directionLarge?: FlexDirection;
+    $align?: AlignItems;
     $gap?: string;
 }>`
     display: flex;
     gap: ${props => props.$gap ?? '1rem'};
+    align-items: ${props => props.$align ?? 'stretch'};
     flex-direction: ${props => props.$directionSmall ?? 'column'};
     width: 100%;
 
@@ -66,8 +70,16 @@ const StackItemStyling = styled.div<{
 
 export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
     if (props.container) {
-        const { container, directionSmall, directionMedium, directionLarge, gap, children, ...rest } =
-            props;
+        const {
+            container,
+            directionSmall,
+            directionMedium,
+            directionLarge,
+            align,
+            gap,
+            children,
+            ...rest
+        } = props;
 
         return (
             <StackContainerStyling
@@ -75,6 +87,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
                 $directionSmall={directionSmall}
                 $directionMedium={directionMedium}
                 $directionLarge={directionLarge}
+                $align={align}
                 $gap={gap}
                 {...rest}
             >
