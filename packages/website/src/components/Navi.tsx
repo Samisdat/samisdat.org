@@ -3,7 +3,6 @@ import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
-import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Stack } from '@samisdat/ui-components/Stack';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
@@ -124,17 +123,17 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                         </Stack>
                         <Stack>
                             <ThemeSwitcher />
-                            <IconNav aria-label="Externe Links">
-                                <a href="https://github.com/Samisdat/">
-                                    <FontAwesomeIcon icon={faGithub} />
-                                </a>
-                                <a href="https://www.linkedin.com/in/bastian-pertz">
-                                    <FontAwesomeIcon icon={faLinkedin} />
-                                </a>
-                                <a href="/rss">
-                                    <FontAwesomeIcon icon={faRss} />
-                                </a>
-                            </IconNav>
+                        </Stack>
+                        <Stack align="end">
+                            <a href="https://github.com/Samisdat/">
+                                <FontAwesomeIcon icon={faGithub} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/bastian-pertz">
+                                <FontAwesomeIcon icon={faLinkedin} />
+                            </a>
+                            <a href="/rss">
+                                <FontAwesomeIcon icon={faRss} />
+                            </a>
                         </Stack>
                     </Stack>
                 </Container>
