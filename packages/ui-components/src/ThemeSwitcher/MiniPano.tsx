@@ -8,7 +8,7 @@ const MiniPanoWrapper = styled.div`
   background: var(--color-foreground-muted);
   padding: 1px;
   border-radius: 1rem;
-  height: 2rem;
+  height: 1.25rem;
   aspect-ratio: 179/59;
   overflow: hidden;
   &:hover {
@@ -16,7 +16,7 @@ const MiniPanoWrapper = styled.div`
   }
   fieldset:focus-within & {
     background: var(--color-foreground);
-    outline: 2px solid var(--color-foreground);
+    outline: 1px solid var(--color-foreground);
   }
 `;
 
