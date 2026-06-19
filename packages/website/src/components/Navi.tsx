@@ -16,13 +16,13 @@ const StickyShell = styled.header`
 const Bar = styled.div`
     background: var(--color-background);
 
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     transition: border-color 320ms ease;
 
     @supports (animation-timeline: scroll()) {
         animation: header-border-fade linear both;
         animation-timeline: scroll(root);
-        animation-range: var(--panorama-height, 100dvh) calc(var(--panorama-height, 100dvh) + 160px);
+        animation-range: var(--header-height) calc(var(--header-height) + 100px);
     }
 
     @keyframes header-border-fade {
@@ -31,7 +31,7 @@ const Bar = styled.div`
             background: var(--color-background);
         }
         to {
-            border-color: var(--color-accent-primary, var(--primitive-pink));
+            border-color: var(--color-background-muted);
             background: var(--color-background-secondary);
         }
     }
