@@ -1,91 +1,103 @@
 import { styled } from '@linaria/react';
-import React, { FC, HTMLAttributes } from 'react';
+import React, { forwardRef, HTMLAttributes } from 'react';
+
+import { breakpoints } from '../tokens/breakpoints';
 
 type FlexDirection = 'row' | 'column';
 
-interface StackProps extends HTMLAttributes<HTMLDivElement> {
-    container?: boolean;
+interface StackContainerProps extends HTMLAttributes<HTMLDivElement> {
+    container: true;
     directionSmall?: FlexDirection;
     directionMedium?: FlexDirection;
     directionLarge?: FlexDirection;
+    gap?: string;
+}
+
+interface StackItemProps extends HTMLAttributes<HTMLDivElement> {
+    container?: false;
     orderSmall?: number;
     orderMedium?: number;
     orderLarge?: number;
+    grow?: number;
+    basis?: string;
 }
 
-interface StackContainerProps {
+type StackProps = StackContainerProps | StackItemProps;
+
+const StackContainerStyling = styled.div<{
     $directionSmall?: FlexDirection;
     $directionMedium?: FlexDirection;
     $directionLarge?: FlexDirection;
-}
-
-interface StackItemProps {
-    $orderSmall?: number | string;
-    $orderMedium?: number | string;
-    $orderLarge?: number | string;
-}
-
-const StackContainerStyling = styled.div<StackContainerProps>`
+    $gap?: string;
+}>`
     display: flex;
-    gap: 1rem;
-    flex-direction: ${props => props.$directionSmall || 'column'};
+    gap: ${props => props.$gap ?? '1rem'};
+    flex-direction: ${props => props.$directionSmall ?? 'column'};
     width: 100%;
 
-    @media (min-width: 768px) {
-        flex-direction: ${props => (props.$directionMedium ?? props.$directionSmall) || 'column'};
+    @media (min-width: ${breakpoints.medium}) {
+        flex-direction: ${props => props.$directionMedium ?? props.$directionSmall ?? 'column'};
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: ${breakpoints.large}) {
         flex-direction: ${props =>
-            (props.$directionLarge ?? props.$directionMedium ?? props.$directionSmall) || 'column'};
+            props.$directionLarge ?? props.$directionMedium ?? props.$directionSmall ?? 'column'};
     }
 `;
 
-const StackItemStyling = styled.div<StackItemProps>`
-    flex: 1;
+const StackItemStyling = styled.div<{
+    $orderSmall?: number;
+    $orderMedium?: number;
+    $orderLarge?: number;
+    $grow?: number;
+    $basis?: string;
+}>`
+    flex: ${props => props.$grow ?? 1} 1 ${props => props.$basis ?? '0%'};
     order: ${props => props.$orderSmall ?? 'auto'};
 
-    @media (min-width: 768px) {
+    @media (min-width: ${breakpoints.medium}) {
         order: ${props => props.$orderMedium ?? props.$orderSmall ?? 'auto'};
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: ${breakpoints.large}) {
         order: ${props => props.$orderLarge ?? props.$orderMedium ?? props.$orderSmall ?? 'auto'};
     }
 `;
 
-export const Stack: FC<StackProps> = ({
-    container = false,
-    directionSmall,
-    directionMedium,
-    directionLarge,
-    orderSmall,
-    orderMedium,
-    orderLarge,
-    children,
-    ...props
-}) => {
-    if (container) {
+export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
+    if (props.container) {
+        const { container, directionSmall, directionMedium, directionLarge, gap, children, ...rest } =
+            props;
+
         return (
             <StackContainerStyling
+                ref={ref}
                 $directionSmall={directionSmall}
                 $directionMedium={directionMedium}
                 $directionLarge={directionLarge}
-                {...props}
+                $gap={gap}
+                {...rest}
             >
                 {children}
             </StackContainerStyling>
         );
     }
 
+    const { container, orderSmall, orderMedium, orderLarge, grow, basis, children, ...rest } = props;
+
     return (
         <StackItemStyling
+            ref={ref}
             $orderSmall={orderSmall}
             $orderMedium={orderMedium}
             $orderLarge={orderLarge}
-            {...props}
+            $grow={grow}
+            $basis={basis}
+            {...rest}
         >
             {children}
         </StackItemStyling>
     );
-};
+});
+
+Stack.displayName = 'Stack';
