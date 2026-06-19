@@ -1,6 +1,8 @@
 import { styled } from '@linaria/react';
 import React, { FC, HTMLAttributes } from 'react';
 
+import { breakpoints } from '../tokens/breakpoints';
+
 type GridCols = 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1;
 
 interface GridProps extends HTMLAttributes<HTMLDivElement> {
@@ -28,12 +30,12 @@ const GridItemStyling = styled.div<{
 
     order: ${props => props.$orderSmall ?? 0};
 
-    @media (min-width: 768px) {
+    @media (min-width: ${breakpoints.medium}) {
         grid-column: span ${props => props.$medium || props.$small || 8};
         order: 0;
     }
 
-    @media (min-width: 1024px) {
+    @media (min-width: ${breakpoints.large}) {
         grid-column: span ${props => props.$large || props.$medium || props.$small || 8};
     }
 `;
