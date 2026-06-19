@@ -11,6 +11,7 @@ export const color = {
   "ivory-bright": "oklch(from var(--primitive-ivory) calc(l + 0.05) c h)",
   "ivory-base": "var(--primitive-ivory)",
   "ivory-soft": "oklch(from var(--primitive-ivory) calc(l - 0.07) c h)",
+  "ivory-subtle": "oklch(from var(--primitive-ivory) calc(l - 0.12) c h)",
   "ivory-muted": "oklch(from var(--primitive-ivory) calc(l - 0.20) c h)",
   "ivory-dim": "oklch(from var(--primitive-ivory) calc(l - 0.35) c h)",
 
