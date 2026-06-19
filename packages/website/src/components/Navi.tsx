@@ -96,21 +96,40 @@ const IconNav = styled.nav`
     }
 `;
 
+const ProgressBar = styled.div`
+    background: var(--color-purple);
+    background: var(--color-background-secondary);
+    background: var(--color-background-muted);
+
+    height: 2px;
+    border-start-end-radius: 20px;
+    animation-name: progress-bar;
+    animation-timeline: scroll(y);
+    @keyframes progress-bar {
+        from {
+            width: 0;
+        }
+
+        to {
+            width: 100%;
+        }
+    }
+`;
+
 export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
     <>
         <StickyShell>
             <Bar>
                 <Container>
                     <BarCenter>
-                        <SwitcherSlot>
-                            <ThemeSwitcher />
-                        </SwitcherSlot>
-
                         <StyledLink href="/">
                             <DomainStyling>samisdat</DomainStyling>
                             <DotStyling>.</DotStyling>
                             <TldStyling>org</TldStyling>
                         </StyledLink>
+                        <SwitcherSlot>
+                            <ThemeSwitcher />
+                        </SwitcherSlot>
 
                         <IconNav aria-label="Externe Links">
                             <a href="https://github.com/Samisdat/">
@@ -125,6 +144,7 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                         </IconNav>
                     </BarCenter>
                 </Container>
+                <ProgressBar />
             </Bar>
         </StickyShell>
     </>
