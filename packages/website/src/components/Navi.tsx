@@ -112,28 +112,33 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                 <Container>
                     <Stack
                         directionSmall="row"
+                        align="center"
+                        justify="space-between"
                         container
                     >
-                        <Stack>
-                            <StyledLink href="/">
-                                <DomainStyling>samisdat</DomainStyling>
-                                <DotStyling>.</DotStyling>
-                                <TldStyling>org</TldStyling>
-                            </StyledLink>
-                        </Stack>
-                        <Stack>
+                        <StyledLink href="/">
+                            <DomainStyling>samisdat</DomainStyling>
+                            <DotStyling>.</DotStyling>
+                            <TldStyling>org</TldStyling>
+                        </StyledLink>
+                        <Stack
+                            directionSmall="row"
+                            align="center"
+                            gap="0.75rem"
+                            container
+                        >
                             <ThemeSwitcher />
-                        </Stack>
-                        <Stack align="end">
-                            <a href="https://github.com/Samisdat/">
-                                <FontAwesomeIcon icon={faGithub} />
-                            </a>
-                            <a href="https://www.linkedin.com/in/bastian-pertz">
-                                <FontAwesomeIcon icon={faLinkedin} />
-                            </a>
-                            <a href="/rss">
-                                <FontAwesomeIcon icon={faRss} />
-                            </a>
+                            <IconNav aria-label="Externe Links">
+                                <a href="https://github.com/Samisdat/">
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </a>
+                                <a href="https://www.linkedin.com/in/bastian-pertz">
+                                    <FontAwesomeIcon icon={faLinkedin} />
+                                </a>
+                                <a href="/rss">
+                                    <FontAwesomeIcon icon={faRss} />
+                                </a>
+                            </IconNav>
                         </Stack>
                     </Stack>
                 </Container>
