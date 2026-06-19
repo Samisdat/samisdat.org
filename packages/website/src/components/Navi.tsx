@@ -3,6 +3,8 @@ import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
+import { DemoBox } from '@samisdat/ui-components/DemoBox';
+import { Stack } from '@samisdat/ui-components/Stack';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
 import { ThemeSwitcher } from './ThemeSwitcher';
@@ -39,18 +41,6 @@ const Bar = styled.div`
     @media (prefers-reduced-motion: reduce) {
         transition: none;
     }
-`;
-
-const BarCenter = styled.div`
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: var(--space-4, 1rem);
-    padding: var(--space-3, 0.75rem) var(--space-5, 1.5rem);
-`;
-
-const SwitcherSlot = styled.div`
-    justify-self: start;
 `;
 
 const StyledLink = styled(Link)`
@@ -121,28 +111,32 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
         <StickyShell>
             <Bar>
                 <Container>
-                    <BarCenter>
-                        <StyledLink href="/">
-                            <DomainStyling>samisdat</DomainStyling>
-                            <DotStyling>.</DotStyling>
-                            <TldStyling>org</TldStyling>
-                        </StyledLink>
-                        <SwitcherSlot>
+                    <Stack
+                        directionSmall="row"
+                        container
+                    >
+                        <Stack>
+                            <StyledLink href="/">
+                                <DomainStyling>samisdat</DomainStyling>
+                                <DotStyling>.</DotStyling>
+                                <TldStyling>org</TldStyling>
+                            </StyledLink>
+                        </Stack>
+                        <Stack>
                             <ThemeSwitcher />
-                        </SwitcherSlot>
-
-                        <IconNav aria-label="Externe Links">
-                            <a href="https://github.com/Samisdat/">
-                                <FontAwesomeIcon icon={faGithub} />
-                            </a>
-                            <a href="https://www.linkedin.com/in/bastian-pertz">
-                                <FontAwesomeIcon icon={faLinkedin} />
-                            </a>
-                            <a href="/rss">
-                                <FontAwesomeIcon icon={faRss} />
-                            </a>
-                        </IconNav>
-                    </BarCenter>
+                            <IconNav aria-label="Externe Links">
+                                <a href="https://github.com/Samisdat/">
+                                    <FontAwesomeIcon icon={faGithub} />
+                                </a>
+                                <a href="https://www.linkedin.com/in/bastian-pertz">
+                                    <FontAwesomeIcon icon={faLinkedin} />
+                                </a>
+                                <a href="/rss">
+                                    <FontAwesomeIcon icon={faRss} />
+                                </a>
+                            </IconNav>
+                        </Stack>
+                    </Stack>
                 </Container>
                 <ProgressBar />
             </Bar>
