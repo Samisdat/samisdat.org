@@ -57,27 +57,11 @@ export const lightTheme: Theme = {
   },
 };
 
-export const themedColors = [
-  "background",
-  "background-deep",
-  "background-raised",
-  "background-subtle",
-  "background-muted",
-  "foreground",
-  "foreground-bright",
-  "foreground-soft",
-  "foreground-muted",
-  "foreground-dim",
-  "teal",
-  "green",
-  "yellow",
-  "red",
-  "blue",
-  "orange",
-  "pink",
-  "cyan",
-  "purple",
-];
+// Derived from the token keys so it can never drift out of sync with the
+// actual theme tokens (and the CSS vars they generate).
+export const themedColors = Object.keys(darkTheme.tokens).map((k) =>
+  k.replace(/^color-/, ""),
+);
 
 export const getDarkTheme = () => `
   color-scheme: dark;
