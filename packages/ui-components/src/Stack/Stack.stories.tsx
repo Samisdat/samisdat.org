@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { Stack } from ".";
 import { DemoBox } from "../DemoBox";
+import { space } from "../tokens/space";
 
 const meta = {
   title: "Layout/Stack",
@@ -36,6 +37,24 @@ export const SideBySide: Story = {
   args: {
     container: true,
     directionSmall: "row",
+    children: (
+      <>
+        <Stack>
+          <DemoBox>Left</DemoBox>
+        </Stack>
+        <Stack>
+          <DemoBox color="yellow">Right</DemoBox>
+        </Stack>
+      </>
+    ),
+  },
+};
+
+export const Gap: Story = {
+  args: {
+    container: true,
+    directionSmall: "row",
+    gap: space[2],
     children: (
       <>
         <Stack>
