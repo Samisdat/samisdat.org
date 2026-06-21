@@ -1,11 +1,12 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
-import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
 import { Stack } from '@samisdat/ui-components/Stack';
+import { darkTheme, toCSS } from '@samisdat/ui-components/tokens/themes';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
+import { space } from '../../../ui-components/src/tokens/space';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 const StickyShell = styled.header`
@@ -15,8 +16,9 @@ const StickyShell = styled.header`
 `;
 
 const Bar = styled.div`
-    background: var(--color-background);
+    ${toCSS(darkTheme)}
 
+    background: var(--color-background);
     border-bottom: 2px solid transparent;
     transition: border-color 320ms ease;
 
@@ -91,9 +93,11 @@ const ProgressBar = styled.div`
     background: var(--color-background-muted);
 
     height: 2px;
+    width: 0px;
     border-start-end-radius: 20px;
     animation-name: progress-bar;
     animation-timeline: scroll(y);
+    animation-range: var(--header-height) 100%;
     @keyframes progress-bar {
         from {
             width: 0;
@@ -109,7 +113,7 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
     <>
         <StickyShell>
             <Bar>
-                <Container>
+                <Container padding={space[0.5]}>
                     <Stack
                         directionSmall="row"
                         align="center"
@@ -117,14 +121,13 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                         container
                     >
                         <StyledLink href="/">
-                            <DomainStyling>samisdat</DomainStyling>
-                            <DotStyling>.</DotStyling>
-                            <TldStyling>org</TldStyling>
+                            <DomainStyling>sam</DomainStyling>
+                            <TldStyling>isdat</TldStyling>
                         </StyledLink>
                         <Stack
                             directionSmall="row"
                             align="center"
-                            gap="0.75rem"
+                            gap={space[0.5]}
                             container
                         >
                             <ThemeSwitcher />
@@ -134,9 +137,6 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                                 </a>
                                 <a href="https://www.linkedin.com/in/bastian-pertz">
                                     <FontAwesomeIcon icon={faLinkedin} />
-                                </a>
-                                <a href="/rss">
-                                    <FontAwesomeIcon icon={faRss} />
                                 </a>
                             </IconNav>
                         </Stack>
