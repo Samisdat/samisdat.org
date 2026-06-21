@@ -79,9 +79,22 @@ export const themedColors = [
   "purple",
 ];
 
-export const toCSS = ({ colorScheme, tokens }: Theme) => `
-  color-scheme: ${colorScheme};
-  ${Object.entries(tokens)
+export const getDarkTheme = () => `
+  color-scheme: dark;
+  ${Object.entries(darkTheme.tokens)
     .map(([k, v]) => `--${k}: ${v};`)
+    .join("\n")}
+`;
+
+export const getLightTheme = () => `
+  color-scheme: light;
+  ${Object.keys(lightTheme.tokens)
+    .map((k) => {
+      const a = darkTheme.tokens[k];
+      const b = lightTheme.tokens[k];
+      // Token bewegt sich nicht -> kein color-mix
+      if (!a || a === b) return `--${k}: ${b};`;
+      return `--${k}: color-mix(in oklab, ${a}, ${b} calc(var(--theme-progress) * 100%));`;
+    })
     .join("\n")}
 `;

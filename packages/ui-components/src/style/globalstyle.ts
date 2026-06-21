@@ -3,14 +3,16 @@ import "normalize.css";
 import { colorProperties } from "./colorProperties";
 import { colorClassNames } from "./colorClassNames";
 import { colorVars } from "./colorVars";
-import { darkTheme, lightTheme, toCSS } from "../tokens/themes";
-
-console.log(colorProperties);
-console.log(colorClassNames);
+import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
 export const globalStyles = css`
   :global() {
     ${colorProperties}
+    @property --theme-progress {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
     :root {
       ${colorVars}
 
@@ -25,35 +27,39 @@ export const globalStyles = css`
     }
 
     :root[data-theme="dark"] {
-      ${toCSS(darkTheme)}
-    }
-    :root[data-theme="light"] {
-      ${toCSS(lightTheme)}
+      ${getDarkTheme()}
     }
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme]) {
-        ${toCSS(darkTheme)}
+        ${getDarkTheme()}
       }
+    }
+    :root[data-theme="light"] {
+      ${getLightTheme()}
+      animation: to-light linear both;
+      animation-timeline: scroll();
+      animation-range: calc(var(--header-height))
+        calc(var(--header-height) + 50px);
     }
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
-        ${toCSS(lightTheme)}/*
-        animation-rangeimation: to-light linear both;
+        ${getLightTheme()}
+        animation: to-light linear both;
         animation-timeline: scroll();
         animation-range: calc(var(--header-height) + 20px)
           calc(var(--header-height) + 50px);
-*/
       }
     }
     @keyframes to-light {
       from {
-        --primitive-aubergine: oklch(84.97% 0.037 30);
-        --primitive-ivory: oklch(22% 0.05 300);
+        --theme-progress: 0;
       }
       to {
-        --primitive-aubergine: oklch(22% 0.05 300);
-        --primitive-ivory: oklch(84.97% 0.037 30);
+        --theme-progress: 1;
       }
+    }
+    .force-theme-dark {
+      ${getDarkTheme()}
     }
 
     /** Pick a css reset */

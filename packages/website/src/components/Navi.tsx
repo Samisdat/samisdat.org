@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
 import { Stack } from '@samisdat/ui-components/Stack';
-import { darkTheme, toCSS } from '@samisdat/ui-components/tokens/themes';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
 import { space } from '../../../ui-components/src/tokens/space';
@@ -16,8 +15,6 @@ const StickyShell = styled.header`
 `;
 
 const Bar = styled.div`
-    ${toCSS(darkTheme)}
-
     background: var(--color-background);
     border-bottom: 2px solid transparent;
     transition: border-color 320ms ease;
@@ -112,7 +109,7 @@ const ProgressBar = styled.div`
 export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
     <>
         <StickyShell>
-            <Bar>
+            <Bar className="force-theme-dark">
                 <Container padding={space[0.5]}>
                     <Stack
                         directionSmall="row"
