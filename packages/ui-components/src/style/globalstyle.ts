@@ -74,12 +74,13 @@ export const globalStyles = css`
         background-color 100ms ease,
         color 100ms ease;
     }
-
+    /*
     .hill-before-green-tower,
     .hill4100 {
       fill: var(--color-background);
       transition: fill 100ms ease;
     }
+*/
     .storybook-wrapper {
       font-family: var(--font-sans);
     }
