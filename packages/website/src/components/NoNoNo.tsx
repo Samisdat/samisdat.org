@@ -1,5 +1,3 @@
-import { faHandPointUp } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 const HandStyling = styled.div`
