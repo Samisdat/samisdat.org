@@ -40,10 +40,10 @@ export const lightTheme: Theme = {
     "color-background-muted": "var(--color-ivory-muted)",
 
     "color-foreground": "var(--color-aubergine-base)",
-    "color-foreground-emphasis": "var(--color-ivory-bright)",
-    "color-foreground-secondary": "var(--color-ivory-soft)",
-    "color-foreground-subtle": "var(--color-ivory-muted)",
-    "color-foreground-muted": "var(--color-ivory-dim)",
+    "color-foreground-emphasis": "var(--color-aubergine-deep)",
+    "color-foreground-secondary": "var(--color-aubergine-raised)",
+    "color-foreground-subtle": "var(--color-aubergine-subtle)",
+    "color-foreground-muted": "var(--color-aubergine-muted)",
 
     "color-pink": "var(--color-pink-on-light)",
     "color-teal": "var(--color-teal-on-light)",
