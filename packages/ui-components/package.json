@@ -40,7 +40,6 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@samisdat/tools": "workspace:*",
     "@babel/runtime": "^7.29.7",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
@@ -48,6 +47,7 @@
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@linaria/core": "^6.3.0",
     "@linaria/react": "^6.3.0",
+    "@samisdat/tools": "workspace:*",
     "@wyw-in-js/babel-preset": "^0.8.0",
     "culori": "^4.0.2",
     "fs-extra": "^11.3.2",
@@ -58,8 +58,6 @@
     "shiki": "^3.20.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
-    "@types/react-dom": "^19.2.3",
     "@babel/preset-react": "^7.28.5",
     "@babel/preset-typescript": "^7.28.5",
     "@chromatic-com/storybook": "^5.2.1",
@@ -74,6 +72,9 @@
     "@storybook/addon-vitest": "^10.4.0",
     "@storybook/react": "^10.4.0",
     "@storybook/react-vite": "^10.4.0",
+    "@types/culori": "^4.0.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "@vitest/browser-playwright": "^4.0.9",
     "@vitest/coverage-v8": "^4.0.9",
     "@wyw-in-js/vite": "^0.8.0",
