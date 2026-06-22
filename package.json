@@ -10,13 +10,16 @@
     "dev:all": "pnpm dev:lib & pnpm dev",
     "build": "pnpm run build:lib && pnpm --filter blog build",
     "storybook": "pnpm --filter @samisdat/ui-components storybook",
-    "build-storybook": "pnpm --filter @samisdat/ui-components build-storybook"
+    "build-storybook": "pnpm --filter @samisdat/ui-components build-storybook",
+    "deploy:preview": "vercel deploy",
+    "deploy": "vercel deploy --prod"
   },
   "dependencies": {
     "chrome-remote-interface": "^0.34.0"
   },
   "devDependencies": {
-    "puppeteer": "^25.1.0"
+    "puppeteer": "^25.1.0",
+    "vercel": "^54.14.5"
   },
   "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }
