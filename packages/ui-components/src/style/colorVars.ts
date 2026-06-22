@@ -1,8 +1,8 @@
 import { color } from "../tokens/color/derived";
 
-export const colorVars = Object.keys(color)
+export const colorVars = Object.entries(color)
   .map(
-    (mappedColor) => `
---color-${mappedColor}: ${color[mappedColor]};`,
+    ([mappedColor, value]) => `
+--color-${mappedColor}: ${value};`,
   )
   .join("\n");
