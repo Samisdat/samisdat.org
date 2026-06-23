@@ -1,58 +1,10 @@
-// For more info, see https://github.com/storybookjs/eslint-plugin-storybook#configuration-flat-config-format
-import storybook from "eslint-plugin-storybook";
-import js from "@eslint/js";
-import typescript from "@typescript-eslint/eslint-plugin";
-import tsParser from "@typescript-eslint/parser";
-import reactPlugin from "eslint-plugin-react";
-import reactHooksPlugin from "eslint-plugin-react-hooks";
-import nextPlugin from "@next/eslint-plugin-next";
-import prettierConfig from 'eslint-config-prettier';
+import next from "eslint-config-next";
+import prettierConfig from "eslint-config-prettier";
 
 const eslintConfig = [
-  // Base JavaScript configuration
-  js.configs.recommended,
+  ...next,
   prettierConfig,
-  
-  // TypeScript configuration
-  {
-    files: ["**/*.{ts,tsx}"],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: "latest",
-        sourceType: "module",
-        ecmaFeatures: {
-          jsx: true
-        }
-      }
-    },
-    plugins: {
-      "@typescript-eslint": typescript,
-      "react": reactPlugin,
-      "react-hooks": reactHooksPlugin,
-      "@next/next": nextPlugin
-    },
-    rules: {
-      // TypeScript rules
-      ...typescript.configs.recommended.rules,
-      
-      // Disable no-undef for TypeScript files (TypeScript handles this)
-      "no-undef": "off",
-      
-      // React rules
-      "react/react-in-jsx-scope": "off",
-      "react/prop-types": "off",
-      
-      // React Hooks rules
-      "react-hooks/rules-of-hooks": "error",
-      "react-hooks/exhaustive-deps": "warn",
-      
-      // Next.js rules
-      "@next/next/no-html-link-for-pages": "error",
-      "@next/next/no-img-element": "warn"
-    }
-  },
-  
+
   // Global ignores
   {
     ignores: [
@@ -63,12 +15,9 @@ const eslintConfig = [
       "next-env.d.ts",
       "*.config.js",
       "*.config.ts",
-      "*.config.mjs"
-    ]
+      "*.config.mjs",
+    ],
   },
-  
-  // Storybook configuration
-  ...storybook.configs["flat/recommended"]
 ];
 
 export default eslintConfig;
