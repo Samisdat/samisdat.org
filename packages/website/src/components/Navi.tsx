@@ -5,6 +5,7 @@ import { Container } from '@samisdat/ui-components/Container';
 import { Stack } from '@samisdat/ui-components/Stack';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
+import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
 import { space } from '../../../ui-components/src/tokens/space';
 import { ThemeSwitcher } from './ThemeSwitcher';
 
@@ -41,24 +42,31 @@ const Bar = styled.div`
     }
 `;
 
+const Teal = styled.span`
+    color: var(--color-teal);
+    text-decoration-color: var(--color-teal);
+`;
+const Red = styled.span`
+    color: var(--color-red);
+    text-decoration-color: var(--color-red);
+`;
+
 const StyledLink = styled(Link)`
     justify-self: center;
 
     text-decoration: none;
     font-family: var(--font-code);
     font-weight: bold;
+    font-size: var(--typo-h5-size);
+    @media (min-width: ${breakpoints.medium}) {
+        font-size: var(--typo-h4-size);
+    }
     &:hover {
+        text-decoration: none;
+    }
+    &:hover ${Teal}, &:hover ${Red} {
         text-decoration: underline;
     }
-`;
-const DomainStyling = styled.span`
-    color: var(--color-teal);
-`;
-const DotStyling = styled.span`
-    color: var(--color-red);
-`;
-const TldStyling = styled.span`
-    color: var(--color-red);
 `;
 
 const IconNav = styled.nav`
@@ -79,8 +87,14 @@ const IconNav = styled.nav`
     }
 
     & svg {
-        width: 1.25rem;
-        height: 1.25rem;
+        width: var(--typo-h5-size);
+        height: var(--typo-h5-size);
+    }
+    @media (min-width: ${breakpoints.medium}) {
+        & svg {
+            width: var(--typo-h4-size);
+            height: var(--typo-h4-size);
+        }
     }
 `;
 
@@ -118,8 +132,8 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                         container
                     >
                         <StyledLink href="/">
-                            <DomainStyling>sam</DomainStyling>
-                            <TldStyling>isdat</TldStyling>
+                            <Teal>sam</Teal>
+                            <Red>isdat</Red>
                         </StyledLink>
                         <Stack
                             directionSmall="row"
