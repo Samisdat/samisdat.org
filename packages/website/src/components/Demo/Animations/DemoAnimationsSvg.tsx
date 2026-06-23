@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react';
 import { ChangeEvent, useRef } from 'react';
-import { DemoAnimationsMorph } from './DemoAnimationsMorph';
+import { DemoAnimationsMorph } from './DemoAnimationsMorphCoffee';
 
 const Styling = styled.div`
     max-width: 450px;

@@ -1,8 +1,8 @@
 import { FC, HTMLAttributes } from 'react';
 
-import { Typo } from '@samisdat/ui-components/Typo';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Stack } from '@samisdat/ui-components/Stack';
+import { Typo } from '@samisdat/ui-components/Typo';
 
 import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { Link } from '../Link';
@@ -13,7 +13,9 @@ import {
     DemoAnimationsCss,
     DemoAnimationsCssJs,
     DemoAnimationsJsAttributes,
-    DemoAnimationsMorph,
+    DemoAnimationsMorphCoffee,
+    DemoAnimationsMorphThumb,
+    DemoAnimationsMorphUgly,
     DemoAnimationsSvg,
     DemoParallaxCircles,
     DemoParallaxHills,
@@ -68,7 +70,9 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoAnimationsSvg: () => <DemoAnimationsSvg />,
         DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,
         DemoAnimationsCompare: () => <DemoAnimationsCompare />,
-        DemoAnimationsMorph: () => <DemoAnimationsMorph />,
+        DemoAnimationsMorphThumb: () => <DemoAnimationsMorphThumb />,
+        DemoAnimationsMorphCoffee: () => <DemoAnimationsMorphCoffee />,
+        DemoAnimationsMorphUgly: () => <DemoAnimationsMorphUgly />,
         DemoParallaxSectors: () => <DemoParallaxSectors />,
         DemoParallaxHills: () => <DemoParallaxHills />,
         DemoParallaxCircles: () => <DemoParallaxCircles />,

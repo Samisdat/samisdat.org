@@ -33,8 +33,20 @@ export const DemoAnimationsJsAttributes = dynamic(
         })),
     { ssr: false }
 );
-export const DemoAnimationsMorph = dynamic(
-    () => import('../Demo/Animations/DemoAnimationsMorph').then(mod => ({ default: mod.DemoAnimationsMorph })),
+export const DemoAnimationsMorphThumb = dynamic(
+    () =>
+        import('../Demo/Animations/DemoAnimationsMorphThumb').then(mod => ({ default: mod.DemoAnimationsMorphThumb })),
+    { ssr: true }
+);
+export const DemoAnimationsMorphUgly = dynamic(
+    () => import('../Demo/Animations/DemoAnimationsMorphUgly').then(mod => ({ default: mod.DemoAnimationsMorphUgly })),
+    { ssr: false }
+);
+export const DemoAnimationsMorphCoffee = dynamic(
+    () =>
+        import('../Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
+            default: mod.DemoAnimationsMorphCoffee,
+        })),
     { ssr: false }
 );
 export const DemoParallaxSectors = dynamic(

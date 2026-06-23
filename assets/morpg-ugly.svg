@@ -1,0 +1,23 @@
+<svg viewBox="0 0 200 200" width="400" height="400" xmlns="http://www.w3.org/2000/svg" style="background: #111;">
+  <path fill="#00FFCC" fill-rule="evenodd">
+    <animate 
+      attributeName="d" 
+      dur="3s" 
+      repeatCount="indefinite"
+      attributeType="XML"
+      values="
+        /* START: Ein runder Donut mit einem Loch in der Mitte */
+        /* Außenkreis */
+        M 100,20 A 80,80 0 1,0 100,180 A 80,80 0 1,0 100,20
+        /* Innenkreis (Loch) */
+        M 100,60 A 40,40 0 1,1 100,140 A 40,40 0 1,1 100,60 Z;
+        
+        /* ENDE: Ein massives Quadrat (Das Loch muss kollabieren) */
+        /* Außenquadrat */
+        M 20,20 L 180,20 L 180,180 L 20,180 L 20,20
+        /* Das ehemalige Loch kollabiert zu einer winzigen Linie auf der Kante */
+        M 20,20 L 20,20 L 20,20 L 20,20 L 20,20 Z
+      " 
+    />
+  </path>
+</svg>
