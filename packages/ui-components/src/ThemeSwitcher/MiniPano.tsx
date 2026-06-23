@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@linaria/react";
+import { breakpoints } from "../tokens/breakpoints";
 
 const duration = 0.7;
 
@@ -8,7 +9,11 @@ const MiniPanoWrapper = styled.div`
   background: var(--color-foreground-muted);
   padding: 1px;
   border-radius: 1rem;
-  height: 1.25rem;
+  height: var(--typo-h5-size);
+  @media (min-width: ${breakpoints.medium}) {
+    height: var(--typo-h4-size);
+  }
+
   aspect-ratio: 179/59;
   overflow: hidden;
   &:hover {
