@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { ThemeDev as ThemeDevComponent } from ".";
+import { DemoBox } from "../DemoBox";
 
 const meta = {
   title: "Layout/ThemeDev",
