@@ -34,14 +34,11 @@ export async function MarkdownServer({ content, slug, mdxDir }: MarkdownServerPr
     for (const name of sandboxNames) {
         try {
             const files = await getSandpackFiles({ slug, name, template: 'react-ts' });
-            console.log(`Loaded sandbox files for ${name}:`, Object.keys(files));
             sandboxFiles[name] = files;
         } catch (err) {
             console.error(`Failed to load sandbox files for ${name}:`, err);
         }
     }
-
-    console.log('All sandbox files loaded:', Object.keys(sandboxFiles));
 
     return (
         <Markdown
