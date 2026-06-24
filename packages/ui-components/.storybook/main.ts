@@ -74,6 +74,7 @@ const config: StorybookConfig = {
       "culori",
       "@fortawesome/react-fontawesome",
       "@fortawesome/free-regular-svg-icons",
+      "@fortawesome/free-solid-svg-icons",
       "@fortawesome/fontawesome-svg-core",
     ];
 
