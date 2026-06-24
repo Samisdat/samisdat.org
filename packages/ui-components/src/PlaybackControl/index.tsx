@@ -1,13 +1,13 @@
 import { styled } from "@linaria/react";
 
-import { FC, HTMLAttributes, useRef, useState } from "react";
-import {
-  faBackwardFast,
-  faPause,
-  faPlay,
-  faReply,
-} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ChangeEvent, FC, HTMLAttributes, useRef, useState } from "react";
+import { LotOfHassleForSmallFx } from "./LotOfHassleForSmallFx";
+
+const Icon = styled.span`
+  display: inline-block;
+  width: 1ch;
+  text-align: center;
+`;
 
 const PlayPause = styled.button`
   /* ghost button */
@@ -21,10 +21,24 @@ const PlayPause = styled.button`
   text-align: inherit;
   cursor: pointer;
 
-  witdh: 90px;
   background-color: transparent;
 `;
-const SpeedRange = styled.input``;
+
+export const PlayText = () => {
+  return (
+    <>
+      <Icon>▶</Icon> Play&nbsp;&nbsp;
+    </>
+  );
+};
+
+export const PauseText = () => {
+  return (
+    <>
+      <Icon>⏸</Icon> Pause&nbsp;
+    </>
+  );
+};
 
 const Styling = styled.div`
   border: 1px solid var(--color-background-muted);
@@ -36,31 +50,47 @@ const Styling = styled.div`
   color: var(--color-background);
 `;
 
-export const PlaybackControl: FC<HTMLAttributes<HTMLDivElement>> = ({
-  children,
-}) => {
-  const speedRef = useRef<number>(1);
-  const [isPlaying, setIsPlaying] = useState(true);
+interface PlaybackControlProps {
+  isPlaying: boolean;
+  speed: number;
+  speedMin?: number;
+  speedMax?: number;
+  speedStep?: number;
+  onPlayPause: () => void;
+  onReset: () => void;
+  onSpeedChange: (speed: number) => void;
+}
 
-  const handlePlayPause = () => {
-    setIsPlaying((prev) => !prev);
-  };
-
-  const handleReset = () => {
-    setIsPlaying(false);
+export const PlaybackControl = ({
+  isPlaying,
+  speed,
+  speedMin = 1,
+  speedMax = 100,
+  speedStep = 1,
+  onPlayPause,
+  onReset,
+  onSpeedChange,
+}: PlaybackControlProps) => {
+  const handleSpeedChange = () => (e: ChangeEvent<HTMLInputElement>) => {
+    onSpeedChange(Number(e.target.value));
   };
 
   return (
     <Styling>
-      [
-      <PlayPause onClick={handlePlayPause}>
-        {isPlaying ? "‖ Pause" : ["▶ Play", "&npsp;"]}
+      <PlayPause onClick={onPlayPause}>
+        [ {isPlaying ? <PauseText /> : <PlayText />}]
       </PlayPause>
-      ]<PlayPause onClick={handlePlayPause}>[ ↺ Reset ]</PlayPause>
-      <PlayPause>[ - ]</PlayPause>
-      <SpeedRange type="range" min="7" max="100" value="30" />
-      <PlayPause>[ + ]</PlayPause>
-      Speed (2.0x)
+      <PlayPause onClick={onReset}>[ ↺ Reset ]</PlayPause>
+      <PlayPause>[ - ]</PlayPause>[
+      <LotOfHassleForSmallFx
+        onChange={handleSpeedChange}
+        step={speedStep}
+        min={speedMin}
+        max={speedMax}
+        value={speed}
+      />
+      ]<PlayPause>[ + ]</PlayPause>
+      Speed ({speed}x)
     </Styling>
   );
 };
