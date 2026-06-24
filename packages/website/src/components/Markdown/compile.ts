@@ -1,6 +1,7 @@
 import { compile, run } from '@mdx-js/mdx';
 import * as runtime from 'react/jsx-runtime';
 
+import remarkBreaks from 'remark-breaks';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
@@ -15,8 +16,6 @@ import { getTextMateColorSchema } from '@samisdat/ui-components/utils/getTextMat
 import { Frontmatter } from './Frontmatter';
 
 const theme = getTextMateColorSchema('dark');
-
-console.log(theme);
 
 const shikiOptions = {
     theme,
@@ -41,6 +40,7 @@ export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResu
                     // Export frontmatter as named export 'frontmatter'
                     [remarkMdxFrontmatter, { name: 'frontmatter' }],
                     remarkGfm, // GitHub Flavored Markdown (tables, task lists, strikethrough, etc.)
+                    remarkBreaks, // Single newline -> <br>; blank line -> new <p>
                 ],
                 rehypePlugins: [
                     rehypeSlug, // Add IDs to headings for deep linking
