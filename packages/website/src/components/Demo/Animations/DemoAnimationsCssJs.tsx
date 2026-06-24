@@ -1,11 +1,14 @@
 'use client';
 
-import { useAnimationFrame } from '@samisdat/tools';
 import { styled } from '@linaria/react';
+import { useAnimationFrame } from '@samisdat/tools';
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 
 import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
+import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
 
 const Styling = styled.div`
     max-width: 150px;
@@ -194,75 +197,78 @@ export const DemoAnimationsCssJs = () => {
 
     return (
         <Styling>
-            <div className="controls">
-                <button
-                    type="button"
-                    onClick={handlePlayPause}
-                    aria-label={isPlaying ? 'Pause' : 'Play'}
+            <DemoCanvas>
+                <PlaybackControl />
+                <div className="controls">
+                    <button
+                        type="button"
+                        onClick={handlePlayPause}
+                        aria-label={isPlaying ? 'Pause' : 'Play'}
+                    >
+                        <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
+                    </button>
+
+                    <button
+                        type="button"
+                        onClick={handleReset}
+                        aria-label="Reset"
+                    >
+                        <FontAwesomeIcon icon={faReply} />
+                    </button>
+                </div>
+
+                <label>
+                    speed
+                    <input
+                        type="range"
+                        min="-200"
+                        max="200"
+                        defaultValue={1}
+                        onChange={onChangeSpeed}
+                    />
+                </label>
+
+                <label>
+                    hour
+                    <input
+                        type="range"
+                        min="0"
+                        max="11"
+                        value={hour}
+                        onChange={onChangeHour}
+                    />
+                </label>
+
+                <label>
+                    minute
+                    <input
+                        type="range"
+                        min="0"
+                        max="59"
+                        value={minute}
+                        onChange={onChangeMinute}
+                    />
+                </label>
+
+                <label>
+                    second
+                    <input
+                        type="range"
+                        min="0"
+                        max="59"
+                        value={second}
+                        onChange={onChangeSecond}
+                    />
+                </label>
+
+                <svg
+                    ref={ref}
+                    viewBox="0 0 300 300"
+                    className={isPlaying ? '' : 'paused'}
                 >
-                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
-                </button>
-
-                <button
-                    type="button"
-                    onClick={handleReset}
-                    aria-label="Reset"
-                >
-                    <FontAwesomeIcon icon={faReply} />
-                </button>
-            </div>
-
-            <label>
-                speed
-                <input
-                    type="range"
-                    min="-200"
-                    max="200"
-                    defaultValue={1}
-                    onChange={onChangeSpeed}
-                />
-            </label>
-
-            <label>
-                hour
-                <input
-                    type="range"
-                    min="0"
-                    max="11"
-                    value={hour}
-                    onChange={onChangeHour}
-                />
-            </label>
-
-            <label>
-                minute
-                <input
-                    type="range"
-                    min="0"
-                    max="59"
-                    value={minute}
-                    onChange={onChangeMinute}
-                />
-            </label>
-
-            <label>
-                second
-                <input
-                    type="range"
-                    min="0"
-                    max="59"
-                    value={second}
-                    onChange={onChangeSecond}
-                />
-            </label>
-
-            <svg
-                ref={ref}
-                viewBox="0 0 300 300"
-                className={isPlaying ? '' : 'paused'}
-            >
-                <SvgContent />
-            </svg>
+                    <SvgContent />
+                </svg>
+            </DemoCanvas>
         </Styling>
     );
 };
