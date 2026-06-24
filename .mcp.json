@@ -1,9 +1,9 @@
 {
   "mcpServers": {
     "chrome-devtools": {
-      "command": "node",
-      "args": [".claude/mcp/chrome-devtools.js"],
-      "description": "Chrome DevTools Protocol server for inspecting and interacting with Chrome"
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--isolated"],
+      "description": "Official Chrome DevTools MCP server (puppeteer-based). Inspect/interact with Chrome, performance traces, network & console. Toggle with .claude/chrome-mcp.sh on|off."
     }
   }
 }
