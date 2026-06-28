@@ -2,60 +2,54 @@
 
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
-
-import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useRef, useState } from 'react';
 
 import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
 import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
 
-const Styling = styled.div`
-    max-width: 150px;
+const ClockSvg = styled.svg`
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linejoin: round;
+    stroke-miterlimit: 2;
 
-    & svg {
-        fill-rule: evenodd;
-        clip-rule: evenodd;
-        stroke-linejoin: round;
-        stroke-miterlimit: 2;
-    }
-
-    & svg .face {
+    & .face {
         fill: #fff;
         fill-rule: nonzero;
     }
 
-    & svg .dial {
+    & .dial {
         fill-rule: nonzero;
     }
 
-    & svg .hourHand,
-    & svg .minuteHand,
-    & svg .secondHand {
+    & .hourHand,
+    & .minuteHand,
+    & .secondHand {
         fill-rule: nonzero;
         transform-box: fill-box;
         transform-origin: 50% 100%;
     }
 
-    & svg .hourHand {
+    & .hourHand {
         transform: rotate(calc(1deg * var(--hour, 0)));
     }
 
-    & svg .minuteHand {
+    & .minuteHand {
         transform: rotate(calc(1deg * var(--minute, 0)));
     }
 
-    & svg.paused .hourHand,
-    & svg.paused .minuteHand {
+    &.paused .hourHand,
+    &.paused .minuteHand,
+    &.paused .secondHand {
         transition: transform 0.1s linear;
     }
 
-    & svg .secondHand {
+    & .secondHand {
         fill: #e00;
         transform: rotate(calc(1deg * var(--second, 0)));
     }
 
-    & svg .secondHandCover {
+    & .secondHandCover {
         fill: #e00;
     }
 `;
@@ -95,47 +89,47 @@ const SvgContent = () => (
         />
     </>
 );
-export const DemoAnimationsCssJs = () => {
-    const timeMsRef = useRef<number>(Date.now());
-    const speedRef = useRef<number>(1);
+const INITIAL_TIME = Date.now();
 
-    const [hour, setHour] = useState<number>(new Date(timeMsRef.current).getHours());
-    const [minute, setMinute] = useState<number>(new Date(timeMsRef.current).getMinutes());
-    const [second, setSecond] = useState<number>(new Date(timeMsRef.current).getSeconds());
+export const DemoAnimationsCssJs = () => {
+    const timeMsRef = useRef<number>(INITIAL_TIME);
+    const [speed, setSpeed] = useState<number>(1);
 
     const ref = useRef<SVGSVGElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(true);
 
-    const updateCssProps = () => {
-        const element = ref.current;
-        if (!element) return;
-
+    const syncFromTime = () => {
         const now = new Date(timeMsRef.current);
         const seconds = now.getSeconds();
         const minutes = now.getMinutes();
         const hours = now.getHours();
 
-        const secondAngle = seconds * 6;
-        const minuteAngle = minutes * 6; // entkoppelt von seconds
-        const hourAngle = ((hours % 12) + minutes / 60) * 30; // sinnvoll, aber ohne seconds
+        const element = ref.current;
+        if (element) {
+            const secondAngle = seconds * 6;
+            const minuteAngle = minutes * 6; // entkoppelt von seconds
+            const hourAngle = ((hours % 12) + minutes / 60) * 30; // sinnvoll, aber ohne seconds
 
-        element.style.setProperty('--second', String(secondAngle));
-        element.style.setProperty('--minute', String(minuteAngle));
-        element.style.setProperty('--hour', String(hourAngle));
+            element.style.setProperty('--second', String(secondAngle));
+            element.style.setProperty('--minute', String(minuteAngle));
+            element.style.setProperty('--hour', String(hourAngle));
+        }
     };
 
     const tick = (delta: number) => {
         if (!isPlaying) return;
 
-        timeMsRef.current += delta * speedRef.current;
+        timeMsRef.current += delta * speed;
 
-        if (12 >= new Date(timeMsRef.current).getHours()) {
-            const reset = new Date(timeMsRef.current);
-            reset.setHours(0);
-            timeMsRef.current = reset.getTime();
+        // 12-Stunden-Wrap, damit timeMsRef bei hoher Geschwindigkeit nicht
+        // davonläuft. Funktioniert in beide Richtungen (speed kann negativ sein).
+        const wrapped = new Date(timeMsRef.current);
+        if (wrapped.getHours() >= 12) {
+            wrapped.setHours(wrapped.getHours() - 12);
+            timeMsRef.current = wrapped.getTime();
         }
 
-        updateCssProps();
+        syncFromTime();
     };
 
     useAnimationFrame(tick);
@@ -146,129 +140,34 @@ export const DemoAnimationsCssJs = () => {
 
     const handleReset = () => {
         setIsPlaying(false);
+        setSpeed(1);
 
         timeMsRef.current = Date.now();
-        const now = new Date(timeMsRef.current);
-
-        setHour(now.getHours());
-        setMinute(now.getMinutes());
-        setSecond(now.getSeconds());
-
-        updateCssProps();
+        syncFromTime();
     };
 
-    const onChangeSpeed = (evt: ChangeEvent<HTMLInputElement>) => {
-        speedRef.current = parseInt(evt.target.value, 10);
+    const onChangeSpeed = (value: number) => {
+        setSpeed(value);
     };
-
-    const onChangeHour = (evt: ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(evt.target.value, 10);
-        const now = new Date(timeMsRef.current);
-
-        now.setHours(value);
-        timeMsRef.current = now.getTime();
-
-        setHour(value);
-    };
-
-    const onChangeMinute = (evt: ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(evt.target.value, 10);
-        const now = new Date(timeMsRef.current);
-
-        now.setMinutes(value);
-        timeMsRef.current = now.getTime();
-
-        setMinute(value);
-    };
-
-    const onChangeSecond = (evt: ChangeEvent<HTMLInputElement>) => {
-        const value = parseInt(evt.target.value, 10);
-        const now = new Date(timeMsRef.current);
-
-        now.setSeconds(value);
-        timeMsRef.current = now.getTime();
-
-        setSecond(value);
-    };
-
-    useEffect(() => {
-        if (!isPlaying) updateCssProps();
-    }, [isPlaying, hour, minute, second]);
 
     return (
-        <Styling>
-            <DemoCanvas>
-                <PlaybackControl />
-                <div className="controls">
-                    <button
-                        type="button"
-                        onClick={handlePlayPause}
-                        aria-label={isPlaying ? 'Pause' : 'Play'}
-                    >
-                        <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
-                    </button>
-
-                    <button
-                        type="button"
-                        onClick={handleReset}
-                        aria-label="Reset"
-                    >
-                        <FontAwesomeIcon icon={faReply} />
-                    </button>
-                </div>
-
-                <label>
-                    speed
-                    <input
-                        type="range"
-                        min="-200"
-                        max="200"
-                        defaultValue={1}
-                        onChange={onChangeSpeed}
-                    />
-                </label>
-
-                <label>
-                    hour
-                    <input
-                        type="range"
-                        min="0"
-                        max="11"
-                        value={hour}
-                        onChange={onChangeHour}
-                    />
-                </label>
-
-                <label>
-                    minute
-                    <input
-                        type="range"
-                        min="0"
-                        max="59"
-                        value={minute}
-                        onChange={onChangeMinute}
-                    />
-                </label>
-
-                <label>
-                    second
-                    <input
-                        type="range"
-                        min="0"
-                        max="59"
-                        value={second}
-                        onChange={onChangeSecond}
-                    />
-                </label>
-
-                <svg
-                    ref={ref}
-                    viewBox="0 0 300 300"
-                    className={isPlaying ? '' : 'paused'}
-                >
-                    <SvgContent />
-                </svg>
-            </DemoCanvas>
-        </Styling>
+        <DemoCanvas>
+            <ClockSvg
+                ref={ref}
+                viewBox="0 0 300 300"
+                className={isPlaying ? '' : 'paused'}
+            >
+                <SvgContent />
+            </ClockSvg>
+            <PlaybackControl
+                isPlaying={isPlaying}
+                speedMin={-200}
+                speedMax={200}
+                speed={speed}
+                onSpeedChange={onChangeSpeed}
+                onPlayPause={handlePlayPause}
+                onReset={handleReset}
+            />
+        </DemoCanvas>
     );
 };
