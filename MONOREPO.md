@@ -49,26 +49,26 @@ pnpm dev:all
 
 ## npm vs pnpm Befehlsreferenz
 
-| Aufgabe | npm | pnpm |
-|---------|-----|------|
-| **Installation** | `npm install` | `pnpm install` |
-| | `npm ci` | `pnpm install --frozen-lockfile` |
-| **Packages hinzufügen** | `npm install lodash` | `pnpm add lodash` |
-| | `npm install -D vitest` | `pnpm add -D vitest` |
-| | `npm install -P react` (peer) | `pnpm add -P react` |
-| **Packages entfernen** | `npm uninstall lodash` | `pnpm remove lodash` |
-| **Aktualisieren** | `npm update` | `pnpm update` |
-| | `npm update lodash --latest` | `pnpm update lodash --latest` |
-| **One-off Commands** | `npx storybook@latest upgrade` | `pnpm dlx storybook@latest upgrade` |
-| **Audit** | `npm audit` | `pnpm audit` |
-| | `npm audit fix` | `pnpm audit --fix` |
-| **Scripts laufen** | `npm run build` | `pnpm build` |
-| **Monorepo: ein Package** | `npm run build -w packages/blog` | `pnpm --filter blog build` |
-| **Monorepo: alle Packages** | `npm run build --workspaces` | `pnpm -r build` |
-| **List/Info** | `npm list lodash` | `pnpm list lodash` |
-| | `npm view lodash` | `pnpm info lodash` |
-| **Cache löschen** | `npm cache clean --force` | `pnpm store prune` |
-| **Global installl** | `npm install -g typescript` | `pnpm add -g typescript` |
+| Aufgabe                     | npm                              | pnpm                                |
+| --------------------------- | -------------------------------- | ----------------------------------- |
+| **Installation**            | `npm install`                    | `pnpm install`                      |
+|                             | `npm ci`                         | `pnpm install --frozen-lockfile`    |
+| **Packages hinzufügen**     | `npm install lodash`             | `pnpm add lodash`                   |
+|                             | `npm install -D vitest`          | `pnpm add -D vitest`                |
+|                             | `npm install -P react` (peer)    | `pnpm add -P react`                 |
+| **Packages entfernen**      | `npm uninstall lodash`           | `pnpm remove lodash`                |
+| **Aktualisieren**           | `npm update`                     | `pnpm update`                       |
+|                             | `npm update lodash --latest`     | `pnpm update lodash --latest`       |
+| **One-off Commands**        | `npx storybook@latest upgrade`   | `pnpm dlx storybook@latest upgrade` |
+| **Audit**                   | `npm audit`                      | `pnpm audit`                        |
+|                             | `npm audit fix`                  | `pnpm audit --fix`                  |
+| **Scripts laufen**          | `npm run build`                  | `pnpm build`                        |
+| **Monorepo: ein Package**   | `npm run build -w packages/blog` | `pnpm --filter blog build`          |
+| **Monorepo: alle Packages** | `npm run build --workspaces`     | `pnpm -r build`                     |
+| **List/Info**               | `npm list lodash`                | `pnpm list lodash`                  |
+|                             | `npm view lodash`                | `pnpm info lodash`                  |
+| **Cache löschen**           | `npm cache clean --force`        | `pnpm store prune`                  |
+| **Global installl**         | `npm install -g typescript`      | `pnpm add -g typescript`            |
 
 ---
 
@@ -137,6 +137,7 @@ pnpm --filter @samisdat/wtal-panorama build:lib
 `dlx` = **d**ownload and e**x**ecute (pnpm-Entsprechung zu `npx`)
 
 Lädt ein Package herunter, führt einen Command aus, und löscht es dann wieder. Praktisch für:
+
 - **One-off Commands** (einmalige Befehle)
 - **Tools die nicht installt bleiben sollen**
 - **Immer die neuste Version ohne Update**
@@ -158,15 +159,16 @@ pnpm dlx create-next-app@latest
 
 In `package.json`:
 
-| Syntax | Bedeutung | pnpm |
-|--------|-----------|------|
-| `^1.2.3` | `>=1.2.3 <2.0.0` (minor+patch updates) | Standard |
-| `~1.2.3` | `>=1.2.3 <1.3.0` (nur patch updates) | Strikt |
-| `1.2.3` | Exakte Version | Keine Updates |
-| `*` | Beliebige Version | Nicht empfohlen |
-| `latest` | Neueste Version | mit `pnpm update` |
+| Syntax   | Bedeutung                              | pnpm              |
+| -------- | -------------------------------------- | ----------------- |
+| `^1.2.3` | `>=1.2.3 <2.0.0` (minor+patch updates) | Standard          |
+| `~1.2.3` | `>=1.2.3 <1.3.0` (nur patch updates)   | Strikt            |
+| `1.2.3`  | Exakte Version                         | Keine Updates     |
+| `*`      | Beliebige Version                      | Nicht empfohlen   |
+| `latest` | Neueste Version                        | mit `pnpm update` |
 
 pnpm used **lockfile** (`pnpm-lock.yaml`):
+
 - Alle Versions sind **pinned**
 - `pnpm install` ist **deterministisch** (gleiche Versions immer)
 - `pnpm install --frozen-lockfile` schlägt fehl wenn Lockfile veraltet ist (gut für CI)
