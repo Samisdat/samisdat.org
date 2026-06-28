@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from 'react';
 
+import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { Typo } from '@samisdat/ui-components/Typo';
@@ -50,6 +51,9 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
             />
         ),
         a: (props: any) => <Link {...props} />,
+        DemoBox: (props: any) => {
+            return <DemoBox {...props} />;
+        },
         Grid: (props: any) => {
             return <Grid {...props} />;
         },
