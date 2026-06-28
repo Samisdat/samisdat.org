@@ -71,7 +71,7 @@ export const PlaybackControl = ({
   onReset,
   onSpeedChange,
 }: PlaybackControlProps) => {
-  const handleSpeedChange = () => (e: ChangeEvent<HTMLInputElement>) => {
+  const handleSpeedChange = (e: ChangeEvent<HTMLInputElement>) => {
     onSpeedChange(Number(e.target.value));
   };
 
