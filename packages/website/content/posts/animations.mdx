@@ -24,17 +24,33 @@ Wenn man zwei verschiedenen Formen nicht als jeweils genau ein Pfad darstellen k
 Wenn die Anzahl der Punkte in den Pfaden unterschiedlich ist, dann gibt es keine Animation. Es wird einfach von einem zum anderen Pfad gewitched
 Wenn die Reihenfolge der Punkte nicht konsitent ist, dann passieren komische Dinge
 
-<DemoAnimationsMorphUgly />
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsMorphUgly />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
 
-<DemoAnimationsCss />
+foo
 
-<Sandbox
-    name={'animation-compare'}
-    visibleFiles={['/src/Smil.tsx', '/src/Css.tsx', '/src/Js.tsx', '/src/JsCss.tsx', '/src/App.tsx']}
-    activeFile={'/src/Smil.tsx'}
-/>
-
-<DemoAnimationsCompare />
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsCompare />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
 
 ## SVG Animation
 
@@ -42,28 +58,48 @@ Wenn die Reihenfolge der Punkte nicht konsitent ist, dann passieren komische Din
 
 [Can I use](https://caniuse.com/svg-smil)
 
-<DemoAnimationsSvg />
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsSvg />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
 
 ## Animation per Javascript
 
-<DemoAnimationsJsAttributes />
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsJsAttributes />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
 
 ## Animation per CSS
 
- <Stack
-                container
-                directionSmall="column"
-                directionMedium="row"
-            >
-                <Stack>
-<DemoAnimationsCssJs />
-                </Stack>
-                <Stack>
-                    <DemoBox>Mobile unten / Tablet rechts</DemoBox>
-                </Stack>
-            </Stack>
-
-
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsCssJs />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
 
 ## Alle zusammen
 
