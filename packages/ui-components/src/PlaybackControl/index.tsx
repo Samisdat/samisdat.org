@@ -1,6 +1,6 @@
 import { styled } from "@linaria/react";
 
-import { ChangeEvent, FC, HTMLAttributes, useRef, useState } from "react";
+import { ChangeEvent, MouseEvent } from "react";
 import { LotOfHassleForSmallFx } from "./LotOfHassleForSmallFx";
 
 const Icon = styled.span`
@@ -75,13 +75,22 @@ export const PlaybackControl = ({
     onSpeedChange(Number(e.target.value));
   };
 
+  const handleSpeedIncrement = (e: MouseEvent<HTMLButtonElement>) => {
+    const direction = e.currentTarget.value;
+    const delta = direction === 'increment' ? speedStep : -speedStep;
+    onSpeedChange(speed + delta);
+  };
+
   return (
     <Styling>
       <PlayPause onClick={onPlayPause}>
         [ {isPlaying ? <PauseText /> : <PlayText />}]
       </PlayPause>
       <PlayPause onClick={onReset}>[ ↺ Reset ]</PlayPause>
-      <PlayPause>[ - ]</PlayPause>[
+      <PlayPause value="decrement" onClick={handleSpeedIncrement}>
+        [ - ]
+      </PlayPause>
+      [
       <LotOfHassleForSmallFx
         onChange={handleSpeedChange}
         step={speedStep}
@@ -89,7 +98,7 @@ export const PlaybackControl = ({
         max={speedMax}
         value={speed}
       />
-      ]<PlayPause>[ + ]</PlayPause>
+      ]<PlayPause value="increment" onClick={handleSpeedIncrement}>[ + ]</PlayPause>
       Speed ({speed}x)
     </Styling>
   );
