@@ -1,35 +1,29 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { ChangeEvent, useRef } from 'react';
-import { DemoAnimationsMorph } from './DemoAnimationsMorphCoffee';
+import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
+import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { useEffect, useRef, useState } from 'react';
 
-const Styling = styled.div`
-    max-width: 450px;
-
-    & svg {
-        width: 450px;
-        height: 300px;
-        background: var(--color-deep-pine);
-    }
-    & .wupper {
+const BridgeSvgStyling = styled.svg`
+    margin: 1rem;
+    width: calc(100%-2rem);
+    background: var(--color-deep-pine);
+    .wupper {
         transform: translateY(-273px);
     }
-    & .shore {
+    .shore {
         transform: translate(-430px, -271px);
         fill: var(--color-deep-pine);
     }
-    & .bridgeBehind,
+    .bridgeBehind,
     .bridgeBefore {
         transform: translate(-325px, -270px);
     }
 `;
 
 const Svg = () => (
-    <svg
-        height="100%"
-        viewBox="0 0 150 100"
-    >
+    <BridgeSvgStyling viewBox="0 0 150 100">
         <g className="bridgeBehind">
             <path
                 className={'bridge-zoo-dark'}
@@ -94,12 +88,15 @@ const Svg = () => (
                 d="M353.792,321.244l0,-28.343c0.087,-6.178 10.513,-6.807 10.558,-0l0,17.069c-4.31,3.298 -7.893,7.102 -10.558,11.274Zm14.701,-14.147l-0,-14.196c-0.027,-3.626 7.316,-3.41 7.447,0.199l0,10.02c-2.629,1.183 -5.119,2.514 -7.447,3.977Zm11.59,-5.674l0,-7.454c-0.003,-2.159 5.601,-1.92 5.997,1.259l-0,4.273c-2.057,0.56 -4.059,1.203 -5.997,1.922Z"
             />
         </g>
-    </svg>
+    </BridgeSvgStyling>
 );
 
 export const DemoAnimationsSvg = () => {
-    const ref = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
+    const [speed, setSpeed] = useState<number>(40);
+
+    /*
     const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
         if (!ref.current) {
             return;
@@ -107,21 +104,34 @@ export const DemoAnimationsSvg = () => {
 
         ref.current.querySelector('animate')?.setAttribute('dur', `${evt.currentTarget.value}s`);
     };
+  */
+    const isPlaying = false;
 
+    const onChangeSpeed = (value: number) => {
+        setSpeed(value);
+    };
+
+    useEffect(() => {
+        if (!containerRef.current) {
+            return;
+        }
+        containerRef.current.querySelector('animate')?.setAttribute('dur', `${speed}s`);
+    }, [speed]);
+
+    const handlePlayPause = () => {};
+    const handleReset = () => {};
     return (
-        <Styling ref={ref}>
-            <label>
-                Geschwindigkeit
-                <input
-                    type="range"
-                    name="speed"
-                    min="1"
-                    max="60"
-                    defaultValue={'40'}
-                    onChange={onChange}
-                />
-            </label>
+        <DemoCanvas ref={containerRef}>
             <Svg />
-        </Styling>
+            <PlaybackControl
+                isPlaying={isPlaying}
+                speedMin={1}
+                speedMax={80}
+                speed={speed}
+                onSpeedChange={onChangeSpeed}
+                onPlayPause={handlePlayPause}
+                onReset={handleReset}
+            />
+        </DemoCanvas>
     );
 };
