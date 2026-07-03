@@ -1,5 +1,5 @@
 import { styled } from "@linaria/react";
-import { HTMLAttributes } from "react";
+import { HTMLAttributes, Ref } from "react";
 
 const Styling = styled.div`
   background-image: conic-gradient(
@@ -13,5 +13,10 @@ const Styling = styled.div`
 
 export const DemoCanvas = ({
   children,
+  ref,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => <Styling {...props}>{children}</Styling>;
+}: HTMLAttributes<HTMLDivElement> & { ref?: Ref<HTMLDivElement> }) => (
+  <Styling ref={ref} {...props}>
+    {children}
+  </Styling>
+);
