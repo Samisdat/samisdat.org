@@ -1,12 +1,11 @@
-import { useAnimationFrame } from '@samisdat/tools';
 import { styled } from '@linaria/react';
+import { useAnimationFrame } from '@samisdat/tools';
 import { CSSProperties, useEffect, useRef } from 'react';
-import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 const JsCssStyling = styled(SvgStyling)`
     & circle.jscss {
-        fill: var(--color-aqua-gray);
+        fill: var(--color-blue);
         transform: translateX(calc(1px * var(--posX)));
     }
 `;
@@ -60,10 +59,6 @@ export const JsCss = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) =
 
     return (
         <JsCssStyling viewBox="0 0 200 30">
-            <Checkerboard
-                width={230}
-                height={30}
-            />
             <circle
                 ref={circleRef}
                 className="jscss"

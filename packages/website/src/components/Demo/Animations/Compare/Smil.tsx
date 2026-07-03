@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => {
@@ -37,15 +36,11 @@ export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) =>
             ref={svgRef}
             viewBox="0 0 200 30"
         >
-            <Checkerboard
-                width={230}
-                height={30}
-            />
             <circle
                 cx={config.startX}
                 cy={config.circleY}
                 r={config.circleRadius}
-                fill="var(--color-fire-red)"
+                fill="var(--color-red)"
             >
                 <animate
                     attributeName="cx"
