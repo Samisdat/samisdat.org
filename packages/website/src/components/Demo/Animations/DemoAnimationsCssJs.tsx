@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
 import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
@@ -96,7 +96,38 @@ export const DemoAnimationsCssJs = () => {
     const [speed, setSpeed] = useState<number>(1);
 
     const ref = useRef<SVGSVGElement | null>(null);
-    const [isPlaying, setIsPlaying] = useState(true);
+    const containerRef = useRef<HTMLDivElement | null>(null);
+    const [isPlaying, setIsPlaying] = useState(false);
+    const isInViewport = useRef(false);
+    // Tracks whether user explicitly paused while in viewport
+    const userPaused = useRef(false);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                const visible = entry.isIntersecting;
+                isInViewport.current = visible;
+
+                if (visible) {
+                    // Enter viewport → play (unless user had explicitly paused)
+                    if (!userPaused.current) {
+                        setIsPlaying(true);
+                    }
+                } else {
+                    // Leave viewport → pause, reset user-pause flag
+                    setIsPlaying(false);
+                    userPaused.current = false;
+                }
+            },
+            { threshold: 0.1 },
+        );
+
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     const syncFromTime = () => {
         const now = new Date(timeMsRef.current);
@@ -134,9 +165,16 @@ export const DemoAnimationsCssJs = () => {
 
     useAnimationFrame(tick);
 
-    const handlePlayPause = () => {
-        setIsPlaying(prev => !prev);
-    };
+    const handlePlayPause = useCallback(() => {
+        setIsPlaying(prev => {
+            const next = !prev;
+            // Track explicit user pause/play while in viewport
+            if (isInViewport.current) {
+                userPaused.current = !next;
+            }
+            return next;
+        });
+    }, []);
 
     const handleReset = () => {
         setIsPlaying(false);
@@ -151,7 +189,7 @@ export const DemoAnimationsCssJs = () => {
     };
 
     return (
-        <DemoCanvas>
+        <DemoCanvas ref={containerRef}>
             <ClockSvg
                 ref={ref}
                 viewBox="0 0 300 300"
