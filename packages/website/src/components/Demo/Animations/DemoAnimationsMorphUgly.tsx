@@ -1,7 +1,11 @@
 import { styled } from '@linaria/react';
-const Styling = styled.div`
-    width: 10rem;
-    height: 10rem;
+import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
+import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { useEffect, useRef, useState } from 'react';
+const HillsSvgStyling = styled.svg`
+    margin: 1rem;
+    width: calc(100%-2rem);
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -25,13 +29,29 @@ const steam3 =
 const steam4 =
     'M0,50l0,0c0,0 1.252,0 2.284,0c1.071,0 2.704,0 3.368,0c0.361,0 0.346,0 0.615,0c0.269,0 0.664,0 0.999,0c0.68,0 2.107,0 3.085,0c0.9,0 1.876,0 2.783,0c1.253,0 3.448,0 4.733,0c0.992,0 2.293,0 2.978,0c0.389,0 0.739,0 1.13,0c0.402,0 0.981,0 1.287,0c0.239,0 0.293,0 0.545,0c0.274,0 0.705,0 1.104,0c0.571,0 1.56,0 2.32,0c0.758,0 1.488,0 2.24,0c0.916,0 2.434,0 3.261,0c0.578,0 1.342,0 1.697,0c0.199,0 0.266,0 0.436,0c0.175,0 0.405,0 0.614,0c0.209,0 0.385,0 0.64,0c0.279,0 0.619,0 1.039,0c0.624,0 1.968,0 2.708,0c0.642,0 1.298,0 1.733,0c0.348,0 0.563,0 0.882,0c0.664,0 2.553,0 3.102,0c0.326,0 -0.111,0 0.193,0c0.36,0 1.577,0 1.969,0c0.336,0 0.059,0 0.381,0c0.327,0 1.081,0 1.582,0c0.462,0 0.292,0 0.292,0l-0,0l-50,0Z';
 export const DemoAnimationsMorphUgly = () => {
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
+    const [speed, setSpeed] = useState<number>(40);
+
+    const isPlaying = false;
+
+    const onChangeSpeed = (value: number) => {
+        setSpeed(value);
+    };
+
+    useEffect(() => {
+        if (!containerRef.current) {
+            return;
+        }
+        containerRef.current.querySelector('animate')?.setAttribute('dur', `${speed}s`);
+    }, [speed]);
+
+    const handlePlayPause = () => {};
+    const handleReset = () => {};
+
     return (
-        <Styling>
-            <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 50 50"
-            >
+        <DemoCanvas ref={containerRef}>
+            <HillsSvgStyling viewBox="0 0 50 50">
                 <rect
                     x="0"
                     y="0"
@@ -61,7 +81,16 @@ export const DemoAnimationsMorphUgly = () => {
                         values={`${steam3};${steam4};${steam3}`}
                     />
                 </path>
-            </svg>
-        </Styling>
+            </HillsSvgStyling>
+            <PlaybackControl
+                isPlaying={isPlaying}
+                speedMin={1}
+                speedMax={80}
+                speed={speed}
+                onSpeedChange={onChangeSpeed}
+                onPlayPause={handlePlayPause}
+                onReset={handleReset}
+            />
+        </DemoCanvas>
     );
 };
