@@ -4,6 +4,8 @@ import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { styled } from '@linaria/react';
+import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
+import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
 import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
 import { Js } from './Js';
@@ -13,15 +15,11 @@ import { config } from './shared';
 
 const DemoAnimationsCompareStyling = styled.div`
     max-width: 450px;
-
-    .controls {
-        display: flex;
-        gap: 0.5rem;
-        margin-bottom: 0.5rem;
-    }
 `;
 
 export const DemoAnimationsCompare = () => {
+    const containerRef = useRef<HTMLDivElement | null>(null);
+
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const [isPlaying, setIsPlaying] = useState(false);
@@ -64,38 +62,39 @@ export const DemoAnimationsCompare = () => {
         };
     }, [isPlaying]);
 
+    const onChangeSpeed = (value: number) => {
+        console.log(value);
+    };
+
     return (
-        <DemoAnimationsCompareStyling>
-            <div className="controls">
-                <button
-                    type="button"
-                    onClick={handlePlayPause}
-                >
-                    <FontAwesomeIcon icon={isPlaying ? faPause : faPlay} />
-                </button>
-                <button
-                    type="button"
-                    onClick={handleReset}
-                >
-                    <FontAwesomeIcon icon={faReply} />
-                </button>
-            </div>
-            <Smil
+        <DemoCanvas ref={containerRef}>
+            <DemoAnimationsCompareStyling>
+                <Smil
+                    isPlaying={isPlaying}
+                    resetTrigger={resetCounter}
+                />
+                <Css
+                    isPlaying={isPlaying}
+                    resetTrigger={resetCounter}
+                />
+                <Js
+                    isPlaying={isPlaying}
+                    resetTrigger={resetCounter}
+                />
+                <JsCss
+                    isPlaying={isPlaying}
+                    resetTrigger={resetCounter}
+                />
+            </DemoAnimationsCompareStyling>
+            <PlaybackControl
                 isPlaying={isPlaying}
-                resetTrigger={resetCounter}
+                speedMin={1}
+                speedMax={80}
+                speed={100}
+                onSpeedChange={onChangeSpeed}
+                onPlayPause={handlePlayPause}
+                onReset={handleReset}
             />
-            <Css
-                isPlaying={isPlaying}
-                resetTrigger={resetCounter}
-            />
-            <Js
-                isPlaying={isPlaying}
-                resetTrigger={resetCounter}
-            />
-            <JsCss
-                isPlaying={isPlaying}
-                resetTrigger={resetCounter}
-            />
-        </DemoAnimationsCompareStyling>
+        </DemoCanvas>
     );
 };
