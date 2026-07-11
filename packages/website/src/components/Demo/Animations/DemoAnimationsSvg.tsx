@@ -1,13 +1,10 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
-import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useEffect, useRef, useState } from 'react';
 
 const BridgeSvgStyling = styled.svg`
-    margin: 1rem;
-    width: calc(100%-2rem);
     background: var(--color-deep-pine);
     .wupper {
         transform: translateY(-273px);
@@ -94,44 +91,66 @@ const Svg = () => (
 export const DemoAnimationsSvg = () => {
     const containerRef = useRef<HTMLDivElement | null>(null);
 
-    const [speed, setSpeed] = useState<number>(40);
+    const [speed, setSpeed] = useState(40);
+    const [isPlaying, setIsPlaying] = useState(false);
 
-    /*
-    const onChange = (evt: ChangeEvent<HTMLInputElement>) => {
-        if (!ref.current) {
+    const getSvg = () =>
+        containerRef.current?.querySelector<SVGSVGElement>('svg') ?? null;
+
+    useEffect(() => {
+        const svg = getSvg();
+        if (!svg) {
             return;
         }
+        svg.pauseAnimations();
+        svg.setCurrentTime(0);
+    }, []);
 
-        ref.current.querySelector('animate')?.setAttribute('dur', `${evt.currentTarget.value}s`);
-    };
-  */
-    const isPlaying = false;
+    useEffect(() => {
+        containerRef.current
+            ?.querySelector('animate')
+            ?.setAttribute('dur', `${speed}s`);
+    }, [speed]);
 
-    const onChangeSpeed = (value: number) => {
+    const onSpeedChange = (value: number) => {
         setSpeed(value);
     };
 
-    useEffect(() => {
-        if (!containerRef.current) {
-            return;
-        }
-        containerRef.current.querySelector('animate')?.setAttribute('dur', `${speed}s`);
-    }, [speed]);
+    const onPlay = () => {
+        getSvg()?.unpauseAnimations();
+        setIsPlaying(true);
+    };
 
-    const handlePlayPause = () => {};
-    const handleReset = () => {};
+    const onPause = () => {
+        getSvg()?.pauseAnimations();
+        setIsPlaying(false);
+    };
+
+    const onReset = () => {
+        const svg = getSvg();
+        if (svg) {
+            svg.pauseAnimations();
+            svg.setCurrentTime(0);
+        }
+        setSpeed(40);
+        setIsPlaying(false);
+    };
+
     return (
-        <DemoCanvas ref={containerRef}>
+        <DemoAnimation
+            ref={containerRef}
+            playbackControl={{
+                isPlaying,
+                speedMin: 1,
+                speedMax: 80,
+                speed,
+                onSpeedChange,
+                onPlay,
+                onPause,
+                onReset,
+            }}
+        >
             <Svg />
-            <PlaybackControl
-                isPlaying={isPlaying}
-                speedMin={1}
-                speedMax={80}
-                speed={speed}
-                onSpeedChange={onChangeSpeed}
-                onPlayPause={handlePlayPause}
-                onReset={handleReset}
-            />
-        </DemoCanvas>
+        </DemoAnimation>
     );
 };
