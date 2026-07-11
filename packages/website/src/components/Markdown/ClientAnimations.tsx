@@ -4,12 +4,12 @@ import dynamic from 'next/dynamic';
 
 export const DemoAnimationsCompare = dynamic(
     () => import('../Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
-    { ssr: false }
+    { ssr: true }
 );
 
 export const DemoAnimationsSvg = dynamic(
     () => import('../Demo/Animations/DemoAnimationsSvg').then(mod => ({ default: mod.DemoAnimationsSvg })),
-    { ssr: false }
+    { ssr: true }
 );
 
 export const DemoAnimationsCss = dynamic(
@@ -31,7 +31,7 @@ export const DemoAnimationsJsAttributes = dynamic(
         import('../Demo/Animations/DemoAnimationsJsAttributes').then(mod => ({
             default: mod.DemoAnimationsJsAttributes,
         })),
-    { ssr: false }
+    { ssr: true }
 );
 export const DemoAnimationsMorphThumb = dynamic(
     () =>
@@ -40,14 +40,14 @@ export const DemoAnimationsMorphThumb = dynamic(
 );
 export const DemoAnimationsMorphUgly = dynamic(
     () => import('../Demo/Animations/DemoAnimationsMorphUgly').then(mod => ({ default: mod.DemoAnimationsMorphUgly })),
-    { ssr: false }
+    { ssr: true }
 );
 export const DemoAnimationsMorphCoffee = dynamic(
     () =>
         import('../Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
             default: mod.DemoAnimationsMorphCoffee,
         })),
-    { ssr: false }
+    { ssr: true }
 );
 export const DemoParallaxSectors = dynamic(
     () => import('../Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
