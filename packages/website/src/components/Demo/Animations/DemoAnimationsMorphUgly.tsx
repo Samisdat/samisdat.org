@@ -1,11 +1,9 @@
 import { styled } from '@linaria/react';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
 import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
 import { useEffect, useRef, useState } from 'react';
 const HillsSvgStyling = styled.svg`
-    margin: 1rem;
-    width: calc(100%-2rem);
-
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -33,9 +31,9 @@ export const DemoAnimationsMorphUgly = () => {
 
     const [speed, setSpeed] = useState<number>(40);
 
-    const isPlaying = false;
+    const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
-    const onChangeSpeed = (value: number) => {
+    const onSpeedChange = (value: number) => {
         setSpeed(value);
     };
 
@@ -46,11 +44,30 @@ export const DemoAnimationsMorphUgly = () => {
         containerRef.current.querySelector('animate')?.setAttribute('dur', `${speed}s`);
     }, [speed]);
 
-    const handlePlayPause = () => {};
-    const handleReset = () => {};
+    const onPlay = () => {
+        setIsPlaying(true);
+    };
+    const onPause = () => {
+        setIsPlaying(false);
+    };
+    const onReset = () => {
+        setIsPlaying(false);
+    };
 
     return (
-        <DemoCanvas ref={containerRef}>
+        <DemoAnimation
+            ref={containerRef}
+            playbackControl={{
+                isPlaying,
+                speedMin: 0,
+                speedMax: 80,
+                speed,
+                onSpeedChange,
+                onPlay,
+                onPause,
+                onReset,
+            }}
+        >
             <HillsSvgStyling viewBox="0 0 50 50">
                 <rect
                     x="0"
@@ -65,7 +82,7 @@ export const DemoAnimationsMorphUgly = () => {
                 >
                     <animate
                         attributeName="d"
-                        dur="3s"
+                        dur={`${speed}s`}
                         repeatCount="indefinite"
                         values={`${steam1};${steam2};${steam1}`}
                     />
@@ -76,21 +93,12 @@ export const DemoAnimationsMorphUgly = () => {
                 >
                     <animate
                         attributeName="d"
-                        dur="3s"
+                        dur={`${speed}s`}
                         repeatCount="indefinite"
                         values={`${steam3};${steam4};${steam3}`}
                     />
                 </path>
             </HillsSvgStyling>
-            <PlaybackControl
-                isPlaying={isPlaying}
-                speedMin={1}
-                speedMax={80}
-                speed={speed}
-                onSpeedChange={onChangeSpeed}
-                onPlayPause={handlePlayPause}
-                onReset={handleReset}
-            />
-        </DemoCanvas>
+        </DemoAnimation>
     );
 };
