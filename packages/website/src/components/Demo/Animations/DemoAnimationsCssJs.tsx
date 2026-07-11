@@ -4,8 +4,7 @@ import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
-import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 
 const ClockSvg = styled.svg`
     fill-rule: evenodd;
@@ -89,47 +88,16 @@ const SvgContent = () => (
         />
     </>
 );
-const INITIAL_TIME = Date.now();
+const initialTime = () => new Date(2000, 0, 1, 10, 10, 31).getTime();
 
 export const DemoAnimationsCssJs = () => {
-    const timeMsRef = useRef<number>(INITIAL_TIME);
-    const [speed, setSpeed] = useState<number>(1);
+    const timeMsRef = useRef<number>(initialTime());
+    const [speed, setSpeed] = useState(1);
 
     const ref = useRef<SVGSVGElement | null>(null);
-    const containerRef = useRef<HTMLDivElement | null>(null);
     const [isPlaying, setIsPlaying] = useState(false);
-    const isInViewport = useRef(false);
-    // Tracks whether user explicitly paused while in viewport
-    const userPaused = useRef(false);
 
-    useEffect(() => {
-        const el = containerRef.current;
-        if (!el) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                const visible = entry.isIntersecting;
-                isInViewport.current = visible;
-
-                if (visible) {
-                    // Enter viewport → play (unless user had explicitly paused)
-                    if (!userPaused.current) {
-                        setIsPlaying(true);
-                    }
-                } else {
-                    // Leave viewport → pause, reset user-pause flag
-                    setIsPlaying(false);
-                    userPaused.current = false;
-                }
-            },
-            { threshold: 0.1 },
-        );
-
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
-
-    const syncFromTime = () => {
+    const syncFromTime = useCallback(() => {
         const now = new Date(timeMsRef.current);
         const seconds = now.getSeconds();
         const minutes = now.getMinutes();
@@ -138,58 +106,67 @@ export const DemoAnimationsCssJs = () => {
         const element = ref.current;
         if (element) {
             const secondAngle = seconds * 6;
-            const minuteAngle = minutes * 6; // entkoppelt von seconds
-            const hourAngle = ((hours % 12) + minutes / 60) * 30; // sinnvoll, aber ohne seconds
+            const minuteAngle = minutes * 6;
+            const hourAngle = ((hours % 12) + minutes / 60) * 30;
 
             element.style.setProperty('--second', String(secondAngle));
             element.style.setProperty('--minute', String(minuteAngle));
             element.style.setProperty('--hour', String(hourAngle));
         }
-    };
+    }, []);
+
+    useEffect(() => {
+        syncFromTime();
+    }, [syncFromTime]);
 
     const tick = (delta: number) => {
-        if (!isPlaying) return;
+        timeMsRef.current += Math.min(delta, 100) * speed;
 
-        timeMsRef.current += delta * speed;
-
-        // 12-Stunden-Wrap, damit timeMsRef bei hoher Geschwindigkeit nicht
-        // davonläuft. Funktioniert in beide Richtungen (speed kann negativ sein).
         const wrapped = new Date(timeMsRef.current);
         if (wrapped.getHours() >= 12) {
             wrapped.setHours(wrapped.getHours() - 12);
-            timeMsRef.current = wrapped.getTime();
         }
+        wrapped.setFullYear(2000, 0, 1);
+        timeMsRef.current = wrapped.getTime();
 
         syncFromTime();
     };
 
-    useAnimationFrame(tick);
+    useAnimationFrame(tick, isPlaying);
 
-    const handlePlayPause = useCallback(() => {
-        setIsPlaying(prev => {
-            const next = !prev;
-            // Track explicit user pause/play while in viewport
-            if (isInViewport.current) {
-                userPaused.current = !next;
-            }
-            return next;
-        });
+    const onPlay = useCallback(() => {
+        setIsPlaying(true);
     }, []);
 
-    const handleReset = () => {
+    const onPause = useCallback(() => {
+        setIsPlaying(false);
+    }, []);
+
+    const onReset = useCallback(() => {
         setIsPlaying(false);
         setSpeed(1);
 
-        timeMsRef.current = Date.now();
+        timeMsRef.current = initialTime();
         syncFromTime();
-    };
+    }, [syncFromTime]);
 
-    const onChangeSpeed = (value: number) => {
+    const onSpeedChange = useCallback((value: number) => {
         setSpeed(value);
-    };
+    }, []);
 
     return (
-        <DemoCanvas ref={containerRef}>
+        <DemoAnimation
+            playbackControl={{
+                isPlaying,
+                speedMin: -200,
+                speedMax: 200,
+                speed,
+                onSpeedChange,
+                onPlay,
+                onPause,
+                onReset,
+            }}
+        >
             <ClockSvg
                 ref={ref}
                 viewBox="0 0 300 300"
@@ -197,15 +174,6 @@ export const DemoAnimationsCssJs = () => {
             >
                 <SvgContent />
             </ClockSvg>
-            <PlaybackControl
-                isPlaying={isPlaying}
-                speedMin={-200}
-                speedMax={200}
-                speed={speed}
-                onSpeedChange={onChangeSpeed}
-                onPlayPause={handlePlayPause}
-                onReset={handleReset}
-            />
-        </DemoCanvas>
+        </DemoAnimation>
     );
 };
