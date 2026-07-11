@@ -2,13 +2,10 @@
 
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
-import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
-import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
-import { ChangeEvent, useEffect, useRef, useState } from 'react';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
+import { useEffect, useRef, useState } from 'react';
 
 const SvgWithSunStyling = styled.svg`
-    margin: 1rem;
-    width: calc(100% - 2rem);
     background: var(--color-deep-pine);
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -36,14 +33,13 @@ interface Point {
 const dayLength = 3600;
 
 export const DemoAnimationsJsAttributes = () => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-
     const pathRef = useRef<SVGPathElement>(null);
 
     const lengthRef = useRef<number | null>(null);
 
-    const [time, setTime] = useState<number>(0);
-    const [speed, setSpeed] = useState<number>(10);
+    const [time, setTime] = useState(0);
+    const [speed, setSpeed] = useState(10);
+    const [isPlaying, setIsPlaying] = useState(false);
 
     useEffect(() => {
         if (pathRef.current) {
@@ -51,16 +47,12 @@ export const DemoAnimationsJsAttributes = () => {
         }
     }, []);
 
-    const next = () => {
-        setTime(prev => {
-            if (prev >= dayLength) {
-                return 0;
-            }
-            return prev + speed;
-        });
+    const next = (delta: number) => {
+        const frames = Math.min(delta, 100) / (1000 / 60);
+        setTime(prev => (prev + speed * frames) % dayLength);
     };
 
-    useAnimationFrame(next);
+    useAnimationFrame(next, isPlaying);
 
     const getPoint = (): Point => {
         if (!pathRef.current || !lengthRef.current) {
@@ -73,17 +65,37 @@ export const DemoAnimationsJsAttributes = () => {
         return { cx: point.x, cy: point.y };
     };
 
-    const isPlaying = false;
-
-    const onChangeSpeed = (value: number) => {
+    const onSpeedChange = (value: number) => {
         setSpeed(value);
     };
 
-    const handlePlayPause = () => {};
-    const handleReset = () => {};
+    const onPlay = () => {
+        setIsPlaying(true);
+    };
+
+    const onPause = () => {
+        setIsPlaying(false);
+    };
+
+    const onReset = () => {
+        setIsPlaying(false);
+        setSpeed(10);
+        setTime(0);
+    };
 
     return (
-        <DemoCanvas ref={containerRef}>
+        <DemoAnimation
+            playbackControl={{
+                isPlaying,
+                speedMin: 0,
+                speedMax: 40,
+                speed,
+                onSpeedChange,
+                onPlay,
+                onPause,
+                onReset,
+            }}
+        >
             <SvgWithSunStyling
                 width="100%"
                 height="100%"
@@ -104,15 +116,6 @@ export const DemoAnimationsJsAttributes = () => {
                     {...getPoint()}
                 />
             </SvgWithSunStyling>
-            <PlaybackControl
-                isPlaying={isPlaying}
-                speedMin={0}
-                speedMax={40}
-                speed={speed}
-                onSpeedChange={onChangeSpeed}
-                onPlayPause={handlePlayPause}
-                onReset={handleReset}
-            />
-        </DemoCanvas>
+        </DemoAnimation>
     );
 };
