@@ -1,11 +1,7 @@
 'use client';
 
-import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { styled } from '@linaria/react';
-import { DemoCanvas } from '@samisdat/ui-components/DemoCanvas';
-import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useEffect, useRef, useState } from 'react';
 import { Css } from './Css';
 import { Js } from './Js';
@@ -18,18 +14,21 @@ const DemoAnimationsCompareStyling = styled.div`
 `;
 
 export const DemoAnimationsCompare = () => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const [isPlaying, setIsPlaying] = useState(false);
     const [resetCounter, setResetCounter] = useState(0);
+    const [speed, setSpeed] = useState(1);
 
-    const handlePlayPause = () => {
-        setIsPlaying(prev => !prev);
+    const onPlay = () => {
+        setIsPlaying(true);
     };
 
-    const handleReset = () => {
+    const onPause = () => {
+        setIsPlaying(false);
+    };
+
+    const onReset = () => {
         setIsPlaying(false);
         setResetCounter(prev => prev + 1);
 
@@ -62,12 +61,23 @@ export const DemoAnimationsCompare = () => {
         };
     }, [isPlaying]);
 
-    const onChangeSpeed = (value: number) => {
-        console.log(value);
+    const onSpeedChange = (value: number) => {
+        setSpeed(value);
     };
 
     return (
-        <DemoCanvas ref={containerRef}>
+        <DemoAnimation
+            playbackControl={{
+                isPlaying,
+                speedMin: 1,
+                speedMax: 80,
+                speed,
+                onSpeedChange,
+                onPlay,
+                onPause,
+                onReset,
+            }}
+        >
             <DemoAnimationsCompareStyling>
                 <Smil
                     isPlaying={isPlaying}
@@ -86,15 +96,6 @@ export const DemoAnimationsCompare = () => {
                     resetTrigger={resetCounter}
                 />
             </DemoAnimationsCompareStyling>
-            <PlaybackControl
-                isPlaying={isPlaying}
-                speedMin={1}
-                speedMax={80}
-                speed={100}
-                onSpeedChange={onChangeSpeed}
-                onPlayPause={handlePlayPause}
-                onReset={handleReset}
-            />
-        </DemoCanvas>
+        </DemoAnimation>
     );
 };
