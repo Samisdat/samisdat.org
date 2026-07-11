@@ -9,7 +9,7 @@ const Icon = styled.span`
   text-align: center;
 `;
 
-const PlayPause = styled.button`
+const PlayPauseButton = styled.button`
   /* ghost button */
   appearance: none;
   background: none;
@@ -24,22 +24,6 @@ const PlayPause = styled.button`
   background-color: transparent;
 `;
 
-export const PlayText = () => {
-  return (
-    <>
-      <Icon>▶</Icon> Play&nbsp;&nbsp;
-    </>
-  );
-};
-
-export const PauseText = () => {
-  return (
-    <>
-      <Icon>⏸</Icon> Pause&nbsp;
-    </>
-  );
-};
-
 const Styling = styled.div`
   border: 1px solid var(--color-background-muted);
   background-color: var(--color-background-secondary);
@@ -50,13 +34,14 @@ const Styling = styled.div`
   color: var(--color-background);
 `;
 
-interface PlaybackControlProps {
+export interface PlaybackControlProps {
   isPlaying: boolean;
   speed: number;
   speedMin?: number;
   speedMax?: number;
   speedStep?: number;
-  onPlayPause: () => void;
+  onPlay: () => void;
+  onPause: () => void;
   onReset: () => void;
   onSpeedChange: (speed: number) => void;
 }
@@ -67,7 +52,8 @@ export const PlaybackControl = ({
   speedMin = 1,
   speedMax = 100,
   speedStep = 1,
-  onPlayPause,
+  onPlay,
+  onPause,
   onReset,
   onSpeedChange,
 }: PlaybackControlProps) => {
@@ -77,28 +63,48 @@ export const PlaybackControl = ({
 
   const handleSpeedIncrement = (e: MouseEvent<HTMLButtonElement>) => {
     const direction = e.currentTarget.value;
-    const delta = direction === 'increment' ? speedStep : -speedStep;
-    onSpeedChange(speed + delta);
+    const delta = direction === "increment" ? speedStep : -speedStep;
+    onSpeedChange(Math.min(speedMax, Math.max(speedMin, speed + delta)));
   };
 
   return (
     <Styling>
-      <PlayPause onClick={onPlayPause}>
-        [ {isPlaying ? <PauseText /> : <PlayText />}]
-      </PlayPause>
-      <PlayPause onClick={onReset}>[ ↺ Reset ]</PlayPause>
-      <PlayPause value="decrement" onClick={handleSpeedIncrement}>
+      {isPlaying ? (
+        <PlayPauseButton type="button" onClick={onPause}>
+          [ <Icon>⏸</Icon> Pause ]
+        </PlayPauseButton>
+      ) : (
+        <PlayPauseButton type="button" onClick={onPlay}>
+          [ <Icon>▶</Icon> Play&nbsp; ]
+        </PlayPauseButton>
+      )}
+      <PlayPauseButton type="button" onClick={onReset}>
+        [ ↺ Reset ]
+      </PlayPauseButton>
+      <PlayPauseButton
+        type="button"
+        value="decrement"
+        onClick={handleSpeedIncrement}
+      >
         [ - ]
-      </PlayPause>
+      </PlayPauseButton>
       [
       <LotOfHassleForSmallFx
+        aria-label="Speed"
         onChange={handleSpeedChange}
         step={speedStep}
         min={speedMin}
         max={speedMax}
         value={speed}
       />
-      ]<PlayPause value="increment" onClick={handleSpeedIncrement}>[ + ]</PlayPause>
+      ]
+      <PlayPauseButton
+        type="button"
+        value="increment"
+        onClick={handleSpeedIncrement}
+      >
+        [ + ]
+      </PlayPauseButton>
       Speed ({speed}x)
     </Styling>
   );
