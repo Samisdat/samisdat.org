@@ -9,6 +9,7 @@ const Styling = styled.div`
     #fff 0
   );
   background-size: 1rem 1rem;
+  padding: 1rem;
 `;
 
 export const DemoCanvas = ({
