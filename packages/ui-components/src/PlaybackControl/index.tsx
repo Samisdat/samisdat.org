@@ -1,7 +1,7 @@
 import { styled } from "@linaria/react";
 
 import { ChangeEvent, MouseEvent } from "react";
-import { LotOfHassleForSmallFx } from "./LotOfHassleForSmallFx";
+import { RangeSlider } from "./RangeSlider";
 
 const Icon = styled.span`
   display: inline-block;
@@ -95,7 +95,7 @@ export const PlaybackControl = ({
         [ - ]
       </PlayPauseButton>
       [
-      <LotOfHassleForSmallFx
+      <RangeSlider
         aria-label="Speed"
         onChange={handleSpeedChange}
         step={speedStep}
