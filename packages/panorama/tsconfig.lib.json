@@ -8,5 +8,5 @@
     "outDir": "./dist"
   },
   "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist", ".next", "src/app"]
+  "exclude": ["node_modules", "dist", ".next", "app"]
 }
