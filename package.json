@@ -6,25 +6,22 @@
     "build:lib": "pnpm --filter @samisdat/wtal-panorama build:lib",
     "dev:app": "pnpm --filter @samisdat/wtal-panorama dev",
     "dev:lib": "pnpm --filter @samisdat/wtal-panorama dev:lib",
-    "dev": "pnpm --filter blog dev",
-    "dev:all": "pnpm dev:lib & pnpm dev",
-    "build": "pnpm run build:lib && pnpm --filter blog build",
+    "dev": "pnpm --filter @samisdat/website dev",
+    "dev:all": "concurrently \"pnpm dev:lib\" \"pnpm dev\"",
+    "build": "pnpm run build:lib && pnpm --filter @samisdat/website build",
     "storybook": "pnpm --filter @samisdat/ui-components storybook",
     "build-storybook": "pnpm --filter @samisdat/ui-components build-storybook",
     "lint:css": "stylelint \"**/*.{ts,tsx}\" --ignore-path .gitignore",
     "lint:colors": "./scripts/lint-colors.sh",
-    "deploy:preview": "vercel deploy",
-    "deploy": "vercel deploy --prod"
-  },
-  "dependencies": {
-    "chrome-remote-interface": "^0.34.0"
+    "check:versions": "syncpack lint",
+    "fix:versions": "syncpack fix-mismatches"
   },
   "devDependencies": {
+    "concurrently": "^9.1.2",
     "postcss-styled-syntax": "^0.7.2",
-    "puppeteer": "^25.1.0",
     "stylelint": "^17.14.0",
     "stylelint-config-standard": "^40.0.0",
-    "vercel": "^54.14.5"
+    "syncpack": "^14.1.0"
   },
   "packageManager": "pnpm@11.7.0+sha512.19cc852c120c7125760f2443ee6be0ca5b40f9f50598de1a09a1f177503e010e57c23c77646e01e761de59bf874fb22a3398c33ab9691fc13eb946b6f0f4d620"
 }
