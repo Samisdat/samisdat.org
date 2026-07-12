@@ -1,4 +1,7 @@
+'use client';
+
 import { styled } from '@linaria/react';
+import { usePrefersReducedMotion } from '@samisdat/tools';
 import { HTMLAttributes } from 'react';
 
 const Styling = styled.div`
@@ -27,6 +30,8 @@ const pathB =
     'M450,232c0,-0 -65.581,0.343 -87.248,-0c-14.265,-0.226 -31.392,5.1 -35.384,-0.906c-3.992,-6.006 30.665,-59.275 31.632,-80.735c0.704,-15.611 2.351,-39.659 -31.704,-56.826c-36.369,-18.334 -63.533,8.598 -70.079,19.867c-17.418,29.982 -46.034,101.681 -63.619,139.71c-8.943,19.34 -5.819,63.655 -5.819,63.655';
 
 export const DemoAnimationsMorphCoffee = (props: HTMLAttributes<HTMLDivElement>) => {
+    const reducedMotion = usePrefersReducedMotion();
+
     return (
         <Styling {...props}>
             <svg
@@ -40,15 +45,17 @@ export const DemoAnimationsMorphCoffee = (props: HTMLAttributes<HTMLDivElement>)
                     className="thumb"
                     d={pathA}
                 >
-                    <animate
-                        attributeName="d"
-                        dur="1s"
-                        repeatCount="indefinite"
-                        keyTimes="0; 0.5; 1"
-                        calcMode="spline"
-                        keySplines=".25 .1 .25 1; .25 .1 .25 1"
-                        values={`${pathA};${pathB};${pathA}`}
-                    />
+                    {!reducedMotion && (
+                        <animate
+                            attributeName="d"
+                            dur="1s"
+                            repeatCount="indefinite"
+                            keyTimes="0; 0.5; 1"
+                            calcMode="spline"
+                            keySplines=".25 .1 .25 1; .25 .1 .25 1"
+                            values={`${pathA};${pathB};${pathA}`}
+                        />
+                    )}
                 </path>
 
                 <path

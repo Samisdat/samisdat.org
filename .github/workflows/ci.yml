@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: pnpm/action-setup@v4
+      
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
+      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      
+      - name: Build panorama library
+        run: pnpm build:lib
+      
+      - name: Typecheck
+        run: pnpm -r exec tsc --noEmit
+      
+      - name: Build website
+        run: pnpm --filter blog build
+      
+      - name: Build Storybook
+        run: pnpm build-storybook
