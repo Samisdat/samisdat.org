@@ -22,28 +22,28 @@ import dynamic from 'next/dynamic';
  */
 const demoRegistry = {
     DemoAnimationsCompare: () =>
-        import('../Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
+        import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
     DemoAnimationsSvg: () =>
-        import('../Demo/Animations/DemoAnimationsSvg').then(mod => ({ default: mod.DemoAnimationsSvg })),
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsSvg').then(mod => ({ default: mod.DemoAnimationsSvg })),
     DemoAnimationsCssJs: () =>
-        import('../Demo/Animations/DemoAnimationsCssJs').then(mod => ({ default: mod.DemoAnimationsCssJs })),
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCssJs').then(mod => ({ default: mod.DemoAnimationsCssJs })),
     DemoAnimationsJsAttributes: () =>
-        import('../Demo/Animations/DemoAnimationsJsAttributes').then(mod => ({
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsJsAttributes').then(mod => ({
             default: mod.DemoAnimationsJsAttributes,
         })),
     DemoAnimationsMorphThumb: () =>
-        import('../Demo/Animations/DemoAnimationsMorphThumb').then(mod => ({ default: mod.DemoAnimationsMorphThumb })),
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphThumb').then(mod => ({ default: mod.DemoAnimationsMorphThumb })),
     DemoAnimationsMorphUgly: () =>
-        import('../Demo/Animations/DemoAnimationsMorphUgly').then(mod => ({ default: mod.DemoAnimationsMorphUgly })),
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphUgly').then(mod => ({ default: mod.DemoAnimationsMorphUgly })),
     DemoAnimationsMorphCoffee: () =>
-        import('../Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
             default: mod.DemoAnimationsMorphCoffee,
         })),
     DemoParallaxSectors: () =>
-        import('../Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
-    DemoParallaxHills: () => import('../Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
+        import('@samisdat/ui-components/Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
+    DemoParallaxHills: () => import('@samisdat/ui-components/Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
     DemoParallaxCircles: () =>
-        import('../Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
+        import('@samisdat/ui-components/Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
 } as const satisfies Record<string, () => Promise<{ default: ComponentType<any> }>>;
 
 /**

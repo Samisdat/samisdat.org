@@ -1,10 +1,6 @@
 // This file has been automatically migrated to valid ESM format by Storybook.
 import type { StorybookConfig } from "@storybook/react-vite";
 import wyw from "@wyw-in-js/vite";
-import path, { dirname } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -18,13 +14,6 @@ const config: StorybookConfig = {
   framework: "@storybook/react-vite",
   staticDirs: ["../public"],
   async viteFinal(config) {
-    // Resolve @/* alias to website/src
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      "@": path.resolve(__dirname, "../website/src"),
-    };
-
     // Pre-include all component deps to prevent Vite from re-optimizing
     // (and renaming chunk files) during story navigation.
     config.optimizeDeps = config.optimizeDeps || {};
