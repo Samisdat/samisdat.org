@@ -10,15 +10,18 @@ const MiniPanoWrapper = styled.div`
   padding: 1px;
   border-radius: 1rem;
   height: var(--typo-h5-size);
+
   @media (min-width: ${breakpoints.medium}) {
     height: var(--typo-h4-size);
   }
 
   aspect-ratio: 179/59;
   overflow: hidden;
+
   &:hover {
     background: var(--color-foreground);
   }
+
   fieldset:focus-within & {
     background: var(--color-foreground);
     outline: 1px solid var(--color-foreground);
@@ -27,12 +30,14 @@ const MiniPanoWrapper = styled.div`
 
 const MiniPanoSvg = styled.svg`
   border-radius: 1rem;
-  --end: 122px; // funny -> even this is px, it is rendered as viewBox units
+
+  --end: 122px; /* funny -> even this is px, it is rendered as viewBox units */
 
   .heaven {
     fill: #00afeb;
     transition: fill ${duration}s;
   }
+
   fieldset:has(input:checked) & .heaven {
     fill: #0b101e;
   }
@@ -41,6 +46,7 @@ const MiniPanoSvg = styled.svg`
     transform: translateX(0%);
     transition: transform ${duration}s;
   }
+
   fieldset:has(input:checked) & .orbs {
     transform: translateX(var(--end));
   }
@@ -48,13 +54,15 @@ const MiniPanoSvg = styled.svg`
   .orbs .sun {
     --orb-color: 240 255 94;
   }
+
   .orbs .moon {
     --orb-color: 237 237 237;
   }
+
   .orbs .orb {
     fill: rgb(var(--orb-color));
-    stroke: rgb(var(--orb-color) / 0.19);
-    stroke-width: 0px;
+    stroke: rgb(var(--orb-color) / 19%);
+    stroke-width: 0;
     stroke-linejoin: round;
     transition:
       opacity ${0.8 * duration}s,
@@ -64,6 +72,7 @@ const MiniPanoSvg = styled.svg`
   &:hover .orbs .orb {
     stroke-width: 12px;
   }
+
   .moon {
     opacity: 1;
   }
@@ -71,6 +80,7 @@ const MiniPanoSvg = styled.svg`
   fieldset:has(input:not(:checked)) & .moon {
     opacity: 0;
   }
+
   .sun {
     opacity: 1;
   }

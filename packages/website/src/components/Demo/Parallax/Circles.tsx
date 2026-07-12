@@ -15,7 +15,6 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
-
  border: 1px solid var(--color-background-muted);
   background-color: var(--color-background-secondary);
 
@@ -23,8 +22,7 @@ const Styling = styled.div`
             border-color: var(--color-foreground-subtle);
         }
     }
- 
-    }
+
     & .parallax {
         transition: transform 10ms ease;
         transform: translateX(calc(150px * var(--parallax-x) * var(--depth)))
@@ -34,12 +32,15 @@ const Styling = styled.div`
     & rect {
         fill: var(--color-background-secondary); 
     }
+
     & circle.red {
         fill: var(--color-red); 
     }
+
     & circle.blue {
         fill: var(--color-blue); 
     }
+
     & circle.yellow {
         fill: var(--color-yellow); 
     }
@@ -52,10 +53,6 @@ export const DemoParallaxCircles = () => {
 
     return (
         <>
-            <div className="color orange"></div>
-            <div className="color red"></div>
-            <div className="color blue"></div>
-
             <Styling ref={ref}>
                 <svg
                     viewBox="0 0 400 400"
@@ -65,10 +62,8 @@ export const DemoParallaxCircles = () => {
                     xmlSpace="preserve"
                 >
                     <rect
-                        x1={0}
-                        x2={400}
-                        y1={400}
-                        y2={400}
+                        x="0"
+                        y="0"
                         width="400"
                         height="400"
                     />

@@ -31,7 +31,7 @@ const Styling = styled.div`
     }
 
     & .heaven {
-        fill: url(#Linear2);
+        fill: url("#Linear2");
     }
 
     & .sun {

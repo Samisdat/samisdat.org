@@ -6,6 +6,7 @@ import { HTMLAttributes } from 'react';
 
 const Styling = styled.div`
     width: 50px;
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;

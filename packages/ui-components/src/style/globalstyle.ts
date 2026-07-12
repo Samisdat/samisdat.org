@@ -13,27 +13,28 @@ export const globalStyles = css`
       inherits: true;
       initial-value: 0;
     }
+
     :root {
       ${colorVars}
-
       --typo-h1-size: 3rem;
       --typo-h2-size: 2.75rem;
       --typo-h3-size: 2.25rem;
       --typo-h4-size: 1.75rem;
       --typo-h5-size: 1.25rem;
       --typo-h6-size: 1rem;
-
       --header-height: calc(100vw * 500 / 1280);
     }
 
     :root[data-theme="dark"] {
       ${getDarkTheme()}
     }
+
     @media (prefers-color-scheme: dark) {
       :root:not([data-theme]) {
         ${getDarkTheme()}
       }
     }
+
     :root[data-theme="light"] {
       ${getLightTheme()}
       animation: to-light linear both;
@@ -41,6 +42,7 @@ export const globalStyles = css`
       animation-range: calc(var(--header-height))
         calc(var(--header-height) + 50px);
     }
+
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
         ${getLightTheme()}
@@ -50,14 +52,17 @@ export const globalStyles = css`
           calc(var(--header-height) + 50px);
       }
     }
+
     @keyframes to-light {
       from {
         --theme-progress: 0;
       }
+
       to {
         --theme-progress: 1;
       }
     }
+
     .force-theme-dark {
       ${getDarkTheme()}
     }
@@ -67,6 +72,7 @@ export const globalStyles = css`
       display: block;
       margin: 0;
     }
+
     figure pre {
       padding: 1rem;
     }
@@ -80,6 +86,7 @@ export const globalStyles = css`
         background-color 100ms ease,
         color 100ms ease;
     }
+
     /*
     .hill-before-green-tower,
     .hill4100 {
@@ -105,6 +112,7 @@ export const globalStyles = css`
     div.color.background {
       background-color: var(--color-background);
     }
+
     div.color.foreground {
       background-color: var(--color-foreground);
     }
