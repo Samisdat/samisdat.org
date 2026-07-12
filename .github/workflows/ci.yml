@@ -28,6 +28,9 @@ jobs:
       - name: Lint CSS
         run: pnpm lint:css
       
+      - name: Lint hardcoded colors
+        run: pnpm lint:colors
+      
       - name: Build panorama library
         run: pnpm build:lib
       
