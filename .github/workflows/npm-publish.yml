@@ -24,7 +24,6 @@ jobs:
               with:
                   node-version-file: '.nvmrc'
                   registry-url: 'https://registry.npmjs.org'
-            - run: npm install -g npm@latest
             - run: pnpm install --frozen-lockfile
               working-directory: .
             - run: pnpm run build:lib
