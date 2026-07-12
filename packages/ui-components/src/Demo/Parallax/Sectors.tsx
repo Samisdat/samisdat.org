@@ -3,7 +3,6 @@
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Code } from '@/components/Code';
 import { CodeBlock } from '@samisdat/ui-components/CodeBlock';
 import { Grid } from '@samisdat/ui-components/Grid';
 
