@@ -6,23 +6,23 @@ import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useEffect, useRef, useState } from 'react';
 
 const SvgWithSunStyling = styled.svg`
-    background: var(--color-deep-pine);
+    background: var(--color-green);
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-miterlimit: 1.5;
 
     & .heaven {
-        fill: #0376bf;
+        fill: var(--color-blue);
     }
 
     & .sunPath {
         fill: none;
-        stroke: #000051;
+        stroke: var(--color-foreground-emphasis);
         stroke-width: 3.5px;
     }
 
     & .sun {
-        fill: #f0ff5e;
+        fill: var(--color-yellow);
     }
 `;
 
