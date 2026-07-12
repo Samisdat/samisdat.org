@@ -48,6 +48,9 @@ public/admin
 *storybook.log
 storybook-static
 
+# wyw-in-js generated CSS modules (build artifact)
+*.wyw-in-js.module.css
+
 .idea
 
 # .claude lokal halten — außer dem skills-Verweis auf .agents/skills
