@@ -44,6 +44,10 @@ module.exports = {
         'normalize.css',
         'fs-extra',
         '@types/node',
+        'vitest',
+        '@vitest/browser-playwright',
+        '@vitest/coverage-v8',
+        'playwright',
       ],
       // Only check prod and dev deps - peerDeps can have ranges
       dependencyTypes: ['prod', 'dev'],
