@@ -11,7 +11,6 @@ import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import {
     DemoAnimationsCompare,
-    DemoAnimationsCss,
     DemoAnimationsCssJs,
     DemoAnimationsJsAttributes,
     DemoAnimationsMorphCoffee,
@@ -69,7 +68,6 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
                 />
             );
         },
-        DemoAnimationsCss: () => <DemoAnimationsCss />,
         DemoAnimationsCssJs: () => <DemoAnimationsCssJs />,
         DemoAnimationsSvg: () => <DemoAnimationsSvg />,
         DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,

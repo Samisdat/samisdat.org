@@ -12,13 +12,6 @@ export const DemoAnimationsSvg = dynamic(
     { ssr: true }
 );
 
-export const DemoAnimationsCss = dynamic(
-    () => import('../Demo/Animations/DemoAnimationsCss').then(mod => ({ default: mod.DemoAnimationsCss })),
-    {
-        ssr: false,
-    }
-);
-
 export const DemoAnimationsCssJs = dynamic(
     () => import('../Demo/Animations/DemoAnimationsCssJs').then(mod => ({ default: mod.DemoAnimationsCssJs })),
     {
