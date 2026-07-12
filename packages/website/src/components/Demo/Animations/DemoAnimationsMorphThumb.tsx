@@ -1,4 +1,7 @@
+'use client';
+
 import { styled } from '@linaria/react';
+import { usePrefersReducedMotion } from '@samisdat/tools';
 import { HTMLAttributes } from 'react';
 
 const Styling = styled.div`
@@ -22,6 +25,8 @@ const pathB =
     'M360,48c13.3,0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9c0,-13.3 10.7,-24 24,-24Zm-136,24c0,-13.3 10.7,-24 24,-24c13.3,-0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9Z';
 
 export const DemoAnimationsMorphThumb = (props: HTMLAttributes<HTMLDivElement>) => {
+    const reducedMotion = usePrefersReducedMotion();
+
     return (
         <Styling {...props}>
             <svg
@@ -33,12 +38,14 @@ export const DemoAnimationsMorphThumb = (props: HTMLAttributes<HTMLDivElement>) 
                 <path d="M128,256c-17.7,0 -32,14.3 -32,32l0,192c0,53 43,96 96,96l192,0c41.8,0 77.4,-26.7 90.5,-64l5.5,0c70.7,0 128,-57.3 128,-128c0,-70.7 -57.3,-128 -128,-128l-352,0Zm352,192l0,-128c35.3,0 64,28.7 64,64c0,35.3 -28.7,64 -64,64Z" />
 
                 <path d={pathA}>
-                    <animate
-                        attributeName="d"
-                        dur="3s"
-                        repeatCount="indefinite"
-                        values={`${pathA};${pathB};${pathA}`}
-                    />
+                    {!reducedMotion && (
+                        <animate
+                            attributeName="d"
+                            dur="3s"
+                            repeatCount="indefinite"
+                            values={`${pathA};${pathB};${pathA}`}
+                        />
+                    )}
                 </path>
             </svg>
         </Styling>

@@ -15,5 +15,13 @@ export const Rect: Story = {
   args: {
     children: "",
     style: { height: "100px" },
+    playbackControl: {
+      isPlaying: false,
+      speed: 50,
+      onPlay: () => {},
+      onPause: () => {},
+      onReset: () => {},
+      onSpeedChange: () => {},
+    },
   },
 };

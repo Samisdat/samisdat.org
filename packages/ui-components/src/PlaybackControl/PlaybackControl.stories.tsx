@@ -14,6 +14,11 @@ type Story = StoryObj<typeof meta>;
 
 export const Card: Story = {
   args: {
+    isPlaying: false,
     speed: 50,
+    onPlay: () => {},
+    onPause: () => {},
+    onReset: () => {},
+    onSpeedChange: () => {},
   },
 };

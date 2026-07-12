@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-export const RedCurch = memo(() => (
+export const RedChurch = memo(() => (
     <g data-id="3000-red-church">
         <path
             className={'red-church-base'}
