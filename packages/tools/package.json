@@ -15,10 +15,10 @@
   },
   "scripts": {},
   "dependencies": {
-    "react": "19.2.3"
+    "react": "catalog:"
   },
   "devDependencies": {
-    "@types/react": "^19.2.7",
-    "typescript": "^5.9.3"
+    "@types/react": "catalog:",
+    "typescript": "catalog:"
   }
 }
