@@ -49,31 +49,31 @@
         "directory": "packages/panorama"
     },
     "peerDependencies": {
-        "react": ">=19.2.0",
-        "react-dom": ">=19.2.0"
+        "react": "^19.2.7",
+        "react-dom": "^19.2.7"
     },
     "devDependencies": {
         "@eslint/js": "^9.39.0",
         "@next/eslint-plugin-next": "^16.0.1",
         "@samisdat/tools": "workspace:*",
-        "@types/node": "^24",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
+        "@types/node": "catalog:",
+        "@types/react": "catalog:",
+        "@types/react-dom": "catalog:",
         "@types/suncalc": "^1.9.2",
         "@typescript-eslint/eslint-plugin": "^8.46.2",
         "@typescript-eslint/parser": "^8.46.2",
-        "eslint": "^9.39.0",
-        "eslint-config-next": "16.0.0",
-        "eslint-config-prettier": "^10.1.8",
-        "next": "^16.0.10",
-        "prettier": "3.7.3",
-        "prettier-plugin-multiline-arrays": "^4.0.3",
-        "prettier-plugin-organize-imports": "^4.3.0",
-        "react": "19.2.7",
-        "react-dom": "19.2.7",
+        "eslint": "catalog:",
+        "eslint-config-next": "catalog:",
+        "eslint-config-prettier": "catalog:",
+        "next": "catalog:",
+        "prettier": "catalog:",
+        "prettier-plugin-multiline-arrays": "catalog:",
+        "prettier-plugin-organize-imports": "catalog:",
+        "react": "catalog:",
+        "react-dom": "catalog:",
         "suncalc": "^1.9.0",
         "tsup": "^8.5.0",
-        "typescript": "^5.9.3"
+        "typescript": "catalog:"
     },
     "dependencies": {
         "astronomy-engine": "^2.1.1"
