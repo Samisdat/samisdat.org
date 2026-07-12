@@ -9,7 +9,7 @@ import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
 import { LilaChurch } from './Buildings/LilaChurch';
-import { RedCurch } from './Buildings/RedCurch';
+import { RedChurch } from './Buildings/RedChurch';
 import { Tower1 } from './Buildings/Tower1';
 import { Tower2 } from './Buildings/Tower2';
 import { University } from './Buildings/University';
@@ -136,7 +136,7 @@ export const Panorama = (): ReactElement => {
                         depth={1}
                     >
                         <Hill2900 />
-                        <RedCurch />
+                        <RedChurch />
                     </ParallaxLayer>
                     <ParallaxLayer
                         scrollspeed={6}
