@@ -17,7 +17,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: '../../../etc',
                     name: 'sandbox',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow('Invalid slug or name');
         });
@@ -27,7 +27,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: 'valid-slug',
                     name: '../../../passwd',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow('Invalid slug or name');
         });
@@ -37,7 +37,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: '/etc/passwd',
                     name: 'sandbox',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow('Invalid slug or name');
         });
@@ -47,7 +47,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: 'valid-slug',
                     name: '/etc/passwd',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow('Invalid slug or name');
         });
@@ -96,7 +96,7 @@ describe('getSandpackFiles', () => {
             const files = await getSandpackFiles({
                 slug: 'test-post',
                 name: 'demo',
-                template: 'react',
+                template: 'react-ts',
             });
 
             expect(files).toMatchObject({
@@ -127,7 +127,7 @@ describe('getSandpackFiles', () => {
             const files = await getSandpackFiles({
                 slug: 'test-post',
                 name: 'demo',
-                template: 'react',
+                template: 'react-ts',
             });
 
             expect(Object.keys(files)).toEqual(['/index.html']);
@@ -163,7 +163,7 @@ describe('getSandpackFiles', () => {
             const files = await getSandpackFiles({
                 slug: 'test-post',
                 name: 'demo',
-                template: 'react',
+                template: 'react-ts',
             });
 
             expect(Object.keys(files)).toEqual(['/src/index.ts']);
@@ -196,7 +196,7 @@ describe('getSandpackFiles', () => {
             const files = await getSandpackFiles({
                 slug: 'test-post',
                 name: 'demo',
-                template: 'react',
+                template: 'react-ts',
             });
 
             expect(Object.keys(files)).toEqual(['/index.ts']);
@@ -212,7 +212,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: 'test-post',
                     name: 'demo',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow(/Sandbox files not found/);
 
@@ -220,7 +220,7 @@ describe('getSandpackFiles', () => {
                 getSandpackFiles({
                     slug: 'test-post',
                     name: 'demo',
-                    template: 'react',
+                    template: 'react-ts',
                 }),
             ).rejects.toThrow(/pnpm sandbox:create/);
         });
@@ -246,7 +246,7 @@ describe('getSandpackFiles', () => {
             const files = await getSandpackFiles({
                 slug: 'test-post',
                 name: 'demo',
-                template: 'react',
+                template: 'react-ts',
             });
 
             // Path should always use forward slashes, never backslashes

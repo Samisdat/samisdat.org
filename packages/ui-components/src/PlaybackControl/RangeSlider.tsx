@@ -51,8 +51,8 @@ const Styling = styled.input`
 `;
 
 /**
- * The playback controls are very text-heavy and use a monospace font, and I’d like the input range to be in the same style too
+ * Themed range slider matching the monospace aesthetic of PlaybackControl.
  */
-export const LotOfHassleForSmallFx = (
+export const RangeSlider = (
   props: Omit<ComponentProps<"input">, "type">,
 ) => <Styling {...props} type="range" />;
