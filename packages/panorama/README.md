@@ -78,3 +78,4 @@ MIT
 ## Repository
 
 [https://github.com/Samisdat/wtal-panorama](https://github.com/Samisdat/wtal-panorama)
+
