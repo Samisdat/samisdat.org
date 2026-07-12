@@ -6,13 +6,16 @@ import { useEffect, useRef, useState } from 'react';
 
 const BridgeSvgStyling = styled.svg`
     background: var(--color-deep-pine);
+
     .wupper {
         transform: translateY(-273px);
     }
+
     .shore {
         transform: translate(-430px, -271px);
         fill: var(--color-deep-pine);
     }
+
     .bridgeBehind,
     .bridgeBefore {
         transform: translate(-325px, -270px);

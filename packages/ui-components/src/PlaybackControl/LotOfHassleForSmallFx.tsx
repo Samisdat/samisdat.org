@@ -3,7 +3,6 @@ import { ComponentProps } from "react";
 
 const Styling = styled.input`
   appearance: none;
-  -webkit-appearance: none;
   background: transparent;
   height: 10px;
   margin: 0;
@@ -15,6 +14,7 @@ const Styling = styled.input`
     background: var(--color-background);
     border-radius: 1px;
   }
+
   &::-moz-range-track {
     height: 2px;
     background: var(--color-background);
@@ -23,7 +23,6 @@ const Styling = styled.input`
 
   /* ---- Thumb ---- */
   &::-webkit-slider-thumb {
-    -webkit-appearance: none;
     appearance: none;
     width: 10px;
     height: 10px;
@@ -31,6 +30,7 @@ const Styling = styled.input`
     background: var(--color-background);
     margin-top: -4px;
   }
+
   &::-moz-range-thumb {
     width: 10px;
     height: 10px;
@@ -43,6 +43,7 @@ const Styling = styled.input`
     outline: 2px solid var(--color-background);
     outline-offset: 2px;
   }
+
   &:focus-visible::-moz-range-thumb {
     outline: 2px solid var(--color-background);
     outline-offset: 2px;
