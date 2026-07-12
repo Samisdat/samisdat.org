@@ -10,7 +10,7 @@ const meta = {
   parameters: {
     layout: "fullscreen",
   },
-} satisfies Meta<typeof ThemeDev>;
+} satisfies Meta<typeof ThemeDevComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

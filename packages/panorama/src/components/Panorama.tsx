@@ -9,7 +9,7 @@ import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
 import { LilaChurch } from './Buildings/LilaChurch';
-import { RedCurch } from './Buildings/RedCurch';
+import { RedChurch } from './Buildings/RedChurch';
 import { Tower1 } from './Buildings/Tower1';
 import { Tower2 } from './Buildings/Tower2';
 import { University } from './Buildings/University';
@@ -36,16 +36,15 @@ import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 
-import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
+import { useAnimationFrame, usePrefersReducedMotion } from '@samisdat/tools';
 import { useMouseParallax } from '@/components/hook/useMouseParallax';
-import { useMatchMediaQuery } from './hook/useMatchMediaQuery';
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
+    const reduceMotion = usePrefersReducedMotion();
 
     useMouseParallax(ref);
 
@@ -136,7 +135,7 @@ export const Panorama = (): ReactElement => {
                         depth={1}
                     >
                         <Hill2900 />
-                        <RedCurch />
+                        <RedChurch />
                     </ParallaxLayer>
                     <ParallaxLayer
                         scrollspeed={6}
