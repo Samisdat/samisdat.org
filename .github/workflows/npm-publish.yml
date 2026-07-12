@@ -2,10 +2,13 @@ name: npm publish
 
 on:
     push:
-        branches: ['**']
+        branches: [main]
         paths:
             - 'packages/panorama/**'
             - '.github/workflows/npm-publish.yml'
+    # Canary nur auf manuellen Trigger, z.B.:
+    #   gh workflow run npm-publish.yml --ref feature/mein-branch
+    workflow_dispatch:
 
 permissions:
     id-token: write

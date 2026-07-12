@@ -26,9 +26,12 @@ Credentials pro Workflow-Lauf, automatische Provenance-Attestierung
    - **`main` ist Release**: Push auf `main` publiziert die Version aus
      `package.json` als `latest` (nur wenn diese Version noch nicht auf der
      Registry liegt).
-   - **Alles andere ist Canary**: Pushes auf andere Branches publizieren
-     eine Prerelease-Version (`X.Y.Z-canary.…`) unter dem dist-tag
-     `canary`. `latest` bleibt davon unberührt.
+   - **Alles andere ist Canary, aber nur auf manuellen Trigger**:
+     Canaries werden per `workflow_dispatch` vom gewünschten Branch
+     publiziert (`gh workflow run npm-publish.yml --ref <branch>`), als
+     Prerelease-Version (`X.Y.Z-canary.…`) unter dem dist-tag `canary`.
+     `latest` bleibt unberührt. Automatisches Publizieren bei jedem
+     Branch-Push wäre zu viel Noise auf der Registry.
 4. Es werden fertige Actions eingesetzt (`actions/checkout`,
    `pnpm/action-setup`, `actions/setup-node`); die Publish-Logik selbst ist
    npm-CLI-Bordmittel.
