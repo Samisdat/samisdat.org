@@ -34,12 +34,19 @@ const Styling = styled.div`
   color: var(--color-background);
 `;
 
+const Notice = styled.div`
+  margin-top: 0.5rem;
+  font-size: 0.85em;
+  opacity: 0.8;
+`;
+
 export interface PlaybackControlProps {
   isPlaying: boolean;
   speed: number;
   speedMin?: number;
   speedMax?: number;
   speedStep?: number;
+  notice?: string;
   onPlay: () => void;
   onPause: () => void;
   onReset: () => void;
@@ -52,6 +59,7 @@ export const PlaybackControl = ({
   speedMin = 1,
   speedMax = 100,
   speedStep = 1,
+  notice,
   onPlay,
   onPause,
   onReset,
@@ -106,6 +114,7 @@ export const PlaybackControl = ({
         [ + ]
       </PlayPauseButton>
       Speed ({speed}x)
+      {notice && <Notice>{notice}</Notice>}
     </Styling>
   );
 };

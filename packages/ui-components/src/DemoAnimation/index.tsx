@@ -1,4 +1,5 @@
 import { HTMLAttributes, ReactNode, RefObject, useEffect, useRef } from "react";
+import { usePrefersReducedMotion } from "@samisdat/tools";
 import { PlaybackControl, PlaybackControlProps } from "../PlaybackControl";
 import { DemoCanvas } from "../DemoCanvas";
 
@@ -8,6 +9,9 @@ export interface DemoAnimationProps extends HTMLAttributes<HTMLDivElement> {
   ref?: RefObject<HTMLDivElement | null>;
 }
 
+const REDUCED_MOTION_NOTICE =
+  "⚠ Reduced motion aktiv — Autoplay deaktiviert. Drücke Play für manuellen Start.";
+
 export const DemoAnimation = ({
   children,
   playbackControl,
@@ -16,6 +20,7 @@ export const DemoAnimation = ({
 }: DemoAnimationProps) => {
   const innerRef = useRef<HTMLDivElement | null>(null);
   const ref = outerRef ?? innerRef;
+  const reducedMotion = usePrefersReducedMotion();
 
   const playbackControlRef = useRef(playbackControl);
   useEffect(() => {
@@ -25,6 +30,9 @@ export const DemoAnimation = ({
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+
+    // When reduced-motion is preferred, don't autoplay on scroll
+    if (reducedMotion) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -41,14 +49,17 @@ export const DemoAnimation = ({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, []);
+  }, [reducedMotion]);
 
   return (
     <>
       <DemoCanvas ref={ref} {...props}>
         {children}
       </DemoCanvas>
-      <PlaybackControl {...playbackControl} />
+      <PlaybackControl
+        {...playbackControl}
+        notice={reducedMotion ? REDUCED_MOTION_NOTICE : undefined}
+      />
     </>
   );
 };
