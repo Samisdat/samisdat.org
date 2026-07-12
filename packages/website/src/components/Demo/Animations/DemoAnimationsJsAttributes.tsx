@@ -20,6 +20,7 @@ const SvgWithSunStyling = styled.svg`
         stroke: #000051;
         stroke-width: 3.5px;
     }
+
     & .sun {
         fill: #f0ff5e;
     }
