@@ -31,6 +31,7 @@ const Bar = styled.div`
             border-color: transparent;
             background: var(--color-background);
         }
+
         to {
             border-color: var(--color-background-muted);
             background: var(--color-background-secondary);
@@ -53,14 +54,15 @@ const Red = styled.span`
 
 const StyledLink = styled(Link)`
     justify-self: center;
-
     text-decoration: none;
     font-family: var(--font-code);
     font-weight: bold;
     font-size: var(--typo-h5-size);
+
     @media (min-width: ${breakpoints.medium}) {
         font-size: var(--typo-h4-size);
     }
+
     &:hover {
         text-decoration: none;
     }
@@ -90,6 +92,7 @@ const IconNav = styled.nav`
         width: var(--typo-h5-size);
         height: var(--typo-h5-size);
     }
+
     @media (min-width: ${breakpoints.medium}) {
         & svg {
             width: var(--typo-h4-size);
@@ -99,16 +102,14 @@ const IconNav = styled.nav`
 `;
 
 const ProgressBar = styled.div`
-    background: var(--color-purple);
-    background: var(--color-background-secondary);
     background: var(--color-background-muted);
-
     height: 2px;
-    width: 0px;
+    width: 0;
     border-start-end-radius: 20px;
     animation-name: progress-bar;
     animation-timeline: scroll(y);
     animation-range: var(--header-height) 100%;
+
     @keyframes progress-bar {
         from {
             width: 0;

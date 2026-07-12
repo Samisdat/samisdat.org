@@ -20,13 +20,11 @@ const PlayPauseButton = styled.button`
   color: inherit;
   text-align: inherit;
   cursor: pointer;
-
   background-color: transparent;
 `;
 
 const Styling = styled.div`
   border: 1px solid var(--color-background-muted);
-  background-color: var(--color-background-secondary);
   padding: 1rem;
   font-family: var(--font-code);
   font-weight: bold;
