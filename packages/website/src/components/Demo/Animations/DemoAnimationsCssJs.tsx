@@ -13,7 +13,7 @@ const ClockSvg = styled.svg`
     stroke-miterlimit: 2;
 
     & .face {
-        fill: #fff;
+        fill: var(--color-background);
         fill-rule: nonzero;
     }
 
@@ -44,12 +44,12 @@ const ClockSvg = styled.svg`
     }
 
     & .secondHand {
-        fill: #e00;
+        fill: var(--color-red);
         transform: rotate(calc(1deg * var(--second, 0)));
     }
 
     & .secondHandCover {
-        fill: #e00;
+        fill: var(--color-red);
     }
 `;
 
