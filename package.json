@@ -14,7 +14,12 @@
     "lint:css": "stylelint \"**/*.{ts,tsx}\" --ignore-path .gitignore",
     "lint:colors": "./scripts/lint-colors.sh",
     "check:versions": "syncpack lint",
-    "fix:versions": "syncpack fix-mismatches"
+    "fix:versions": "syncpack fix-mismatches",
+    "deploy:preview": "vercel deploy",
+    "deploy": "vercel deploy --prod"
+  },
+  "dependencies": {
+    "chrome-remote-interface": "^0.34.0"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
