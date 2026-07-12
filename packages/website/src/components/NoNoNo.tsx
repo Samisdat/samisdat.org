@@ -3,6 +3,7 @@ import { FC, HTMLAttributes } from 'react';
 const HandStyling = styled.div`
     fill: currentColor;
     width: 40px;
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -14,14 +15,17 @@ const HandStyling = styled.div`
     & svg .finger {
         fill-rule: nonzero;
     }
+
     @keyframes spin {
         0% {
             transform: rotate(350deg);
         }
+
         100% {
             transform: rotate(370deg);
         }
     }
+
     & svg .finger {
         transform-box: fill-box;
         transform-origin: 50% 100%;

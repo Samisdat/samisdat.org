@@ -11,6 +11,7 @@ const CardStyling = styled.div`
   & > *:first-child {
     margin-block-start: 0;
   }
+
   & > *:last-child {
     margin-block-end: 0;
   }
