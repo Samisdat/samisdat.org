@@ -28,7 +28,7 @@
         "start": "next start",
         "lint": "eslint .",
         "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
-        "prepublish": "npm run build:lib"
+        "prepublishOnly": "npm run build:lib"
     },
     "keywords": [
         "wuppertal",
@@ -41,11 +41,12 @@
         "react",
         "suncalc"
     ],
-    "author": "Bastian Pertz <bastian@pertz.eu> (httsps://samisdat.org/)",
+    "author": "Bastian Pertz <bastian@pertz.eu> (https://samisdat.org/)",
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/Samisdat/wtal-panorama.git"
+        "url": "https://github.com/Samisdat/samisdat.org.git",
+        "directory": "packages/panorama"
     },
     "peerDependencies": {
         "react": ">=19.2.3",
