@@ -4,6 +4,11 @@ export const useMediaQuery = (query: string, init = false) => {
     const [mediaQueryMatches, setMediaQueryMatches] = useState(init);
 
     useEffect(() => {
+        if (typeof window === 'undefined') {
+            setMediaQueryMatches(init);
+            return;
+        }
+
         const mediaQuery = window.matchMedia(query);
 
         const handleMediaQueryChange = (event: MediaQueryListEvent) => {
@@ -17,7 +22,7 @@ export const useMediaQuery = (query: string, init = false) => {
         return () => {
             mediaQuery.removeEventListener('change', handleMediaQueryChange);
         };
-    }, [query]);
+    }, [query, init]);
 
     return mediaQueryMatches;
 };
