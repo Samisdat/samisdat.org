@@ -49,9 +49,13 @@ public/admin
 storybook-static
 
 .idea
-.claude
+
+# .claude lokal halten — außer dem skills-Verweis auf .agents/skills
+.claude/*
+!.claude/skills
 
 # UPPERCASE.md sind temporäre Arbeitsnotizen (ADR 0013)
 [A-Z]*[A-Z].md
 !README.md
 !CLAUDE.md
+!SKILL.md
