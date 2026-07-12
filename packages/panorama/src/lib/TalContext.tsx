@@ -1,4 +1,4 @@
-import { useMatchMediaQuery } from '@/components/hook/useMatchMediaQuery';
+import { usePrefersReducedMotion } from '@samisdat/tools';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import SunCalc from 'suncalc';
 
@@ -27,7 +27,7 @@ interface TalContextType {
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
 export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
+    const reduceMotion = usePrefersReducedMotion();
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());

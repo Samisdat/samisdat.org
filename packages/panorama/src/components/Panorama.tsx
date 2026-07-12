@@ -36,16 +36,15 @@ import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 
-import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
+import { useAnimationFrame, usePrefersReducedMotion } from '@samisdat/tools';
 import { useMouseParallax } from '@/components/hook/useMouseParallax';
-import { useMatchMediaQuery } from './hook/useMatchMediaQuery';
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
+    const reduceMotion = usePrefersReducedMotion();
 
     useMouseParallax(ref);
 
