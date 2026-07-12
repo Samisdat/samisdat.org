@@ -4,12 +4,12 @@ A React component that displays an animated Wuppertal panorama with realistic as
 
 ## Features
 
-- 🌅 **Realistic Astronomy**: Uses [SunCalc](https://github.com/mourner/suncalc) for accurate sunrise, sunset, and twilight times
+- 🌅 **Realistic Astronomy**: Uses [SunCalc](https://github.com/mourner/suncalc) and [astronomy-engine](https://github.com/cosinekitty/astronomy) for accurate celestial positions
 - 📍 **Location-Based**: Calculated for Wuppertal, Germany (51.2562°N, 7.1508°E)
 - 🌓 **Seasonal Variation**: Automatically adapts to seasons (longer summer days, shorter winter days)
 - ⏰ **Time Control**: Adjustable time factor for faster/slower animations
 - 🎨 **SVG-Based**: Smooth, scalable vector graphics
-- ⚡ **Next.js Ready**: Built for React and Next.js applications
+- ⚡ **Next.js Ready**: Built for React 19 and Next.js 16
 
 ## Installation
 
@@ -54,6 +54,7 @@ export default function App() {
 
 The panorama uses:
 - **SunCalc** to calculate precise sunrise and sunset times for Wuppertal
+- **astronomy-engine** for accurate moon position and phase calculations
 - **React State** to animate the sun and moon positions along a defined SVG path
 - **TalContext** (Time Acceleration Layer) to control simulation speed
 - Automatic transitions between day/night with realistic dawn and dusk phases
@@ -67,9 +68,8 @@ The panorama uses:
 
 ## Dependencies
 
-- React >= 18.0.0
-- Next.js >= 14.0.0
-- SunCalc ^1.9.0
+- React >= 19.2.3
+- astronomy-engine ^2.1.1
 
 ## License
 
@@ -77,4 +77,4 @@ MIT
 
 ## Repository
 
-[https://github.com/Samisdat/wtal-panorama](https://github.com/Samisdat/wtal-panorama)
+[https://github.com/Samisdat/samisdat.org](https://github.com/Samisdat/samisdat.org/tree/main/packages/panorama)
