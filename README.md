@@ -1,10 +1,11 @@
-# Monorepo Guide
+# Blog Monorepo
 
-Dieses Projekt ist ein pnpm Workspace mit 3 Packages:
+Dieses Projekt ist ein pnpm Workspace mit 4 Packages:
 
-- `packages/panorama` — npm Library (gebaut mit tsup)
+- `packages/panorama` — npm Library (gebaut mit tsup, npm-publishable)
 - `packages/website` — Next.js Blog
-- `packages/storybook` — Storybook UI Dokumentation
+- `packages/ui-components` — Storybook UI Dokumentation
+- `packages/tools` — Shared utilities (React hooks, helpers)
 
 ---
 
@@ -13,12 +14,25 @@ Dieses Projekt ist ein pnpm Workspace mit 3 Packages:
 ```
 .
 ├── packages/
-│   ├── panorama/    (Library, npm-publishable)
-│   ├── website/     (Next.js App)
-│   └── storybook/   (UI Showcase)
+│   ├── panorama/        (Library, npm-publishable)
+│   ├── website/         (Next.js App, blog)
+│   ├── ui-components/   (Storybook)
+│   └── tools/           (Shared utilities)
 ├── pnpm-workspace.yaml
-├── package.json     (Root, Scripts)
-└── MONOREPO.md      (diese Datei)
+├── package.json         (Root, Scripts)
+└── README.md            (diese Datei)
+```
+
+---
+
+## Setup
+
+```bash
+# Dependencies installieren
+pnpm install
+
+# Library bauen (vor erstem dev empfohlen)
+pnpm build:lib
 ```
 
 ---
@@ -92,7 +106,7 @@ pnpm install
 
 ```bash
 # Option A: Storybook's eigenes Upgrade-Skript
-cd packages/storybook
+cd packages/ui-components
 pnpm dlx storybook@latest upgrade
 
 # Option B: Manuell updaten
@@ -107,12 +121,12 @@ pnpm build-storybook
 
 ```bash
 # Im Package selbst
-cd packages/storybook
+cd packages/ui-components
 pnpm audit
 pnpm audit --fix
 
 # Oder mit --filter
-pnpm --filter storybook audit --fix
+pnpm --filter @samisdat/ui-components audit --fix
 pnpm install  # vom Root nach Änderungen
 ```
 
