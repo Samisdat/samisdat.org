@@ -3,11 +3,8 @@ import fs from 'fs';
 import path from 'path';
 import { getSandpackFiles } from '../getSandpackFiles';
 
-// Mock fs and createSandpackFiles
+// Mock fs
 vi.mock('fs');
-vi.mock('../createSandpackFiles', () => ({
-    createSandpackFiles: vi.fn().mockResolvedValue(undefined),
-}));
 
 describe('getSandpackFiles', () => {
     beforeEach(() => {
@@ -205,34 +202,27 @@ describe('getSandpackFiles', () => {
             expect(Object.keys(files)).toEqual(['/index.ts']);
         });
 
-        it('calls createSandpackFiles when directory does not exist', async () => {
-            const { createSandpackFiles } = await import('../createSandpackFiles');
-
+        it('throws error with helpful message when directory does not exist', async () => {
             const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
-            // First call: directory doesn't exist
-            vi.mocked(fs.existsSync).mockReturnValueOnce(false);
-            // Second call (after creation): directory exists
-            vi.mocked(fs.existsSync).mockReturnValue(true);
-            vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);
+            // Directory doesn't exist
+            vi.mocked(fs.existsSync).mockReturnValue(false);
 
-            vi.mocked(fs.readdirSync).mockReturnValue([
-                { name: 'index.html', isDirectory: () => false, isFile: () => true },
-            ] as any);
-            vi.mocked(fs.readFileSync).mockReturnValue('<html>test</html>');
+            await expect(
+                getSandpackFiles({
+                    slug: 'test-post',
+                    name: 'demo',
+                    template: 'react',
+                }),
+            ).rejects.toThrow(/Sandbox files not found/);
 
-            await getSandpackFiles({
-                slug: 'test-post',
-                name: 'demo',
-                template: 'react',
-            });
-
-            expect(createSandpackFiles).toHaveBeenCalledWith({
-                slug: 'test-post',
-                name: 'demo',
-                template: 'react',
-                dir: baseDir,
-            });
+            await expect(
+                getSandpackFiles({
+                    slug: 'test-post',
+                    name: 'demo',
+                    template: 'react',
+                }),
+            ).rejects.toThrow(/pnpm sandbox:create/);
         });
 
         it('normalizes Windows backslashes to forward slashes in file paths', async () => {
