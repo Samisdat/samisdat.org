@@ -6,6 +6,7 @@ const CssCircleAnimationStyled = styled(SvgStyling)`
         from {
             transform: translateX(0);
         }
+
         to {
             transform: translateX(${config.distance}px);
         }

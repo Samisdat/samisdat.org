@@ -1,0 +1,18 @@
+{
+  "extends": "stylelint-config-standard",
+  "customSyntax": "postcss-styled-syntax",
+  "rules": {
+    "selector-class-pattern": null,
+    "custom-property-pattern": null,
+    "value-keyword-case": null,
+    "media-query-no-invalid": null,
+    "no-descending-specificity": null,
+    "no-empty-source": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ]
+  }
+}

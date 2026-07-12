@@ -13,6 +13,7 @@ import { codeToHtml } from 'shiki';
 
 const Styling = styled.div`
     aspect-ratio: 15/10;
+
     & svg {
         border-radius: 0.5rem;
  border: 1px solid var(--color-background-muted);
@@ -22,12 +23,13 @@ const Styling = styled.div`
             border-color: var(--color-foreground-subtle);
         }
     }
+
     & svg text { 
         font-family: monospace;
         font-size: 7px;
-        fill: var(  --color-background-secondary);
-);
+        fill: var(--color-background-secondary);
     }
+
     & svg path,
     & svg line {
         fill: none;
@@ -36,9 +38,11 @@ const Styling = styled.div`
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
     }
+
     & svg line.bold {
         stroke-width: 3px;
     }
+
     & svg circle {
         fill: var(--color-red);
     }

@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
+import { FC, HTMLAttributes, ReactElement } from 'react';
 
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
@@ -9,18 +9,7 @@ import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
-import {
-    DemoAnimationsCompare,
-    DemoAnimationsCssJs,
-    DemoAnimationsJsAttributes,
-    DemoAnimationsMorphCoffee,
-    DemoAnimationsMorphThumb,
-    DemoAnimationsMorphUgly,
-    DemoAnimationsSvg,
-    DemoParallaxCircles,
-    DemoParallaxHills,
-    DemoParallaxSectors,
-} from './ClientAnimations';
+import * as ClientDemos from './ClientAnimations';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -68,16 +57,17 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
                 />
             );
         },
-        DemoAnimationsCssJs: () => <DemoAnimationsCssJs />,
-        DemoAnimationsSvg: () => <DemoAnimationsSvg />,
-        DemoAnimationsJsAttributes: () => <DemoAnimationsJsAttributes />,
-        DemoAnimationsCompare: () => <DemoAnimationsCompare />,
-        DemoAnimationsMorphThumb: () => <DemoAnimationsMorphThumb />,
-        DemoAnimationsMorphCoffee: () => <DemoAnimationsMorphCoffee />,
-        DemoAnimationsMorphUgly: () => <DemoAnimationsMorphUgly />,
-        DemoParallaxSectors: () => <DemoParallaxSectors />,
-        DemoParallaxHills: () => <DemoParallaxHills />,
-        DemoParallaxCircles: () => <DemoParallaxCircles />,
+        // Demo-Komponenten aus Registry: explizite Named Exports für MDX-Build-Zeit-Analyse
+        DemoAnimationsCompare: ClientDemos.DemoAnimationsCompare,
+        DemoAnimationsSvg: ClientDemos.DemoAnimationsSvg,
+        DemoAnimationsCssJs: ClientDemos.DemoAnimationsCssJs,
+        DemoAnimationsJsAttributes: ClientDemos.DemoAnimationsJsAttributes,
+        DemoAnimationsMorphThumb: ClientDemos.DemoAnimationsMorphThumb,
+        DemoAnimationsMorphCoffee: ClientDemos.DemoAnimationsMorphCoffee,
+        DemoAnimationsMorphUgly: ClientDemos.DemoAnimationsMorphUgly,
+        DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
+        DemoParallaxHills: ClientDemos.DemoParallaxHills,
+        DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
     };
 
     const hasSandbox = sandboxFiles && Object.keys(sandboxFiles).length > 0;

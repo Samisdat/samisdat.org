@@ -1,12 +1,17 @@
+import { notFound } from 'next/navigation';
+
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Heading } from '@samisdat/ui-components/Heading';
 import { Stack } from '@samisdat/ui-components/Stack';
 
 export default async function Home() {
+    if (process.env.NODE_ENV === 'production') {
+        return notFound();
+    }
     return (
         <>
-            <Heading>Lorem Ipsum</Heading>
+            <Heading>Layout Playground</Heading>
 
             <Heading level={2}>Stack: column → row</Heading>
             <Stack
@@ -60,8 +65,8 @@ export default async function Home() {
             </Stack>
 
             <Grid container>
-                <Grid small={4}>Lorem</Grid>
-                <Grid small={4}>Lorem</Grid>
+                <Grid small={4}>Grid Item 1</Grid>
+                <Grid small={4}>Grid Item 2</Grid>
             </Grid>
         </>
     );

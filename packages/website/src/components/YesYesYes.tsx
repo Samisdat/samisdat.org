@@ -2,6 +2,7 @@ import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
 const HandStyling = styled.div`
     width: 50px;
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -13,6 +14,7 @@ const HandStyling = styled.div`
         fill-rule: nonzero;
         fill: currentColor;
     }
+
     & svg path.thumb {
         fill: none;
         stroke: currentColor;
