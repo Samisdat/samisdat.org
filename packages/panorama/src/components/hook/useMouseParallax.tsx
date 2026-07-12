@@ -1,13 +1,12 @@
 'use client';
 
-import { useAnimationFrame } from '@/components/hook/useAnimationFrame';
+import { useAnimationFrame, usePrefersReducedMotion } from '@samisdat/tools';
 import { RefObject, useCallback, useEffect, useRef } from 'react';
-import { useMatchMediaQuery } from './useMatchMediaQuery';
 
 export type ParallaxCoords = { x: number; y: number };
 
 export const useMouseParallax = (ref: RefObject<HTMLDivElement | null>) => {
-    const reduceMotion = useMatchMediaQuery('(prefers-reduced-motion: reduce)', true);
+    const reduceMotion = usePrefersReducedMotion();
 
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
