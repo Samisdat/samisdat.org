@@ -1,6 +1,6 @@
 {
     "name": "@samisdat/wtal-panorama",
-    "version": "0.0.3",
+    "version": "1.0.0",
     "private": false,
     "type": "module",
     "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
