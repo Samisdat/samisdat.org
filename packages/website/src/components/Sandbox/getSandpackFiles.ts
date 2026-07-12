@@ -1,7 +1,6 @@
 import type { SandpackFiles } from '@codesandbox/sandpack-react';
 import fs from 'fs';
 import path from 'path';
-import { createSandpackFiles } from './createSandpackFiles';
 import { SandboxProps } from './props';
 
 const isSafeSegment = (seg: string) => {
@@ -24,7 +23,11 @@ export const getSandpackFiles = async (opts: {
     const baseDir = path.join(sandboxDir, slug, name);
 
     if (!fs.existsSync(baseDir) || !fs.statSync(baseDir).isDirectory()) {
-        await createSandpackFiles({ slug, name, template, dir: baseDir });
+        throw new Error(
+            `Sandbox files not found: ${baseDir}\n` +
+                `Expected directory: codesandboxes/${slug}/${name}/\n` +
+                `Run: pnpm sandbox:create ${slug} ${name} ${template}`
+        );
     }
 
     const files: SandpackFiles = {};
