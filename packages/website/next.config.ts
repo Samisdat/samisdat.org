@@ -1,8 +1,5 @@
-import withLinaria, { LinariaConfig } from 'next-with-linaria';
-const nextConfig: LinariaConfig = {
-    linaria: {
-        fastCheck: true,
-    },
-};
+import { withWyw } from '@wyw-in-js/nextjs';
 
-export default withLinaria(nextConfig);
+const nextConfig = {};
+
+export default withWyw(nextConfig);
