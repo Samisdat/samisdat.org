@@ -14,6 +14,7 @@ import rehypeSlug from 'rehype-slug';
 import { getTextMateColorSchema } from '@samisdat/ui-components/utils/getTextMateColorSchema';
 
 import { Frontmatter } from './Frontmatter';
+import { remarkSandboxCollector } from './remarkSandboxCollector';
 
 const theme = getTextMateColorSchema('dark');
 
@@ -24,6 +25,7 @@ const shikiOptions = {
 interface ParseMarkdownResult {
     MDXContent: React.ComponentType;
     frontmatter: Frontmatter;
+    sandboxNames: string[];
 }
 
 export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResult> => {
@@ -32,6 +34,9 @@ export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResu
     }
 
     try {
+        // Collect sandbox names from MDX AST
+        const sandboxNames: string[] = [];
+
         const code = String(
             await compile(markdown, {
                 outputFormat: 'function-body',
@@ -41,6 +46,8 @@ export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResu
                     [remarkMdxFrontmatter, { name: 'frontmatter' }],
                     remarkGfm, // GitHub Flavored Markdown (tables, task lists, strikethrough, etc.)
                     remarkBreaks, // Single newline -> <br>; blank line -> new <p>
+                    // Collect sandbox names from <Sandbox name="..." /> elements
+                    [remarkSandboxCollector, { sandboxNames }],
                 ],
                 rehypePlugins: [
                     rehypeSlug, // Add IDs to headings for deep linking
@@ -60,6 +67,7 @@ export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResu
         return {
             MDXContent,
             frontmatter: (frontmatter ?? {}) as Frontmatter,
+            sandboxNames,
         };
     } catch (error) {
         const errorMessage = error instanceof Error ? error.message : String(error);
