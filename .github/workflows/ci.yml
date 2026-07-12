@@ -31,8 +31,11 @@ jobs:
       - name: Typecheck
         run: pnpm -r exec tsc --noEmit
       
+      - name: Check version consistency
+        run: pnpm syncpack lint
+      
       - name: Build website
-        run: pnpm --filter blog build
+        run: pnpm --filter @samisdat/website build
       
       - name: Build Storybook
         run: pnpm build-storybook
