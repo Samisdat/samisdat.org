@@ -1,5 +1,51 @@
 packages:
   - 'packages/*'
+
+catalog:
+  # React ecosystem - shared across all packages
+  react: 19.2.7
+  react-dom: 19.2.7
+  '@types/react': ^19.2.7
+  '@types/react-dom': ^19.2.3
+  
+  # Next.js
+  next: 16.2.10
+  eslint-config-next: 16.0.10
+  
+  # TypeScript
+  typescript: ^5.9.3
+  
+  # Linaria/wyw-in-js
+  '@linaria/core': ^8.0.0
+  '@linaria/react': ^8.0.0
+  '@wyw-in-js/nextjs': ^2.1.5
+  '@wyw-in-js/vite': ^2.1.4
+  
+  # ESLint
+  eslint: ^9.39.2
+  eslint-config-prettier: ^10.1.8
+  '@eslint/eslintrc': ^3.3.3
+  
+  # Prettier
+  prettier: ^3.7.3
+  prettier-plugin-multiline-arrays: ^4.0.3
+  prettier-plugin-organize-imports: ^4.3.0
+  
+  # FontAwesome
+  '@fortawesome/fontawesome-svg-core': ^7.2.0
+  '@fortawesome/free-brands-svg-icons': ^7.2.0
+  '@fortawesome/free-regular-svg-icons': ^7.1.0
+  '@fortawesome/free-solid-svg-icons': ^7.1.0
+  '@fortawesome/react-fontawesome': ^3.1.1
+  
+  # Shiki
+  shiki: ^3.20.0
+  
+  # Shared utils
+  normalize.css: ^8.0.1
+  fs-extra: ^11.3.2
+  '@types/node': ^24
+
 allowBuilds:
   es5-ext: true
   esbuild: true
