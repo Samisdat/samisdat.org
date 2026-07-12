@@ -6,6 +6,7 @@ import { HTMLAttributes } from 'react';
 
 const Styling = styled.div`
     width: 50px;
+
     & svg {
         fill-rule: evenodd;
         clip-rule: evenodd;
@@ -17,6 +18,7 @@ const Styling = styled.div`
         fill-rule: nonzero;
         fill: currentColor;
     }
+
     & svg path.thumb {
         fill: none;
         stroke: currentColor;

@@ -15,7 +15,7 @@ interface GridProps extends HTMLAttributes<HTMLDivElement> {
 
 const GridContainerStyling = styled.div`
     display: grid;
-    grid-gap: 2rem;
+    gap: 2rem;
     width: 100%;
     grid-template-columns: repeat(8, 1fr);
 `;
@@ -27,7 +27,6 @@ const GridItemStyling = styled.div<{
     $orderSmall?: number;
 }>`
     grid-column: span ${props => props.$small || 8};
-
     order: ${props => props.$orderSmall ?? 0};
 
     @media (min-width: ${breakpoints.medium}) {
