@@ -37,7 +37,8 @@
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "test": "vitest"
+    "test": "vitest",
+    "test:ci": "vitest run"
   },
   "dependencies": {
     "@babel/runtime": "^7.29.7",
@@ -71,6 +72,7 @@
     "@storybook/addon-vitest": "^10.4.0",
     "@storybook/react": "^10.4.0",
     "@storybook/react-vite": "^10.4.0",
+    "@storybook/test": "^8.6.15",
     "@types/culori": "^4.0.1",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
@@ -81,7 +83,7 @@
     "eslint-config-next": "16.0.10",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-storybook": "^10.4.0",
-    "playwright": "^1.57.0",
+    "playwright": "^1.61.1",
     "prettier": "^3.7.3",
     "prettier-plugin-multiline-arrays": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.3.0",
