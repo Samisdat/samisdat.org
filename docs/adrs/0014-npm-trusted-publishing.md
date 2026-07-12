@@ -1,4 +1,4 @@
-# ADR 0012: npm-Publishing über GitHub Actions mit Trusted Publishing
+# ADR 0014: npm-Publishing über GitHub Actions mit Trusted Publishing
 
 Datum: 2026-07-12 · Status: Akzeptiert
 
