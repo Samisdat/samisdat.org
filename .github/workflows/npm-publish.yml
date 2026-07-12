@@ -1,0 +1,51 @@
+name: npm publish
+
+on:
+    push:
+        branches: ['**']
+        paths:
+            - 'packages/panorama/**'
+            - '.github/workflows/npm-publish.yml'
+
+permissions:
+    id-token: write
+    contents: read
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        defaults:
+            run:
+                working-directory: packages/panorama
+        steps:
+            - uses: actions/checkout@v4
+            - uses: pnpm/action-setup@v4
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  registry-url: 'https://registry.npmjs.org'
+            - run: npm install -g npm@latest
+            - run: pnpm install --frozen-lockfile
+              working-directory: .
+            - run: pnpm run build:lib
+
+            - name: canary version
+              if: github.ref_name != 'main'
+              run: |
+                  base=$(node -p "require('./package.json').version")
+                  npm version --no-git-tag-version \
+                    "${base}-canary.${{ github.run_number }}.$(git rev-parse --short HEAD)"
+
+            - name: publish canary
+              if: github.ref_name != 'main'
+              run: npm publish --tag canary --access public
+
+            - name: publish release
+              if: github.ref_name == 'main'
+              run: |
+                  version=$(node -p "require('./package.json').version")
+                  if npm view "@samisdat/wtal-panorama@${version}" version >/dev/null 2>&1; then
+                    echo "Version ${version} liegt schon auf der Registry — skip."
+                  else
+                    npm publish --access public
+                  fi
