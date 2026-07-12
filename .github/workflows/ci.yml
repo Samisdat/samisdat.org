@@ -22,6 +22,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       
+      - name: Install Playwright browsers
+        run: pnpm --filter @samisdat/ui-components exec playwright install chromium --with-deps
+      
       - name: Lint CSS
         run: pnpm lint:css
       
@@ -30,6 +33,11 @@ jobs:
       
       - name: Typecheck
         run: pnpm -r exec tsc --noEmit
+      
+      - name: Run tests
+        run: |
+          pnpm --filter blog test:ci
+          pnpm --filter @samisdat/ui-components test:ci
       
       - name: Build website
         run: pnpm --filter blog build

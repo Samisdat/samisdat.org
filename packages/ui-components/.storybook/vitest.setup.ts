@@ -1,7 +1,3 @@
-import * as a11yAddonAnnotations from "@storybook/addon-a11y/preview";
-import * as projectAnnotations from "./preview";
-import { setProjectAnnotations } from "@storybook/react";
-
-// This is an important step to apply the right configuration when testing your stories.
-// More info at: https://storybook.js.org/docs/api/portable-stories/portable-stories-vitest#setprojectannotations
-setProjectAnnotations([a11yAddonAnnotations, projectAnnotations]);
+// Setup file for Vitest + Storybook integration
+// Since Storybook 10.3, @storybook/addon-vitest applies project annotations automatically
+// No manual setup needed

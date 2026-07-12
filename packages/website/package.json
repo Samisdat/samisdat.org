@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage",
     "sandbox:create": "tsx scripts/create-sandbox.ts"
   },
   "dependencies": {
@@ -52,6 +54,7 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "@types/unist": "^3.0.3",
+    "@vitest/coverage-v8": "^4.1.9",
     "baseline-browser-mapping": "^2.10.38",
     "eslint": "^9.39.2",
     "eslint-config-next": "16.0.10",
@@ -60,6 +63,7 @@
     "prettier-plugin-multiline-arrays": "^4.0.3",
     "prettier-plugin-organize-imports": "^4.3.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.9"
   }
 }
