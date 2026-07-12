@@ -12,6 +12,7 @@
     "storybook": "pnpm --filter @samisdat/ui-components storybook",
     "build-storybook": "pnpm --filter @samisdat/ui-components build-storybook",
     "lint:css": "stylelint \"**/*.{ts,tsx}\" --ignore-path .gitignore",
+    "lint:colors": "./scripts/lint-colors.sh",
     "check:versions": "syncpack lint",
     "fix:versions": "syncpack fix-mismatches"
   },

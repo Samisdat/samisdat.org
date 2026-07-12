@@ -13,7 +13,7 @@ const HillsSvgStyling = styled.svg`
 
     & svg path {
         fill-rule: nonzero;
-        fill: #6d6c13;
+        fill: var(--color-green);
     }
 `;
 
@@ -74,11 +74,11 @@ export const DemoAnimationsMorphUgly = () => {
                     y="0"
                     width="50"
                     height="50"
-                    style={{ fill: '#00afeb' }}
+                    style={{ fill: 'var(--color-cyan)' }}
                 />{' '}
                 <path
                     d={steam1}
-                    style={{ fill: '#6d6c13' }}
+                    style={{ fill: 'var(--color-green)' }}
                 >
                     <animate
                         attributeName="d"
@@ -89,7 +89,7 @@ export const DemoAnimationsMorphUgly = () => {
                 </path>
                 <path
                     d={steam3}
-                    style={{ fill: '#1c592d' }}
+                    style={{ fill: 'var(--color-green)' }}
                 >
                     <animate
                         attributeName="d"
