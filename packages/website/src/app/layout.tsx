@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'next/font/google';
 
 import { Colophon } from '@/components/Colophon';
@@ -17,13 +19,17 @@ import { Scrolling } from '@/components/Scrolling';
 import '@samisdat/ui-components/globalStyle';
 
 export const metadata: Metadata = {
-    metadataBase: new URL('https://samisdat.org'),
     title: {
-        default: 'samisdat',
-        template: '%s · samisdat',
+        default: SITE_NAME,
+        template: `%s · ${SITE_NAME}`,
     },
-    description:
-        'Persönliches Blog von Bastian Pertz — Webentwicklung, Fotografie und Wuppertal.',
+    description: SITE_DESCRIPTION,
+    metadataBase: new URL(SITE_URL),
+    alternates: {
+        types: {
+            'application/rss+xml': '/feed.xml',
+        },
+    },
 };
 
 const sourceSerif = Source_Serif_4({
