@@ -39,6 +39,10 @@ export default async function Home() {
             />
 
             <h2>Posts</h2>
+            {/* Frontmatter-Werte stammen aus eigenen MDX-Dateien im Repo
+                (content/posts/) und werden per Zod-Schema validiert
+                (lib/posts.ts). React escaped JSX-Text automatisch —
+                kein XSS-Risiko (CodeQL false positive). */}
             <ul>
                 {(process.env.NODE_ENV === 'development'
                     ? getAllPosts()
