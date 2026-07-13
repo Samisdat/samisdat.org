@@ -73,6 +73,7 @@ export default function RootLayout({
                     <WtalPanorama />
                     <Navi />
                     <Container>{children}</Container>
+                    <Colophon />
                 </Page>
             </body>
         </html>
