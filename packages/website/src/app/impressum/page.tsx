@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 
+import { ObfuscatedEmail } from '@/components/ObfuscatedEmail';
 import { SITE_AUTHOR } from '@/lib/constants';
 
 export const metadata: Metadata = {
@@ -22,8 +23,7 @@ export default function ImpressumPage() {
 
             <h2>Kontakt</h2>
             <p>
-                E-Mail:{' '}
-                <a href="mailto:bastian@pertz.eu">bastian@pertz.eu</a>
+                E-Mail: <ObfuscatedEmail />
             </p>
 
             <h2>Verantwortlich für den Inhalt</h2>
