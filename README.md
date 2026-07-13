@@ -35,6 +35,8 @@ pnpm install
 pnpm build:lib
 ```
 
+**Deployment**: Siehe [docs/deployment.md](./docs/deployment.md) für Chromatic (Storybook), Vercel (Website) und npm (Library).
+
 ---
 
 ## Root Scripts
