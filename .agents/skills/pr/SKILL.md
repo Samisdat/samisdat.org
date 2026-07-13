@@ -48,3 +48,6 @@ gh pr create --base main --title "<titel>" --body "<body>"
   rebasen — der Branch bleibt stehen, bis der User gemerged hat.
 - Keine Force-Pushes auf den PR-Branch, nachdem der PR gemeldet wurde,
   außer der User bittet um Nacharbeit.
+
+Gemerged wird vom User per lokalem Rebase-Flow (`scripts/merge-pr.sh`) —
+nicht über die GitHub-UI-Buttons.
