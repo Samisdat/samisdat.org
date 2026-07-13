@@ -44,9 +44,9 @@ Credentials pro Workflow-Lauf, automatische Provenance-Attestierung
   Workflow-Dateinamen** gebunden — Release- und Canary-Pfad leben deshalb
   in einer Workflow-Datei.
 - Das `repository`-Feld der `package.json` muss auf dieses Monorepo zeigen
-  (inkl. `directory`), sonst schlägt die Provenance-Prüfung fehl — es
-  zeigt aktuell noch auf `Samisdat/wtal-panorama` und muss korrigiert
-  werden.
+  (inkl. `directory`), sonst schlägt die Provenance-Prüfung fehl —
+  wurde im Zuge der Umsetzung korrigiert (zeigte zuvor auf das alte
+  Einzel-Repo `Samisdat/wtal-panorama`).
 - Versions-Bumps für Releases passieren manuell in der `package.json` per
   PR (GitHub Flow, ADR 0001). Changesets wäre die Alternative mit fertiger
   Action, ist für ein Ein-Personen-Repo aber Prozess-Overhead.
