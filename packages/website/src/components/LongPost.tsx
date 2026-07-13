@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
+import Image from 'next/image';
 import { Heading } from '@samisdat/ui-components/Heading';
 
 const PostStyled = styled.main`
@@ -213,9 +214,12 @@ export const LongPost: FC<LongPostProps> = ({ children, ...props }) => {
                         more experience.
                     </p>
                     <p>My graph looks something like this:</p>
-                    <img
-                        style={{ width: '300px' }}
+                    <Image
                         src="/guided-graph.webp"
+                        alt="Graph showing the balance between guided and unguided learning over time"
+                        width={1000}
+                        height={600}
+                        style={{ width: '300px', height: 'auto' }}
                     />
 
                     <p>
