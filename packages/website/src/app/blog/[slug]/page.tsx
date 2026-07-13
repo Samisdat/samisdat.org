@@ -1,8 +1,29 @@
+import type { Metadata } from 'next';
 import { Heading } from '@samisdat/ui-components/Heading';
 import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
 import { loadPost, getPublishedPostSlugs } from '@/lib/posts';
 import { notFound } from 'next/navigation';
 import path from 'path';
+
+export async function generateMetadata({
+    params,
+}: {
+    params: { slug: string };
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const post = loadPost(slug);
+
+    if (!post || !post.frontmatter.published) {
+        return {};
+    }
+
+    return {
+        title: post.frontmatter.title,
+        ...(post.frontmatter.description && {
+            description: post.frontmatter.description,
+        }),
+    };
+}
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
     const { slug } = await params;

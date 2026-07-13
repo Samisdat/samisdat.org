@@ -13,6 +13,7 @@ export const frontmatterSchema = z.object({
     title: z.string().min(1, 'title must not be empty'),
     date: z.coerce.date({ message: 'date must be a valid ISO date string' }),
     published: z.boolean({ message: 'published must be a boolean' }),
+    description: z.string().optional(),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
