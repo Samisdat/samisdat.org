@@ -16,9 +16,9 @@ export default function ImpressumPage() {
             <address>
                 {SITE_AUTHOR}
                 <br />
-                [Straße Hausnummer]
+                Haus Düssel 28
                 <br />
-                [PLZ] Wuppertal
+                42489 Wülfrath
             </address>
 
             <h2>Kontakt</h2>
