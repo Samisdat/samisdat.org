@@ -10,7 +10,7 @@ import path from 'path';
 import Link from 'next/link';
 
 import { parseMarkdown } from '@/components/Markdown/compile';
-import { getAllPublishedPosts } from '@/lib/posts';
+import { getAllPosts, getAllPublishedPosts } from '@/lib/posts';
 import { NoNoNo } from '../components/NoNoNo';
 import { YesYesYes } from '../components/YesYesYes';
 
@@ -40,7 +40,10 @@ export default async function Home() {
 
             <h2>Posts</h2>
             <ul>
-                {getAllPublishedPosts().map((post) => (
+                {(process.env.NODE_ENV === 'development'
+                    ? getAllPosts()
+                    : getAllPublishedPosts()
+                ).map((post) => (
                     <li key={post.slug}>
                         <Link href={`/posts/${post.slug}`}>
                             {post.frontmatter.title}

@@ -83,10 +83,10 @@ export const getAllPostSlugs = (): string[] => {
 };
 
 /**
- * Get all published posts, sorted by date descending.
+ * Get all posts (including unpublished), sorted by date descending.
  * Each file is read exactly once thanks to `loadPost` caching.
  */
-export const getAllPublishedPosts = (): Post[] => {
+export const getAllPosts = (): Post[] => {
     const slugs = getAllPostSlugs();
 
     return slugs
@@ -94,8 +94,14 @@ export const getAllPublishedPosts = (): Post[] => {
             const entry = loadPost(slug)!;
             return { slug, ...entry };
         })
-        .filter((post) => post.frontmatter.published === true)
         .sort((a, b) => b.frontmatter.date.getTime() - a.frontmatter.date.getTime());
+};
+
+/**
+ * Get all published posts, sorted by date descending.
+ */
+export const getAllPublishedPosts = (): Post[] => {
+    return getAllPosts().filter((post) => post.frontmatter.published === true);
 };
 
 /**
