@@ -21,6 +21,7 @@ werden nicht committet und stehen in der `.gitignore`.
 Ausnahmen (bleiben getrackt):
 
 - `README.md` — GitHub-/npm-Konvention, Teil des Package-Inhalts
+- `SECURITY.md` — GitHub-/npm-Konvention, Security-Policy (ADR 0017)
 - `CLAUDE.md` — Tooling-Konfiguration, falls sie angelegt wird
 - `SKILL.md` — Skill-Definitionen unter `.claude/skills/` sind dauerhafte
   Konfiguration, keine Arbeitsnotizen

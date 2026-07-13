@@ -9,6 +9,8 @@ on:
 jobs:
   quality-gate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v4
       
