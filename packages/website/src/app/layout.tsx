@@ -30,6 +30,10 @@ export const metadata: Metadata = {
             'application/rss+xml': '/feed.xml',
         },
     },
+    robots: {
+        index: false,
+        follow: false,
+    },
 };
 
 const sourceSerif = Source_Serif_4({
