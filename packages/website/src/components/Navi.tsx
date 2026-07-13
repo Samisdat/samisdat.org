@@ -1,4 +1,5 @@
 import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faRss } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { styled } from '@linaria/react';
 import { Container } from '@samisdat/ui-components/Container';
@@ -149,6 +150,9 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                                 </a>
                                 <a href="https://www.linkedin.com/in/bastian-pertz">
                                     <FontAwesomeIcon icon={faLinkedin} />
+                                </a>
+                                <a href="/feed.xml" aria-label="RSS-Feed">
+                                    <FontAwesomeIcon icon={faRss} />
                                 </a>
                             </IconNav>
                         </Stack>
