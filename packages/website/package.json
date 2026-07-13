@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "oxlint .",
     "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
     "test": "vitest",
     "test:ci": "vitest run --coverage",

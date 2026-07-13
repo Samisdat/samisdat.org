@@ -1,0 +1,6 @@
+{
+  "plugins": ["react", "nextjs"],
+  "rules": {
+    "react/react-compiler": "error"
+  }
+}

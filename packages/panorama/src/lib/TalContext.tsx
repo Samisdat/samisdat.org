@@ -34,7 +34,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [timeFactor, setTimeFactor] = useState(1000); // Default: 10x Geschwindigkeit
 
     const lastFrameRef = useRef<number | null>(null);
-    const lastRealTimeRef = useRef(performance.now());
+    const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
 
     const sunTimes = useMemo(() => {

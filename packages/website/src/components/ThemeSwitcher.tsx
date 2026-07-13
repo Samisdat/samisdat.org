@@ -1,43 +1,60 @@
 'use client';
 import { useMediaQuery } from '@samisdat/tools';
 import { ThemeName, ThemeSwitcher as ThemeSwitcherUi } from '@samisdat/ui-components/ThemeSwitcher';
-import { useEffect, useState } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
+
+const subscribeToSessionStorage = (callback: () => void) => {
+    if (typeof window === 'undefined') return () => {};
+    
+    // sessionStorage hat kein change event, aber wir können storage event nutzen
+    // (funktioniert nur cross-tab, aber für unseren Use-Case reicht das)
+    window.addEventListener('storage', callback);
+    return () => window.removeEventListener('storage', callback);
+};
+
+const getSessionTheme = (): ThemeName | null => {
+    if (typeof window === 'undefined') return null;
+    const stored = sessionStorage.getItem('theme');
+    return stored === 'light' || stored === 'dark' ? stored : null;
+};
 
 export const ThemeSwitcher = () => {
     const prefers: ThemeName = useMediaQuery(`(prefers-color-scheme: light)`, false) ? 'light' : 'dark';
-    const [theme, setTheme] = useState<ThemeName>('dark');
-    const [hydrated, setHydrated] = useState(false);
+    
+    // Subscribe to sessionStorage (though it won't update often in same tab)
+    const sessionTheme = useSyncExternalStore(
+        subscribeToSessionStorage,
+        getSessionTheme,
+        () => null // SSR snapshot
+    );
+    
+    // Resolve theme: sessionStorage > prefers-color-scheme
+    const resolvedTheme = sessionTheme ?? prefers;
 
     useEffect(() => {
-        const sessionTheme = sessionStorage.getItem('theme');
-        const resolved: ThemeName = sessionTheme === 'light' ? 'light' : sessionTheme === 'dark' ? 'dark' : prefers;
-        setTheme(resolved);
-        setHydrated(true);
-    }, [prefers]);
-
-    useEffect(() => {
-        if (!hydrated) return;
-        if (theme === prefers) {
-            sessionStorage.removeItem('theme');
-            return;
-        }
-        sessionStorage.setItem('theme', theme);
-    }, [theme, prefers, hydrated]);
-
-    useEffect(() => {
-        if (!hydrated) return;
+        // Sync theme to DOM
         const root = document.documentElement;
-        if (prefers === theme) {
+        if (prefers === resolvedTheme) {
             root.removeAttribute('data-theme');
         } else {
-            root.setAttribute('data-theme', theme);
+            root.setAttribute('data-theme', resolvedTheme);
         }
-    }, [theme, prefers, hydrated]);
+    }, [resolvedTheme, prefers]);
+
+    const handleThemeUpdate = (newTheme: ThemeName) => {
+        if (newTheme === prefers) {
+            sessionStorage.removeItem('theme');
+        } else {
+            sessionStorage.setItem('theme', newTheme);
+        }
+        // Trigger re-render by dispatching storage event manually
+        window.dispatchEvent(new Event('storage'));
+    };
 
     return (
         <ThemeSwitcherUi
-            theme={theme}
-            onUpdate={setTheme}
+            theme={resolvedTheme}
+            onUpdate={handleThemeUpdate}
         />
     );
 };

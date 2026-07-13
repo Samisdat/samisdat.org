@@ -41,6 +41,7 @@ export const DemoAnimationsJsAttributes = () => {
     const [time, setTime] = useState(0);
     const [speed, setSpeed] = useState(10);
     const [isPlaying, setIsPlaying] = useState(false);
+    const [sunPosition, setSunPosition] = useState<Point>({ cx: 40, cy: 260 });
 
     useEffect(() => {
         if (pathRef.current) {
@@ -50,21 +51,21 @@ export const DemoAnimationsJsAttributes = () => {
 
     const next = (delta: number) => {
         const frames = Math.min(delta, 100) / (1000 / 60);
-        setTime(prev => (prev + speed * frames) % dayLength);
+        setTime(prev => {
+            const newTime = (prev + speed * frames) % dayLength;
+            
+            // Update sun position based on new time
+            if (pathRef.current && lengthRef.current) {
+                const distance = (lengthRef.current * newTime) / dayLength;
+                const point = pathRef.current.getPointAtLength(distance);
+                setSunPosition({ cx: point.x, cy: point.y });
+            }
+            
+            return newTime;
+        });
     };
 
     useAnimationFrame(next, isPlaying);
-
-    const getPoint = (): Point => {
-        if (!pathRef.current || !lengthRef.current) {
-            return { cx: 40, cy: 260 };
-        }
-
-        const distance = (lengthRef.current * time) / dayLength;
-        const point = pathRef.current.getPointAtLength(distance);
-
-        return { cx: point.x, cy: point.y };
-    };
 
     const onSpeedChange = (value: number) => {
         setSpeed(value);
@@ -114,7 +115,7 @@ export const DemoAnimationsJsAttributes = () => {
                 <circle
                     className="sun"
                     r="30"
-                    {...getPoint()}
+                    {...sunPosition}
                 />
             </SvgWithSunStyling>
         </DemoAnimation>

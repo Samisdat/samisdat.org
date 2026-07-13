@@ -20,7 +20,7 @@ export const useParallax = (ref: RefObject<HTMLDivElement | null>) => {
 
         ref.current.style.setProperty('--parallax-x', String(x));
         ref.current.style.setProperty('--parallax-y', String(y));
-    }, [ref, reduceMotion]);
+    }, [ref]);
 
     useAnimationFrame(doParallax);
 

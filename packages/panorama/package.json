@@ -26,7 +26,7 @@
         "build": "next build",
         "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
         "start": "next start",
-        "lint": "eslint .",
+        "lint": "oxlint .",
         "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
         "prepublishOnly": "npm run build:lib"
     },
