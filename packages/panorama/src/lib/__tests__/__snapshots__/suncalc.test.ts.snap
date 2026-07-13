@@ -1,0 +1,97 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`suncalc astronomical accuracy > should produce stable results for 'Spring Equinox 2024 Noon' 1`] = `
+{
+  "moonPosition": {
+    "altitude": -8.5804,
+    "azimuth": 35.8625,
+    "distance": 402168,
+    "parallacticAngle": -23.4787,
+  },
+  "sunPosition": {
+    "altitude": 38.2432,
+    "azimuth": 167.6407,
+  },
+  "times": {
+    "dawn": "2024-03-20T05:00:00.000Z",
+    "dusk": "2024-03-20T18:18:00.000Z",
+    "night": "2024-03-20T19:38:00.000Z",
+    "nightEnd": "2024-03-20T03:40:00.000Z",
+    "solarNoon": "2024-03-20T11:38:00.000Z",
+    "sunrise": "2024-03-20T05:33:00.000Z",
+    "sunset": "2024-03-20T17:45:00.000Z",
+  },
+}
+`;
+
+exports[`suncalc astronomical accuracy > should produce stable results for 'Summer Solstice 2024 Noon' 1`] = `
+{
+  "moonPosition": {
+    "altitude": -64.2154,
+    "azimuth": 329.5101,
+    "distance": 382614,
+    "parallacticAngle": 21.0679,
+  },
+  "sunPosition": {
+    "altitude": 56.8877,
+    "azimuth": 138.3297,
+  },
+  "times": {
+    "dawn": "2024-06-21T02:28:00.000Z",
+    "dusk": "2024-06-21T20:38:00.000Z",
+    "night": null,
+    "nightEnd": null,
+    "solarNoon": "2024-06-21T11:33:00.000Z",
+    "sunrise": "2024-06-21T03:15:00.000Z",
+    "sunset": "2024-06-21T19:51:00.000Z",
+  },
+}
+`;
+
+exports[`suncalc astronomical accuracy > should produce stable results for 'Winter Night 2024 02:00' 1`] = `
+{
+  "moonPosition": {
+    "altitude": 31.9614,
+    "azimuth": 117.9245,
+    "distance": 397692,
+    "parallacticAngle": -34.1679,
+  },
+  "sunPosition": {
+    "altitude": -56.6802,
+    "azimuth": 40.6209,
+  },
+  "times": {
+    "dawn": "2024-12-21T06:53:00.000Z",
+    "dusk": "2024-12-21T16:05:00.000Z",
+    "night": "2024-12-21T17:29:00.000Z",
+    "nightEnd": "2024-12-21T05:30:00.000Z",
+    "solarNoon": "2024-12-21T11:29:00.000Z",
+    "sunrise": "2024-12-21T07:33:00.000Z",
+    "sunset": "2024-12-21T15:25:00.000Z",
+  },
+}
+`;
+
+exports[`suncalc astronomical accuracy > should produce stable results for 'Winter Solstice 2024 Noon' 1`] = `
+{
+  "moonPosition": {
+    "altitude": 1.2769,
+    "azimuth": 280.1395,
+    "distance": 399267,
+    "parallacticAngle": 38.4438,
+  },
+  "sunPosition": {
+    "altitude": 15.0808,
+    "azimuth": 172.9511,
+  },
+  "times": {
+    "dawn": "2024-12-21T06:53:00.000Z",
+    "dusk": "2024-12-21T16:05:00.000Z",
+    "night": "2024-12-21T17:29:00.000Z",
+    "nightEnd": "2024-12-21T05:30:00.000Z",
+    "solarNoon": "2024-12-21T11:29:00.000Z",
+    "sunrise": "2024-12-21T07:33:00.000Z",
+    "sunset": "2024-12-21T15:25:00.000Z",
+  },
+}
+`;

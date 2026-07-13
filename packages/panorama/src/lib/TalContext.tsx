@@ -1,6 +1,6 @@
 import { usePrefersReducedMotion } from '@samisdat/tools';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import SunCalc from 'suncalc';
+import * as SunCalc from 'suncalc';
 
 const LAT = 51.2562;
 const LNG = 7.1508;
@@ -39,10 +39,11 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
     const sunTimes = useMemo(() => {
         const times = SunCalc.getTimes(time, LAT, LNG);
-        const sunrise = times.sunrise.getTime();
-        const sunset = times.sunset.getTime();
-        const dawn = times.dawn.getTime();
-        const dusk = times.dusk.getTime();
+        // At Wuppertal latitude (51°N), sun always rises/sets, but handle null for safety
+        const sunrise = times.sunrise?.getTime() ?? new Date(time).setHours(6, 0, 0, 0);
+        const sunset = times.sunset?.getTime() ?? new Date(time).setHours(18, 0, 0, 0);
+        const dawn = times.dawn?.getTime() ?? new Date(time).setHours(5, 0, 0, 0);
+        const dusk = times.dusk?.getTime() ?? new Date(time).setHours(19, 0, 0, 0);
         const currentTime = time.getTime();
         const isDay = currentTime >= sunrise && currentTime < sunset;
 

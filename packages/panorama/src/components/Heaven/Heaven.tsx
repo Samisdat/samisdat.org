@@ -2,7 +2,7 @@
 
 import { useTal } from '@/lib/TalContext';
 import { useEffect, useRef, useState } from 'react';
-import SunCalc from 'suncalc';
+import * as SunCalc from 'suncalc';
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { Sun } from './Sun';
@@ -36,13 +36,13 @@ export const Heaven = () => {
             if (currentTime >= sunset) {
                 const nextDay = new Date(time);
                 nextDay.setDate(nextDay.getDate() + 1);
-                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise.getTime();
+                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise?.getTime() ?? sunrise;
                 const nightDuration = nextSunrise - sunset;
                 return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
             } else {
                 const prevDay = new Date(time);
                 prevDay.setDate(prevDay.getDate() - 1);
-                const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset.getTime();
+                const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset?.getTime() ?? sunset;
                 const nightDuration = sunrise - prevSunset;
                 return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
             }

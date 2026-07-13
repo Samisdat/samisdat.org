@@ -27,6 +27,8 @@
         "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
         "start": "next start",
         "lint": "oxlint .",
+        "test": "vitest",
+        "test:run": "vitest run",
         "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
         "prepublishOnly": "npm run build:lib"
     },
@@ -71,9 +73,10 @@
         "prettier-plugin-organize-imports": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
-        "suncalc": "^1.9.0",
+        "suncalc": "^2.0.1",
         "tsup": "^8.5.0",
-        "typescript": "catalog:"
+        "typescript": "catalog:",
+        "vitest": "catalog:"
     },
     "dependencies": {
         "astronomy-engine": "^2.1.1"

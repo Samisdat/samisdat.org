@@ -185,14 +185,17 @@ importers:
         specifier: 'catalog:'
         version: 19.2.7(react@19.2.7)
       suncalc:
-        specifier: ^1.9.0
-        version: 1.9.0
+        specifier: ^2.0.1
+        version: 2.0.1
       tsup:
         specifier: ^8.5.0
         version: 8.5.1(postcss@8.5.15)(tsx@4.21.0)(typescript@5.9.3)(yaml@2.9.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.9(@edge-runtime/vm@3.2.0)(@types/node@24.13.2)(@vitest/browser-playwright@4.1.9)(@vitest/coverage-v8@4.1.9)(happy-dom@20.10.3)(vite@8.0.16(@types/node@24.13.2)(esbuild@0.27.7)(terser@5.49.0)(tsx@4.21.0)(yaml@2.9.0))
 
   packages/tools:
     dependencies:
@@ -5518,8 +5521,8 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
 
-  suncalc@1.9.0:
-    resolution: {integrity: sha512-vMJ8Byp1uIPoj+wb9c1AdK4jpkSKVAywgHX0lqY7zt6+EWRRC3Z+0Ucfjy/0yxTVO1hwwchZe4uoFNqrIC24+A==}
+  suncalc@2.0.1:
+    resolution: {integrity: sha512-wjujU+HpsP1TUvN3/9dFkVQQCsMZbk7PkdZsASRJR4jVPHCm9Qy0FVkFTqXfs70Ag2yheN7ZUavzCyOjhJDGxQ==}
 
   supports-color@10.2.2:
     resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
@@ -11717,7 +11720,7 @@ snapshots:
       tinyglobby: 0.2.17
       ts-interface-checker: 0.1.13
 
-  suncalc@1.9.0: {}
+  suncalc@2.0.1: {}
 
   supports-color@10.2.2: {}
 
