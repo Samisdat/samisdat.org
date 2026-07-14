@@ -1,7 +1,7 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useState } from 'react';
 
 /**
  * Char-codes, aufgeteilt in user + domain — kein lesbarer String im Bundle.
@@ -34,7 +34,7 @@ const Decoy = styled.span`
     width: 1px;
     height: 1px;
     overflow: hidden;
-    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
     white-space: nowrap;
     pointer-events: none;
 `;
@@ -50,11 +50,11 @@ const NOISE = ['info', 'mail', 'nope', 'xyz'];
  * - Decoy-Spans zwischen den echten Glyphen → Noise für Regex-Scraper
  */
 export function ObfuscatedEmail() {
-    const [chars, setChars] = useState<string[]>([]);
-
-    useEffect(() => {
-        setChars([..._u, ..._s, ..._d].map((c) => String.fromCharCode(c)));
-    }, []);
+    // Lazy initialization: nur client-side berechnen (SSR → leeres Array)
+    const [chars] = useState<string[]>(() => {
+        if (typeof window === 'undefined') return [];
+        return [..._u, ..._s, ..._d].map((c) => String.fromCharCode(c));
+    });
 
     if (chars.length === 0) return null;
 
