@@ -44,7 +44,7 @@ catalog:
   # Shared utils
   normalize.css: ^8.0.1
   fs-extra: ^11.3.2
-  '@types/node': ^24
+  '@types/node': ^26
   
   # Testing
   vitest: ^4.1.9
