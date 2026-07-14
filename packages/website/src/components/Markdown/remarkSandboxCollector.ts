@@ -1,6 +1,6 @@
+import type { Root } from 'mdast';
 import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
-import type { Root } from 'mdast';
 
 /**
  * Remark plugin that extracts sandbox names from <Sandbox name="..." /> elements
@@ -10,8 +10,8 @@ export interface SandboxCollectorOptions {
     sandboxNames: string[];
 }
 
-export const remarkSandboxCollector: Plugin<[SandboxCollectorOptions], Root> = (options) => {
-    return (tree) => {
+export const remarkSandboxCollector: Plugin<[SandboxCollectorOptions], Root> = options => {
+    return tree => {
         visit(tree, 'mdxJsxFlowElement', (node: any) => {
             // Only look for <Sandbox> elements
             if (node.name !== 'Sandbox') {

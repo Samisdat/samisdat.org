@@ -6,7 +6,7 @@ import { getAllPublishedPosts } from '@/lib/posts';
 export default function sitemap(): MetadataRoute.Sitemap {
     const posts = getAllPublishedPosts();
 
-    const postEntries: MetadataRoute.Sitemap = posts.map((post) => ({
+    const postEntries: MetadataRoute.Sitemap = posts.map(post => ({
         url: `${SITE_URL}/posts/${post.slug}`,
         lastModified: post.frontmatter.date,
         changeFrequency: 'monthly',

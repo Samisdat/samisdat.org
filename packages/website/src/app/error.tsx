@@ -3,20 +3,11 @@
 import { Heading } from '@samisdat/ui-components/Heading';
 import { Typo } from '@samisdat/ui-components/Typo';
 
-export default function Error({
-    error,
-    reset,
-}: {
-    error: Error & { digest?: string };
-    reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (
         <>
             <Heading level={1}>Etwas ist schiefgelaufen</Heading>
-            <Typo>
-                Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es
-                erneut.
-            </Typo>
+            <Typo>Ein unerwarteter Fehler ist aufgetreten. Bitte versuche es erneut.</Typo>
             <button
                 onClick={reset}
                 style={{
