@@ -71,6 +71,10 @@
         "typescript": "catalog:",
         "vitest": "catalog:"
     },
+    "engines": {
+        "node": ">=24 <25",
+        "pnpm": ">=11"
+    },
     "dependencies": {
         "astronomy-engine": "^2.1.1"
     }

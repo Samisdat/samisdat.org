@@ -97,5 +97,9 @@
     "storybook": "^10.5.0",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "engines": {
+    "node": ">=24 <25",
+    "pnpm": ">=11"
   }
 }
