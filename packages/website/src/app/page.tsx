@@ -6,8 +6,8 @@ import { faHand } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { promises as fs } from 'fs';
-import path from 'path';
 import Link from 'next/link';
+import path from 'path';
 
 import { parseMarkdown } from '@/components/Markdown/compile';
 import { getAllPosts, getAllPublishedPosts } from '@/lib/posts';
@@ -40,25 +40,15 @@ export default async function Home() {
 
             <h2>Posts</h2>
             <ul>
-                {(process.env.NODE_ENV === 'development'
-                    ? getAllPosts()
-                    : getAllPublishedPosts()
-                ).map((post) => (
+                {(process.env.NODE_ENV === 'development' ? getAllPosts() : getAllPublishedPosts()).map(post => (
                     <li key={post.slug}>
-                        <Link href={`/posts/${post.slug}`}>
-                            {post.frontmatter.title}
-                        </Link>{' '}
-                        <time
-                            dateTime={post.frontmatter.date.toISOString()}
-                        >
-                            {post.frontmatter.date.toLocaleDateString(
-                                'de-DE',
-                                {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric',
-                                },
-                            )}
+                        <Link href={`/posts/${post.slug}`}>{post.frontmatter.title}</Link>{' '}
+                        <time dateTime={post.frontmatter.date.toISOString()}>
+                            {post.frontmatter.date.toLocaleDateString('de-DE', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
                         </time>
                     </li>
                 ))}

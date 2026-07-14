@@ -55,18 +55,11 @@
         "react-dom": "^19.2.7"
     },
     "devDependencies": {
-        "@eslint/js": "^9.39.0",
-        "@next/eslint-plugin-next": "^16.2.10",
         "@samisdat/tools": "workspace:*",
         "@types/node": "catalog:",
         "@types/react": "catalog:",
         "@types/react-dom": "catalog:",
         "@types/suncalc": "^1.9.2",
-        "@typescript-eslint/eslint-plugin": "^8.63.0",
-        "@typescript-eslint/parser": "^8.63.0",
-        "eslint": "catalog:",
-        "eslint-config-next": "catalog:",
-        "eslint-config-prettier": "catalog:",
         "next": "catalog:",
         "prettier": "catalog:",
         "prettier-plugin-multiline-arrays": "catalog:",

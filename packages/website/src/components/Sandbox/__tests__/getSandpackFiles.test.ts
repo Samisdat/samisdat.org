@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
 import fs from 'fs';
 import path from 'path';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { getSandpackFiles } from '../getSandpackFiles';
 
 // Mock fs
@@ -18,7 +18,7 @@ describe('getSandpackFiles', () => {
                     slug: '../../../etc',
                     name: 'sandbox',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow('Invalid slug or name');
         });
 
@@ -28,7 +28,7 @@ describe('getSandpackFiles', () => {
                     slug: 'valid-slug',
                     name: '../../../passwd',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow('Invalid slug or name');
         });
 
@@ -38,7 +38,7 @@ describe('getSandpackFiles', () => {
                     slug: '/etc/passwd',
                     name: 'sandbox',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow('Invalid slug or name');
         });
 
@@ -48,7 +48,7 @@ describe('getSandpackFiles', () => {
                     slug: 'valid-slug',
                     name: '/etc/passwd',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow('Invalid slug or name');
         });
     });
@@ -213,7 +213,7 @@ describe('getSandpackFiles', () => {
                     slug: 'test-post',
                     name: 'demo',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow(/Sandbox files not found/);
 
             await expect(
@@ -221,7 +221,7 @@ describe('getSandpackFiles', () => {
                     slug: 'test-post',
                     name: 'demo',
                     template: 'react-ts',
-                }),
+                })
             ).rejects.toThrow(/pnpm sandbox:create/);
         });
 
@@ -251,7 +251,7 @@ describe('getSandpackFiles', () => {
 
             // Path should always use forward slashes, never backslashes
             expect(Object.keys(files)).toEqual(['/src/App.tsx']);
-            expect(Object.keys(files).some((key) => key.includes('\\'))).toBe(false);
+            expect(Object.keys(files).some(key => key.includes('\\'))).toBe(false);
         });
     });
 });

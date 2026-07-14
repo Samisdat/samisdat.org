@@ -98,7 +98,7 @@ if (!isValidTemplate(template)) {
     process.exit(1);
 }
 
-createSandbox(slug, name, template).catch((err) => {
+createSandbox(slug, name, template).catch(err => {
     console.error('❌ Failed to create sandbox:', err);
     process.exit(1);
 });

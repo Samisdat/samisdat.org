@@ -5,7 +5,7 @@ import { useEffect, useSyncExternalStore } from 'react';
 
 const subscribeToSessionStorage = (callback: () => void) => {
     if (typeof window === 'undefined') return () => {};
-    
+
     // sessionStorage hat kein change event, aber wir können storage event nutzen
     // (funktioniert nur cross-tab, aber für unseren Use-Case reicht das)
     window.addEventListener('storage', callback);
@@ -20,14 +20,14 @@ const getSessionTheme = (): ThemeName | null => {
 
 export const ThemeSwitcher = () => {
     const prefers: ThemeName = useMediaQuery(`(prefers-color-scheme: light)`, false) ? 'light' : 'dark';
-    
+
     // Subscribe to sessionStorage (though it won't update often in same tab)
     const sessionTheme = useSyncExternalStore(
         subscribeToSessionStorage,
         getSessionTheme,
         () => null // SSR snapshot
     );
-    
+
     // Resolve theme: sessionStorage > prefers-color-scheme
     const resolvedTheme = sessionTheme ?? prefers;
 

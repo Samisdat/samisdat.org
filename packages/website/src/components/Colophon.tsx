@@ -20,7 +20,7 @@ const FooterWrapper = styled.footer`
     }
 `;
 
-export const Colophon: FC<HTMLAttributes<HTMLElement>> = (props) => (
+export const Colophon: FC<HTMLAttributes<HTMLElement>> = props => (
     <FooterWrapper {...props}>
         © {new Date().getFullYear()} samisdat.org · <Link href="/impressum">Impressum</Link>
     </FooterWrapper>

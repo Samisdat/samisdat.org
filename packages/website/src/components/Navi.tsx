@@ -151,7 +151,10 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                                 <a href="https://www.linkedin.com/in/bastian-pertz">
                                     <FontAwesomeIcon icon={faLinkedin} />
                                 </a>
-                                <a href="/feed.xml" aria-label="RSS-Feed">
+                                <a
+                                    href="/feed.xml"
+                                    aria-label="RSS-Feed"
+                                >
                                     <FontAwesomeIcon icon={faRss} />
                                 </a>
                             </IconNav>
