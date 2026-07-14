@@ -23,6 +23,9 @@
   "dependencies": {
     "chrome-remote-interface": "^0.34.0"
   },
+  "overrides": {
+    "rollup-plugin-dts": "^6.4.1"
+  },
   "devDependencies": {
     "concurrently": "^9.1.2",
     "oxlint": "^1.73.0",

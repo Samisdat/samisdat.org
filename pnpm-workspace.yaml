@@ -12,7 +12,7 @@ catalog:
   next: 16.2.10
   
   # TypeScript
-  typescript: ^5.9.3
+  typescript: ^7.0.2
   
   # Linaria/wyw-in-js
   '@linaria/core': ^8.0.0
