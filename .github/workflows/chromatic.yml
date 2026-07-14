@@ -7,12 +7,17 @@ on:
       - main
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   chromatic:
     # Dependabot-Läufe bekommen keine Actions-Secrets (CHROMATIC_PROJECT_TOKEN
     # fehlt) — und visuelle Regression auf Dependency-Bumps braucht es nicht.
     if: github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v7
         with:
