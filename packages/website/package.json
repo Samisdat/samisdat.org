@@ -47,7 +47,6 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "catalog:",
     "@types/mdast": "^4.0.4",
     "@types/mdx": "^2.0.13",
     "@types/node": "catalog:",
@@ -56,9 +55,6 @@
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "catalog:",
     "baseline-browser-mapping": "^2.10.43",
-    "eslint": "catalog:",
-    "eslint-config-next": "catalog:",
-    "eslint-config-prettier": "catalog:",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
