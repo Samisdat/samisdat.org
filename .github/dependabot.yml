@@ -11,3 +11,31 @@ updates:
     directory: /
     schedule:
       interval: weekly
+
+  # codesandboxes/ ist eingebetteter Sandpack-Demo-Quelltext (Blog-Inhalt) —
+  # keine Version-Update-PRs dafür (Limit 0 deaktiviert sie gezielt).
+  - package-ecosystem: npm
+    directory: /packages/website/codesandboxes/parallax/hills
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+  - package-ecosystem: npm
+    directory: /packages/website/codesandboxes/animations/animation-compare
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+  - package-ecosystem: npm
+    directory: /packages/website/codesandboxes/foo/example-1
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+  - package-ecosystem: npm
+    directory: /packages/website/codesandboxes/foo/example-2
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
+  - package-ecosystem: npm
+    directory: /packages/website/codesandboxes/foo/example-3
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 0
