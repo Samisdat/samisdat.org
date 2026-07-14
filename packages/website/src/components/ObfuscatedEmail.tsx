@@ -59,18 +59,14 @@ export function ObfuscatedEmail() {
 
     if (!isClient) return null;
 
-    const chars = [..._u, ..._s, ..._d].map((c) => String.fromCharCode(c));
+    const chars = [..._u, ..._s, ..._d].map(c => String.fromCharCode(c));
 
     return (
         <Wrapper>
             {chars.map((ch, i) => (
                 <Fragment key={i}>
-                    {i % 4 === 0 && (
-                        <Decoy aria-hidden="true">{NOISE[i % NOISE.length]}</Decoy>
-                    )}
-                    <Glyph
-                        style={{ '--c': `"${ch}"` } as React.CSSProperties}
-                    />
+                    {i % 4 === 0 && <Decoy aria-hidden="true">{NOISE[i % NOISE.length]}</Decoy>}
+                    <Glyph style={{ '--c': `"${ch}"` } as React.CSSProperties} />
                 </Fragment>
             ))}
         </Wrapper>

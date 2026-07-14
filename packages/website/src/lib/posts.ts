@@ -87,9 +87,9 @@ export const loadPost = (slug: string): CacheEntry | null => {
 export const getAllPostSlugs = (): string[] => {
     const files = fs.readdirSync(POSTS_DIR);
     return files
-        .filter((f) => f.endsWith('.mdx'))
-        .map((f) => f.replace(/\.mdx$/, ''))
-        .filter((slug) => SAFE_SLUG_RE.test(slug));
+        .filter(f => f.endsWith('.mdx'))
+        .map(f => f.replace(/\.mdx$/, ''))
+        .filter(slug => SAFE_SLUG_RE.test(slug));
 };
 
 /**
@@ -100,7 +100,7 @@ export const getAllPosts = (): Post[] => {
     const slugs = getAllPostSlugs();
 
     return slugs
-        .map((slug) => {
+        .map(slug => {
             const entry = loadPost(slug)!;
             return { slug, ...entry };
         })
@@ -111,14 +111,14 @@ export const getAllPosts = (): Post[] => {
  * Get all published posts, sorted by date descending.
  */
 export const getAllPublishedPosts = (): Post[] => {
-    return getAllPosts().filter((post) => post.frontmatter.published === true);
+    return getAllPosts().filter(post => post.frontmatter.published === true);
 };
 
 /**
  * Get only published post slugs.
  */
 export const getPublishedPostSlugs = (): string[] => {
-    return getAllPublishedPosts().map((p) => p.slug);
+    return getAllPublishedPosts().map(p => p.slug);
 };
 
 /**

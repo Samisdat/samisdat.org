@@ -1,17 +1,13 @@
-import type { Metadata } from 'next';
-import { Heading } from '@samisdat/ui-components/Heading';
 import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
-import { loadPost, getPublishedPostSlugs, getAllPostSlugs } from '@/lib/posts';
-
-const isDev = process.env.NODE_ENV === 'development';
+import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
+import { Heading } from '@samisdat/ui-components/Heading';
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import path from 'path';
 
-export async function generateMetadata({
-    params,
-}: {
-    params: { slug: string };
-}): Promise<Metadata> {
+const isDev = process.env.NODE_ENV === 'development';
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
     const { slug } = await params;
     const post = loadPost(slug);
 
@@ -51,5 +47,5 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
 export async function generateStaticParams() {
     const slugs = isDev ? getAllPostSlugs() : getPublishedPostSlugs();
-    return slugs.map((slug) => ({ slug }));
+    return slugs.map(slug => ({ slug }));
 }
