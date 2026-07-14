@@ -5,6 +5,9 @@ import { z } from 'zod';
 
 const POSTS_DIR = path.join(process.cwd(), 'content/posts');
 
+/** Only lowercase alphanumeric slugs with hyphens — prevents path traversal. */
+const SAFE_SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+
 // ---------------------------------------------------------------------------
 // Frontmatter schema
 // ---------------------------------------------------------------------------
@@ -49,6 +52,10 @@ const postCache = new Map<string, CacheEntry>();
  * Throws a `ZodError` when frontmatter is invalid (= build-time error).
  */
 export const loadPost = (slug: string): CacheEntry | null => {
+    if (!SAFE_SLUG_RE.test(slug)) {
+        return null;
+    }
+
     if (postCache.has(slug)) {
         return postCache.get(slug)!;
     }
@@ -79,14 +86,17 @@ export const loadPost = (slug: string): CacheEntry | null => {
  */
 export const getAllPostSlugs = (): string[] => {
     const files = fs.readdirSync(POSTS_DIR);
-    return files.filter((f) => f.endsWith('.mdx')).map((f) => f.replace(/\.mdx$/, ''));
+    return files
+        .filter((f) => f.endsWith('.mdx'))
+        .map((f) => f.replace(/\.mdx$/, ''))
+        .filter((slug) => SAFE_SLUG_RE.test(slug));
 };
 
 /**
- * Get all published posts, sorted by date descending.
+ * Get all posts (including unpublished), sorted by date descending.
  * Each file is read exactly once thanks to `loadPost` caching.
  */
-export const getAllPublishedPosts = (): Post[] => {
+export const getAllPosts = (): Post[] => {
     const slugs = getAllPostSlugs();
 
     return slugs
@@ -94,8 +104,14 @@ export const getAllPublishedPosts = (): Post[] => {
             const entry = loadPost(slug)!;
             return { slug, ...entry };
         })
-        .filter((post) => post.frontmatter.published === true)
         .sort((a, b) => b.frontmatter.date.getTime() - a.frontmatter.date.getTime());
+};
+
+/**
+ * Get all published posts, sorted by date descending.
+ */
+export const getAllPublishedPosts = (): Post[] => {
+    return getAllPosts().filter((post) => post.frontmatter.published === true);
 };
 
 /**

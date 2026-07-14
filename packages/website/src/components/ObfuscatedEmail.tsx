@@ -1,7 +1,7 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { Fragment, useState } from 'react';
+import { Fragment, useSyncExternalStore } from 'react';
 
 /**
  * Char-codes, aufgeteilt in user + domain — kein lesbarer String im Bundle.
@@ -49,14 +49,17 @@ const NOISE = ['info', 'mail', 'nope', 'xyz'];
  * - Leere <span> + CSS ::after mit custom property → kein textContent
  * - Decoy-Spans zwischen den echten Glyphen → Noise für Regex-Scraper
  */
-export function ObfuscatedEmail() {
-    // Lazy initialization: nur client-side berechnen (SSR → leeres Array)
-    const [chars] = useState<string[]>(() => {
-        if (typeof window === 'undefined') return [];
-        return [..._u, ..._s, ..._d].map((c) => String.fromCharCode(c));
-    });
+/** SSR-safe: auf dem Server immer false, client-seitig nach Hydration true. */
+const subscribe = () => () => {};
+const getSnapshot = () => true;
+const getServerSnapshot = () => false;
 
-    if (chars.length === 0) return null;
+export function ObfuscatedEmail() {
+    const isClient = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+
+    if (!isClient) return null;
+
+    const chars = [..._u, ..._s, ..._d].map((c) => String.fromCharCode(c));
 
     return (
         <Wrapper>

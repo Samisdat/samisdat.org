@@ -19,8 +19,8 @@ export function GET() {
         .map(
             (post) => `    <item>
       <title>${escapeXml(post.frontmatter.title)}</title>
-      <link>${SITE_URL}/blog/${post.slug}</link>
-      <guid isPermaLink="true">${SITE_URL}/blog/${post.slug}</guid>
+      <link>${SITE_URL}/posts/${post.slug}</link>
+      <guid isPermaLink="true">${SITE_URL}/posts/${post.slug}</guid>
       <pubDate>${post.frontmatter.date.toUTCString()}</pubDate>
     </item>`,
         )
