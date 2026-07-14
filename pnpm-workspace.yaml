@@ -10,7 +10,6 @@ catalog:
   
   # Next.js
   next: 16.2.10
-  eslint-config-next: 16.0.10
   
   # TypeScript
   typescript: ^5.9.3
@@ -21,10 +20,6 @@ catalog:
   '@wyw-in-js/nextjs': ^2.1.5
   '@wyw-in-js/vite': ^2.1.4
   
-  # ESLint
-  eslint: ^9.39.2
-  eslint-config-prettier: ^10.1.8
-  '@eslint/eslintrc': ^3.3.3
   
   # Prettier
   prettier: ^3.7.3
