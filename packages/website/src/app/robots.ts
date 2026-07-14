@@ -2,14 +2,16 @@ import type { MetadataRoute } from 'next';
 
 import { SITE_URL } from '@/lib/constants';
 
+const allowIndex = process.env.NEXT_PUBLIC_ALLOW_INDEX === 'true';
+
 export default function robots(): MetadataRoute.Robots {
     return {
-        // Temporär komplett dicht, bis der Blog launch-fertig ist —
-        // beim Launch: disallow → allow und noindex in layout.tsx entfernen.
+        // Launch-Absicherung per Env-Variable — Default: komplett dicht.
+        // Beim Launch: NEXT_PUBLIC_ALLOW_INDEX=true setzen.
         rules: [
             {
                 userAgent: '*',
-                disallow: '/',
+                ...(allowIndex ? { allow: '/' } : { disallow: '/' }),
             },
         ],
         sitemap: `${SITE_URL}/sitemap.xml`,
