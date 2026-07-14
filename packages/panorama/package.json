@@ -24,7 +24,7 @@
         "dev": "next dev",
         "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
         "build": "next build",
-        "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
+        "build:lib": "tsup src/index.tsx --format cjs,esm --tsconfig tsconfig.lib.json --external react --external react-dom && tsc --project tsconfig.lib.json --declaration --emitDeclarationOnly --outDir dist",
         "start": "next start",
         "lint": "oxlint .",
         "test": "vitest",
