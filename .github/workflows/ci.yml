@@ -6,9 +6,24 @@ on:
     branches:
       - main
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  dependency-review:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/dependency-review-action@v4
+
   quality-gate:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: read
     steps:
@@ -49,6 +64,15 @@ jobs:
         run: |
           pnpm --filter @samisdat/website test:ci
           pnpm --filter @samisdat/ui-components test:ci
+      
+      - name: Restore Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: packages/website/.next/cache
+          key: ${{ runner.os }}-next-build-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('packages/website/**/*.[jt]s', 'packages/website/**/*.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-next-build-${{ hashFiles('pnpm-lock.yaml') }}-
+            ${{ runner.os }}-next-build-
       
       - name: Build website
         run: pnpm --filter @samisdat/website build
