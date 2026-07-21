@@ -1,6 +1,6 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 
-import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_AUTHOR, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'next/font/google';
 
 import { Colophon } from '@/components/Colophon';
@@ -16,7 +16,11 @@ config.autoAddCss = false;
 
 import { Navi } from '@/components/Navi';
 import { Scrolling } from '@/components/Scrolling';
+import { StructuredData } from '@/components/StructuredData';
 import '@samisdat/ui-components/globalStyle';
+import type { Person, WebSite, WithContext } from 'schema-dts';
+
+const allowIndex = process.env.NEXT_PUBLIC_ALLOW_INDEX === 'true';
 
 export const metadata: Metadata = {
     title: {
@@ -29,11 +33,16 @@ export const metadata: Metadata = {
         types: {
             'application/rss+xml': '/feed.xml',
         },
+        canonical: '/',
     },
     robots: {
-        index: false,
-        follow: false,
+        index: allowIndex,
+        follow: allowIndex,
     },
+};
+
+export const viewport: Viewport = {
+    themeColor: '#ffffff',
 };
 
 const sourceSerif = Source_Serif_4({
@@ -57,6 +66,25 @@ const playwrite = Playwrite_NO({
     display: 'swap',
 });
 
+const websiteSchema: WithContext<WebSite> = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    author: {
+        '@type': 'Person',
+        name: SITE_AUTHOR,
+    },
+};
+
+const personSchema: WithContext<Person> = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: SITE_AUTHOR,
+    url: SITE_URL,
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -67,6 +95,10 @@ export default function RootLayout({
             lang="de"
             className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
         >
+            <head>
+                <StructuredData data={websiteSchema} />
+                <StructuredData data={personSchema} />
+            </head>
             <body>
                 <Scrolling />
                 <Page>
