@@ -18,6 +18,12 @@ export default defineConfig({
                 '**/dist/**',
                 '**/build/**',
             ],
+            thresholds: {
+                statements: 19,
+                branches: 23,
+                functions: 15,
+                lines: 20,
+            },
         },
     },
     resolve: {

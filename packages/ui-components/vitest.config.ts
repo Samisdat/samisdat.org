@@ -32,5 +32,15 @@ export default defineConfig({
                 },
             },
         ],
+        coverage: {
+            provider: 'v8',
+            reporter: ['text', 'html', 'lcov'],
+            thresholds: {
+                statements: 81,
+                branches: 46,
+                functions: 81,
+                lines: 86,
+            },
+        },
     },
 });
