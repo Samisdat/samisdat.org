@@ -3,6 +3,6 @@
  */
 
 export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://samisdat.org';
-export const SITE_NAME = 'samisdat';
-export const SITE_DESCRIPTION = 'Persönliches Blog von Bastian Pertz — Webentwicklung, Fotografie und Wuppertal.';
+export const SITE_NAME = 'samisdat.org – spark frontend joy';
+export const SITE_DESCRIPTION = 'Spaß am Gerät und Zoix, das ich behalten will';
 export const SITE_AUTHOR = 'Bastian Pertz';
