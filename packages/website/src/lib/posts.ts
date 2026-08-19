@@ -42,11 +42,20 @@ interface CacheEntry {
     source: string;
 }
 
-const postCache = new Map<string, CacheEntry>();
+interface CacheRecord extends CacheEntry {
+    /** mtime of the .mdx file at the time it was cached. */
+    mtimeMs: number;
+}
+
+const postCache = new Map<string, CacheRecord>();
 
 /**
  * Load a single post by slug. Reads the file once, validates frontmatter
- * with zod, and caches the result for the lifetime of the process.
+ * with zod, and caches the result keyed by the file's mtime.
+ *
+ * The mtime check keeps production builds fast (each file is read once,
+ * nothing changes on disk) while letting the dev server pick up edits to
+ * .mdx files without a restart.
  *
  * Returns `null` when the slug has no matching .mdx file.
  * Throws a `ZodError` when frontmatter is invalid (= build-time error).
@@ -56,14 +65,17 @@ export const loadPost = (slug: string): CacheEntry | null => {
         return null;
     }
 
-    if (postCache.has(slug)) {
-        return postCache.get(slug)!;
-    }
-
     const fullPath = path.join(POSTS_DIR, `${slug}.mdx`);
 
     if (!fs.existsSync(fullPath)) {
         return null;
+    }
+
+    const mtimeMs = fs.statSync(fullPath).mtimeMs;
+
+    const cached = postCache.get(slug);
+    if (cached && cached.mtimeMs === mtimeMs) {
+        return cached;
     }
 
     const raw = fs.readFileSync(fullPath, 'utf8');
@@ -71,7 +83,7 @@ export const loadPost = (slug: string): CacheEntry | null => {
 
     const frontmatter = frontmatterSchema.parse(data);
 
-    const entry: CacheEntry = { frontmatter, source: raw };
+    const entry: CacheRecord = { frontmatter, source: raw, mtimeMs };
     postCache.set(slug, entry);
 
     return entry;

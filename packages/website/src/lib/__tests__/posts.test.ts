@@ -10,6 +10,9 @@ describe('posts.ts', () => {
         vi.clearAllMocks();
         // Reset module to clear cache
         vi.resetModules();
+        // loadPost keys its cache on the file's mtime — give every mocked file
+        // a stable one so repeated reads hit the cache as expected.
+        vi.mocked(fs.statSync).mockReturnValue({ mtimeMs: 1_000 } as any);
     });
 
     afterEach(() => {
@@ -42,6 +45,35 @@ published: true
             const cached = loadPost('test-post');
             expect(cached).toBe(result);
             expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+        });
+
+        it('re-reads the file when its mtime changed', async () => {
+            const { loadPost } = await import('../posts');
+
+            const before = `---
+title: Before
+date: 2024-01-15
+published: true
+---
+# Before`;
+            const after = `---
+title: After
+date: 2024-01-15
+published: true
+---
+# After`;
+
+            vi.mocked(fs.existsSync).mockReturnValue(true);
+            vi.mocked(fs.readFileSync).mockReturnValue(before);
+
+            expect(loadPost('test-post')?.frontmatter.title).toBe('Before');
+
+            // Simulate an edit on disk: new content, newer mtime.
+            vi.mocked(fs.readFileSync).mockReturnValue(after);
+            vi.mocked(fs.statSync).mockReturnValue({ mtimeMs: 2_000 } as any);
+
+            expect(loadPost('test-post')?.frontmatter.title).toBe('After');
+            expect(fs.readFileSync).toHaveBeenCalledTimes(2);
         });
 
         it('returns null for non-existent post', async () => {
