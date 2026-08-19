@@ -64,7 +64,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoAnimationsJsAttributes: ClientDemos.DemoAnimationsJsAttributes,
         DemoAnimationsMorphThumb: ClientDemos.DemoAnimationsMorphThumb,
         DemoAnimationsMorphCoffee: ClientDemos.DemoAnimationsMorphCoffee,
-        DemoAnimationsMorphUgly: ClientDemos.DemoAnimationsMorphUgly,
+        DemoAnimationsMorphHills: ClientDemos.DemoAnimationsMorphHills,
         DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
         DemoParallaxHills: ClientDemos.DemoParallaxHills,
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,

@@ -39,9 +39,9 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphThumb').then(mod => ({
             default: mod.DemoAnimationsMorphThumb,
         })),
-    DemoAnimationsMorphUgly: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphUgly').then(mod => ({
-            default: mod.DemoAnimationsMorphUgly,
+    DemoAnimationsMorphHills: () =>
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHills').then(mod => ({
+            default: mod.DemoAnimationsMorphHills,
         })),
     DemoAnimationsMorphCoffee: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
@@ -84,8 +84,8 @@ export const DemoAnimationsSvg = demos.DemoAnimationsSvg;
 export const DemoAnimationsCssJs = demos.DemoAnimationsCssJs;
 export const DemoAnimationsJsAttributes = demos.DemoAnimationsJsAttributes;
 export const DemoAnimationsMorphThumb = demos.DemoAnimationsMorphThumb;
-export const DemoAnimationsMorphUgly = demos.DemoAnimationsMorphUgly;
+export const DemoAnimationsMorphHills = demos.DemoAnimationsMorphHills;
 export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
-export const DemoParallaxSectors = demos.DemoParallaxSectors;
+export const DemoParallaxSectors = demos.DemoParallaxSectors; 
 export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
