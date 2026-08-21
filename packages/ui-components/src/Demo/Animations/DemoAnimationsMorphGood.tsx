@@ -2,31 +2,19 @@
 
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
-const SvgRow = styled.div`
-  display: flex;
-  gap: 0;
-  width: 100%;
-  & > svg {
-    width: 50%;
-    flex-shrink: 0;
-  }
-`;
-
-const BadSvgStyling = styled.svg`
+const SvgStyling = styled.svg`
   .shape {
     fill: none;
     stroke-width: 4;
     stroke-linejoin: round;
     stroke-linecap: round;
-    stroke: #d94a4a;
   }
 
   .point circle {
     stroke: white;
     stroke-width: 0;
-    fill: #d94a4a;
   }
 
   .point text {
@@ -36,6 +24,21 @@ const BadSvgStyling = styled.svg`
     text-anchor: middle;
     dominant-baseline: central;
     pointer-events: none;
+  }
+
+  .good {
+    color: var(--color-green);
+  }
+
+  .bad {
+    color: var(--color-red);
+  }
+
+  .shape {
+    stroke: currentColor;
+  }
+  .point circle {
+    fill: currentColor;
   }
 `;
 
@@ -87,127 +90,42 @@ const Point = ({
   );
 };
 
-const BadSvg = () => (
-  <BadSvgStyling viewBox="0 0 300 300">
-    <path
-      className="shape"
-      d="
-              M 150 35
-              C 213.5 35 265 86.5 265 150
-              C 265 213.5 213.5 265 150 265
-              C 86.5 265 35 213.5 35 150
-              C 35 86.5 86.5 35 150 35
-              Z
-            "
-    >
-      <animate
-        attributeName="d"
-        dur="3s"
-        repeatCount="indefinite"
-        values="
-                M 150 35
-                C 213.5 35 265 86.5 265 150
-                C 265 213.5 213.5 265 150 265
-                C 86.5 265 35 213.5 35 150
-                C 35 86.5 86.5 35 150 35
-                Z;
-
-                M 60 60
-                C 60 60 240 240 240 240
-                C 240 240 240 60 240 60
-                C 240 60 60 240 60 240
-                C 60 240 60 60 60 60
-                Z;
-
-                M 150 35
-                C 213.5 35 265 86.5 265 150
-                C 265 213.5 213.5 265 150 265
-                C 86.5 265 35 213.5 35 150
-                C 35 86.5 86.5 35 150 35
-                Z
-              "
-      />
-    </path>
-
-    <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
-    <Point label={1} cxValues="265;240;265" cyValues="150;240;150" />
-    <Point label={2} cxValues="150;240;150" cyValues="265;60;265" />
-    <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
-  </BadSvgStyling>
-);
-
-const SvgStyling = styled.svg`
-  .shape {
-    fill: none;
-    stroke-width: 4;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-    stroke: #27a65a;
-  }
-
-  .point circle {
-    stroke: white;
-    stroke-width: 0;
-    fill: #27a65a;
-  }
-
-  .point text {
-    fill: white;
-    font-size: 14px;
-    font-weight: 800;
-    text-anchor: middle;
-    dominant-baseline: central;
-    pointer-events: none;
-  }
+const circlePath = `
+  M 150 35
+  C 213.5 35 265 86.5 265 150
+  C 265 213.5 213.5 265 150 265
+  C 86.5 265 35 213.5 35 150
+  C 35 86.5 86.5 35 150 35
+  Z
 `;
 
-const Svg = () => (
-  <SvgStyling viewBox="0 0 300 300">
-    <path
-      className="shape"
-      d="
-              M 150 35
-              C 213.5 35 265 86.5 265 150
-              C 265 213.5 213.5 265 150 265
-              C 86.5 265 35 213.5 35 150
-              C 35 86.5 86.5 35 150 35
-              Z
-            "
-    >
-      <animate
-        attributeName="d"
-        dur="3s"
-        repeatCount="indefinite"
-        values="
-                M 150 35
-                C 213.5 35 265 86.5 265 150
-                C 265 213.5 213.5 265 150 265
-                C 86.5 265 35 213.5 35 150
-                C 35 86.5 86.5 35 150 35
-                Z;
+const goodSquarePath = `
+  M 60 60
+  C 60 60 240 60 240 60
+  C 240 60 240 240 240 240
+  C 240 240 60 240 60 240
+  C 60 240 60 60 60 60
+  Z
+`;
 
-                M 60 60
-                C 60 60 240 60 240 60
-                C 240 60 240 240 240 240
-                C 240 240 60 240 60 240
-                C 60 240 60 60 60 60
-                Z;
+const badSquarePath = `
+  M 60 60
+  C 60 60 240 240 240 240
+  C 240 240 240 60 240 60
+  C 240 60 60 240 60 240
+  C 60 240 60 60 60 60
+  Z
+`;
 
-                M 150 35
-                C 213.5 35 265 86.5 265 150
-                C 265 213.5 213.5 265 150 265
-                C 86.5 265 35 213.5 35 150
-                C 35 86.5 86.5 35 150 35
-                Z
-              "
-      />
-    </path>
-
-    <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
-    <Point label={1} cxValues="265;240;265" cyValues="150;60;150" />
-    <Point label={2} cxValues="150;240;150" cyValues="265;240;265" />
-    <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
-  </SvgStyling>
+const MorphShape = ({ morphTo }: { morphTo: string }) => (
+  <path className="shape" d={circlePath}>
+    <animate
+      attributeName="d"
+      dur="3s"
+      repeatCount="indefinite"
+      values={`${circlePath};${morphTo};${circlePath}`}
+    />
+  </path>
 );
 
 export const DemoAnimationsMorphGood = () => {
@@ -216,46 +134,46 @@ export const DemoAnimationsMorphGood = () => {
   const [speed, setSpeed] = useState(40);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const getSvgs = () =>
-    containerRef.current?.querySelectorAll<SVGSVGElement>("svg") ?? [];
+  const getSvg = () =>
+    containerRef.current?.querySelector<SVGSVGElement>("svg") ?? null;
 
   useEffect(() => {
-    const svgs = getSvgs();
-    svgs.forEach((svg) => {
-      svg.pauseAnimations();
-      svg.setCurrentTime(0);
-    });
+    const svg = getSvg();
+    if (!svg) return;
+    svg.pauseAnimations();
+    svg.setCurrentTime(0);
   }, []);
 
   useEffect(() => {
-    return;
-    containerRef.current
-      ?.querySelectorAll("animate")
+    const svg = getSvg();
+    if (!svg) return;
+    svg.querySelectorAll("animate")
       .forEach((el) => el.setAttribute("dur", `${speed}s`));
   }, [speed]);
 
-  const onSpeedChange = (value: number) => {
+  const onSpeedChange = useCallback((value: number) => {
     setSpeed(value);
-  };
+  }, []);
 
-  const onPlay = () => {
-    getSvgs().forEach((svg) => svg.unpauseAnimations());
+  const onPlay = useCallback(() => {
+    getSvg()?.unpauseAnimations();
     setIsPlaying(true);
-  };
+  }, []);
 
-  const onPause = () => {
-    getSvgs().forEach((svg) => svg.pauseAnimations());
+  const onPause = useCallback(() => {
+    getSvg()?.pauseAnimations();
     setIsPlaying(false);
-  };
+  }, []);
 
-  const onReset = () => {
-    getSvgs().forEach((svg) => {
+  const onReset = useCallback(() => {
+    const svg = getSvg();
+    if (svg) {
       svg.pauseAnimations();
       svg.setCurrentTime(0);
-    });
+    }
     setSpeed(40);
     setIsPlaying(false);
-  };
+  }, []);
 
   return (
     <DemoAnimation
@@ -271,10 +189,22 @@ export const DemoAnimationsMorphGood = () => {
         onReset,
       }}
     >
-      <SvgRow>
-        <Svg />
-        <BadSvg />
-      </SvgRow>
+      <SvgStyling viewBox="0 0 600 300">
+        <g className="good">
+          <MorphShape morphTo={goodSquarePath} />
+          <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
+          <Point label={1} cxValues="265;240;265" cyValues="150;60;150" />
+          <Point label={2} cxValues="150;240;150" cyValues="265;240;265" />
+          <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
+        </g>
+        <g className="bad" transform="translate(300, 0)">
+          <MorphShape morphTo={badSquarePath} />
+          <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
+          <Point label={1} cxValues="265;240;265" cyValues="150;240;150" />
+          <Point label={2} cxValues="150;240;150" cyValues="265;60;265" />
+          <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
+        </g>
+      </SvgStyling>
     </DemoAnimation>
   );
 };
