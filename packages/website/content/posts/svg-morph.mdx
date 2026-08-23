@@ -1,0 +1,29 @@
+---
+title: Morphing SVG
+date: 2025-11-17T00:00:00.000Z
+published: true
+---
+
+<DemoAnimationsMorphCoffee />
+<DemoAnimationsMorphThumb />
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsMorphHills />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
+
+<DemoAnimationsMorphGood />
+
+SMIL-`<animate>` ist zustandslos: Die Position ist zu jedem Zeitpunkt eine reine Funktion der Uhr — `x = from + frac·(to−from)` mit `frac = ((t − begin) mod dur) / dur`. Beim Ändern von `dur` (in React via `setAttribute`) bleibt `t − begin` gleich, aber `frac` wird neu berechnet → die Position springt.
+
+<DemoAnimationsSvg />
+
+<DemoAnimationsMorphHeart />
