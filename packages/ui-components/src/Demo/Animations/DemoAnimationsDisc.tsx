@@ -18,39 +18,64 @@ const DiscSvg = () => {
   const ref = useRef<SVGSVGElement>(null);
 
   useEffect(() => {
-    const svg = ref.current;
-    if (!svg) {
+    const group = ref.current;
+    if (!group) {
       return;
     }
 
     const svgNs = "http://www.w3.org/2000/svg";
-    const count = 10;
+    const count = 20;
     const startRadius = 100;
 
+    const diff = 5;
     let x = 100;
+    let className = "black";
 
     for (let i = 0; i < count; i++) {
       const circle = document.createElementNS(svgNs, "circle");
 
       circle.setAttribute("cx", `${x}`);
       circle.setAttribute("cy", "100");
-      circle.setAttribute("r", `${startRadius - i * 10}`);
-      circle.setAttribute("class", i % 2 === 0 ? "black" : "white");
-      svg.appendChild(circle);
+      circle.setAttribute("r", `${startRadius - i * diff}`);
+      circle.setAttribute("class", className);
+      group.appendChild(circle);
 
-      if (i <= 5) {
-        x += 10;
+      className = "black" === className ? "white" : "black";
+      if (i <= 11) {
+        x += diff;
       } else {
-        x -= 10;
+        x -= diff;
       }
     }
+    const circle = document.createElementNS(svgNs, "circle");
+
+    circle.setAttribute("cx", `${x + diff / 2}`);
+    circle.setAttribute("cy", "100");
+    circle.setAttribute("r", `${diff / 2}`);
+    circle.setAttribute("class", className);
+
+    group.appendChild(circle);
+
+    const animate = document.createElementNS(svgNs, "animateTransform");
+    animate.setAttribute("attributeName", "transform");
+    animate.setAttribute("attributeType", "XML");
+    animate.setAttribute("type", "rotate");
+    animate.setAttribute("from", "0 100 100");
+    animate.setAttribute("to", "360 100 100");
+    animate.setAttribute("dur", "3s");
+    animate.setAttribute("repeatCount", "indefinite");
+    group.appendChild(animate);
 
     return () => {
-      svg.replaceChildren();
+      group.replaceChildren();
     };
   }, []);
 
-  return <DiscStyling ref={ref} viewBox="0 0 200 200"></DiscStyling>;
+  return (
+    <DiscStyling viewBox="0 0 200 200">
+      <g ref={ref}></g>
+    </DiscStyling>
+  );
 };
 
 export const DemoAnimationsDisc = () => {
