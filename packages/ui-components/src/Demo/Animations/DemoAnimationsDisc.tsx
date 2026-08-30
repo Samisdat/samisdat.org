@@ -4,6 +4,9 @@ import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 
+const svgNamespace = "http://www.w3.org/2000/svg";
+const initialSpeed = 40;
+
 const DiscStyling = styled.svg`
   circle.white {
     fill: var(--color-ivory-bright);
@@ -15,7 +18,7 @@ const DiscStyling = styled.svg`
 `;
 
 const DiscSvg = () => {
-  const ref = useRef<SVGSVGElement>(null);
+  const ref = useRef<SVGGElement>(null);
 
   useEffect(() => {
     const group = ref.current;
@@ -23,46 +26,37 @@ const DiscSvg = () => {
       return;
     }
 
-    const svgNs = "http://www.w3.org/2000/svg";
     const count = 20;
     const startRadius = 100;
-
     const diff = 5;
+
+    const createCircle = (cx: number, r: number, className: string) => {
+      const circle = document.createElementNS(svgNamespace, "circle");
+      circle.setAttribute("cx", `${cx}`);
+      circle.setAttribute("cy", "100");
+      circle.setAttribute("r", `${r}`);
+      circle.setAttribute("class", className);
+      return circle;
+    };
+
     let x = 100;
     let className = "black";
 
     for (let i = 0; i < count; i++) {
-      const circle = document.createElementNS(svgNs, "circle");
+      group.appendChild(createCircle(x, startRadius - i * diff, className));
 
-      circle.setAttribute("cx", `${x}`);
-      circle.setAttribute("cy", "100");
-      circle.setAttribute("r", `${startRadius - i * diff}`);
-      circle.setAttribute("class", className);
-      group.appendChild(circle);
-
-      className = "black" === className ? "white" : "black";
-      if (i <= 11) {
-        x += diff;
-      } else {
-        x -= diff;
-      }
+      className = className === "black" ? "white" : "black";
+      x += i <= 11 ? diff : -diff;
     }
-    const circle = document.createElementNS(svgNs, "circle");
 
-    circle.setAttribute("cx", `${x + diff / 2}`);
-    circle.setAttribute("cy", "100");
-    circle.setAttribute("r", `${diff / 2}`);
-    circle.setAttribute("class", className);
+    group.appendChild(createCircle(x + diff / 2, diff / 2, className));
 
-    group.appendChild(circle);
-
-    const animate = document.createElementNS(svgNs, "animateTransform");
+    const animate = document.createElementNS(svgNamespace, "animateTransform");
     animate.setAttribute("attributeName", "transform");
-    animate.setAttribute("attributeType", "XML");
     animate.setAttribute("type", "rotate");
     animate.setAttribute("from", "0 100 100");
     animate.setAttribute("to", "360 100 100");
-    animate.setAttribute("dur", "3s");
+    animate.setAttribute("dur", `${initialSpeed}s`);
     animate.setAttribute("repeatCount", "indefinite");
     group.appendChild(animate);
 
@@ -81,7 +75,7 @@ const DiscSvg = () => {
 export const DemoAnimationsDisc = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [speed, setSpeed] = useState(40);
+  const [speed, setSpeed] = useState(initialSpeed);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getSvg = () =>
@@ -98,7 +92,7 @@ export const DemoAnimationsDisc = () => {
 
   useEffect(() => {
     containerRef.current
-      ?.querySelector("animate")
+      ?.querySelector("animate, animateTransform")
       ?.setAttribute("dur", `${speed}s`);
   }, [speed]);
 
@@ -122,7 +116,7 @@ export const DemoAnimationsDisc = () => {
       svg.pauseAnimations();
       svg.setCurrentTime(0);
     }
-    setSpeed(40);
+    setSpeed(initialSpeed);
     setIsPlaying(false);
   };
 
