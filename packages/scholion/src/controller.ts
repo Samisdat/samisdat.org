@@ -65,7 +65,9 @@ export function initScholion(): () => void {
     requestAnimationFrame(() => {
         for (const id of refIds) {
             const span = refs[id].a.querySelector<HTMLElement>('span')
-            grps[id].g.style.color = getComputedStyle(span ?? refs[id].a).color
+            const color = getComputedStyle(span ?? refs[id].a).color
+            grps[id].g.style.color = color
+            document.documentElement.style.setProperty(`--scholion-color-${id}`, color)
         }
         peekCode.style.background = 'var(--color-background-secondary)'
     })

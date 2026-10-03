@@ -50,6 +50,9 @@ function generateCss(refs: ScholionRef[]): string {
   outline: var(--scholion-b-outline);
   outline-offset: 2px;
 }`,
+                `.ref-target[data-ref="${ref.id}"] {
+  color: var(--scholion-color-${ref.id}, var(--color-teal));
+}`,
             ].join('\n')
         )
         .join('\n')
