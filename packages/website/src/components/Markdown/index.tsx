@@ -70,6 +70,8 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxF
         DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
         DemoParallaxHills: ClientDemos.DemoParallaxHills,
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
+        DemoAnimationsDisc: ClientDemos.DemoAnimationsDisc,
+        DemoAnimationsCrank: ClientDemos.DemoAnimationsCrank,
     };
 
     const hasSandbox = sandboxFiles && Object.keys(sandboxFiles).length > 0;
