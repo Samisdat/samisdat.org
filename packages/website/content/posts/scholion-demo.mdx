@@ -1,0 +1,24 @@
+---
+title: Scholion Demo
+date: 2026-10-03T00:00:00.000Z
+published: false
+---
+
+Ein SVG-Spinner dreht sich durch `<animateTransform>`. Zwei Tokens, zwei Erklärungen.
+
+```svg scholion:anim=<animateTransform scholion:repeat=repeatCount
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g id="spinner">
+    <rect x="85" y="85" width="30" height="30" rx="4" />
+    <animateTransform attributeName="transform" type="rotate"
+      from="0 100 100" to="360 100 100" dur="4s" repeatCount="indefinite" />
+  </g>
+</svg>
+```
+
+Der Spinner dreht sich, weil [`<animateTransform>`](#anim) das Koordinatensystem
+der Gruppe um ihren Mittelpunkt rotiert — alles innerhalb von `#spinner` dreht
+sich mit.
+
+Ohne weiteren Eingriff liefe die Animation genau einmal. Erst [`repeatCount`](#repeat)
+mit dem Wert `indefinite` lässt sie endlos weiterlaufen.
