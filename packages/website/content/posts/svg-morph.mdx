@@ -1,11 +1,81 @@
 ---
-title: Morphing SVG
+title: SVG Smil
 date: 2025-11-17T00:00:00.000Z
 published: true
 ---
 
-<DemoAnimationsMorphCoffee />
-<DemoAnimationsMorphThumb />
+Schon seit der [Version 1.0](https://www.w3.org/TR/2001/REC-SVG-20010904/) von 2001 sind [SMIL-Animationen](https://www.w3.org/TR/2001/REC-SVG-20010904/animate.html) mit in SVG drin.
+
+Viel abgehangener geht es kaum:
+Hat **Multimedia** im Namen und XML in der Syntax.
+
+Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL angesehen.
+
+Funktioniert auf den ersten Blick erstaunlich gut.
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsDisc />
+    </Stack>
+    <Stack>
+
+```tsx
+<svg>
+  <g>
+    <circle cx="100" cy="100" r="100" />
+        [...]
+    <circle cx="125" cy="100" r="5">
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+      dur="6s"
+      repeatCount="indefinite" />
+  </g>
+</svg>
+```
+
+    </Stack>
+
+</Stack>
+
+XML in your face:
+
+Das animateTransform steckt in der Gruppe, daher wird diese animiert,
+Alle Kreise sind auch in der Gruppe und drehen sich also mit.
+
+Animiere den Wert des Attributes transform.
+Rotiere um den Punkt x/y 100/100 in sechs Sekunden.
+Starte bei null Grad und ende bei 360.
+Fang wieder von vorne an
+
+## Morphing
+
+`<animate>` interpoliert den Wert eines Attributs von einem Eintrag der values-Liste zum nächsten.
+
+Pfade in SVG werden mit `<path>`-Elementen definiert. Das `<path>`- Attribut `d` listet alle [Kommandos](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/d#path_commands), die den Pfad beschreiben und es ist animierbar.
+
+Damit kann man überraschend smoothe Animationen machen.
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsMorphHeart />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
+
+### Was ich machen wollte
 
 <Stack
     container
@@ -16,14 +86,55 @@ published: true
         <DemoAnimationsMorphHills />
     </Stack>
     <Stack>
+        
+        Ich hatte gedacht, dass ich damit ein Parallax Effect hinbekomme, bei dem sich die einzelen Ebenen nicht nur verschiebeb, sondern die Hügel wirklich flacher werden.
+
+        Aber das war wirklich Pain in the Ass und ich hab es sehr schnell wieder bleiben lassen.
+
+        Der eine Haupt Schmerz kam von der Vorbereitung in der SVG.
+
+        In Affinity besteht das Panorama aus mehreren Dutzend Ebenen.
+        Mindestens in Teilen, müsste ich die zusätlich noch in mindestens zwei Zuständen haben und bei Änderungen jeweils in Sync halten.
+
+    </Stack>
+
+</Stack>
+
+### Die Reihenfolge der Punkte
+
+Aber neben der Tatsache, dass es viel Aufwand wäre, gibt es auch einen technische Hürde:
+
+In dem `<path>` werden einfach alle Kommandos hintereinander weg geschrieben.
+
+Wenn ich die animiere, dann brauche ich zwei Pfade und `<animate>` bilded quasi Paare.
+
+<DemoAnimationsMorphGood />
+
+Verrutscht die Zuordnung — etwa weil der Pfad an einer anderen Ecke beginnt — bekommt jedes Kommando einen neuen Partner, und die Animation verändert sich.
+Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zählen und vergleichen
+
+### Geschwindigkeit ändern
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsCrank />
+    </Stack>
+    <Stack>
         <DemoBox>Mobile unten / Tablet rechts</DemoBox>
     </Stack>
 </Stack>
 
-<DemoAnimationsMorphGood />
-
 SMIL-`<animate>` ist zustandslos: Die Position ist zu jedem Zeitpunkt eine reine Funktion der Uhr — `x = from + frac·(to−from)` mit `frac = ((t − begin) mod dur) / dur`. Beim Ändern von `dur` (in React via `setAttribute`) bleibt `t − begin` gleich, aber `frac` wird neu berechnet → die Position springt.
+
+## Considerations
+
+## The only SMIL Animation in header
 
 <DemoAnimationsSvg />
 
-<DemoAnimationsMorphHeart />
+<DemoAnimationsMorphCoffee />
+<DemoAnimationsMorphThumb />
