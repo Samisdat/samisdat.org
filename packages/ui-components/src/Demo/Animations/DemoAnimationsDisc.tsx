@@ -5,7 +5,7 @@ import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 
 const svgNamespace = "http://www.w3.org/2000/svg";
-const initialSpeed = 40;
+const initialSpeed = 6;
 
 const DiscStyling = styled.svg`
   circle.white {
@@ -127,6 +127,7 @@ export const DemoAnimationsDisc = () => {
         isPlaying,
         speedMin: 1,
         speedMax: 80,
+        speedControl: false,
         speed,
         onSpeedChange,
         onPlay,
