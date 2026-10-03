@@ -60,9 +60,15 @@ export function initScholion(): () => void {
         wires.appendChild(g)
         grps[id] = { g, path, d1, d2 }
     }
-    // Capture token colors after layout
+    // Capture token colors and code-peek background after layout
     requestAnimationFrame(() => {
         for (const id of refIds) grps[id].g.style.color = getComputedStyle(refs[id].a).color
+        const firstPre = refIds.map(id => refs[id].pre).find(Boolean)
+        if (firstPre) {
+            const cs = getComputedStyle(firstPre)
+            peekCode.style.background = cs.backgroundColor
+            peekCode.style.color = cs.color
+        }
     })
 
     const peekCode = mkBtn('scholion-peek scholion-peek--code', 'Zur Codezeile springen', `

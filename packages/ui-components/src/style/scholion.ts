@@ -38,6 +38,7 @@ export const scholionStyles = `
     color: var(--color-teal);
     box-shadow: inset 0 -1.5px 0 color-mix(in srgb, currentColor 55%, transparent);
     transition: background-color 0.12s ease;
+    cursor: pointer;
   }
 
   /* ── B: explanation paragraph ────────────────────────────────────────── */
@@ -45,6 +46,17 @@ export const scholionStyles = `
     border-radius: 4px;
     scroll-margin: 30vh 0;
     outline: none;
+  }
+
+  /* ── Anchor-navigation flash ─────────────────────────────────────────── */
+  @keyframes scholion-flash {
+    from { background: color-mix(in srgb, currentColor 22%, transparent); }
+    to   { background: transparent; }
+  }
+
+  a.ref:target,
+  [data-explains]:target {
+    animation: scholion-flash 2.2s ease-out;
   }
 
   .backref {
@@ -101,7 +113,7 @@ export const scholionStyles = `
     z-index: 200;
     left: 50%;
     transform: translateX(-50%);
-    top: 10px;
+    top: calc(env(safe-area-inset-top, 0px) + 10px);
     width: min(39.5rem, calc(100vw - 24px));
     border: 1.5px dashed currentColor;
     border-radius: 8px;
@@ -122,7 +134,7 @@ export const scholionStyles = `
 
   .scholion-peek--bottom {
     top: auto;
-    bottom: 10px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
   }
 
   /* Code peek: dark (matches code block appearance) */
@@ -180,7 +192,7 @@ export const scholionStyles = `
     position: fixed;
     z-index: 210;
     left: 50%;
-    bottom: 14px;
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
     transform: translateX(-50%);
     border: 0;
     border-radius: 999px;

@@ -4,17 +4,43 @@ date: 2026-10-03T00:00:00.000Z
 published: false
 ---
 
-Ein SVG-Spinner dreht sich durch `<animateTransform>`. Zwei Tokens, zwei Erklärungen.
+Ein SVG-Spinner dreht sich durch `<animateTransform>`. Tippe auf ein unterstrichenes Token im Code oder auf ein farbiges Wort im Text — die Verbindung zwischen beiden wird sichtbar. Auf kleinen Bildschirmen, wo Code und Erklärung nicht gleichzeitig in den Viewport passen, dockt die jeweils andere Seite als Peek an.
 
-```svg scholion:anim=<animateTransform scholion:repeat=repeatCount
+```svg scholion:anim=<animateTransform scholion:repeat=repeatCount@11
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f7cff" />
+      <stop offset="1" stop-color="#1fb58f" />
+    </linearGradient>
+  </defs>
   <g id="spinner">
-    <rect x="85" y="85" width="30" height="30" rx="4" />
+    <rect x="85" y="85" width="30" height="30" rx="4" fill="url(#fill)" />
     <animateTransform attributeName="transform" type="rotate"
       from="0 100 100" to="360 100 100" dur="4s" repeatCount="indefinite" />
   </g>
+  <g id="orbit" fill="none" stroke="#9aa6bd" stroke-width="1">
+    <circle cx="100" cy="100" r="40" />
+    <circle cx="100" cy="100" r="60" stroke-dasharray="2 6" />
+    <circle cx="100" cy="100" r="80" stroke-dasharray="1 9" />
+  </g>
+  <g id="planets">
+    <circle cx="140" cy="100" r="5" fill="#4f7cff">
+      <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="40" cy="100" r="4" fill="#1fb58f">
+      <animate attributeName="opacity" values="1;.4;1" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="100" cy="20" r="3" fill="#f2a7b8" />
+  </g>
 </svg>
 ```
+
+Das Beispiel zeichnet ein kleines Sonnensystem. Für die Verbindungen zählen nur die zwei Attribute im Spinner — Orbits, Planeten und Pulse sind Kulisse, damit der Codeblock auf kleineren Bildschirmen aus dem Viewport scrollt und der Peek sich zeigt.
+
+Gedreht wird um den Punkt `100 100`, also die Mitte der `viewBox`. Ohne diesen Bezugspunkt würde sich die Gruppe um den Ursprung `0 0` drehen — die linke obere Ecke — und das Rect würde aus der `viewBox` wandern. Der Spinner gehört zur Gruppe `#spinner`; alles, was später noch dort landet, dreht sich automatisch mit, ohne separate Animation.
+
+Die beiden Planeten pulsieren über eigene `<animate>`-Elemente, unabhängig vom Spinner. Die Kreisbahnen in `#orbit` haben keine Füllung, nur eine Kontur, und `stroke-dasharray` bricht die äußeren Ringe in Punkte auf.
 
 Der Spinner dreht sich, weil [`<animateTransform>`](#anim) das Koordinatensystem
 der Gruppe um ihren Mittelpunkt rotiert — alles innerhalb von `#spinner` dreht

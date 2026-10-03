@@ -1,7 +1,24 @@
 import type { Meta, StoryObj } from '@storybook/react'
 
-// Renders static scholion HTML with the blog's actual design tokens.
-// Used for Chromatic visual regression on Stage 0 structure and Stage 1 hover.
+// Per-ref :has() CSS that the remark plugin would inject at build time.
+// Required for Stage 1 hover to work in the story.
+const PER_REF_CSS = `
+  :has([data-ref="anim"]:is(.ref-target:hover,.ref-target:focus-visible,a.ref:hover,a.ref:focus-visible)) [data-ref="anim"] {
+    background: var(--scholion-hover-bg);
+  }
+  :has([data-explains="anim"]:hover) a.ref[data-ref="anim"] {
+    outline: var(--scholion-b-outline);
+    outline-offset: 2px;
+  }
+  :root[data-scholion-pin="anim"] [data-ref="anim"] {
+    background: var(--scholion-hover-bg);
+  }
+  :root[data-scholion-pin="anim"] a.ref[data-ref="anim"] {
+    outline: var(--scholion-b-outline);
+    outline-offset: 2px;
+  }
+`
+
 function ScholionDemo() {
     return (
         <div
@@ -15,6 +32,7 @@ function ScholionDemo() {
                 background: 'var(--color-background)',
             }}
         >
+            <style>{PER_REF_CSS}</style>
             <pre
                 style={{
                     background: 'var(--color-background-emphasis)',
@@ -70,7 +88,7 @@ function ScholionDemo() {
 }
 
 const meta = {
-    title: 'Scholion/Stage01',
+    title: 'Scholion/Stages',
     component: ScholionDemo,
     tags: ['autodocs'],
     parameters: {
@@ -92,5 +110,11 @@ export const Stage1HoverOnLemma: Story = {
 export const Stage1HoverOnToken: Story = {
     parameters: {
         pseudo: { hover: ['a.ref[data-ref="anim"]'] },
+    },
+}
+
+export const Stage2Pinned: Story = {
+    play: async () => {
+        document.documentElement.setAttribute('data-scholion-pin', 'anim')
     },
 }
