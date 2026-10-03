@@ -15,6 +15,7 @@ const ParagraphStyling = styled.p`
 
 const EmStyling = styled.em`
   font-family: var(--font-italic);
+  line-height: 0;
 
   strong & {
     font-weight: 400;
