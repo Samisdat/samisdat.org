@@ -24,10 +24,12 @@ Funktioniert auf den ersten Blick erstaunlich gut.
     </Stack>
     <Stack>
 
-```tsx
+```tsx scholion:anim=<animateTransform scholion:repeat=repeatCount
 <svg>
   <g>
-    <circle cx="100" cy="100" r="100" />
+    <circle cx="100" cy="100" r="100"/>
+    <circle cx="105" cy="100" r="95" />
+    <circle cx="110" cy="100" r="90" />
         [...]
     <circle cx="125" cy="100" r="5">
     <animateTransform
@@ -47,13 +49,11 @@ Funktioniert auf den ersten Blick erstaunlich gut.
 
 XML in your face:
 
-Das animateTransform steckt in der Gruppe, daher wird diese animiert,
-Alle Kreise sind auch in der Gruppe und drehen sich also mit.
+Das [`<animateTransform>`](#anim) steckt in der Gruppe, daher wird diese animiert — alle Kreise drehen sich mit.
 
-Animiere den Wert des Attributes transform.
-Rotiere um den Punkt x/y 100/100 in sechs Sekunden.
-Starte bei null Grad und ende bei 360.
-Fang wieder von vorne an
+Animiere den Wert des Attributes `transform`. Rotiere um den Punkt x/y 100/100 in sechs Sekunden. Starte bei null Grad und ende bei 360.
+
+[`repeatCount`](#repeat) `indefinite` — fang wieder von vorne an.
 
 ## Morphing
 
