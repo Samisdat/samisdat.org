@@ -101,6 +101,7 @@ export const globalStyles = css`
     body {
       font-family: var(--font-sans);
       letter-spacing: 0.01em;
+      line-height: 1.6;
     }
 
     div.color {
