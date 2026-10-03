@@ -44,6 +44,8 @@ export interface PlaybackControlProps {
   speedMin?: number;
   speedMax?: number;
   speedStep?: number;
+  speedControl?: boolean;
+  resetControl?: boolean;
   notice?: string;
   onPlay: () => void;
   onPause: () => void;
@@ -57,6 +59,8 @@ export const PlaybackControl = ({
   speedMin = 1,
   speedMax = 100,
   speedStep = 1,
+  speedControl = true,
+  resetControl = true,
   notice,
   onPlay,
   onPause,
@@ -73,6 +77,42 @@ export const PlaybackControl = ({
     onSpeedChange(Math.min(speedMax, Math.max(speedMin, speed + delta)));
   };
 
+  const getSpeedControls = () => {
+    if (!speedControl) {
+      return null;
+    }
+
+    return (
+      <>
+        <PlayPauseButton
+          type="button"
+          value="decrement"
+          onClick={handleSpeedIncrement}
+        >
+          [ - ]
+        </PlayPauseButton>
+        [
+        <RangeSlider
+          aria-label="Speed"
+          onChange={handleSpeedChange}
+          step={speedStep}
+          min={speedMin}
+          max={speedMax}
+          value={speed}
+        />
+        ]
+        <PlayPauseButton
+          type="button"
+          value="increment"
+          onClick={handleSpeedIncrement}
+        >
+          [ + ]
+        </PlayPauseButton>
+        Speed ({speed}x)
+      </>
+    );
+  };
+
   return (
     <Styling>
       {isPlaying ? (
@@ -81,37 +121,13 @@ export const PlaybackControl = ({
         </PlayPauseButton>
       ) : (
         <PlayPauseButton type="button" onClick={onPlay}>
-          [ <Icon>▶</Icon> Play&nbsp; ]
+          [ <Icon>▶</Icon> Play ]
         </PlayPauseButton>
       )}
       <PlayPauseButton type="button" onClick={onReset}>
         [ ↺ Reset ]
       </PlayPauseButton>
-      <PlayPauseButton
-        type="button"
-        value="decrement"
-        onClick={handleSpeedIncrement}
-      >
-        [ - ]
-      </PlayPauseButton>
-      [
-      <RangeSlider
-        aria-label="Speed"
-        onChange={handleSpeedChange}
-        step={speedStep}
-        min={speedMin}
-        max={speedMax}
-        value={speed}
-      />
-      ]
-      <PlayPauseButton
-        type="button"
-        value="increment"
-        onClick={handleSpeedIncrement}
-      >
-        [ + ]
-      </PlayPauseButton>
-      Speed ({speed}x)
+      {getSpeedControls()}
       {notice && <Notice>{notice}</Notice>}
     </Styling>
   );
