@@ -10,6 +10,8 @@ export const scholionStyles = `
     /* currentColor resolves at usage site, so each ref glows in its own hue */
     --scholion-hover-bg: color-mix(in srgb, currentColor 18%, transparent);
     --scholion-b-outline: 1px dashed color-mix(in srgb, currentColor 55%, transparent);
+    /* Set to the height of your sticky nav to prevent the top peek from overlapping */
+    --scholion-nav-offset: 0px;
   }
 
   /* ── A: token in code ────────────────────────────────────────────────── */
@@ -113,7 +115,7 @@ export const scholionStyles = `
     z-index: 200;
     left: 50%;
     transform: translateX(-50%);
-    top: calc(env(safe-area-inset-top, 0px) + 10px);
+    top: calc(env(safe-area-inset-top, 0px) + var(--scholion-nav-offset, 0px) + 10px);
     width: min(39.5rem, calc(100vw - 24px));
     border: 1.5px dashed currentColor;
     border-radius: 8px;
@@ -143,9 +145,9 @@ export const scholionStyles = `
     color: var(--scholion-code-fg, hsl(220 14% 86%));
   }
 
-  /* Text peek: matches prose background */
+  /* Text peek */
   .scholion-peek--text {
-    background: var(--color-background);
+    background: var(--color-background-secondary);
     color: var(--color-foreground);
     border-color: var(--color-teal);
   }

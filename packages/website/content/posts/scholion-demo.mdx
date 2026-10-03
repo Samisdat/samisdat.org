@@ -4,9 +4,9 @@ date: 2026-10-03T00:00:00.000Z
 published: false
 ---
 
-Ein SVG-Spinner dreht sich durch `<animateTransform>`. Tippe auf ein unterstrichenes Token im Code oder auf ein farbiges Wort im Text — die Verbindung zwischen beiden wird sichtbar. Auf kleinen Bildschirmen, wo Code und Erklärung nicht gleichzeitig in den Viewport passen, dockt die jeweils andere Seite als Peek an.
+Der Codeblock ist absichtlich lang. Tippe im Code auf ein unterstrichenes Token, und die Erklärung kommt zu dir. Tippe in der Erklärung auf ein farbiges Wort, und die Codezeile kommt zu dir.
 
-```svg scholion:anim=<animateTransform scholion:repeat=repeatCount@11
+```svg scholion:anim=<animateTransform scholion:repeat=repeatCount@16
 <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="fill" x1="0" y1="0" x2="1" y2="1">
@@ -16,8 +16,14 @@ Ein SVG-Spinner dreht sich durch `<animateTransform>`. Tippe auf ein unterstrich
   </defs>
   <g id="spinner">
     <rect x="85" y="85" width="30" height="30" rx="4" fill="url(#fill)" />
-    <animateTransform attributeName="transform" type="rotate"
-      from="0 100 100" to="360 100 100" dur="4s" repeatCount="indefinite" />
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      from="0 100 100" 
+      to="360 100 100" 
+      dur="4s" 
+      repeatCount="indefinite" 
+    />
   </g>
   <g id="orbit" fill="none" stroke="#9aa6bd" stroke-width="1">
     <circle cx="100" cy="100" r="40" />
@@ -33,18 +39,24 @@ Ein SVG-Spinner dreht sich durch `<animateTransform>`. Tippe auf ein unterstrich
     </circle>
     <circle cx="100" cy="20" r="3" fill="#f2a7b8" />
   </g>
+  <g id="labels" font-family="sans-serif" font-size="8" fill="#566275">
+    <text x="100" y="196" text-anchor="middle">Spinner-Demo</text>
+    <text x="4" y="10">r = 40 / 60 / 80</text>
+  </g>
+  <style>
+    #orbit circle { vector-effect: non-scaling-stroke; }
+  </style>
 </svg>
 ```
 
-Das Beispiel zeichnet ein kleines Sonnensystem. Für die Verbindungen zählen nur die zwei Attribute im Spinner — Orbits, Planeten und Pulse sind Kulisse, damit der Codeblock auf kleineren Bildschirmen aus dem Viewport scrollt und der Peek sich zeigt.
+Das Beispiel zeichnet ein kleines Sonnensystem. Für uns zählt nur der Spinner in der Mitte, der Rest ist Kulisse, damit der Codeblock auf dem Handy aus dem Bild scrollt.
 
-Gedreht wird um den Punkt `100 100`, also die Mitte der `viewBox`. Ohne diesen Bezugspunkt würde sich die Gruppe um den Ursprung `0 0` drehen — die linke obere Ecke — und das Rect würde aus der `viewBox` wandern. Der Spinner gehört zur Gruppe `#spinner`; alles, was später noch dort landet, dreht sich automatisch mit, ohne separate Animation.
+Kurz zum Aufbau: Die Kreise in `#orbit` haben keine Füllung, nur eine Kontur. Mit `vector-effect` bleibt die Linienstärke beim Skalieren gleich, und die beiden Planeten pulsieren über eigene `<animate>`-Elemente.
 
-Die beiden Planeten pulsieren über eigene `<animate>`-Elemente, unabhängig vom Spinner. Die Kreisbahnen in `#orbit` haben keine Füllung, nur eine Kontur, und `stroke-dasharray` bricht die äußeren Ringe in Punkte auf.
+Das [`<animateTransform>`](#anim) steckt in der Gruppe. Daher wird diese animiert, und alles, was später noch in `#spinner` landet, dreht sich mit.
 
-Der Spinner dreht sich, weil [`<animateTransform>`](#anim) das Koordinatensystem
-der Gruppe um ihren Mittelpunkt rotiert — alles innerhalb von `#spinner` dreht
-sich mit.
+Gedreht wird um den Punkt `100 100`, also die Mitte der `viewBox`. Ohne diese Angabe würde sich die Gruppe um die linke obere Ecke drehen und aus dem Bild wandern.
 
-Ohne weiteren Eingriff liefe die Animation genau einmal. Erst [`repeatCount`](#repeat)
-mit dem Wert `indefinite` lässt sie endlos weiterlaufen.
+Ohne weitere Angabe läuft die Drehung genau einmal vier Sekunden lang. Erst [`repeatCount`](#repeat) mit dem Wert `indefinite` lässt sie endlos weiterlaufen.
+
+Dasselbe Attribut steuert übrigens auch die beiden `<animate>`-Elemente der Planeten, unabhängig vom Spinner.

@@ -60,15 +60,14 @@ export function initScholion(): () => void {
         wires.appendChild(g)
         grps[id] = { g, path, d1, d2 }
     }
-    // Capture token colors and code-peek background after layout
+    // Capture token colors and code-peek background after layout.
+    // Shiki places syntax colors on inner <span> elements, not on the <a> itself (color: inherit).
     requestAnimationFrame(() => {
-        for (const id of refIds) grps[id].g.style.color = getComputedStyle(refs[id].a).color
-        const firstPre = refIds.map(id => refs[id].pre).find(Boolean)
-        if (firstPre) {
-            const cs = getComputedStyle(firstPre)
-            peekCode.style.background = cs.backgroundColor
-            peekCode.style.color = cs.color
+        for (const id of refIds) {
+            const span = refs[id].a.querySelector<HTMLElement>('span')
+            grps[id].g.style.color = getComputedStyle(span ?? refs[id].a).color
         }
+        peekCode.style.background = 'var(--color-background-secondary)'
     })
 
     const peekCode = mkBtn('scholion-peek scholion-peek--code', 'Zur Codezeile springen', `
@@ -101,7 +100,6 @@ export function initScholion(): () => void {
         peekCode.querySelector('.scholion-peek__code-line')!.replaceChildren(clone)
         const lineNum = lineEl.dataset.line
         peekCode.querySelector('.scholion-peek__line')!.textContent = lineNum ? `Zeile ${lineNum}` : 'im Code'
-        peekCode.dataset.ref = id
         shown.code = id
     }
 
@@ -111,7 +109,6 @@ export function initScholion(): () => void {
         clone.removeAttribute('id')
         clone.querySelectorAll('.ref-target').forEach(s => (s as HTMLElement).classList.add('scholion-peek__token'))
         peekText.querySelector('.scholion-peek__body')!.replaceChildren(clone)
-        peekText.dataset.ref = id
         shown.text = id
     }
 
@@ -176,6 +173,18 @@ export function initScholion(): () => void {
             else if (!(shown[k] && state[shown[k]!].peek && pr === shown[k])) hidePeek(k)
         })
 
+        // Lift bottom peek above chip when both are visible
+        const activeBottomPeek = [peekCode, peekText].find(p =>
+            p.classList.contains('scholion-peek--on') && p.classList.contains('scholion-peek--bottom')
+        )
+        if (chip.classList.contains('scholion-chip--on') && activeBottomPeek) {
+            const chipH = chip.getBoundingClientRect().height
+            activeBottomPeek.style.bottom = `calc(env(safe-area-inset-bottom, 0px) + ${14 + chipH + 8}px)`
+        } else {
+            peekCode.style.bottom = ''
+            peekText.style.bottom = ''
+        }
+
         // Geometry helpers
         const ptA = (preRect: DOMRect | null, a: DOMRect, towardY: number) => {
             let x = a.left + a.width / 2
@@ -204,7 +213,7 @@ export function initScholion(): () => void {
             if (want && pr === id && want.kind === 'code' && c) {
                 Q = ptPeek('code'); P = ptC(c, Q.y); dashed = true
             } else if (want && pr === id && want.kind === 'text') {
-                P = ptA(preRect, a, 0); Q = ptPeek('text'); dashed = true
+                Q = ptPeek('text'); P = ptA(preRect, a, Q.y); dashed = true
             } else if (inView(a) && c && inView(c)) {
                 const pa = ptA(preRect, a, c.top); P = ptC(c, pa.y); Q = pa; dashed = pa.clipped
             } else { g.classList.remove('scholion-g--on'); continue }
