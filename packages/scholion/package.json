@@ -15,6 +15,10 @@
     "./pin": {
       "types": "./src/pin.ts",
       "import": "./src/pin.ts"
+    },
+    "./controller": {
+      "types": "./src/controller.ts",
+      "import": "./src/controller.ts"
     }
   },
   "scripts": {

@@ -1,8 +1,8 @@
 'use client'
 import { useEffect } from 'react'
-import { initScholionPin } from '@samisdat/scholion/pin'
+import { initScholion } from '@samisdat/scholion/controller'
 
 export function ScholionController() {
-    useEffect(() => initScholionPin(), [])
+    useEffect(() => initScholion(), [])
     return null
 }
