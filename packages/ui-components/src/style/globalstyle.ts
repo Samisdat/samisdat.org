@@ -83,9 +83,18 @@ export const globalStyles = css`
       margin: 0;
     }
 
-    figure pre {
-      padding: 1rem;
+    pre {
+      margin-block: 0;
     }
+
+    p:first-child {
+      margin-block-start: 0;
+    }
+
+    p:last-child {
+      margin-block-end: 0;
+    }
+
 
     html {
       font-size: 20px;
