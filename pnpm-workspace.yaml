@@ -9,7 +9,7 @@ catalog:
   '@types/react-dom': ^19.2.3
   
   # Next.js
-  next: ^16.2.10
+  next: ^16.3.6
   
   # TypeScript
   typescript: ^5.9.3
