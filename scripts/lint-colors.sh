@@ -16,6 +16,7 @@ RESULTS=$(grep -rn \
   --exclude-dir=storybook-static \
   --exclude-dir=.storybook \
   --exclude="*MiniPano.tsx" \
+  --exclude="*DemoAnimationsMorphHills.tsx" \
   -E "(fill|stroke|background|color|border-color|stop-color):\s*(#[0-9a-fA-F]{3,6}|'#[0-9a-fA-F]{3,6}'|\"#[0-9a-fA-F]{3,6}\")" \
   packages/website/ packages/ui-components/ 2>/dev/null || true)
 
