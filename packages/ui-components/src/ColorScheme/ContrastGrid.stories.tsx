@@ -1,0 +1,179 @@
+import type { Meta, StoryObj } from "@storybook/react";
+import { styled } from "@linaria/react";
+import { modes, type Mode } from "@samisdat/color-scheme";
+import { contrastMatrixAll, tokensOf } from "@samisdat/color-scheme/contrast";
+import { contrastBaseline } from "@samisdat/color-scheme/contrast-baseline";
+import { ratio, valueOf } from "./utils";
+
+const Page = styled.div`
+  font-family: var(--font-sans);
+  color: var(--color-text-default);
+  background: var(--color-surface-default);
+  padding: 1rem;
+`;
+
+const Legend = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+`;
+
+const Scroll = styled.div`
+  overflow-x: auto;
+`;
+
+const Table = styled.table`
+  border-collapse: separate;
+  border-spacing: 4px;
+  font-size: 0.8125rem;
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    padding: 0.25rem 0.5rem;
+    white-space: nowrap;
+  }
+
+  thead th {
+    vertical-align: bottom;
+  }
+`;
+
+const Cell = styled.td`
+  min-width: 7.5rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid transparent;
+  vertical-align: top;
+
+  &[data-required="true"] {
+    border-color: currentColor;
+  }
+
+  &[data-required="false"] {
+    opacity: 0.45;
+  }
+`;
+
+const Sample = styled.span`
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+`;
+
+const Ratio = styled.span`
+  display: block;
+  font-family: var(--font-code);
+  font-variant-numeric: tabular-nums;
+`;
+
+const Badge = styled.span`
+  display: inline-block;
+  margin: 0.125rem 0.25rem 0 0;
+  padding: 0 0.375rem;
+  border: 1px solid currentColor;
+  border-radius: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+`;
+
+const Tier = styled.span`
+  display: block;
+  font-weight: 400;
+  font-size: 0.6875rem;
+  opacity: 0.8;
+`;
+
+const required = new Set(contrastMatrixAll().map((p) => p.id));
+const MIN = 4.5;
+
+const isForeground = (id: string) =>
+  id.startsWith("text.") || id.startsWith("ink.");
+
+const Grid = ({ mode }: { mode: Mode }) => {
+  const tokens = tokensOf(mode);
+  const foregrounds = tokens.filter((t) => isForeground(t.id));
+  const surfaces = tokens.filter((t) => t.id.startsWith("surface."));
+  const headingId = `contrast-${mode}`;
+
+  return (
+    <section aria-labelledby={headingId}>
+      <h2 id={headingId}>Mode: {mode}</h2>
+      <Scroll>
+        <Table aria-labelledby={headingId}>
+          <thead>
+            <tr>
+              <th scope="col">Foreground / Surface</th>
+              {surfaces.map((surface) => (
+                <th key={surface.id} scope="col">
+                  {surface.id}
+                  <Tier>{surface.textTier}</Tier>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {foregrounds.map((fg) => (
+              <tr key={fg.id}>
+                <th scope="row">{fg.id}</th>
+                {surfaces.map((bg) => {
+                  const id = `${mode}:${fg.id}/${bg.id}`;
+                  const isRequired = required.has(id);
+                  const baseline = id in contrastBaseline;
+                  const value = ratio(valueOf(mode, fg.id), valueOf(mode, bg.id));
+                  const pass = value >= MIN;
+                  return (
+                    <Cell
+                      key={bg.id}
+                      data-required={isRequired}
+                      data-baseline={baseline}
+                      style={{
+                        color: valueOf(mode, fg.id),
+                        background: valueOf(mode, bg.id),
+                      }}
+                    >
+                      <Sample aria-hidden="true">Aa</Sample>
+                      <Ratio>{value.toFixed(2)}</Ratio>
+                      <Badge>{pass ? "Pass" : "Fail"}</Badge>
+                      {baseline ? <Badge>Baseline</Badge> : null}
+                    </Cell>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Scroll>
+    </section>
+  );
+};
+
+const ContrastGrid = () => (
+  <Page>
+    <h1>Contrast Grid</h1>
+    <Legend aria-label="Legend">
+      <li>Outlined cell: required pair (min. {MIN}:1)</li>
+      <li>Dimmed cell: not required</li>
+      <li>Baseline: known violation, fixed in a later phase</li>
+    </Legend>
+    {modes.map((mode) => (
+      <Grid key={mode} mode={mode} />
+    ))}
+  </Page>
+);
+
+const meta = {
+  title: "Color Scheme/Contrast Grid",
+  component: ContrastGrid,
+  parameters: { layout: "fullscreen" },
+} satisfies Meta<typeof ContrastGrid>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = {};

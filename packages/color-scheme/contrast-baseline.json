@@ -1,0 +1,19 @@
+{
+  "$comment": "Known failing contrast pairs. May only shrink. Regenerate with `pnpm --filter @samisdat/color-scheme contrast:baseline`.",
+  "entries": {
+    "dark:text.default/surface.muted": 2.82,
+    "dark:text.emphasis/surface.muted": 3.31,
+    "dark:text.muted/surface.default": 2.87,
+    "dark:ink.purple/surface.default": 3.99,
+    "light:text.default/surface.emphasis": 2.87,
+    "light:text.emphasis/surface.emphasis": 3.24,
+    "light:text.muted/surface.default": 2.82,
+    "light:ink.red/surface.default": 3.69,
+    "light:ink.orange/surface.default": 2.82,
+    "light:ink.yellow/surface.default": 1.5,
+    "light:ink.green/surface.default": 2.97,
+    "light:ink.teal/surface.default": 1.99,
+    "light:ink.cyan/surface.default": 3.44,
+    "light:ink.pink/surface.default": 2.32
+  }
+}
