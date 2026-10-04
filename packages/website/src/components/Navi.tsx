@@ -14,6 +14,7 @@ const StickyShell = styled.header`
     position: sticky;
     top: 0;
     z-index: 10;
+    height: var(--navi-height);
 `;
 
 const Bar = styled.div`

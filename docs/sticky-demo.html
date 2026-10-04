@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sticky-Spalten – Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #1e1631;
+  --ink: #efe3ea;
+  --muted: #b5a6c2;
+  --line: #3b3054;
+  --chip: #2b2242;
+  --code-bg: #1c1b20;
+  --code-ink: #e9e4ee;
+  --tag: #e2559a;
+  --attr: #a874e3;
+  --val: #5dbb7e;
+  --sun: #eec04f;
+  --sun-ink: #1e1631;
+  --header-h: 4rem;   /* wird per ResizeObserver mit der echten Höhe überschrieben */
+  --gap: 1rem;
+  --sans: "Source Sans 3", "Source Sans Pro", -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { --bg: #f4eef6; --ink: #22193a; --muted: #5f5375; --line: #d9cde3; --chip: #e8def0; }
+}
+:root[data-theme="light"] { --bg: #f4eef6; --ink: #22193a; --muted: #5f5375; --line: #d9cde3; --chip: #e8def0; }
+:root[data-theme="dark"]  { --bg: #1e1631; --ink: #efe3ea; --muted: #b5a6c2; --line: #3b3054; --chip: #2b2242; }
+
+/* Fokus und Sprungmarken nicht unter der Kopfzeile verstecken (WCAG 2.4.11) */
+html { scroll-padding-top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + var(--gap)); }
+*, *::before, *::after { box-sizing: inherit; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 1.125rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; align-items: baseline; gap: .5rem 1.25rem; flex-wrap: wrap;
+  padding: 1rem clamp(1rem, 4vw, 3rem);
+  background: color-mix(in oklab, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.bar h1 { font-size: 1.05rem; margin: 0; }
+.bar p { margin: 0; color: var(--muted); font-size: .95rem; }
+
+main { max-width: 1180px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 3rem) 30vh; }
+.case-title { font-size: 1.6rem; line-height: 1.2; margin: 4.5rem 0 .4rem; }
+.case-title:first-of-type { margin-top: 1rem; }
+.case-sub { color: var(--muted); margin: 0 0 2rem; max-width: 40rem; }
+
+/* ================= Das Muster ================= */
+.pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  align-items: start;              /* ohne das gibt es keinen Wanderweg */
+  padding-block: 1rem;
+  border-block: 1px dashed var(--line);
+}
+
+/* Beide Spalten sticky: die längere hat keinen Platz, also wirkt es nur bei der kürzeren */
+@media (min-width: 761px) and (min-height: 560px) {
+  .pair > * {
+    --top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + var(--gap));
+    position: sticky;
+    /* Überhöhe: bei zu hoher Spalte wird top negativ, sie klebt mit dem unteren Rand */
+    top: min(var(--top), calc(100svh - var(--h, 0px) - var(--gap)));
+  }
+}
+@media (max-width: 760px) {
+  .pair { grid-template-columns: 1fr; }
+}
+
+/* ================= Inhalt ================= */
+.prose h3 { font-size: 1.15rem; margin: 2rem 0 .4rem; }
+.prose h3:first-child { margin-top: 0; }
+.prose p { margin: 0 0 1rem; max-width: 36rem; }
+.prose code { font: .88em var(--mono); background: var(--chip); padding: .08em .35em; border-radius: 4px; }
+.label { font-weight: 700; margin-bottom: .3rem; }
+
+.preview {
+  background-color: #fff;
+  background-image: conic-gradient(#d6d6d6 25%, #fff 0 50%, #d6d6d6 0 75%, #fff 0);
+  background-size: 22px 22px;
+  aspect-ratio: 1; display: grid; place-items: center; padding: 4%;
+}
+.preview--small { max-width: 15rem; }
+.preview svg { width: 100%; height: 100%; display: block; }
+.controls {
+  background: var(--sun); color: var(--sun-ink);
+  padding: .6rem 1rem; display: flex; gap: .25rem; margin-bottom: 1.25rem;
+  font: 700 1rem var(--mono);
+}
+.controls button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; padding: .3rem .2rem; }
+.controls button::before { content: "[ "; }
+.controls button::after { content: " ]"; }
+.controls button:focus-visible { outline: 2px solid var(--sun-ink); outline-offset: 2px; }
+
+.code {
+  background: var(--code-bg); color: var(--code-ink);
+  font: .88rem/1.75 var(--mono);
+  padding: 1.25rem 0; overflow-x: auto; margin: 0; counter-reset: ln;
+}
+.code .ln { display: block; padding-right: 1.25rem; white-space: pre; }
+.code .ln::before {
+  counter-increment: ln; content: counter(ln);
+  display: inline-block; width: 3.2em; padding-right: 1.1em; text-align: right;
+  color: #5d5868; user-select: none;
+}
+.code .t { color: var(--tag); }
+.code .a { color: var(--attr); }
+.code .v { color: var(--val); }
+.code .c { color: var(--tag); opacity: .8; }
+.stack > * + * { margin-top: 1.25rem; }
+footer { color: var(--muted); font-size: .95rem; max-width: 40rem; margin-top: 4rem; }
+footer code { font: .88em var(--mono); }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <h1>Sticky-Spalten</h1>
+  <p>Die kürzere Spalte bleibt stehen, solange ihr Paar sichtbar ist.</p>
+</header>
+
+<main>
+  <h2 class="case-title">Langer Text, kurze Vorschau</h2>
+  <p class="case-sub">Der Standardfall: Erklärung links, Ergebnis und Code rechts. Rechts bleibt stehen, bis das Paar endet.</p>
+
+  <div class="pair">
+    <article class="prose">
+      <h3>Ein Kreis allein ist langweilig</h3>
+      <p>Alles beginnt mit einem einzigen <code>&lt;circle&gt;</code>: Mittelpunkt bei 100/100, Radius 100. Er füllt die gesamte Zeichenfläche und bildet den dunklen Außenring. Für sich genommen passiert hier noch nichts Interessantes.</p>
+      <p>Der Trick liegt in den Kreisen, die danach kommen. Jeder neue Kreis wird gezeichnet, nachdem der vorige schon da ist, liegt also obendrauf. SVG kennt keinen z-index; die Reihenfolge im Markup ist die Stapelreihenfolge.</p>
+
+      <h3>Kleiner werden und wandern</h3>
+      <p>Jeder folgende Kreis ist ein Stück kleiner als sein Vorgänger und abwechselnd hell oder dunkel gefüllt. So entstehen Ringe. Wären alle Mittelpunkte gleich, hätten wir eine Zielscheibe.</p>
+      <p>Stattdessen wandert der Mittelpunkt mit jedem Schritt ein wenig nach rechts, von <code>cx="100"</code> bis <code>cx="125"</code>. Die Ringe werden dadurch auf einer Seite dünn und auf der anderen breit, und das Auge liest daraus Tiefe: einen Tunnel, der sich zur Seite neigt.</p>
+      <p>Wichtig ist, dass der Versatz klein bleibt. Bei 25 Einheiten über rund zwanzig Kreise berührt kein innerer Kreis den Rand seines Vorgängers. Wird der Versatz zu groß, schneiden sich die Ringe und die Illusion bricht zusammen.</p>
+
+      <h3>Der kleinste Kreis</h3>
+      <p>Ganz am Ende steht ein winziger Kreis mit Radius 5 bei <code>cx="125"</code>. Er ist der Fluchtpunkt des Tunnels. Weil er nicht im Zentrum liegt, sondern 25 Einheiten daneben, beschreibt er bei der Drehung einen eigenen kleinen Kreis.</p>
+
+      <h3>Die Drehung</h3>
+      <p>Alle Kreise stecken in einer gemeinsamen Gruppe <code>&lt;g&gt;</code>. Auf sie wirkt ein <code>&lt;animateTransform&gt;</code> mit <code>type="rotate"</code>. Die Werte <code>from="0 100 100"</code> und <code>to="360 100 100"</code> bedeuten: drehe von 0 auf 360 Grad um den Punkt 100/100.</p>
+      <p>Der Drehpunkt ist der Mittelpunkt des äußeren Kreises. Der äußere Ring dreht sich also scheinbar gar nicht, während der Fluchtpunkt im Kreis wandert. Genau das erzeugt den Sog: Der Tunnel scheint zu taumeln, obwohl sich nur eine starre Gruppe dreht.</p>
+
+      <h3>Tempo und Steuerung</h3>
+      <p><code>dur="6s"</code> legt eine Umdrehung auf sechs Sekunden fest, <code>repeatCount="indefinite"</code> lässt sie endlos laufen. Gesteuert wird direkt am <code>&lt;svg&gt;</code>: <code>pauseAnimations()</code>, <code>unpauseAnimations()</code> und <code>setCurrentTime(0)</code>.</p>
+      <p>Wer <code>prefers-reduced-motion</code> gesetzt hat, bekommt die Spirale angehalten. Drehbewegungen gehören zu denen, die bei vestibulären Störungen Schwindel auslösen können.</p>
+    </article>
+
+    <aside class="stack" aria-label="Vorschau und Code">
+      <div>
+        <div class="preview">
+          <svg class="spiral" viewBox="0 0 200 200" role="img" aria-label="Rotierende Spirale aus versetzten Kreisen"></svg>
+        </div>
+        <div class="controls">
+          <button type="button" data-pause>❚❚ Pause</button>
+          <button type="button" data-reset>↺ Reset</button>
+        </div>
+      </div>
+      <pre class="code" data-code="short"></pre>
+    </aside>
+  </div>
+
+  <h2 class="case-title">Kurzer Text, langer Code</h2>
+  <p class="case-sub">Die Umkehrung, mit identischem CSS. Weil beide Spalten sticky sind, bleibt hier automatisch die linke stehen.</p>
+
+  <div class="pair">
+    <div class="prose">
+      <p class="label">Der komplette Quelltext</p>
+      <p>Rechts steht die Spirale ohne Abkürzung. Zeilen 3 bis 26 sind die Kreise: Der Radius sinkt in gleichen Schritten von 100 auf 5, der Mittelpunkt wandert von 100 auf 125.</p>
+      <p>Die Füllung wechselt bei jedem Kreis zwischen dunkel und hell. Ab Zeile 27 folgt die Drehung, die auf die ganze Gruppe wirkt.</p>
+      <p>Niemand musste im Markup festlegen, welche Seite länger ist.</p>
+    </div>
+    <pre class="code" data-code="full"></pre>
+  </div>
+
+  <h2 class="case-title">Die kurze Spalte ist höher als der Viewport</h2>
+  <p class="case-sub">Rechts stehen Vorschau und vollständiger Code. Auf Bildschirmen unter etwa 1100 px Höhe passt das nicht mehr ganz hinein: Die Spalte scrollt dann erst mit und bleibt mit ihrem unteren Rand stehen.</p>
+
+  <div class="pair">
+    <article class="prose">
+      <h3>Das Problem</h3>
+      <p>Mit einem festen <code>top</code> klebt eine Spalte mit ihrem Anfang unter der Kopfzeile. Ist sie höher als der verfügbare Platz, ragt ihr Ende unten aus dem Bildschirm, und zwar so lange, bis das ganze Paar vorbeigescrollt ist.</p>
+      <p>Bei einer Kombination aus Vorschau und Code heißt das: Der Code bleibt während des Lesens unerreichbar. Man sieht die Spirale, aber nie die Zeilen, über die der Text gerade spricht.</p>
+
+      <h3>Die Idee</h3>
+      <p>Statt immer am oberen Rand zu kleben, soll eine zu hohe Spalte am unteren Rand kleben. Dann sieht man zuerst ihren Anfang, scrollt ein Stück mit und behält danach ihr Ende im Blick.</p>
+      <p>CSS kann das bereits, wenn <code>top</code> negativ ist. Ein negativer Wert bedeutet: Das Element darf so weit über den oberen Rand hinausgeschoben werden, bevor es stehen bleibt.</p>
+
+      <h3>Die Rechnung</h3>
+      <p>Der passende negative Wert ist Viewport-Höhe minus Elementhöhe minus etwas Abstand. Genau das steht im CSS: <code>min(var(--top), calc(100svh - var(--h) - var(--gap)))</code>.</p>
+      <p>Passt die Spalte in den Viewport, ist der zweite Wert größer als der normale Abstand, und <code>min()</code> wählt den normalen Abstand. Es ändert sich nichts.</p>
+      <p>Ist die Spalte zu hoch, wird der zweite Wert negativ und gewinnt. Die Spalte scrollt dann ganz normal mit, bis ihr unterer Rand den Viewport-Boden erreicht, und bleibt erst dort stehen.</p>
+
+      <h3>Woher die Höhe kommt</h3>
+      <p>CSS kennt die eigene Höhe eines Elements nicht als Wert. Deshalb setzt ein ResizeObserver die Höhe als Custom Property <code>--h</code> direkt am Element. Er reagiert auf jede Größenänderung, also auch auf nachladende Schriften, Umbrüche und Zoom.</p>
+      <p>Fehlt das Skript, fällt <code>var(--h, 0px)</code> auf null zurück. Dann greift einfach das normale Verhalten. Das Skript ist eine Verbesserung, keine Voraussetzung.</p>
+
+      <h3>Warum svh</h3>
+      <p>Auf Mobilgeräten entspricht <code>vh</code> dem großen Viewport ohne eingeblendete Browserleisten. Mit <code>vh</code> würde das Ende der Spalte unter der Adressleiste verschwinden. <code>svh</code> ist der kleine Viewport, also der Platz, der garantiert sichtbar ist.</p>
+
+      <h3>Ausprobieren</h3>
+      <p>Mach das Browserfenster niedriger und scroll noch einmal durch dieses Paar. Je niedriger das Fenster, desto weiter scrollt die rechte Spalte mit, bevor sie stehen bleibt. Bei einem hohen Fenster verhält sie sich wie in den beiden Fällen oben.</p>
+      <p>Unter 560 px Fensterhöhe ist sticky ganz abgeschaltet. Bei so wenig Platz, etwa bei starkem Zoom, würde eine klebende Spalte mehr verdecken als helfen.</p>
+    </article>
+
+    <aside class="stack" aria-label="Vorschau und vollständiger Code">
+      <div class="preview preview--small">
+        <svg class="spiral" viewBox="0 0 200 200" role="img" aria-label="Rotierende Spirale aus versetzten Kreisen"></svg>
+      </div>
+      <pre class="code" data-code="full"></pre>
+    </aside>
+  </div>
+
+  <footer>
+    <p>Das gesamte Verhalten steckt in den Regeln für <code>.pair</code> und <code>.pair &gt; *</code>. Das Skript setzt nur <code>--h</code> pro Spalte und <code>--header-h</code> für die Kopfzeile.</p>
+  </footer>
+</main>
+
+<script>
+(() => {
+  // ---------- Sticky: echte Höhen als Custom Properties ----------
+  const ro = new ResizeObserver(entries => {
+    for (const { target, borderBoxSize } of entries) {
+      const h = borderBoxSize?.[0]?.blockSize ?? target.offsetHeight;
+      if (target.matches(".bar")) {
+        document.documentElement.style.setProperty("--header-h", `${h}px`);
+      } else {
+        target.style.setProperty("--h", `${h}px`);
+      }
+    }
+  });
+  ro.observe(document.querySelector(".bar"));
+  document.querySelectorAll(".pair > *").forEach(el => ro.observe(el));
+
+  // ---------- Spirale (Vorschau und Code aus denselben Daten) ----------
+  const N = 24, NIGHT = "#0e0a1c", BLUSH = "#f0d6d1";
+  const r1 = n => Math.round(n * 10) / 10;
+  const circles = Array.from({ length: N }, (_, i) => ({
+    cx: r1(100 + i * 25 / (N - 1)), cy: 100, r: r1(100 - i * 95 / (N - 1)), fill: i % 2 ? BLUSH : NIGHT
+  }));
+  const NS = "http://www.w3.org/2000/svg";
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  document.querySelectorAll(".spiral").forEach(svg => {
+    const g = document.createElementNS(NS, "g");
+    circles.forEach(c => {
+      const el = document.createElementNS(NS, "circle");
+      for (const k of ["cx", "cy", "r", "fill"]) el.setAttribute(k, c[k]);
+      g.appendChild(el);
+    });
+    const anim = document.createElementNS(NS, "animateTransform");
+    Object.entries({ attributeName: "transform", type: "rotate", from: "0 100 100", to: "360 100 100", dur: "6s", repeatCount: "indefinite" })
+      .forEach(([k, v]) => anim.setAttribute(k, v));
+    g.appendChild(anim);
+    svg.appendChild(g);
+    if (reduce) svg.pauseAnimations();
+  });
+
+  // ---------- Pause / Reset ----------
+  const mainSvg = document.querySelector(".spiral");
+  const btnPause = document.querySelector("[data-pause]");
+  let paused = reduce;
+  const label = () => (btnPause.textContent = paused ? "▶ Abspielen" : "❚❚ Pause");
+  label();
+  btnPause.addEventListener("click", () => {
+    paused = !paused;
+    paused ? mainSvg.pauseAnimations() : mainSvg.unpauseAnimations();
+    label();
+  });
+  document.querySelector("[data-reset]").addEventListener("click", () => mainSvg.setCurrentTime(0));
+
+  // ---------- Code-Ausgabe ----------
+  const T = s => `<span class="t">${s}</span>`;
+  const A = (k, v) => `<span class="a">${k}</span>=<span class="v">"${v}"</span>`;
+  const L = (indent, html) => `<span class="ln">${"  ".repeat(indent)}${html}</span>`;
+  const circleLine = (c, fill) =>
+    T("&lt;circle") + " " + A("cx", c.cx) + " " + A("cy", c.cy) + " " + A("r", c.r) + (fill ? " " + A("fill", c.fill) : "") + T(" /&gt;");
+  const animLines = [
+    L(2, T("&lt;animateTransform")),
+    L(3, A("attributeName", "transform")),
+    L(3, A("type", "rotate")),
+    L(3, A("from", "0 100 100")),
+    L(3, A("to", "360 100 100")),
+    L(3, A("dur", "6s")),
+    L(3, A("repeatCount", "indefinite") + T(" /&gt;"))
+  ];
+  const short = [
+    L(0, T("&lt;svg&gt;")), L(1, T("&lt;g&gt;")),
+    L(2, circleLine(circles[0])), L(4, `<span class="c">[...]</span>`), L(2, circleLine(circles[N - 1])),
+    ...animLines, L(1, T("&lt;/g&gt;")), L(0, T("&lt;/svg&gt;"))
+  ].join("");
+  const full = [
+    L(0, T("&lt;svg") + " " + A("viewBox", "0 0 200 200") + T("&gt;")), L(1, T("&lt;g&gt;")),
+    ...circles.map(c => L(2, circleLine(c, true))),
+    ...animLines, L(1, T("&lt;/g&gt;")), L(0, T("&lt;/svg&gt;"))
+  ].join("");
+  document.querySelectorAll('[data-code="short"]').forEach(el => (el.innerHTML = short));
+  document.querySelectorAll('[data-code="full"]').forEach(el => (el.innerHTML = full));
+})();
+</script>
+</body>
+</html>

@@ -2,7 +2,19 @@ import { styled } from "@linaria/react";
 import { forwardRef, HTMLAttributes } from "react";
 
 import { breakpoints } from "../tokens/breakpoints";
-import type { SpaceToken } from "../tokens/space";
+import { space, type SpaceToken } from "../tokens/space";
+
+const STICKY_MIN_HEIGHT = "560px";
+
+// Sticky only where the columns sit side by side and the viewport leaves room
+// for a pinned column (WCAG 1.4.10 reflow, landscape phones).
+const stickyItem = `
+  position: sticky;
+  top: calc(var(--navi-height, 0px) + ${space[1]});
+`;
+
+const stickyState = (sticky: boolean | undefined, direction: FlexDirection) =>
+  sticky ? (direction === "row" ? "sticky" : "static") : undefined;
 
 type FlexDirection = "row" | "column";
 type AlignItems = "stretch" | "center" | "start" | "end" | "baseline";
@@ -22,6 +34,13 @@ interface StackContainerProps extends HTMLAttributes<HTMLDivElement> {
   align?: AlignItems;
   justify?: JustifyContent;
   gap?: SpaceToken;
+  /**
+   * Makes every direct child `position: sticky` while the effective direction
+   * is `row`, so the shorter column stays in view next to a taller one. Sets
+   * `align-items: start` unless `align` is given: stretched items have no room
+   * to travel and would not stick.
+   */
+  sticky?: boolean;
 }
 
 interface StackItemProps extends HTMLAttributes<HTMLDivElement> {
@@ -42,10 +61,11 @@ const StackContainerStyling = styled.div<{
   $align?: AlignItems;
   $justify?: JustifyContent;
   $gap?: string;
+  $sticky?: boolean;
 }>`
   display: flex;
   gap: ${(props) => props.$gap ?? "1rem"};
-  align-items: ${(props) => props.$align ?? "stretch"};
+  align-items: ${(props) => props.$align ?? (props.$sticky ? "start" : "stretch")};
   justify-content: ${(props) => props.$justify ?? "start"};
   flex-direction: ${(props) => props.$directionSmall ?? "column"};
 
@@ -60,6 +80,34 @@ const StackContainerStyling = styled.div<{
       props.$directionMedium ??
       props.$directionSmall ??
       "column"};
+  }
+
+  /* Which breakpoints pin the columns is resolved in JS and passed as data
+     attributes, because Linaria turns function interpolations into values only. */
+  @media (min-height: ${STICKY_MIN_HEIGHT}) {
+    &[data-sticky-small="sticky"] > * {
+      ${stickyItem}
+    }
+  }
+
+  @media (min-width: ${breakpoints.medium}) and (min-height: ${STICKY_MIN_HEIGHT}) {
+    &[data-sticky-medium="sticky"] > * {
+      ${stickyItem}
+    }
+
+    &[data-sticky-medium="static"] > * {
+      position: static;
+    }
+  }
+
+  @media (min-width: ${breakpoints.large}) and (min-height: ${STICKY_MIN_HEIGHT}) {
+    &[data-sticky-large="sticky"] > * {
+      ${stickyItem}
+    }
+
+    &[data-sticky-large="static"] > * {
+      position: static;
+    }
   }
 `;
 
@@ -93,9 +141,14 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
       align,
       justify,
       gap,
+      sticky,
       children,
       ...rest
     } = props;
+
+    const small = directionSmall ?? "column";
+    const medium = directionMedium ?? small;
+    const large = directionLarge ?? medium;
 
     return (
       <StackContainerStyling
@@ -106,6 +159,10 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
         $align={align}
         $justify={justify}
         $gap={gap}
+        $sticky={sticky}
+        data-sticky-small={stickyState(sticky, small)}
+        data-sticky-medium={stickyState(sticky, medium)}
+        data-sticky-large={stickyState(sticky, large)}
         {...rest}
       >
         {children}

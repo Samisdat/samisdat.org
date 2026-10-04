@@ -3,6 +3,7 @@ import "normalize.css";
 import { colorProperties } from "./colorProperties";
 import { colorClassNames } from "./colorClassNames";
 import { colorVars } from "./colorVars";
+import { breakpoints } from "../tokens/breakpoints";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
 export const globalStyles = css`
@@ -23,6 +24,13 @@ export const globalStyles = css`
       --typo-h5-size: 1.25rem;
       --typo-h6-size: 1rem;
       --header-height: calc(100vw * 500 / 1280);
+      --navi-height: 3.2rem;
+    }
+
+    @media (min-width: ${breakpoints.medium}) {
+      :root {
+        --navi-height: 4rem;
+      }
     }
 
     :root[data-theme="dark"] {
