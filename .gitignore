@@ -64,3 +64,5 @@ storybook-static
 !SKILL.md
 !SECURITY.md
 !docs/deployment.md
+# macOS vergleicht Ignore-Muster case-insensitiv; Docs in docs/ sind dauerhaft
+!docs/*.md
