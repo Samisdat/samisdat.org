@@ -55,7 +55,7 @@ describe('getSandpackFiles', () => {
 
     describe('file system traversal', () => {
         it('reads files from nested directory structure', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             vi.mocked(fs.existsSync).mockReturnValue(true);
             vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);
@@ -107,7 +107,7 @@ describe('getSandpackFiles', () => {
         });
 
         it('excludes node_modules directory', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             vi.mocked(fs.existsSync).mockReturnValue(true);
             vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);
@@ -135,7 +135,7 @@ describe('getSandpackFiles', () => {
         });
 
         it('excludes all EXCLUDED_DIRS (.git, build, dist, .next, coverage, .cache)', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             vi.mocked(fs.existsSync).mockReturnValue(true);
             vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);
@@ -170,7 +170,7 @@ describe('getSandpackFiles', () => {
         });
 
         it('excludes EXCLUDED_FILES (lock files, .DS_Store, .env)', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             vi.mocked(fs.existsSync).mockReturnValue(true);
             vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);
@@ -203,7 +203,7 @@ describe('getSandpackFiles', () => {
         });
 
         it('throws error with helpful message when directory does not exist', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             // Directory doesn't exist
             vi.mocked(fs.existsSync).mockReturnValue(false);
@@ -226,7 +226,7 @@ describe('getSandpackFiles', () => {
         });
 
         it('normalizes Windows backslashes to forward slashes in file paths', async () => {
-            const baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
+            const _baseDir = path.join(process.cwd(), 'codesandboxes', 'test-post', 'demo');
 
             vi.mocked(fs.existsSync).mockReturnValue(true);
             vi.mocked(fs.statSync).mockReturnValue({ isDirectory: () => true } as any);

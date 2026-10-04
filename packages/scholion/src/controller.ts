@@ -115,7 +115,7 @@ export function initScholion(): () => void {
     }
 
     function showPeek(kind: 'code' | 'text', id: string, pos: 'top' | 'bottom') {
-        kind === 'code' ? fillCode(id) : fillText(id)
+        if (kind === 'code') fillCode(id); else fillText(id)
         const p = kind === 'code' ? peekCode : peekText
         p.classList.toggle('scholion-peek--bottom', pos === 'bottom')
         p.classList.add('scholion-peek--on')

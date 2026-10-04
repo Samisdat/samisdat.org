@@ -5,7 +5,6 @@
  * Output: packages/website/src/app/opengraph-image.png
  */
 
-import { readFileSync, writeFileSync } from 'fs';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { createRequire } from 'module';
@@ -19,9 +18,6 @@ const sharp = require(resolve(repoRoot, 'node_modules/.pnpm/sharp@0.34.5/node_mo
 
 const WIDTH = 1200;
 const HEIGHT = 630;
-
-// Sky gradient + simplified silhouette + branding as self-contained SVG
-const panoramaSvgRaw = readFileSync(resolve(repoRoot, 'packages/panorama/assets/panorama.svg'), 'utf8');
 
 // Extract just the path data within an artistically composed OG frame
 const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="${HEIGHT}" viewBox="0 0 ${WIDTH} ${HEIGHT}">

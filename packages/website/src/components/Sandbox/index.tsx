@@ -15,7 +15,7 @@ const SandboxStyling = styled.div``;
 
 export const Sandbox: FC<SandboxProps> = ({
     files,
-    template = 'react-ts',
+    template: _template = 'react-ts',
     visibleFiles,
     activeFile,
     showOpenInCodeSandbox = true,

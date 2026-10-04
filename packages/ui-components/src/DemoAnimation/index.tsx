@@ -49,7 +49,7 @@ export const DemoAnimation = ({
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [reducedMotion]);
+  }, [reducedMotion, ref]);
 
   return (
     <>

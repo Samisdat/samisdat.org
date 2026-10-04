@@ -9,7 +9,7 @@ const PostStyled = styled.main`
 `;
 
 export type LongPostProps = HTMLAttributes<HTMLDivElement> & {};
-export const LongPost: FC<LongPostProps> = ({ children, ...props }) => {
+export const LongPost: FC<LongPostProps> = ({ children: _children, ...props }) => {
     return (
         <PostStyled {...props}>
             <header>

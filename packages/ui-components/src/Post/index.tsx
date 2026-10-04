@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 import { FC, HTMLAttributes } from 'react';
+import Image from 'next/image';
 import { Heading } from '@samisdat/ui-components/Heading';
 
 const PostStyled = styled.main`
@@ -8,7 +9,7 @@ const PostStyled = styled.main`
 `;
 
 export type PostProps = HTMLAttributes<HTMLDivElement> & {};
-export const Post: FC<PostProps> = ({ children, ...props }) => {
+export const Post: FC<PostProps> = ({ children: _children, ...props }) => {
     return (
         <PostStyled {...props}>
             <header>
@@ -213,9 +214,12 @@ export const Post: FC<PostProps> = ({ children, ...props }) => {
                         more experience.
                     </p>
                     <p>My graph looks something like this:</p>
-                    <img
-                        style={{ width: '300px' }}
+                    <Image
                         src="/guided-graph.webp"
+                        alt=""
+                        width={300}
+                        height={200}
+                        style={{ width: '300px', height: 'auto' }}
                     />
 
                     <p>

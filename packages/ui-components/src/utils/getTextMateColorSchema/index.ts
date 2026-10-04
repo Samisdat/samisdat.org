@@ -2,7 +2,7 @@ import { getColorHexMap } from "../../tokens/colorToHex";
 import type { ThemeRegistration } from "shiki";
 
 export const getTextMateColorSchema = (
-  mode: "dark" | "light" = "dark",
+  _mode: "dark" | "light" = "dark",
 ): ThemeRegistration => {
   // Get all colors as hex from tokens
   const colors = getColorHexMap();

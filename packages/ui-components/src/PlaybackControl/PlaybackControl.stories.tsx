@@ -136,9 +136,9 @@ export const SpeedSlider: Story = {
     onReset: fn(),
     onSpeedChange: fn(),
   },
-  play: async ({ canvasElement, args }) => {
+  play: async ({ canvasElement, args: _args }) => {
     const canvas = within(canvasElement);
-    
+
     // Find the speed slider
     const slider = canvas.getByRole('slider', { name: /speed/i });
     expect(slider).toBeInTheDocument();

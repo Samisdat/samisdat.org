@@ -8,7 +8,6 @@ import { Grid } from '@samisdat/ui-components/Grid';
 
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Stack } from '@samisdat/ui-components/Stack';
-import { codeToHtml } from 'shiki';
 
 const Styling = styled.div`
     aspect-ratio: 15/10;
@@ -54,14 +53,8 @@ type Coord = {
     norm: Position;
 };
 
-const formatSigned2 = (value: number): string => {
-    return `${value > 0 ? '+' : ''}${value.toFixed(2)}`;
-};
-
 export const DemoParallaxSectors = () => {
     const ref = useRef<HTMLDivElement>(null);
-
-    const [json, setJson] = useState<string>('');
 
     const [coords, setCoords] = useState<Coord>(() => {
         const start: Position = { x: 0, y: 0 };

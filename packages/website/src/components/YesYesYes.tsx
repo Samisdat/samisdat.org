@@ -22,7 +22,7 @@ const HandStyling = styled.div`
     }
 `;
 
-export const YesYesYes: FC<HTMLAttributes<HTMLDivElement>> = ({ children, ...props }) => {
+export const YesYesYes: FC<HTMLAttributes<HTMLDivElement>> = ({ children: _children, ...props }) => {
     return (
         <HandStyling {...props}>
             <svg

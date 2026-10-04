@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes, ReactElement } from 'react';
+import { FC, HTMLAttributes } from 'react';
 
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
@@ -18,7 +18,7 @@ interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     sandboxFiles?: Record<string, SandpackFiles>;
 }
 
-export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug, mdxDir, sandboxFiles }) => {
+export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _mdxDir, sandboxFiles }) => {
     const components = {
         p: (props: any) => (
             <Typo

@@ -11,7 +11,7 @@ interface MarkdownServerProps {
 }
 
 export async function MarkdownServer({ content, slug, mdxDir }: MarkdownServerProps) {
-    const { frontmatter, MDXContent, sandboxNames } = await parseMarkdown(content);
+    const { frontmatter: _frontmatter, MDXContent, sandboxNames } = await parseMarkdown(content);
 
     // Preload sandbox files - fail hard if any are missing
     const sandboxFiles: Record<string, SandpackFiles> = {};

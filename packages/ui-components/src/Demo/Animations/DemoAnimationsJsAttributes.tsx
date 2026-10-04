@@ -38,7 +38,7 @@ export const DemoAnimationsJsAttributes = () => {
 
     const lengthRef = useRef<number | null>(null);
 
-    const [time, setTime] = useState(0);
+    const [_time, setTime] = useState(0);
     const [speed, setSpeed] = useState(10);
     const [isPlaying, setIsPlaying] = useState(false);
     const [sunPosition, setSunPosition] = useState<Point>({ cx: 40, cy: 260 });

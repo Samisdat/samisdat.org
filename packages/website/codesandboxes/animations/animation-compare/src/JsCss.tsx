@@ -1,4 +1,3 @@
-import { styled } from '@linaria/react';
 import { CSSProperties, useEffect, useRef } from 'react';
 import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps } from './shared';

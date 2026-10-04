@@ -3,7 +3,7 @@
 import { Heading } from '@samisdat/ui-components/Heading';
 import { Typo } from '@samisdat/ui-components/Typo';
 
-export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function Error({ error: _error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
     return (
         <>
             <Heading level={1}>Etwas ist schiefgelaufen</Heading>

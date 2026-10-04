@@ -60,7 +60,7 @@ export const PlaybackControl = ({
   speedMax = 100,
   speedStep = 1,
   speedControl = true,
-  resetControl = true,
+  resetControl: _resetControl = true,
   notice,
   onPlay,
   onPause,

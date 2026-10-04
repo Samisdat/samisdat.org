@@ -134,7 +134,7 @@ const StackItemStyling = styled.div<{
 export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
   if (props.container) {
     const {
-      container,
+      container: _container,
       directionSmall,
       directionMedium,
       directionLarge,
@@ -171,7 +171,7 @@ export const Stack = forwardRef<HTMLDivElement, StackProps>((props, ref) => {
   }
 
   const {
-    container,
+    container: _container,
     orderSmall,
     orderMedium,
     orderLarge,

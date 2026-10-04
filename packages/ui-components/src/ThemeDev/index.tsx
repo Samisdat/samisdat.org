@@ -7,7 +7,7 @@ const ThemeDevStyling = styled.div`
   margin-inline: auto;
 `;
 
-export const ThemeDev: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => (
+export const ThemeDev: FC<HTMLAttributes<HTMLDivElement>> = ({ children: _children }) => (
   <ThemeDevStyling>
     {themedColors.map((mappedColor) => (
       <div key={mappedColor} className={`color ${mappedColor}`}>

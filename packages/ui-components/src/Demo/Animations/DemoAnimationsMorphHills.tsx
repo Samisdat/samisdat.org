@@ -1,7 +1,5 @@
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import { DemoCanvas } from "@samisdat/ui-components/DemoCanvas";
-import { PlaybackControl } from "@samisdat/ui-components/PlaybackControl";
 import { useEffect, useRef, useState } from "react";
 const HillsSvgStyling = styled.svg`
   & svg {
