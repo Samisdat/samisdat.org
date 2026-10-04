@@ -62,7 +62,7 @@ export const ToggleTheme: Story = {
         theme: 'light',
         onUpdate: fn(),
     },
-    play: async ({ canvasElement, args: _args }) => {
+    play: async ({ canvasElement, args }) => {
         const canvas = within(canvasElement);
 
         // Find the checkbox
@@ -82,7 +82,7 @@ export const ToggleFromDark: Story = {
         theme: 'dark',
         onUpdate: fn(),
     },
-    play: async ({ canvasElement, args: _args }) => {
+    play: async ({ canvasElement, args }) => {
         const canvas = within(canvasElement);
 
         // Find the checkbox
