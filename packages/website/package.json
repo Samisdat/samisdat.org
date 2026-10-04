@@ -55,7 +55,7 @@
     "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "catalog:",
-    "baseline-browser-mapping": "^2.10.43",
+    "baseline-browser-mapping": "^2.11.0",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
