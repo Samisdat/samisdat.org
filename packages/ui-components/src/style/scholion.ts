@@ -81,7 +81,7 @@ export const scholionStyles = `
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 100;
+    z-index: 9;
     overflow: visible;
   }
 
