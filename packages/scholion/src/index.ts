@@ -1,3 +1,3 @@
-export { remarkScholion } from './remark.ts'
-export { scholionTransformer } from './transformer.ts'
-export type { ScholionRef } from './types.ts'
+export { remarkScholion } from './remark'
+export { scholionTransformer } from './transformer'
+export type { ScholionRef } from './types'

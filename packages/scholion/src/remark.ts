@@ -1,8 +1,8 @@
 import type { Code, Link, Paragraph, Parent, PhrasingContent, Root } from 'mdast'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
-import { parseScholionMeta } from './parse-meta.ts'
-import type { ScholionRef } from './types.ts'
+import { parseScholionMeta } from './parse-meta'
+import type { ScholionRef } from './types'
 
 // Custom node types that mdast-util-to-hast's unknownHandler will convert
 // via data.hName + data.hProperties + children recursion.

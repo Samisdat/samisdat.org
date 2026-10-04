@@ -1,7 +1,7 @@
 import type { Element, ElementContent } from 'hast'
 import type { ShikiTransformer } from 'shiki'
-import { parseScholionMeta } from './parse-meta.ts'
-import type { ScholionRef } from './types.ts'
+import { parseScholionMeta } from './parse-meta'
+import type { ScholionRef } from './types'
 
 function nodeText(node: ElementContent): string {
     if (node.type === 'text') return node.value
