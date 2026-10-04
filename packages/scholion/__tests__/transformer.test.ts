@@ -54,6 +54,17 @@ describe('scholionTransformer', () => {
         expect(count).toBe(1)
     })
 
+    it('excludes leading indentation whitespace from the anchor', async () => {
+        // <animateTransform> is indented inside <g>; Shiki merges that indentation
+        // into the first token span. The anchor must wrap only the matched token,
+        // otherwise the box-shadow underline starts at the left code margin.
+        const html = await process(FIXTURE)
+        const anchor = html.match(/<a id="ref-anim"[^>]*>(.*?)<\/a>/s)?.[1] ?? ''
+        const text = anchor.replace(/<[^>]+>/g, '').replace(/&#x3C;|&lt;/g, '<')
+        expect(text).toBe('<animateTransform')
+        expect(text).not.toMatch(/^\s/)
+    })
+
     it('does nothing for code blocks without scholion meta', async () => {
         const html = await process('```js\nconst x = 1\n```')
         expect(html).not.toContain('data-ref=')
