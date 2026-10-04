@@ -9,6 +9,28 @@ function nodeText(node: ElementContent): string {
     return ''
 }
 
+// Return a copy of `node` containing only characters [start, end) of its text,
+// or null if that range is empty. Element nodes are cloned so token styling
+// (Shiki's inline color spans) is preserved on every fragment.
+function sliceContent(node: ElementContent, start: number, end: number): ElementContent | null {
+    if (end <= 0 || start >= nodeText(node).length) return null
+    if (node.type === 'text') {
+        const value = node.value.slice(Math.max(0, start), Math.max(0, end))
+        return value ? { type: 'text', value } : null
+    }
+    if (node.type === 'element') {
+        let offset = 0
+        const children: ElementContent[] = []
+        for (const child of node.children) {
+            const sliced = sliceContent(child, start - offset, end - offset)
+            if (sliced) children.push(sliced)
+            offset += nodeText(child).length
+        }
+        return children.length ? { ...node, children } : null
+    }
+    return node
+}
+
 function wrapRef(codeEl: Element, ref: ScholionRef): void {
     const lines = codeEl.children.filter(
         (c): c is Element => c.type === 'element' && c.tagName === 'span'
@@ -93,6 +115,23 @@ function wrapSpansInLine(
     const lastIdx = covered[covered.length - 1].idx
     const displayLabel = ref.pattern.replace(/^<\/?/, '')
 
+    // Split the first/last covered span at the match boundaries. Shiki merges a
+    // line's leading indentation into its first token span, so slicing whole
+    // spans would pull that whitespace into the anchor and the underline would
+    // start at the left code margin instead of under the token.
+    const before: ElementContent[] = []
+    const inside: ElementContent[] = []
+    const after: ElementContent[] = []
+    for (const info of covered) {
+        const child = lineEl.children[info.idx] as ElementContent
+        const pre = sliceContent(child, 0, matchStart - info.charStart)
+        const mid = sliceContent(child, matchStart - info.charStart, matchEnd - info.charStart)
+        const post = sliceContent(child, matchEnd - info.charStart, info.charEnd - info.charStart)
+        if (pre) before.push(pre)
+        if (mid) inside.push(mid)
+        if (post) after.push(post)
+    }
+
     const anchor: Element = {
         type: 'element',
         tagName: 'a',
@@ -104,10 +143,10 @@ function wrapSpansInLine(
             'aria-describedby': `desc-${ref.id}`,
             'aria-label': `${displayLabel}, zur Erklärung`,
         },
-        children: lineEl.children.slice(firstIdx, lastIdx + 1) as ElementContent[],
+        children: inside,
     }
 
-    lineEl.children.splice(firstIdx, lastIdx - firstIdx + 1, anchor)
+    lineEl.children.splice(firstIdx, lastIdx - firstIdx + 1, ...before, anchor, ...after)
 }
 
 export function scholionTransformer(): ShikiTransformer {

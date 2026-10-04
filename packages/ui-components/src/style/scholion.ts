@@ -16,12 +16,13 @@ export const scholionStyles = `
 
   /* ── A: token in code ────────────────────────────────────────────────── */
   a.ref {
+    display: inline-block;
     color: inherit;
     text-decoration: none;
+    /* box-shadow rule (not text-decoration) to match .ref-target's inset underline; inline-block keeps the padded chip from fragmenting across line breaks */
+    box-shadow: 0 1.5px 0 0 color-mix(in srgb, currentColor 55%, transparent);
     border-radius: 2px;
     padding: 0.05em 0.1em;
-    /* inset underline in the token's own syntax color */
-    box-shadow: inset 0 -1.5px 0 color-mix(in srgb, currentColor 55%, transparent);
     scroll-margin: 35vh 2rem;
     transition: background-color 0.12s ease;
   }
