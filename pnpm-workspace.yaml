@@ -33,7 +33,7 @@ catalog:
   '@fortawesome/react-fontawesome': ^3.5.0
   
   # Shiki
-  shiki: ^4.4.3
+  shiki: ^4.5.0
   
   # Shared utils
   normalize.css: ^8.0.1
