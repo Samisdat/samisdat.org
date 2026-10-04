@@ -24,12 +24,12 @@
     "chrome-remote-interface": "^0.34.0"
   },
   "devDependencies": {
-    "concurrently": "^10.0.3",
-    "oxlint": "^1.73.0",
-    "postcss-styled-syntax": "^0.7.2",
-    "stylelint": "^17.14.0",
+    "concurrently": "^10.0.5",
+    "oxlint": "1.73.0",
+    "postcss-styled-syntax": "^0.7.3",
+    "stylelint": "^17.15.0",
     "stylelint-config-standard": "^40.0.0",
-    "syncpack": "^15.3.2"
+    "syncpack": "^15.3.3"
   },
   "packageManager": "pnpm@11.22.0+sha512.1ff870c4c6133dfd88fb2afc46dd13d47f09c9794b438c6fdb47ca98caf3bc16381ee0be93a091b8e3824cf01f889f46d7d9e20910fb0be1ab0fb5baa80dd621"
 }
