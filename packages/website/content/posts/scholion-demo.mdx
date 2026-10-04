@@ -1,0 +1,62 @@
+---
+title: Scholion Demo
+date: 2026-10-03T00:00:00.000Z
+published: false
+---
+
+Der Codeblock ist absichtlich lang. Tippe im Code auf ein unterstrichenes Token, und die Erklärung kommt zu dir. Tippe in der Erklärung auf ein farbiges Wort, und die Codezeile kommt zu dir.
+
+```svg scholion:anim=<animateTransform scholion:repeat=repeatCount@16
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="fill" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4f7cff" />
+      <stop offset="1" stop-color="#1fb58f" />
+    </linearGradient>
+  </defs>
+  <g id="spinner">
+    <rect x="85" y="85" width="30" height="30" rx="4" fill="url(#fill)" />
+    <animateTransform 
+      attributeName="transform" 
+      type="rotate" 
+      from="0 100 100" 
+      to="360 100 100" 
+      dur="4s" 
+      repeatCount="indefinite" 
+    />
+  </g>
+  <g id="orbit" fill="none" stroke="#9aa6bd" stroke-width="1">
+    <circle cx="100" cy="100" r="40" />
+    <circle cx="100" cy="100" r="60" stroke-dasharray="2 6" />
+    <circle cx="100" cy="100" r="80" stroke-dasharray="1 9" />
+  </g>
+  <g id="planets">
+    <circle cx="140" cy="100" r="5" fill="#4f7cff">
+      <animate attributeName="r" values="5;7;5" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="40" cy="100" r="4" fill="#1fb58f">
+      <animate attributeName="opacity" values="1;.4;1" dur="3s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="100" cy="20" r="3" fill="#f2a7b8" />
+  </g>
+  <g id="labels" font-family="sans-serif" font-size="8" fill="#566275">
+    <text x="100" y="196" text-anchor="middle">Spinner-Demo</text>
+    <text x="4" y="10">r = 40 / 60 / 80</text>
+  </g>
+  <style>
+    #orbit circle { vector-effect: non-scaling-stroke; }
+  </style>
+</svg>
+```
+
+Das Beispiel zeichnet ein kleines Sonnensystem. Für uns zählt nur der Spinner in der Mitte, der Rest ist Kulisse, damit der Codeblock auf dem Handy aus dem Bild scrollt.
+
+Kurz zum Aufbau: Die Kreise in `#orbit` haben keine Füllung, nur eine Kontur. Mit `vector-effect` bleibt die Linienstärke beim Skalieren gleich, und die beiden Planeten pulsieren über eigene `<animate>`-Elemente.
+
+Das [`<animateTransform>`](#anim) steckt in der Gruppe. Daher wird diese animiert, und alles, was später noch in `#spinner` landet, dreht sich mit.
+
+Gedreht wird um den Punkt `100 100`, also die Mitte der `viewBox`. Ohne diese Angabe würde sich die Gruppe um die linke obere Ecke drehen und aus dem Bild wandern.
+
+Ohne weitere Angabe läuft die Drehung genau einmal vier Sekunden lang. Erst [`repeatCount`](#repeat) mit dem Wert `indefinite` lässt sie endlos weiterlaufen.
+
+Dasselbe Attribut steuert übrigens auch die beiden `<animate>`-Elemente der Planeten, unabhängig vom Spinner.

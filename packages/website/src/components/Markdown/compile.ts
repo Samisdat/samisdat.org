@@ -11,6 +11,8 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 
+import { remarkScholion } from '@samisdat/scholion/remark';
+import { scholionTransformer } from '@samisdat/scholion/transformer';
 import { getTextMateColorSchema } from '@samisdat/ui-components/utils/getTextMateColorSchema';
 
 import { Frontmatter } from './Frontmatter';
@@ -20,6 +22,7 @@ const theme = getTextMateColorSchema('dark');
 
 const shikiOptions = {
     theme,
+    transformers: [scholionTransformer()],
 };
 
 interface ParseMarkdownResult {
@@ -42,12 +45,11 @@ export const parseMarkdown = async (markdown: string): Promise<ParseMarkdownResu
                 outputFormat: 'function-body',
                 remarkPlugins: [
                     remarkFrontmatter,
-                    // Export frontmatter as named export 'frontmatter'
                     [remarkMdxFrontmatter, { name: 'frontmatter' }],
-                    remarkGfm, // GitHub Flavored Markdown (tables, task lists, strikethrough, etc.)
-                    remarkBreaks, // Single newline -> <br>; blank line -> new <p>
-                    // Collect sandbox names from <Sandbox name="..." /> elements
+                    remarkGfm,
+                    remarkBreaks,
                     [remarkSandboxCollector, { sandboxNames }],
+                    remarkScholion,
                 ],
                 rehypePlugins: [
                     rehypeSlug, // Add IDs to headings for deep linking

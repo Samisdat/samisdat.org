@@ -1,9 +1,10 @@
 import { css } from "@linaria/core";
 import "normalize.css";
-import { colorProperties } from "./colorProperties";
 import { colorClassNames } from "./colorClassNames";
+import { colorProperties } from "./colorProperties";
 import { colorVars } from "./colorVars";
 import { breakpoints } from "../tokens/breakpoints";
+import { scholionStyles } from "./scholion";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
 export const globalStyles = css`
@@ -127,5 +128,11 @@ export const globalStyles = css`
     }
 
     ${colorClassNames}
+
+    ${scholionStyles}
+
+    :root {
+      --scholion-nav-offset: calc(var(--typo-h5-size) * 1.5 + 2 * 0.5rem + 4px);
+    }
   }
 `;

@@ -2,6 +2,7 @@ import { SandpackFiles } from '@codesandbox/sandpack-react';
 import { getSandpackFiles } from '../Sandbox/getSandpackFiles';
 import { parseMarkdown } from './compile';
 import { Markdown } from './index';
+import { ScholionController } from './ScholionController';
 
 interface MarkdownServerProps {
     content: string;
@@ -21,11 +22,14 @@ export async function MarkdownServer({ content, slug, mdxDir }: MarkdownServerPr
     }
 
     return (
-        <Markdown
-            MDXContent={MDXContent}
-            slug={slug}
-            mdxDir={mdxDir}
-            sandboxFiles={sandboxFiles}
-        />
+        <>
+            <ScholionController />
+            <Markdown
+                MDXContent={MDXContent}
+                slug={slug}
+                mdxDir={mdxDir}
+                sandboxFiles={sandboxFiles}
+            />
+        </>
     );
 }
