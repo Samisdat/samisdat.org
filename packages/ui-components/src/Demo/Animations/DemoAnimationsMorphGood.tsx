@@ -129,22 +129,24 @@ export const DemoAnimationsMorphGood = () => {
   const [speed, setSpeed] = useState(40);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const getSvg = () =>
-    containerRef.current?.querySelector<SVGSVGElement>("svg") ?? null;
+  const getSvg = useCallback(
+    () => containerRef.current?.querySelector<SVGSVGElement>("svg") ?? null,
+    []
+  );
 
   useEffect(() => {
     const svg = getSvg();
     if (!svg) return;
     svg.pauseAnimations();
     svg.setCurrentTime(0);
-  }, []);
+  }, [getSvg]);
 
   useEffect(() => {
     const svg = getSvg();
     if (!svg) return;
     svg.querySelectorAll("animate")
       .forEach((el) => el.setAttribute("dur", `${speed}s`));
-  }, [speed]);
+  }, [getSvg, speed]);
 
   const onSpeedChange = useCallback((value: number) => {
     setSpeed(value);
@@ -153,12 +155,12 @@ export const DemoAnimationsMorphGood = () => {
   const onPlay = useCallback(() => {
     getSvg()?.unpauseAnimations();
     setIsPlaying(true);
-  }, []);
+  }, [getSvg]);
 
   const onPause = useCallback(() => {
     getSvg()?.pauseAnimations();
     setIsPlaying(false);
-  }, []);
+  }, [getSvg]);
 
   const onReset = useCallback(() => {
     const svg = getSvg();
@@ -168,7 +170,7 @@ export const DemoAnimationsMorphGood = () => {
     }
     setSpeed(40);
     setIsPlaying(false);
-  }, []);
+  }, [getSvg]);
 
   return (
     <DemoAnimation
