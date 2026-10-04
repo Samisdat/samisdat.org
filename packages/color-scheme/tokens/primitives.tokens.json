@@ -1,0 +1,794 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "aubergine": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9745, 0.0125, 300]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9438, 0.0175, 300]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8926, 0.025, 300]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.826, 0.035, 300]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7441, 0.0425, 300]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6622, 0.05, 300]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.57, 0.04, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-muted)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.44, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-subtle)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.37, 0.06, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-raised)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.22, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (primitive-aubergine, aubergine-base)."
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.15, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-deep)."
+      },
+      "$description": "dunkles Aubergine, Markenfarbe; Hintergrund im Dark Mode, Text im Light Mode"
+    },
+    "ivory": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9569, 0.0093, 30]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8997, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-bright)."
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8497, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (primitive-ivory, ivory-base)."
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7797, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-soft)."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7297, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-subtle)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6497, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-muted)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5747, 0.037, 30]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4997, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-dim)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4066, 0.037, 30]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3135, 0.037, 30]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2307, 0.037, 30]
+        }
+      },
+      "$description": "warmes Elfenbein, leicht rosa, Markenfarbe; Text im Dark Mode, Hintergrund im Light Mode"
+    },
+    "red": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9686, 0.0159, 6.99]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.928, 0.0379, 6.27]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8728, 0.0701, 7.69]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8006, 0.118, 8.3]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7113, 0.1886, 8.58]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.64, 0.22, 10]
+        },
+        "$description": "Bestehender Wert (red-on-dark, primitive-red)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5858, 0.22, 10]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5315, 0.2139, 3.68]
+        },
+        "$description": "Bestehender Wert (red-on-light). Hue-Verschiebung -8 (2 statt 10) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.52 0.352 2), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 3.68)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4282, 0.165, 10]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3261, 0.1303, 10.37]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2366, 0.0945, 11.43]
+        }
+      },
+      "$description": "warmes Rot mit leichtem Rosa-Stich"
+    },
+    "orange": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9734, 0.016, 60]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9397, 0.0387, 61.6]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8841, 0.0776, 61.61]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8165, 0.12, 60]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.73, 0.16, 60]
+        },
+        "$description": "Bestehender Wert (orange-on-dark, primitive-orange)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6607, 0.157, 58.66]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5818, 0.1563, 48.89]
+        },
+        "$description": "Bestehender Wert (orange-on-light). Hue-Verschiebung -5 (55 statt 60) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.58 0.224 55), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 48.89)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4932, 0.1255, 52.8]
+        }
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4027, 0.1044, 51.35]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3122, 0.0835, 49.16]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2315, 0.0631, 47.91]
+        }
+      },
+      "$description": "sattes, warmes Orange"
+    },
+    "yellow": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.975, 0.016, 85]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.945, 0.04, 85]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.895, 0.08, 85]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.83, 0.16, 85]
+        },
+        "$description": "Bestehender Wert (yellow-on-dark, primitive-yellow)."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7319, 0.1509, 81.51]
+        },
+        "$description": "Bestehender Wert (yellow-on-light). Ursprünglich oklch(0.73 0.288 85), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 81.51)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6565, 0.1355, 81.12]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5695, 0.1177, 80.51]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4825, 0.1, 79.71]
+        }
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3954, 0.0822, 78.53]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3084, 0.0645, 76.75]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.231, 0.0489, 74]
+        }
+      },
+      "$description": "leuchtendes Gelb, leicht golden"
+    },
+    "green": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9757, 0.0169, 155]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9466, 0.0422, 155]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8983, 0.0845, 155]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8354, 0.1267, 155]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.758, 0.1554, 155]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6806, 0.1689, 154.78]
+        },
+        "$description": "Bestehender Wert (green-on-dark, primitive-green). Ursprünglich oklch(0.68 0.17 155), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 154.78)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5391, 0.1446, 151.11]
+        },
+        "$description": "Bestehender Wert (green-on-light). Ursprünglich oklch(0.53 0.255 155), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 151.11)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4682, 0.1271, 150.59]
+        }
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.388, 0.1073, 149.8]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3076, 0.0871, 148.84]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.234, 0.0658, 149.13]
+        }
+      },
+      "$description": "frisches Grün mit leichtem Blaustich"
+    },
+    "teal": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9774, 0.011, 190]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9511, 0.0275, 190]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9072, 0.055, 190]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8502, 0.0825, 190]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.78, 0.11, 190]
+        },
+        "$description": "Bestehender Wert (teal-on-dark, primitive-teal)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6391, 0.1173, 178.27]
+        },
+        "$description": "Bestehender Wert (teal-on-light). Hue-Verschiebung -10 (180 statt 190) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.63 0.154 180), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 178.27)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5617, 0.097, 189.73]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4793, 0.0828, 189.62]
+        }
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3944, 0.0681, 189.6]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3095, 0.0535, 189.57]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2332, 0.0403, 189.58]
+        }
+      },
+      "$description": "Türkis, grüner und gedeckter als Cyan"
+    },
+    "cyan": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9743, 0.0112, 200]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9433, 0.028, 200]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8916, 0.056, 200]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8244, 0.084, 200]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7417, 0.103, 200]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.659, 0.112, 201.2]
+        },
+        "$description": "Bestehender Wert (cyan-on-dark, primitive-cyan). Ursprünglich oklch(0.65 0.15 200), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 201.2)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.59, 0.1003, 200.87]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.509, 0.088, 189.61]
+        },
+        "$description": "Bestehender Wert (cyan-on-light). Hue-Verschiebung -10 (190 statt 200) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.5 0.21 190), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 189.61)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4193, 0.0713, 201.35]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.323, 0.0549, 201.72]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2364, 0.0402, 201.95]
+        }
+      },
+      "$description": "klares, kühles Cyan"
+    },
+    "blue": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9752, 0.012, 251.79]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9452, 0.027, 250.67]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8996, 0.049, 257.5]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8403, 0.0792, 260.74]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.767, 0.1185, 262.54]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6934, 0.1603, 263.57]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.62, 0.19, 265]
+        },
+        "$description": "Bestehender Wert (blue-on-dark, primitive-blue)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.47, 0.285, 275]
+        },
+        "$description": "Bestehender Wert (blue-on-light). Hue-Verschiebung +10 (275 statt 265) aus der bisherigen Ableitung beibehalten."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3864, 0.1425, 265]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3029, 0.114, 265]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2286, 0.0855, 265]
+        }
+      },
+      "$description": "kräftiges Blau mit Violettstich"
+    },
+    "purple": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9747, 0.0164, 311.81]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9432, 0.0389, 314.1]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8947, 0.0697, 310.95]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8322, 0.1108, 309.1]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7548, 0.1652, 308.18]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6824, 0.2141, 306.09]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6, 0.22, 305]
+        },
+        "$description": "Bestehender Wert (purple-on-dark, primitive-purple)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.463, 0.2419, 303.89]
+        },
+        "$description": "Bestehender Wert (purple-on-light). Ursprünglich oklch(0.45 0.33 305), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 303.89)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3817, 0.165, 305]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3004, 0.132, 305]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2281, 0.099, 305]
+        }
+      },
+      "$description": "kräftiges Violett"
+    },
+    "pink": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9705, 0.026, 325.78]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9313, 0.0621, 326.06]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.869, 0.1238, 326.58]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7971, 0.2025, 327.27]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.72, 0.28, 330]
+        },
+        "$description": "Bestehender Wert (pink-on-dark). Abgeleitet aus dem Roh-Primitive oklch(72% 0.20 345) (c * 1.4, h - 15); das Primitive wurde nie direkt gerendert und entfällt."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6515, 0.2764, 345.57]
+        },
+        "$description": "Bestehender Wert (pink-on-light). Hue-Verschiebung +15 (345 statt 330) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.64 0.3 345), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 345.57)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5768, 0.263, 329.88]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4904, 0.2236, 329.86]
+        }
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.404, 0.1843, 329.83]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3176, 0.1449, 329.77]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2406, 0.1098, 329.69]
+        }
+      },
+      "$description": "leuchtendes Pink"
+    }
+  }
+}

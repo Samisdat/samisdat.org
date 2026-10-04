@@ -1,0 +1,33 @@
+{
+  "name": "@samisdat/color-scheme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./generated/primitives.ts",
+      "import": "./generated/primitives.ts"
+    },
+    "./tokens/*": "./tokens/*"
+  },
+  "scripts": {
+    "build": "tz build",
+    "check": "tz check",
+    "lint": "tz check && tsx scripts/lint-scale.ts",
+    "dev": "tz build --watch",
+    "generate:scale": "tsx scripts/generate-scale.ts"
+  },
+  "devDependencies": {
+    "@terrazzo/cli": "^2.7.0",
+    "@terrazzo/parser": "^2.7.0",
+    "@terrazzo/plugin-css": "^2.7.0",
+    "@terrazzo/plugin-js": "^2.7.0",
+    "@terrazzo/token-tools": "^2.7.0",
+    "@types/culori": "^4.0.1",
+    "@types/node": "catalog:",
+    "culori": "^4.0.2",
+    "tsx": "^4.23.15",
+    "typescript": "catalog:"
+  }
+}

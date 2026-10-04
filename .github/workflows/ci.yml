@@ -32,6 +32,9 @@ jobs:
       
       - name: Lint hardcoded colors
         run: pnpm lint:colors
+
+      - name: Lint color tokens
+        run: pnpm lint:tokens
       
       - name: Lint JavaScript/TypeScript
         run: pnpm lint
