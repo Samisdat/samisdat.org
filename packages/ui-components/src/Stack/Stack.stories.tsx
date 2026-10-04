@@ -125,3 +125,51 @@ export const Weighted: Story = {
     ),
   },
 };
+
+const Filler = ({ lines }: { lines: number }) => (
+  <>
+    {Array.from({ length: lines }, (_, index) => (
+      <p key={index}>Line {index + 1} of a long column that keeps scrolling.</p>
+    ))}
+  </>
+);
+
+// `sticky` pins the shorter column while the pair is visible. Both children
+// are sticky, so it does not matter which side is longer.
+export const StickyShortRight: Story = {
+  args: {
+    container: true,
+    directionSmall: "column",
+    directionMedium: "row",
+    sticky: true,
+    children: (
+      <>
+        <Stack>
+          <Filler lines={60} />
+        </Stack>
+        <Stack>
+          <DemoBox color="yellow">Stays in view</DemoBox>
+        </Stack>
+      </>
+    ),
+  },
+};
+
+export const StickyShortLeft: Story = {
+  args: {
+    container: true,
+    directionSmall: "column",
+    directionMedium: "row",
+    sticky: true,
+    children: (
+      <>
+        <Stack>
+          <DemoBox color="yellow">Stays in view</DemoBox>
+        </Stack>
+        <Stack>
+          <Filler lines={60} />
+        </Stack>
+      </>
+    ),
+  },
+};
