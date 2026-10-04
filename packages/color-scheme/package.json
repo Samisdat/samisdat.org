@@ -6,8 +6,8 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./generated/primitives.ts",
-      "import": "./generated/primitives.ts"
+      "types": "./generated/index.ts",
+      "import": "./generated/index.ts"
     },
     "./tokens/*": "./tokens/*"
   },

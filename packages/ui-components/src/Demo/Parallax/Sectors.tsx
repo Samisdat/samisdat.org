@@ -14,24 +14,24 @@ const Styling = styled.div`
 
     & svg {
         border-radius: 0.5rem;
- border: 1px solid var(--color-background-muted);
-  background-color: var(--color-background-secondary);
+ border: 1px solid var(--color-surface-muted);
+  background-color: var(--color-surface-raised);
 
         &:hover {
-            border-color: var(--color-foreground-subtle);
+            border-color: var(--color-text-subtle);
         }
     }
 
     & svg text { 
         font-family: monospace;
         font-size: 7px;
-        fill: var(--color-background-secondary);
+        fill: var(--color-surface-raised);
     }
 
     & svg path,
     & svg line {
         fill: none;
-        stroke: var(--color-foreground);
+        stroke: var(--color-text-default);
         stroke-linecap: round;
         stroke-linejoin: round;
         stroke-miterlimit: 1.5;
@@ -42,7 +42,7 @@ const Styling = styled.div`
     }
 
     & svg circle {
-        fill: var(--color-red);
+        fill: var(--color-ink-red);
     }
 `;
 

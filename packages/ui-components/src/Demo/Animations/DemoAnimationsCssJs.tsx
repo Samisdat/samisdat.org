@@ -13,21 +13,21 @@ const ClockSvg = styled.svg`
   stroke-miterlimit: 2;
 
   & .face {
-    fill: var(--color-background);
+    fill: var(--color-surface-default);
     fill-rule: nonzero;
   }
 
   & .dial,
   & .center {
     fill-rule: nonzero;
-    fill: var(--color-foreground);
+    fill: var(--color-text-default);
   }
 
   & .hourHand,
   & .minuteHand,
   & .secondHand {
     fill-rule: nonzero;
-    fill: var(--color-foreground);
+    fill: var(--color-text-default);
     transform-box: fill-box;
     transform-origin: 50% 100%;
   }
@@ -47,12 +47,12 @@ const ClockSvg = styled.svg`
   }
 
   & .secondHand {
-    fill: var(--color-red);
+    fill: var(--color-ink-red);
     transform: rotate(calc(1deg * var(--second, 0)));
   }
 
   & .secondHandCover {
-    fill: var(--color-red);
+    fill: var(--color-ink-red);
   }
 `;
 

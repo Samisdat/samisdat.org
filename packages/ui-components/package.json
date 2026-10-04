@@ -60,6 +60,7 @@
     "@fortawesome/react-fontawesome": "catalog:",
     "@linaria/core": "catalog:",
     "@linaria/react": "catalog:",
+    "@samisdat/color-scheme": "workspace:*",
     "@samisdat/tools": "workspace:*",
     "culori": "^4.0.2",
     "fs-extra": "catalog:",

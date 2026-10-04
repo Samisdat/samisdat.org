@@ -9,7 +9,7 @@ Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.toke
 | Ebene | Inhalt | Status |
 |---|---|---|
 | 1 · Wert | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`) |
-| 2 · Bedeutung | `surface`, `text`, `border`, `ink.<hue>`, `status` | Phase 2 |
+| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `status` (weitere Rollen folgen) | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
 | 3 · Einsatzort | `syntax.*`, später `terminal.*` | Phase 5 |
 
 Ebene 1 wird nie zu einer CSS-Variable. Im Web gelangt sie als typisierter Import ins CSS:
@@ -49,7 +49,9 @@ Im Repo-Root: `pnpm lint:tokens` (build, lint und Prüfung, dass `generated/` ak
 
 ## Generierte Dateien
 
-- `generated/primitives.ts`: Ebene 1 als `oklch(…)`-Strings (`ivory[200]`, `type Hue`, `type Step`, `palette`). Das ist der Export `.` des Packages.
+- `generated/primitives.ts`: Ebene 1 als `oklch(…)`-Strings (`ivory[200]`, `type Hue`, `type Step`, `palette`).
+- `generated/semantic.ts`: Ebene 2 als aufgelöste `oklch(…)`-Strings pro Mode (`semantic.dark["surface.default"]`, `type SemanticToken`, `type Mode`). Ebene 1 kommt darin nicht vor.
+- `generated/index.ts`: Export `.` des Packages, re-exportiert beide Module.
 - `generated/tokens.js`, `generated/tokens.d.ts`: Terrazzo-JS-Plugin, normalisierte Tokens pro Resolver-Permutation.
 
 Nicht von Hand bearbeiten.

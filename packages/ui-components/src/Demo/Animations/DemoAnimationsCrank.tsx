@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@linaria/react";
+import { aubergine, ivory } from "@samisdat/color-scheme";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 
@@ -8,23 +9,23 @@ const initialSpeed = 40;
 
 const CrankStyling = styled.svg`
   .plate {
-    fill: var(--color-ivory-bright);
+    fill: ${ivory[100]};
   }
 
   .arm {
-    fill: var(--color-aubergine-deep);
+    fill: ${aubergine[950]};
   }
 
   .hub {
-    fill: var(--color-aubergine-deep);
+    fill: ${aubergine[950]};
   }
 
   .grip {
-    fill: var(--color-aubergine-deep);
+    fill: ${aubergine[950]};
   }
 
   .grip-highlight {
-    fill: var(--color-ivory-bright);
+    fill: ${ivory[100]};
   }
 `;
 

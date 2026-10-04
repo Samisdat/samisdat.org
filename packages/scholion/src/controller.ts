@@ -69,7 +69,7 @@ export function initScholion(): () => void {
             grps[id].g.style.color = color
             document.documentElement.style.setProperty(`--scholion-color-${id}`, color)
         }
-        peekCode.style.background = 'var(--color-background-secondary)'
+        peekCode.style.background = 'var(--color-surface-raised)'
     })
 
     const peekCode = mkBtn('scholion-peek scholion-peek--code', 'Zur Codezeile springen', `

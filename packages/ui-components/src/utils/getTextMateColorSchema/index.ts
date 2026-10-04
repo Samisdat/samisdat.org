@@ -1,3 +1,4 @@
+// Reads the legacy primitives via colorToHex; replaced by the generated syntax theme in Phase 5.
 import { getColorHexMap } from "../../tokens/colorToHex";
 import type { ThemeRegistration } from "shiki";
 

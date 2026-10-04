@@ -18,7 +18,7 @@ const StickyShell = styled.header`
 `;
 
 const Bar = styled.div`
-    background: var(--color-background);
+    background: var(--color-surface-default);
     border-bottom: 2px solid transparent;
     transition: border-color 320ms ease;
 
@@ -31,12 +31,12 @@ const Bar = styled.div`
     @keyframes header-border-fade {
         from {
             border-color: transparent;
-            background: var(--color-background);
+            background: var(--color-surface-default);
         }
 
         to {
-            border-color: var(--color-background-muted);
-            background: var(--color-background-secondary);
+            border-color: var(--color-surface-muted);
+            background: var(--color-surface-raised);
         }
     }
 
@@ -46,12 +46,12 @@ const Bar = styled.div`
 `;
 
 const Teal = styled.span`
-    color: var(--color-teal);
-    text-decoration-color: var(--color-teal);
+    color: var(--color-ink-teal);
+    text-decoration-color: var(--color-ink-teal);
 `;
 const Red = styled.span`
-    color: var(--color-red);
-    text-decoration-color: var(--color-red);
+    color: var(--color-ink-red);
+    text-decoration-color: var(--color-ink-red);
 `;
 
 const StyledLink = styled(Link)`
@@ -81,13 +81,14 @@ const IconNav = styled.nav`
 
     & a {
         display: inline-flex;
-        color: var(--color-foreground);
+        color: var(--color-text-default);
         transition: color 160ms ease;
     }
 
     & a:hover,
     & a:focus-visible {
-        color: var(--color-accent-primary, var(--primitive-pink));
+        /* Fallback is the former pink primitive, which has no scale step. */
+        color: var(--color-accent-primary, oklch(72% 0.2 345deg));
     }
 
     & svg {
@@ -104,7 +105,7 @@ const IconNav = styled.nav`
 `;
 
 const ProgressBar = styled.div`
-    background: var(--color-background-muted);
+    background: var(--color-surface-muted);
     height: 2px;
     width: 0;
     border-start-end-radius: 20px;

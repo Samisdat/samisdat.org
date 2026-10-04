@@ -17,7 +17,7 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
-        border: 1px solid var(--color-background-subtle);
+        border: 1px solid var(--color-surface-subtle);
     }
 
     & .parallax {
@@ -27,7 +27,7 @@ const Styling = styled.div`
     }
 
     & .colorLayer {
-        fill: color-mix(in srgb, var(--color-foreground) calc(100% - var(--mix)), var(--color-background) var(--mix));
+        fill: color-mix(in srgb, var(--color-text-default) calc(100% - var(--mix)), var(--color-surface-default) var(--mix));
     }
 
     & .heaven {
@@ -35,7 +35,7 @@ const Styling = styled.div`
     }
 
     & .sun {
-        fill: var(--color-yellow);
+        fill: var(--color-ink-yellow);
     }
 
     & .bankHighlight {
@@ -89,15 +89,15 @@ export const DemoParallaxHills = () => {
                             >
                                 <stop
                                     offset="0"
-                                    style={{ stopColor: 'var(--color-yellow)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-yellow)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="0.5"
-                                    style={{ stopColor: 'var(--color-green)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-green)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="1"
-                                    style={{ stopColor: 'var(--color-teal)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-teal)', stopOpacity: 1 }}
                                 />
                             </linearGradient>
                             <path

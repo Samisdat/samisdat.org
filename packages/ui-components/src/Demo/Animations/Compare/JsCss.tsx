@@ -5,7 +5,7 @@ import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 const JsCssStyling = styled(SvgStyling)`
     & circle.jscss {
-        fill: var(--color-blue);
+        fill: var(--color-ink-blue);
         transform: translateX(calc(1px * var(--posX)));
     }
 `;

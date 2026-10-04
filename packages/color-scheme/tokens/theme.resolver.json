@@ -3,20 +3,36 @@
   "version": "2025.10",
   "sets": {
     "primitives": {
-      "sources": [{ "$ref": "./primitives.tokens.json" }]
+      "sources": [
+        {
+          "$ref": "./primitives.tokens.json"
+        }
+      ]
     }
   },
   "modifiers": {
     "mode": {
       "default": "dark",
       "contexts": {
-        "dark": [],
-        "light": []
+        "dark": [
+          {
+            "$ref": "./dark.tokens.json"
+          }
+        ],
+        "light": [
+          {
+            "$ref": "./light.tokens.json"
+          }
+        ]
       }
     }
   },
   "resolutionOrder": [
-    { "$ref": "#/sets/primitives" },
-    { "$ref": "#/modifiers/mode" }
+    {
+      "$ref": "#/sets/primitives"
+    },
+    {
+      "$ref": "#/modifiers/mode"
+    }
   ]
 }

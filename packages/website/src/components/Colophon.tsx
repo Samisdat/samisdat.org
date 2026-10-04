@@ -6,16 +6,16 @@ const FooterWrapper = styled.footer`
     padding: var(--space-4, 2rem) 0;
     text-align: center;
     font-size: var(--typo-small-size, 0.875rem);
-    color: var(--color-foreground-subtle);
+    color: var(--color-text-subtle);
 
     & a {
-        color: var(--color-foreground-subtle);
+        color: var(--color-text-subtle);
         text-decoration: underline;
         text-underline-offset: 2px;
 
         &:hover,
         &:focus-visible {
-            color: var(--color-foreground);
+            color: var(--color-text-default);
         }
     }
 `;

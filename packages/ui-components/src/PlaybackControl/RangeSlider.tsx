@@ -11,13 +11,13 @@ const Styling = styled.input`
   /* ---- Track ---- */
   &::-webkit-slider-runnable-track {
     height: 2px;
-    background: var(--color-background);
+    background: var(--color-surface-default);
     border-radius: 1px;
   }
 
   &::-moz-range-track {
     height: 2px;
-    background: var(--color-background);
+    background: var(--color-surface-default);
     border-radius: 1px;
   }
 
@@ -27,7 +27,7 @@ const Styling = styled.input`
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--color-background);
+    background: var(--color-surface-default);
     margin-top: -4px;
   }
 
@@ -36,16 +36,16 @@ const Styling = styled.input`
     height: 10px;
     border: none;
     border-radius: 50%;
-    background: var(--color-background);
+    background: var(--color-surface-default);
   }
 
   &:focus-visible::-webkit-slider-thumb {
-    outline: 2px solid var(--color-background);
+    outline: 2px solid var(--color-surface-default);
     outline-offset: 2px;
   }
 
   &:focus-visible::-moz-range-thumb {
-    outline: 2px solid var(--color-background);
+    outline: 2px solid var(--color-surface-default);
     outline-offset: 2px;
   }
 `;

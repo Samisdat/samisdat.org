@@ -276,6 +276,9 @@ importers:
       '@linaria/react':
         specifier: 'catalog:'
         version: 8.2.0(react@19.3.0)(supports-color@10.2.2)
+      '@samisdat/color-scheme':
+        specifier: workspace:*
+        version: link:../color-scheme
       '@samisdat/tools':
         specifier: workspace:*
         version: link:../tools

@@ -29,11 +29,11 @@ const SvgStyling = styled.svg`
   }
 
   .good {
-    color: var(--color-green);
+    color: var(--color-ink-green);
   }
 
   .bad {
-    color: var(--color-red);
+    color: var(--color-ink-red);
   }
 `;
 

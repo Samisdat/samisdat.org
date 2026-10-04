@@ -38,7 +38,12 @@ const config: StorybookConfig = {
     config.plugins.push(
       wyw({
         include: ["**/*.{ts,tsx,js,jsx}"],
-        exclude: ["**/node_modules/**", "**/.cache/**"],
+        // color-scheme is generated plain data; nothing for Linaria to extract.
+        exclude: [
+          "**/node_modules/**",
+          "**/.cache/**",
+          "**/color-scheme/generated/**",
+        ],
         babelOptions: {
           presets: ["@babel/preset-typescript", "@babel/preset-react"],
         },

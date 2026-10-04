@@ -1,0 +1,109 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "surface": {
+    "$type": "color",
+    "default": {
+      "$value": "{color.aubergine.900}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "full"
+        }
+      }
+    },
+    "emphasis": {
+      "$value": "{color.aubergine.950}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "raised": {
+      "$value": "{color.aubergine.800}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "subtle": {
+      "$value": "{color.aubergine.700}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "muted": {
+      "$value": "{color.aubergine.600}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    }
+  },
+  "text": {
+    "$type": "color",
+    "default": {
+      "$value": "{color.ivory.200}"
+    },
+    "emphasis": {
+      "$value": "{color.ivory.100}"
+    },
+    "secondary": {
+      "$value": "{color.ivory.300}"
+    },
+    "subtle": {
+      "$value": "{color.ivory.500}"
+    },
+    "muted": {
+      "$value": "{color.ivory.700}"
+    }
+  },
+  "ink": {
+    "$type": "color",
+    "red": {
+      "$value": "{color.red.500}"
+    },
+    "orange": {
+      "$value": "{color.orange.400}"
+    },
+    "yellow": {
+      "$value": "{color.yellow.300}"
+    },
+    "green": {
+      "$value": "{color.green.500}"
+    },
+    "teal": {
+      "$value": "{color.teal.400}"
+    },
+    "cyan": {
+      "$value": "{color.cyan.500}"
+    },
+    "blue": {
+      "$value": "{color.blue.600}"
+    },
+    "purple": {
+      "$value": "{color.purple.600}"
+    },
+    "pink": {
+      "$value": "{color.pink.400}"
+    }
+  },
+  "status": {
+    "$type": "color",
+    "danger": {
+      "$value": "{ink.red}"
+    },
+    "warning": {
+      "$value": "{ink.yellow}"
+    },
+    "success": {
+      "$value": "{ink.green}"
+    },
+    "info": {
+      "$value": "{ink.blue}"
+    }
+  }
+}

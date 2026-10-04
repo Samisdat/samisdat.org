@@ -24,7 +24,7 @@ const Glyph = styled.span`
     &::after {
         content: var(--c);
         font-size: var(--typo-body-size, 1rem);
-        color: var(--color-foreground);
+        color: var(--color-text-default);
     }
 `;
 

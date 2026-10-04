@@ -1,15 +1,12 @@
 import { css } from "@linaria/core";
 import "normalize.css";
 import { colorClassNames } from "./colorClassNames";
-import { colorProperties } from "./colorProperties";
-import { colorVars } from "./colorVars";
 import { breakpoints } from "../tokens/breakpoints";
 import { scholionStyles } from "./scholion";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
 export const globalStyles = css`
   :global() {
-    ${colorProperties}
     @property --theme-progress {
       syntax: "<number>";
       inherits: true;
@@ -17,7 +14,6 @@ export const globalStyles = css`
     }
 
     :root {
-      ${colorVars}
       --typo-h1-size: 3rem;
       --typo-h2-size: 2.75rem;
       --typo-h3-size: 2.25rem;
@@ -98,8 +94,8 @@ export const globalStyles = css`
 
     html {
       font-size: 20px;
-      background-color: var(--color-background);
-      color: var(--color-foreground);
+      background-color: var(--color-surface-default);
+      color: var(--color-text-default);
       font-family: var(--font-sans);
       transition:
         background-color 100ms ease,
@@ -109,7 +105,7 @@ export const globalStyles = css`
     /*
     .hill-before-green-tower,
     .hill4100 {
-      fill: var(--color-background);
+      fill: var(--color-surface-default);
       transition: fill 100ms ease;
     }
 */
@@ -127,14 +123,6 @@ export const globalStyles = css`
       width: 100px;
       height: 100px;
       margin: 1rem;
-    }
-
-    div.color.background {
-      background-color: var(--color-background);
-    }
-
-    div.color.foreground {
-      background-color: var(--color-foreground);
     }
 
     ${colorClassNames}

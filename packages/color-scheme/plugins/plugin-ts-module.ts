@@ -10,13 +10,22 @@ const ID_PATTERN = /^color\.([a-z]+)\.(\d+)$/;
 const component = (value: number | "none" | null) =>
   value === "none" || value === null ? 0 : value;
 
+const toOklch = (value: { components: (number | "none" | null)[] }) => {
+  const [l, c, h] = value.components.map(component);
+  return `oklch(${l} ${c} ${h})`;
+};
+
 /**
- * Emits level 1 (values) as a typed TS module: one `as const` object per hue,
- * each step mapped to a CSS `oklch()` string, ready for Linaria interpolation.
+ * Emits two typed TS modules:
+ * - level 1 (values): one `as const` object per hue, each step mapped to a CSS
+ *   `oklch()` string, ready for Linaria interpolation.
+ * - level 2 (meaning): resolved `oklch()` literal per mode and token id, without
+ *   the level 1 primitives.
  */
 export default function pluginTsModule({
   filename = "primitives.ts",
-}: { filename?: string } = {}): Plugin {
+  semanticFilename = "semantic.ts",
+}: { filename?: string; semanticFilename?: string } = {}): Plugin {
   return {
     name: "samisdat:ts-module",
     async build({ resolver, outputFile, context }) {
@@ -71,6 +80,68 @@ export default function pluginTsModule({
       ].join("\n");
 
       outputFile(filename, code);
+
+      const semantic: Record<string, Record<string, string>> = {};
+      for (const mode of resolver.listPermutations?.() ?? []) {
+        const modeName = (mode as { mode: string }).mode;
+        const modeTokens: Record<string, string> = {};
+        for (const [id, token] of Object.entries(resolver.apply(mode))) {
+          if (id.startsWith("color.")) continue;
+          if (token.$type !== "color" || token.$value.colorSpace !== "oklch") {
+            context.logger.error({
+              group: "plugin",
+              label: "samisdat:ts-module",
+              message: `${id} must be an oklch color`,
+            });
+            continue;
+          }
+          modeTokens[id] = toOklch(token.$value);
+        }
+        semantic[modeName] = modeTokens;
+      }
+
+      const modeBlocks = Object.entries(semantic).map(([modeName, tokens]) => {
+        const lines = Object.entries(tokens).map(
+          ([id, css]) => `    "${id}": "${css}",`,
+        );
+        return `  ${modeName}: {\n${lines.join("\n")}\n  },`;
+      });
+      const modeNames = Object.keys(semantic);
+      const firstMode = modeNames[0];
+
+      outputFile(
+        semanticFilename,
+        [
+          HEADER,
+          "",
+          "export const semantic = {",
+          ...modeBlocks,
+          "} as const;",
+          "",
+          `export const modes = [${modeNames.map((m) => `"${m}"`).join(", ")}] as const;`,
+          "",
+          "export type Mode = (typeof modes)[number];",
+          `export type SemanticToken = keyof (typeof semantic)["${firstMode}"];`,
+          "",
+        ].join("\n"),
+      );
+
+      // Named re-exports instead of `export *`: Linaria's dependency graph
+      // (wyw-in-js) does not follow star exports reliably.
+      const primitiveModule = `./${filename.replace(/\.ts$/, "")}`;
+      const semanticModule = `./${semanticFilename.replace(/\.ts$/, "")}`;
+      outputFile(
+        "index.ts",
+        [
+          HEADER,
+          "",
+          `export { ${[...hueNames, "hues", "steps", "palette"].join(", ")} } from "${primitiveModule}";`,
+          `export type { Hue, Step } from "${primitiveModule}";`,
+          `export { semantic, modes } from "${semanticModule}";`,
+          `export type { Mode, SemanticToken } from "${semanticModule}";`,
+          "",
+        ].join("\n"),
+      );
     },
   };
 }

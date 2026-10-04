@@ -24,12 +24,12 @@ const PlayPauseButton = styled.button`
 `;
 
 const Styling = styled.div`
-  border: 1px solid var(--color-background-muted);
+  border: 1px solid var(--color-surface-muted);
   padding: 1rem;
   font-family: var(--font-code);
   font-weight: bold;
-  background-color: var(--color-yellow);
-  color: var(--color-background);
+  background-color: var(--color-ink-yellow);
+  color: var(--color-surface-default);
 `;
 
 const Notice = styled.div`

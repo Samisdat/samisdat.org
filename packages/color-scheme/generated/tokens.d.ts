@@ -136,6 +136,29 @@ export interface Tokens {
   "color.pink.800": Color;
   "color.pink.900": Color;
   "color.pink.950": Color;
+  "surface.default": Color;
+  "surface.emphasis": Color;
+  "surface.raised": Color;
+  "surface.subtle": Color;
+  "surface.muted": Color;
+  "text.default": Color;
+  "text.emphasis": Color;
+  "text.secondary": Color;
+  "text.subtle": Color;
+  "text.muted": Color;
+  "ink.red": Color;
+  "ink.orange": Color;
+  "ink.yellow": Color;
+  "ink.green": Color;
+  "ink.teal": Color;
+  "ink.cyan": Color;
+  "ink.blue": Color;
+  "ink.purple": Color;
+  "ink.pink": Color;
+  "status.danger": Color;
+  "status.warning": Color;
+  "status.success": Color;
+  "status.info": Color;
 }
 
 /** Produce a token set from a given input. */
