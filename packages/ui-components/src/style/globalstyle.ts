@@ -26,6 +26,7 @@ export const globalStyles = css`
       --typo-h6-size: 1rem;
       --header-height: calc(100vw * 500 / 1280);
       --navi-height: 3.2rem;
+      --scholion-nav-offset: calc(var(--typo-h5-size) * 1.5 + 2 * 0.5rem + 4px);
     }
 
     @media (min-width: ${breakpoints.medium}) {
@@ -130,9 +131,5 @@ export const globalStyles = css`
     ${colorClassNames}
 
     ${scholionStyles}
-
-    :root {
-      --scholion-nav-offset: calc(var(--typo-h5-size) * 1.5 + 2 * 0.5rem + 4px);
-    }
   }
 `;

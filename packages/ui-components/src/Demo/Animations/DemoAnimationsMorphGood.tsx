@@ -7,12 +7,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const SvgStyling = styled.svg`
   .shape {
     fill: none;
+    stroke: currentColor;
     stroke-width: 4;
     stroke-linejoin: round;
     stroke-linecap: round;
   }
 
   .point circle {
+    fill: currentColor;
     stroke: white;
     stroke-width: 0;
   }
@@ -32,13 +34,6 @@ const SvgStyling = styled.svg`
 
   .bad {
     color: var(--color-red);
-  }
-
-  .shape {
-    stroke: currentColor;
-  }
-  .point circle {
-    fill: currentColor;
   }
 `;
 
