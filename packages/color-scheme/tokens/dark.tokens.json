@@ -38,7 +38,8 @@
       "$value": "{color.aubergine.600}",
       "$extensions": {
         "org.samisdat.a11y": {
-          "textTier": "neutral-only"
+          "textTier": "neutral-only",
+          "exempt": "no text on this surface; only used for borders (Card, PlaybackControl, Navi header, Demo/Parallax) and the 2px scroll progress bar in Navi"
         }
       }
     }
@@ -58,7 +59,7 @@
       "$value": "{color.ivory.500}"
     },
     "muted": {
-      "$value": "{color.ivory.700}"
+      "$value": "{color.ivory.600}"
     }
   },
   "ink": {
@@ -97,7 +98,7 @@
       "$value": "{ink.red}"
     },
     "warning": {
-      "$value": "{ink.yellow}"
+      "$value": "{ink.orange}"
     },
     "success": {
       "$value": "{ink.green}"

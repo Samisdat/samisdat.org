@@ -41,7 +41,7 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | Skript | Zweck |
 |---|---|
 | `build` | `tz build`: Lint plus `generated/` neu erzeugen |
-| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts` und `lint:contrast` |
+| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast` und `scripts/lint-distinct.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
 | `dev` | `tz build --watch` |
@@ -55,21 +55,24 @@ Die Prüfmatrix wird aus den Token-Dateien abgeleitet (`src/contrast.ts`, Export
 
 - `text.*` und `ink.*` auf jedem Surface mit `textTier: "full"`: ≥ 4,5:1
 - `text.default` und `text.emphasis` auf Surfaces mit `textTier: "neutral-only"`: ≥ 4,5:1
-- `status.*` sind Aliase auf `ink.*` und werden nicht doppelt geprüft
+- `status.*` sind Aliase auf `ink.*` und werden nicht doppelt geprüft (`danger` → `ink.red`, `warning` → `ink.orange`, `success` → `ink.green`, `info` → `ink.blue`, in beiden Modes; `ink.yellow` taugt im Light Mode nicht als Warnfarbe, er wirkt olivbraun)
 - Tokens mit `$extensions["org.samisdat.a11y"].exempt` (Begründung als String) sind ausgenommen
+  (z. B. `surface.muted`: nur Rahmen und Fortschrittsbalken, kein Text)
 - Platzhalter für `border.*` (≥ 3) und `syntax.*` stehen als Kommentar in `src/contrast.ts`; sie kommen mit den jeweiligen Tokens
 
 Pair-IDs haben die Form `dark:text.muted/surface.default`.
 
 **Lint** (`lint:contrast`, Teil von `lint` und damit von `pnpm lint:tokens`): Terrazzos `a11y/min-contrast` sieht nur den Default-Mode. Deshalb lädt `terrazzo.contrast.config.ts` Primitives plus genau eine Mode-Datei und läuft zweimal (`MODE=dark|light`) über Matrix minus Baseline. Danach prüft `scripts/lint-contrast.ts`, dass jeder Baseline-Eintrag noch in der Matrix existiert und noch fehlschlägt. Terrazzo nennt Paare nur mit Index (`Pair 6 failed`); Reihenfolge ist die der Matrix.
 
-**Baseline** (`contrast-baseline.json`): bekannte Verstöße mit ihrem Verhältnis. Sie dürfen nicht neu entstehen, die Liste darf nur schrumpfen. Workflow:
+**Baseline** (`contrast-baseline.json`): bekannte Verstöße mit ihrem Verhältnis. Seit Phase 4 ist sie leer; ein neuer Verstoß ist zu beheben, nicht einzutragen. Der Mechanismus bleibt für bewusste, begründete Ausnahmen. Workflow:
 
 1. Wert korrigieren (`tokens/*.tokens.json`), `pnpm lint:tokens`.
 2. Meldet der Lint „now passes, remove from baseline“: `pnpm --filter @samisdat/color-scheme contrast:baseline` ausführen und die kleinere Datei committen.
 3. Die Datei nie von Hand vergrößern; ein neuer Verstoß ist zu beheben, nicht einzutragen.
 
-**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
+**Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,36–0,47, manche Inks sitzen auf Stufe 800 statt 700, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen auf drei Nachkommastellen, und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,122 (orange ~ yellow), Light Mode: 0,080 (green ~ teal).
+
+**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
 
 ## Generierte Dateien
 

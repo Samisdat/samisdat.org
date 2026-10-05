@@ -55,6 +55,11 @@ const Cell = styled.td`
   &[data-required="false"] {
     opacity: 0.45;
   }
+
+  &[data-exempt="true"] {
+    border-style: dashed;
+    border-color: currentColor;
+  }
 `;
 
 const Sample = styled.span`
@@ -110,9 +115,13 @@ const Grid = ({ mode }: { mode: Mode }) => {
             <tr>
               <th scope="col">Foreground / Surface</th>
               {surfaces.map((surface) => (
-                <th key={surface.id} scope="col">
+                <th
+                  key={surface.id}
+                  scope="col"
+                  title={surface.exempt ? `exempt: ${surface.exempt}` : undefined}
+                >
                   {surface.id}
-                  <Tier>{surface.textTier}</Tier>
+                  <Tier>{surface.exempt ? "exempt" : surface.textTier}</Tier>
                 </th>
               ))}
             </tr>
@@ -125,6 +134,7 @@ const Grid = ({ mode }: { mode: Mode }) => {
                   const id = `${mode}:${fg.id}/${bg.id}`;
                   const isRequired = required.has(id);
                   const baseline = id in contrastBaseline;
+                  const exemptReason = bg.exempt ?? fg.exempt;
                   const value = ratio(valueOf(mode, fg.id), valueOf(mode, bg.id));
                   const pass = value >= MIN;
                   return (
@@ -132,6 +142,8 @@ const Grid = ({ mode }: { mode: Mode }) => {
                       key={bg.id}
                       data-required={isRequired}
                       data-baseline={baseline}
+                      data-exempt={Boolean(exemptReason)}
+                      title={exemptReason ? `exempt: ${exemptReason}` : undefined}
                       style={{
                         color: valueOf(mode, fg.id),
                         background: valueOf(mode, bg.id),
@@ -139,7 +151,9 @@ const Grid = ({ mode }: { mode: Mode }) => {
                     >
                       <Sample aria-hidden="true">Aa</Sample>
                       <Ratio>{value.toFixed(2)}</Ratio>
-                      <Badge>{pass ? "Pass" : "Fail"}</Badge>
+                      <Badge>
+                        {exemptReason ? "Exempt" : pass ? "Pass" : "Fail"}
+                      </Badge>
                       {baseline ? <Badge>Baseline</Badge> : null}
                     </Cell>
                   );
@@ -159,7 +173,8 @@ const ContrastGrid = () => (
     <Legend aria-label="Legend">
       <li>Outlined cell: required pair (min. {MIN}:1)</li>
       <li>Dimmed cell: not required</li>
-      <li>Baseline: known violation, fixed in a later phase</li>
+      <li>Dashed cell: exempt (ausgenommen), reason as tooltip</li>
+      <li>Baseline: known, justified violation (currently none)</li>
     </Legend>
     {modes.map((mode) => (
       <Grid key={mode} mode={mode} />

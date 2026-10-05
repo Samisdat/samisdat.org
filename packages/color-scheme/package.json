@@ -22,7 +22,7 @@
   "scripts": {
     "build": "tz build",
     "check": "tz check",
-    "lint": "tz check && tsx scripts/lint-scale.ts && pnpm lint:contrast",
+    "lint": "tz check && tsx scripts/lint-scale.ts && pnpm lint:contrast && tsx scripts/lint-distinct.ts",
     "dev": "tz build --watch",
     "generate:scale": "tsx scripts/generate-scale.ts",
     "lint:contrast": "tz build && tsx scripts/lint-contrast.ts && MODE=dark tz check -c terrazzo.contrast.config.ts && MODE=light tz check -c terrazzo.contrast.config.ts",

@@ -11,7 +11,7 @@
       }
     },
     "emphasis": {
-      "$value": "{color.ivory.700}",
+      "$value": "{color.ivory.600}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only"
@@ -38,7 +38,8 @@
       "$value": "{color.ivory.500}",
       "$extensions": {
         "org.samisdat.a11y": {
-          "textTier": "neutral-only"
+          "textTier": "neutral-only",
+          "exempt": "no text on this surface; only used for borders (Card, PlaybackControl, Navi header, Demo/Parallax) and the 2px scroll progress bar in Navi"
         }
       }
     }
@@ -58,7 +59,7 @@
       "$value": "{color.aubergine.700}"
     },
     "muted": {
-      "$value": "{color.aubergine.600}"
+      "$value": "{color.ivory.700}"
     }
   },
   "ink": {
@@ -67,28 +68,28 @@
       "$value": "{color.red.700}"
     },
     "orange": {
-      "$value": "{color.orange.600}"
+      "$value": "{color.orange.700}"
     },
     "yellow": {
-      "$value": "{color.yellow.400}"
+      "$value": "{color.yellow.800}"
     },
     "green": {
-      "$value": "{color.green.600}"
+      "$value": "{color.green.800}"
     },
     "teal": {
-      "$value": "{color.teal.500}"
+      "$value": "{color.teal.700}"
     },
     "cyan": {
-      "$value": "{color.cyan.700}"
+      "$value": "{color.cyan.800}"
     },
     "blue": {
       "$value": "{color.blue.700}"
     },
     "purple": {
-      "$value": "{color.purple.700}"
+      "$value": "{color.purple.800}"
     },
     "pink": {
-      "$value": "{color.pink.500}"
+      "$value": "{color.pink.800}"
     }
   },
   "status": {
@@ -97,7 +98,7 @@
       "$value": "{ink.red}"
     },
     "warning": {
-      "$value": "{ink.yellow}"
+      "$value": "{ink.orange}"
     },
     "success": {
       "$value": "{ink.green}"

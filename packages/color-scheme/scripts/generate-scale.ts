@@ -12,6 +12,8 @@
  *   pnpm generate:scale --migration     print the old name → token id table (Markdown)
  *
  * Committed values are the source of truth; hand-edit the token file afterwards.
+ * Note: since Phase 4 the committed file contains hand-tuned steps (contrast
+ * fixes, see `$description`); `--write` would overwrite them.
  */
 import { writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -338,6 +340,23 @@ function mapToSrgb(c: Oklch): { value: Oklch; mapped: boolean } {
   };
 }
 
+/**
+ * Gamut mapping for generated steps: only chroma is reduced, L and H stay.
+ * (The CSS Color 4 algorithm above shifts the hue, which made generated steps
+ * drift away from the scale hue. It is kept for anchors, whose old values
+ * were mapped that way.)
+ */
+function reduceChroma(c: Oklch): Oklch {
+  let out = { l: round(c.l, 4), c: round(c.c, 4), h: round(c.h, 2) };
+  while (
+    out.c > 0 &&
+    !isInSrgb({ mode: "oklch", l: out.l, c: out.c, h: out.h })
+  ) {
+    out = { ...out, c: round(out.c - 0.0001, 4) };
+  }
+  return out;
+}
+
 // ---------------------------------------------------------------------------
 // Scale construction
 // ---------------------------------------------------------------------------
@@ -422,7 +441,7 @@ function buildHue(hue: Hue): Entry[] {
     }
     const l = lAt(step);
     const raw = { l, c: peakChroma * config.taper[step], h: baseHue };
-    return { hue, step, value: mapToSrgb(raw).value };
+    return { hue, step, value: reduceChroma(raw) };
   });
 }
 
