@@ -8,7 +8,7 @@ import wyw from "@wyw-in-js/vite";
 const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
 
 /**
- * Source dirs of all workspace packages this package depends on.
+ * Package dirs of all workspace packages this package depends on.
  *
  * Vite only watches its root (this package) and files it has loaded itself.
  * Modules that wyw-in-js evaluates at build time (tokens interpolated into
@@ -16,8 +16,12 @@ const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
  * never loads them and never watches them. Edits to those files then emit no
  * change event, and wyw-in-js' handleHotUpdate (which would re-transform the
  * dependent component) never runs.
+ *
+ * The whole package dir is watched, not just `src`: color-scheme exports
+ * from `generated/` (rebuilt by `tz build --watch`). Vite's watcher already
+ * ignores node_modules and .git.
  */
-const workspaceSourceDirs = (): string[] => {
+const workspacePackageDirs = (): string[] => {
   const pkg = JSON.parse(
     readFileSync(join(packageRoot, "package.json"), "utf8"),
   ) as Record<string, Record<string, string> | undefined>;
@@ -25,9 +29,7 @@ const workspaceSourceDirs = (): string[] => {
 
   return Object.entries(deps)
     .filter(([, version]) => version.startsWith("workspace:"))
-    .map(([name]) =>
-      join(realpathSync(join(packageRoot, "node_modules", name)), "src"),
-    );
+    .map(([name]) => realpathSync(join(packageRoot, "node_modules", name)));
 };
 
 // `vite` is not a direct dependency of this package, so the plugin is typed
@@ -36,7 +38,7 @@ const watchWorkspaceSources = () => ({
   name: "samisdat:watch-workspace-sources",
   apply: "serve" as const,
   configureServer(server: { watcher: { add(paths: string[]): unknown } }) {
-    server.watcher.add(workspaceSourceDirs());
+    server.watcher.add(workspacePackageDirs());
   },
 });
 
@@ -62,10 +64,10 @@ const config: StorybookConfig = {
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "react-dom",
-      "@samisdat/ui-components > @linaria/react",
+      "@linaria/react",
+      "culori",
       "@samisdat/ui-components > @linaria/core",
       "@samisdat/ui-components > react-shiki",
-      "@samisdat/ui-components > culori",
       "@samisdat/ui-components > @fortawesome/react-fontawesome",
       "@samisdat/ui-components > @fortawesome/free-regular-svg-icons",
       "@samisdat/ui-components > @fortawesome/free-solid-svg-icons",
