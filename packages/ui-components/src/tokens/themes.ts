@@ -1,4 +1,4 @@
-import { semantic, type Mode } from "@samisdat/color-scheme";
+import { semantic, type Mode } from "@samisdat/color-scheme/semantic";
 
 export type Theme = {
   colorScheme: Mode;

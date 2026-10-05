@@ -5,9 +5,13 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "types": "./generated/index.ts",
-      "import": "./generated/index.ts"
+    "./semantic": {
+      "types": "./generated/semantic.ts",
+      "import": "./generated/semantic.ts"
+    },
+    "./primitives": {
+      "types": "./generated/primitives.ts",
+      "import": "./generated/primitives.ts"
     },
     "./shiki": {
       "types": "./generated/shiki-theme.ts",

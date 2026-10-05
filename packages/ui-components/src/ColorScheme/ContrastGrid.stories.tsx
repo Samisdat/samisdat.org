@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { styled } from "@linaria/react";
-import { modes, type Mode } from "@samisdat/color-scheme";
+import { modes, type Mode } from "@samisdat/color-scheme/semantic";
 import {
   contrastMatrixAll,
   SYNTAX_BACKGROUNDS,

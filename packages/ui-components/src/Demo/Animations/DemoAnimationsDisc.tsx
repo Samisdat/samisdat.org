@@ -1,7 +1,7 @@
 "use client";
 
 import { styled } from "@linaria/react";
-import { aubergine, ivory } from "@samisdat/color-scheme";
+import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 

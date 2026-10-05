@@ -1,4 +1,4 @@
-import { semantic, type Mode } from "@samisdat/color-scheme";
+import { semantic, type Mode } from "@samisdat/color-scheme/semantic";
 import { formatHex, oklch, parse, wcagContrast } from "culori";
 
 /** Resolved `oklch()` string of a level 2 token. */

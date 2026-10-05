@@ -1,5 +1,5 @@
 import { styled } from "@linaria/react";
-import { purple } from "@samisdat/color-scheme";
+import { purple } from "@samisdat/color-scheme/primitives";
 import { FC, HTMLAttributes } from "react";
 
 const demoBoxColors = {

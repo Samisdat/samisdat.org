@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { styled } from "@linaria/react";
-import { hues, modes, palette, steps, type Hue } from "@samisdat/color-scheme";
+import { modes } from "@samisdat/color-scheme/semantic";
+import { hues, palette, steps, type Hue } from "@samisdat/color-scheme/primitives";
 import { tokensOf } from "@samisdat/color-scheme/contrast";
 import { labelColorOn, toHex, toOklch, valueOf } from "./utils";
 

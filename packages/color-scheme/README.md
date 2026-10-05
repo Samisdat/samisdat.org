@@ -15,12 +15,14 @@ Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.toke
 Ebene 1 wird nie zu einer CSS-Variable. Im Web gelangt sie als typisierter Import ins CSS:
 
 ```ts
-import { ivory } from "@samisdat/color-scheme";
+import { ivory } from "@samisdat/color-scheme/primitives";
 
 const Box = styled.div`
   background: ${ivory[200]};
 `;
 ```
+
+Importe immer über die Subpfade `@samisdat/color-scheme/primitives`, `/semantic`, `/shiki`, `/contrast`, `/apca`. Einen Sammel-Export gibt es bewusst nicht: wyw-in-js (Linaria) kennt für eine reine Re-Export-Datei keinen Abhängigkeitsgraphen und bricht den Build mit `UnknownDependencyGraphResetError` ab.
 
 Welcher alte Name (`ivory-soft`, `red-on-light` …) auf welcher Stufe gelandet ist, steht im `$description` der jeweiligen Stufe.
 
