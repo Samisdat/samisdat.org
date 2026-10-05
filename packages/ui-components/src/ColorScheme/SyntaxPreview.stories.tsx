@@ -46,14 +46,17 @@ const captures = syntaxForegrounds("dark").map((t) => ({
   variable: `var(--color-${t.id.replaceAll(".", "-")})`,
 }));
 
-const code = `const Box = styled.div\`
+// CSS inside styled templates is a string for Shiki's TS grammar, so the
+// real comments sit outside the template.
+const code = `// Box keeps the label readable on any surface.
+const Box = styled.div\`
   color: var(--color-ink-red);
-  /* comment */
   padding: \${space[4]};
 \`;
 
+/* Renders the label text; size comes from the parent. */
 export const Label = ({ text }: { text: string }) => (
-  <span className="label">{text}</span>
+  <span className="label">{text}</span> // TODO: truncate long text
 );`;
 
 const Preview = ({ title }: { title: string }) => (
