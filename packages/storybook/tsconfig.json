@@ -12,16 +12,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@samisdat/ui-components/*": ["./src/*"]
-    }
+    "incremental": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": [".storybook", "src"],
   "exclude": ["node_modules"]
 }
