@@ -141,7 +141,7 @@
       "$value": "{ink.red}"
     },
     "string": {
-      "$value": "{ink.orange}"
+      "$value": "{ink.green}"
     },
     "string-special": {
       "$value": "{ink.cyan}"
