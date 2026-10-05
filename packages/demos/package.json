@@ -1,0 +1,37 @@
+{
+  "name": "@samisdat/demos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./*": {
+      "types": "./src/*/index.tsx",
+      "import": "./src/*/index.tsx"
+    },
+    "./Animations/*": {
+      "types": "./src/Animations/*.tsx",
+      "import": "./src/Animations/*.tsx"
+    },
+    "./Animations/Compare": {
+      "types": "./src/Animations/Compare/index.tsx",
+      "import": "./src/Animations/Compare/index.tsx"
+    },
+    "./Parallax/*": {
+      "types": "./src/Parallax/*.tsx",
+      "import": "./src/Parallax/*.tsx"
+    }
+  },
+  "dependencies": {
+    "@linaria/react": "catalog:",
+    "@samisdat/color-scheme": "workspace:*",
+    "@samisdat/tools": "workspace:*",
+    "@samisdat/ui-components": "workspace:*",
+    "react": "catalog:"
+  },
+  "devDependencies": {
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "typescript": "catalog:"
+  }
+}

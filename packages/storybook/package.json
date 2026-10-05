@@ -19,6 +19,7 @@
     "@fontsource/playwrite-no": "^5.3.0",
     "@linaria/react": "catalog:",
     "@samisdat/color-scheme": "workspace:*",
+    "@samisdat/demos": "workspace:*",
     "@samisdat/tools": "workspace:*",
     "@samisdat/ui-components": "workspace:*",
     "@storybook/addon-a11y": "^10.6.1",
