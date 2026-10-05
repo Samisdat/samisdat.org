@@ -159,6 +159,25 @@ export interface Tokens {
   "status.warning": Color;
   "status.success": Color;
   "status.info": Color;
+  "syntax.foreground": Color;
+  "syntax.background": Color;
+  "syntax.comment": Color;
+  "syntax.keyword": Color;
+  "syntax.string": Color;
+  "syntax.string-special": Color;
+  "syntax.number": Color;
+  "syntax.constant": Color;
+  "syntax.function": Color;
+  "syntax.type": Color;
+  "syntax.variable": Color;
+  "syntax.parameter": Color;
+  "syntax.property": Color;
+  "syntax.tag": Color;
+  "syntax.tag-attribute": Color;
+  "syntax.operator": Color;
+  "syntax.punctuation": Color;
+  "syntax.diff-plus": Color;
+  "syntax.diff-minus": Color;
 }
 
 /** Produce a token set from a given input. */

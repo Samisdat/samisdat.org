@@ -157,3 +157,20 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   und der Workbench-Teil von `getTextMateColorSchema` entfallen.
 - Generierte Dateien erscheinen in Diffs; GitHub klappt sie ein.
 - ADR 0007 bleibt gültig; die Theme-Erzeugung wandert in das neue Paket.
+
+## Umsetzung
+
+Abweichungen bei der Umsetzung von Phase 5:
+
+- Token-IDs von `syntax.*` ersetzen den Punkt im Capture-Namen durch `-`
+  (`syntax.tag-attribute`, `syntax.diff-plus`), weil DTCG ein Token nicht
+  zugleich als Gruppe erlaubt (`tag` und `tag.attribute`). Die CSS-Variable
+  heißt dadurch ebenfalls `--color-syntax-tag-attribute`.
+- `syntax.string-special` (Capture `string.special`) deckt Regex und
+  Escape-Sequenzen ab.
+- Das Shiki-Theme bleibt typstrukturell kompatibel zu `ThemeRegistration`,
+  das Paket hängt nicht von `shiki` ab. `ui-components` re-exportiert es
+  typisiert als `@samisdat/ui-components/utils/shikiTheme`.
+- Der Scholion-Controller reicht die Variable des Token-Spans weiter statt
+  der berechneten Farbe, damit Linien und Lemmas bei Theme-Wechsel und
+  Morphing mitlaufen.

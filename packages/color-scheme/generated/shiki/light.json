@@ -1,0 +1,201 @@
+{
+  "name": "samisdat",
+  "fg": "#1e142e",
+  "bg": "#f6d5d0",
+  "colors": {
+    "editor.foreground": "#1e142e",
+    "editor.background": "#f6d5d0"
+  },
+  "tokenColors": [
+    {
+      "scope": [
+        "comment",
+        "punctuation.definition.comment"
+      ],
+      "settings": {
+        "foreground": "#6a4f4b",
+        "fontStyle": "italic"
+      }
+    },
+    {
+      "scope": [
+        "keyword",
+        "keyword.control",
+        "keyword.operator.new",
+        "keyword.operator.expression",
+        "keyword.operator.delete",
+        "keyword.operator.instanceof",
+        "keyword.operator.typeof",
+        "keyword.other",
+        "storage",
+        "storage.type",
+        "storage.modifier",
+        "entity.other.inherited-class"
+      ],
+      "settings": {
+        "foreground": "#a7023d"
+      }
+    },
+    {
+      "scope": [
+        "string",
+        "string.quoted",
+        "string.template",
+        "punctuation.definition.string",
+        "markup.inline.raw"
+      ],
+      "settings": {
+        "foreground": "#844201"
+      }
+    },
+    {
+      "scope": [
+        "string.regexp",
+        "constant.character.escape",
+        "constant.other.character-class",
+        "keyword.operator.quantifier.regexp",
+        "keyword.control.anchor.regexp"
+      ],
+      "settings": {
+        "foreground": "#014553"
+      }
+    },
+    {
+      "scope": [
+        "constant.numeric",
+        "keyword.other.unit"
+      ],
+      "settings": {
+        "foreground": "#05561d"
+      }
+    },
+    {
+      "scope": [
+        "constant",
+        "constant.language",
+        "support.constant",
+        "variable.other.constant",
+        "variable.language"
+      ],
+      "settings": {
+        "foreground": "#05561d"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.function",
+        "support.function",
+        "variable.function",
+        "entity.name.method",
+        "meta.definition.method entity.name.function"
+      ],
+      "settings": {
+        "foreground": "#273bdc"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.type",
+        "entity.name.class",
+        "entity.name.namespace",
+        "support.class",
+        "support.type",
+        "meta.type.annotation entity.name.type"
+      ],
+      "settings": {
+        "foreground": "#014553"
+      }
+    },
+    {
+      "scope": [
+        "variable",
+        "variable.other",
+        "variable.other.readwrite"
+      ],
+      "settings": {
+        "foreground": "#1e142e"
+      }
+    },
+    {
+      "scope": [
+        "variable.parameter",
+        "meta.function.parameters variable"
+      ],
+      "settings": {
+        "foreground": "#503d01"
+      }
+    },
+    {
+      "scope": [
+        "variable.other.property",
+        "variable.other.object.property",
+        "support.variable.property",
+        "variable.object.property",
+        "meta.object-literal.key",
+        "support.type.property-name",
+        "support.type.vendored.property-name",
+        "entity.name.tag.yaml"
+      ],
+      "settings": {
+        "foreground": "#036056"
+      }
+    },
+    {
+      "scope": [
+        "entity.name.tag",
+        "support.class.component",
+        "punctuation.definition.tag"
+      ],
+      "settings": {
+        "foreground": "#80005c"
+      }
+    },
+    {
+      "scope": [
+        "entity.other.attribute-name"
+      ],
+      "settings": {
+        "foreground": "#59008e"
+      }
+    },
+    {
+      "scope": [
+        "keyword.operator",
+        "storage.type.function.arrow"
+      ],
+      "settings": {
+        "foreground": "#45385b"
+      }
+    },
+    {
+      "scope": [
+        "punctuation",
+        "meta.brace",
+        "meta.delimiter",
+        "punctuation.definition.template-expression"
+      ],
+      "settings": {
+        "foreground": "#574c6a"
+      }
+    },
+    {
+      "scope": [
+        "markup.inserted",
+        "meta.diff.header.to-file"
+      ],
+      "settings": {
+        "foreground": "#05561d"
+      }
+    },
+    {
+      "scope": [
+        "markup.deleted",
+        "meta.diff.header.from-file"
+      ],
+      "settings": {
+        "foreground": "#a7023d"
+      }
+    }
+  ],
+  "type": "light"
+}

@@ -140,10 +140,10 @@ export const scholionStyles = `
     bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
   }
 
-  /* Code peek: dark (matches code block appearance) */
+  /* Code peek: same palette as the code block, follows the theme */
   .scholion-peek--code {
-    background: var(--scholion-code-bg, hsl(220 17% 13%));
-    color: var(--scholion-code-fg, hsl(220 14% 86%));
+    background: var(--color-syntax-background);
+    color: var(--color-syntax-foreground);
   }
 
   /* Text peek */

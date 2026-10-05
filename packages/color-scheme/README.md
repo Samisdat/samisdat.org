@@ -10,7 +10,7 @@ Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.toke
 |---|---|---|
 | 1 · Wert | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`) |
 | 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `status` (weitere Rollen folgen) | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
-| 3 · Einsatzort | `syntax.*`, später `terminal.*` | Phase 5 |
+| 3 · Einsatzort | `syntax.*`, später `terminal.*` | `syntax.*` vorhanden (in `tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
 
 Ebene 1 wird nie zu einer CSS-Variable. Im Web gelangt sie als typisierter Import ins CSS:
 
@@ -58,7 +58,8 @@ Die Prüfmatrix wird aus den Token-Dateien abgeleitet (`src/contrast.ts`, Export
 - `status.*` sind Aliase auf `ink.*` und werden nicht doppelt geprüft (`danger` → `ink.red`, `warning` → `ink.orange`, `success` → `ink.green`, `info` → `ink.blue`, in beiden Modes; `ink.yellow` taugt im Light Mode nicht als Warnfarbe, er wirkt olivbraun)
 - Tokens mit `$extensions["org.samisdat.a11y"].exempt` (Begründung als String) sind ausgenommen
   (z. B. `surface.muted`: nur Rahmen und Fortschrittsbalken, kein Text)
-- Platzhalter für `border.*` (≥ 3) und `syntax.*` stehen als Kommentar in `src/contrast.ts`; sie kommen mit den jeweiligen Tokens
+- Jeder `syntax.*`-Vordergrund (alle außer `syntax.background`) auf `syntax.background` UND auf `surface.default`, ≥ 4,5:1: Codeblock und Inline-Code im Fließtext. `syntax.background` trägt `textTier: "full"`.
+- Platzhalter für `border.*` (≥ 3) steht als Kommentar in `src/contrast.ts`; kommt mit den Tokens
 
 Pair-IDs haben die Form `dark:text.muted/surface.default`.
 
@@ -72,12 +73,52 @@ Pair-IDs haben die Form `dark:text.muted/surface.default`.
 
 **Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,36–0,47, manche Inks sitzen auf Stufe 800 statt 700, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen auf drei Nachkommastellen, und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,122 (orange ~ yellow), Light Mode: 0,080 (green ~ teal).
 
-**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
+**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
+
+## Syntax (Ebene 3)
+
+`syntax.*` folgt dem Vokabular der Neovim-Tree-sitter-Captures. Werte sind ausschließlich Aliase auf Ebene 2 (`ink.*`, `text.*`, `surface.*`), pro Mode in `tokens/<mode>.tokens.json`. Das ist dieselbe Datei wie Ebene 2, weil die Aliase dort aufgelöst werden und die Mode-Dateien ohnehin vollständig sein müssen; eigene Dateien brächten nur einen zusätzlichen Resolver-Eintrag. Alle Aliase sind in beiden Modes gleich, nur `syntax.background` unterscheidet sich.
+
+Token-ID: Capture mit `-` statt `.` (`tag.attribute` → `syntax.tag-attribute`), weil DTCG kein Token zugleich als Gruppe erlaubt (`tag` und `tag.attribute`). CSS-Variable: `--color-syntax-tag-attribute`. `fontStyle` steht in `$extensions["org.samisdat.syntax"].fontStyle` (bisher nur `comment`: `italic`).
+
+| Capture | Alias | Gedacht für |
+|---|---|---|
+| `foreground` | `text.default` | Grundfarbe |
+| `background` | dark `surface.emphasis`, light `surface.raised` | Codeblock; folgt dem Theme, dark dunkler und light heller als die Seite |
+| `comment` | `text.muted` (italic) | Kommentare |
+| `keyword` | `ink.red` | `const`, `import`, `return`, Storage |
+| `string` | `ink.orange` | Strings, Anführungszeichen, Template-Strings |
+| `string.special` | `ink.cyan` | Regex, Escape-Sequenzen |
+| `number` | `ink.green` | Zahlen, CSS-Einheiten |
+| `constant` | `ink.green` | `true`, `null`, `this`, Konstanten |
+| `function` | `ink.blue` | Funktions- und Methodennamen |
+| `type` | `ink.cyan` | Typen, Klassen, Namespaces |
+| `variable` | `text.default` | Variablen |
+| `parameter` | `ink.yellow` | Parameter |
+| `property` | `ink.teal` | Properties, Objekt-Keys, JSON-/CSS-Properties |
+| `tag` | `ink.pink` | Tag-Namen samt `<` `>` |
+| `tag.attribute` | `ink.purple` | Attribute |
+| `operator` | `text.secondary` | Operatoren, `=>` |
+| `punctuation` | `text.subtle` | Klammern, Trenner |
+| `diff.plus` / `diff.minus` | `ink.green` / `ink.red` | Diff-Zeilen (Vordergrund, kein Alpha) |
+
+Zuordnungsprinzip: Im Light Mode sind Gelb, Cyan, Lila, Rosa und Grün absichtlich dunkler (schwerer), Rot, Orange, Türkis und Blau heller. Da der Alias in beiden Modes gleich ist, liegen die schweren Inks auf seltenen Kategorien (`number`, `constant`, `tag.attribute`, `parameter`, `type`), die helleren auf häufigen (`keyword`, `string`, `function`, `property`). Geteilte Inks (`number`/`constant`, `type`/`string.special`) liegen auf Kategorien, die selten nebeneinander stehen.
+
+**Capture hinzufügen**: Eintrag in `src/textmate-scopes.ts` (Capture plus TextMate-Scopes; dort ist die einzige Übersetzung Tree-sitter → TextMate), `syntax.<name>` in beiden Mode-Dateien, dann `pnpm lint:tokens`. Der Build bricht ab, wenn Tabelle und Token-Dateien auseinanderlaufen.
+
+**Ausgaben**:
+
+- `generated/shiki-theme.ts` (Export `@samisdat/color-scheme/shiki`, `shikiTheme`): ein Theme für beide Modes, alle Farben (`fg`, `bg`, `editor.*`, `tokenColors`) sind `var(--color-syntax-…)`. Der Browser löst sie über das aktive Theme auf, Morphing und Inline-Code funktionieren mit demselben Mechanismus. Kein leeres `settings: []` einfügen: es überschreibt `tokenColors`.
+- `generated/shiki/dark.json`, `generated/shiki/light.json` (Export `@samisdat/color-scheme/shiki/*`): dasselbe Theme mit aufgelösten Hex-Werten pro Mode, für Konsumenten ohne CSS (nvim, Terminal).
+- `syntax.*` steht außerdem in `generated/semantic.ts`; `ui-components` rendert daraus `--color-syntax-*` wie alle Ebene-2-Variablen.
+
+Inline-Code im Fließtext: `` `code{:tsx}` `` (rehype-pretty-code) nutzt dasselbe Theme und damit dieselben Variablen. Scholion-Lemmas (`.ref-target`) übernehmen die Variable des zugehörigen Tokens im Codeblock.
 
 ## Generierte Dateien
 
 - `generated/primitives.ts`: Ebene 1 als `oklch(…)`-Strings (`ivory[200]`, `type Hue`, `type Step`, `palette`).
 - `generated/semantic.ts`: Ebene 2 als aufgelöste `oklch(…)`-Strings pro Mode (`semantic.dark["surface.default"]`, `type SemanticToken`, `type Mode`). Ebene 1 kommt darin nicht vor.
+- `generated/shiki-theme.ts`, `generated/shiki/*.json`: siehe „Syntax“.
 - `generated/index.ts`: Export `.` des Packages, re-exportiert beide Module.
 - `generated/tokens.js`, `generated/tokens.d.ts`: Terrazzo-JS-Plugin, normalisierte Tokens pro Resolver-Permutation.
 

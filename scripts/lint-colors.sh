@@ -67,9 +67,6 @@ fi
 # - MiniPano, DemoAnimationsMorphHills, codesandboxes/templates (as above)
 # - black drop shadows (`box-shadow`/`text-shadow` with rgba(0, 0, 0, a)): an
 #   alpha black shadow is not a theme colour
-# - `--scholion-code-bg` / `--scholion-code-fg` fallbacks in style/scholion.ts:
-#   stand-ins for a code block palette that does not exist yet; replaced by
-#   syntax.* tokens in Phase 5
 LITERAL_RESULTS=$(grep -rnE \
   --include="*.tsx" \
   --include="*.ts" \
@@ -87,7 +84,6 @@ LITERAL_RESULTS=$(grep -rnE \
   packages/website/src packages/ui-components/src 2>/dev/null \
   | grep -vE "^packages/ui-components/src/(tokens|ColorScheme)/" \
   | grep -vE "(box|text)-shadow:[^;]*rgba\(0, 0, 0, [0-9.]+\)" \
-  | grep -vE "var\(--scholion-code-(bg|fg)," \
   || true)
 
 if [ -n "$LITERAL_RESULTS" ]; then

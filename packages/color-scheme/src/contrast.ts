@@ -83,9 +83,12 @@ export const MIN_TEXT = 4.5;
 // `status.*` are aliases of `ink.*`; they are deliberately not part of the
 // matrix, since every status pair would duplicate an ink pair.
 //
-// Extension points for later phases (do not add before the tokens exist):
-// - `border.strong`, `border.focus` on every surface: min 3 (Phase 4)
-// - `syntax.*` on `syntax.background` and `surface.default`: min 4.5 (Phase 5)
+// `syntax.*` (level 3) is checked separately: every foreground on
+// `syntax.background` (the code block) AND `surface.default` (inline code in
+// running text). `syntax.background` itself is the background, not a foreground.
+//
+// Extension point for a later phase (do not add before the tokens exist):
+// - `border.strong`, `border.focus` on every surface: min 3
 const FOREGROUND_GROUPS = ["text", "ink"] as const;
 const NEUTRAL_TEXT = ["text.default", "text.emphasis"];
 
@@ -97,18 +100,37 @@ export function contrastMatrix(mode: Mode): ContrastPair[] {
   );
 
   // Foreground first (grid rows), then surface (columns).
-  return foregrounds.flatMap((fg) =>
+  const surfacePairs = foregrounds.flatMap((fg) =>
     surfaces
       .filter((bg) => bg.textTier === "full" || NEUTRAL_TEXT.includes(fg.id))
-      .map((bg) => ({
-        id: `${mode}:${fg.id}/${bg.id}`,
-        mode,
-        foreground: fg.id,
-        background: bg.id,
-        min: MIN_TEXT,
-      })),
+      .map((bg) => pair(mode, fg.id, bg.id)),
   );
+
+  return [...surfacePairs, ...syntaxPairs(mode)];
 }
+
+const pair = (mode: Mode, foreground: string, background: string): ContrastPair => ({
+  id: `${mode}:${foreground}/${background}`,
+  mode,
+  foreground,
+  background,
+  min: MIN_TEXT,
+});
+
+export const SYNTAX_BACKGROUND = "syntax.background";
+export const SYNTAX_BACKGROUNDS = [SYNTAX_BACKGROUND, "surface.default"] as const;
+
+/** `syntax.*` foregrounds of a mode (everything but `syntax.background`). */
+export const syntaxForegrounds = (mode: Mode): FlatToken[] =>
+  tokensOf(mode).filter(
+    (t) => startsWith(t, "syntax") && t.id !== SYNTAX_BACKGROUND && !t.exempt,
+  );
+
+/** Every syntax foreground on the code background and on the page. */
+export const syntaxPairs = (mode: Mode): ContrastPair[] =>
+  syntaxForegrounds(mode).flatMap((fg) =>
+    SYNTAX_BACKGROUNDS.map((bg) => pair(mode, fg.id, bg)),
+  );
 
 export const contrastMatrixAll = (): ContrastPair[] =>
   modes.flatMap((mode) => contrastMatrix(mode));

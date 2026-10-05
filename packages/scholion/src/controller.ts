@@ -60,16 +60,18 @@ export function initScholion(): () => void {
         wires.appendChild(g)
         grps[id] = { g, path, d1, d2 }
     }
-    // Capture token colors and code-peek background after layout.
+    // Capture token colors after layout.
     // Shiki places syntax colors on inner <span> elements, not on the <a> itself (color: inherit).
+    // The span's inline color is a CSS variable (`var(--color-syntax-…)`); passing it on
+    // unresolved keeps wires and inline lemmas in sync with theme switches and morphing.
+    // The computed color is only the fallback for themes with literal colors.
     requestAnimationFrame(() => {
         for (const id of refIds) {
             const span = refs[id].a.querySelector<HTMLElement>('span')
-            const color = getComputedStyle(span ?? refs[id].a).color
+            const color = span?.style.color || getComputedStyle(span ?? refs[id].a).color
             grps[id].g.style.color = color
             document.documentElement.style.setProperty(`--scholion-color-${id}`, color)
         }
-        peekCode.style.background = 'var(--color-surface-raised)'
     })
 
     const peekCode = mkBtn('scholion-peek scholion-peek--code', 'Zur Codezeile springen', `

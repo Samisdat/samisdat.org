@@ -106,5 +106,75 @@
     "info": {
       "$value": "{ink.blue}"
     }
+  },
+  "syntax": {
+    "$type": "color",
+    "foreground": {
+      "$value": "{text.default}"
+    },
+    "background": {
+      "$value": "{surface.emphasis}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "full"
+        }
+      }
+    },
+    "comment": {
+      "$value": "{text.muted}",
+      "$extensions": {
+        "org.samisdat.syntax": {
+          "fontStyle": "italic"
+        }
+      }
+    },
+    "keyword": {
+      "$value": "{ink.red}"
+    },
+    "string": {
+      "$value": "{ink.orange}"
+    },
+    "string-special": {
+      "$value": "{ink.cyan}"
+    },
+    "number": {
+      "$value": "{ink.green}"
+    },
+    "constant": {
+      "$value": "{ink.green}"
+    },
+    "function": {
+      "$value": "{ink.blue}"
+    },
+    "type": {
+      "$value": "{ink.cyan}"
+    },
+    "variable": {
+      "$value": "{text.default}"
+    },
+    "parameter": {
+      "$value": "{ink.yellow}"
+    },
+    "property": {
+      "$value": "{ink.teal}"
+    },
+    "tag": {
+      "$value": "{ink.pink}"
+    },
+    "tag-attribute": {
+      "$value": "{ink.purple}"
+    },
+    "operator": {
+      "$value": "{text.secondary}"
+    },
+    "punctuation": {
+      "$value": "{text.subtle}"
+    },
+    "diff-plus": {
+      "$value": "{ink.green}"
+    },
+    "diff-minus": {
+      "$value": "{ink.red}"
+    }
   }
 }

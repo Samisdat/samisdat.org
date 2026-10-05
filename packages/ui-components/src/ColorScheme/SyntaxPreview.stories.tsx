@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { styled } from "@linaria/react";
-import { tokensOf } from "@samisdat/color-scheme/contrast";
+import { syntaxForegrounds } from "@samisdat/color-scheme/contrast";
 import { CodeBlock } from "../CodeBlock";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
@@ -16,6 +16,11 @@ const Panel = styled.section`
   font-family: var(--font-sans);
   background: var(--color-surface-default);
   color: var(--color-text-default);
+  min-width: 0;
+
+  pre {
+    overflow-x: auto;
+  }
 `;
 
 // The theme variables are set locally per panel (runtime <style>, not a
@@ -35,9 +40,11 @@ const Prose = styled.p`
   }
 `;
 
-const inks = tokensOf("dark")
-  .filter((t) => t.id.startsWith("ink."))
-  .map((t) => t.id.replace("ink.", ""));
+// Token id `syntax.tag-attribute` -> CSS variable `--color-syntax-tag-attribute`.
+const captures = syntaxForegrounds("dark").map((t) => ({
+  name: t.id.replace("syntax.", ""),
+  variable: `var(--color-${t.id.replaceAll(".", "-")})`,
+}));
 
 const code = `const Box = styled.div\`
   color: var(--color-ink-red);
@@ -54,13 +61,28 @@ const Preview = ({ title }: { title: string }) => (
     <h2>{title}</h2>
     <CodeBlock code={code} language="tsx" />
     <Prose>
-      Inline code in running text:{" "}
-      {inks.map((hue) => (
-        <span key={hue}>
-          <code style={{ color: `var(--color-ink-${hue})` }}>ink-{hue}</code>{" "}
+      Inline code in running text uses the same variables on the page
+      background:{" "}
+      {captures.map(({ name, variable }) => (
+        <span key={name}>
+          <code style={{ color: variable }}>{name}</code>{" "}
         </span>
       ))}
-      sit on the default surface next to ordinary body text.
+      sit next to ordinary body text, as in{" "}
+      <code>
+        <span style={{ color: "var(--color-syntax-tag)" }}>
+          &lt;animateTransform
+        </span>{" "}
+        <span style={{ color: "var(--color-syntax-tag-attribute)" }}>
+          repeatCount
+        </span>
+        <span style={{ color: "var(--color-syntax-operator)" }}>=</span>
+        <span style={{ color: "var(--color-syntax-string)" }}>
+          &quot;indefinite&quot;
+        </span>
+        <span style={{ color: "var(--color-syntax-tag)" }}>/&gt;</span>
+      </code>
+      .
     </Prose>
   </>
 );

@@ -1,7 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { styled } from "@linaria/react";
 import { modes, type Mode } from "@samisdat/color-scheme";
-import { contrastMatrixAll, tokensOf } from "@samisdat/color-scheme/contrast";
+import {
+  contrastMatrixAll,
+  SYNTAX_BACKGROUNDS,
+  syntaxForegrounds,
+  tokensOf,
+} from "@samisdat/color-scheme/contrast";
 import { contrastBaseline } from "@samisdat/color-scheme/contrast-baseline";
 import { ratio, valueOf } from "./utils";
 
@@ -100,15 +105,25 @@ const MIN = 4.5;
 const isForeground = (id: string) =>
   id.startsWith("text.") || id.startsWith("ink.");
 
-const Grid = ({ mode }: { mode: Mode }) => {
+type GridKind = "surface" | "syntax";
+
+const Grid = ({ mode, kind }: { mode: Mode; kind: GridKind }) => {
   const tokens = tokensOf(mode);
-  const foregrounds = tokens.filter((t) => isForeground(t.id));
-  const surfaces = tokens.filter((t) => t.id.startsWith("surface."));
-  const headingId = `contrast-${mode}`;
+  const foregrounds =
+    kind === "syntax"
+      ? syntaxForegrounds(mode)
+      : tokens.filter((t) => isForeground(t.id));
+  const surfaces =
+    kind === "syntax"
+      ? SYNTAX_BACKGROUNDS.map((id) => tokens.find((t) => t.id === id)!)
+      : tokens.filter((t) => t.id.startsWith("surface."));
+  const headingId = `contrast-${kind}-${mode}`;
 
   return (
     <section aria-labelledby={headingId}>
-      <h2 id={headingId}>Mode: {mode}</h2>
+      <h2 id={headingId}>
+        {kind === "syntax" ? "Syntax" : "Mode"}: {mode}
+      </h2>
       <Scroll>
         <Table aria-labelledby={headingId}>
           <thead>
@@ -177,7 +192,11 @@ const ContrastGrid = () => (
       <li>Baseline: known, justified violation (currently none)</li>
     </Legend>
     {modes.map((mode) => (
-      <Grid key={mode} mode={mode} />
+      <Grid key={mode} mode={mode} kind="surface" />
+    ))}
+    <h1>Syntax (code block and running text)</h1>
+    {modes.map((mode) => (
+      <Grid key={mode} mode={mode} kind="syntax" />
     ))}
   </Page>
 );

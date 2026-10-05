@@ -13,15 +13,13 @@ import rehypeSlug from 'rehype-slug';
 
 import { remarkScholion } from '@samisdat/scholion/remark';
 import { scholionTransformer } from '@samisdat/scholion/transformer';
-import { getTextMateColorSchema } from '@samisdat/ui-components/utils/getTextMateColorSchema';
+import { shikiTheme } from '@samisdat/ui-components/utils/shikiTheme';
 
 import { Frontmatter } from './Frontmatter';
 import { remarkSandboxCollector } from './remarkSandboxCollector';
 
-const theme = getTextMateColorSchema('dark');
-
 const shikiOptions = {
-    theme,
+    theme: shikiTheme,
     transformers: [scholionTransformer()],
 };
 

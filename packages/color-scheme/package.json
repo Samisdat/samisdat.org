@@ -9,6 +9,11 @@
       "types": "./generated/index.ts",
       "import": "./generated/index.ts"
     },
+    "./shiki": {
+      "types": "./generated/shiki-theme.ts",
+      "import": "./generated/shiki-theme.ts"
+    },
+    "./shiki/*": "./generated/shiki/*",
     "./tokens/*": "./tokens/*",
     "./contrast": {
       "types": "./src/contrast.ts",
