@@ -1,0 +1,57 @@
+{
+  "name": "@samisdat/color-scheme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./semantic": {
+      "types": "./generated/semantic.ts",
+      "import": "./generated/semantic.ts"
+    },
+    "./primitives": {
+      "types": "./generated/primitives.ts",
+      "import": "./generated/primitives.ts"
+    },
+    "./shiki": {
+      "types": "./generated/shiki-theme.ts",
+      "import": "./generated/shiki-theme.ts"
+    },
+    "./shiki/*": "./generated/shiki/*",
+    "./tokens/*": "./tokens/*",
+    "./contrast": {
+      "types": "./src/contrast.ts",
+      "import": "./src/contrast.ts"
+    },
+    "./apca": {
+      "types": "./src/apca.ts",
+      "import": "./src/apca.ts"
+    },
+    "./contrast-baseline": {
+      "types": "./src/baseline.ts",
+      "import": "./src/baseline.ts"
+    }
+  },
+  "scripts": {
+    "build": "tz build",
+    "check": "tz check",
+    "lint": "tz check && tsx scripts/lint-scale.ts && pnpm lint:contrast && tsx scripts/lint-distinct.ts && tsx scripts/lint-cvd.ts && tsx scripts/lint-apca.ts",
+    "dev": "tz build --watch",
+    "generate:scale": "tsx scripts/generate-scale.ts",
+    "lint:contrast": "tz build && tsx scripts/lint-contrast.ts && MODE=dark tz check -c terrazzo.contrast.config.ts && MODE=light tz check -c terrazzo.contrast.config.ts",
+    "contrast:baseline": "tsx scripts/contrast-baseline.ts"
+  },
+  "devDependencies": {
+    "@terrazzo/cli": "^2.7.0",
+    "@terrazzo/parser": "^2.7.0",
+    "@terrazzo/plugin-css": "^2.7.0",
+    "@terrazzo/plugin-js": "^2.7.0",
+    "@terrazzo/token-tools": "^2.7.0",
+    "@types/culori": "^4.0.1",
+    "@types/node": "catalog:",
+    "apca-w3": "0.1.9",
+    "culori": "^4.0.2",
+    "tsx": "^4.23.15",
+    "typescript": "catalog:"
+  }
+}

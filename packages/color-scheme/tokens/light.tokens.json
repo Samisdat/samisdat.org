@@ -1,0 +1,183 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "surface": {
+    "$type": "color",
+    "default": {
+      "$value": "{color.ivory.200}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "full"
+        }
+      }
+    },
+    "emphasis": {
+      "$value": "{color.ivory.600}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "raised": {
+      "$value": "{color.ivory.100}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "subtle": {
+      "$value": "{color.ivory.400}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "muted": {
+      "$value": "{color.ivory.500}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only",
+          "exempt": "no text on this surface; only used for borders (Card, PlaybackControl, Navi header, Demo/Parallax) and the 2px scroll progress bar in Navi"
+        }
+      }
+    }
+  },
+  "text": {
+    "$type": "color",
+    "default": {
+      "$value": "{color.aubergine.900}"
+    },
+    "emphasis": {
+      "$value": "{color.aubergine.950}"
+    },
+    "secondary": {
+      "$value": "{color.aubergine.800}"
+    },
+    "subtle": {
+      "$value": "{color.aubergine.700}"
+    },
+    "muted": {
+      "$value": "{color.ivory.700}"
+    }
+  },
+  "ink": {
+    "$type": "color",
+    "red": {
+      "$value": "{color.red.800}"
+    },
+    "orange": {
+      "$value": "{color.orange.800}"
+    },
+    "yellow": {
+      "$value": "{color.yellow.800}"
+    },
+    "green": {
+      "$value": "{color.green.800}"
+    },
+    "teal": {
+      "$value": "{color.teal.800}"
+    },
+    "cyan": {
+      "$value": "{color.cyan.900}"
+    },
+    "blue": {
+      "$value": "{color.blue.700}"
+    },
+    "purple": {
+      "$value": "{color.purple.800}"
+    },
+    "pink": {
+      "$value": "{color.pink.800}"
+    },
+    "comment": {
+      "$value": "{color.periwinkle.700}"
+    }
+  },
+  "status": {
+    "$type": "color",
+    "danger": {
+      "$value": "{ink.red}"
+    },
+    "warning": {
+      "$value": "{ink.orange}"
+    },
+    "success": {
+      "$value": "{ink.green}"
+    },
+    "info": {
+      "$value": "{ink.blue}"
+    }
+  },
+  "syntax": {
+    "$type": "color",
+    "foreground": {
+      "$value": "{text.default}"
+    },
+    "background": {
+      "$value": "{surface.raised}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "full"
+        }
+      }
+    },
+    "comment": {
+      "$value": "{ink.comment}",
+      "$extensions": {
+        "org.samisdat.syntax": {
+          "fontStyle": "italic"
+        }
+      }
+    },
+    "keyword": {
+      "$value": "{ink.red}"
+    },
+    "string": {
+      "$value": "{ink.orange}"
+    },
+    "string-special": {
+      "$value": "{ink.cyan}"
+    },
+    "number": {
+      "$value": "{ink.green}"
+    },
+    "constant": {
+      "$value": "{ink.green}"
+    },
+    "function": {
+      "$value": "{ink.blue}"
+    },
+    "type": {
+      "$value": "{ink.cyan}"
+    },
+    "variable": {
+      "$value": "{text.default}"
+    },
+    "parameter": {
+      "$value": "{ink.yellow}"
+    },
+    "property": {
+      "$value": "{ink.teal}"
+    },
+    "tag": {
+      "$value": "{ink.pink}"
+    },
+    "tag-attribute": {
+      "$value": "{ink.purple}"
+    },
+    "operator": {
+      "$value": "{text.secondary}"
+    },
+    "punctuation": {
+      "$value": "{text.secondary}"
+    },
+    "diff-plus": {
+      "$value": "{ink.green}"
+    },
+    "diff-minus": {
+      "$value": "{ink.red}"
+    }
+  }
+}

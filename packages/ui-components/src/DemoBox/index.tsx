@@ -1,33 +1,34 @@
 import { styled } from "@linaria/react";
+import { purple } from "@samisdat/color-scheme/primitives";
 import { FC, HTMLAttributes } from "react";
 
 const demoBoxColors = {
   red: {
-    background: "var(--color-red)",
+    background: "var(--color-ink-red)",
   },
   blue: {
-    background: "var(--color-blue)",
+    background: "var(--color-ink-blue)",
   },
   yellow: {
-    background: "var(--color-yellow)",
+    background: "var(--color-ink-yellow)",
   },
   orange: {
-    background: "var(--color-orange)",
+    background: "var(--color-ink-orange)",
   },
   green: {
-    background: "var(--color-green)",
+    background: "var(--color-ink-green)",
   },
   teal: {
-    background: "var(--color-teal)",
+    background: "var(--color-ink-teal)",
   },
   purple: {
-    background: "var(--primitive-purple)",
+    background: purple[600],
   },
   pink: {
-    background: "var(--color-pink)",
+    background: "var(--color-ink-pink)",
   },
   cyan: {
-    background: "var(--color-cyan)",
+    background: "var(--color-ink-cyan)",
   },
 };
 

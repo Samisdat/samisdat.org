@@ -1,0 +1,38 @@
+{
+  "name": "samisdat color scheme",
+  "version": "2025.10",
+  "sets": {
+    "primitives": {
+      "sources": [
+        {
+          "$ref": "./primitives.tokens.json"
+        }
+      ]
+    }
+  },
+  "modifiers": {
+    "mode": {
+      "default": "dark",
+      "contexts": {
+        "dark": [
+          {
+            "$ref": "./dark.tokens.json"
+          }
+        ],
+        "light": [
+          {
+            "$ref": "./light.tokens.json"
+          }
+        ]
+      }
+    }
+  },
+  "resolutionOrder": [
+    {
+      "$ref": "#/sets/primitives"
+    },
+    {
+      "$ref": "#/modifiers/mode"
+    }
+  ]
+}

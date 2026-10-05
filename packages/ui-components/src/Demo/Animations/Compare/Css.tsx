@@ -13,7 +13,7 @@ const CssCircleAnimationStyled = styled(SvgStyling)`
     }
 
     & circle {
-        fill: var(--color-teal);
+        fill: var(--color-ink-teal);
         animation: slide ${config.duration}ms linear ${config.repeats} alternate;
         animation-play-state: paused;
     }

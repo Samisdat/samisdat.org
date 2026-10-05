@@ -6,7 +6,7 @@ import { breakpoints } from "../tokens/breakpoints";
 const duration = 0.7;
 
 const MiniPanoWrapper = styled.div`
-  background: var(--color-foreground-muted);
+  background: var(--color-text-muted);
   padding: 1px;
   border-radius: 1rem;
   height: var(--typo-h5-size);
@@ -19,12 +19,12 @@ const MiniPanoWrapper = styled.div`
   overflow: hidden;
 
   &:hover {
-    background: var(--color-foreground);
+    background: var(--color-text-default);
   }
 
   fieldset:focus-within & {
-    background: var(--color-foreground);
-    outline: 1px solid var(--color-foreground);
+    background: var(--color-text-default);
+    outline: 1px solid var(--color-text-default);
   }
 `;
 

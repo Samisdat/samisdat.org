@@ -29,21 +29,13 @@
       "types": "./src/style/globalstyle.ts",
       "import": "./src/style/globalstyle.ts"
     },
-    "./utils/getTextMateColorSchema": {
-      "types": "./src/utils/getTextMateColorSchema/index.ts",
-      "import": "./src/utils/getTextMateColorSchema/index.ts"
-    },
-    "./tokens/colorToHex": {
-      "types": "./src/tokens/colorToHex.ts",
-      "import": "./src/tokens/colorToHex.ts"
+    "./utils/shikiTheme": {
+      "types": "./src/utils/shikiTheme/index.ts",
+      "import": "./src/utils/shikiTheme/index.ts"
     },
     "./tokens/themes": {
       "types": "./src/tokens/themes.ts",
       "import": "./src/tokens/themes.ts"
-    },
-    "./tokens/color": {
-      "types": "./src/tokens/color/index.ts",
-      "import": "./src/tokens/color/index.ts"
     }
   },
   "scripts": {
@@ -60,6 +52,7 @@
     "@fortawesome/react-fontawesome": "catalog:",
     "@linaria/core": "catalog:",
     "@linaria/react": "catalog:",
+    "@samisdat/color-scheme": "workspace:*",
     "@samisdat/tools": "workspace:*",
     "culori": "^4.0.2",
     "fs-extra": "catalog:",

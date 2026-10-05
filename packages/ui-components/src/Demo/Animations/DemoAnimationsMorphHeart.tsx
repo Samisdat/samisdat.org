@@ -14,7 +14,7 @@ const SvgStyling = styled.svg`
 
   .heart {
     fill: currentColor;
-    color: var(--color-red, #d94a4a);
+    color: var(--color-ink-red, #d94a4a);
   }
 
   .coffee path {

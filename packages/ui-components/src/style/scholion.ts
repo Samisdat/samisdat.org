@@ -38,7 +38,7 @@ export const scholionStyles = `
     font-size: 0.85em;
     border-radius: 2px;
     padding: 0.05em 0.2em;
-    color: var(--color-teal);
+    color: var(--color-ink-teal);
     box-shadow: inset 0 -1.5px 0 color-mix(in srgb, currentColor 55%, transparent);
     transition: background-color 0.12s ease;
     cursor: pointer;
@@ -64,7 +64,7 @@ export const scholionStyles = `
 
   .backref {
     font-size: 0.78em;
-    color: var(--color-foreground-subtle);
+    color: var(--color-text-subtle);
     text-decoration: none;
     margin-left: 0.5em;
     opacity: 0.7;
@@ -140,17 +140,17 @@ export const scholionStyles = `
     bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
   }
 
-  /* Code peek: dark (matches code block appearance) */
+  /* Code peek: same palette as the code block, follows the theme */
   .scholion-peek--code {
-    background: var(--scholion-code-bg, hsl(220 17% 13%));
-    color: var(--scholion-code-fg, hsl(220 14% 86%));
+    background: var(--color-syntax-background);
+    color: var(--color-syntax-foreground);
   }
 
   /* Text peek */
   .scholion-peek--text {
-    background: var(--color-background-secondary);
-    color: var(--color-foreground);
-    border-color: var(--color-teal);
+    background: var(--color-surface-raised);
+    color: var(--color-text-default);
+    border-color: var(--color-ink-teal);
   }
 
   .scholion-peek__meta {
@@ -199,8 +199,8 @@ export const scholionStyles = `
     transform: translateX(-50%);
     border: 0;
     border-radius: 999px;
-    background: var(--color-foreground);
-    color: var(--color-background);
+    background: var(--color-text-default);
+    color: var(--color-surface-default);
     font: 600 0.9rem / 1 inherit;
     padding: 0.75rem 1.15rem;
     min-height: 44px;

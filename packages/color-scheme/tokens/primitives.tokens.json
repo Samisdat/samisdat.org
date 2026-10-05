@@ -1,0 +1,886 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/2025.10/format.json",
+  "color": {
+    "$type": "color",
+    "aubergine": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9745, 0.0125, 300]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9438, 0.0175, 300]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8926, 0.025, 300]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.826, 0.035, 300]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7441, 0.0425, 300]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6622, 0.05, 300]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.57, 0.04, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-muted)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.44, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-subtle)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.37, 0.06, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-raised)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.22, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (primitive-aubergine, aubergine-base)."
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.15, 0.05, 300]
+        },
+        "$description": "Bestehender Wert (aubergine-deep)."
+      },
+      "$description": "dunkles Aubergine, Markenfarbe; Hintergrund im Dark Mode, Text im Light Mode"
+    },
+    "ivory": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9569, 0.0093, 30]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8997, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-bright)."
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8497, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (primitive-ivory, ivory-base)."
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7797, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-soft)."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7297, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-subtle)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6497, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-muted)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6129, 0.037, 30]
+        },
+        "$description": "Phase 4: L von 0.5747 auf 0.6129 angehoben (vorher generiert). Dark Mode text.muted auf aubergine.900 und Light Mode surface.emphasis unter aubergine.900 erreichen damit ≥ 4.6:1 (vorher 3.94:1)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.456, 0.037, 30]
+        },
+        "$description": "Bestehender Wert (ivory-dim). Phase 4: L von 0.4997 auf 0.456 abgesenkt; Light Mode text.muted erreicht damit ≥ 4.6:1 auf ivory.200 (vorher 3.81:1)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4066, 0.037, 30]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3135, 0.037, 30]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2307, 0.037, 30]
+        }
+      },
+      "$description": "warmes Elfenbein, leicht rosa, Markenfarbe; Text im Dark Mode, Hintergrund im Light Mode"
+    },
+    "red": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9686, 0.0157, 10]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.928, 0.0373, 10]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8728, 0.0694, 10]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8006, 0.1171, 10]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7113, 0.1873, 10]
+        }
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.68, 0.208, 25]
+        },
+        "$description": "Dark-Ink (ink.red), bewusst kräftiges Rot für keyword; APCA Lc ≈ 44, dokumentierte Ausnahme (apcaMin 40); Farbton 25 statt 10. Vorher: oklch(0.64 0.22 10)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5858, 0.22, 10]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5, 0.185, 10]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 10). Vorher: oklch(0.465 0.185 12)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.416, 0.155, 12.5]
+        },
+        "$description": "Light-Ink (ink.red), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.416, Chroma 0.155, Farbton 12.5 (Skalen-Hue 10). Letzte Feinabstimmung ab oklch(0.421 0.157 12.5), ΔE OK 0.0054. Vorher: oklch(0.4282 0.165 10)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3261, 0.1304, 10]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2366, 0.0946, 10]
+        }
+      },
+      "$description": "warmes Rot mit leichtem Rosa-Stich"
+    },
+    "orange": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9734, 0.016, 60]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9397, 0.0379, 60]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8841, 0.0759, 60]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8165, 0.12, 60]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.775, 0.119, 69]
+        },
+        "$description": "Dark-Ink (ink.orange), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.775, Chroma 0.119, Farbton 69 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.771 0.122 69.2), ΔE OK 0.0050. Vorher: oklch(0.73 0.16 60)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6607, 0.1549, 60]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5818, 0.1364, 60]
+        },
+        "$description": "Bestehender Wert (orange-on-light). Hue-Verschiebung -5 (55 statt 60) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.58 0.224 55), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 48.89). Phase 4: von keinem Ebene-2-Token mehr genutzt; Hue von 48.89 auf Skalen-Hue 60 normalisiert, Chroma 0.1563 → 0.1364 (sRGB)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5, 0.115, 60]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 60, Chroma auf sRGB begrenzt). Vorher: oklch(0.455 0.112 55)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.404, 0.102, 53.4]
+        },
+        "$description": "Light-Ink (ink.orange), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.404, Chroma 0.102, Farbton 53.4 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.4236 0.1012 57.7), ΔE OK 0.0210. Vorher: oklch(0.4027 0.0944 60)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3122, 0.0732, 60]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2315, 0.0542, 60]
+        }
+      },
+      "$description": "sattes, warmes Orange"
+    },
+    "yellow": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.975, 0.016, 85]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.945, 0.04, 85]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.895, 0.08, 85]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.832, 0.162, 85.7]
+        },
+        "$description": "Dark-Ink (ink.yellow), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.832, Chroma 0.162, Farbton 85.7 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.83 0.16 85), ΔE OK 0.0034."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.7319, 0.15, 85]
+        },
+        "$description": "Bestehender Wert (yellow-on-light). Ursprünglich oklch(0.73 0.288 85), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 81.51). Phase 4: von keinem Ebene-2-Token mehr genutzt; Hue von 81.51 auf Skalen-Hue 85 normalisiert, Chroma 0.1509 → 0.15 (sRGB)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6565, 0.1345, 85]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5695, 0.1167, 85]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4825, 0.0988, 85]
+        },
+        "$description": "Phase 4: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 85, L zwischen den Nachbarstufen). Vorher: oklch(0.4547 0.0938 81.51)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.33, 0.069, 75.8]
+        },
+        "$description": "Light-Ink (ink.yellow), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.33, Chroma 0.069, Farbton 75.8 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.354 0.073 80), ΔE OK 0.0249. Vorher: oklch(0.37 0.075 88)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3084, 0.0632, 85]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.231, 0.0473, 85]
+        }
+      },
+      "$description": "leuchtendes Gelb, leicht golden"
+    },
+    "green": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9757, 0.0169, 155]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9466, 0.0422, 155]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8983, 0.0845, 155]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8354, 0.1267, 155]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.746, 0.172, 158.1]
+        },
+        "$description": "Dark-Ink (ink.green), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.746, Chroma 0.172, Farbton 158.1 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.742 0.17 157.5), ΔE OK 0.0048. Vorher: oklch(0.758 0.1554 155)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6806, 0.1682, 155]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 155, Chroma auf sRGB begrenzt). Vorher: oklch(0.6806 0.1689 154.78)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5391, 0.1332, 155]
+        },
+        "$description": "Bestehender Wert (green-on-light). Ursprünglich oklch(0.53 0.255 155), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 151.11). Phase 4: von keinem Ebene-2-Token mehr genutzt; Hue von 151.11 auf Skalen-Hue 155 normalisiert, Chroma 0.1446 → 0.1332 (sRGB)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4682, 0.1157, 155]
+        },
+        "$description": "Phase 4: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 155, L zwischen den Nachbarstufen). Vorher: oklch(0.4392 0.1178 151.11)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.377, 0.084, 139.9]
+        },
+        "$description": "Light-Ink (ink.green), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.377, Chroma 0.084, Farbton 139.9 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.4 0.088 139.8), ΔE OK 0.0233. Vorher: oklch(0.395 0.114 147)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3076, 0.076, 155]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.234, 0.0578, 155]
+        }
+      },
+      "$description": "frisches Grün mit leichtem Blaustich"
+    },
+    "teal": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9774, 0.011, 190]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9511, 0.0275, 190]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9072, 0.055, 190]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8502, 0.0825, 190]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.793, 0.132, 202.6]
+        },
+        "$description": "Dark-Ink (ink.teal), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.793, Chroma 0.132, Farbton 202.6 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.794 0.128 202.6), ΔE OK 0.0041. Vorher: oklch(0.78 0.11 190)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6391, 0.1103, 190]
+        },
+        "$description": "Bestehender Wert (teal-on-light). Hue-Verschiebung -10 (180 statt 190) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.63 0.154 180), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 178.27). Phase 4: von keinem Ebene-2-Token mehr genutzt; Hue von 178.27 auf Skalen-Hue 190 normalisiert, Chroma 0.1173 → 0.1103 (sRGB)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5617, 0.0969, 190]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.49, 0.084, 190]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 190, Chroma auf sRGB begrenzt). Vorher: oklch(0.44 0.078 182)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.407, 0.041, 204.9]
+        },
+        "$description": "Light-Ink (ink.teal), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.407, Chroma 0.041, Farbton 204.9 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.4203 0.0536 200.5), ΔE OK 0.0187. Vorher: oklch(0.3944 0.0681 190)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3095, 0.0534, 190]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2332, 0.0402, 190]
+        }
+      },
+      "$description": "Türkis, grüner und gedeckter als Cyan"
+    },
+    "cyan": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9743, 0.0112, 200]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9433, 0.028, 200]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8916, 0.056, 200]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8244, 0.084, 200]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.782, 0.048, 198.4]
+        },
+        "$description": "Dark-Ink (ink.cyan), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.782, Chroma 0.048, Farbton 198.4 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.781 0.048 198.4), ΔE OK 0.0010. Vorher: oklch(0.7417 0.103 200)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.659, 0.112, 200]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 200). Vorher: oklch(0.659 0.112 201.2)."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.59, 0.1003, 200]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.509, 0.0865, 200]
+        },
+        "$description": "Phase 4: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 200, L zwischen den Nachbarstufen). Vorher: oklch(0.4428 0.0765 189.61)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.42, 0.068, 200]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 200). Vorher: oklch(0.36 0.064 218)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.326, 0.054, 204.2]
+        },
+        "$description": "Light-Ink (ink.cyan), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.326, Chroma 0.054, Farbton 204.2 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.338 0.054 204.1), ΔE OK 0.0120. Vorher: oklch(0.323 0.0549 200)."
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2364, 0.0401, 200]
+        }
+      },
+      "$description": "klares, kühles Cyan"
+    },
+    "blue": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9752, 0.0115, 265]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9452, 0.0259, 265]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8996, 0.0483, 265]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8403, 0.0787, 265]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.767, 0.125, 248]
+        },
+        "$description": "Dark-Ink (ink.blue), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.767, Chroma 0.125, Farbton 248 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.764 0.125 250.2), ΔE OK 0.0057. Vorher: oklch(0.767 0.1182 265)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6934, 0.1601, 265]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.62, 0.19, 265]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt (war Dark-Ink ink.blue); Wert unverändert und skalenkonsistent (Skalen-Hue 265)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.422, 0.237, 269.5]
+        },
+        "$description": "Light-Ink (ink.blue), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.422, Chroma 0.237, Farbton 269.5 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.427 0.237 269.2), ΔE OK 0.0052. Vorher: oklch(0.465 0.24 268)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3864, 0.1425, 265]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3029, 0.114, 265]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2286, 0.0855, 265]
+        }
+      },
+      "$description": "kräftiges Blau mit Violettstich"
+    },
+    "periwinkle": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9746, 0.0124, 285]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.944, 0.0277, 285]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.893, 0.054, 285]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.838, 0.08, 262.6]
+        },
+        "$description": "Dark-Ink (ink.comment), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.838, Chroma 0.08, Farbton 262.6 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.834 0.081 265), ΔE OK 0.0053. Vorher: oklch(0.8266 0.09 285)."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.745, 0.13, 285]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt (war Dark-Ink ink.comment); Wert unverändert (Skalen-Hue 285)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6573, 0.145, 285]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5587, 0.145, 285]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.422, 0.138, 287.2]
+        },
+        "$description": "Light-Ink (ink.comment), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.422, Chroma 0.138, Farbton 287.2 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.428 0.14 288.9), ΔE OK 0.0076. Vorher: oklch(0.46 0.135 285)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3796, 0.1087, 285]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2993, 0.087, 285]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2279, 0.0653, 285]
+        }
+      },
+      "$description": "Periwinkle, weiches Blauviolett; Kommentarfarbe"
+    },
+    "purple": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9747, 0.0148, 305]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9432, 0.0337, 305]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8947, 0.0638, 305]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8322, 0.1045, 305]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.777, 0.078, 303.2]
+        },
+        "$description": "Dark-Ink (ink.purple), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.777, Chroma 0.078, Farbton 303.2 (Skalen-Hue 305). Letzte Feinabstimmung ab oklch(0.773 0.08 303.4), ΔE OK 0.0045. Vorher: oklch(0.7548 0.1579 305)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6824, 0.2109, 305]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6, 0.22, 305]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 305, ursprünglicher Wert vor der Anhebung auf L 0.6346). Vorher: oklch(0.6346 0.22 305)."
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.463, 0.2404, 305]
+        },
+        "$description": "Phase 4: von keinem Ebene-2-Token mehr genutzt; auf Skalen-Hue 305 zurückgesetzt, Chroma auf sRGB begrenzt. Vorher: oklch(0.463 0.2419 303.89) (gamut-gemapptes purple-on-light)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.37, 0.192, 305]
+        },
+        "$description": "Phase 4: Light-Mode-Ink (ink.purple); Lightness als zweite Achse zur Unterscheidbarkeit der Inks, ≥ 4.5:1 auf ivory.200. Vorher: oklch(0.3817 0.165 305)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3004, 0.132, 305]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2281, 0.099, 305]
+        }
+      },
+      "$description": "kräftiges Violett"
+    },
+    "pink": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9705, 0.0234, 330]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9313, 0.0566, 330]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.869, 0.1144, 330]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.807, 0.189, 326.9]
+        },
+        "$description": "Dark-Ink (ink.pink), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.807, Chroma 0.189, Farbton 326.9 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.806 0.1907 326.9), ΔE OK 0.0020. Vorher: oklch(0.7971 0.1906 330)."
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.72, 0.28, 330]
+        },
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt (war Dark-Ink ink.pink); Wert unverändert (Skalen-Hue 330). Abgeleitet aus dem Roh-Primitive oklch(72% 0.20 345) (c * 1.4, h - 15); das Primitive wurde nie direkt gerendert und entfällt."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6515, 0.2764, 330]
+        },
+        "$description": "Bestehender Wert (pink-on-light). Hue-Verschiebung +15 (345 statt 330) aus der bisherigen Ableitung beibehalten. Ursprünglich oklch(0.64 0.3 345), außerhalb von sRGB; per CSS-Color-4-Algorithmus in sRGB gemappt (Hue 345.57). Phase 4: von keinem Ebene-2-Token mehr genutzt; Hue von 345.57 auf Skalen-Hue 330 normalisiert."
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5768, 0.2629, 330]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.4904, 0.2235, 330]
+        },
+        "$description": "Phase 4: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 330, L zwischen den Nachbarstufen). Vorher: oklch(0.4793 0.2033 345.57)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.392, 0.168, 342.4]
+        },
+        "$description": "Light-Ink (ink.pink), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.392, Chroma 0.168, Farbton 342.4 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.4 0.17 345), ΔE OK 0.0113. Vorher: oklch(0.404 0.1841 330)."
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3176, 0.1447, 330]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2406, 0.1096, 330]
+        }
+      },
+      "$description": "leuchtendes Pink"
+    }
+  }
+}

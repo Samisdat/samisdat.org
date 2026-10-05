@@ -15,11 +15,11 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
- border: 1px solid var(--color-background-muted);
-  background-color: var(--color-background-secondary);
+ border: 1px solid var(--color-surface-muted);
+  background-color: var(--color-surface-raised);
 
         &:hover {
-            border-color: var(--color-foreground-subtle);
+            border-color: var(--color-text-subtle);
         }
     }
 
@@ -30,19 +30,19 @@ const Styling = styled.div`
     }
 
     & rect {
-        fill: var(--color-background-secondary); 
+        fill: var(--color-surface-raised); 
     }
 
     & circle.red {
-        fill: var(--color-red); 
+        fill: var(--color-ink-red); 
     }
 
     & circle.blue {
-        fill: var(--color-blue); 
+        fill: var(--color-ink-blue); 
     }
 
     & circle.yellow {
-        fill: var(--color-yellow); 
+        fill: var(--color-ink-yellow); 
     }
 `;
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@linaria/react";
+import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 
@@ -9,11 +10,11 @@ const initialSpeed = 6;
 
 const DiscStyling = styled.svg`
   circle.white {
-    fill: var(--color-ivory-bright);
+    fill: ${ivory[100]};
   }
 
   circle.black {
-    fill: var(--color-aubergine-deep);
+    fill: ${aubergine[950]};
   }
 `;
 

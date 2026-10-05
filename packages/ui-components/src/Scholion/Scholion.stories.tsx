@@ -28,15 +28,15 @@ function ScholionDemo() {
                 lineHeight: 1.65,
                 maxWidth: '40rem',
                 padding: '1.5rem',
-                color: 'var(--color-foreground)',
-                background: 'var(--color-background)',
+                color: 'var(--color-text-default)',
+                background: 'var(--color-surface-default)',
             }}
         >
             <style>{PER_REF_CSS}</style>
             <pre
                 style={{
-                    background: 'var(--color-background-emphasis)',
-                    color: 'var(--color-foreground)',
+                    background: 'var(--color-surface-emphasis)',
+                    color: 'var(--color-text-default)',
                     borderRadius: 6,
                     padding: '1rem',
                     fontSize: '.82rem',
@@ -57,7 +57,7 @@ function ScholionDemo() {
                         href="#explain-anim"
                         aria-describedby="desc-anim"
                         aria-label="animateTransform, zur Erklärung"
-                        style={{ color: 'var(--color-teal)' }}
+                        style={{ color: 'var(--color-ink-teal)' }}
                     >
                         {'<animateTransform'}
                     </a>

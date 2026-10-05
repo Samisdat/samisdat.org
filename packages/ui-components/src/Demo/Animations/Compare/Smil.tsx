@@ -40,7 +40,7 @@ export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) =>
                 cx={config.startX}
                 cy={config.circleY}
                 r={config.circleRadius}
-                fill="var(--color-red)"
+                fill="var(--color-ink-red)"
             >
                 <animate
                     attributeName="cx"
