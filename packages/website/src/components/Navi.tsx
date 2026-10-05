@@ -87,8 +87,7 @@ const IconNav = styled.nav`
 
     & a:hover,
     & a:focus-visible {
-        /* Fallback is the former pink primitive, which has no scale step. */
-        color: var(--color-accent-primary, oklch(72% 0.2 345deg));
+        color: var(--color-ink-pink);
     }
 
     & svg {
