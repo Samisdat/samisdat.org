@@ -1,6 +1,14 @@
 packages:
   - 'packages/*'
 
+# Pin Vite to 7.x: Storybook's @storybook/builder-vite@10.6 declares a Vite ^8
+# peer range but its dep pre-bundling does not run under Vite 8 — the preview's
+# optimized deps (e.g. storybook_internal_preview_runtime.js) are never built,
+# so every story hangs on an endless loading spinner. Vite 7 works. Remove once
+# Storybook's Vite 8 support is fixed.
+overrides:
+  vite: ^7.1.0
+
 catalog:
   # React ecosystem - shared across all packages
   react: ^19.3.0
