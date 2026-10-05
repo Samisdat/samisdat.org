@@ -41,7 +41,7 @@ Nach dem Setup:
 ### Konfiguration
 
 - **Workflow**: `.github/workflows/chromatic.yml`
-- **Config**: `packages/ui-components/chromatic.config.json`
+- **Config**: `packages/storybook/chromatic.config.json`
 
 **Wichtige Config-Optionen**:
 - `autoAcceptChanges: "main"` — Änderungen auf main werden automatisch akzeptiert

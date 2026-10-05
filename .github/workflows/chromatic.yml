@@ -29,7 +29,7 @@ jobs:
         run: pnpm install --frozen-lockfile
       
       - name: Install Playwright browsers
-        run: pnpm --filter @samisdat/ui-components exec playwright install chromium --with-deps
+        run: pnpm --filter @samisdat/storybook exec playwright install chromium --with-deps
       
       - name: Build panorama library
         run: pnpm build:lib
@@ -38,7 +38,7 @@ jobs:
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          workingDir: packages/ui-components
+          workingDir: packages/storybook
           buildScriptName: build-storybook
           # Only run visual tests on PRs, skip on main
           skip: ${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}

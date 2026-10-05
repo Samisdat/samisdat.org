@@ -1,10 +1,11 @@
 # Blog Monorepo
 
-Dieses Projekt ist ein pnpm Workspace mit 4 Packages:
+Dieses Projekt ist ein pnpm Workspace mit 5 Packages:
 
 - `packages/panorama` — npm Library (gebaut mit tsup, npm-publishable)
 - `packages/website` — Next.js Blog
-- `packages/ui-components` — Storybook UI Dokumentation
+- `packages/ui-components` — UI-Komponenten (React/Linaria)
+- `packages/storybook` — Storybook (Stories, Tests, Chromatic)
 - `packages/tools` — Shared utilities (React hooks, helpers)
 
 ---
@@ -16,7 +17,8 @@ Dieses Projekt ist ein pnpm Workspace mit 4 Packages:
 ├── packages/
 │   ├── panorama/        (Library, npm-publishable)
 │   ├── website/         (Next.js App, blog)
-│   ├── ui-components/   (Storybook)
+│   ├── ui-components/   (UI-Komponenten)
+│   ├── storybook/       (Storybook)
 │   └── tools/           (Shared utilities)
 ├── pnpm-workspace.yaml
 ├── package.json         (Root, Scripts)
@@ -108,7 +110,7 @@ pnpm install
 
 ```bash
 # Option A: Storybook's eigenes Upgrade-Skript
-cd packages/ui-components
+cd packages/storybook
 pnpm dlx storybook@latest upgrade
 
 # Option B: Manuell updaten
