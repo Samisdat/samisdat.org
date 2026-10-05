@@ -1,8 +1,8 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { styled } from "@linaria/react";
 import { syntaxForegrounds } from "@samisdat/color-scheme/contrast";
-import { CodeBlock } from "../CodeBlock";
-import { getDarkTheme, getLightTheme } from "../tokens/themes";
+import { CodeBlock } from "@samisdat/ui-components/CodeBlock";
+import { getDarkTheme, getLightTheme } from "@samisdat/ui-components/tokens/themes";
 
 const Panels = styled.div`
   display: grid;
