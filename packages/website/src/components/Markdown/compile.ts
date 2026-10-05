@@ -11,9 +11,10 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 
+import { getSingletonHighlighter } from 'shiki';
 import { remarkScholion } from '@samisdat/scholion/remark';
 import { scholionTransformer } from '@samisdat/scholion/transformer';
-import { shikiTheme } from '@samisdat/ui-components/utils/shikiTheme';
+import { shikiTheme, styledGrammarLangs } from '@samisdat/ui-components/utils/shikiTheme';
 
 import { Frontmatter } from './Frontmatter';
 import { remarkSandboxCollector } from './remarkSandboxCollector';
@@ -21,6 +22,11 @@ import { remarkSandboxCollector } from './remarkSandboxCollector';
 const shikiOptions = {
     theme: shikiTheme,
     transformers: [scholionTransformer()],
+    getHighlighter: (options: Parameters<typeof getSingletonHighlighter>[0]) =>
+        getSingletonHighlighter({
+            ...options,
+            langs: [...(options?.langs ?? []), ...styledGrammarLangs],
+        }),
 };
 
 interface ParseMarkdownResult {

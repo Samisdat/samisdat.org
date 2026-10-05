@@ -1,5 +1,5 @@
 import { useShikiHighlighter } from "react-shiki";
-import { shikiTheme } from "../utils/shikiTheme";
+import { shikiTheme, styledGrammarLangs } from "../utils/shikiTheme";
 
 export const CodeBlock = ({
   code,
@@ -8,7 +8,9 @@ export const CodeBlock = ({
   code: string;
   language: "jsx" | "tsx" | "css" | "json";
 }) => {
-  const highlightedCode = useShikiHighlighter(code, language, shikiTheme);
+  const highlightedCode = useShikiHighlighter(code, language, shikiTheme, {
+    customLanguages: styledGrammarLangs,
+  });
 
   return <figure>{highlightedCode}</figure>;
 };
