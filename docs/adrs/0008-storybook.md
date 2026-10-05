@@ -38,3 +38,19 @@ Konfiguration:
   Reviews).
 - Storybook-Dependencies (Addons, Builder) sind auf das ui-components-
   Package beschränkt.
+
+## Bekannte Einschränkungen (Stand 2026-10-05)
+
+**Vite muss auf 7.x gepinnt bleiben** (`pnpm-workspace.yaml` → `overrides.vite: ^7.x`).
+
+`@storybook/builder-vite@10.6` deklariert eine `^8`-Peer-Range, aber Vites
+Dependency-Optimizer läuft unter Vite 8.3 nicht an: die Pre-Bundle-Phase
+startet nie (kein `esbuild`/Scan-Output; `DEBUG=vite:deps` zeigt null Zeilen).
+Alle optimierten Deps wie `storybook_internal_preview_runtime.js` werden nicht
+gebaut — Requests hängen ewig, jede Story bleibt im Spinner. Unter Vite 7
+funktioniert alles. Override entfernen, sobald Storybook Vite 8 offiziell
+unterstützt.
+
+**`storybook/test` statt `@storybook/test`**: Ab Storybook 10 sind Test-
+Utilities in das Hauptpaket (`storybook/test`) gewandert. Das veraltete
+`@storybook/test@8`-Paket ist inkompatibel und darf nicht installiert sein.
