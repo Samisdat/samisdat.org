@@ -1,6 +1,5 @@
 import { css } from "@linaria/core";
 import "normalize.css";
-import { colorClassNames } from "./colorClassNames";
 import { breakpoints } from "../tokens/breakpoints";
 import { scholionStyles } from "./scholion";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
@@ -118,14 +117,6 @@ export const globalStyles = css`
       letter-spacing: 0.01em;
       line-height: 1.6;
     }
-
-    div.color {
-      width: 100px;
-      height: 100px;
-      margin: 1rem;
-    }
-
-    ${colorClassNames}
 
     ${scholionStyles}
   }

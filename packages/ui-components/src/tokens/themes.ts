@@ -21,12 +21,6 @@ const createTheme = (colorScheme: Mode): Theme => ({
 export const darkTheme = createTheme("dark");
 export const lightTheme = createTheme("light");
 
-// Derived from the token keys so it can never drift out of sync with the
-// actual theme tokens (and the CSS vars they generate).
-export const themedColors = Object.keys(darkTheme.tokens).map((k) =>
-  k.replace(/^color-/, ""),
-);
-
 export const getDarkTheme = () => `
   color-scheme: dark;
   ${Object.entries(darkTheme.tokens)
