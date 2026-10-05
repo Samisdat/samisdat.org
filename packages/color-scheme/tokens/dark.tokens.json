@@ -116,6 +116,39 @@
       "$value": "{ink.blue}"
     }
   },
+  "border": {
+    "$type": "color",
+    "muted": {
+      "$value": "{surface.muted}"
+    },
+    "default": {
+      "$value": "{color.aubergine.500}"
+    },
+    "strong": {
+      "$value": "{color.ivory.600}"
+    },
+    "focus": {
+      "$value": "{ink.teal}"
+    }
+  },
+  "selection": {
+    "$type": "color",
+    "$value": "{color.aubergine.800}",
+    "$extensions": {
+      "org.samisdat.a11y": {
+        "textTier": "neutral-only"
+      }
+    }
+  },
+  "highlight": {
+    "$type": "color",
+    "$value": "{color.aubergine.800}",
+    "$extensions": {
+      "org.samisdat.a11y": {
+        "textTier": "neutral-only"
+      }
+    }
+  },
   "syntax": {
     "$type": "color",
     "foreground": {
