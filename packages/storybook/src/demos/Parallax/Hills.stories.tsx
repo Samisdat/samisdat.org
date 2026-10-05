@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoParallaxHills } from '@samisdat/demos/Parallax/Hills';
 
 const meta = {
-    title: 'Demo/Parallax/Hills',
+    title: 'Demos/Parallax/Hills',
     component: DemoParallaxHills,
     parameters: {
         layout: 'fullscreen',

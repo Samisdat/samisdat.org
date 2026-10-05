@@ -4,7 +4,7 @@ import { Paragraph as ParagraphComponent } from "@samisdat/ui-components/Paragra
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Typo/Paragraph",
+  title: "UI Components/Typo/Paragraph",
   component: ParagraphComponent,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

@@ -4,7 +4,7 @@ import { Card as CardComponent } from "@samisdat/ui-components/Card";
 import { Typo } from "@samisdat/ui-components/Typo";
 
 const meta = {
-  title: "Layout/Card",
+  title: "UI Components/Layout/Card",
   component: CardComponent,
   tags: ["autodocs"],
   parameters: {},

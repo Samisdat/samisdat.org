@@ -88,7 +88,7 @@ function ScholionDemo() {
 }
 
 const meta = {
-    title: 'Scholion/Stages',
+    title: "UI Components/Scholion/Stages",
     component: ScholionDemo,
     tags: ['autodocs'],
     parameters: {

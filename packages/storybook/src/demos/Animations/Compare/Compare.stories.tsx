@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsCompare } from '@samisdat/demos/Animations/Compare';
 
 const meta = {
-    title: 'Demo/Animations/Compare',
+    title: 'Demos/Animations/Compare',
     component: DemoAnimationsCompare,
     parameters: {
         layout: 'centered',

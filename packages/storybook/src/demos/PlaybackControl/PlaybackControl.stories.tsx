@@ -5,7 +5,7 @@ import { fn } from 'storybook/test';
 import { PlaybackControl } from "@samisdat/demos/PlaybackControl";
 
 const meta = {
-  title: "Interaction/PlaybackControl",
+  title: "Demos/Player/PlaybackControl",
   component: PlaybackControl,
   tags: ["autodocs"],
   parameters: {},

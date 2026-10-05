@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { CodeBlock } from "@samisdat/ui-components/CodeBlock";
 
 const meta = {
-  title: "CodeBlock",
+  title: "UI Components/Blog/CodeBlock",
   component: CodeBlock,
   tags: ["autodocs"],
 } satisfies Meta<typeof CodeBlock>;

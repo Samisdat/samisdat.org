@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsJsAttributes } from '@samisdat/demos/Animations/DemoAnimationsJsAttributes';
 
 const meta = {
-    title: 'Demo/Animations/JsAttributes',
+    title: 'Demos/Animations/JsAttributes',
     component: DemoAnimationsJsAttributes,
     parameters: {
         layout: 'centered',

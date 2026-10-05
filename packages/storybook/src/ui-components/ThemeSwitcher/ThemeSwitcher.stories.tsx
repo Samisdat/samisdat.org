@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { ThemeName, ThemeSwitcher } from '@samisdat/ui-components/ThemeSwitcher';
 
 const meta = {
-    title: 'Interaction/ThemeSwitcher',
+    title: "UI Components/Interaction/ThemeSwitcher",
     component: ThemeSwitcher,
     tags: ['autodocs'],
     parameters: {},

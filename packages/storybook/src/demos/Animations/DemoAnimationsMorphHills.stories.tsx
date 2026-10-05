@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DemoAnimationsMorphHills } from "@samisdat/demos/Animations/DemoAnimationsMorphHills";
 
 const meta = {
-  title: "Demo/Animations/MorphHills",
+  title: "Demos/Animations/MorphHills",
   component: DemoAnimationsMorphHills,
   parameters: {
     layout: "centered",
