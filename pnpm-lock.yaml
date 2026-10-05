@@ -151,6 +151,34 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  packages/demos:
+    dependencies:
+      '@linaria/react':
+        specifier: 'catalog:'
+        version: 8.2.0(react@19.3.0)(supports-color@10.2.2)
+      '@samisdat/color-scheme':
+        specifier: workspace:*
+        version: link:../color-scheme
+      '@samisdat/tools':
+        specifier: workspace:*
+        version: link:../tools
+      '@samisdat/ui-components':
+        specifier: workspace:*
+        version: link:../ui-components
+      react:
+        specifier: 'catalog:'
+        version: 19.3.0
+    devDependencies:
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.3.0(@types/react@19.3.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
   packages/panorama:
     dependencies:
       astronomy-engine:
@@ -272,6 +300,9 @@ importers:
       '@samisdat/color-scheme':
         specifier: workspace:*
         version: link:../color-scheme
+      '@samisdat/demos':
+        specifier: workspace:*
+        version: link:../demos
       '@samisdat/tools':
         specifier: workspace:*
         version: link:../tools
@@ -375,9 +406,6 @@ importers:
       '@samisdat/color-scheme':
         specifier: workspace:*
         version: link:../color-scheme
-      '@samisdat/tools':
-        specifier: workspace:*
-        version: link:../tools
       culori:
         specifier: ^4.0.2
         version: 4.0.2
@@ -454,6 +482,9 @@ importers:
       '@mdx-js/mdx':
         specifier: ^3.1.1
         version: 3.1.1(supports-color@10.2.2)
+      '@samisdat/demos':
+        specifier: workspace:*
+        version: link:../demos
       '@samisdat/scholion':
         specifier: workspace:*
         version: link:../scholion

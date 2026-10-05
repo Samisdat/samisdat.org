@@ -5,6 +5,7 @@ Dieses Projekt ist ein pnpm Workspace mit 5 Packages:
 - `packages/panorama` — npm Library (gebaut mit tsup, npm-publishable)
 - `packages/website` — Next.js Blog
 - `packages/ui-components` — UI-Komponenten (React/Linaria)
+- `packages/demos` — Demo-Komponenten für Blogposts (Animationen, Parallax; hängt von ui-components ab)
 - `packages/storybook` — Storybook (Stories, Tests, Chromatic)
 - `packages/tools` — Shared utilities (React hooks, helpers)
 
@@ -18,6 +19,7 @@ Dieses Projekt ist ein pnpm Workspace mit 5 Packages:
 │   ├── panorama/        (Library, npm-publishable)
 │   ├── website/         (Next.js App, blog)
 │   ├── ui-components/   (UI-Komponenten)
+│   ├── demos/           (Demo-Komponenten für Posts)
 │   ├── storybook/       (Storybook)
 │   └── tools/           (Shared utilities)
 ├── pnpm-workspace.yaml

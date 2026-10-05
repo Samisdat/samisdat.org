@@ -9,18 +9,6 @@
       "types": "./src/*/index.tsx",
       "import": "./src/*/index.tsx"
     },
-    "./Demo/Animations/*": {
-      "types": "./src/Demo/Animations/*.tsx",
-      "import": "./src/Demo/Animations/*.tsx"
-    },
-    "./Demo/Animations/Compare": {
-      "types": "./src/Demo/Animations/Compare/index.tsx",
-      "import": "./src/Demo/Animations/Compare/index.tsx"
-    },
-    "./Demo/Parallax/*": {
-      "types": "./src/Demo/Parallax/*.tsx",
-      "import": "./src/Demo/Parallax/*.tsx"
-    },
     "./style/globalStyle": {
       "types": "./src/style/globalstyle.ts",
       "import": "./src/style/globalstyle.ts"
@@ -51,7 +39,6 @@
     "@linaria/core": "catalog:",
     "@linaria/react": "catalog:",
     "@samisdat/color-scheme": "workspace:*",
-    "@samisdat/tools": "workspace:*",
     "culori": "^4.0.2",
     "fs-extra": "catalog:",
     "normalize.css": "catalog:",

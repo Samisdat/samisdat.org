@@ -18,7 +18,7 @@ RESULTS=$(grep -rn \
   --exclude="*MiniPano.tsx" \
   --exclude="*DemoAnimationsMorphHills.tsx" \
   -E "(fill|stroke|background|color|border-color|stop-color):\s*(#[0-9a-fA-F]{3,6}|'#[0-9a-fA-F]{3,6}'|\"#[0-9a-fA-F]{3,6}\")" \
-  packages/website/ packages/ui-components/ packages/storybook/ 2>/dev/null || true)
+  packages/website/ packages/ui-components/ packages/demos/ packages/storybook/ 2>/dev/null || true)
 
 if [ -n "$RESULTS" ]; then
   echo "❌ Found hardcoded hex colors in styled components:"
@@ -47,7 +47,7 @@ ARCH_RESULTS=$(grep -rnE \
   --exclude-dir=codesandboxes \
   --exclude-dir=templates \
   "var\(--primitive-|var\(--color-[a-z]+-[0-9]+|--color-(background|foreground)|-on-(dark|light)|--color-(aubergine|ivory)-(deep|base|raised|subtle|muted|bright|soft|dim)" \
-  packages/website/ packages/ui-components/ packages/storybook/ 2>/dev/null || true)
+  packages/website/ packages/ui-components/ packages/demos/ packages/storybook/ 2>/dev/null || true)
 
 if [ -n "$ARCH_RESULTS" ]; then
   echo "❌ Found palette variables or removed color names:"
@@ -81,7 +81,7 @@ LITERAL_RESULTS=$(grep -rnE \
   --exclude="*MiniPano.tsx" \
   --exclude="*DemoAnimationsMorphHills.tsx" \
   "\b(oklch|rgba?|hsla?)\(" \
-  packages/website/src packages/ui-components/src packages/storybook/src 2>/dev/null \
+  packages/website/src packages/ui-components/src packages/demos/src packages/storybook/src 2>/dev/null \
   | grep -vE "^packages/(ui-components/src/tokens|storybook/src/color-scheme)/" \
   | grep -vE "(box|text)-shadow:[^;]*rgba\(0, 0, 0, [0-9.]+\)" \
   || true)
