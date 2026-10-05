@@ -57,7 +57,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 | Ebene | Inhalt | Im Web |
 |---|---|---|
 | 1 · Wert | Volle Skalen `50–950` (50 = hell) | keine CSS-Variable; TS-Import |
-| 2 · Bedeutung | `surface`, `text`, `border`, `ink.<hue>`, `status`, `selection`, `highlight` | `--color-<pfad>` |
+| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.comment`, `status`; geplant: `border`, `selection`, `highlight` | `--color-<pfad>` |
 | 3 · Einsatzort | geteilte Orte: `syntax.*`, später `terminal.*` | `--color-<pfad>` |
 
 - **Ebene 1**: Skalen für `aubergine`, `ivory` (Eigennamen der
@@ -68,6 +68,21 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   Literal ein, der Bundler verwirft Ungenutztes).
 - **Ebene 2**: `ink.<hue>` ist der Satz lesbarer Akzentfarben mit
   Kontrastgarantie; `status.*` sind Aliase darauf.
+  - Rollen: `surface.default|emphasis|raised|subtle|muted` und
+    `text.default|emphasis|secondary|subtle|muted`. Die Modifier stammen aus
+    dem bisherigen Schema und wurden für eine Migration ohne optische
+    Änderung beibehalten.
+  - `ink.comment` (Skala `periwinkle`) ist die Kommentarfarbe. Kommentare
+    sollen auf einen Blick erkennbar sein: eigener Farbton statt Grau,
+    kursiv, und mindestens ΔE OK 0,08 zu jeder anderen Syntaxfarbe.
+    Satzzeichen nutzen deshalb `text.secondary`, nicht das Grau von
+    `text.subtle`.
+  - `status.warning` zeigt auf `ink.orange`, nicht auf Gelb: Ein Gelb, das
+    auf hellem Grund 4,5:1 erreicht, ist oliv und liest sich nicht mehr als
+    Warnung.
+  - Im Light Mode liegen die Inks bewusst auf unterschiedlicher Helligkeit
+    (L ≈ 0,33–0,42). Bei 4,5:1 auf Ivory rücken die Farbtöne allein zu
+    nah zusammen; die Helligkeit ist die zweite Achse der Unterscheidung.
 - **Ebene 3**: Geteilte Einsatzorte liegen im Paket. `syntax.*` folgt dem
   Vokabular der Neovim-Tree-sitter-Captures (`keyword`, `string`,
   `function`, `tag`, `tag.attribute` …), mit `fontStyle` neben der Farbe.
@@ -87,8 +102,25 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   stehen nur `text.default` und `text.emphasis`.
 - Auch `text.muted` und Code-Kommentare erfüllen 4.5:1.
 - Ausnahmen (dekorativ, deaktiviert) stehen begründet im Token unter
-  `$extensions`.
+  `$extensions["org.samisdat.a11y"].exempt`; so ist `surface.muted`
+  ausgenommen, weil dort nur Rahmen und Fortschrittsbalken liegen.
+- `contrast-baseline.json` nimmt bekannte Verstöße auf, damit eine
+  Korrektur schrittweise erfolgen kann. Die Baseline darf nur schrumpfen;
+  ein Eintrag, der inzwischen besteht, bricht den Lint. Sie ist leer.
+- Der Code-Hintergrund `syntax.background` ist im Dark Mode dunkler als
+  die Seite (`surface.emphasis`), im Light Mode heller (`surface.raised`).
+  Weil Codefarben auch im Fließtext stehen, wird jede Syntaxfarbe auf
+  beiden Flächen geprüft.
 - Geprüft werden die Endpunkte des Theme-Morphings, nicht Zwischenframes.
+- **APCA als zweites Gate**: WCAG 2 überschätzt hellen Text auf dunklem
+  Grund (Dark-Mode-Inks mit ≥ 5,2:1 erreichten nur Lc 36–51). Jedes `ink.*`
+  und jeder `syntax.*`-Vordergrund braucht |Lc| ≥ 60 auf `syntax.background`
+  und `surface.default`; `text.default` ≥ 75 gilt nur als Warnung. Ausnahmen
+  stehen mit Begründung im Token (`apcaMin`, `apcaReason`), Aliase erben sie.
+  Bewusste Ausnahme: dark `ink.red` (keyword) mit Lc ≈ 44. Ein helles Rot,
+  das Lc 60 erreicht, ist in sRGB zwangsläufig entsättigt (Lachs); die
+  Gestaltungsentscheidung fiel für ein kräftiges Rot. Fettschrift für
+  Keywords als Alternative (Lc 50) wurde verglichen und verworfen.
 
 ### Konsumenten
 
@@ -113,11 +145,20 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
     generiert. Die Regel sieht nur den Default-Mode, deshalb läuft der
     Check einmal pro Mode (`MODE=dark|light`).
   - Gamut: Terrazzo `core/max-gamut` mit `gamut: 'srgb'`.
-  - Skala (L monoton, Mindestabstand) und Architektur (kein Hex, kein
-    `var(--color-<palette>-<n>)` in Komponenten): eigene Skripte.
+  - Skala (L monoton, Mindestabstand): eigenes Skript.
+  - Unterscheidbarkeit: ΔE OK ≥ 0,08 zwischen allen Inks pro Mode, eigenes
+    Skript.
+  - Architektur (`lint:colors`): keine Hex- und Farbliterale (`oklch()`,
+    `rgb()`, `hsl()`), kein `var(--color-<palette>-<n>)` und keine alten
+    Variablennamen in Komponenten.
 - **Ausführung**: `pnpm lint:tokens` in CI, `pnpm dev:tokens` als Watch.
-- **Später** (mit Terminal/nvim): Unterscheidbarkeit der Ink-Farben unter
-  Farbfehlsichtigkeit (ΔE OK), APCA als Zusatzinfo.
+- **Farbfehlsichtigkeit** (vorher „später“, jetzt aktiv): Protanopie,
+  Deuteranopie und Tritanopie simuliert (Machado 2009, Schweregrad 1);
+  ΔE OK ≥ 0,04 zwischen allen Inks sowie zwischen Inks und `text.default` /
+  `text.secondary`. APCA: siehe Barrierefreiheit.
+- **Später**: `terminal.*` (ANSI-Palette) für zsh, herdr und nvim;
+  Farbnamen-Unterscheidbarkeit (Heer & Stone, c3-Modell); eine Grammatik
+  für CSS in `styled`-Templates, die Shiki bisher als String färbt.
 
 ### Migration
 
