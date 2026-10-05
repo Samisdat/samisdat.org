@@ -46,7 +46,7 @@ for (const mode of modes) {
   for (const p of apcaTextPairs(mode)) {
     const value = lc(p);
     if (value < APCA_TEXT_WARN) {
-      warnings.push(`${p.id}: Lc ${value.toFixed(1)} < ${APCA_TEXT_WARN} (warning only)`);
+      errors.push(`${p.id}: Lc ${value.toFixed(1)} < ${APCA_TEXT_WARN} (body text minimum)`);
     }
   }
 }

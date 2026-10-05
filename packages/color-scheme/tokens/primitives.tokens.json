@@ -93,9 +93,9 @@
       "200": {
         "$value": {
           "colorSpace": "oklch",
-          "components": [0.8497, 0.037, 30]
+          "components": [0.854, 0.037, 30]
         },
-        "$description": "Bestehender Wert (primitive-ivory, ivory-base)."
+        "$description": "Bestehender Wert (primitive-ivory, ivory-base). L von 0.8497 auf 0.854 angehoben: text.default erreicht damit Lc ≥ 75 auf surface.default (war 74.5/74.9)."
       },
       "300": {
         "$value": {

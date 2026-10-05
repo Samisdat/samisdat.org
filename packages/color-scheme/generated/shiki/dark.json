@@ -1,9 +1,9 @@
 {
   "name": "samisdat",
-  "fg": "#e5c5c0",
+  "fg": "#e6c7c1",
   "bg": "#0f051d",
   "colors": {
-    "editor.foreground": "#e5c5c0",
+    "editor.foreground": "#e6c7c1",
     "editor.background": "#0f051d"
   },
   "tokenColors": [
@@ -113,7 +113,7 @@
         "variable.other.readwrite"
       ],
       "settings": {
-        "foreground": "#e5c5c0"
+        "foreground": "#e6c7c1"
       }
     },
     {
