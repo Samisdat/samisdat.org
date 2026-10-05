@@ -83,7 +83,6 @@
     "@storybook/addon-vitest": "^10.6.1",
     "@storybook/react": "^10.6.1",
     "@storybook/react-vite": "^10.6.1",
-    "@storybook/test": "^8.6.15",
     "@types/culori": "^4.0.1",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
