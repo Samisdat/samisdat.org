@@ -35,7 +35,7 @@ const Bar = styled.div`
         }
 
         to {
-            border-color: var(--color-surface-muted);
+            border-color: var(--color-border-default);
             background: var(--color-surface-raised);
         }
     }
@@ -104,7 +104,7 @@ const IconNav = styled.nav`
 `;
 
 const ProgressBar = styled.div`
-    background: var(--color-surface-muted);
+    background: var(--color-border-muted);
     height: 2px;
     width: 0;
     border-start-end-radius: 20px;

@@ -24,7 +24,7 @@ const PlayPauseButton = styled.button`
 `;
 
 const Styling = styled.div`
-  border: 1px solid var(--color-surface-muted);
+  border: 1px solid var(--color-border-default);
   padding: 1rem;
   font-family: var(--font-code);
   font-weight: bold;

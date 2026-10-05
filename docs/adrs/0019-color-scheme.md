@@ -57,7 +57,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 | Ebene | Inhalt | Im Web |
 |---|---|---|
 | 1 · Wert | Volle Skalen `50–950` (50 = hell) | keine CSS-Variable; TS-Import |
-| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.comment`, `status`; geplant: `border`, `selection`, `highlight` | `--color-<pfad>` |
+| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.comment`, `status`, `border`, `selection`, `highlight` | `--color-<pfad>` |
 | 3 · Einsatzort | geteilte Orte: `syntax.*`, später `terminal.*` | `--color-<pfad>` |
 
 - **Ebene 1**: Skalen für `aubergine`, `ivory` (Eigennamen der
@@ -96,10 +96,12 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 
 - Die Prüfmatrix wird aus Rollen generiert, nicht von Hand gepflegt:
   - `text.*` und `ink.*` auf jedem Surface mit `textTier: full`: ≥ 4.5:1
-  - `border.strong`, `border.focus` auf jedem Surface: ≥ 3:1
+  - `border.strong`, `border.focus` auf `surface.default`: ≥ 3:1 (WCAG 1.4.11; gegen alle Surfaces nicht praktikabel, da dunkle Mid-Surfaces keine 3:1-Lücke für einen sichtbaren Rahmen lassen)
   - `syntax.*` auf `syntax.background` und `surface.default`: ≥ 4.5:1
 - Surfaces tragen `textTier: full | neutral-only`. Auf `neutral-only`
-  stehen nur `text.default` und `text.emphasis`.
+  stehen nur `text.default` und `text.emphasis`. `selection` und `highlight`
+  nutzen `neutral-only`; ihr Hintergrund wird automatisch in die Matrix
+  aufgenommen, sobald `textTier` gesetzt ist.
 - Auch `text.muted` und Code-Kommentare erfüllen 4.5:1.
 - Ausnahmen (dekorativ, deaktiviert) stehen begründet im Token unter
   `$extensions["org.samisdat.a11y"].exempt`; so ist `surface.muted`
@@ -157,8 +159,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   ΔE OK ≥ 0,04 zwischen allen Inks sowie zwischen Inks und `text.default` /
   `text.secondary`. APCA: siehe Barrierefreiheit.
 - **Später**: `terminal.*` (ANSI-Palette) für zsh, herdr und nvim;
-  Farbnamen-Unterscheidbarkeit (Heer & Stone, c3-Modell); eine Grammatik
-  für CSS in `styled`-Templates, die Shiki bisher als String färbt.
+  Farbnamen-Unterscheidbarkeit (Heer & Stone, c3-Modell).
 
 ### Migration
 
@@ -200,6 +201,18 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 - ADR 0007 bleibt gültig; die Theme-Erzeugung wandert in das neue Paket.
 
 ## Umsetzung
+
+Phase 6 — `border.*`, `selection`, `highlight`:
+
+- `border.muted|default|strong|focus` pro Mode. `border.strong` und
+  `border.focus` werden gegen `surface.default` mit min 3:1 geprüft (nicht
+  gegen alle Surfaces: auf den hellsten Dark-Surfaces ist kein sichtbarer
+  Rahmen mit 3:1 möglich).
+- `selection` und `highlight` tragen `textTier: neutral-only`; die
+  Kontrastmatrix prüft `text.default` und `text.emphasis` automatisch.
+- Alle Komponenten, die `surface.muted` als Rahmenfarbe nutzten (Card,
+  PlaybackControl, Navi, Demo/Parallax), nutzen jetzt `border.default`.
+  Der dekorative Navi-Scrollbalken nutzt `border.muted`.
 
 Abweichungen bei der Umsetzung von Phase 5:
 
