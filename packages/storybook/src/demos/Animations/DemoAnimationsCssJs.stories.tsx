@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsCssJs } from '@samisdat/demos/Animations/DemoAnimationsCssJs';
 
 const meta = {
-    title: 'Demo/Animations/CssJs',
+    title: 'Demos/Animations/CssJs',
     component: DemoAnimationsCssJs,
     parameters: {
         layout: 'centered',

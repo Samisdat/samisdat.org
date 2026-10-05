@@ -4,7 +4,7 @@ import { Heading } from "@samisdat/ui-components/Heading";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Typo/Heading",
+  title: "UI Components/Typo/Heading",
   component: Heading,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],

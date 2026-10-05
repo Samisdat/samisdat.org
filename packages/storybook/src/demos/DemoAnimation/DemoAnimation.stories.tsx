@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { DemoAnimation } from '@samisdat/demos/DemoAnimation';
 
 const meta = {
-    title: 'Interaction/DemoAnimation',
+    title: "Demos/Player/DemoAnimation",
     component: DemoAnimation,
     tags: ['autodocs'],
     parameters: {

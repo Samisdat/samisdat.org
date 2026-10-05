@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsMorphThumb } from '@samisdat/demos/Animations/DemoAnimationsMorphThumb';
 
 const meta = {
-    title: 'Demo/Animations/MorphThumb',
+    title: 'Demos/Animations/MorphThumb',
     component: DemoAnimationsMorphThumb,
     parameters: {
         layout: 'centered',

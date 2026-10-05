@@ -63,6 +63,11 @@ const preview: Preview = {
   ],
 
   parameters: {
+    options: {
+      storySort: {
+        order: ["UI Components", "Demos", "Color Scheme"],
+      },
+    },
     docs: {
       theme: themes.dark,
     },

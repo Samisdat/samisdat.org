@@ -4,7 +4,7 @@ import { Container as ContainerComponent } from "@samisdat/ui-components/Contain
 import { DemoBox } from "@samisdat/ui-components/DemoBox";
 
 const meta = {
-  title: "Layout/Container",
+  title: "UI Components/Layout/Container",
   component: ContainerComponent,
   tags: ["autodocs"],
   parameters: {

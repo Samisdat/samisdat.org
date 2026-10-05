@@ -5,7 +5,7 @@ import { DemoBox } from "@samisdat/ui-components/DemoBox";
 import { space } from "@samisdat/ui-components/tokens/space";
 
 const meta = {
-  title: "Layout/Stack",
+  title: "UI Components/Layout/Stack",
   component: Stack,
   tags: ["autodocs"],
   parameters: {

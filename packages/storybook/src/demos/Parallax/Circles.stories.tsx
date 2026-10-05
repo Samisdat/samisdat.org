@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoParallaxCircles } from '@samisdat/demos/Parallax/Circles';
 
 const meta = {
-    title: 'Demo/Parallax/Circles',
+    title: 'Demos/Parallax/Circles',
     component: DemoParallaxCircles,
     parameters: {
         layout: 'fullscreen',

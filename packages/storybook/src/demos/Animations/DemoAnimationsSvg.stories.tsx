@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsSvg } from '@samisdat/demos/Animations/DemoAnimationsSvg';
 
 const meta = {
-    title: 'Demo/Animations/Svg',
+    title: 'Demos/Animations/Svg',
     component: DemoAnimationsSvg,
     parameters: {
         layout: 'centered',

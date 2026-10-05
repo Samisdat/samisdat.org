@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Typo as TypoComponent, variants } from "@samisdat/ui-components/Typo";
 
 const meta = {
-  title: "Typo/Typo",
+  title: "UI Components/Typo/Typo",
   component: TypoComponent,
   tags: ["autodocs"],
   argTypes: {

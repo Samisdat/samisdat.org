@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DemoCanvas } from "@samisdat/demos/DemoCanvas";
 
 const meta = {
-  title: "DemoCanvas",
+  title: "Demos/Player/DemoCanvas",
   component: DemoCanvas,
   tags: ["autodocs"],
 } satisfies Meta<typeof DemoCanvas>;

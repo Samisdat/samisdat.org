@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { DemoParallaxSectors } from '@samisdat/demos/Parallax/Sectors';
 
 const meta = {
-    title: 'Demo/Parallax/Sectors',
+    title: 'Demos/Parallax/Sectors',
     component: DemoParallaxSectors,
     parameters: {
         layout: 'centered',

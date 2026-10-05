@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { DemoBox } from "@samisdat/ui-components/DemoBox";
 
 const meta = {
-  title: "DemoBox",
+  title: "UI Components/Layout/DemoBox",
   component: DemoBox,
   tags: ["autodocs"],
 } satisfies Meta<typeof DemoBox>;
