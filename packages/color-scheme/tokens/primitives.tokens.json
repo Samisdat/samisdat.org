@@ -656,6 +656,77 @@
       },
       "$description": "kräftiges Blau mit Violettstich"
     },
+    "periwinkle": {
+      "50": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.9746, 0.0124, 285]
+        }
+      },
+      "100": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.944, 0.0277, 285]
+        }
+      },
+      "200": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.893, 0.054, 285]
+        }
+      },
+      "300": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.8266, 0.09, 285]
+        }
+      },
+      "400": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.745, 0.13, 285]
+        },
+        "$description": "Kommentarfarbe im Dark Mode (ink.comment)."
+      },
+      "500": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.6573, 0.145, 285]
+        }
+      },
+      "600": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.5587, 0.145, 285]
+        }
+      },
+      "700": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.46, 0.135, 285]
+        },
+        "$description": "Kommentarfarbe im Light Mode (ink.comment)."
+      },
+      "800": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.3796, 0.1087, 285]
+        }
+      },
+      "900": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2993, 0.087, 285]
+        }
+      },
+      "950": {
+        "$value": {
+          "colorSpace": "oklch",
+          "components": [0.2279, 0.0653, 285]
+        }
+      },
+      "$description": "Periwinkle, weiches Blauviolett; Kommentarfarbe"
+    },
     "purple": {
       "50": {
         "$value": {

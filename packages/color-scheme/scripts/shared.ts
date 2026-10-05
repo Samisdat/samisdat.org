@@ -15,6 +15,7 @@ export const HUES = [
   "teal",
   "cyan",
   "blue",
+  "periwinkle",
   "purple",
   "pink",
 ] as const;

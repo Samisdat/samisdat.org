@@ -281,6 +281,13 @@ const HUE_CONFIG: Record<Hue, HueConfig> = Object.fromEntries([
     { dl: -0.15, cMul: 1.5, dh: 10, expression: "l - 0.15, c * 1.5, h + 10" },
   ),
   accent(
+    "periwinkle",
+    "Periwinkle, weiches Blauviolett; Kommentarfarbe",
+    { l: 0.745, c: 0.13, h: 285 },
+    "oklch(74.5% 0.13 285)",
+    { dl: -0.285, cMul: 1.0385, dh: 0, expression: "l - 0.285, c * 1.04" },
+  ),
+  accent(
     "purple",
     "kräftiges Violett",
     { l: 0.6, c: 0.22, h: 305 },

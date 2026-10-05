@@ -90,6 +90,9 @@
     },
     "pink": {
       "$value": "{color.pink.400}"
+    },
+    "comment": {
+      "$value": "{color.periwinkle.400}"
     }
   },
   "status": {
@@ -121,7 +124,7 @@
       }
     },
     "comment": {
-      "$value": "{text.muted}",
+      "$value": "{ink.comment}",
       "$extensions": {
         "org.samisdat.syntax": {
           "fontStyle": "italic"
@@ -168,7 +171,7 @@
       "$value": "{text.secondary}"
     },
     "punctuation": {
-      "$value": "{text.subtle}"
+      "$value": "{text.secondary}"
     },
     "diff-plus": {
       "$value": "{ink.green}"

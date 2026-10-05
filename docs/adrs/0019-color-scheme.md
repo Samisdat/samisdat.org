@@ -62,7 +62,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 
 - **Ebene 1**: Skalen für `aubergine`, `ivory` (Eigennamen der
   Markenfarben) und generisch benannte Akzente (`red`, `orange`, `yellow`,
-  `green`, `teal`, `cyan`, `blue`, `purple`, `pink`). Hue bleibt über die
+  `green`, `teal`, `cyan`, `blue`, `periwinkle`, `purple`, `pink`). Hue bleibt über die
   Skala konstant; Abweichungen werden in `$description` begründet. Im Web
   gelangt Ebene 1 nur per typisiertem TS-Import ins CSS (Linaria setzt das
   Literal ein, der Bundler verwirft Ungenutztes).

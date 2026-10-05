@@ -13,7 +13,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "#997c77",
+        "foreground": "#a4a0fb",
         "fontStyle": "italic"
       }
     },
@@ -175,7 +175,7 @@
         "punctuation.definition.template-expression"
       ],
       "settings": {
-        "foreground": "#a58782"
+        "foreground": "#ceafa9"
       }
     },
     {

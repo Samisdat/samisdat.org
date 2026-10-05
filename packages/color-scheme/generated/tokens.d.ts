@@ -114,6 +114,17 @@ export interface Tokens {
   "color.blue.800": Color;
   "color.blue.900": Color;
   "color.blue.950": Color;
+  "color.periwinkle.50": Color;
+  "color.periwinkle.100": Color;
+  "color.periwinkle.200": Color;
+  "color.periwinkle.300": Color;
+  "color.periwinkle.400": Color;
+  "color.periwinkle.500": Color;
+  "color.periwinkle.600": Color;
+  "color.periwinkle.700": Color;
+  "color.periwinkle.800": Color;
+  "color.periwinkle.900": Color;
+  "color.periwinkle.950": Color;
   "color.purple.50": Color;
   "color.purple.100": Color;
   "color.purple.200": Color;
@@ -155,6 +166,7 @@ export interface Tokens {
   "ink.blue": Color;
   "ink.purple": Color;
   "ink.pink": Color;
+  "ink.comment": Color;
   "status.danger": Color;
   "status.warning": Color;
   "status.success": Color;

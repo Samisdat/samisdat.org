@@ -129,6 +129,20 @@ export const blue = {
   950: "oklch(0.2286 0.0855 265)",
 } as const;
 
+export const periwinkle = {
+  50: "oklch(0.9746 0.0124 285)",
+  100: "oklch(0.944 0.0277 285)",
+  200: "oklch(0.893 0.054 285)",
+  300: "oklch(0.8266 0.09 285)",
+  400: "oklch(0.745 0.13 285)",
+  500: "oklch(0.6573 0.145 285)",
+  600: "oklch(0.5587 0.145 285)",
+  700: "oklch(0.46 0.135 285)",
+  800: "oklch(0.3796 0.1087 285)",
+  900: "oklch(0.2993 0.087 285)",
+  950: "oklch(0.2279 0.0653 285)",
+} as const;
+
 export const purple = {
   50: "oklch(0.9747 0.0148 305)",
   100: "oklch(0.9432 0.0337 305)",
@@ -157,7 +171,7 @@ export const pink = {
   950: "oklch(0.2406 0.1096 330)",
 } as const;
 
-export const hues = ["aubergine", "ivory", "red", "orange", "yellow", "green", "teal", "cyan", "blue", "purple", "pink"] as const;
+export const hues = ["aubergine", "ivory", "red", "orange", "yellow", "green", "teal", "cyan", "blue", "periwinkle", "purple", "pink"] as const;
 export const steps = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
 export type Hue = (typeof hues)[number];
@@ -173,6 +187,7 @@ export const palette = {
   teal,
   cyan,
   blue,
+  periwinkle,
   purple,
   pink,
 } as const satisfies Record<Hue, Record<Step, string>>;

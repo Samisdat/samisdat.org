@@ -8,8 +8,8 @@ Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.toke
 
 | Ebene | Inhalt | Status |
 |---|---|---|
-| 1 · Wert | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`) |
-| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `status` (weitere Rollen folgen) | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
+| 1 · Wert | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `periwinkle`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`) |
+| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.comment`, `status` (weitere Rollen folgen) | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
 | 3 · Einsatzort | `syntax.*`, später `terminal.*` | `syntax.*` vorhanden (in `tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
 
 Ebene 1 wird nie zu einer CSS-Variable. Im Web gelangt sie als typisierter Import ins CSS:
@@ -71,7 +71,9 @@ Pair-IDs haben die Form `dark:text.muted/surface.default`.
 2. Meldet der Lint „now passes, remove from baseline“: `pnpm --filter @samisdat/color-scheme contrast:baseline` ausführen und die kleinere Datei committen.
 3. Die Datei nie von Hand vergrößern; ein neuer Verstoß ist zu beheben, nicht einzutragen.
 
-**Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,36–0,47, manche Inks sitzen auf Stufe 800 statt 700, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen auf drei Nachkommastellen, und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,122 (orange ~ yellow), Light Mode: 0,080 (green ~ teal).
+**Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,36–0,47, manche Inks sitzen auf Stufe 800 statt 700, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen auf drei Nachkommastellen, und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,122 (orange ~ yellow), Light Mode: 0,081 (green ~ teal). `ink.comment` ist Teil der Inks und erfüllt die Schwelle in beiden Modes.
+
+**Kommentare** (zweiter Teil von `lint-distinct.ts`): `syntax.comment` muss sich von jedem anderen Syntax-Vordergrund (alle `syntax.*` außer `syntax.background`) um ΔE OK ≥ 0,08 unterscheiden, pro Mode. So bleibt ein Kommentar auch gegen textbasierte Syntaxfarben (`variable`, `operator`, `punctuation`) eindeutig. Kleinste Distanz: Dark 0,148 (zu `operator`/`punctuation`), Light 0,118 (zu `function`).
 
 **Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
 
@@ -81,11 +83,13 @@ Pair-IDs haben die Form `dark:text.muted/surface.default`.
 
 Token-ID: Capture mit `-` statt `.` (`tag.attribute` → `syntax.tag-attribute`), weil DTCG kein Token zugleich als Gruppe erlaubt (`tag` und `tag.attribute`). CSS-Variable: `--color-syntax-tag-attribute`. `fontStyle` steht in `$extensions["org.samisdat.syntax"].fontStyle` (bisher nur `comment`: `italic`).
 
+**Kommentarregel**: Kommentare haben eine eigene, farbige Ink-Rolle `ink.comment` (Hue `periwinkle`, Blauviolett, Hue 285) und liegen nie auf einer `text.*`-Farbe. Warmgraue Kommentare waren von `punctuation` kaum zu trennen (ΔE OK 0,037 dark / 0,064 light). `ink.comment` = dark `color.periwinkle.400` (`oklch(0.745 0.13 285)`: 8,48:1 auf `syntax.background`, 7,49:1 auf `surface.default`), light `color.periwinkle.700` (`oklch(0.46 0.135 285)`: 5,47:1 / 4,66:1). `punctuation` zeigt dafür auf `text.secondary` (wie `operator`).
+
 | Capture | Alias | Gedacht für |
 |---|---|---|
 | `foreground` | `text.default` | Grundfarbe |
 | `background` | dark `surface.emphasis`, light `surface.raised` | Codeblock; folgt dem Theme, dark dunkler und light heller als die Seite |
-| `comment` | `text.muted` (italic) | Kommentare |
+| `comment` | `ink.comment` (italic) | Kommentare; eigene Farbe, siehe unten |
 | `keyword` | `ink.red` | `const`, `import`, `return`, Storage |
 | `string` | `ink.orange` | Strings, Anführungszeichen, Template-Strings |
 | `string.special` | `ink.cyan` | Regex, Escape-Sequenzen |
@@ -99,7 +103,7 @@ Token-ID: Capture mit `-` statt `.` (`tag.attribute` → `syntax.tag-attribute`)
 | `tag` | `ink.pink` | Tag-Namen samt `<` `>` |
 | `tag.attribute` | `ink.purple` | Attribute |
 | `operator` | `text.secondary` | Operatoren, `=>` |
-| `punctuation` | `text.subtle` | Klammern, Trenner |
+| `punctuation` | `text.secondary` | Klammern, Trenner |
 | `diff.plus` / `diff.minus` | `ink.green` / `ink.red` | Diff-Zeilen (Vordergrund, kein Alpha) |
 
 Zuordnungsprinzip: Im Light Mode sind Gelb, Cyan, Lila, Rosa und Grün absichtlich dunkler (schwerer), Rot, Orange, Türkis und Blau heller. Da der Alias in beiden Modes gleich ist, liegen die schweren Inks auf seltenen Kategorien (`number`, `constant`, `tag.attribute`, `parameter`, `type`), die helleren auf häufigen (`keyword`, `string`, `function`, `property`). Geteilte Inks (`number`/`constant`, `type`/`string.special`) liegen auf Kategorien, die selten nebeneinander stehen.
