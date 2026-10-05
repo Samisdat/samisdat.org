@@ -41,7 +41,7 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | Skript | Zweck |
 |---|---|
 | `build` | `tz build`: Lint plus `generated/` neu erzeugen |
-| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast` und `scripts/lint-distinct.ts` |
+| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts` und `scripts/lint-apca.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
 | `dev` | `tz build --watch` |
@@ -71,11 +71,71 @@ Pair-IDs haben die Form `dark:text.muted/surface.default`.
 2. Meldet der Lint „now passes, remove from baseline“: `pnpm --filter @samisdat/color-scheme contrast:baseline` ausführen und die kleinere Datei committen.
 3. Die Datei nie von Hand vergrößern; ein neuer Verstoß ist zu beheben, nicht einzutragen.
 
-**Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,36–0,47, manche Inks sitzen auf Stufe 800 statt 700, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen auf drei Nachkommastellen, und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,122 (orange ~ yellow), Light Mode: 0,081 (green ~ teal). `ink.comment` ist Teil der Inks und erfüllt die Schwelle in beiden Modes.
+**Unterscheidbarkeit der Inks** (`scripts/lint-distinct.ts`, Teil von `lint`): Kontrast zur Fläche allein trennt die Farbtöne nicht; im Light Mode liegen alle Inks bei ähnlichem L. Deshalb nutzt der Light Mode Lightness als zweite Achse (L 0,33–0,42, die Inks sitzen auf den Stufen 700–900, Hue teils gegenüber der Skala verschoben; steht im `$description` der Stufe). Der Lint prüft pro Mode paarweise die Distanz aller `ink.*` im OKLab (Euklidisch, ΔE OK, `culori` `differenceEuclidean('oklab')`) auf ≥ 0,08, verglichen ohne Rundung (der Rohwert zählt), und nennt fehlschlagende Paare mit Namen und Werten. Dark Mode: kleinste Distanz 0,0820 (orange ~ yellow), Light Mode: 0,0820 (green ~ teal). Die Werte sind auf eine Marge von 0,002 über der Schwelle abgestimmt (Ziel ≥ 0,082); neue Inks brauchen entsprechend Luft. `ink.comment` ist Teil der Inks und erfüllt die Schwelle in beiden Modes.
 
-**Kommentare** (zweiter Teil von `lint-distinct.ts`): `syntax.comment` muss sich von jedem anderen Syntax-Vordergrund (alle `syntax.*` außer `syntax.background`) um ΔE OK ≥ 0,08 unterscheiden, pro Mode. So bleibt ein Kommentar auch gegen textbasierte Syntaxfarben (`variable`, `operator`, `punctuation`) eindeutig. Kleinste Distanz: Dark 0,148 (zu `operator`/`punctuation`), Light 0,118 (zu `function`).
+**Farbfehlsichtigkeit** (`scripts/lint-cvd.ts`, Teil von `lint`): Unter Farbfehlsichtigkeit fallen Ink-Paare zusammen, die für normales Sehen klar getrennt sind. Der Lint simuliert pro Mode Protanopie, Deuteranopie und Tritanopie (`culori` `filterDeficiencyProt(1)`, `filterDeficiencyDeuter(1)`, `filterDeficiencyTrit(1)`; Machado 2009, Schweregrad 1) und verlangt ΔE OK ≥ 0,04 (OKLab, Euklidisch)
+
+- für jedes Paar aus allen `ink.*` (inkl. `ink.comment`)
+- zwischen jedem `ink.*` und `text.default` / `text.secondary`
+
+Fehlschlagende Paare erscheinen mit Simulationstyp, Originalwert und simuliertem Hex. Schwelle 0,04 ist niedriger als die 0,08 ohne Simulation, weil die Simulation Farbraum nimmt; vorher lag das Minimum bei 0,016 (dark) bzw. 0,019 (light). Verglichen wird der Rohwert, ohne Rundung. Aktuelle Minima (Ziel ≥ 0,041): dark 0,0414 (Protanopie, cyan ~ text.secondary), 0,0410 (Deuteranopie, blue ~ pink), 0,0411 (Tritanopie, purple ~ text.secondary); light 0,0411 (Protanopie, orange ~ yellow), 0,0410 (Deuteranopie, teal ~ text.secondary), 0,0410 (Tritanopie, orange ~ pink).
+
+**Kommentare** (zweiter Teil von `lint-distinct.ts`): `syntax.comment` muss sich von jedem anderen Syntax-Vordergrund (alle `syntax.*` außer `syntax.background`) um ΔE OK ≥ 0,08 unterscheiden, pro Mode. So bleibt ein Kommentar auch gegen textbasierte Syntaxfarben (`variable`, `operator`, `punctuation`) eindeutig. Kleinste Distanz (Rohwert, ohne Rundung): Dark 0,0820 (zu `tag-attribute`), Light 0,0903 (zu `tag-attribute`).
 
 **Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
+
+## APCA (zweites Gate)
+
+WCAG 2 überschätzt hellen Text auf dunklem Grund: Die Dark-Mode-Inks erreichten 5,2:1 und mehr, kamen aber nur auf APCA Lc 36–51 (Polaritätsschwäche des WCAG-2-Verhältnisses). Deshalb gilt neben WCAG ein zweites Gate (`src/apca.ts`, Export `@samisdat/color-scheme/apca`, `scripts/lint-apca.ts`, Teil von `lint`; Berechnung mit `apca-w3` 0.1.9):
+
+| Vordergrund | Hintergrund | Schwelle |  Wirkung |
+|---|---|---|---|
+| jedes `ink.*`, jeder `syntax.*`-Vordergrund | `syntax.background` und `surface.default` | \|Lc\| ≥ 60 | Fehler |
+| `text.default` | `syntax.background` und `surface.default` | \|Lc\| ≥ 75 | nur Warnung (dark auf `surface.default`: 74) |
+
+Verglichen wird der Betrag (Polarität egal) ohne Rundung: Lc 59,7 besteht die Schwelle 60 nicht. Der Lint druckt die vollständige Lc-Tabelle pro Mode mit einer Nachkommastelle. Die Werte sind auf Lc ≥ 60,5 abgestimmt, damit sie nicht auf der Schwelle sitzen (Ausnahme: dark `ink.red`).
+
+**Ausnahme**: `$extensions["org.samisdat.a11y"].apcaMin` (Zahl) und `apcaReason` (deutsche Begründung) am Ebene-2-Token. `syntax.*` und `status.*`, die auf ein solches Token zeigen, erben die Ausnahme (`keyword`, `diff-minus`, `status.danger` …). Aktuell eine Ausnahme:
+
+- dark `ink.red`: `apcaMin` 40. Bewusst kräftiges Rot für `keyword`; Entscheidung gegen einen Lachs-Ton, Lc ≈ 44.
+
+Im Storybook zeigt das Contrast Grid in jeder Zelle `WCAG · Lc` (z. B. „5.52 · Lc 42.7“) und markiert Zellen unter dem jeweiligen APCA-Minimum.
+
+## Ink-Werte
+
+Level-2-Token → Stufe → Wert; WCAG / Lc jeweils auf `syntax.background` und `surface.default`.
+
+Dark:
+
+| Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
+|---|---|---|---|---|
+| `ink.red` | `red.500` | `oklch(0.68 0.208 25)` | 6,24 · Lc 43,8 | 5,52 · Lc 42,7 |
+| `ink.orange` | `orange.400` | `oklch(0.775 0.119 69)` | 9,53 · Lc 61,6 | 8,42 · Lc 60,5 |
+| `ink.yellow` | `yellow.300` | `oklch(0.832 0.162 85.7)` | 11,69 · Lc 72,6 | 10,34 · Lc 71,5 |
+| `ink.green` | `green.400` | `oklch(0.746 0.172 158.1)` | 9,43 · Lc 61,6 | 8,34 · Lc 60,5 |
+| `ink.teal` | `teal.400` | `oklch(0.793 0.132 202.6)` | 10,86 · Lc 68,9 | 9,61 · Lc 67,8 |
+| `ink.cyan` | `cyan.400` | `oklch(0.782 0.048 198.4)` | 10,16 · Lc 64,7 | 8,98 · Lc 63,6 |
+| `ink.blue` | `blue.400` | `oklch(0.767 0.125 248)` | 9,53 · Lc 61,6 | 8,43 · Lc 60,5 |
+| `ink.purple` | `purple.400` | `oklch(0.777 0.078 303.2)` | 9,56 · Lc 61,6 | 8,45 · Lc 60,5 |
+| `ink.pink` | `pink.300` | `oklch(0.807 0.189 326.9)` | 10,02 · Lc 64,4 | 8,86 · Lc 63,3 |
+| `ink.comment` | `periwinkle.300` | `oklch(0.838 0.08 262.6)` | 12,02 · Lc 74,0 | 10,63 · Lc 72,9 |
+
+Light:
+
+| Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
+|---|---|---|---|---|
+| `ink.red` | `red.800` | `oklch(0.416 0.155 12.5)` | 6,86 · Lc 69,7 | 5,84 · Lc 60,5 |
+| `ink.orange` | `orange.800` | `oklch(0.404 0.102 53.4)` | 6,88 · Lc 70,9 | 5,86 · Lc 61,8 |
+| `ink.yellow` | `yellow.800` | `oklch(0.33 0.069 75.8)` | 9,04 · Lc 77,7 | 7,70 · Lc 68,5 |
+| `ink.green` | `green.800` | `oklch(0.377 0.084 139.9)` | 7,18 · Lc 72,3 | 6,12 · Lc 63,2 |
+| `ink.teal` | `teal.800` | `oklch(0.407 0.041 204.9)` | 6,43 · Lc 69,7 | 5,48 · Lc 60,6 |
+| `ink.cyan` | `cyan.900` | `oklch(0.326 0.054 204.2)` | 8,89 · Lc 77,1 | 7,57 · Lc 67,9 |
+| `ink.blue` | `blue.700` | `oklch(0.422 0.237 269.5)` | 6,79 · Lc 69,7 | 5,78 · Lc 60,5 |
+| `ink.purple` | `purple.800` | `oklch(0.37 0.192 305)` | 8,49 · Lc 74,3 | 7,23 · Lc 65,2 |
+| `ink.pink` | `pink.800` | `oklch(0.392 0.168 342.4)` | 7,66 · Lc 71,9 | 6,52 · Lc 62,8 |
+| `ink.comment` | `periwinkle.700` | `oklch(0.422 0.138 287.2)` | 6,48 · Lc 69,7 | 5,52 · Lc 60,5 |
+
+Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Die Werte sind auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082), Farbfehlsichtigkeit (0,04 → 0,041) und APCA (60 → 60,5) abgestimmt, die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
 
 ## Syntax (Ebene 3)
 
@@ -83,7 +143,7 @@ Pair-IDs haben die Form `dark:text.muted/surface.default`.
 
 Token-ID: Capture mit `-` statt `.` (`tag.attribute` → `syntax.tag-attribute`), weil DTCG kein Token zugleich als Gruppe erlaubt (`tag` und `tag.attribute`). CSS-Variable: `--color-syntax-tag-attribute`. `fontStyle` steht in `$extensions["org.samisdat.syntax"].fontStyle` (bisher nur `comment`: `italic`).
 
-**Kommentarregel**: Kommentare haben eine eigene, farbige Ink-Rolle `ink.comment` (Hue `periwinkle`, Blauviolett, Hue 285) und liegen nie auf einer `text.*`-Farbe. Warmgraue Kommentare waren von `punctuation` kaum zu trennen (ΔE OK 0,037 dark / 0,064 light). `ink.comment` = dark `color.periwinkle.400` (`oklch(0.745 0.13 285)`: 8,48:1 auf `syntax.background`, 7,49:1 auf `surface.default`), light `color.periwinkle.700` (`oklch(0.46 0.135 285)`: 5,47:1 / 4,66:1). `punctuation` zeigt dafür auf `text.secondary` (wie `operator`).
+**Kommentarregel**: Kommentare haben eine eigene, farbige Ink-Rolle `ink.comment` (Hue `periwinkle`, Blauviolett, Hue 285) und liegen nie auf einer `text.*`-Farbe. Warmgraue Kommentare waren von `punctuation` kaum zu trennen (ΔE OK 0,037 dark / 0,064 light). `ink.comment` = dark `color.periwinkle.300` (`oklch(0.838 0.08 262.6)`: 12,02:1 auf `syntax.background`, 10,63:1 auf `surface.default`), light `color.periwinkle.700` (`oklch(0.422 0.138 287.2)`: 6,48:1 / 5,52:1). `punctuation` zeigt dafür auf `text.secondary` (wie `operator`).
 
 | Capture | Alias | Gedacht für |
 |---|---|---|

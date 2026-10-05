@@ -7,6 +7,7 @@ import {
   syntaxForegrounds,
   tokensOf,
 } from "@samisdat/color-scheme/contrast";
+import { APCA_MIN, apcaAbs, apcaMinOf } from "@samisdat/color-scheme/apca";
 import { contrastBaseline } from "@samisdat/color-scheme/contrast-baseline";
 import { ratio, valueOf } from "./utils";
 
@@ -61,6 +62,11 @@ const Cell = styled.td`
     opacity: 0.45;
   }
 
+  &[data-apca-fail="true"] {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
   &[data-exempt="true"] {
     border-style: dashed;
     border-color: currentColor;
@@ -107,6 +113,16 @@ const isForeground = (id: string) =>
 
 type GridKind = "surface" | "syntax";
 
+/**
+ * Applicable APCA minimum of a cell, or undefined when the pair is not gated
+ * (gate: ink.* and syntax.* on surface.default / syntax.background).
+ */
+const apcaMinFor = (mode: Mode, fg: string, bg: string) =>
+  (fg.startsWith("ink.") || fg.startsWith("syntax.")) &&
+  (bg === "surface.default" || bg === "syntax.background")
+    ? apcaMinOf(mode, fg)
+    : undefined;
+
 const Grid = ({ mode, kind }: { mode: Mode; kind: GridKind }) => {
   const tokens = tokensOf(mode);
   const foregrounds =
@@ -152,24 +168,40 @@ const Grid = ({ mode, kind }: { mode: Mode; kind: GridKind }) => {
                   const exemptReason = bg.exempt ?? fg.exempt;
                   const value = ratio(valueOf(mode, fg.id), valueOf(mode, bg.id));
                   const pass = value >= MIN;
+                  const lc = apcaAbs(valueOf(mode, fg.id), valueOf(mode, bg.id));
+                  const apca = apcaMinFor(mode, fg.id, bg.id);
+                  const apcaFail = apca !== undefined && lc < apca.min;
                   return (
                     <Cell
                       key={bg.id}
                       data-required={isRequired}
                       data-baseline={baseline}
                       data-exempt={Boolean(exemptReason)}
-                      title={exemptReason ? `exempt: ${exemptReason}` : undefined}
+                      data-apca-fail={apcaFail}
+                      title={
+                        exemptReason
+                          ? `exempt: ${exemptReason}`
+                          : apca?.reason
+                            ? `APCA min ${apca.min}: ${apca.reason}`
+                            : undefined
+                      }
                       style={{
                         color: valueOf(mode, fg.id),
                         background: valueOf(mode, bg.id),
                       }}
                     >
                       <Sample aria-hidden="true">Aa</Sample>
-                      <Ratio>{value.toFixed(2)}</Ratio>
+                      <Ratio>
+                        {value.toFixed(2)} · Lc {lc.toFixed(1)}
+                      </Ratio>
                       <Badge>
                         {exemptReason ? "Exempt" : pass ? "Pass" : "Fail"}
                       </Badge>
                       {baseline ? <Badge>Baseline</Badge> : null}
+                      {apcaFail ? <Badge>Lc &lt; {apca.min}</Badge> : null}
+                      {apca && apca.min !== APCA_MIN && !apcaFail ? (
+                        <Badge>Lc min {apca.min}</Badge>
+                      ) : null}
                     </Cell>
                   );
                 })}
@@ -190,6 +222,11 @@ const ContrastGrid = () => (
       <li>Dimmed cell: not required</li>
       <li>Dashed cell: exempt (ausgenommen), reason as tooltip</li>
       <li>Baseline: known, justified violation (currently none)</li>
+      <li>
+        Lc: APCA |Lc| next to the WCAG ratio; ink and syntax need Lc ≥{" "}
+        {APCA_MIN} (documented exceptions show their minimum, reason as
+        tooltip). &quot;Lc &lt; n&quot; marks a cell below its minimum.
+      </li>
     </Legend>
     {modes.map((mode) => (
       <Grid key={mode} mode={mode} kind="surface" />

@@ -65,7 +65,13 @@
   "ink": {
     "$type": "color",
     "red": {
-      "$value": "{color.red.500}"
+      "$value": "{color.red.500}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "apcaMin": 40,
+          "apcaReason": "Bewusst kräftiges Rot für keyword; Entscheidung gegen Lachs-Ton, Lc ≈ 44"
+        }
+      }
     },
     "orange": {
       "$value": "{color.orange.400}"
@@ -74,25 +80,25 @@
       "$value": "{color.yellow.300}"
     },
     "green": {
-      "$value": "{color.green.500}"
+      "$value": "{color.green.400}"
     },
     "teal": {
       "$value": "{color.teal.400}"
     },
     "cyan": {
-      "$value": "{color.cyan.500}"
+      "$value": "{color.cyan.400}"
     },
     "blue": {
-      "$value": "{color.blue.600}"
+      "$value": "{color.blue.400}"
     },
     "purple": {
-      "$value": "{color.purple.600}"
+      "$value": "{color.purple.400}"
     },
     "pink": {
-      "$value": "{color.pink.400}"
+      "$value": "{color.pink.300}"
     },
     "comment": {
-      "$value": "{color.periwinkle.400}"
+      "$value": "{color.periwinkle.300}"
     }
   },
   "status": {

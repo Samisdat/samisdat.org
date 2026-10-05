@@ -13,7 +13,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "#53499f",
+        "foreground": "#4c3c93",
         "fontStyle": "italic"
       }
     },
@@ -33,7 +33,7 @@
         "entity.other.inherited-class"
       ],
       "settings": {
-        "foreground": "#a7023d"
+        "foreground": "#8c1134"
       }
     },
     {
@@ -45,7 +45,7 @@
         "markup.inline.raw"
       ],
       "settings": {
-        "foreground": "#844201"
+        "foreground": "#723600"
       }
     },
     {
@@ -57,7 +57,7 @@
         "keyword.control.anchor.regexp"
       ],
       "settings": {
-        "foreground": "#014553"
+        "foreground": "#033c41"
       }
     },
     {
@@ -66,7 +66,7 @@
         "keyword.other.unit"
       ],
       "settings": {
-        "foreground": "#05561d"
+        "foreground": "#274c1f"
       }
     },
     {
@@ -78,7 +78,7 @@
         "variable.language"
       ],
       "settings": {
-        "foreground": "#05561d"
+        "foreground": "#274c1f"
       }
     },
     {
@@ -90,7 +90,7 @@
         "meta.definition.method entity.name.function"
       ],
       "settings": {
-        "foreground": "#273bdc"
+        "foreground": "#2629cb"
       }
     },
     {
@@ -103,7 +103,7 @@
         "meta.type.annotation entity.name.type"
       ],
       "settings": {
-        "foreground": "#014553"
+        "foreground": "#033c41"
       }
     },
     {
@@ -122,7 +122,7 @@
         "meta.function.parameters variable"
       ],
       "settings": {
-        "foreground": "#503d01"
+        "foreground": "#492f00"
       }
     },
     {
@@ -137,7 +137,7 @@
         "entity.name.tag.yaml"
       ],
       "settings": {
-        "foreground": "#036056"
+        "foreground": "#2d5054"
       }
     },
     {
@@ -147,7 +147,7 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#80005c"
+        "foreground": "#7b015d"
       }
     },
     {
@@ -184,7 +184,7 @@
         "meta.diff.header.to-file"
       ],
       "settings": {
-        "foreground": "#05561d"
+        "foreground": "#274c1f"
       }
     },
     {
@@ -193,7 +193,7 @@
         "meta.diff.header.from-file"
       ],
       "settings": {
-        "foreground": "#a7023d"
+        "foreground": "#8c1134"
       }
     }
   ],

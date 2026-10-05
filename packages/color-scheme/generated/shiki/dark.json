@@ -13,7 +13,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "#a4a0fb",
+        "foreground": "#aecbff",
         "fontStyle": "italic"
       }
     },
@@ -33,7 +33,7 @@
         "entity.other.inherited-class"
       ],
       "settings": {
-        "foreground": "#f2396d"
+        "foreground": "#ff5352"
       }
     },
     {
@@ -45,7 +45,7 @@
         "markup.inline.raw"
       ],
       "settings": {
-        "foreground": "#ef8c24"
+        "foreground": "#e7a75c"
       }
     },
     {
@@ -57,7 +57,7 @@
         "keyword.control.anchor.regexp"
       ],
       "settings": {
-        "foreground": "#01a6ae"
+        "foreground": "#94c2c3"
       }
     },
     {
@@ -66,7 +66,7 @@
         "keyword.other.unit"
       ],
       "settings": {
-        "foreground": "#00b667"
+        "foreground": "#0fcc82"
       }
     },
     {
@@ -78,7 +78,7 @@
         "variable.language"
       ],
       "settings": {
-        "foreground": "#00b667"
+        "foreground": "#0fcc82"
       }
     },
     {
@@ -90,7 +90,7 @@
         "meta.definition.method entity.name.function"
       ],
       "settings": {
-        "foreground": "#4c7df7"
+        "foreground": "#6fbaff"
       }
     },
     {
@@ -103,7 +103,7 @@
         "meta.type.annotation entity.name.type"
       ],
       "settings": {
-        "foreground": "#01a6ae"
+        "foreground": "#94c2c3"
       }
     },
     {
@@ -122,7 +122,7 @@
         "meta.function.parameters variable"
       ],
       "settings": {
-        "foreground": "#f7be2b"
+        "foreground": "#f7bf27"
       }
     },
     {
@@ -137,7 +137,7 @@
         "entity.name.tag.yaml"
       ],
       "settings": {
-        "foreground": "#51cec7"
+        "foreground": "#1ad4e0"
       }
     },
     {
@@ -147,7 +147,7 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#fd46f5"
+        "foreground": "#fe90ff"
       }
     },
     {
@@ -155,7 +155,7 @@
         "entity.other.attribute-name"
       ],
       "settings": {
-        "foreground": "#aa5bf2"
+        "foreground": "#c0abe0"
       }
     },
     {
@@ -184,7 +184,7 @@
         "meta.diff.header.to-file"
       ],
       "settings": {
-        "foreground": "#00b667"
+        "foreground": "#0fcc82"
       }
     },
     {
@@ -193,7 +193,7 @@
         "meta.diff.header.from-file"
       ],
       "settings": {
-        "foreground": "#f2396d"
+        "foreground": "#ff5352"
       }
     }
   ],

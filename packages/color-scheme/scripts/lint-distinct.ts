@@ -63,8 +63,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `Ink distinguishability check passed (${checked} pairs, min ΔE OK ${minSeen.toFixed(3)} >= ${MIN_DELTA_E})`,
+  `Ink distinguishability check passed (${checked} pairs, min ΔE OK ${minSeen.toFixed(4)} >= ${MIN_DELTA_E})`,
 );
 console.log(
-  `Comment distinguishability check passed (${commentChecked} pairs, min ΔE OK ${commentMinSeen.toFixed(3)} >= ${MIN_DELTA_E})`,
+  `Comment distinguishability check passed (${commentChecked} pairs, min ΔE OK ${commentMinSeen.toFixed(4)} >= ${MIN_DELTA_E})`,
 );

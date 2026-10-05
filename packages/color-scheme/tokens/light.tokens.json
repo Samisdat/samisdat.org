@@ -65,10 +65,10 @@
   "ink": {
     "$type": "color",
     "red": {
-      "$value": "{color.red.700}"
+      "$value": "{color.red.800}"
     },
     "orange": {
-      "$value": "{color.orange.700}"
+      "$value": "{color.orange.800}"
     },
     "yellow": {
       "$value": "{color.yellow.800}"
@@ -77,10 +77,10 @@
       "$value": "{color.green.800}"
     },
     "teal": {
-      "$value": "{color.teal.700}"
+      "$value": "{color.teal.800}"
     },
     "cyan": {
-      "$value": "{color.cyan.800}"
+      "$value": "{color.cyan.900}"
     },
     "blue": {
       "$value": "{color.blue.700}"

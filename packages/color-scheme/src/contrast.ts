@@ -6,6 +6,8 @@
  * Token metadata lives in `$extensions["org.samisdat.a11y"]`:
  * - `textTier` on surfaces: "full" | "neutral-only"
  * - `exempt` (string, the reason) on any token: skipped in every pair
+ * - `apcaMin` (number) + `apcaReason` (string) on a level 2 token: documented
+ *   exception from the APCA minimum (see src/apca.ts); aliases inherit it
  *
  * Consumers: the contrast lint (scripts/lint-contrast.ts,
  * terrazzo.contrast.config.ts) and the Storybook contrast grid.
@@ -34,7 +36,15 @@ export type ContrastPair = {
 
 type TokenNode = {
   $value?: unknown;
-  $extensions?: Record<string, { textTier?: TextTier; exempt?: string }>;
+  $extensions?: Record<
+    string,
+    {
+      textTier?: TextTier;
+      exempt?: string;
+      apcaMin?: number;
+      apcaReason?: string;
+    }
+  >;
   [key: string]: unknown;
 };
 
@@ -49,6 +59,9 @@ export type FlatToken = {
   value: string;
   textTier?: TextTier;
   exempt?: string;
+  /** Lowered APCA minimum |Lc| for this token (documented exception). */
+  apcaMin?: number;
+  apcaReason?: string;
 };
 
 /** Flattens a DTCG group into `id -> token`, ids joined with ".". */
@@ -63,6 +76,8 @@ const collect = (group: unknown, path: string[] = []): FlatToken[] => {
         value: String(node.$value),
         textTier: ext?.textTier,
         exempt: ext?.exempt,
+        apcaMin: ext?.apcaMin,
+        apcaReason: ext?.apcaReason,
       },
     ];
   }
