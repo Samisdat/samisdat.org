@@ -22,6 +22,7 @@ import { remarkSandboxCollector } from './remarkSandboxCollector';
 
 const shikiOptions = {
     theme: shikiTheme,
+    keepBackground: false,
     transformers: [scholionTransformer(), placeholderTransformer()],
     getHighlighter: (options: Parameters<typeof getSingletonHighlighter>[0]) =>
         getSingletonHighlighter({
