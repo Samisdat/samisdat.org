@@ -3,7 +3,7 @@ import { styled } from "@linaria/react";
 import { FC, HTMLAttributes } from "react";
 
 const CardStyling = styled.div`
-  border: 1px solid var(--color-surface-muted);
+  border: 1px solid var(--color-border-default);
   background-color: var(--color-surface-raised);
   padding: 1rem;
   border-radius: 0.5rem;

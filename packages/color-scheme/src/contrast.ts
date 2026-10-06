@@ -102,14 +102,38 @@ export const MIN_TEXT = 4.5;
 // `syntax.background` (the code block) AND `surface.default` (inline code in
 // running text). `syntax.background` itself is the background, not a foreground.
 //
-// Extension point for a later phase (do not add before the tokens exist):
-// - `border.strong`, `border.focus` on every surface: min 3
+// `border.strong` and `border.focus` are checked against `surface.default` with
+// min 3 (WCAG 1.4.11 non-text contrast). Checking against all surfaces is not
+// practical: border.strong cannot achieve 3:1 on the lighter dark surfaces.
+//
+// `selection` and `highlight` carry `textTier: "neutral-only"` and are picked up
+// automatically as backgrounds for text.default and text.emphasis (min 4.5:1).
+export const MIN_BORDER = 3;
+const BORDER_STRONG_IDS = ["border.strong", "border.focus"] as const;
+
 const FOREGROUND_GROUPS = ["text", "ink"] as const;
 const NEUTRAL_TEXT = ["text.default", "text.emphasis"];
 
+export function borderPairs(mode: Mode): ContrastPair[] {
+  const tokens = tokensOf(mode);
+  const borders = tokens.filter(
+    (t) => BORDER_STRONG_IDS.includes(t.id as typeof BORDER_STRONG_IDS[number]) && !t.exempt,
+  );
+  return borders.map((b) => ({
+    id: `${mode}:${b.id}/surface.default`,
+    mode,
+    foreground: b.id,
+    background: "surface.default",
+    min: MIN_BORDER,
+  }));
+}
+
 export function contrastMatrix(mode: Mode): ContrastPair[] {
   const tokens = tokensOf(mode);
-  const surfaces = tokens.filter((t) => startsWith(t, "surface") && !t.exempt);
+  // surfaces: surface.* group + any token with textTier (selection, highlight)
+  const surfaces = tokens.filter(
+    (t) => (startsWith(t, "surface") || t.textTier !== undefined) && !t.exempt,
+  );
   const foregrounds = tokens.filter(
     (t) => FOREGROUND_GROUPS.some((g) => startsWith(t, g)) && !t.exempt,
   );
@@ -121,7 +145,7 @@ export function contrastMatrix(mode: Mode): ContrastPair[] {
       .map((bg) => pair(mode, fg.id, bg.id)),
   );
 
-  return [...surfacePairs, ...syntaxPairs(mode)];
+  return [...surfacePairs, ...syntaxPairs(mode), ...borderPairs(mode)];
 }
 
 const pair = (mode: Mode, foreground: string, background: string): ContrastPair => ({

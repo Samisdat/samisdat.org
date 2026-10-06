@@ -171,6 +171,12 @@ export interface Tokens {
   "status.warning": Color;
   "status.success": Color;
   "status.info": Color;
+  "border.muted": Color;
+  "border.default": Color;
+  "border.strong": Color;
+  "border.focus": Color;
+  "selection": Color;
+  "highlight": Color;
   "syntax.foreground": Color;
   "syntax.background": Color;
   "syntax.comment": Color;

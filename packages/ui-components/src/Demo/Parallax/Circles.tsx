@@ -15,7 +15,7 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
- border: 1px solid var(--color-surface-muted);
+ border: 1px solid var(--color-border-default);
   background-color: var(--color-surface-raised);
 
         &:hover {

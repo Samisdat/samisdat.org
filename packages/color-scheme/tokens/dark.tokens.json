@@ -39,7 +39,7 @@
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only",
-          "exempt": "no text on this surface; only used for borders (Card, PlaybackControl, Navi header, Demo/Parallax) and the 2px scroll progress bar in Navi"
+          "exempt": "no text on this surface; border.* tokens now own all border and scroll-progress uses"
         }
       }
     }
@@ -114,6 +114,39 @@
     },
     "info": {
       "$value": "{ink.blue}"
+    }
+  },
+  "border": {
+    "$type": "color",
+    "muted": {
+      "$value": "{surface.muted}"
+    },
+    "default": {
+      "$value": "{color.aubergine.500}"
+    },
+    "strong": {
+      "$value": "{color.ivory.600}"
+    },
+    "focus": {
+      "$value": "{ink.teal}"
+    }
+  },
+  "selection": {
+    "$type": "color",
+    "$value": "{color.aubergine.800}",
+    "$extensions": {
+      "org.samisdat.a11y": {
+        "textTier": "neutral-only"
+      }
+    }
+  },
+  "highlight": {
+    "$type": "color",
+    "$value": "{color.aubergine.800}",
+    "$extensions": {
+      "org.samisdat.a11y": {
+        "textTier": "neutral-only"
+      }
     }
   },
   "syntax": {
