@@ -9,6 +9,10 @@
       "types": "./src/*/index.tsx",
       "import": "./src/*/index.tsx"
     },
+    "./Demo/DemoContext": {
+      "types": "./src/Demo/DemoContext.tsx",
+      "import": "./src/Demo/DemoContext.tsx"
+    },
     "./Demo/Animations/*": {
       "types": "./src/Demo/Animations/*.tsx",
       "import": "./src/Demo/Animations/*.tsx"

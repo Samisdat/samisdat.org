@@ -13,18 +13,33 @@ Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL an
 
 Funktioniert auf den ersten Blick erstaunlich gut.
 
-<Stack
-    container
-    directionSmall="column"
-    directionMedium="row"
-    sticky
->
-    <Stack>
-        <DemoAnimationsDisc />
-    </Stack>
-    <Stack>
+<style>{`
+  .disc-demo-grid {
+    display: grid;
+    gap: 1rem;
+    align-items: start;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .disc-demo-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .disc-demo-code {
+      position: sticky;
+      top: calc(var(--navi-height, 0px) + 1rem);
+    }
+  }
+`}</style>
 
-```tsx scholion:anim=<animateTransform scholion:repeat=repeatCount
+<DemoContext duration="6s">
+
+<div className="disc-demo-grid">
+
+<DemoAnimationsDisc />
+
+<div className="disc-demo-code">
+
+```html scholion:anim=<animateTransform scholion:repeat=repeatCount
 <svg>
   <g>
     <circle cx="100" cy="100" r="100"/>
@@ -37,15 +52,18 @@ Funktioniert auf den ersten Blick erstaunlich gut.
       type="rotate"
       from="0 100 100"
       to="360 100 100"
+// !placeholder duration "6s"
       dur="6s"
       repeatCount="indefinite" />
   </g>
 </svg>
 ```
 
-    </Stack>
+</div>
 
-</Stack>
+</div>
+
+</DemoContext>
 
 XML in your face:
 
