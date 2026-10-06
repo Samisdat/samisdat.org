@@ -16,6 +16,7 @@
         },
         "./colors": {
             "types": "./dist/generated/colors.d.ts",
+            "require": "./dist/generated/colors.cjs",
             "import": "./dist/generated/colors.js"
         },
         "./colors.css": "./dist/colors.css",
