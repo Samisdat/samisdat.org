@@ -16,7 +16,7 @@ export const CodeBlock = ({
   language,
 }: {
   code: string;
-  language: "jsx" | "tsx" | "css" | "json";
+  language: "html" | "css" | "js" | "ts" | "jsx" | "tsx" | "json";
 }) => {
   const highlightedCode = useShikiHighlighter(code, language, shikiTheme, {
     customLanguages: styledGrammarLangs,
