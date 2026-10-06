@@ -38,6 +38,7 @@ export const Clock = () => {
             className="clock"
             x={220}
             y={420}
+            suppressHydrationWarning
             style={
                 {
                     ['--hour' as string]: String(hours),
