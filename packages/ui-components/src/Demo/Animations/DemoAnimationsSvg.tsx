@@ -1,24 +1,48 @@
 "use client";
 
+import { panoramaCssVars } from "@samisdat/wtal-panorama/colors";
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
 
 const BridgeSvgStyling = styled.svg`
-  background: var(--color-deep-pine);
+  background: ${panoramaCssVars["deep-pine"]};
 
   .wupper {
     transform: translateY(-273px);
+    fill: ${panoramaCssVars["river-blue"]};
   }
 
   .shore {
     transform: translate(-430px, -271px);
-    fill: var(--color-deep-pine);
+    fill: ${panoramaCssVars["deep-pine"]};
   }
 
   .bridgeBehind,
   .bridgeBefore {
     transform: translate(-350px, -270px);
+  }
+
+  .bridge-zoo-dark {
+    fill: ${panoramaCssVars["brick-red"]};
+  }
+
+  .bridge-zoo-light {
+    fill: ${panoramaCssVars["terracotta"]};
+  }
+
+  .bridge-zoo-front {
+    fill: ${panoramaCssVars["copper-brown"]};
+  }
+
+  .track {
+    fill: ${panoramaCssVars["apricot"]};
+  }
+
+  .car {
+    fill: ${panoramaCssVars["sky-blue"]};
+    stroke: ${panoramaCssVars["midnight-indigo"]};
+    stroke-width: 3;
   }
 `;
 

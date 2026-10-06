@@ -21,6 +21,7 @@
     "@samisdat/color-scheme": "workspace:*",
     "@samisdat/tools": "workspace:*",
     "@samisdat/ui-components": "workspace:*",
+    "@samisdat/wtal-panorama": "workspace:*",
     "@storybook/addon-a11y": "^10.6.1",
     "@storybook/addon-docs": "^10.6.1",
     "@storybook/addon-themes": "^10.6.1",

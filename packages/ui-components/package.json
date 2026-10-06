@@ -52,6 +52,7 @@
     "@linaria/react": "catalog:",
     "@samisdat/color-scheme": "workspace:*",
     "@samisdat/tools": "workspace:*",
+    "@samisdat/wtal-panorama": "workspace:*",
     "culori": "^4.0.2",
     "fs-extra": "catalog:",
     "normalize.css": "catalog:",
