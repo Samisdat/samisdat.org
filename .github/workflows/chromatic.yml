@@ -32,7 +32,7 @@ jobs:
         run: pnpm --filter @samisdat/storybook exec playwright install chromium --with-deps
       
       - name: Build panorama library
-        run: pnpm build:lib
+        run: pnpm --filter @samisdat/wtal-panorama build:colors && pnpm build:lib
       
       - name: Publish to Chromatic
         uses: chromaui/action@latest
