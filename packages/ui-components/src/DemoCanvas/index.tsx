@@ -10,6 +10,8 @@ const Styling = styled.div`
   );
   background-size: 1rem 1rem;
   padding: 1rem;
+  border: var(--border-width-default) solid var(--color-surface-muted);
+  border-radius: var(--border-radius-none);
 `;
 
 export const DemoCanvas = ({
