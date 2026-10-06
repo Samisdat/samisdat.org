@@ -2,7 +2,7 @@ import type { ShikiTransformer } from 'shiki'
 import type { Element } from 'hast'
 
 const DEFAULT_LABEL = '···'
-const ANNOTATION_RE = /^\/\/\s*!collapse\((\d+):(\d+)\)(?:\s+(.+))?$/
+const ANNOTATION_RE = /^\/\/\s*!collapse\((\d+):(\d+)\)(?:[ \t]+(\S[^\n]*))?$/
 
 type CollapseInfo = {
     label: string
