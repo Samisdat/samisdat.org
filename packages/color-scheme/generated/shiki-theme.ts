@@ -18,10 +18,10 @@ export type ShikiTheme = {
 export const shikiTheme: ShikiTheme = {
   "name": "samisdat",
   "fg": "var(--color-syntax-foreground)",
-  "bg": "var(--color-syntax-background)",
+  "bg": "var(--color-surface-default)",
   "colors": {
     "editor.foreground": "var(--color-syntax-foreground)",
-    "editor.background": "var(--color-syntax-background)"
+    "editor.background": "var(--color-surface-default)"
   },
   "tokenColors": [
     {
