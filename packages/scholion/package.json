@@ -23,6 +23,10 @@
     "./placeholder-transformer": {
       "types": "./src/placeholder-transformer.ts",
       "import": "./src/placeholder-transformer.ts"
+    },
+    "./collapse-transformer": {
+      "types": "./src/collapse-transformer.ts",
+      "import": "./src/collapse-transformer.ts"
     }
   },
   "scripts": {
