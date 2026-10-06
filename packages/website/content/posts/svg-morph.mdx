@@ -7,13 +7,25 @@ published: true
 Schon seit der [Version 1.0](https://www.w3.org/TR/2001/REC-SVG-20010904/) von 2001 sind [SMIL-Animationen](https://www.w3.org/TR/2001/REC-SVG-20010904/animate.html) mit in SVG drin.
 
 Viel abgehangener geht es kaum:
-Hat **Multimedia** im Namen und XML in der Syntax.
+Hat *Multimedia* im Namen und ist pures XML.
 
 Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL angesehen.
 
 Funktioniert auf den ersten Blick erstaunlich gut.
 
-<DemoAnimationsDisc>
+<DemoContext duration="6s">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack>
+
+<DemoAnimationsDisc />
+
+    </Stack>
+    <Stack>
 
 ```html scholion:anim=<animateTransform scholion:repeat=repeatCount
 <svg>
@@ -28,13 +40,16 @@ Funktioniert auf den ersten Blick erstaunlich gut.
       type="rotate"
       from="0 100 100"
       to="360 100 100"
+// !placeholder duration "6s"
       dur="6s"
       repeatCount="indefinite" />
   </g>
 </svg>
 ```
 
-</DemoAnimationsDisc>
+    </Stack>
+  </Stack>
+</DemoContext>
 
 XML in your face:
 
