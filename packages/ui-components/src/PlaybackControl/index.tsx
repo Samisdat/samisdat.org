@@ -39,6 +39,7 @@ const Styling = styled.div`
       background-color: var(--color-ink-pink);
     }
   }
+
   color: var(--color-surface-default);
 `;
 
