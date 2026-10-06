@@ -15,8 +15,8 @@
             "import": "./dist/index.js"
         },
         "./colors": {
-            "types": "./src/generated/colors.ts",
-            "import": "./src/generated/colors.ts"
+            "types": "./dist/generated/colors.d.ts",
+            "import": "./dist/generated/colors.js"
         },
         "./colors.css": "./dist/colors.css",
         "./style.css": "./src/components/panorama.css"
@@ -31,7 +31,7 @@
         "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
         "build": "next build",
         "build:colors": "tsx scripts/build-colors.ts",
-        "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
+        "build:lib": "tsup src/index.tsx src/generated/colors.ts --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
         "start": "next start",
         "lint": "oxlint .",
         "test": "vitest",
