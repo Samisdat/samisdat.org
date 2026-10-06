@@ -66,6 +66,47 @@ The panorama uses:
 - Twilight transitions: Using astronomical dawn/dusk calculations
 - Position calculation: Linear interpolation along SVG path based on time progress
 
+## Colors
+
+All 43 panorama colors are available as a typed TypeScript object and as standalone CSS custom properties.
+
+### TypeScript
+
+```ts
+import { panoramaColors } from '@samisdat/wtal-panorama/colors';
+// panoramaColors["deep-pine"] === "oklch(0.32 0.11 150)"
+```
+
+Use the values directly in Linaria/CSS-in-JS so build-time evaluation embeds literal color strings — no runtime CSS variable lookup required:
+
+```tsx
+import { panoramaColors } from '@samisdat/wtal-panorama/colors';
+import { styled } from '@linaria/react';
+
+const Svg = styled.svg`
+  background: ${panoramaColors["deep-pine"]};
+`;
+```
+
+### CSS custom properties
+
+```css
+@import '@samisdat/wtal-panorama/colors.css';
+/* defines --panorama-deep-pine, --panorama-river-blue, … on :root */
+```
+
+The stylesheet `style.css` already contains these custom properties and the panorama component styles.
+
+### Updating colors
+
+Edit `tokens/colors.tokens.json` (DTCG format), then run:
+
+```bash
+pnpm build:colors
+```
+
+This regenerates `src/generated/colors.ts`, `dist/colors.css`, and the `:root` block in `panorama.css`.
+
 ## Dependencies
 
 - React >= 19.2.3

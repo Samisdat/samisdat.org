@@ -14,23 +14,30 @@
             "require": "./dist/index.cjs",
             "import": "./dist/index.js"
         },
+        "./colors": {
+            "types": "./src/generated/colors.ts",
+            "import": "./src/generated/colors.ts"
+        },
+        "./colors.css": "./dist/colors.css",
         "./style.css": "./src/components/panorama.css"
     },
     "files": [
         "dist",
-        "src/components/panorama.css"
+        "src/components/panorama.css",
+        "src/generated"
     ],
     "scripts": {
         "dev": "next dev",
         "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
         "build": "next build",
+        "build:colors": "tsx scripts/build-colors.ts",
         "build:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
         "start": "next start",
         "lint": "oxlint .",
         "test": "vitest",
         "test:run": "vitest run",
         "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
-        "prepublishOnly": "npm run build:lib"
+        "prepublishOnly": "pnpm build:colors && npm run build:lib"
     },
     "keywords": [
         "wuppertal",
@@ -68,6 +75,7 @@
         "react-dom": "catalog:",
         "suncalc": "^2.0.2",
         "tsup": "^8.5.0",
+        "tsx": "^4.23.15",
         "typescript": "catalog:",
         "vitest": "catalog:"
     },
