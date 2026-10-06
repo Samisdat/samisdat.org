@@ -4,7 +4,44 @@ date: 2026-01-19T00:00:00.000Z
 published: false
 ---
 
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+
 <DemoParallaxSectors />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+
+<p>Mouse Position</p>
+
+```json
+{
+// !placeholder pixelX "0.00"
+  "x": "0.00",
+// !placeholder pixelY "0.00"
+  "y": "0.00"
+}
+```
+
+<p>Normalisiert</p>
+
+```json
+{
+// !placeholder normX "0.00"
+  "x": "0.00",
+// !placeholder normY "0.00"
+  "y": "0.00"
+}
+```
+
+    </Stack>
+  </Stack>
+</DemoContext>
 
 ```tsx
 <svg>

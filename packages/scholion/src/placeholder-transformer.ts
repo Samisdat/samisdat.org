@@ -56,15 +56,18 @@ function markPlaceholder(lineEl: Element, key: string, value: string): boolean {
     for (const child of lineEl.children) {
         if (child.type !== 'element') continue
         const text = getText(child)
-        if (text === value) {
+        const trimmed = text.trimStart()
+        const prefix = text.slice(0, text.length - trimmed.length)
+
+        if (trimmed === value) {
             child.properties = { ...child.properties, 'data-placeholder': key }
             return true
         }
-        if (text === `"${value}"`) {
-            // Keep quotes as text nodes outside the marked span so textContent
-            // updates don't clobber them.
+        if (trimmed === `"${value}"`) {
+            // Keep quotes (and any leading whitespace) outside the marked span
+            // so textContent updates don't clobber them.
             child.children = [
-                { type: 'text', value: '"' },
+                { type: 'text', value: prefix + '"' },
                 {
                     type: 'element',
                     tagName: 'span',
