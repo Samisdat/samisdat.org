@@ -17,6 +17,7 @@ export const frontmatterSchema = z.object({
     date: z.coerce.date({ message: 'date must be a valid ISO date string' }),
     published: z.boolean({ message: 'published must be a boolean' }),
     description: z.string().optional(),
+    image: z.union([z.literal(true), z.string()]).optional(),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;
