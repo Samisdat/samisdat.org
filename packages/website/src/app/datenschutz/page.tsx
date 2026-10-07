@@ -33,8 +33,8 @@ export default function DatenschutzPage() {
             </p>
             <p>
                 Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse am
-                störungsfreien Betrieb der Website). Die Logdaten werden nach 30 Tagen gelöscht
-                (bitte aktuellen Wert in Vercels Privacy Policy oder DPA gegenchecken).
+                störungsfreien Betrieb der Website). Die Logdaten werden gelöscht, sobald sie für
+                den Betrieb nicht mehr erforderlich sind.
             </p>
             <p>
                 Vercel ist unter dem EU-US Data Privacy Framework (DPF) zertifiziert, das eine
