@@ -16,6 +16,7 @@ export const globalStyles = css`
     :root {
       --border-width-default: ${borderWidth.default};
       --border-radius-none: ${borderRadius.none};
+      --typo-body-size: 1rem;
       --typo-h1-size: 3rem;
       --typo-h2-size: 2.75rem;
       --typo-h3-size: 2.25rem;

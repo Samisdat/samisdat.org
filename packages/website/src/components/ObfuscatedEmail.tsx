@@ -23,7 +23,7 @@ const Glyph = styled.span`
 
     &::after {
         content: var(--c);
-        font-size: var(--typo-body-size, 1rem);
+        font-size: inherit;
         color: var(--color-text-default);
     }
 `;
