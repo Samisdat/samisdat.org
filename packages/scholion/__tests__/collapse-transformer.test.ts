@@ -103,4 +103,25 @@ describe('collapseTransformer', () => {
         const html = await process('```js\nconst x = 1\n```')
         expect(html).not.toContain('<details')
     })
+
+    it('renders two labelled spans when label contains " | "', async () => {
+        const md = [
+            '```js',
+            '// !collapse(1:1) more circles | less circles',
+            'const x = 1',
+            '```',
+        ].join('\n')
+        const html = await process(md)
+        expect(html).toContain('data-collapse-closed')
+        expect(html).toContain('more circles')
+        expect(html).toContain('data-collapse-open')
+        expect(html).toContain('less circles')
+    })
+
+    it('keeps single-text summary when no pipe separator', async () => {
+        const md = ['```js', '// !collapse(1:1) imports', 'const x = 1', '```'].join('\n')
+        const html = await process(md)
+        expect(html).toContain('<summary>imports</summary>')
+        expect(html).not.toContain('data-collapse-closed')
+    })
 })

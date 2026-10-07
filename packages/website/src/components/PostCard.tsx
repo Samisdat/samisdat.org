@@ -3,33 +3,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Post } from '@/lib/posts';
+import { Stack } from '@samisdat/ui-components/Stack';
 import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
 
 const Card = styled.article`
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
     padding-block: 1.5rem;
     border-bottom: 1px solid var(--color-border-muted);
-
-    @media (min-width: ${breakpoints.medium}) {
-        flex-direction: row;
-        align-items: flex-start;
-        gap: 2rem;
-    }
 `;
 
 const ImageWrapper = styled.div`
     position: relative;
     width: 100%;
     aspect-ratio: 16 / 9;
-    flex-shrink: 0;
     overflow: hidden;
     border-radius: 4px;
 
     @media (min-width: ${breakpoints.medium}) {
-        width: 200px;
-        aspect-ratio: 4 / 3;
+        aspect-ratio: 3 / 4;
     }
 `;
 
@@ -42,6 +32,17 @@ const Body = styled.div`
 const Title = styled(Link)`
     font-size: var(--typo-h4-size);
     font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
+const ReadMore = styled(Link)`
+    font-size: var(--typo-small-size, 0.875rem);
+    color: var(--color-text-subtle);
     text-decoration: none;
 
     &:hover {
@@ -70,28 +71,41 @@ export const PostCard = ({ post }: { post: Post }) => {
 
     return (
         <Card>
-            {imgSrc && (
-                <ImageWrapper>
-                    <Image
-                        src={imgSrc}
-                        alt={title}
-                        fill
-                        sizes="(min-width: 768px) 200px, 100vw"
-                        style={{ objectFit: 'cover' }}
-                    />
-                </ImageWrapper>
-            )}
-            <Body>
-                <Title href={`/posts/${slug}`}>{title}</Title>
-                {description && <Excerpt>{description}</Excerpt>}
-                <DateEl dateTime={date.toISOString()}>
-                    {date.toLocaleDateString('de-DE', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                    })}
-                </DateEl>
-            </Body>
+            <Stack
+                container
+                directionSmall="column"
+                directionMedium="row"
+                sticky
+                gap="2rem"
+            >
+                {imgSrc && (
+                    <Stack>
+                        <ImageWrapper>
+                            <Image
+                                src={imgSrc}
+                                alt={title}
+                                fill
+                                sizes="(min-width: 768px) 50vw, 100vw"
+                                style={{ objectFit: 'cover' }}
+                            />
+                        </ImageWrapper>
+                    </Stack>
+                )}
+                <Stack>
+                    <Body>
+                        <Title href={`/posts/${slug}`}>{title}</Title>
+                        {description && <Excerpt>{description}</Excerpt>}
+                        <DateEl dateTime={date.toISOString()}>
+                            {date.toLocaleDateString('de-DE', {
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric',
+                            })}
+                        </DateEl>
+                        <ReadMore href={`/posts/${slug}`}>Read more</ReadMore>
+                    </Body>
+                </Stack>
+            </Stack>
         </Card>
     );
 };
