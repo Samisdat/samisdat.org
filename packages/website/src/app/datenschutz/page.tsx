@@ -61,12 +61,10 @@ export default function DatenschutzPage() {
                 Einsatz, kein Cross-Site-Tracking, täglicher Hash-Reset.
             </p>
 
-            <h3>Widerspruch / Opt-out</h3>
+            <h3>Opt-out</h3>
             <p>
                 Du kannst die Erhebung durch einen Content-Blocker (z. B. uBlock Origin, Brave
-                Browser) verhindern, der Anfragen an{' '}
-                <code>va.vercel-scripts.com</code> blockiert. Alternativ kannst du per E-Mail an{' '}
-                <ObfuscatedEmail /> widersprechen.
+                Browser) verhindern, der Anfragen an <code>va.vercel-scripts.com</code> blockiert.
             </p>
 
             <h2>Betroffenenrechte</h2>
