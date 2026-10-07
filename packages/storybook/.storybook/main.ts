@@ -1,5 +1,5 @@
 import { readFileSync, realpathSync } from "node:fs";
-import { dirname, join } from "node:path";
+import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import type { StorybookConfig } from "@storybook/react-vite";
@@ -44,6 +44,7 @@ const watchWorkspaceSources = () => ({
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)"],
+  staticDirs: [resolve(packageRoot, "../website/public")],
   addons: [
     "@chromatic-com/storybook",
     "@storybook/addon-docs",
@@ -58,6 +59,11 @@ const config: StorybookConfig = {
     // direct deps of this package are resolved through the workspace package
     // that owns them (Vite's nested "a > b" syntax).
     config.optimizeDeps = config.optimizeDeps || {};
+    config.optimizeDeps.exclude = [
+      ...(config.optimizeDeps.exclude || []),
+      "next/image",
+      "next/link",
+    ];
     config.optimizeDeps.include = [
       ...(config.optimizeDeps.include || []),
       "react",
@@ -73,6 +79,14 @@ const config: StorybookConfig = {
       "@samisdat/ui-components > @fortawesome/free-solid-svg-icons",
       "@samisdat/ui-components > @fortawesome/fontawesome-svg-core",
     ];
+
+    config.resolve = config.resolve || {};
+    config.resolve.alias = {
+      ...(config.resolve.alias as Record<string, string> | undefined),
+      "next/image": resolve(packageRoot, "src/__mocks__/next-image.tsx"),
+      "next/link": resolve(packageRoot, "src/__mocks__/next-link.tsx"),
+      "@/lib/posts": resolve(packageRoot, "src/__mocks__/posts-shim.ts"),
+    };
 
     config.plugins = config.plugins || [];
     config.plugins.push(

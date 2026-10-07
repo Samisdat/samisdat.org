@@ -2,7 +2,7 @@ import { styled } from '@linaria/react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import { Post } from '@/lib/posts';
+import type { Post } from '@/lib/posts';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
 
