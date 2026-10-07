@@ -60,6 +60,7 @@ storybook-static
 # UPPERCASE.md sind temporäre Arbeitsnotizen (ADR 0013)
 [A-Z]*[A-Z].md
 !README.md
+!CHANGELOG.md
 !CLAUDE.md
 !SKILL.md
 !SECURITY.md
