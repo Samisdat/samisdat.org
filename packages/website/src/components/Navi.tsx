@@ -8,7 +8,7 @@ import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
 import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
 import { space } from '../../../ui-components/src/tokens/space';
-import { ThemeSwitcher } from './ThemeSwitcher';
+import { ThemeSwitcherSlot } from './ThemeSwitcherSlot';
 
 const StickyShell = styled.header`
     position: sticky;
@@ -144,7 +144,7 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                             gap={space[0.5]}
                             container
                         >
-                            <ThemeSwitcher />
+                            <ThemeSwitcherSlot />
                             <IconNav aria-label="Externe Links">
                                 <a href="https://github.com/Samisdat/">
                                     <FontAwesomeIcon icon={faGithub} />
