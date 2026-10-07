@@ -25,8 +25,8 @@ export default function DatenschutzPage() {
 
             <h2>Hosting</h2>
             <p>
-                Diese Website wird gehostet bei Vercel Inc., 340 Pine Street, Suite 701, San
-                Francisco, CA 94104, USA (nachfolgend „Vercel"). Beim Abruf der Website übermittelt
+                Diese Website wird gehostet bei Vercel Inc., 440 N Barranca Avenue #4133, Covina,
+                CA 91723, USA (nachfolgend „Vercel"). Beim Abruf der Website übermittelt
                 dein Browser technisch bedingt Daten an Vercels Server, darunter IP-Adresse,
                 Browser-Typ, Betriebssystem, aufgerufene URL und Zeitstempel. Diese Daten werden in
                 Logdateien gespeichert.
@@ -50,9 +50,9 @@ export default function DatenschutzPage() {
                 (aufgerufene Seiten, Herkunftsland, Browser-Typ).
             </p>
             <p>
-                Zur Erkennung eindeutiger Seitenaufrufe wird serverseitig ein temporärer Hash aus
-                IP-Adresse und User-Agent gebildet. Der verwendete Salt rotiert täglich; der Hash
-                wird nicht persistent gespeichert und ermöglicht kein Cross-Site-Tracking.
+                Zur Erkennung eindeutiger Seitenaufrufe wird ein Hash aus den eingehenden
+                Anfragedaten gebildet. Dieser Hash wird nicht persistent gespeichert und nach 24
+                Stunden verworfen; er ermöglicht kein Cross-Site-Tracking.
             </p>
             <p>
                 Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse besteht
@@ -64,7 +64,7 @@ export default function DatenschutzPage() {
             <h3>Opt-out</h3>
             <p>
                 Du kannst die Erhebung durch einen Content-Blocker (z. B. uBlock Origin, Brave
-                Browser) verhindern, der Anfragen an <code>va.vercel-scripts.com</code> blockiert.
+                Browser) verhindern.
             </p>
 
             <h2>Betroffenenrechte</h2>
