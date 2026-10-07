@@ -18,6 +18,7 @@
     "lint:colors": "./scripts/lint-colors.sh",
     "lint:tokens": "pnpm --filter @samisdat/color-scheme build && pnpm --filter @samisdat/color-scheme lint && git diff --exit-code -- packages/color-scheme/generated && test -z \"$(git ls-files --others --exclude-standard -- packages/color-scheme/generated)\"",
     "dev:tokens": "pnpm --filter @samisdat/color-scheme dev",
+    "lint:nvim": "pnpm --filter @samisdat/nvim build && git diff --exit-code -- packages/nvim/lua/samisdat/palette.lua && pnpm --filter @samisdat/nvim test:nvim",
     "check:versions": "syncpack lint",
     "fix:versions": "syncpack fix-mismatches",
     "deploy:preview": "vercel deploy",

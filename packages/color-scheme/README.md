@@ -1,6 +1,6 @@
 # @samisdat/color-scheme
 
-Gemeinsames Farbschema für Website, Shiki und später Terminal/Editor. Entscheidungen: [ADR 0019](../../docs/adrs/0019-color-scheme.md).
+Gemeinsames Farbschema für Website, Shiki, Neovim ([`@samisdat/nvim`](../nvim/README.md)) und später Terminal. Entscheidungen: [ADR 0019](../../docs/adrs/0019-color-scheme.md).
 
 Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.tokens.json`). [Terrazzo](https://terrazzo.app) lintet und erzeugt daraus die committeten Artefakte in `generated/`.
 

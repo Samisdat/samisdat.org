@@ -151,6 +151,27 @@ importers:
         specifier: 'catalog:'
         version: 5.9.3
 
+  packages/nvim:
+    devDependencies:
+      '@samisdat/color-scheme':
+        specifier: workspace:*
+        version: link:../color-scheme
+      '@types/culori':
+        specifier: ^4.0.1
+        version: 4.0.1
+      '@types/node':
+        specifier: 'catalog:'
+        version: 26.6.4
+      culori:
+        specifier: ^4.0.2
+        version: 4.0.2
+      tsx:
+        specifier: ^4.23.15
+        version: 4.23.15
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+
   packages/panorama:
     dependencies:
       astronomy-engine:

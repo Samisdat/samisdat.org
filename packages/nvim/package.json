@@ -1,0 +1,18 @@
+{
+  "name": "@samisdat/nvim",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "tsx scripts/generate.ts",
+    "test:nvim": "nvim --headless --clean -l test/check.lua"
+  },
+  "devDependencies": {
+    "@samisdat/color-scheme": "workspace:*",
+    "@types/culori": "^4.0.1",
+    "@types/node": "catalog:",
+    "culori": "^4.0.2",
+    "tsx": "^4.23.15",
+    "typescript": "catalog:"
+  }
+}

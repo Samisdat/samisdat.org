@@ -35,6 +35,12 @@ jobs:
 
       - name: Lint color tokens
         run: pnpm lint:tokens
+
+      - name: Install Neovim
+        run: sudo apt-get update && sudo apt-get install -y neovim
+
+      - name: Check Neovim color scheme
+        run: pnpm lint:nvim
       
       - name: Lint JavaScript/TypeScript
         run: pnpm lint

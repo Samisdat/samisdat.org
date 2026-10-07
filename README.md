@@ -7,6 +7,7 @@ Dieses Projekt ist ein pnpm Workspace mit 5 Packages:
 - `packages/ui-components` — UI-Komponenten (React/Linaria)
 - `packages/storybook` — Storybook (Stories, Tests, Chromatic)
 - `packages/tools` — Shared utilities (React hooks, helpers)
+- `packages/nvim` — Neovim-Colorscheme aus `@samisdat/color-scheme`
 
 ---
 
@@ -19,7 +20,8 @@ Dieses Projekt ist ein pnpm Workspace mit 5 Packages:
 │   ├── website/         (Next.js App, blog)
 │   ├── ui-components/   (UI-Komponenten)
 │   ├── storybook/       (Storybook)
-│   └── tools/           (Shared utilities)
+│   ├── tools/           (Shared utilities)
+│   └── nvim/            (Neovim-Colorscheme)
 ├── pnpm-workspace.yaml
 ├── package.json         (Root, Scripts)
 └── README.md            (diese Datei)
