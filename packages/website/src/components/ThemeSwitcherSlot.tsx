@@ -16,9 +16,14 @@ export const ThemeSwitcherSlot = () => {
         const panorama = document.querySelector('.panorama');
         if (!panorama) return;
 
-        const observer = new IntersectionObserver(([entry]) => {
-            setPanoramaVisible(entry.isIntersecting);
-        });
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setPanoramaVisible(entry.isIntersecting);
+            },
+            // Viewport-Oberkante um 20px erweitern: Panorama gilt 20px länger
+            // als sichtbar, der Switcher blendet entsprechend 20px später ein.
+            { rootMargin: '20px 0px 0px 0px' }
+        );
 
         observer.observe(panorama);
         return () => observer.disconnect();
