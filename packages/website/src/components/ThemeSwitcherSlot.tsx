@@ -10,11 +10,14 @@ import { ThemeSwitcher } from './ThemeSwitcher';
  */
 export const ThemeSwitcherSlot = () => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const [panoramaVisible, setPanoramaVisible] = useState(false);
+    const [panoramaVisible, setPanoramaVisible] = useState(true);
 
     useEffect(() => {
         const panorama = document.querySelector('.panorama');
-        if (!panorama) return;
+        if (!panorama) {
+            setPanoramaVisible(false);
+            return;
+        }
 
         const observer = new IntersectionObserver(
             ([entry]) => {
