@@ -42,6 +42,17 @@ const Body = styled.div`
 const Title = styled(Link)`
     font-size: var(--typo-h4-size);
     font-weight: bold;
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
+
+const ReadMore = styled(Link)`
+    font-size: var(--typo-small-size, 0.875rem);
+    color: var(--color-text-subtle);
     text-decoration: none;
 
     &:hover {
@@ -91,6 +102,7 @@ export const PostCard = ({ post }: { post: Post }) => {
                         day: 'numeric',
                     })}
                 </DateEl>
+                <ReadMore href={`/posts/${slug}`}>Read more</ReadMore>
             </Body>
         </Card>
     );
