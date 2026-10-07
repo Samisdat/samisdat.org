@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 import { ObfuscatedEmail } from '@/components/ObfuscatedEmail';
 import { SITE_AUTHOR } from '@/lib/constants';
@@ -26,8 +27,20 @@ export default function ImpressumPage() {
                 E-Mail: <ObfuscatedEmail />
             </p>
 
-            <h2>Verantwortlich für den Inhalt</h2>
-            <p>{SITE_AUTHOR}</p>
+            <h2>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h2>
+            <address>
+                {SITE_AUTHOR}
+                <br />
+                Haus Düssel 28
+                <br />
+                42489 Wülfrath
+            </address>
+
+            <h2>Datenschutz</h2>
+            <p>
+                Informationen zur Verarbeitung personenbezogener Daten findest du in der{' '}
+                <Link href="/datenschutz">Datenschutzerklärung</Link>.
+            </p>
         </>
     );
 }
