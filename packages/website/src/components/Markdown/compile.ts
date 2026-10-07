@@ -14,6 +14,8 @@ import rehypeSlug from 'rehype-slug';
 import { getSingletonHighlighter } from 'shiki';
 import { remarkScholion } from '@samisdat/scholion/remark';
 import { scholionTransformer } from '@samisdat/scholion/transformer';
+import { placeholderTransformer } from '@samisdat/scholion/placeholder-transformer'
+import { collapseTransformer } from '@samisdat/scholion/collapse-transformer';
 import { shikiTheme, styledGrammarLangs } from '@samisdat/ui-components/utils/shikiTheme';
 
 import { Frontmatter } from './Frontmatter';
@@ -21,7 +23,8 @@ import { remarkSandboxCollector } from './remarkSandboxCollector';
 
 const shikiOptions = {
     theme: shikiTheme,
-    transformers: [scholionTransformer()],
+    keepBackground: false,
+    transformers: [scholionTransformer(), placeholderTransformer(), collapseTransformer()],
     getHighlighter: (options: Parameters<typeof getSingletonHighlighter>[0]) =>
         getSingletonHighlighter({
             ...options,

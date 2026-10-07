@@ -4,9 +4,9 @@ import { styled } from "@linaria/react";
 import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
+import { useDemoContext } from "../DemoContext";
 
 const svgNamespace = "http://www.w3.org/2000/svg";
-const initialSpeed = 6;
 
 const DiscStyling = styled.svg`
   circle.white {
@@ -18,7 +18,7 @@ const DiscStyling = styled.svg`
   }
 `;
 
-const DiscSvg = () => {
+const DiscSvg = ({ initialDur }: { initialDur: number }) => {
   const ref = useRef<SVGGElement>(null);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const DiscSvg = () => {
     animate.setAttribute("type", "rotate");
     animate.setAttribute("from", "0 100 100");
     animate.setAttribute("to", "360 100 100");
-    animate.setAttribute("dur", `${initialSpeed}s`);
+    animate.setAttribute("dur", `${initialDur}s`);
     animate.setAttribute("repeatCount", "indefinite");
     group.appendChild(animate);
 
@@ -74,6 +74,9 @@ const DiscSvg = () => {
 };
 
 export const DemoAnimationsDisc = () => {
+  const ctx = useDemoContext();
+  const initialSpeed = parseFloat(ctx?.values.duration ?? '6') || 6;
+
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [speed, setSpeed] = useState(initialSpeed);
@@ -84,9 +87,7 @@ export const DemoAnimationsDisc = () => {
 
   useEffect(() => {
     const svg = getSvg();
-    if (!svg) {
-      return;
-    }
+    if (!svg) return;
     svg.pauseAnimations();
     svg.setCurrentTime(0);
   }, []);
@@ -99,6 +100,7 @@ export const DemoAnimationsDisc = () => {
 
   const onSpeedChange = (value: number) => {
     setSpeed(value);
+    ctx?.setValue('duration', `${value}s`);
   };
 
   const onPlay = () => {
@@ -118,6 +120,7 @@ export const DemoAnimationsDisc = () => {
       svg.setCurrentTime(0);
     }
     setSpeed(initialSpeed);
+    ctx?.setValue('duration', `${initialSpeed}s`);
     setIsPlaying(false);
   };
 
@@ -128,7 +131,7 @@ export const DemoAnimationsDisc = () => {
         isPlaying,
         speedMin: 1,
         speedMax: 80,
-        speedControl: false,
+        speedControl: true,
         speed,
         onSpeedChange,
         onPlay,
@@ -136,7 +139,7 @@ export const DemoAnimationsDisc = () => {
         onReset,
       }}
     >
-      <DiscSvg />
+      <DiscSvg initialDur={speed} />
     </DemoAnimation>
   );
 };

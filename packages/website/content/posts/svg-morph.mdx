@@ -7,36 +7,57 @@ published: true
 Schon seit der [Version 1.0](https://www.w3.org/TR/2001/REC-SVG-20010904/) von 2001 sind [SMIL-Animationen](https://www.w3.org/TR/2001/REC-SVG-20010904/animate.html) mit in SVG drin.
 
 Viel abgehangener geht es kaum:
-Hat **Multimedia** im Namen und XML in der Syntax.
+Hat _Multimedia_ im Namen und ist pures XML.
 
 Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL angesehen.
 
 Funktioniert auf den ersten Blick erstaunlich gut.
 
-<Stack
+<DemoContext duration="6s">
+  <Stack
     container
     directionSmall="column"
     directionMedium="row"
     sticky
->
+  >
     <Stack>
-        <DemoAnimationsDisc />
+
+<DemoAnimationsDisc />
+
     </Stack>
     <Stack>
 
-```tsx scholion:anim=<animateTransform scholion:repeat=repeatCount
+```html scholion:anim=<animateTransform scholion:repeat=repeatCount
 <svg>
   <g>
     <circle cx="100" cy="100" r="100"/>
-    <circle cx="105" cy="100" r="95" />
-    <circle cx="110" cy="100" r="90" />
-        [...]
-    <circle cx="125" cy="100" r="5">
+    <circle cx="105" cy="100" r="95"/>
+    // !collapse(1:18) /* More circles */
+    <circle cx="110" cy="100" r="90"/>
+    <circle cx="115" cy="100" r="85"/>
+    <circle cx="120" cy="100" r="80"/>
+    <circle cx="125" cy="100" r="75"/>
+    <circle cx="130" cy="100" r="70"/>
+    <circle cx="135" cy="100" r="65"/>
+    <circle cx="140" cy="100" r="60"/>
+    <circle cx="145" cy="100" r="55"/>
+    <circle cx="150" cy="100" r="50"/>
+    <circle cx="155" cy="100" r="45"/>
+    <circle cx="160" cy="100" r="40"/>
+    <circle cx="155" cy="100" r="35"/>
+    <circle cx="150" cy="100" r="30"/>
+    <circle cx="145" cy="100" r="25"/>
+    <circle cx="140" cy="100" r="20"/>
+    <circle cx="135" cy="100" r="15"/>
+    <circle cx="130" cy="100" r="10"/>
+    <circle cx="125" cy="100" r="5"/>
+    <circle cx="122.5" cy="100" r="2.5"/>
     <animateTransform
       attributeName="transform"
       type="rotate"
       from="0 100 100"
       to="360 100 100"
+// !placeholder duration "6s"
       dur="6s"
       repeatCount="indefinite" />
   </g>
@@ -45,7 +66,8 @@ Funktioniert auf den ersten Blick erstaunlich gut.
 
     </Stack>
 
-</Stack>
+  </Stack>
+</DemoContext>
 
 XML in your face:
 

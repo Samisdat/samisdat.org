@@ -1,28 +1,29 @@
 'use client';
 
+import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
 import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useEffect, useRef, useState } from 'react';
 
 const SvgWithSunStyling = styled.svg`
-    background: var(--color-ink-green);
+    background: ${panoramaCssVars["midnight-blue"]};
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-miterlimit: 1.5;
 
     & .heaven {
-        fill: var(--color-ink-blue);
+        fill: ${panoramaCssVars["sky-blue"]};
     }
 
     & .sunPath {
         fill: none;
-        stroke: var(--color-text-emphasis);
+        stroke: ${panoramaCssVars["dusty-rose"]};
         stroke-width: 3.5px;
     }
 
     & .sun {
-        fill: var(--color-ink-yellow);
+        fill: ${panoramaCssVars["neon-yellow"]};
     }
 `;
 

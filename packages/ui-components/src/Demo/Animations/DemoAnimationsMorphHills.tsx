@@ -1,3 +1,4 @@
+import { panoramaCssVars } from "@samisdat/wtal-panorama/colors";
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
@@ -14,15 +15,15 @@ const HillsSvgStyling = styled.svg`
   }
 
   & rect {
-    fill: #00afeb;
+    fill: ${panoramaCssVars["sky-blue"]};
   }
 
   & .hill-back {
-    fill: #6d6c13;
+    fill: ${panoramaCssVars["warm-olive"]};
   }
 
   & .hill-front {
-    fill: #1c592d;
+    fill: ${panoramaCssVars["deep-pine"]};
   }
 `;
 

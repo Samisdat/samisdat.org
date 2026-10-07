@@ -29,6 +29,17 @@ const Styling = styled.div`
   font-family: var(--font-code);
   font-weight: bold;
   background-color: var(--color-ink-yellow);
+
+  [data-theme="light"] & {
+    background-color: var(--color-ink-pink);
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme]) & {
+      background-color: var(--color-ink-pink);
+    }
+  }
+
   color: var(--color-surface-default);
 `;
 

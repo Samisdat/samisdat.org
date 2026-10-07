@@ -1,54 +1,48 @@
+/* Generated — do not edit. Run `pnpm build:colors` to regenerate. */
 :root {
-    --color-slate-gray: oklch(45% 0.01 270);
-    --color-moon-gray: oklch(93% 0.002 260);
-    --color-crater-gray: oklch(87% 0.003 260);
-    --color-mauve-gray: oklch(55% 0.02 10);
-
-    --color-brick-red: oklch(38% 0.12 30);
-    --color-crimson-dark: oklch(52% 0.16 20);
-    --color-bright-red: oklch(60% 0.2 30);
-    --color-fire-red: oklch(65% 0.23 35);
-    --color-wine-red: oklch(32% 0.14 25);
-    --color-brick-orange: oklch(58% 0.16 40);
-
-    --color-terracotta: oklch(52% 0.14 45);
-    --color-copper-brown: oklch(54% 0.1 50);
-    --color-apricot: oklch(80% 0.1 55);
-    --color-espresso: oklch(15% 0.04 50);
-
-    --color-sunflower-yellow: oklch(78% 0.2 90);
-    --color-golden-ochre: oklch(55% 0.16 80);
-    --color-dark-ochre: oklch(50% 0.14 75);
-    --color-mustard-yellow: oklch(58% 0.18 95);
-    --color-neon-yellow: oklch(85% 0.23 105);
-
-    --color-aqua-gray: oklch(58% 0.07 210);
-    --color-steel-blue: oklch(40% 0.08 255);
-    --color-river-blue: oklch(55% 0.1 225);
-    --color-sky-blue: oklch(65% 0.18 215);
-    --color-midnight-blue: oklch(12% 0.03 255);
-    --color-midnight-indigo: oklch(20% 0.12 275);
-
-    --color-moss-green-light: oklch(62% 0.06 135);
-    --color-moss-green: oklch(42% 0.07 130);
-    --color-moss-olive: oklch(32% 0.07 125);
-    --color-forest-green: oklch(38% 0.1 150);
-    --color-pine-green: oklch(35% 0.09 135);
-    --color-forest-hill: oklch(40% 0.08 140);
-    --color-emerald-dark: oklch(30% 0.15 160);
-    --color-dark-moss: oklch(22% 0.06 120);
-    --color-pine-dark: oklch(25% 0.1 145);
-    --color-deep-pine: oklch(32% 0.11 150);
-    --color-spring-green: oklch(50% 0.12 155);
-
-    --color-olive-moss: oklch(34% 0.08 110);
-    --color-olive-green: oklch(46% 0.1 108);
-    --color-warm-olive: oklch(38% 0.12 115);
-
-    --color-dusty-rose: oklch(78% 0.06 30);
-    --color-dusty-pink: oklch(75% 0.06 25);
-    --color-coral-light: oklch(72% 0.14 35);
-    --color-aubergine: oklch(22% 0.05 300);
+    --panorama-slate-gray: oklch(0.45 0.01 270);
+    --panorama-moon-gray: oklch(0.93 0.002 260);
+    --panorama-crater-gray: oklch(0.87 0.003 260);
+    --panorama-mauve-gray: oklch(0.55 0.02 10);
+    --panorama-brick-red: oklch(0.38 0.12 30);
+    --panorama-crimson-dark: oklch(0.52 0.16 20);
+    --panorama-bright-red: oklch(0.6 0.2 30);
+    --panorama-fire-red: oklch(0.65 0.23 35);
+    --panorama-wine-red: oklch(0.32 0.14 25);
+    --panorama-brick-orange: oklch(0.58 0.16 40);
+    --panorama-terracotta: oklch(0.52 0.14 45);
+    --panorama-copper-brown: oklch(0.54 0.1 50);
+    --panorama-apricot: oklch(0.8 0.1 55);
+    --panorama-espresso: oklch(0.15 0.04 50);
+    --panorama-sunflower-yellow: oklch(0.78 0.2 90);
+    --panorama-golden-ochre: oklch(0.55 0.16 80);
+    --panorama-dark-ochre: oklch(0.5 0.14 75);
+    --panorama-mustard-yellow: oklch(0.58 0.18 95);
+    --panorama-neon-yellow: oklch(0.85 0.23 105);
+    --panorama-aqua-gray: oklch(0.58 0.07 210);
+    --panorama-steel-blue: oklch(0.4 0.08 255);
+    --panorama-river-blue: oklch(0.55 0.1 225);
+    --panorama-sky-blue: oklch(0.65 0.18 215);
+    --panorama-midnight-blue: oklch(0.12 0.03 255);
+    --panorama-midnight-indigo: oklch(0.2 0.12 275);
+    --panorama-moss-green-light: oklch(0.62 0.06 135);
+    --panorama-moss-green: oklch(0.42 0.07 130);
+    --panorama-moss-olive: oklch(0.32 0.07 125);
+    --panorama-forest-green: oklch(0.38 0.1 150);
+    --panorama-pine-green: oklch(0.35 0.09 135);
+    --panorama-forest-hill: oklch(0.4 0.08 140);
+    --panorama-emerald-dark: oklch(0.3 0.15 160);
+    --panorama-dark-moss: oklch(0.22 0.06 120);
+    --panorama-pine-dark: oklch(0.25 0.1 145);
+    --panorama-deep-pine: oklch(0.32 0.11 150);
+    --panorama-spring-green: oklch(0.5 0.12 155);
+    --panorama-olive-moss: oklch(0.34 0.08 110);
+    --panorama-olive-green: oklch(0.46 0.1 108);
+    --panorama-warm-olive: oklch(0.38 0.12 115);
+    --panorama-dusty-rose: oklch(0.78 0.06 30);
+    --panorama-dusty-pink: oklch(0.75 0.06 25);
+    --panorama-coral-light: oklch(0.72 0.14 35);
+    --panorama-aubergine: oklch(0.22 0.05 300);
 }
 
 .panorama {
@@ -89,271 +83,271 @@
 }
 
 .panorama .alter-markt {
-    fill: var(--color-slate-gray);
+    fill: var(--panorama-slate-gray);
 }
 
 .beyenburger-dom-base {
-    fill: var(--color-fire-red);
+    fill: var(--panorama-fire-red);
 }
 .panorama .beyenburger-dom-roof {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 
 .panorama .beyenburger-dom-light {
-    fill: var(--color-apricot);
+    fill: var(--panorama-apricot);
 }
 
 .panorama .beyenburger-dom-window {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 
 .blue-house-light {
-    fill: var(--color-aqua-gray);
+    fill: var(--panorama-aqua-gray);
 }
 .blue-house-dark {
-    fill: var(--color-steel-blue);
+    fill: var(--panorama-steel-blue);
 }
 .blue-house-roof {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 .blue-house-window {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 
 .bridge-zoo-dark {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 .bridge-zoo-light {
-    fill: var(--color-terracotta);
+    fill: var(--panorama-terracotta);
 }
 .bridge-zoo-front {
-    fill: var(--color-copper-brown);
+    fill: var(--panorama-copper-brown);
 }
 
 .elisenturm-base,
 .elisenturm-window {
-    fill: var(--color-apricot);
+    fill: var(--panorama-apricot);
 }
 
 .elisenturm-dark {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 
 .gelber-turm-base {
-    fill: var(--color-sunflower-yellow);
+    fill: var(--panorama-sunflower-yellow);
 }
 .gelber-turm-light {
-    fill: var(--color-golden-ochre);
+    fill: var(--panorama-golden-ochre);
 }
 .gelber-turm-dark {
-    fill: var(--color-dark-ochre);
+    fill: var(--panorama-dark-ochre);
 }
 
 .green-house-light1 {
-    fill: var(--color-moss-green-light);
+    fill: var(--panorama-moss-green-light);
 }
 
 .green-house-roof,
 .green-house-dark1 {
-    fill: var(--color-dark-moss);
+    fill: var(--panorama-dark-moss);
 }
 
 .green-house-light2 {
-    fill: var(--color-moss-olive);
+    fill: var(--panorama-moss-olive);
 }
 
 .green-house-dark2 {
-    fill: var(--color-dark-moss);
+    fill: var(--panorama-dark-moss);
 }
 
 .green-tower-base {
-    fill: var(--color-moss-green-light);
+    fill: var(--panorama-moss-green-light);
 }
 
 .green-tower-window,
 .green-tower-dark {
-    fill: var(--color-moss-green);
+    fill: var(--panorama-moss-green);
 }
 
 .lila-church-base {
-    fill: var(--color-dusty-rose);
+    fill: var(--panorama-dusty-rose);
 }
 
 .lila-church-roof,
 .lila-church-window {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 
 .oligsmuehle {
-    fill: var(--color-slate-gray);
+    fill: var(--panorama-slate-gray);
 }
 
 .red-church-base {
-    fill: var(--color-crimson-dark);
+    fill: var(--panorama-crimson-dark);
 }
 .red-church-light {
-    fill: var(--color-fire-red);
+    fill: var(--panorama-fire-red);
 }
 .red-church-front {
-    fill: var(--color-coral-light);
+    fill: var(--panorama-coral-light);
 }
 
 .schauspielhaus {
-    fill: var(--color-sunflower-yellow);
+    fill: var(--panorama-sunflower-yellow);
 }
 
 .schauspielhaus-window {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 
 .schauspielhaus-canopy {
-    fill: var(--color-golden-ochre);
+    fill: var(--panorama-golden-ochre);
 }
 
 .tower-light {
-    fill: var(--color-apricot);
+    fill: var(--panorama-apricot);
 }
 
 .tower-dark,
 .tower2-dark {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 
 .towerlight,
 .tower2-light {
-    fill: var(--color-mauve-gray);
+    fill: var(--panorama-mauve-gray);
 }
 
 .townhall-light {
-    fill: var(--color-coral-light);
+    fill: var(--panorama-coral-light);
 }
 .townhall-dark {
-    fill: var(--color-bright-red);
+    fill: var(--panorama-bright-red);
 }
 .townhall-roof {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 .townhall-window {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 
 .university-base {
-    fill: var(--color-coral-light);
+    fill: var(--panorama-coral-light);
 }
 .university-dark {
-    fill: var(--color-moss-olive);
+    fill: var(--panorama-moss-olive);
 }
 .university-light {
-    fill: var(--color-moss-green-light);
+    fill: var(--panorama-moss-green-light);
 }
 
 .vohwinkel-roof,
 .vohwinkel-window {
-    fill: var(--color-brick-red);
+    fill: var(--panorama-brick-red);
 }
 
 .vohwinkel-dark {
-    fill: var(--color-fire-red);
+    fill: var(--panorama-fire-red);
 }
 .vohwinkel-light {
-    fill: var(--color-apricot);
+    fill: var(--panorama-apricot);
 }
 
 .water-tower-dark {
-    fill: var(--color-wine-red);
+    fill: var(--panorama-wine-red);
 }
 .water-tower-base {
-    fill: var(--color-crimson-dark);
+    fill: var(--panorama-crimson-dark);
 }
 .water-tower-light {
-    fill: var(--color-coral-light);
+    fill: var(--panorama-coral-light);
 }
 
 .wupper {
-    fill: var(--color-river-blue);
+    fill: var(--panorama-river-blue);
 }
 .shore {
-    fill: var(--color-pine-green);
+    fill: var(--panorama-pine-green);
 }
 
 .night {
-    fill: var(--color-midnight-blue);
+    fill: var(--panorama-midnight-blue);
 }
 
 .moon {
-    fill: var(--color-moon-gray);
+    fill: var(--panorama-moon-gray);
 }
 
 .crater {
-    fill: var(--color-crater-gray);
+    fill: var(--panorama-crater-gray);
 }
 
 .sun {
-    fill: var(--color-neon-yellow);
+    fill: var(--panorama-neon-yellow);
 }
 
 .hardt {
-    fill: var(--color-forest-green);
+    fill: var(--panorama-forest-green);
 }
 
 .hill010 {
-    fill: var(--color-mustard-yellow);
+    fill: var(--panorama-mustard-yellow);
 }
 
 .hill-before-green-tower,
 .hill4100 {
-    fill: var(--color-aubergine);
+    fill: var(--panorama-aubergine);
 }
 
 .vohwinkel-back,
 .hill2900 {
-    fill: var(--color-emerald-dark);
+    fill: var(--panorama-emerald-dark);
 }
 
 .lila-church-hill,
 .hill3200 {
-    fill: var(--color-forest-hill);
+    fill: var(--panorama-forest-hill);
 }
 
 .hill3800,
 .hill2800 {
-    fill: var(--color-dark-moss);
+    fill: var(--panorama-dark-moss);
 }
 
 .hill3300,
 .hill100,
 .hill2250,
 .hill2200 {
-    fill: var(--color-pine-dark);
+    fill: var(--panorama-pine-dark);
 }
 
 .hill1110 {
-    fill: var(--color-olive-moss);
+    fill: var(--panorama-olive-moss);
 }
 
 .hill050 {
-    fill: var(--color-deep-pine);
+    fill: var(--panorama-deep-pine);
 }
 
 .hill040 {
-    fill: var(--color-spring-green);
+    fill: var(--panorama-spring-green);
 }
 
 .hill030 {
-    fill: var(--color-olive-green);
+    fill: var(--panorama-olive-green);
 }
 
 .hill020 {
-    fill: var(--color-warm-olive);
+    fill: var(--panorama-warm-olive);
 }
 
 .track {
-    fill: var(--color-apricot);
+    fill: var(--panorama-apricot);
 }
 
 .car {
-    fill: var(--color-sky-blue);
-    stroke: var(--color-midnight-indigo);
+    fill: var(--panorama-sky-blue);
+    stroke: var(--panorama-midnight-indigo);
     stroke-width: 3;
     width: 81px;
     height: 11px;

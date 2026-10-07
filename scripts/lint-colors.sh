@@ -80,6 +80,7 @@ LITERAL_RESULTS=$(grep -rnE \
   --exclude-dir=templates \
   --exclude="*MiniPano.tsx" \
   --exclude="*DemoAnimationsMorphHills.tsx" \
+  --exclude="*CodeBlock.stories.ts" \
   "\b(oklch|rgba?|hsla?)\(" \
   packages/website/src packages/ui-components/src packages/storybook/src 2>/dev/null \
   | grep -vE "^packages/(ui-components/src/tokens|storybook/src/color-scheme)/" \

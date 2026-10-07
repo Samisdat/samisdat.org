@@ -9,6 +9,10 @@
       "types": "./src/*/index.tsx",
       "import": "./src/*/index.tsx"
     },
+    "./Demo/DemoContext": {
+      "types": "./src/Demo/DemoContext.tsx",
+      "import": "./src/Demo/DemoContext.tsx"
+    },
     "./Demo/Animations/*": {
       "types": "./src/Demo/Animations/*.tsx",
       "import": "./src/Demo/Animations/*.tsx"
@@ -52,6 +56,7 @@
     "@linaria/react": "catalog:",
     "@samisdat/color-scheme": "workspace:*",
     "@samisdat/tools": "workspace:*",
+    "@samisdat/wtal-panorama": "workspace:*",
     "culori": "^4.0.2",
     "fs-extra": "catalog:",
     "normalize.css": "catalog:",

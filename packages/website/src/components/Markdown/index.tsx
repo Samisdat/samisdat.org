@@ -1,11 +1,13 @@
 import { FC, HTMLAttributes } from 'react';
 
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
+import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { Typo } from '@samisdat/ui-components/Typo';
 
 import { SandpackFiles } from '@codesandbox/sandpack-react';
+import { Code } from '../Code';
 import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
@@ -39,6 +41,8 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
             />
         ),
         a: (props: any) => <Link {...props} />,
+        pre: (props: any) => <Code {...props} />,
+        DemoContext: (props: any) => <DemoContext {...props} />,
         DemoBox: (props: any) => {
             return <DemoBox {...props} />;
         },

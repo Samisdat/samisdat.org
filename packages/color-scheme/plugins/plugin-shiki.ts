@@ -118,10 +118,16 @@ export default function pluginShiki(): Plugin {
 
         // Font style is data of the token and identical in every mode; the
         // first mode is enough for the CSS variable theme.
-        cssTheme ??= build(
-          (id) => `var(--color-${id.replaceAll(".", "-")})`,
-          fontStyleOf,
-        );
+        if (!cssTheme) {
+          cssTheme = build(
+            (id) => `var(--color-${id.replaceAll(".", "-")})`,
+            fontStyleOf,
+          );
+          // Code blocks render on surface-default; syntax-background is kept
+          // for VS Code / hex themes only.
+          cssTheme.bg = "var(--color-surface-default)";
+          cssTheme.colors["editor.background"] = "var(--color-surface-default)";
+        }
       }
 
       if (!cssTheme) return;

@@ -1,6 +1,7 @@
 import { css } from "@linaria/core";
 import "normalize.css";
 import { breakpoints } from "../tokens/breakpoints";
+import { borderWidth, borderRadius } from "../tokens/border";
 import { scholionStyles } from "./scholion";
 import { getDarkTheme, getLightTheme } from "../tokens/themes";
 
@@ -13,6 +14,8 @@ export const globalStyles = css`
     }
 
     :root {
+      --border-width-default: ${borderWidth.default};
+      --border-radius-none: ${borderRadius.none};
       --typo-h1-size: 3rem;
       --typo-h2-size: 2.75rem;
       --typo-h3-size: 2.25rem;

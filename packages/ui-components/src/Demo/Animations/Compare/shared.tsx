@@ -1,3 +1,4 @@
+import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 import { styled } from '@linaria/react';
 
 type DemoAnimationsCompareConfig = {
@@ -42,7 +43,7 @@ export const SvgStyling = styled.svg`
 
     & circle {
         fill-rule: nonzero;
-        stroke: var(--color-aubergine);
+        stroke: ${panoramaCssVars["aubergine"]};
         stroke-width: 0.5px;
     }
 `;
