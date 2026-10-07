@@ -234,6 +234,11 @@ export const scholionStyles = `
     }
   }
 
+  /* ── Collapse toggle labels ──────────────────────────────────────────── */
+  .code-collapse > summary [data-collapse-open] { display: none; }
+  .code-collapse[open] > summary [data-collapse-closed] { display: none; }
+  .code-collapse[open] > summary [data-collapse-open] { display: inline; }
+
   @media (prefers-reduced-motion: reduce) {
     a.ref,
     .ref-target,

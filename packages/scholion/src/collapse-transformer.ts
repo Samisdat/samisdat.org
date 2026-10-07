@@ -6,6 +6,7 @@ const ANNOTATION_RE = /^\/\/\s*!collapse\((\d+):(\d+)\)(?:[ \t]+(\S[^\n]*))?$/
 
 type CollapseInfo = {
     label: string
+    openLabel?: string
     startLineIndex: number
     count: number
     indent: number
@@ -26,10 +27,14 @@ export function collapseTransformer(): ShikiTransformer {
                 if (match) {
                     const from = parseInt(match[1], 10)
                     const to = parseInt(match[2], 10)
-                    const label = match[3]?.trim() || DEFAULT_LABEL
+                    const raw = match[3]?.trim() || DEFAULT_LABEL
+                    const pipeIdx = raw.indexOf(' | ')
+                    const label = pipeIdx === -1 ? raw : raw.slice(0, pipeIdx).trimEnd()
+                    const openLabel = pipeIdx === -1 ? undefined : raw.slice(pipeIdx + 3).trimStart()
                     const indent = (lines[i + 1] ?? '').match(/^(\s*)/)?.[1]?.length ?? 0
                     infos.push({
                         label,
+                        openLabel,
                         startLineIndex: kept.length + from - 1,
                         count: to - from + 1,
                         indent,
@@ -79,7 +84,12 @@ function wrapCollapse(codeEl: Element, info: CollapseInfo): void {
                 type: 'element',
                 tagName: 'summary',
                 properties: info.indent > 0 ? { style: `padding-left: ${info.indent}ch` } : {},
-                children: [{ type: 'text', value: info.label }],
+                children: info.openLabel
+                    ? [
+                          { type: 'element', tagName: 'span', properties: { 'data-collapse-closed': true }, children: [{ type: 'text', value: info.label }] },
+                          { type: 'element', tagName: 'span', properties: { 'data-collapse-open': true }, children: [{ type: 'text', value: info.openLabel }] },
+                      ]
+                    : [{ type: 'text', value: info.label }],
             },
             ...extracted,
         ],
