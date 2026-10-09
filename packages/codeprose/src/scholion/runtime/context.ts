@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import type { Docks } from './dockNode'
 import type { Layout } from './useScholionLayout'
 import type { Registry } from './scan'
 import type { ScholionState } from './state'
@@ -9,6 +10,7 @@ export type ScholionContextValue = {
     colors: Record<string, string>
     state: ScholionState
     layout: Layout
+    docks: Docks
     jump: (kind: 'code' | 'text', id: string) => void
     goBack: () => void
     peekEnter: (id: string) => void

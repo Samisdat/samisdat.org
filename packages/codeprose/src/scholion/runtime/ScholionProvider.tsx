@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react'
 import { ScholionContext, type ScholionContextValue } from './context'
 import { Chip } from './Chip'
-import { disposeDockNodes } from './dockNode'
+import type { Docks } from './dockNode'
 import type { PeekKind, PeekPos, Want } from './layout'
 import { Peek } from './Peek'
 import { scanRefs, type Registry } from './scan'
@@ -20,13 +20,19 @@ type ScholionProviderProps = {
      * on purpose: the content is server-rendered and only swaps on navigation.
      */
     contentKey?: string
+    /**
+     * Mount nodes for the peeks (`top`) and for the return chip and bottom peeks (`bottom`). The nodes
+     * are flex containers owned by the host; peeks and the chip are portaled into them as flex children.
+     * A peek whose node is `null` renders nothing.
+     */
+    docks: Docks
 }
 
 /**
  * Wires up the scholion runtime for the server-rendered markup in `children` (or anywhere in the document):
  * hover/focus/tap state, peeks, wires and the return chip.
  */
-export function ScholionProvider({ children, contentKey }: ScholionProviderProps) {
+export function ScholionProvider({ children, contentKey, docks }: ScholionProviderProps) {
     const [scan, setScan] = useState<{ n: number; registry: Registry } | null>(null)
 
     useEffect(() => {
@@ -43,6 +49,7 @@ export function ScholionProvider({ children, contentKey }: ScholionProviderProps
                 <ScholionRuntime
                     key={scan.n}
                     registry={scan.registry}
+                    docks={docks}
                 />
             )}
         </>
@@ -63,7 +70,7 @@ function isPeekOn(kind: PeekKind, shown: Shown, want: Want | null, pr: string | 
     return shown.last === kind && !!s && !!state.flags[s.id]?.peek && pr === s.id
 }
 
-function ScholionRuntime({ registry }: { registry: Registry }) {
+function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks }) {
     const [state, dispatch] = useReducer(reduce, registry.ids, createState)
     const layout = useScholionLayout(registry, state, dispatch)
     const colors = useTokenColors(registry)
@@ -192,8 +199,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
         }
     }, [registry])
 
-    useEffect(() => disposeDockNodes, [])
-
     // ── Peeks: keep the last shown one mounted so it can fade out ──────────
     const [shown, setShown] = useState<Shown>({ code: null, text: null, last: null })
     const { want, pr } = layout
@@ -217,8 +222,8 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
     }, [shown, want, pr, state])
 
     const value = useMemo<ScholionContextValue>(
-        () => ({ registry, colors, state, layout, jump, goBack, peekEnter, peekLeave }),
-        [registry, colors, state, layout, jump, goBack, peekEnter, peekLeave],
+        () => ({ registry, colors, state, layout, docks, jump, goBack, peekEnter, peekLeave }),
+        [registry, colors, state, layout, docks, jump, goBack, peekEnter, peekLeave],
     )
 
     return (
