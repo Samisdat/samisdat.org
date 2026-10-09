@@ -5,8 +5,8 @@ const HEADER = `-- Generated – do not edit.
 -- Source: tokens/*.tokens.json, built by \`pnpm --filter @samisdat/color-scheme build\`.
 -- Base: tokyonight (moon for dark, day for light); surfaces, text, status and
 -- syntax groups are replaced with samisdat values (same mapping as the Shiki
--- theme). Terminal colours, diagnostics and plugin-specific highlight groups
--- are out of scope for now.
+-- theme). Terminal colours and diagnostics are mapped too; plugin-specific
+-- highlight groups are out of scope for now.
 --
 -- Use:   :set rtp^=<path to generated/nvim> | colorscheme samisdat
 -- Light: :set background=light | colorscheme samisdat`;
@@ -30,6 +30,23 @@ const BASE_IDS = [
   "status.danger",
   "status.warning",
   "status.info",
+  "ink.teal",
+  "terminal.ansi0",
+  "terminal.ansi1",
+  "terminal.ansi2",
+  "terminal.ansi3",
+  "terminal.ansi4",
+  "terminal.ansi5",
+  "terminal.ansi6",
+  "terminal.ansi7",
+  "terminal.ansi8",
+  "terminal.ansi9",
+  "terminal.ansi10",
+  "terminal.ansi11",
+  "terminal.ansi12",
+  "terminal.ansi13",
+  "terminal.ansi14",
+  "terminal.ansi15",
 ] as const;
 
 // \`syntax.*\` tokens driving the \`on_highlights\` mapping, same IDs as the Shiki theme.
@@ -65,6 +82,8 @@ const toHex = (value: { components: (number | "none" | null)[] }) => {
   return hex;
 };
 
+const TERMINAL_ANSI_IDS = Array.from({ length: 16 }, (_, i) => `terminal.ansi${i}`);
+
 const luaTable = (entries: Record<string, string>, indent: string) =>
   "{\n" +
   Object.entries(entries)
@@ -83,6 +102,10 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     "",
     'local mode = vim.o.background == "light" and "light" or "dark"',
     "local t = T[mode]",
+    "",
+    ...TERMINAL_ANSI_IDS.map(
+      (id, i) => `vim.g.terminal_color_${i} = t["${id}"]`,
+    ),
     "",
     'local ok, tokyonight = pcall(require, "tokyonight")',
     "if not ok then",
@@ -119,6 +142,7 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     '    c.error = t["status.danger"]',
     '    c.warning = t["status.warning"]',
     '    c.info = t["status.info"]',
+    '    c.hint = t["ink.teal"]',
     "  end,",
     "  on_highlights = function(hl, c)",
     '    local s = function(k) return t["syntax." .. k] end',
@@ -147,6 +171,19 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     '    set({ "@module", "@namespace" }, { fg = s("variable") })',
     '    set({ "Added", "diffAdded", "@diff.plus" }, { fg = s("diff-plus") })',
     '    set({ "Removed", "diffRemoved", "@diff.minus" }, { fg = s("diff-minus") })',
+    "    -- diagnostics",
+    '    set({ "DiagnosticError", "DiagnosticVirtualTextError" }, { fg = c.error })',
+    '    set({ "DiagnosticWarn", "DiagnosticVirtualTextWarn" }, { fg = c.warning })',
+    '    set({ "DiagnosticInfo", "DiagnosticVirtualTextInfo" }, { fg = c.info })',
+    '    set({ "DiagnosticHint", "DiagnosticVirtualTextHint" }, { fg = c.hint })',
+    '    set({ "DiagnosticUnderlineError" }, { undercurl = true, sp = c.error })',
+    '    set({ "DiagnosticUnderlineWarn" }, { undercurl = true, sp = c.warning })',
+    '    set({ "DiagnosticUnderlineInfo" }, { undercurl = true, sp = c.info })',
+    '    set({ "DiagnosticUnderlineHint" }, { undercurl = true, sp = c.hint })',
+    '    set({ "DiagnosticSignError" }, { fg = c.error })',
+    '    set({ "DiagnosticSignWarn" }, { fg = c.warning })',
+    '    set({ "DiagnosticSignInfo" }, { fg = c.info })',
+    '    set({ "DiagnosticSignHint" }, { fg = c.hint })',
     "  end,",
     "})",
     "",
@@ -158,8 +195,8 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
  * Emits the nvim theme (`colors/samisdat.lua`) from the level 3 `syntax.*`
  * tokens plus the surface/text/status tokens used for tokyonight's base
  * `on_colors`. The theme sits on top of tokyonight (moon for dark, day for
- * light) and only covers syntax highlighting; terminal colours, diagnostics
- * and plugin-specific highlight groups are later tickets.
+ * light) and covers syntax highlighting, terminal colours and diagnostics;
+ * plugin-specific highlight groups are later tickets.
  */
 export default function pluginNvim(): Plugin {
   return {

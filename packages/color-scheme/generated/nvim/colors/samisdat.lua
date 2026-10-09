@@ -2,8 +2,8 @@
 -- Source: tokens/*.tokens.json, built by `pnpm --filter @samisdat/color-scheme build`.
 -- Base: tokyonight (moon for dark, day for light); surfaces, text, status and
 -- syntax groups are replaced with samisdat values (same mapping as the Shiki
--- theme). Terminal colours, diagnostics and plugin-specific highlight groups
--- are out of scope for now.
+-- theme). Terminal colours and diagnostics are mapped too; plugin-specific
+-- highlight groups are out of scope for now.
 --
 -- Use:   :set rtp^=<path to generated/nvim> | colorscheme samisdat
 -- Light: :set background=light | colorscheme samisdat
@@ -27,6 +27,23 @@ local T = {
     ["status.danger"] = "#ff5352",
     ["status.warning"] = "#e7a75c",
     ["status.info"] = "#6fbaff",
+    ["ink.teal"] = "#1ad4e0",
+    ["terminal.ansi0"] = "#0f051d",
+    ["terminal.ansi1"] = "#ff5352",
+    ["terminal.ansi2"] = "#0fcc82",
+    ["terminal.ansi3"] = "#f7bf27",
+    ["terminal.ansi4"] = "#6fbaff",
+    ["terminal.ansi5"] = "#c0abe0",
+    ["terminal.ansi6"] = "#94c2c3",
+    ["terminal.ansi7"] = "#e6c7c1",
+    ["terminal.ansi8"] = "#1e142e",
+    ["terminal.ansi9"] = "#e7a75c",
+    ["terminal.ansi10"] = "#0fcc82",
+    ["terminal.ansi11"] = "#f7bf27",
+    ["terminal.ansi12"] = "#6fbaff",
+    ["terminal.ansi13"] = "#fe90ff",
+    ["terminal.ansi14"] = "#1ad4e0",
+    ["terminal.ansi15"] = "#f6d5d0",
     ["syntax.comment"] = "#aecbff",
     ["syntax.keyword"] = "#ff5352",
     ["syntax.string"] = "#0fcc82",
@@ -63,6 +80,23 @@ local T = {
     ["status.danger"] = "#8c1134",
     ["status.warning"] = "#723600",
     ["status.info"] = "#2629cb",
+    ["ink.teal"] = "#2d5054",
+    ["terminal.ansi0"] = "#0f051d",
+    ["terminal.ansi1"] = "#8c1134",
+    ["terminal.ansi2"] = "#274c1f",
+    ["terminal.ansi3"] = "#492f00",
+    ["terminal.ansi4"] = "#2629cb",
+    ["terminal.ansi5"] = "#59008e",
+    ["terminal.ansi6"] = "#033c41",
+    ["terminal.ansi7"] = "#e6c7c1",
+    ["terminal.ansi8"] = "#1e142e",
+    ["terminal.ansi9"] = "#723600",
+    ["terminal.ansi10"] = "#274c1f",
+    ["terminal.ansi11"] = "#492f00",
+    ["terminal.ansi12"] = "#2629cb",
+    ["terminal.ansi13"] = "#7b015d",
+    ["terminal.ansi14"] = "#2d5054",
+    ["terminal.ansi15"] = "#f6d5d0",
     ["syntax.comment"] = "#4c3c93",
     ["syntax.keyword"] = "#8c1134",
     ["syntax.string"] = "#274c1f",
@@ -85,6 +119,23 @@ local T = {
 
 local mode = vim.o.background == "light" and "light" or "dark"
 local t = T[mode]
+
+vim.g.terminal_color_0 = t["terminal.ansi0"]
+vim.g.terminal_color_1 = t["terminal.ansi1"]
+vim.g.terminal_color_2 = t["terminal.ansi2"]
+vim.g.terminal_color_3 = t["terminal.ansi3"]
+vim.g.terminal_color_4 = t["terminal.ansi4"]
+vim.g.terminal_color_5 = t["terminal.ansi5"]
+vim.g.terminal_color_6 = t["terminal.ansi6"]
+vim.g.terminal_color_7 = t["terminal.ansi7"]
+vim.g.terminal_color_8 = t["terminal.ansi8"]
+vim.g.terminal_color_9 = t["terminal.ansi9"]
+vim.g.terminal_color_10 = t["terminal.ansi10"]
+vim.g.terminal_color_11 = t["terminal.ansi11"]
+vim.g.terminal_color_12 = t["terminal.ansi12"]
+vim.g.terminal_color_13 = t["terminal.ansi13"]
+vim.g.terminal_color_14 = t["terminal.ansi14"]
+vim.g.terminal_color_15 = t["terminal.ansi15"]
 
 local ok, tokyonight = pcall(require, "tokyonight")
 if not ok then
@@ -121,6 +172,7 @@ tokyonight.load({
     c.error = t["status.danger"]
     c.warning = t["status.warning"]
     c.info = t["status.info"]
+    c.hint = t["ink.teal"]
   end,
   on_highlights = function(hl, c)
     local s = function(k) return t["syntax." .. k] end
@@ -149,6 +201,19 @@ tokyonight.load({
     set({ "@module", "@namespace" }, { fg = s("variable") })
     set({ "Added", "diffAdded", "@diff.plus" }, { fg = s("diff-plus") })
     set({ "Removed", "diffRemoved", "@diff.minus" }, { fg = s("diff-minus") })
+    -- diagnostics
+    set({ "DiagnosticError", "DiagnosticVirtualTextError" }, { fg = c.error })
+    set({ "DiagnosticWarn", "DiagnosticVirtualTextWarn" }, { fg = c.warning })
+    set({ "DiagnosticInfo", "DiagnosticVirtualTextInfo" }, { fg = c.info })
+    set({ "DiagnosticHint", "DiagnosticVirtualTextHint" }, { fg = c.hint })
+    set({ "DiagnosticUnderlineError" }, { undercurl = true, sp = c.error })
+    set({ "DiagnosticUnderlineWarn" }, { undercurl = true, sp = c.warning })
+    set({ "DiagnosticUnderlineInfo" }, { undercurl = true, sp = c.info })
+    set({ "DiagnosticUnderlineHint" }, { undercurl = true, sp = c.hint })
+    set({ "DiagnosticSignError" }, { fg = c.error })
+    set({ "DiagnosticSignWarn" }, { fg = c.warning })
+    set({ "DiagnosticSignInfo" }, { fg = c.info })
+    set({ "DiagnosticSignHint" }, { fg = c.hint })
   end,
 })
 
