@@ -12,13 +12,9 @@
       "types": "./src/scholion/transformer.ts",
       "import": "./src/scholion/transformer.ts"
     },
-    "./scholion/controller": {
-      "types": "./src/scholion/controller.ts",
-      "import": "./src/scholion/controller.ts"
-    },
-    "./scholion/pin": {
-      "types": "./src/scholion/pin.ts",
-      "import": "./src/scholion/pin.ts"
+    "./scholion/runtime": {
+      "types": "./src/scholion/runtime/index.ts",
+      "import": "./src/scholion/runtime/index.ts"
     },
     "./annotations/placeholder-transformer": {
       "types": "./src/annotations/placeholder-transformer.ts",
@@ -33,15 +29,23 @@
     "test": "vitest",
     "test:ci": "vitest run"
   },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "dependencies": {
     "unist-util-visit": "^5.0.0"
   },
   "devDependencies": {
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "rehype-pretty-code": "^0.14.5",
     "rehype-stringify": "^10.0.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
     "remark-parse": "^11.0.0",
     "remark-rehype": "^11.1.1",
     "shiki": "catalog:",
