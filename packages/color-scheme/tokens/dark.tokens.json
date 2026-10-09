@@ -149,6 +149,34 @@
       }
     }
   },
+  "diff": {
+    "$type": "color",
+    "$description": "Opake nvim-Diff-Hintergründe (DiffAdd/DiffDelete, DiffChange/DiffText), ersetzen tokyonights alpha-blendete Defaults. textTier neutral-only wie selection/highlight.",
+    "add": {
+      "$value": "{color.green.800}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "delete": {
+      "$value": "{color.red.800}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    },
+    "change": {
+      "$value": "{color.blue.800}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    }
+  },
   "syntax": {
     "$type": "color",
     "foreground": {

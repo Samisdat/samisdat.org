@@ -177,6 +177,9 @@ export interface Tokens {
   "border.focus": Color;
   "selection": Color;
   "highlight": Color;
+  "diff.add": Color;
+  "diff.delete": Color;
+  "diff.change": Color;
   "syntax.foreground": Color;
   "syntax.background": Color;
   "syntax.comment": Color;
