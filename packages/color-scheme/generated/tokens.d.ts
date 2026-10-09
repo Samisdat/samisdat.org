@@ -196,6 +196,22 @@ export interface Tokens {
   "syntax.punctuation": Color;
   "syntax.diff-plus": Color;
   "syntax.diff-minus": Color;
+  "terminal.ansi0": Color;
+  "terminal.ansi1": Color;
+  "terminal.ansi2": Color;
+  "terminal.ansi3": Color;
+  "terminal.ansi4": Color;
+  "terminal.ansi5": Color;
+  "terminal.ansi6": Color;
+  "terminal.ansi7": Color;
+  "terminal.ansi8": Color;
+  "terminal.ansi9": Color;
+  "terminal.ansi10": Color;
+  "terminal.ansi11": Color;
+  "terminal.ansi12": Color;
+  "terminal.ansi13": Color;
+  "terminal.ansi14": Color;
+  "terminal.ansi15": Color;
 }
 
 /** Produce a token set from a given input. */

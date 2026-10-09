@@ -218,5 +218,73 @@
     "diff-minus": {
       "$value": "{ink.red}"
     }
+  },
+  "terminal": {
+    "$type": "color",
+    "$description": "ANSI-Palette (0-7 normal, 8-15 bright), geteilt für zsh/herdr/nvim (ADR 0019). Aliase auf bestehende Ebene-2-Werte, keine neuen Primitiven. black/white folgen dem jeweils dunkelsten/hellsten Neutralton des Modes (surface im Dark Mode, text im Light Mode); bright-Varianten der Bunttöne nutzen, wo verfügbar, einen zweiten Ink-Ton derselben Farbfamilie, sonst denselben Ton wie normal.",
+    "ansi0": {
+      "$value": "{surface.emphasis}",
+      "$description": "black"
+    },
+    "ansi1": {
+      "$value": "{ink.red}",
+      "$description": "red"
+    },
+    "ansi2": {
+      "$value": "{ink.green}",
+      "$description": "green"
+    },
+    "ansi3": {
+      "$value": "{ink.yellow}",
+      "$description": "yellow"
+    },
+    "ansi4": {
+      "$value": "{ink.blue}",
+      "$description": "blue"
+    },
+    "ansi5": {
+      "$value": "{ink.purple}",
+      "$description": "magenta"
+    },
+    "ansi6": {
+      "$value": "{ink.cyan}",
+      "$description": "cyan"
+    },
+    "ansi7": {
+      "$value": "{text.default}",
+      "$description": "white"
+    },
+    "ansi8": {
+      "$value": "{surface.default}",
+      "$description": "bright black"
+    },
+    "ansi9": {
+      "$value": "{ink.orange}",
+      "$description": "bright red"
+    },
+    "ansi10": {
+      "$value": "{ink.green}",
+      "$description": "bright green (keine zweite Grün-Ink verfügbar, identisch mit ansi2)"
+    },
+    "ansi11": {
+      "$value": "{ink.yellow}",
+      "$description": "bright yellow (keine zweite Gelb-Ink verfügbar, identisch mit ansi3)"
+    },
+    "ansi12": {
+      "$value": "{ink.blue}",
+      "$description": "bright blue (keine zweite Blau-Ink verfügbar, identisch mit ansi4)"
+    },
+    "ansi13": {
+      "$value": "{ink.pink}",
+      "$description": "bright magenta"
+    },
+    "ansi14": {
+      "$value": "{ink.teal}",
+      "$description": "bright cyan"
+    },
+    "ansi15": {
+      "$value": "{text.emphasis}",
+      "$description": "bright white"
+    }
   }
 }
