@@ -4,16 +4,20 @@ export type PeekKind = 'code' | 'text'
 export type PeekPos = 'top' | 'bottom'
 export type Want = { kind: PeekKind; pos: PeekPos }
 
-export function inView(rect: Rect | null, vh: number): boolean {
-    return !!rect && rect.bottom > 0 && rect.top < vh
+/**
+ * Whether any part of `rect` is inside the visible area. `topEdge` is the bottom of the sticky header:
+ * anything above it is hidden behind the header even though it is still inside the browser window.
+ */
+export function inView(rect: Rect | null, vh: number, topEdge = 0): boolean {
+    return !!rect && rect.bottom > topEdge && rect.top < vh
 }
 
 /** Decides which peek (if any) is needed: the one pointing at the endpoint that is out of view. */
-export function wantPeek({ a, c, vh }: { a: Rect; c: Rect | null; vh: number }): Want | null {
-    const aOn = inView(a, vh)
-    const cOn = !!c && inView(c, vh)
-    if (cOn && !aOn) return { kind: 'code', pos: a.bottom <= 0 ? 'top' : 'bottom' }
-    if (aOn && c && !cOn) return { kind: 'text', pos: c.bottom <= 0 ? 'top' : 'bottom' }
+export function wantPeek({ a, c, vh, topEdge = 0 }: { a: Rect; c: Rect | null; vh: number; topEdge?: number }): Want | null {
+    const aOn = inView(a, vh, topEdge)
+    const cOn = !!c && inView(c, vh, topEdge)
+    if (cOn && !aOn) return { kind: 'code', pos: a.bottom <= topEdge ? 'top' : 'bottom' }
+    if (aOn && c && !cOn) return { kind: 'text', pos: c.bottom <= topEdge ? 'top' : 'bottom' }
     return null
 }
 
@@ -47,13 +51,14 @@ export type Wire = { P: Point; Q: Point; dashed: boolean }
  * Wire endpoints for one active ref, or null when it cannot be drawn.
  * `want`/`peek` are only passed for the ref that owns the currently shown peek.
  */
-export function computeWire({ a, c, preRect, want, peek, vh }: {
+export function computeWire({ a, c, preRect, want, peek, vh, topEdge = 0 }: {
     a: Rect
     c: Rect | null
     preRect: Rect | null
     want: Want | null
     peek: { rect: Rect; token: Rect | null } | null
     vh: number
+    topEdge?: number
 }): Wire | null {
     if (want && peek && want.kind === 'code' && c) {
         const Q = ptPeek({ peek: peek.rect, token: peek.token, pos: want.pos })
@@ -63,7 +68,7 @@ export function computeWire({ a, c, preRect, want, peek, vh }: {
         const Q = ptPeek({ peek: peek.rect, token: peek.token, pos: want.pos })
         return { P: ptA(preRect, a, Q.y), Q, dashed: true }
     }
-    if (inView(a, vh) && c && inView(c, vh)) {
+    if (inView(a, vh, topEdge) && c && inView(c, vh, topEdge)) {
         const pa = ptA(preRect, a, c.top)
         return { P: ptC(c, pa.y), Q: pa, dashed: pa.clipped }
     }

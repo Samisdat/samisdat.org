@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type Dispatch } from 'react'
+import type { Docks } from './dockNode'
 import { computeWire, inView, wantPeek, type Want, type Wire } from './layout'
 import type { Registry } from './scan'
 import { isActive, type ScholionEvent, type ScholionState } from './state'
@@ -29,20 +30,26 @@ export function sameLayout(a: Layout, b: Layout): boolean {
 
 const viewportHeight = () => window.visualViewport?.height ?? innerHeight
 
+/** Height of the sticky header: the top dock sits right below it (`top: var(--navi-height)`). */
+function headerOffset(docks: Docks): number {
+    return docks.top ? parseFloat(getComputedStyle(docks.top).top) || 0 : 0
+}
+
 /** Measures geometry (rAF-scheduled) and derives which peek and wires to show. */
-export function useScholionLayout(registry: Registry, state: ScholionState, dispatch: Dispatch<ScholionEvent>): Layout {
+export function useScholionLayout(registry: Registry, state: ScholionState, dispatch: Dispatch<ScholionEvent>, docks: Docks): Layout {
     const [layout, setLayout] = useState<Layout>(emptyLayout)
-    const live = useRef({ registry, state, dispatch })
+    const live = useRef({ registry, state, dispatch, docks })
     const raf = useRef(0)
 
     useLayoutEffect(() => {
-        live.current = { registry, state, dispatch }
+        live.current = { registry, state, dispatch, docks }
     })
 
     const measure = useCallback(() => {
-        const { registry, state, dispatch } = live.current
+        const { registry, state, dispatch, docks } = live.current
         const { ids, refs } = registry
         const vh = viewportHeight()
+        const topEdge = headerOffset(docks)
 
         const geo: Record<string, { a: DOMRect; c: DOMRect | null }> = {}
         for (const id of ids) {
@@ -50,7 +57,7 @@ export function useScholionLayout(registry: Registry, state: ScholionState, disp
         }
 
         const pr = state.lastId && isActive(state, state.lastId) && geo[state.lastId] ? state.lastId : null
-        const want = pr ? wantPeek({ a: geo[pr].a, c: geo[pr].c, vh }) : null
+        const want = pr ? wantPeek({ a: geo[pr].a, c: geo[pr].c, vh, topEdge }) : null
 
         // The peek is rendered by now (see the layout effect below), measure it for the wire end
         let peekGeo: { rect: DOMRect; token: DOMRect | null } | null = null
@@ -75,6 +82,7 @@ export function useScholionLayout(registry: Registry, state: ScholionState, disp
                 want: pr === id ? want : null,
                 peek: peekGeo,
                 vh,
+                topEdge,
             })
             if (wire) wires[id] = wire
         }
@@ -85,7 +93,7 @@ export function useScholionLayout(registry: Registry, state: ScholionState, disp
         // Auto-hide the chip when the return target scrolls back into view
         const ret = state.ret
         if (ret && geo[ret.id]) {
-            const vis = inView(ret.to === 'c' ? geo[ret.id].c : geo[ret.id].a, vh)
+            const vis = inView(ret.to === 'c' ? geo[ret.id].c : geo[ret.id].a, vh, topEdge)
             if (!vis) {
                 if (!ret.left) dispatch({ type: 'retLeft' })
             } else if (ret.left) {

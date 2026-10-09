@@ -15,6 +15,14 @@ describe('inView', () => {
         expect(inView(rect(0, VH, 10, 10), VH)).toBe(false) // top === vh
         expect(inView(rect(0, -5, 10, 10), VH)).toBe(true)
     })
+
+    it('treats everything behind the sticky header as out of view', () => {
+        const HEADER = 80
+        expect(inView(rect(0, 60, 10, 10), VH, HEADER)).toBe(false) // bottom 70 <= 80, covered but inside the window
+        expect(inView(rect(0, 70, 10, 10), VH, HEADER)).toBe(false) // bottom === header edge
+        expect(inView(rect(0, 71, 10, 10), VH, HEADER)).toBe(true) // 1px peeks out below the header
+        expect(inView(rect(0, 60, 10, 10), VH)).toBe(true) // without a header offset it is visible
+    })
 })
 
 describe('wantPeek', () => {
@@ -49,6 +57,37 @@ describe('wantPeek', () => {
         expect(wantPeek({ a: rect(0, -20, 20, 20), c: visible, vh: VH })).toEqual({ kind: 'code', pos: 'top' })
         expect(wantPeek({ a: visible, c: rect(0, -20, 20, 20), vh: VH })).toEqual({ kind: 'text', pos: 'top' })
         expect(wantPeek({ a: visible, c: rect(0, VH, 20, 20), vh: VH })).toEqual({ kind: 'text', pos: 'bottom' })
+    })
+})
+
+describe('wantPeek behind the sticky header', () => {
+    const HEADER = 80
+    const behindHeader = rect(0, 50, 20, 20) // inside the window, covered by the header
+    const visible = rect(0, 200, 20, 20)
+
+    it('asks for the code peek on top as soon as the token is covered', () => {
+        expect(wantPeek({ a: behindHeader, c: visible, vh: VH, topEdge: HEADER })).toEqual({ kind: 'code', pos: 'top' })
+    })
+
+    it('asks for the text peek on top as soon as the target is covered', () => {
+        expect(wantPeek({ a: visible, c: behindHeader, vh: VH, topEdge: HEADER })).toEqual({ kind: 'text', pos: 'top' })
+    })
+
+    it('does not ask for a peek without a header offset (unchanged behavior)', () => {
+        expect(wantPeek({ a: behindHeader, c: visible, vh: VH })).toBeNull()
+    })
+
+    it('keeps the bottom position for an endpoint below the window', () => {
+        expect(wantPeek({ a: visible, c: rect(0, 1000, 20, 20), vh: VH, topEdge: HEADER })).toEqual({ kind: 'text', pos: 'bottom' })
+    })
+})
+
+describe('computeWire behind the sticky header', () => {
+    it('draws no plain wire when one end is covered by the header', () => {
+        const a = rect(100, 50, 40, 20)
+        const c = rect(100, 300, 40, 20)
+        expect(computeWire({ a, c, preRect: null, want: null, peek: null, vh: VH, topEdge: 80 })).toBeNull()
+        expect(computeWire({ a, c, preRect: null, want: null, peek: null, vh: VH })).not.toBeNull()
     })
 })
 

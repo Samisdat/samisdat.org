@@ -72,7 +72,7 @@ function isPeekOn(kind: PeekKind, shown: Shown, want: Want | null, pr: string | 
 
 function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks }) {
     const [state, dispatch] = useReducer(reduce, registry.ids, createState)
-    const layout = useScholionLayout(registry, state, dispatch)
+    const layout = useScholionLayout(registry, state, dispatch, docks)
     const colors = useTokenColors(registry)
     const grace = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
     const live = useRef({ state, registry })
