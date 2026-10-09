@@ -12,6 +12,7 @@ export const scholionStyles = `
     --scholion-b-outline: 1px dashed color-mix(in srgb, currentColor 55%, transparent);
     /* Set to the height of your sticky nav to prevent the top peek from overlapping */
     --scholion-nav-offset: 0px;
+    --scholion-chip-height: 52px;
   }
 
   /* ── A: token in code ────────────────────────────────────────────────── */
@@ -140,9 +141,9 @@ export const scholionStyles = `
     bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
   }
 
-  /* Bottom peek above the return chip (chip: 14px offset + 44px min height + 8px gap) */
+  /* Bottom peek above the return chip (chip: 14px offset + fixed height + 8px gap) */
   .scholion-peek--lifted {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px + 44px + 8px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px + var(--scholion-chip-height) + 8px);
   }
 
   /* Code peek: same palette as the code block, follows the theme */
@@ -207,8 +208,8 @@ export const scholionStyles = `
     background: var(--color-text-default);
     color: var(--color-surface-default);
     font: 600 0.9rem / 1 inherit;
-    padding: 0.75rem 1.15rem;
-    min-height: 44px;
+    padding: 0 1.15rem;
+    height: var(--scholion-chip-height);
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
     opacity: 0;
