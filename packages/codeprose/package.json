@@ -1,0 +1,56 @@
+{
+  "name": "@samisdat/codeprose",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./scholion/remark": {
+      "types": "./src/scholion/remark.ts",
+      "import": "./src/scholion/remark.ts"
+    },
+    "./scholion/transformer": {
+      "types": "./src/scholion/transformer.ts",
+      "import": "./src/scholion/transformer.ts"
+    },
+    "./scholion/runtime": {
+      "types": "./src/scholion/runtime/index.ts",
+      "import": "./src/scholion/runtime/index.ts"
+    },
+    "./annotations/placeholder-transformer": {
+      "types": "./src/annotations/placeholder-transformer.ts",
+      "import": "./src/annotations/placeholder-transformer.ts"
+    },
+    "./annotations/collapse-transformer": {
+      "types": "./src/annotations/collapse-transformer.ts",
+      "import": "./src/annotations/collapse-transformer.ts"
+    }
+  },
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "dependencies": {
+    "unist-util-visit": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/hast": "^3.0.5",
+    "@types/mdast": "^4.0.4",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/unist": "^3.0.3",
+    "rehype-pretty-code": "^0.14.5",
+    "rehype-stringify": "^10.0.1",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "remark-parse": "^11.0.0",
+    "remark-rehype": "^11.1.1",
+    "shiki": "catalog:",
+    "typescript": "catalog:",
+    "unified": "^11.0.5",
+    "vitest": "catalog:"
+  }
+}

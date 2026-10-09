@@ -43,13 +43,6 @@ function generateCss(refs: ScholionRef[]): string {
   outline: var(--scholion-b-outline);
   outline-offset: 2px;
 }`,
-                `:root[data-scholion-pin="${ref.id}"] [data-ref="${ref.id}"] {
-  background: var(--scholion-hover-bg);
-}`,
-                `:root[data-scholion-pin="${ref.id}"] a.ref[data-ref="${ref.id}"] {
-  outline: var(--scholion-b-outline);
-  outline-offset: 2px;
-}`,
                 `.ref-target[data-ref="${ref.id}"] {
   color: var(--scholion-color-${ref.id}, var(--color-ink-teal));
 }`,

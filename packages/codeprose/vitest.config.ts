@@ -2,7 +2,7 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
     test: {
-        name: 'scholion',
+        name: 'codeprose',
         globals: true,
         environment: 'node',
     },

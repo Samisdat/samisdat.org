@@ -3,7 +3,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { describe, expect, it } from 'vitest'
-import { remarkScholion } from '../src/remark.ts'
+import { remarkScholion } from '../src/scholion/remark.ts'
 
 async function process(md: string): Promise<string> {
     const result = await unified()

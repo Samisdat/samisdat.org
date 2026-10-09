@@ -4,7 +4,7 @@ import remarkParse from 'remark-parse'
 import remarkRehype from 'remark-rehype'
 import { unified } from 'unified'
 import { describe, expect, it } from 'vitest'
-import { collapseTransformer } from '../src/collapse-transformer.ts'
+import { collapseTransformer } from '../src/annotations/collapse-transformer.ts'
 
 async function process(md: string): Promise<string> {
     const result = await unified()
