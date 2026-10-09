@@ -10,9 +10,6 @@ export const scholionStyles = `
     /* currentColor resolves at usage site, so each ref glows in its own hue */
     --scholion-hover-bg: color-mix(in srgb, currentColor 18%, transparent);
     --scholion-b-outline: 1px dashed color-mix(in srgb, currentColor 55%, transparent);
-    /* Set to the height of your sticky nav to prevent the top peek from overlapping */
-    --scholion-nav-offset: 0px;
-    --scholion-chip-height: 52px;
   }
 
   /* ── A: token in code ────────────────────────────────────────────────── */
@@ -112,12 +109,13 @@ export const scholionStyles = `
   }
 
   /* ── Stage 3: Peek ───────────────────────────────────────────────────── */
+  /* Flex child of the top or bottom dock. Hidden peeks leave the flow, so they neither take up space
+     in the dock nor push a visible peek or the chip around. */
   .scholion-peek {
-    position: fixed;
-    z-index: 200;
-    left: 50%;
-    transform: translateX(-50%);
-    top: calc(env(safe-area-inset-top, 0px) + var(--scholion-nav-offset, 0px) + 10px);
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-inline: auto;
     width: min(39.5rem, calc(100vw - 24px));
     border: 1.5px dashed currentColor;
     border-radius: 8px;
@@ -131,19 +129,12 @@ export const scholionStyles = `
   }
 
   .scholion-peek--on {
+    position: relative;
+    left: auto;
+    right: auto;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.15s;
-  }
-
-  .scholion-peek--bottom {
-    top: auto;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
-  }
-
-  /* Bottom peek above the return chip (chip: 14px offset + fixed height + 8px gap) */
-  .scholion-peek--lifted {
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px + var(--scholion-chip-height) + 8px);
   }
 
   /* Code peek: same palette as the code block, follows the theme */
@@ -197,19 +188,18 @@ export const scholionStyles = `
   }
 
   /* ── Stage 3: Return chip ────────────────────────────────────────────── */
+  /* Flex child of the bottom dock, below a bottom peek (order). Out of flow while hidden. */
   .scholion-chip {
-    position: fixed;
-    z-index: 210;
-    left: 50%;
-    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px);
-    transform: translateX(-50%);
+    position: absolute;
+    order: 1;
+    align-self: center;
     border: 0;
     border-radius: 999px;
     background: var(--color-text-default);
     color: var(--color-surface-default);
     font: 600 0.9rem / 1 inherit;
     padding: 0 1.15rem;
-    height: var(--scholion-chip-height);
+    min-height: 44px;
     cursor: pointer;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.28);
     opacity: 0;
@@ -218,6 +208,7 @@ export const scholionStyles = `
   }
 
   .scholion-chip--on {
+    position: relative;
     opacity: 1;
     visibility: visible;
     transition: opacity 0.15s;

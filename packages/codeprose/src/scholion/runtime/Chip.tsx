@@ -3,11 +3,13 @@ import { createPortal } from 'react-dom'
 import { useScholion } from './context'
 
 export function Chip() {
-    const { state, goBack } = useScholion()
+    const { state, goBack, docks } = useScholion()
     // Keep the label while the chip fades out
     const [label, setLabel] = useState('Zurück')
     const next = state.ret ? (state.ret.to === 'c' ? 'Zurück zum Text' : 'Zurück zum Code') : null
     if (next && next !== label) setLabel(next)
+
+    if (!docks.bottom) return null
 
     return createPortal(
         <button
@@ -18,6 +20,6 @@ export function Chip() {
         >
             {label}
         </button>,
-        document.body,
+        docks.bottom,
     )
 }

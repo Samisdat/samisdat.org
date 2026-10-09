@@ -7,6 +7,7 @@ import { Colophon } from '@/components/Colophon';
 
 import { Page } from '@/components/Page';
 import { Container } from '@samisdat/ui-components/Container';
+import { BottomDockContainer, DockProvider, TopDockContainer } from '@samisdat/ui-components/Docks';
 import { WtalPanorama } from '@samisdat/wtal-panorama';
 import '@samisdat/wtal-panorama/style.css';
 
@@ -69,12 +70,16 @@ export default function RootLayout({
         >
             <body>
                 <Scrolling />
-                <Page>
-                    <WtalPanorama />
-                    <Navi />
-                    <Container>{children}</Container>
-                    <Colophon />
-                </Page>
+                <DockProvider>
+                    <Page>
+                        <WtalPanorama />
+                        <Navi />
+                        <Container>{children}</Container>
+                        <Colophon />
+                    </Page>
+                    <TopDockContainer />
+                    <BottomDockContainer />
+                </DockProvider>
             </body>
         </html>
     );

@@ -18,7 +18,7 @@ export function Peek({ kind, id, pos, on }: PeekProps) {
 }
 
 function PeekView({ kind, id, pos, on }: PeekProps) {
-    const { registry, state, jump, peekEnter, peekLeave } = useScholion()
+    const { registry, jump, peekEnter, peekLeave } = useScholion()
     const entry = registry.refs[id]
     const lineRef = useRef<HTMLSpanElement>(null)
 
@@ -31,13 +31,10 @@ function PeekView({ kind, id, pos, on }: PeekProps) {
 
     if (!entry) return null
 
-    const lifted = on && pos === 'bottom' && state.ret !== null
     const cls = [
         'scholion-peek',
         `scholion-peek--${kind}`,
-        pos === 'bottom' && 'scholion-peek--bottom',
         on && 'scholion-peek--on',
-        lifted && 'scholion-peek--lifted',
     ].filter(Boolean).join(' ')
 
     const handlers = {

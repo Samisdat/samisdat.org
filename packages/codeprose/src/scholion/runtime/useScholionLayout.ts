@@ -129,7 +129,7 @@ export function useScholionLayout(registry: Registry, state: ScholionState, disp
 
     useEffect(schedule, [state, schedule])
 
-    // The wire end sits on the peek, so measure again right after the peek (or the chip lift) is committed
+    // The wire end sits on the peek, so measure again right after the peek (or the chip entering the same dock) is committed
     const wantKey = layout.want ? `${layout.want.kind}:${layout.want.pos}:${layout.pr}` : ''
     const chipOn = state.ret !== null
     useLayoutEffect(() => {
