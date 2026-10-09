@@ -157,17 +157,35 @@ function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks
             const id = refId(e.target as Element, 'a.ref[data-ref]')
             if (id) dispatch({ type: 'blur', id })
         }
+        // Pointer type of the most recent pointerdown; 'touch' and 'pen' count as touch
+        let lastPointerTouch = false
+        const onPointerDown = (e: PointerEvent) => {
+            lastPointerTouch = e.pointerType === 'touch' || e.pointerType === 'pen'
+        }
         const onClick = (e: MouseEvent) => {
+            const target = e.target as Element
+            const linkId = refId(target, 'a.ref[data-ref]')
+            const targetId = refId(target, '.ref-target[data-ref]')
+            const id = linkId ?? targetId
+            const { state } = live.current
+            // Keyboard clicks (detail 0) and mouse clicks keep the plain behavior
+            if (id && lastPointerTouch && e.detail !== 0 && state.touchId !== id) {
+                // First tap only activates the ref (peek/wire); no scrolling, no navigation
+                e.preventDefault()
+                dispatch({ type: 'tap', id })
+                return
+            }
             // Clicking the text side brings the code reference back into view; a.ref stays a plain link
-            const id = refId(e.target as Element, '.ref-target[data-ref]')
-            if (id) refs[id].a.scrollIntoView({ block: 'center', inline: 'center', behavior: smoothBehavior() })
+            if (targetId) refs[targetId].a.scrollIntoView({ block: 'center', inline: 'center', behavior: smoothBehavior() })
+            if (!id && state.touchId !== null && !target.closest('.scholion-peek, .scholion-chip')) dispatch({ type: 'touchClear' })
         }
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.key !== 'Escape') return
             const { state } = live.current
-            if (state.ret) dispatch({ type: 'escape' })
+            if (state.ret || state.touchId !== null) dispatch({ type: 'escape' })
         }
 
+        document.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true })
         document.addEventListener('pointerover', onPointerOver)
         document.addEventListener('pointerout', onPointerOut)
         document.addEventListener('focusin', onFocusIn)
@@ -176,6 +194,7 @@ function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks
         document.addEventListener('keydown', onKeyDown)
         const timers = grace.current
         return () => {
+            document.removeEventListener('pointerdown', onPointerDown, { capture: true })
             document.removeEventListener('pointerover', onPointerOver)
             document.removeEventListener('pointerout', onPointerOut)
             document.removeEventListener('focusin', onFocusIn)

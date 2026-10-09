@@ -8,6 +8,7 @@ describe('createState / isActive', () => {
         const s = fresh()
         expect(s.lastId).toBeNull()
         expect(s.ret).toBeNull()
+        expect(s.touchId).toBeNull()
         expect(isActive(s, 'x')).toBe(false)
         expect(isActive(s, 'unknown')).toBe(false)
     })
@@ -104,6 +105,59 @@ describe('reduce', () => {
             expect(reduce(s, { type: 'retArrived' }).ret).toBeNull()
             expect(reduce(s, { type: 'chipBack' }).ret).toBeNull()
         })
+    })
+})
+
+describe('touch activation', () => {
+    it('tap sets touchId and lastId and makes the ref active', () => {
+        const s = reduce(fresh(), { type: 'tap', id: 'x' })
+        expect(s.touchId).toBe('x')
+        expect(s.lastId).toBe('x')
+        expect(isActive(s, 'x')).toBe(true)
+        expect(isActive(s, 'y')).toBe(false)
+    })
+
+    it('tapping another ref replaces the previous one', () => {
+        let s = reduce(fresh(), { type: 'tap', id: 'x' })
+        s = reduce(s, { type: 'tap', id: 'y' })
+        expect(s.touchId).toBe('y')
+        expect(s.lastId).toBe('y')
+        expect(isActive(s, 'x')).toBe(false)
+        expect(isActive(s, 'y')).toBe(true)
+    })
+
+    it('touchClear clears touchId and is idempotent', () => {
+        const tapped = reduce(fresh(), { type: 'tap', id: 'x' })
+        const cleared = reduce(tapped, { type: 'touchClear' })
+        expect(cleared.touchId).toBeNull()
+        expect(isActive(cleared, 'x')).toBe(false)
+        expect(cleared.lastId).toBe('x')
+        expect(reduce(cleared, { type: 'touchClear' })).toBe(cleared)
+    })
+
+    it('jump clears touchId', () => {
+        const s = reduce(reduce(fresh(), { type: 'tap', id: 'x' }), { type: 'jump', kind: 'code', id: 'x' })
+        expect(s.touchId).toBeNull()
+        expect(s.ret).not.toBeNull()
+    })
+
+    it('escape clears touchId and ret, and is idempotent when neither is set', () => {
+        let s = reduce(fresh(), { type: 'jump', kind: 'text', id: 'x' })
+        s = reduce(s, { type: 'tap', id: 'y' })
+        s = reduce(s, { type: 'escape' })
+        expect(s.touchId).toBeNull()
+        expect(s.ret).toBeNull()
+        expect(reduce(s, { type: 'escape' })).toBe(s)
+        const onlyTouch = reduce(reduce(fresh(), { type: 'tap', id: 'x' }), { type: 'escape' })
+        expect(onlyTouch.touchId).toBeNull()
+    })
+
+    it('does not interfere with hover flags', () => {
+        let s = reduce(fresh(), { type: 'tap', id: 'x' })
+        s = reduce(s, { type: 'hoverOn', id: 'x' })
+        s = reduce(s, { type: 'hoverExpire', id: 'x' })
+        expect(s.touchId).toBe('x')
+        expect(isActive(s, 'x')).toBe(true)
     })
 })
 
