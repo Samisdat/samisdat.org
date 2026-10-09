@@ -83,6 +83,8 @@ export const globalStyles = css`
 
     pre {
       margin-block: 0;
+      /* Long code lines scroll inside the block instead of widening the page */
+      overflow-x: auto;
     }
 
     p:first-child {
