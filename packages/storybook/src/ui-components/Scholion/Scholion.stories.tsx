@@ -10,13 +10,6 @@ const PER_REF_CSS = `
     outline: var(--scholion-b-outline);
     outline-offset: 2px;
   }
-  :root[data-scholion-pin="anim"] [data-ref="anim"] {
-    background: var(--scholion-hover-bg);
-  }
-  :root[data-scholion-pin="anim"] a.ref[data-ref="anim"] {
-    outline: var(--scholion-b-outline);
-    outline-offset: 2px;
-  }
 `
 
 function ScholionDemo() {
@@ -110,11 +103,5 @@ export const Stage1HoverOnLemma: Story = {
 export const Stage1HoverOnToken: Story = {
     parameters: {
         pseudo: { hover: ['a.ref[data-ref="anim"]'] },
-    },
-}
-
-export const Stage2Pinned: Story = {
-    play: async () => {
-        document.documentElement.setAttribute('data-scholion-pin', 'anim')
     },
 }
