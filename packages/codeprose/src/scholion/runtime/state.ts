@@ -72,7 +72,7 @@ export function reduce(state: ScholionState, event: ScholionEvent): ScholionStat
         case 'retArrived':
             return { ...state, ret: null }
         case 'retLeft':
-            return state.ret ? { ...state, ret: { ...state.ret, left: true } } : state
+            return state.ret && !state.ret.left ? { ...state, ret: { ...state.ret, left: true } } : state
         case 'escape':
             return { ...state, pinId: null, ret: null }
     }

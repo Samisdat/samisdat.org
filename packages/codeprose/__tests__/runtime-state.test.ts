@@ -121,3 +121,30 @@ describe('reduce', () => {
         })
     })
 })
+
+describe('hover and peek are independent flags', () => {
+    it('a replayed hoverExpire while the peek is entered keeps the peek alive, leaving it ends activity', () => {
+        let s = reduce(fresh(), { type: 'hoverOn', id: 'x' })
+        s = reduce(s, { type: 'peekEnter', id: 'x' })
+        s = reduce(s, { type: 'hoverExpire', id: 'x' })
+        expect(s.flags.x).toEqual({ hover: false, focus: false, peek: true })
+        expect(isActive(s, 'x')).toBe(true)
+        s = reduce(s, { type: 'peekLeave', id: 'x' })
+        expect(isActive(s, 'x')).toBe(false)
+    })
+
+    it('does not stay active after a jump once the hover has expired', () => {
+        let s = reduce(fresh(), { type: 'hoverOn', id: 'x' })
+        s = reduce(s, { type: 'peekEnter', id: 'x' })
+        s = reduce(s, { type: 'hoverExpire', id: 'x' })
+        s = reduce(s, { type: 'jump', kind: 'code', id: 'x' })
+        expect(s.flags.x.peek).toBe(false)
+        expect(isActive(s, 'x')).toBe(false)
+    })
+
+    it('retLeft is idempotent (same state instance)', () => {
+        let s = reduce(fresh(), { type: 'jump', kind: 'text', id: 'x' })
+        s = reduce(s, { type: 'retLeft' })
+        expect(reduce(s, { type: 'retLeft' })).toBe(s)
+    })
+})

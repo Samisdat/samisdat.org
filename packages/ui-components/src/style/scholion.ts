@@ -140,6 +140,11 @@ export const scholionStyles = `
     bottom: calc(env(safe-area-inset-bottom, 0px) + 10px);
   }
 
+  /* Bottom peek above the return chip (chip: 14px offset + 44px min height + 8px gap) */
+  .scholion-peek--lifted {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 14px + 44px + 8px);
+  }
+
   /* Code peek: same palette as the code block, follows the theme */
   .scholion-peek--code {
     background: var(--color-syntax-background);
