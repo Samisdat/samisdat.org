@@ -1,3 +1,6 @@
+import { computeWire, inView, wantPeek, wirePath } from './runtime/layout'
+import { createState, isActive, reduce, type ScholionEvent } from './runtime/state'
+
 const SVG_NS = 'http://www.w3.org/2000/svg'
 
 type RefEntry = {
@@ -7,8 +10,6 @@ type RefEntry = {
     d: HTMLElement
     pre: HTMLElement | null
 }
-
-type S = { hover: boolean; focus: boolean; pin: boolean; peek: boolean }
 
 export function initScholion(): () => void {
     const aEls = [...document.querySelectorAll<HTMLAnchorElement>('a.ref[data-ref]')]
@@ -27,11 +28,10 @@ export function initScholion(): () => void {
     if (!refIds.length) return () => {}
 
     // ── State ──────────────────────────────────────────────────────────────
-    const state: Record<string, S> = Object.fromEntries(refIds.map(id => [id, { hover: false, focus: false, pin: false, peek: false }]))
-    const isActive = (id: string) => { const s = state[id]; return s.hover || s.focus || s.pin || s.peek }
+    let state = createState(refIds)
+    const dispatch = (event: ScholionEvent) => { state = reduce(state, event) }
+    const active = (id: string) => isActive(state, id)
 
-    let lastId: string | null = null
-    let ret: { id: string; to: 'a' | 'c'; left: boolean } | null = null
     const shown: { code: string | null; text: string | null } = { code: null, text: null }
     const grace: Record<string, ReturnType<typeof setTimeout>> = {}
     let raf = 0
@@ -132,21 +132,21 @@ export function initScholion(): () => void {
         const p = kind === 'code' ? peekCode : peekText
         p.classList.remove('scholion-peek--on')
         const id = shown[kind]
-        if (id) state[id].peek = false
+        if (id) dispatch({ type: 'peekLeave', id })
     }
 
-    function hideChip() { ret = null; chip.classList.remove('scholion-chip--on') }
+    function hideChip() { dispatch({ type: 'chipBack' }); chip.classList.remove('scholion-chip--on') }
 
     function jump(kind: 'code' | 'text', id: string) {
         hidePeek(kind)
         const b = smoothBehavior()
         if (kind === 'code') {
-            ret = { id, to: 'c', left: false }
+            dispatch({ type: 'jump', kind, id })
             refs[id].a.focus({ preventScroll: true })
             refs[id].a.scrollIntoView({ block: 'center', inline: 'center', behavior: b })
             chip.textContent = 'Zurück zum Text'
         } else {
-            ret = { id, to: 'a', left: false }
+            dispatch({ type: 'jump', kind, id })
             refs[id].b.focus({ preventScroll: true })
             ;(refs[id].cs[0] ?? refs[id].b).scrollIntoView({ block: 'center', behavior: b })
             chip.textContent = 'Zurück zum Code'
@@ -157,24 +157,17 @@ export function initScholion(): () => void {
 
     // ── Draw ───────────────────────────────────────────────────────────────
     function draw() {
-        const inView = (r: DOMRect | null) => !!r && r.bottom > 0 && r.top < vh()
         const geo: Record<string, { a: DOMRect; c: DOMRect | null }> = {}
         for (const id of refIds) {
             geo[id] = { a: refs[id].a.getBoundingClientRect(), c: refs[id].cs[0]?.getClientRects()[0] as DOMRect ?? null }
         }
 
         // Which peek to show
-        const pr = lastId && isActive(lastId) ? lastId : null
-        let want: { kind: 'code' | 'text'; pos: 'top' | 'bottom' } | null = null
-        if (pr) {
-            const { a, c } = geo[pr]
-            const aOn = inView(a), cOn = c && inView(c)
-            if (cOn && !aOn) want = { kind: 'code', pos: a.bottom <= 0 ? 'top' : 'bottom' }
-            else if (aOn && c && !cOn) want = { kind: 'text', pos: c.bottom <= 0 ? 'top' : 'bottom' }
-        }
+        const pr = state.lastId && active(state.lastId) ? state.lastId : null
+        const want = pr ? wantPeek({ a: geo[pr].a, c: geo[pr].c, vh: vh() }) : null
         ;(['code', 'text'] as const).forEach(k => {
             if (want?.kind === k) showPeek(k, pr!, want.pos)
-            else if (!(shown[k] && state[shown[k]!].peek && pr === shown[k])) hidePeek(k)
+            else if (!(shown[k] && state.flags[shown[k]!].peek && pr === shown[k])) hidePeek(k)
         })
 
         // Lift bottom peek above chip when both are visible
@@ -189,41 +182,24 @@ export function initScholion(): () => void {
             peekText.style.bottom = ''
         }
 
-        // Geometry helpers
-        const ptA = (preRect: DOMRect | null, a: DOMRect, towardY: number) => {
-            let x = a.left + a.width / 2
-            const clipped = !!preRect && (x < preRect.left + 10 || x > preRect.right - 10)
-            if (preRect) x = Math.min(Math.max(x, preRect.left + 10), preRect.right - 10)
-            const down = towardY > a.top + a.height / 2
-            const y = clipped ? (down ? preRect!.bottom - 6 : preRect!.top + 6) : (down ? a.bottom + 1 : a.top - 1)
-            return { x, y, clipped }
-        }
-        const ptC = (c: DOMRect, towardY: number) => ({ x: c.left + c.width / 2, y: towardY > c.top + c.height / 2 ? c.bottom + 1 : c.top - 1 })
-        const ptPeek = (kind: 'code' | 'text') => {
-            const el = kind === 'code' ? peekCode : peekText
-            const pr2 = el.getBoundingClientRect()
-            const t = el.querySelector<HTMLElement>('.scholion-peek__token')?.getBoundingClientRect() ?? pr2
-            return { x: Math.min(Math.max(t.left + t.width / 2, pr2.left + 16), pr2.right - 16), y: el.classList.contains('scholion-peek--bottom') ? pr2.top : pr2.bottom }
+        // Peek geometry (measured after the peek is shown and the chip lift is applied)
+        let peekGeo: { rect: DOMRect; token: DOMRect | null } | null = null
+        if (want) {
+            const el = want.kind === 'code' ? peekCode : peekText
+            peekGeo = { rect: el.getBoundingClientRect(), token: el.querySelector<HTMLElement>('.scholion-peek__token')?.getBoundingClientRect() ?? null }
         }
 
         for (const id of refIds) {
             const { g, path, d1, d2 } = grps[id]
             const { a, c } = geo[id]
-            if (!isActive(id)) { g.classList.remove('scholion-g--on'); continue }
+            if (!active(id)) { g.classList.remove('scholion-g--on'); continue }
 
-            let P: { x: number; y: number }, Q: { x: number; y: number }, dashed: boolean
             const preRect = refs[id].pre?.getBoundingClientRect() ?? null
+            const wire = computeWire({ a, c, preRect, want: pr === id ? want : null, peek: peekGeo, vh: vh() })
+            if (!wire) { g.classList.remove('scholion-g--on'); continue }
+            const { P, Q, dashed } = wire
 
-            if (want && pr === id && want.kind === 'code' && c) {
-                Q = ptPeek('code'); P = ptC(c, Q.y); dashed = true
-            } else if (want && pr === id && want.kind === 'text') {
-                Q = ptPeek('text'); P = ptA(preRect, a, Q.y); dashed = true
-            } else if (inView(a) && c && inView(c)) {
-                const pa = ptA(preRect, a, c.top); P = ptC(c, pa.y); Q = pa; dashed = pa.clipped
-            } else { g.classList.remove('scholion-g--on'); continue }
-
-            const dy = Math.sign(Q.y - P.y || 1) * Math.max(Math.abs((Q.y - P.y) * 0.5), 18)
-            path.setAttribute('d', `M${P.x},${P.y} C${P.x},${P.y + dy} ${Q.x},${Q.y - dy} ${Q.x},${Q.y}`)
+            path.setAttribute('d', wirePath(P, Q))
             d1.setAttribute('cx', String(P.x)); d1.setAttribute('cy', String(P.y))
             d2.setAttribute('cx', String(Q.x)); d2.setAttribute('cy', String(Q.y))
             g.classList.toggle('scholion-g--dashed', dashed)
@@ -231,25 +207,27 @@ export function initScholion(): () => void {
         }
 
         // Auto-hide chip when return target scrolls back into view
+        const ret = state.ret
         if (ret) {
-            const vis = inView(ret.to === 'c' ? geo[ret.id].c : geo[ret.id].a)
-            if (!vis) ret.left = true
-            else if (ret.left) hideChip()
+            const vis = inView(ret.to === 'c' ? geo[ret.id].c : geo[ret.id].a, vh())
+            if (!vis) dispatch({ type: 'retLeft' })
+            else if (ret.left) {
+                dispatch({ type: 'retArrived' })
+                chip.classList.remove('scholion-chip--on')
+            }
         }
     }
 
     function schedule() { cancelAnimationFrame(raf); raf = requestAnimationFrame(draw) }
 
     // ── Hover ──────────────────────────────────────────────────────────────
-    function hoverOn(id: string) { clearTimeout(grace[id]); state[id].hover = true; lastId = id; schedule() }
-    function hoverOff(id: string) { clearTimeout(grace[id]); grace[id] = setTimeout(() => { state[id].hover = false; schedule() }, 250) }
+    function hoverOn(id: string) { clearTimeout(grace[id]); dispatch({ type: 'hoverOn', id }); schedule() }
+    function hoverOff(id: string) { clearTimeout(grace[id]); grace[id] = setTimeout(() => { dispatch({ type: 'hoverExpire', id }); schedule() }, 250) }
 
     // ── Pin ────────────────────────────────────────────────────────────────
     function togglePin(id: string) {
-        const next = !state[id].pin
-        refIds.forEach(k => { state[k].pin = false })
-        state[id].pin = next
-        if (next) {
+        dispatch({ type: 'togglePin', id })
+        if (state.pinId === id) {
             document.documentElement.setAttribute('data-scholion-pin', id)
             const aRect = refs[id].a.getBoundingClientRect()
             if (aRect.bottom > 0 && aRect.top < vh()) scrollPreToA(id)
@@ -279,30 +257,31 @@ export function initScholion(): () => void {
             reg(el, 'pointerleave', (e => { if ((e as PointerEvent).pointerType === 'mouse') hoverOff(id) }) as EventListener)
         })
         reg(a, 'pointerdown', (() => { pointerOnA = performance.now() }) as EventListener)
-        reg(a, 'focus', (() => { if (a.matches(':focus-visible')) { state[id].focus = true; lastId = id; schedule() } }) as EventListener)
-        reg(a, 'blur', (() => { state[id].focus = false; schedule() }) as EventListener)
+        reg(a, 'focus', (() => { if (a.matches(':focus-visible')) { dispatch({ type: 'focus', id }); schedule() } }) as EventListener)
+        reg(a, 'blur', (() => { dispatch({ type: 'blur', id }); schedule() }) as EventListener)
         // Pointer tap → pin and prevent link navigation; keyboard → normal link
         reg(a, 'click', (e => {
             if ((e as MouseEvent).detail === 0 || performance.now() - pointerOnA > 1000) return
-            e.preventDefault(); lastId = id; togglePin(id)
+            e.preventDefault(); togglePin(id)
         }) as EventListener)
-        cs.forEach(c => reg(c, 'click', (() => { lastId = id; togglePin(id) }) as EventListener))
+        cs.forEach(c => reg(c, 'click', (() => togglePin(id)) as EventListener))
     }
 
     ;(['code', 'text'] as const).forEach(kind => {
         const p = kind === 'code' ? peekCode : peekText
         reg(p, 'pointerenter', (e => {
             const id = shown[kind]; if ((e as PointerEvent).pointerType !== 'mouse' || !id) return
-            clearTimeout(grace[id]); state[id].peek = true; schedule()
+            clearTimeout(grace[id]); dispatch({ type: 'peekEnter', id }); schedule()
         }) as EventListener)
         reg(p, 'pointerleave', (e => {
             const id = shown[kind]; if ((e as PointerEvent).pointerType !== 'mouse' || !id) return
-            state[id].peek = false; schedule()
+            dispatch({ type: 'peekLeave', id }); schedule()
         }) as EventListener)
         reg(p, 'click', (() => { const id = shown[kind]; if (id) jump(kind, id) }) as EventListener)
     })
 
     reg(chip, 'click', (() => {
+        const ret = state.ret
         if (!ret) return
         const b = smoothBehavior()
         if (ret.to === 'c') {
@@ -318,17 +297,17 @@ export function initScholion(): () => void {
     reg(document, 'click', (e => {
         if ((e as MouseEvent).defaultPrevented) return
         if ((e.target as Element).closest('a.ref, .ref-target, .scholion-peek, .scholion-chip')) return
-        refIds.forEach(id => { state[id].pin = false })
+        dispatch({ type: 'outsideClick' })
         document.documentElement.removeAttribute('data-scholion-pin')
         schedule()
     }) as EventListener)
 
     reg(document, 'keydown', (e => {
         if ((e as KeyboardEvent).key !== 'Escape') return
-        if (refIds.some(id => state[id].pin) || ret) {
-            refIds.forEach(id => { state[id].pin = false })
+        if (state.pinId !== null || state.ret) {
+            dispatch({ type: 'escape' })
             document.documentElement.removeAttribute('data-scholion-pin')
-            hideChip(); schedule()
+            chip.classList.remove('scholion-chip--on'); schedule()
         }
     }) as EventListener)
 
