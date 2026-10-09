@@ -23,7 +23,7 @@
     "@linaria/core": "catalog:",
     "@linaria/react": "catalog:",
     "@mdx-js/mdx": "^3.1.1",
-    "@samisdat/scholion": "workspace:*",
+    "@samisdat/codeprose": "workspace:*",
     "@samisdat/tools": "workspace:*",
     "@samisdat/ui-components": "workspace:*",
     "@samisdat/wtal-panorama": "workspace:*",
