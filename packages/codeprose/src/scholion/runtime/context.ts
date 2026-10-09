@@ -5,6 +5,8 @@ import type { ScholionState } from './state'
 
 export type ScholionContextValue = {
     registry: Registry
+    /** Current token color per ref id, follows theme changes */
+    colors: Record<string, string>
     state: ScholionState
     layout: Layout
     jump: (kind: 'code' | 'text', id: string) => void

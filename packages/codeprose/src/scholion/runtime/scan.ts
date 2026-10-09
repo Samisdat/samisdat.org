@@ -7,7 +7,7 @@ export type RefEntry = {
     /** Description (`#desc-<id>`) */
     d: HTMLElement
     pre: HTMLElement | null
-    /** Token color: the inline `var(--color-syntax-…)` string, computed color as fallback */
+    /** Token color at scan time; `useTokenColors` keeps it current across theme changes */
     color: string
     /** Code line for the code peek, refs replaced by plain spans, own token marked */
     codeHtml: string
@@ -19,6 +19,16 @@ export type RefEntry = {
 export type Registry = {
     ids: string[]
     refs: Record<string, RefEntry>
+}
+
+/**
+ * Reads the token color of a ref: the inline `var(--color-syntax-…)` string if Shiki set one,
+ * the computed color otherwise.
+ * Shiki places syntax colors on inner <span> elements, not on the <a> itself.
+ */
+export function readTokenColor(a: HTMLAnchorElement): string {
+    const span = a.querySelector<HTMLElement>('span')
+    return span?.style.color || getComputedStyle(span ?? a).color
 }
 
 export const emptyRegistry: Registry = { ids: [], refs: {} }
@@ -58,9 +68,7 @@ export function scanRefs(root: ParentNode): Registry {
         const d = root.querySelector<HTMLElement>(`#desc-${id}`)
         if (!a || !b || !d) continue
 
-        // Shiki places syntax colors on inner <span> elements, not on the <a> itself.
-        const span = a.querySelector<HTMLElement>('span')
-        const color = span?.style.color || getComputedStyle(span ?? a).color
+        const color = readTokenColor(a)
         const code = codeSnapshot(a, id)
 
         refs[id] = {

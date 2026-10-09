@@ -7,6 +7,7 @@ import { Peek } from './Peek'
 import { scanRefs, type Registry } from './scan'
 import { createState, reduce, type ScholionState } from './state'
 import { useScholionLayout } from './useScholionLayout'
+import { useTokenColors } from './useTokenColors'
 import { Wires } from './Wires'
 
 const GRACE_MS = 250
@@ -66,6 +67,7 @@ function isPeekOn(kind: PeekKind, shown: Shown, want: Want | null, pr: string | 
 function ScholionRuntime({ registry }: { registry: Registry }) {
     const [state, dispatch] = useReducer(reduce, registry.ids, createState)
     const layout = useScholionLayout(registry, state, dispatch)
+    const colors = useTokenColors(registry)
     const grace = useRef<Record<string, ReturnType<typeof setTimeout>>>({})
     const live = useRef({ state, registry })
 
@@ -223,7 +225,11 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
 
     useEffect(() => {
         const root = document.documentElement
-        for (const id of registry.ids) root.style.setProperty(`--scholion-color-${id}`, registry.refs[id].color)
+        for (const id of registry.ids) root.style.setProperty(`--scholion-color-${id}`, colors[id])
+    }, [registry, colors])
+
+    useEffect(() => {
+        const root = document.documentElement
         return () => {
             for (const id of registry.ids) root.style.removeProperty(`--scholion-color-${id}`)
         }
@@ -254,8 +260,8 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
     }, [shown, want, pr, state])
 
     const value = useMemo<ScholionContextValue>(
-        () => ({ registry, state, layout, jump, goBack, peekEnter, peekLeave }),
-        [registry, state, layout, jump, goBack, peekEnter, peekLeave],
+        () => ({ registry, colors, state, layout, jump, goBack, peekEnter, peekLeave }),
+        [registry, colors, state, layout, jump, goBack, peekEnter, peekLeave],
     )
 
     return (
