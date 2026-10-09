@@ -6,14 +6,13 @@ const fresh = () => createState(['x', 'y'])
 describe('createState / isActive', () => {
     it('starts inactive', () => {
         const s = fresh()
-        expect(s.pinId).toBeNull()
         expect(s.lastId).toBeNull()
         expect(s.ret).toBeNull()
         expect(isActive(s, 'x')).toBe(false)
         expect(isActive(s, 'unknown')).toBe(false)
     })
 
-    it.each(['hoverOn', 'focus', 'peekEnter', 'togglePin'] as const)('is active after %s', type => {
+    it.each(['hoverOn', 'focus', 'peekEnter'] as const)('is active after %s', type => {
         expect(isActive(reduce(fresh(), { type, id: 'x' }), 'x')).toBe(true)
         expect(isActive(reduce(fresh(), { type, id: 'x' }), 'y')).toBe(false)
     })
@@ -61,38 +60,24 @@ describe('reduce', () => {
         expect(isActive(s, 'x')).toBe(true)
     })
 
-    describe('pin', () => {
-        it('is exclusive', () => {
-            let s = reduce(fresh(), { type: 'togglePin', id: 'x' })
-            expect(s.pinId).toBe('x')
-            s = reduce(s, { type: 'togglePin', id: 'y' })
-            expect(s.pinId).toBe('y')
-            expect(isActive(s, 'x')).toBe(false)
-            expect(isActive(s, 'y')).toBe(true)
-        })
-
-        it('toggles off on the same id and still sets lastId', () => {
-            let s = reduce(fresh(), { type: 'togglePin', id: 'x' })
-            s = reduce(s, { type: 'togglePin', id: 'x' })
-            expect(s.pinId).toBeNull()
-            expect(s.lastId).toBe('x')
-        })
-
-        it('clearPin and outsideClick clear the pin but keep ret', () => {
-            let s = reduce(fresh(), { type: 'jump', kind: 'code', id: 'x' })
-            s = reduce(s, { type: 'togglePin', id: 'x' })
-            expect(reduce(s, { type: 'clearPin' }).pinId).toBeNull()
-            const after = reduce(s, { type: 'outsideClick' })
-            expect(after.pinId).toBeNull()
-            expect(after.ret).toEqual(s.ret)
-        })
-
-        it('escape clears pin and ret', () => {
+    describe('escape', () => {
+        it('clears ret', () => {
             let s = reduce(fresh(), { type: 'jump', kind: 'text', id: 'x' })
-            s = reduce(s, { type: 'togglePin', id: 'y' })
             s = reduce(s, { type: 'escape' })
-            expect(s.pinId).toBeNull()
             expect(s.ret).toBeNull()
+        })
+
+        it('keeps the hover/focus/peek flags and lastId', () => {
+            let s = reduce(fresh(), { type: 'hoverOn', id: 'x' })
+            s = reduce(s, { type: 'jump', kind: 'code', id: 'x' })
+            const after = reduce(s, { type: 'escape' })
+            expect(after.flags).toEqual(s.flags)
+            expect(after.lastId).toBe('x')
+        })
+
+        it('returns the same state when there was no ret', () => {
+            const s = fresh()
+            expect(reduce(s, { type: 'escape' })).toBe(s)
         })
     })
 

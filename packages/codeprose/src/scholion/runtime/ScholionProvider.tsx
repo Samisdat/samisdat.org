@@ -50,7 +50,6 @@ export function ScholionProvider({ children, contentKey }: ScholionProviderProps
 }
 
 const smoothBehavior = (): ScrollBehavior => (matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth')
-const viewportHeight = () => window.visualViewport?.height ?? innerHeight
 
 type Shown = Record<PeekKind, { id: string; pos: PeekPos } | null> & { last: PeekKind | null }
 
@@ -113,7 +112,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
     // ── Delegated document listeners ───────────────────────────────────────
     useEffect(() => {
         const refs = registry.refs
-        let pointerOnA = 0
 
         const refId = (el: Element | null, selector: string): string | null => {
             const hit = el?.closest<HTMLElement>(selector)
@@ -131,21 +129,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
             grace.current[id] = setTimeout(() => dispatch({ type: 'hoverExpire', id }), GRACE_MS)
         }
 
-        const togglePin = (id: string) => {
-            const pinning = live.current.state.pinId !== id
-            dispatch({ type: 'togglePin', id })
-            if (!pinning) return
-            const p = refs[id].pre
-            if (!p) return
-            const a = refs[id].a.getBoundingClientRect()
-            if (a.bottom > 0 && a.top < viewportHeight()) {
-                const v = p.getBoundingClientRect()
-                if (a.left < v.left || a.right > v.right) {
-                    p.scrollBy({ left: a.left - v.left - v.width / 2 + a.width / 2, behavior: smoothBehavior() })
-                }
-            }
-        }
-
         const onPointerOver = (e: PointerEvent) => {
             if (e.pointerType !== 'mouse') return
             const el = (e.target as Element).closest(hoverSelector)
@@ -158,9 +141,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
             const id = refId(el, hoverSelector)
             if (id && !el!.contains(e.relatedTarget as Node | null)) hoverOff(id)
         }
-        const onPointerDown = (e: PointerEvent) => {
-            if (refId(e.target as Element, 'a.ref[data-ref]')) pointerOnA = performance.now()
-        }
         const onFocusIn = (e: FocusEvent) => {
             const el = e.target as Element
             const id = refId(el, 'a.ref[data-ref]')
@@ -171,32 +151,18 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
             if (id) dispatch({ type: 'blur', id })
         }
         const onClick = (e: MouseEvent) => {
-            const target = e.target as Element
-            const aId = refId(target, 'a.ref[data-ref]')
-            if (aId) {
-                // Pointer tap: pin and prevent link navigation. Keyboard: normal link.
-                if (e.detail === 0 || performance.now() - pointerOnA > 1000) return
-                e.preventDefault()
-                togglePin(aId)
-                return
-            }
-            const cId = refId(target, '.ref-target[data-ref]')
-            if (cId) {
-                togglePin(cId)
-                return
-            }
-            if (e.defaultPrevented || target.closest('.scholion-peek, .scholion-chip')) return
-            dispatch({ type: 'outsideClick' })
+            // Clicking the text side brings the code reference back into view; a.ref stays a plain link
+            const id = refId(e.target as Element, '.ref-target[data-ref]')
+            if (id) refs[id].a.scrollIntoView({ block: 'center', inline: 'center', behavior: smoothBehavior() })
         }
         const onKeyDown = (e: KeyboardEvent) => {
             if (e.key !== 'Escape') return
             const { state } = live.current
-            if (state.pinId !== null || state.ret) dispatch({ type: 'escape' })
+            if (state.ret) dispatch({ type: 'escape' })
         }
 
         document.addEventListener('pointerover', onPointerOver)
         document.addEventListener('pointerout', onPointerOut)
-        document.addEventListener('pointerdown', onPointerDown)
         document.addEventListener('focusin', onFocusIn)
         document.addEventListener('focusout', onFocusOut)
         document.addEventListener('click', onClick)
@@ -205,7 +171,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
         return () => {
             document.removeEventListener('pointerover', onPointerOver)
             document.removeEventListener('pointerout', onPointerOut)
-            document.removeEventListener('pointerdown', onPointerDown)
             document.removeEventListener('focusin', onFocusIn)
             document.removeEventListener('focusout', onFocusOut)
             document.removeEventListener('click', onClick)
@@ -215,14 +180,6 @@ function ScholionRuntime({ registry }: { registry: Registry }) {
     }, [registry])
 
     // ── Mirrors into the document (the injected per-ref CSS reads these) ───
-    useEffect(() => {
-        const root = document.documentElement
-        if (state.pinId) root.setAttribute('data-scholion-pin', state.pinId)
-        else root.removeAttribute('data-scholion-pin')
-    }, [state.pinId])
-
-    useEffect(() => () => document.documentElement.removeAttribute('data-scholion-pin'), [])
-
     useEffect(() => {
         const root = document.documentElement
         for (const id of registry.ids) root.style.setProperty(`--scholion-color-${id}`, colors[id])
