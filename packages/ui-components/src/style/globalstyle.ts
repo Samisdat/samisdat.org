@@ -3,11 +3,17 @@ import "normalize.css";
 import { breakpoints } from "../tokens/breakpoints";
 import { borderWidth, borderRadius } from "../tokens/border";
 import { scholionStyles } from "./scholion";
-import { getDarkTheme, getLightTheme } from "../tokens/themes";
+import { getDarkTheme, getThemeMixTokens } from "../tokens/themes";
 
 export const globalStyles = css`
   :global() {
     @property --theme-progress {
+      syntax: "<number>";
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @property --theme-light {
       syntax: "<number>";
       inherits: true;
       initial-value: 0;
@@ -33,29 +39,39 @@ export const globalStyles = css`
       }
     }
 
-    :root[data-theme="dark"] {
-      ${getDarkTheme()}
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme]) {
-        ${getDarkTheme()}
-      }
-    }
-
-    :root[data-theme="light"] {
-      ${getLightTheme()}
+    /* Both themes share one token set that mixes dark and light by --theme-mix (see tokens/themes.ts).
+       --theme-light switches 0/1 with the theme and is transitioned (on html below), --theme-progress
+       is driven by scroll. Dark stays dark at any scroll position because --theme-mix is the product. */
+    :root {
+      ${getThemeMixTokens()}
+      --theme-mix: calc(var(--theme-progress) * var(--theme-light));
       animation: to-light linear both;
       animation-timeline: scroll();
       animation-range: calc(var(--header-height))
         calc(var(--header-height) + 50px);
     }
 
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --theme-light: 0;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        color-scheme: dark;
+        --theme-light: 0;
+      }
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --theme-light: 1;
+    }
+
     @media (prefers-color-scheme: light) {
       :root:not([data-theme]) {
-        ${getLightTheme()}
-        animation: to-light linear both;
-        animation-timeline: scroll();
+        color-scheme: light;
+        --theme-light: 1;
         animation-range: calc(var(--header-height) + 20px)
           calc(var(--header-height) + 50px);
       }
@@ -101,9 +117,14 @@ export const globalStyles = css`
       background-color: var(--color-surface-default);
       color: var(--color-text-default);
       font-family: var(--font-sans);
-      transition:
-        background-color 100ms ease,
-        color 100ms ease;
+      /* The theme switch fades the tokens through --theme-light; no extra color transitions, they would lag behind it */
+      transition: --theme-light 450ms ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        transition: none;
+      }
     }
 
     /*
