@@ -151,7 +151,7 @@ function wrapSpansInLine(
 
 export function scholionTransformer(): ShikiTransformer {
     return {
-        name: '@samisdat/scholion',
+        name: '@samisdat/codeprose/scholion',
         code(codeEl) {
             const raw = (this.options as { meta?: { __raw?: string } }).meta?.__raw ?? ''
             const refs = parseScholionMeta(raw)

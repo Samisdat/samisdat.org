@@ -12,10 +12,10 @@ import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 
 import { getSingletonHighlighter } from 'shiki';
-import { remarkScholion } from '@samisdat/scholion/remark';
-import { scholionTransformer } from '@samisdat/scholion/transformer';
-import { placeholderTransformer } from '@samisdat/scholion/placeholder-transformer'
-import { collapseTransformer } from '@samisdat/scholion/collapse-transformer';
+import { remarkScholion } from '@samisdat/codeprose/scholion/remark';
+import { scholionTransformer } from '@samisdat/codeprose/scholion/transformer';
+import { placeholderTransformer } from '@samisdat/codeprose/annotations/placeholder-transformer'
+import { collapseTransformer } from '@samisdat/codeprose/annotations/collapse-transformer';
 import { shikiTheme, styledGrammarLangs } from '@samisdat/ui-components/utils/shikiTheme';
 
 import { Frontmatter } from './Frontmatter';

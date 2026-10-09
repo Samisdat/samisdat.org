@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { parseScholionMeta } from '../src/parse-meta.ts'
+import { parseScholionMeta } from '../src/scholion/parse-meta.ts'
 
 describe('parseScholionMeta', () => {
     it('parses a single ref', () => {

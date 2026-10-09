@@ -1,4 +1,4 @@
-// Styles for the scholion plugin (packages/scholion).
+// Styles for the scholion plugin (packages/codeprose, scholion module).
 // Stage 0: semantic base — links, lemma spans, explanation paragraphs.
 // Stage 1: :has()-hover rules are generated per-ref by the remark plugin
 //          and injected as a <style> tag into the MDX output.
