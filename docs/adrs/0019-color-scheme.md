@@ -136,6 +136,14 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 - **Panorama** (nicht Teil dieser Umsetzung): eigene DTCG-Datei im
   Panorama-Package, Namespace `--panorama-*`, nur Ebene 1, keine Modes,
   vom Kontrast-Lint ausgenommen, Eigennamen erlaubt.
+- **nvim**: Basis bleibt tokyonight (Varianten `moon`/`day`), nicht ein
+  eigenständiges Theme. Begründung: tokyonight deckt die Highlight-Gruppen
+  der genutzten Plugins (Telescope/fzf, Gitsigns, Snacks, Trouble, Lazy,
+  which-key) bereits ab und lässt sich über `on_colors`/`on_highlights`
+  auf `syntax.*` aus diesem Paket umstellen. Verworfene Alternative: ein
+  eigenständiges Theme ohne Abhängigkeit zu tokyonight — verworfen, weil
+  dafür sämtliche Plugin-Highlight-Gruppen neu geschrieben werden müssten,
+  ein deutlich größerer Scope ohne zusätzlichen Erkenntnisgewinn.
 
 ### Tooling
 

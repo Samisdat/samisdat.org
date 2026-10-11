@@ -2,13 +2,14 @@ import { defineConfig } from "@terrazzo/cli";
 import js from "@terrazzo/plugin-js";
 import tsModule from "./plugins/plugin-ts-module";
 import shiki from "./plugins/plugin-shiki";
+import nvim from "./plugins/plugin-nvim";
 
 export default defineConfig({
   tokens: ["./tokens/theme.resolver.json"],
   outDir: "./generated/",
   // Keep source order (hue by hue) in the generated modules.
   alphabetize: false,
-  plugins: [js({ filename: "tokens.js" }), tsModule(), shiki()],
+  plugins: [js({ filename: "tokens.js" }), tsModule(), shiki(), nvim()],
   lint: {
     rules: {
       "core/valid-color": "error",
