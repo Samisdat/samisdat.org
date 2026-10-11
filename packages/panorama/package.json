@@ -76,7 +76,7 @@
         "prettier-plugin-organize-imports": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
-        "suncalc": "^2.0.2",
+        "suncalc": "^2.1.1",
         "tsup": "^8.5.0",
         "tsx": "^4.23.15",
         "typescript": "catalog:",
