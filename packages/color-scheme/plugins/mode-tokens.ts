@@ -14,19 +14,20 @@ export const toOklchString = (value: OklchValue) => {
 };
 
 /**
- * Resolves the dark permutation and returns a lookup that reports a missing or
+ * Resolves one mode's permutation (dark by default) and returns a lookup that reports a missing or
  * non-oklch token through the logger instead of throwing. `ok()` is false as
  * soon as one lookup failed, so a plugin can skip emitting a partial file.
  */
-export const darkTokens = (
+export const modeTokens = (
   { resolver, context }: Pick<BuildHookOptions, "resolver" | "context">,
   label: string,
+  mode = "dark",
 ) => {
   const fail = (message: string) =>
     context.logger.error({ group: "plugin", label, message });
 
   const permutation = (resolver.listPermutations?.() ?? []).find(
-    (p) => (p as { mode: string }).mode === "dark",
+    (p) => (p as { mode: string }).mode === mode,
   );
   const tokens: Resolved | undefined = permutation
     ? resolver.apply(permutation)
@@ -36,12 +37,12 @@ export const darkTokens = (
   const get = (id: string) => {
     const token = tokens?.[id];
     if (!token) {
-      fail(`dark: ${id} is missing in the token file`);
+      fail(`${mode}: ${id} is missing in the token file`);
       failed = true;
       return undefined;
     }
     if (token.$type !== "color" || token.$value.colorSpace !== "oklch") {
-      fail(`dark: ${id} must be an oklch color`);
+      fail(`${mode}: ${id} must be an oklch color`);
       failed = true;
       return undefined;
     }

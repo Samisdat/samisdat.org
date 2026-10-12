@@ -1,6 +1,6 @@
 import type { Plugin } from "@terrazzo/parser";
 import { formatHex, interpolate } from "culori";
-import { darkTokens } from "./dark-tokens";
+import { modeTokens } from "./mode-tokens";
 import { toHex } from "./hex";
 
 // Claude Code override -> semantic token. Shimmer tokens are left out on
@@ -47,7 +47,7 @@ export default function pluginClaudeCode(): Plugin {
   return {
     name: "samisdat:claude-code",
     async build({ resolver, outputFile, context }) {
-      const dark = darkTokens({ resolver, context }, "samisdat:claude-code");
+      const dark = modeTokens({ resolver, context }, "samisdat:claude-code");
       if (!dark.available) return;
 
       const overrides: Record<string, string> = {};

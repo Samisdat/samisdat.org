@@ -1,32 +1,50 @@
 import { wcagContrast } from "culori";
 import { semantic } from "../generated/semantic";
 
-// Pairs the pi and Claude Code themes create that the generated role matrix
-// does not cover (surfaces with textTier neutral-only carry no secondary text).
-// Background of pi custom messages and tool boxes is surface.raised; muted text
-// (text.subtle) is only used on the terminal default background.
+// Pairs the pi, Claude Code and artifact outputs create that the generated role
+// matrix does not cover (surfaces with textTier neutral-only carry no
+// secondary text).
 const MIN = 4.5;
-const PAIRS: [foreground: string, background: string][] = [
-  ["text.secondary", "surface.raised"],
+type Pair = [foreground: string, background: string];
+
+// pi custom messages and tool boxes sit on surface.raised; muted text
+// (text.subtle) is only used on the terminal default background. Dark only.
+const THEME_PAIRS: Pair[] = [
   ["text.default", "diff.add"],
   ["text.default", "diff.delete"],
-  ["text.emphasis", "surface.raised"],
   ["ink.purple", "surface.raised"],
   ["text.secondary", "diff.add"],
   ["text.secondary", "diff.delete"],
 ];
 
-const dark = semantic.dark as Record<string, string>;
-const rows = PAIRS.map(([fg, bg]) => ({
-  fg,
-  bg,
-  ratio: wcagContrast(dark[fg], dark[bg]),
-}));
+// Artifact cards use surface.raised with these text colors, in both modes.
+const ARTIFACT_PAIRS: Pair[] = [
+  ["text.default", "surface.raised"],
+  ["text.emphasis", "surface.raised"],
+  ["text.secondary", "surface.raised"],
+];
+
+const checks: { mode: "dark" | "light"; pairs: Pair[] }[] = [
+  { mode: "dark", pairs: [...THEME_PAIRS, ...ARTIFACT_PAIRS] },
+  { mode: "light", pairs: ARTIFACT_PAIRS },
+];
+
+const rows = checks.flatMap(({ mode, pairs }) => {
+  const values = semantic[mode] as Record<string, string>;
+  return pairs.map(([fg, bg]) => ({
+    mode,
+    fg,
+    bg,
+    ratio: wcagContrast(values[fg], values[bg]),
+  }));
+});
 console.table(rows.map((r) => ({ ...r, ratio: r.ratio.toFixed(2) })));
 
 const failing = rows.filter((r) => r.ratio < MIN);
 if (failing.length > 0) {
-  console.error(`LLM theme contrast failed (< ${MIN}:1): ${failing.map((r) => `${r.fg} on ${r.bg}`).join(", ")}`);
+  console.error(
+    `LLM theme contrast failed (< ${MIN}:1): ${failing.map((r) => `${r.mode} ${r.fg} on ${r.bg}`).join(", ")}`,
+  );
   process.exit(1);
 }
 console.log(`LLM theme contrast check passed (${rows.length} pairs)`);

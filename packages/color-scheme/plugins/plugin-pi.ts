@@ -1,5 +1,5 @@
 import type { Plugin } from "@terrazzo/parser";
-import { darkTokens, toOklchString } from "./dark-tokens";
+import { modeTokens, toOklchString } from "./mode-tokens";
 
 const NAME = "samisdat";
 const SCHEMA =
@@ -70,7 +70,7 @@ export default function pluginPi(): Plugin {
   return {
     name: "samisdat:pi",
     async build({ resolver, outputFile, context }) {
-      const dark = darkTokens({ resolver, context }, "samisdat:pi");
+      const dark = modeTokens({ resolver, context }, "samisdat:pi");
       if (!dark.available) return;
 
       const colors: Record<string, string> = {};
