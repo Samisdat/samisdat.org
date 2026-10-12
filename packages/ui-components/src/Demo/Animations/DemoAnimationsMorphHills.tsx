@@ -37,10 +37,13 @@ const steam3 =
 const steam4 =
   "M0,50l0,-8.148c0,0 1.252,0.278 2.284,0.256c1.071,-0.023 2.704,-0.3 3.368,-0.522c0.361,-0.12 0.346,-0.711 0.615,-0.808c0.269,-0.098 0.664,0.29 0.999,0.221c0.68,-0.14 2.107,-0.848 3.085,-1.063c0.9,-0.198 1.876,-0.053 2.783,-0.229c1.253,-0.243 3.448,-0.899 4.733,-1.232c0.992,-0.257 2.293,-0.682 2.978,-0.764c0.389,-0.046 0.739,0.24 1.13,0.275c0.402,0.035 0.981,0.019 1.287,-0.062c0.239,-0.063 0.293,-0.433 0.545,-0.424c0.274,0.011 0.705,0.386 1.104,0.488c0.571,0.147 1.56,0.382 2.32,0.392c0.758,0.011 1.488,-0.41 2.24,-0.328c0.916,0.101 2.434,0.835 3.261,0.932c0.578,0.068 1.342,-0.348 1.697,-0.352c0.199,-0.002 0.266,0.246 0.436,0.329c0.175,0.085 0.405,0.212 0.614,0.183c0.209,-0.029 0.385,-0.404 0.64,-0.361c0.279,0.048 0.619,0.548 1.039,0.644c0.624,0.142 1.968,0.294 2.708,0.209c0.642,-0.073 1.298,-0.673 1.733,-0.716c0.348,-0.034 0.563,0.345 0.882,0.464c0.664,0.247 2.553,0.685 3.102,1.018c0.326,0.197 -0.111,0.757 0.193,0.976c0.36,0.26 1.577,0.314 1.969,0.582c0.336,0.23 0.059,0.78 0.381,1.023c0.327,0.246 1.081,0.357 1.582,0.456c0.462,0.091 0.292,0.102 0.292,0.102l0,6.459l-50,0Z";
 
+const BACK_FACTOR = 1.6;
+const EASING = "0.37 0 0.63 1";
+
 export const DemoAnimationsMorphHills = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [speed, setSpeed] = useState<number>(40);
+  const [speed, setSpeed] = useState<number>(10);
 
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
 
@@ -49,12 +52,11 @@ export const DemoAnimationsMorphHills = () => {
   };
 
   useEffect(() => {
-    if (!containerRef.current) {
-      return;
-    }
-    containerRef.current
-      .querySelector("animate")
-      ?.setAttribute("dur", `${speed}s`);
+    if (!containerRef.current) return;
+    const animates =
+      containerRef.current.querySelectorAll<SVGAnimateElement>("animate");
+    animates[0]?.setAttribute("dur", `${speed * BACK_FACTOR}s`);
+    animates[1]?.setAttribute("dur", `${speed}s`);
   }, [speed]);
 
   const onPlay = () => {
@@ -72,9 +74,10 @@ export const DemoAnimationsMorphHills = () => {
       ref={containerRef}
       playbackControl={{
         isPlaying,
-        speedMin: 0,
-        speedMax: 80,
+        speedMin: 1,
+        speedMax: 30,
         speed,
+        speedControl: false,
         onSpeedChange,
         onPlay,
         onPause,
@@ -82,12 +85,15 @@ export const DemoAnimationsMorphHills = () => {
       }}
     >
       <HillsSvgStyling viewBox="0 0 50 50">
-        <rect x="0" y="0" width="50" height="50" />{" "}
+        <rect x="0" y="0" width="50" height="50" />
         <path d={steam1} className="hill-back">
           <animate
             attributeName="d"
-            dur={`${speed}s`}
+            dur={`${speed * BACK_FACTOR}s`}
             repeatCount="indefinite"
+            calcMode="spline"
+            keyTimes="0; 0.5; 1"
+            keySplines={`${EASING}; ${EASING}`}
             values={`${steam1};${steam2};${steam1}`}
           />
         </path>
@@ -96,6 +102,9 @@ export const DemoAnimationsMorphHills = () => {
             attributeName="d"
             dur={`${speed}s`}
             repeatCount="indefinite"
+            calcMode="spline"
+            keyTimes="0; 0.5; 1"
+            keySplines={`${EASING}; ${EASING}`}
             values={`${steam3};${steam4};${steam3}`}
           />
         </path>

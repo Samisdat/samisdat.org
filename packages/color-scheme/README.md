@@ -176,6 +176,8 @@ Zuordnungsprinzip: Im Light Mode sind Gelb, Cyan, Lila, Rosa und Grün absichtli
 
 - `generated/shiki-theme.ts` (Export `@samisdat/color-scheme/shiki`, `shikiTheme`): ein Theme für beide Modes, alle Farben (`fg`, `bg`, `editor.*`, `tokenColors`) sind `var(--color-syntax-…)`. Der Browser löst sie über das aktive Theme auf, Morphing und Inline-Code funktionieren mit demselben Mechanismus. Kein leeres `settings: []` einfügen: es überschreibt `tokenColors`.
 - `generated/shiki/dark.json`, `generated/shiki/light.json` (Export `@samisdat/color-scheme/shiki/*`): dasselbe Theme mit aufgelösten Hex-Werten pro Mode, für Konsumenten ohne CSS (nvim, Terminal).
+- `generated/herdr/theme.toml`: `[theme.custom.dark]`-Block für [herdr](https://herdr.dev) (nur Dark). herdr kennt keinen Include: Block in die `config.toml` kopieren, `herdr server reload-config`. Mapping der Slots auf Tokens in `plugins/plugin-herdr.ts`.
+- `generated/ghostty/samisdat`: Ghostty-Theme (nur Dark; `palette 0–15` aus `terminal.ansi*`, dazu Hintergrund, Vordergrund, Cursor, Selection). Nach `~/.config/ghostty/themes/samisdat` verlinken, `theme = samisdat` setzen.
 - `syntax.*` steht außerdem in `generated/semantic.ts`; `ui-components` rendert daraus `--color-syntax-*` wie alle Ebene-2-Variablen.
 
 Inline-Code im Fließtext: `` `code{:tsx}` `` (rehype-pretty-code) nutzt dasselbe Theme und damit dieselben Variablen. Scholion-Lemmas (`.ref-target`) übernehmen die Variable des zugehörigen Tokens im Codeblock.

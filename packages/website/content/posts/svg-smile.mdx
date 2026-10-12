@@ -1,0 +1,275 @@
+---
+title: Animationen mit Smil
+date: 2025-11-17T00:00:00.000Z
+published: true
+description: SMIL-Animationen sind seit SVG 1.0 dabei – pures XML, erstaunlich leistungsfähig. Ein praktischer Blick auf einen vergessenen Standard im modernen Header-Einsatz.
+image: true
+---
+
+Schon seit der [Version 1.0](https://www.w3.org/TR/2001/REC-SVG-20010904/) von 2001 sind [SMIL-Animationen](https://www.w3.org/TR/2001/REC-SVG-20010904/animate.html) mit in SVG drin.
+
+Viel oldschuliger und abgehangener geht es im Internet kaum:
+Hat sogar _Multimedia_ im Namen und ist pures XML.
+
+Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL angesehen.
+
+Funktioniert auf den ersten Blick erstaunlich gut.
+
+<DemoContext duration="6s">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack>
+
+<DemoAnimationsDisc />
+
+    </Stack>
+    <Stack>
+
+```html scholion:circle=<circle#1 scholion:anim=<animateTransform scholion:repeat=repeatCount
+<svg>
+  <g>
+    <circle cx="100" cy="100" r="100"/>
+    <circle cx="105" cy="100" r="95"/>
+    // !collapse(1:18) /* More circles */ | /* Less circles */
+    <circle cx="110" cy="100" r="90"/>
+    <circle cx="115" cy="100" r="85"/>
+    <circle cx="120" cy="100" r="80"/>
+    <circle cx="125" cy="100" r="75"/>
+    <circle cx="130" cy="100" r="70"/>
+    <circle cx="135" cy="100" r="65"/>
+    <circle cx="140" cy="100" r="60"/>
+    <circle cx="145" cy="100" r="55"/>
+    <circle cx="150" cy="100" r="50"/>
+    <circle cx="155" cy="100" r="45"/>
+    <circle cx="160" cy="100" r="40"/>
+    <circle cx="155" cy="100" r="35"/>
+    <circle cx="150" cy="100" r="30"/>
+    <circle cx="145" cy="100" r="25"/>
+    <circle cx="140" cy="100" r="20"/>
+    <circle cx="135" cy="100" r="15"/>
+    <circle cx="130" cy="100" r="10"/>
+    <circle cx="125" cy="100" r="5"/>
+    <circle cx="122.5" cy="100" r="2.5"/>
+    <animateTransform
+      attributeName="transform"
+      type="rotate"
+      from="0 100 100"
+      to="360 100 100"
+// !placeholder duration "6s"
+      dur="6s"
+      repeatCount="indefinite" />
+  </g>
+</svg>
+```
+
+    </Stack>
+
+  </Stack>
+</DemoContext>
+
+Das sind die Einzelteile:
+
+Viele Kreise mit [`<circle>`](#circle). Der jeweils nächste Kreis wird etwas kleiner als der vorherige und wird etwas verschoben.
+
+Das [`<animateTransform>`](#anim) steckt in der Gruppe, daher wird diese animiert — alle Kreise drehen sich mit.
+
+Animiere den Wert des Attributes `transform`. Rotiere um den Punkt x/y 100/100 in sechs Sekunden. Starte bei null Grad und ende bei 360.
+
+Dann ist die Animation durch, die Kreise stehen wieder da wo sie anfangs waren und mit [`repeatCount`](#repeat) `indefinite` fangt wieder alles von vorne an.
+
+## Ü-Ei - Pfad Morphing
+
+[`<animate>`](#animate) interpoliert den Wert eines Attributs von einem Eintrag der values-Liste zum nächsten.
+Überraschenderweise für mich, frisst das auch komplette Pfade.
+
+Pfade in SVG werden mit [`<path>`](#path)-Elementen definiert und der Pfadverlauf steckt Attribut `d` als Liste von [Kommandos](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/d#path_commands), die den Pfad beschreiben.
+
+Wenn ich zwischen zwei verschiedenen Sets von Pfad Kommandos animiere, dann bekomme ich überraschend smoothe Animationen.
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+>
+
+    <Stack>
+        <DemoAnimationsMorphHeart />
+    </Stack>
+    <Stack>
+
+```html scholion:animate=<animate scholion:path=<path#1 scholion:src=d= scholion:first=Ausgangspfad#1 scholion:target=Zielpfad scholion:last=Ausgangspfad#2
+<svg>
+    <path
+        d="
+          M443.706,208
+          // !collapse(1:65)
+          l28.294,0
+          l7.4,0.4
+          c36.3,3.7 64.6,34.4 64.6,71.6
+          c0,13.2 -3.6,25.4 -9.8,36
+           c6.1,10.6 9.7,22.8 9.8,36
+          c0,18.3 -6.9,34.8 -18,47.5
+          c1.3,5.3 2,10.8 2,16.5
+          c0,25.1 -12.9,47 -32.2,59.9
+          c-1.9,35.5 -29.4,64.2 -64.4,67.7
+          l-7.4,0.4
+          l-104.1,0
+          c-18,0 -35.9,-3.4 -52.6,-9.9
+          l-7.1,-3
+          l-0.7,-0.3
+          l-6.6,-3.2
+          l-0.7,-0.3
+          l-12.2,-6.5
+          l-1.134,-0.606
+          l-1.127,-0.616
+          l-1.677,-0.942
+          l-1.66,-0.963
+          l-1.642,-0.983
+          l-1.313,-0.809
+          l-1.554,-0.983
+          l-1.178,-0.765
+          l-0.98,-0.649
+          l-0.457,-0.307
+          c-4.772,-3.217 -9.308,-6.702 -13.599,-10.418
+          l-1.268,-1.11
+          l-0.387,-0.345
+          l-0.948,-0.854
+          l-1.15,-1.055
+          l-0.815,-0.763
+          l-0.303,-0.286
+          c-0.574,-0.545 -1.144,-1.093 -1.708,-1.646
+          c-0.036,0.237 -0.074,0.473 -0.113,0.712
+          c-15.214,-12.712 -32.987,-31.571 -32.987,-51.527
+          l-0,-164.752
+          l37.8,-0
+          l-0,111.567
+          l0.2,7.9
+          c2.4,32.7 21.4,62.1 50.7,77.7
+          l11.5,6.1
+          l6.3,3.1
+          c12.4,5.6 25.8,8.5 39.4,8.5
+          l104.1,-0
+          l2.4,-0.1
+          c12.1,-1.2 21.6,-11.5 21.6,-23.9
+          l-0.2,-2.6
+          c-0.1,-0.9 -0.2,-1.7 -0.4,-2.6
+          c-2.7,-12.1 4.3,-24.2 16,-28
+          c9.7,-3.1 16.6,-12.2 16.6,-22.8
+          c-0,-4.3 -1.1,-8.2 -3.1,-11.8
+          c-6.3,-11.1 -2.8,-25.2 8,-32
+          c6.8,-4.3 11.2,-11.8 11.2,-20.2
+          c-0,-7.1 -3.1,-13.5 -8.2,-18
+          c-5.2,-4.6 -8.2,-11.1 -8.2,-18
+          c-0,-6.9 3,-13.4 8.2,-18
+          c5.1,-4.5 8.2,-10.9 8.2,-18
+          l-0.1,-2.4
+          c-1.1,-11.3 -10.1,-20.3 -21.4,-21.4
+          l-2.4,-0.1
+          l-28.494,-0
+          l-0,-48.1
+          Z
+        "
+    >
+        <animate
+            attributeName="d"
+            dur="3s"
+            repeatCount="indefinite"
+            values="
+              Ausgangspfad; 
+              Zielpfad; 
+              Ausgangspfad
+            "
+        />
+    </path>
+</svg>
+```
+
+    </Stack>
+
+</Stack>
+
+Eine Animation, die sauber und endlos loopt und hin- und hermorpht, kommt allerdings mit einem krassen Overhead.
+Die Pfaddaten, die zum Morphing gehören, muss ich viermal im SVG haben; der Ausgangspfad allein dreimal. Zwei davon sind reine Duplikate.
+
+1. [Der Ausgangspfad](#src) im `d`-Attribute des `<path>`
+
+2. Nochmal der Ausgangspfad als [erster Wert in der values-Liste](#first). Damit startet die Animation
+
+3. Einmal der [Zielpfad](#target), zu dem gemorpht werden soll
+
+4. Nochmal der [Ausgangspfad](#last). Damit endet der Durchlauf der Animation
+
+2 und 4 sind einhundertprozentige Duplikate von 1. Bei kleinen Animationen vielleicht noch zu verkraften, aber das SVG wird beim komplexen Animationen sehr schnell größer und schlechter pflegbar.
+
+### Was ich machen wollte
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+>
+    <Stack>
+        <DemoAnimationsMorphHills />
+    </Stack>
+    <Stack>
+        
+        Ich hatte gedacht, dass ich damit einen Parallax-Effekt hinbekommen würde, bei dem sich die einzelnen Ebenen nicht nur gegeneinander verschieben, sondern die Hügel wirklich flacher werden.
+
+        Aber ich hab die Idee schnell wieder verworfen, weil das SVG signifikant größer und für mich nicht mehr maintainable geworden wäre:
+
+        Das SVG kommt als Export aus Affinity Designer raus.
+
+        In Affinity besteht das Panorama aus mehreren Dutzend Ebenen, rund hundert Pfaden und mehreren tausend Punkten.
+        Für die Teile, die animiert sind, hätte ich diese Ebenen doppelt vorhalten müssen: einmal für den Start- und einmal für den Zielzustand.
+        Ich hab das mal grob durchgerechnet: Die Hügel machen mehr als die Hälfte der Pfaddaten aus. Mit SMIL-Morphing wäre das SVG ungefähr doppelt so groß geworden, gezippt immer noch gut anderthalbmal so groß.
+        Und ich hätte diese beiden Zustände bei Änderungen auch noch in Sync halten müssen, dazu unten mehr.
+
+
+    </Stack>
+
+</Stack>
+
+### Die Reihenfolge der Punkte
+
+Aber neben der Tatsache, dass es viel Aufwand wäre, gibt es auch einen technische Hürde:
+
+In dem `<path>` werden einfach alle Kommandos hintereinander weg geschrieben.
+
+Wenn ich die animiere, dann brauche ich zwei Pfade und `<animate>` bilded quasi Paare.
+
+<DemoAnimationsMorphGood />
+
+Verrutscht die Zuordnung — etwa weil der Pfad an einer anderen Ecke beginnt — bekommt jedes Kommando einen neuen Partner, und die Animation verändert sich.
+Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zählen und vergleichen
+
+### Geschwindigkeit ändern
+
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+>
+    <Stack>
+        <DemoAnimationsCrank />
+    </Stack>
+    <Stack>
+        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
+    </Stack>
+</Stack>
+
+SMIL-`<animate>` ist zustandslos: Die Position ist zu jedem Zeitpunkt eine reine Funktion der Uhr — `x = from + frac·(to−from)` mit `frac = ((t − begin) mod dur) / dur`. Beim Ändern von `dur` (in React via `setAttribute`) bleibt `t − begin` gleich, aber `frac` wird neu berechnet → die Position springt.
+
+## Considerations
+
+## The only SMIL Animation in header
+
+<DemoAnimationsSvg />
+
+<DemoAnimationsMorphCoffee />
+<DemoAnimationsMorphThumb />
