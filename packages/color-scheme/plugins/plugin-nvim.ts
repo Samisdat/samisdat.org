@@ -1,5 +1,5 @@
 import type { Plugin } from "@terrazzo/parser";
-import { formatHex } from "culori";
+import { toHex } from "./hex";
 
 const HEADER = `-- Generated – do not edit.
 -- Source: tokens/*.tokens.json, built by \`pnpm --filter @samisdat/color-scheme build\`.
@@ -74,16 +74,6 @@ const SYNTAX_IDS = [
 ] as const;
 
 const KNOWN_IDS = new Set<string>([...BASE_IDS, ...SYNTAX_IDS]);
-
-const component = (value: number | "none" | null) =>
-  value === "none" || value === null ? 0 : value;
-
-const toHex = (value: { components: (number | "none" | null)[] }) => {
-  const [l, c, h] = value.components.map(component);
-  const hex = formatHex(`oklch(${l} ${c} ${h})`);
-  if (!hex) throw new Error(`cannot convert oklch(${l} ${c} ${h}) to hex`);
-  return hex;
-};
 
 const TERMINAL_ANSI_IDS = Array.from({ length: 16 }, (_, i) => `terminal.ansi${i}`);
 
