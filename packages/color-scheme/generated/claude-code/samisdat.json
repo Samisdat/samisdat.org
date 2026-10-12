@@ -1,0 +1,32 @@
+{
+  "name": "samisdat",
+  "base": "dark",
+  "overrides": {
+    "claude": "#1ad4e0",
+    "text": "#e6c7c1",
+    "inactive": "#a58782",
+    "subtle": "#978cae",
+    "permission": "#6fbaff",
+    "suggestion": "#1ad4e0",
+    "success": "#0fcc82",
+    "error": "#ff5352",
+    "warning": "#e7a75c",
+    "promptBorder": "#997c77",
+    "planMode": "#1ad4e0",
+    "autoAccept": "#c0abe0",
+    "diffAdded": "#274c1f",
+    "diffRemoved": "#8c1134",
+    "userMessageBackground": "#45385b",
+    "selectionBg": "#45385b",
+    "red_FOR_SUBAGENTS_ONLY": "#ff5352",
+    "blue_FOR_SUBAGENTS_ONLY": "#6fbaff",
+    "green_FOR_SUBAGENTS_ONLY": "#0fcc82",
+    "yellow_FOR_SUBAGENTS_ONLY": "#f7bf27",
+    "purple_FOR_SUBAGENTS_ONLY": "#c0abe0",
+    "orange_FOR_SUBAGENTS_ONLY": "#e7a75c",
+    "pink_FOR_SUBAGENTS_ONLY": "#fe90ff",
+    "cyan_FOR_SUBAGENTS_ONLY": "#94c2c3",
+    "diffAddedWord": "#307036",
+    "diffRemovedWord": "#ad253f"
+  }
+}
