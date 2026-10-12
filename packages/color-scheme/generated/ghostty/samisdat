@@ -1,0 +1,26 @@
+# Generated – do not edit.
+# Source: tokens/*.tokens.json, built by `pnpm --filter @samisdat/color-scheme build`.
+# Dark mode only. Symlink into ~/.config/ghostty/themes/samisdat and set
+# `theme = samisdat` in the Ghostty config.
+
+palette = 0=#0f051d
+palette = 1=#ff5352
+palette = 2=#0fcc82
+palette = 3=#f7bf27
+palette = 4=#6fbaff
+palette = 5=#c0abe0
+palette = 6=#94c2c3
+palette = 7=#e6c7c1
+palette = 8=#1e142e
+palette = 9=#e7a75c
+palette = 10=#0fcc82
+palette = 11=#f7bf27
+palette = 12=#6fbaff
+palette = 13=#fe90ff
+palette = 14=#1ad4e0
+palette = 15=#f6d5d0
+background = #0f051d
+foreground = #e6c7c1
+cursor-color = #1ad4e0
+selection-background = #45385b
+selection-foreground = #e6c7c1

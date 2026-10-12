@@ -1,0 +1,25 @@
+# Generated – do not edit.
+# Source: tokens/*.tokens.json, built by `pnpm --filter @samisdat/color-scheme build`.
+# Dark mode only. Copy this block into herdr's config.toml, replacing the
+# `[theme]` name, then run `herdr server reload-config`.
+
+[theme.custom.dark]
+accent = "#1ad4e0"
+panel_bg = "#0f051d"
+sidebar_bg = "#0f051d"
+active_row_bg = "#45385b"
+selection_bg = "#45385b"
+surface0 = "#1e142e"
+surface1 = "#45385b"
+surface_dim = "#0f051d"
+overlay0 = "#574c6a"
+overlay1 = "#7b728c"
+text = "#e6c7c1"
+subtext0 = "#997c77"
+mauve = "#c0abe0"
+green = "#0fcc82"
+yellow = "#f7bf27"
+red = "#ff5352"
+blue = "#6fbaff"
+teal = "#1ad4e0"
+peach = "#e7a75c"
