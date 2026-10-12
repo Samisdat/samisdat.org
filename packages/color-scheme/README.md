@@ -43,7 +43,7 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | Skript | Zweck |
 |---|---|
 | `build` | `tz build`: Lint plus `generated/` neu erzeugen |
-| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts` und `scripts/lint-apca.ts` |
+| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts`, `scripts/lint-fill.ts` und `scripts/lint-apca.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
 | `names:inks` | Namensdistanz der Inks nach c3 (Heer & Stone) pro Mode ausgeben, nur Anzeige (siehe „Farbnamen“) |
@@ -140,6 +140,10 @@ Light:
 | `ink.comment` | `periwinkle.700` | `oklch(0.422 0.138 287.2)` | 6,48 · Lc 69,7 | 5,52 · Lc 60,5 |
 
 Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Die Werte sind auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082), Farbfehlsichtigkeit (0,04 → 0,041) und APCA (60 → 60,5) abgestimmt, die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
+
+## Füllungen (`highlight`, `selection`)
+
+`highlight` (nvim CursorLine, Dateibaum-Zeile, Picker-Auswahl) und `selection` (Visual, Suche) sind deckende Füllungen. Die Kontrastmatrix prüft nur Text darauf; eine lesbare Füllung, die fast so aussieht wie der Grund, fällt dort nicht auf (Light Mode hatte ΔE OK 0,06 gegen den Editor-Grund, die Zeile wirkte wie ein Loch). `scripts/lint-fill.ts` (Teil von `lint`) verlangt pro Mode ΔE OK ≥ 0,10 gegen `syntax.background` und `surface.default` und `selection` mindestens so stark wie `highlight`, damit eine Auswahl in der Cursor-Zeile sichtbar bleibt. Dark: 0,220 / 0,150, Light: `highlight` 0,123 / 0,108 (`periwinkle.300`), `selection` 0,149 / 0,114 (`purple.400`).
 
 ## Farbnamen (nur Anzeige)
 

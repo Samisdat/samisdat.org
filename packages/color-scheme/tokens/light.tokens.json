@@ -127,7 +127,7 @@
   },
   "selection": {
     "$type": "color",
-    "$value": "{color.aubergine.100}",
+    "$value": "{color.purple.400}",
     "$extensions": {
       "org.samisdat.a11y": {
         "textTier": "neutral-only"
@@ -136,7 +136,7 @@
   },
   "highlight": {
     "$type": "color",
-    "$value": "{color.aubergine.50}",
+    "$value": "{color.periwinkle.300}",
     "$extensions": {
       "org.samisdat.a11y": {
         "textTier": "neutral-only"
