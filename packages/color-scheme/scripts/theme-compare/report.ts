@@ -1,0 +1,113 @@
+/** Renders the comparison as one self-contained HTML page with a rank per metric. */
+import type { Metrics } from "./measure";
+import { modes } from "../../src/contrast";
+
+export type Column = {
+  id: string;
+  label: string;
+  hint: string;
+  higherIsBetter: boolean;
+  get: (metrics: Metrics) => number | undefined;
+  format: (value: number) => string;
+};
+
+const escape = (text: string) =>
+  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** Competition ranking (1, 2, 2, 4): ties share the better rank, undefined gets none. */
+function ranks(rows: Metrics[], column: Column): Map<string, number> {
+  const scored = rows
+    .map((row) => ({ key: row.key, value: column.get(row) }))
+    .filter((r): r is { key: string; value: number } => r.value !== undefined && Number.isFinite(r.value))
+    .sort((a, b) => (column.higherIsBetter ? b.value - a.value : a.value - b.value));
+  const out = new Map<string, number>();
+  scored.forEach((r, i) => {
+    const previous = scored[i - 1];
+    out.set(r.key, previous && previous.value === r.value ? (out.get(previous.key) ?? i + 1) : i + 1);
+  });
+  return out;
+}
+
+function table(mode: string, rows: Metrics[], columns: Column[]): string {
+  const rankBy = new Map(columns.map((c) => [c.id, ranks(rows, c)]));
+  const mean = (row: Metrics) => {
+    const own = columns.flatMap((c) => {
+      const r = rankBy.get(c.id)?.get(row.key);
+      return r === undefined ? [] : [r];
+    });
+    return own.reduce((a, b) => a + b, 0) / own.length;
+  };
+  const sorted = [...rows].sort((a, b) => mean(a) - mean(b));
+  const head = columns
+    .map((c) => `<th title="${escape(c.hint)}">${escape(c.label)}<small>${c.higherIsBetter ? "↑" : "↓"}</small></th>`)
+    .join("");
+  const body = sorted
+    .map((row) => {
+      const cells = columns
+        .map((c) => {
+          const value = c.get(row);
+          const rank = rankBy.get(c.id)?.get(row.key);
+          if (value === undefined || rank === undefined) return `<td class="na">–</td>`;
+          const cls = rank === 1 ? "first" : rank <= 3 ? "top" : "";
+          return `<td class="${cls}"><span>${escape(c.format(value))}</span><b>${rank}</b></td>`;
+        })
+        .join("");
+      const own = row.family === "samisdat" ? ` class="own"` : "";
+      const bg = `<i style="background:${escape(row.background)}"></i>`;
+      return `<tr${own}><th scope="row">${bg}${escape(row.family)}<small>${escape(row.theme)}</small></th><td class="avg">${mean(row).toFixed(1)}</td>${cells}</tr>`;
+    })
+    .join("\n");
+  return `<section><h2>${escape(mode)}</h2><div class="scroll"><table>
+<thead><tr><th>Theme</th><th title="Mean rank over all metrics with a value">Ø rank</th>${head}</tr></thead>
+<tbody>
+${body}
+</tbody></table></div></section>`;
+}
+
+export function render(metrics: Metrics[], columns: Column[]): string {
+  const sections = modes
+    .map((mode) =>
+      table(
+        mode,
+        metrics.filter((m) => m.mode === mode),
+        columns,
+      ),
+    )
+    .join("\n");
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theme comparison</title>
+<style>
+:root { color-scheme: light dark; --page: #fbf7f5; --ink: #261d2e; --muted: #6b6172; --line: #e3dbd8; --own: #ece6f6; --first: #1d6b3a; --top: #8a5a00; }
+@media (prefers-color-scheme: dark) { :root { --page: #1c1722; --ink: #e8e2ea; --muted: #a79eae; --line: #342d3b; --own: #2b2338; --first: #7bd89a; --top: #e5c06a; } }
+body { margin: 0; padding: 24px 16px; background: var(--page); color: var(--ink); font: 14px/1.4 system-ui, sans-serif; }
+h1 { font-size: 1.4rem; margin: 0 0 4px; }
+h2 { font-size: 1.1rem; text-transform: capitalize; margin: 32px 0 8px; }
+p { color: var(--muted); max-width: 70ch; margin: 0 0 8px; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; min-width: 100%; }
+th, td { padding: 6px 10px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+thead th { vertical-align: bottom; font-weight: 600; }
+th small { display: block; color: var(--muted); font-weight: 400; }
+tbody th { text-align: left; font-weight: 600; }
+tbody th i { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid var(--line); vertical-align: -1px; }
+td b { margin-left: 6px; color: var(--muted); font-weight: 400; }
+td.first span { color: var(--first); font-weight: 700; }
+td.top span { color: var(--top); }
+td.na { color: var(--muted); }
+.avg { font-weight: 700; }
+tr.own { background: var(--own); }
+</style>
+</head>
+<body>
+<h1>Theme comparison</h1>
+<p>Syntax colors of samisdat against well-known Shiki themes, measured on one fixed code sample. Each cell shows the value and its rank within the mode (1 is best). Rows are ordered by mean rank. The arrow in the header says which direction counts as better.</p>
+<p>Generated by <code>pnpm compare:themes</code>. Method and limits: <code>scripts/theme-compare/README.md</code>.</p>
+${sections}
+</body>
+</html>
+`;
+}

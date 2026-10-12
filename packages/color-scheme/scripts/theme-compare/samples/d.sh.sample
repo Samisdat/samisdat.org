@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# Lint every mode separately.
+for mode in dark light; do
+  MODE="$mode" pnpm tz check -c terrazzo.contrast.config.ts || exit 1
+done
+echo "done: ${#modes[@]} modes" > /tmp/out.log

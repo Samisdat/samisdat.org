@@ -39,7 +39,8 @@
     "dev": "tz build --watch",
     "generate:scale": "tsx scripts/generate-scale.ts",
     "lint:contrast": "tz build && tsx scripts/lint-contrast.ts && MODE=dark tz check -c terrazzo.contrast.config.ts && MODE=light tz check -c terrazzo.contrast.config.ts",
-    "contrast:baseline": "tsx scripts/contrast-baseline.ts"
+    "contrast:baseline": "tsx scripts/contrast-baseline.ts",
+    "compare:themes": "tsx scripts/theme-compare/index.ts"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.7.0",
@@ -51,6 +52,7 @@
     "@types/node": "catalog:",
     "apca-w3": "^0.1.9",
     "culori": "^4.0.2",
+    "shiki": "catalog:",
     "tsx": "^4.23.15",
     "typescript": "catalog:"
   }

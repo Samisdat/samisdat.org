@@ -1,0 +1,16 @@
+/* Theme tokens */
+:root {
+  --theme-progress: 0;
+  color-scheme: dark;
+}
+
+.disc:hover,
+.disc[data-active="true"] {
+  fill: var(--color-ink-pink);
+  transition: fill 320ms ease-in-out;
+  transform: rotate(45deg) scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disc { animation: none !important; }
+}

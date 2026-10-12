@@ -46,6 +46,7 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts` und `scripts/lint-apca.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
+| `compare:themes` | Syntaxfarben gegen bekannte Shiki-Themes messen und ranken, Bericht nach `reports/theme-compare/index.html` (gitignored; Methode und Grenzen in `scripts/theme-compare/README.md`) |
 | `dev` | `tz build --watch` |
 | `generate:scale` | Skalenvorschlag ausgeben (`--write [datei]`, `--migration`) |
 

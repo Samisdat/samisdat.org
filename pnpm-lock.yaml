@@ -196,6 +196,9 @@ importers:
       culori:
         specifier: ^4.0.2
         version: 4.0.2
+      shiki:
+        specifier: 'catalog:'
+        version: 4.5.0
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
