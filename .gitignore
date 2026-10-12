@@ -61,6 +61,8 @@ storybook-static
 [A-Z]*[A-Z].md
 !README.md
 !CHANGELOG.md
+# Generierte Artefakte sind keine Arbeitsnotizen (case-insensitive Treffer, z. B. instructions.md)
+!packages/color-scheme/generated/**/*.md
 !CLAUDE.md
 !SKILL.md
 !SECURITY.md
