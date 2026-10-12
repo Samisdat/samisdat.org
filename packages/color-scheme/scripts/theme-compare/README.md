@@ -29,6 +29,6 @@ Output goes to `reports/theme-compare/` (gitignored): `index.html` (one table pe
 - **Direction is a judgement.** Higher is treated as better for contrast, distances and correspondence, lower for lightness spread and the dark/light |Lc| difference. An even lightness spread is not objectively better than a varied one; the mean rank mixes metrics with equal weight and is a reading aid, not a verdict. The dark/light columns exist only for families with both modes, so themes without a counterpart are averaged over fewer metrics.
 - **Not the lint.** This compares against other themes on a code sample. The gates (`lint:contrast`, `lint-apca.ts`, `lint-cvd.ts`) check the tokens themselves and stay authoritative.
 - **Simulated color vision.** The Machado model is an approximation of full dichromacy. It says nothing about milder or mixed deficiencies.
-- **No name distance.** Whether two colors are also *named* differently (Heer & Stone, c3) is not measured here.
+- **No name distance.** Whether two colors are also *named* differently (Heer & Stone, c3) is not measured here. For the samisdat inks that is `pnpm --filter @samisdat/color-scheme names:inks`, see "Farbnamen" in the package README.
 - **Themes come from `shiki`.** The compared themes change with the installed Shiki version; pin it when you need to compare runs over time.
 - Only syntax colors are compared. UI colors (surfaces, borders, status) are out of scope.

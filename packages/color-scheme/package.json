@@ -40,7 +40,8 @@
     "generate:scale": "tsx scripts/generate-scale.ts",
     "lint:contrast": "tz build && tsx scripts/lint-contrast.ts && MODE=dark tz check -c terrazzo.contrast.config.ts && MODE=light tz check -c terrazzo.contrast.config.ts",
     "contrast:baseline": "tsx scripts/contrast-baseline.ts",
-    "compare:themes": "tsx scripts/theme-compare/index.ts"
+    "compare:themes": "tsx scripts/theme-compare/index.ts",
+    "names:inks": "tsx scripts/name-distance.ts"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.7.0",

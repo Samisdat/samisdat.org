@@ -46,6 +46,7 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts` und `scripts/lint-apca.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
+| `names:inks` | Namensdistanz der Inks nach c3 (Heer & Stone) pro Mode ausgeben, nur Anzeige (siehe „Farbnamen“) |
 | `compare:themes` | Syntaxfarben gegen bekannte Shiki-Themes messen und ranken, Bericht nach `reports/theme-compare/index.html` (gitignored; Methode und Grenzen in `scripts/theme-compare/README.md`) |
 | `dev` | `tz build --watch` |
 | `generate:scale` | Skalenvorschlag ausgeben (`--write [datei]`, `--migration`) |
@@ -139,6 +140,17 @@ Light:
 | `ink.comment` | `periwinkle.700` | `oklch(0.422 0.138 287.2)` | 6,48 · Lc 69,7 | 5,52 · Lc 60,5 |
 
 Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Die Werte sind auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082), Farbfehlsichtigkeit (0,04 → 0,041) und APCA (60 → 60,5) abgestimmt, die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
+
+## Farbnamen (nur Anzeige)
+
+ΔE OK und die CVD-Simulation messen, wie weit zwei Inks wahrnehmungsmäßig auseinanderliegen, nicht, ob man sie auch *anders nennt*. Dafür gibt es `pnpm --filter @samisdat/color-scheme names:inks` (`scripts/name-distance.ts`): Farbnamen-Modell **c3** (Heer & Stone, CHI 2012; Daten: XKCD-Farbumfrage, 153 Namen auf einem CIELAB-Raster mit 8325 Zellen). Jeder Ink wird auf die nächste Modellzelle abgebildet (Abstand dazu ΔE 0,8–3,7, also im Raster); die Namensdistanz zweier Inks ist die Hellinger-Distanz ihrer Namensverteilungen (0 identisch, 1 ohne gemeinsamen Namen), wie `c3.color.hellinger` in der Originalbibliothek. Das Modell liegt unverändert in `vendor/c3/` (BSD-3-Clause, Stanford; Quelle, Commit und Lizenz in `vendor/c3/README.md`).
+
+Stand: Je 4 von 45 Ink-Paaren teilen sich pro Mode den wahrscheinlichsten Namen. Kleinste Namensdistanz Dark 0,260 (`ink.blue` ~ `ink.comment`), Light 0,311 (`ink.teal` ~ `ink.cyan`).
+
+- Dark: `teal`, `cyan` und `blue` heißen alle vorwiegend „blue" (Distanz 0,38–0,52), `orange` und `yellow` „orange". `ink.comment` wird „lightblue" genannt und liegt nah an `ink.blue`.
+- Light: Die dunklen Inks (L 0,33–0,42) verschieben die Namen. `ink.yellow` heißt zu 87 % „brown" und teilt den Namen mit `ink.orange` (Distanz 0,352), `purple`, `pink` und `comment` sind alle „purple".
+
+**Entscheidung: kein Lint.** (1) Die Schwelle wäre willkürlich, c3 liefert keinen anerkannten Grenzwert; die Hellinger-Distanz hat keine Einheit wie ΔE. (2) Im Light Mode ist die Namensverschiebung eine Folge der dunklen Inks, die für Kontrast (WCAG, APCA) nötig sind; ein Gate würde Hue-Verschiebungen erzwingen, die gegen die bereits knapp abgestimmten ΔE-, CVD- und Kontrastgrenzen arbeiten (Marge 0,002). (3) Code-Farben werden über Position und Kontext gelesen, nicht über ihren Namen; die Namen helfen beim Besprechen („der blaue Ink"), nicht beim Lesen. (4) Das Modell stammt aus einer englischsprachigen Online-Umfrage von 2010 auf unkalibrierten Bildschirmen. Die Ausgabe ist ein Hinweis beim Ändern von Inks, kein Befund. Wenn ein Paar später in der Praxis verwechselt wird, ist ein Lint auf einzelne Paare (nicht auf alle) der nächste Schritt.
 
 ## Syntax (Ebene 3)
 
