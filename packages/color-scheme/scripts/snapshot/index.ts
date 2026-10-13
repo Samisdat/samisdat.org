@@ -40,7 +40,7 @@ const hex = (value: string): string => {
 
 const git = (args: string) => execSync(`git ${args}`, { encoding: "utf8" }).trim();
 
-const INKS = ["red", "orange", "yellow", "green", "teal", "cyan", "blue", "purple", "pink", "comment"].map(
+const INKS = ["ruby", "copper", "gold", "jade", "turquoise", "steel", "sapphire", "amethyst", "rose", "lapis"].map(
   (n) => `ink.${n}`,
 );
 const SURFACES = [

@@ -57,7 +57,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 | Ebene | Inhalt | Im Web |
 |---|---|---|
 | 1 · Wert | Volle Skalen `50–950` (50 = hell) | keine CSS-Variable; TS-Import |
-| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.comment`, `status`, `border`, `selection`, `highlight` | `--color-<pfad>` |
+| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.lapis`, `status`, `border`, `selection`, `highlight` | `--color-<pfad>` |
 | 3 · Einsatzort | geteilte Orte: `syntax.*`, später `terminal.*` | `--color-<pfad>` |
 
 - **Ebene 1**: Skalen für `aubergine`, `ivory` (Eigennamen der
@@ -72,17 +72,28 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
     `text.default|emphasis|secondary|subtle|muted`. Die Modifier stammen aus
     dem bisherigen Schema und wurden für eine Migration ohne optische
     Änderung beibehalten.
-  - `ink.comment` (Skala `periwinkle`) ist die Kommentarfarbe. Kommentare
+  - `ink.lapis` (Skala `periwinkle`) ist die Kommentarfarbe. Kommentare
     sollen auf einen Blick erkennbar sein: eigener Farbton statt Grau,
     kursiv, und mindestens ΔE OK 0,08 zu jeder anderen Syntaxfarbe.
     Satzzeichen nutzen deshalb `text.secondary`, nicht das Grau von
     `text.subtle`.
-  - `status.warning` zeigt auf `ink.orange`, nicht auf Gelb: Ein Gelb, das
+  - `status.warning` zeigt auf `ink.copper`, nicht auf Gelb: Ein Gelb, das
     auf hellem Grund 4,5:1 erreicht, ist oliv und liest sich nicht mehr als
     Warnung.
-  - Im Light Mode liegen die Inks bewusst auf unterschiedlicher Helligkeit
-    (L ≈ 0,33–0,42). Bei 4,5:1 auf Ivory rücken die Farbtöne allein zu
-    nah zusammen; die Helligkeit ist die zweite Achse der Unterscheidung.
+  - Im Light Mode liegen die Inks auf der AA-Grenze (4,5:1) auf
+    `surface.default`, L ≈ 0,46–0,53, Stufe 700 der Hue-Skalen. Die erste
+    Light-Fassung war aus einem Tausch von Grund und Text entstanden und
+    verlangte AAA für alle Inks (L 0,33–0,42); das machte Gelb und Orange zu
+    Braun und das Schema ärmer als Dark. Vergleich mit 16 Light-Themes
+    (`compare:themes`): kein Theme hat alle Inks bei AAA, GitHub High Contrast
+    kommt auf 91 % der Zeichen, normale Themes liegen bei 0–57 %. Light
+    verlangt AA, Dark erreicht AAA.
+  - Der Light-Grund ist `linen` (L 0,93, warm, Hue 50), nicht mehr `ivory`
+    (Dark-Text). Gelb im Sinne von „yellow“ ist auf hellem Grund bei 4,5:1
+    nicht möglich; `ink.gold` ist dort ein Olivbraun.
+  - Inks heißen nach Materialien (`ruby`, `copper`, `gold`, `jade`,
+    `turquoise`, `steel`, `sapphire`, `amethyst`, `rose`, `lapis`), nicht nach
+    Farbtönen, weil dieselbe Rolle in beiden Modes anders aussieht.
 - **Ebene 3**: Geteilte Einsatzorte liegen im Paket. `syntax.*` folgt dem
   Vokabular der Neovim-Tree-sitter-Captures (`keyword`, `string`,
   `function`, `tag`, `tag.attribute` …), mit `fontStyle` neben der Farbe.
@@ -102,10 +113,11 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   stehen nur `text.default` und `text.emphasis`. Auf `ink` zusätzlich jedes
   `ink.*` und `syntax.*` (≥ 4.5:1). Im Dark Mode tragen `surface.raised`,
   `selection` und `highlight` `ink`, weil dort Inks und Syntaxfarben stehen
-  (Selektion im Editor, Hervorhebung im Text); `ink.red` hat mit 4.52:1 die
+  (Selektion im Editor, Hervorhebung im Text); `ink.ruby` hat mit 4.52:1 die
   knappste Marge. Surface-spezifische Inks gibt es nicht: AAA auf diesen
   Flächen ergäbe Pastelltöne, die die Distinct-Lints nicht bestehen. Im Light
-  Mode bleiben sie `neutral-only`. Der Hintergrund wird automatisch in die
+  Mode trägt nur `highlight` den Tier `ink` (heller, ΔE ≈ 0,05 zum Grund,
+  Gate 0,045); `selection` bleibt `neutral-only` und kräftig (ΔE ≥ 0,10). Der Hintergrund wird automatisch in die
   Matrix aufgenommen, sobald `textTier` gesetzt ist.
 - Auch `text.muted` und Code-Kommentare erfüllen 4.5:1.
 - Ausnahmen (dekorativ, deaktiviert) stehen begründet im Token unter
@@ -121,7 +133,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 - Geprüft werden die Endpunkte des Theme-Morphings, nicht Zwischenframes.
 - **APCA** war kurz ein zweites Gate (|Lc| ≥ 60 auf Code-Hintergrund und Seite,
   Ausnahmen per `apcaMin`). Stand 2026-10 entfernt: für einen privaten Blog
-  übertrieben, WCAG 2 bleibt das einzige Maß. Dark `ink.red` ist
+  übertrieben, WCAG 2 bleibt das einzige Maß. Dark `ink.ruby` ist
   `oklch(0.738 0.16 32)`, damit alle Inks auf `surface.default` AAA (7:1)
   erreichen; das Rot ist heller und wärmer, aber weiter kräftig (Chroma 0,16
   am sRGB-Rand).
@@ -158,7 +170,9 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
     Check einmal pro Mode (`MODE=dark|light`).
   - Gamut: Terrazzo `core/max-gamut` mit `gamut: 'srgb'`.
   - Skala (L monoton, Mindestabstand): eigenes Skript.
-  - Unterscheidbarkeit: ΔE OK ≥ 0,08 zwischen allen Inks pro Mode, eigenes
+  - Unterscheidbarkeit: ΔE OK zwischen allen Inks pro Mode, Dark ≥ 0,08,
+    Light ≥ 0,05 (`scripts/thresholds.ts`; das Light-Band ist bei AA schmaler,
+    0,05 liegt am schwächeren Ende der gemessenen Light-Themes), eigenes
     Skript.
   - Architektur (`lint:colors`): keine Hex- und Farbliterale (`oklch()`,
     `rgb()`, `hsl()`), kein `var(--color-<palette>-<n>)` und keine alten
@@ -166,8 +180,8 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 - **Ausführung**: `pnpm lint:tokens` in CI, `pnpm dev:tokens` als Watch.
 - **Farbfehlsichtigkeit** (vorher „später“, jetzt aktiv): Protanopie,
   Deuteranopie und Tritanopie simuliert (Machado 2009, Schweregrad 1);
-  ΔE OK ≥ 0,04 zwischen allen Inks sowie zwischen Inks und `text.default` /
-  `text.secondary`.
+  ΔE OK ≥ 0,04 (Dark) bzw. ≥ 0,02 (Light) zwischen allen Inks sowie zwischen
+  Inks und `text.default` / `text.secondary`.
 - **Später**: `terminal.*` (ANSI-Palette) für zsh, herdr und nvim;
   Farbnamen-Unterscheidbarkeit (Heer & Stone, c3-Modell).
 

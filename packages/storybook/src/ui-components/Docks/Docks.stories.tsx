@@ -32,7 +32,7 @@ const FakeNavi = () => (
       alignItems: "center",
       padding: "0 12px",
       background: "var(--color-surface-default)",
-      borderBottom: "2px solid var(--color-ink-teal)",
+      borderBottom: "2px solid var(--color-ink-turquoise)",
       color: "var(--color-text-default)",
     }}
   >
@@ -49,7 +49,7 @@ const Card = ({ children }: { children: ReactNode }) => (
       borderRadius: 8,
       background: "var(--color-surface-raised)",
       color: "var(--color-text-default)",
-      border: "1.5px dashed var(--color-ink-teal)",
+      border: "1.5px dashed var(--color-ink-turquoise)",
       boxShadow: "0 8px 28px rgba(0, 0, 0, 0.32)",
     }}
   >

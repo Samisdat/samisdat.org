@@ -13,8 +13,8 @@
 import { differenceEuclidean, parse } from "culori";
 import { semantic } from "../generated/semantic";
 import { modes } from "../src/contrast";
+import { MIN_FILL_DELTA_E } from "./thresholds";
 
-const MIN_FILL_DELTA_E = 0.1;
 const FILLS = ["highlight", "selection"] as const;
 const GROUNDS = ["syntax.background", "surface.default"] as const;
 const deltaE = differenceEuclidean("oklab");
@@ -30,8 +30,9 @@ for (const mode of modes) {
     for (const ground of GROUNDS) {
       const d = distance(fill, ground);
       checked++;
-      if (d < MIN_FILL_DELTA_E) {
-        errors.push(`${mode}: ${fill} on ${ground} ΔE OK ${d.toFixed(4)} < ${MIN_FILL_DELTA_E}`);
+      const min = MIN_FILL_DELTA_E[mode][fill];
+      if (d < min) {
+        errors.push(`${mode}: ${fill} on ${ground} ΔE OK ${d.toFixed(4)} < ${min}`);
       }
     }
   }
@@ -54,4 +55,4 @@ if (errors.length > 0) {
   console.error(`\nFill distinguishability check failed:\n${errors.map((e) => `  ${e}`).join("\n")}`);
   process.exit(1);
 }
-console.log(`Fill distinguishability check passed (${checked} checks, min ΔE OK >= ${MIN_FILL_DELTA_E})`);
+console.log(`Fill distinguishability check passed (${checked} checks; gates dark ${MIN_FILL_DELTA_E.dark.highlight}/${MIN_FILL_DELTA_E.dark.selection}, light ${MIN_FILL_DELTA_E.light.highlight}/${MIN_FILL_DELTA_E.light.selection} highlight/selection)`);

@@ -32,8 +32,8 @@ export const SAMPLE_DIFF: { kind: DiffKind; text: string }[] = [
   { kind: "ctx", text: "  background: surface.emphasis," },
   { kind: "ctx", text: "  foreground: text.default," },
   { kind: "del", text: "  comment: text.muted," },
-  { kind: "add", text: "  comment: ink.comment," },
-  { kind: "ctx", text: "  keyword: ink.red," },
-  { kind: "add", text: "  parameter: ink.yellow," },
+  { kind: "add", text: "  comment: ink.lapis," },
+  { kind: "ctx", text: "  keyword: ink.ruby," },
+  { kind: "add", text: "  parameter: ink.gold," },
   { kind: "ctx", text: "};" },
 ];

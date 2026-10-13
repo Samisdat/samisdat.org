@@ -6,7 +6,7 @@ export type { WcagLevel };
 export type SnapshotToken = {
   id: string;
   hex: string;
-  /** Raw DTCG value, e.g. `{color.aubergine.900}` or `{ink.red}`. */
+  /** Raw DTCG value, e.g. `{color.aubergine.900}` or `{ink.ruby}`. */
   raw?: string;
   exempt?: string;
   textTier?: string;

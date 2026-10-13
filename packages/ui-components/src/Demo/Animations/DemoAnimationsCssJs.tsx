@@ -47,12 +47,12 @@ const ClockSvg = styled.svg`
   }
 
   & .secondHand {
-    fill: var(--color-ink-red);
+    fill: var(--color-ink-ruby);
     transform: rotate(calc(1deg * var(--second, 0)));
   }
 
   & .secondHandCover {
-    fill: var(--color-ink-red);
+    fill: var(--color-ink-ruby);
   }
 `;
 

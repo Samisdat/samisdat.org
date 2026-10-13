@@ -6,7 +6,7 @@
 
 .disc:hover,
 .disc[data-active="true"] {
-  fill: var(--color-ink-pink);
+  fill: var(--color-ink-rose);
   transition: fill 320ms ease-in-out;
   transform: rotate(45deg) scale(1.05);
 }

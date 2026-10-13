@@ -2,7 +2,7 @@
  * Colour-vision-deficiency lint: per mode, simulate protanopia, deuteranopia
  * and tritanopia (Machado 2009, severity 1, culori `filterDeficiency*`) and
  * require ΔE OK >= MIN_DELTA_E
- * - for every pair of `ink.*` (incl. `ink.comment`)
+ * - for every pair of `ink.*` (incl. `ink.lapis`)
  * - between every `ink.*` and `text.default` / `text.secondary`
  * Failing pairs are named with simulation type and values.
  */
@@ -16,8 +16,8 @@ import {
 } from "culori";
 import { semantic } from "../generated/semantic";
 import { modes } from "../src/contrast";
+import { MIN_CVD_DELTA_E } from "./thresholds";
 
-const MIN_DELTA_E = 0.04;
 const TEXT = ["text.default", "text.secondary"];
 const deltaE = differenceEuclidean("oklab");
 
@@ -32,6 +32,7 @@ let checked = 0;
 const mins: Record<string, { value: number; pair: string }> = {};
 
 for (const mode of modes) {
+  const MIN_DELTA_E = MIN_CVD_DELTA_E[mode];
   const values = semantic[mode] as Record<string, string>;
   const inks = Object.keys(values).filter((id) => id.startsWith("ink."));
   const pairs: [string, string][] = [];
@@ -68,4 +69,4 @@ if (errors.length > 0) {
   for (const error of errors) console.error(`  ✗ ${error}`);
   process.exit(1);
 }
-console.log(`CVD check passed (${checked} simulated pairs, min ΔE OK >= ${MIN_DELTA_E})`);
+console.log(`CVD check passed (${checked} simulated pairs, gates dark ${MIN_CVD_DELTA_E.dark}, light ${MIN_CVD_DELTA_E.light})`);

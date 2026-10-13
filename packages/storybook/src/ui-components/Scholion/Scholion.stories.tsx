@@ -50,7 +50,7 @@ function ScholionDemo() {
                         href="#explain-anim"
                         aria-describedby="desc-anim"
                         aria-label="animateTransform, zur Erklärung"
-                        style={{ color: 'var(--color-ink-teal)' }}
+                        style={{ color: 'var(--color-ink-turquoise)' }}
                     >
                         {'<animateTransform'}
                     </a>

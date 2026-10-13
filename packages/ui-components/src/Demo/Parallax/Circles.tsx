@@ -34,15 +34,15 @@ const Styling = styled.div`
     }
 
     & circle.red {
-        fill: var(--color-ink-red); 
+        fill: var(--color-ink-ruby); 
     }
 
     & circle.blue {
-        fill: var(--color-ink-blue); 
+        fill: var(--color-ink-sapphire); 
     }
 
     & circle.yellow {
-        fill: var(--color-ink-yellow); 
+        fill: var(--color-ink-gold); 
     }
 `;
 

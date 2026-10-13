@@ -46,12 +46,12 @@ const Bar = styled.div`
 `;
 
 const Teal = styled.span`
-    color: var(--color-ink-teal);
-    text-decoration-color: var(--color-ink-teal);
+    color: var(--color-ink-turquoise);
+    text-decoration-color: var(--color-ink-turquoise);
 `;
 const Red = styled.span`
-    color: var(--color-ink-red);
-    text-decoration-color: var(--color-ink-red);
+    color: var(--color-ink-ruby);
+    text-decoration-color: var(--color-ink-ruby);
 `;
 
 const StyledLink = styled(Link)`
@@ -87,7 +87,7 @@ const IconNav = styled.nav`
 
     & a:hover,
     & a:focus-visible {
-        color: var(--color-ink-pink);
+        color: var(--color-ink-rose);
     }
 
     & svg {

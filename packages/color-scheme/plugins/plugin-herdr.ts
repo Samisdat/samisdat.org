@@ -20,13 +20,13 @@ const SLOTS: Record<string, string> = {
   overlay1: "surface.muted",
   text: "text.default",
   subtext0: "text.muted",
-  mauve: "ink.purple",
+  mauve: "ink.amethyst",
   green: "status.success",
-  yellow: "ink.yellow",
+  yellow: "ink.gold",
   red: "status.danger",
   blue: "status.info",
-  teal: "ink.teal",
-  peach: "ink.orange",
+  teal: "ink.turquoise",
+  peach: "ink.copper",
 };
 
 /**

@@ -26,7 +26,7 @@ if [ -n "$RESULTS" ]; then
   echo "$RESULTS"
   echo ""
   echo "Please use CSS custom properties (tokens) instead:"
-  echo "  var(--color-ink-red), var(--color-surface-default), etc."
+  echo "  var(--color-ink-ruby), var(--color-surface-default), etc."
   echo ""
   echo "Available tokens: see packages/ui-components/src/tokens/"
   exit 1
@@ -55,7 +55,7 @@ if [ -n "$ARCH_RESULTS" ]; then
   echo "$ARCH_RESULTS"
   echo ""
   echo "Use level 2 variables (var(--color-surface-default), var(--color-text-default),"
-  echo "var(--color-ink-red), …) or import level 1 values from @samisdat/color-scheme."
+  echo "var(--color-ink-ruby), …) or import level 1 values from @samisdat/color-scheme."
   exit 1
 fi
 
@@ -92,7 +92,7 @@ if [ -n "$LITERAL_RESULTS" ]; then
   echo ""
   echo "$LITERAL_RESULTS"
   echo ""
-  echo "Use level 2 variables (var(--color-ink-pink), …) or import level 1 values from @samisdat/color-scheme."
+  echo "Use level 2 variables (var(--color-ink-rose), …) or import level 1 values from @samisdat/color-scheme."
   exit 1
 fi
 

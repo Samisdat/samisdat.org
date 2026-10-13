@@ -3,7 +3,7 @@
   "surface": {
     "$type": "color",
     "default": {
-      "$value": "{color.ivory.200}",
+      "$value": "{color.linen.200}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "full"
@@ -11,7 +11,7 @@
       }
     },
     "emphasis": {
-      "$value": "{color.ivory.600}",
+      "$value": "{color.linen.600}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only"
@@ -19,7 +19,7 @@
       }
     },
     "raised": {
-      "$value": "{color.ivory.100}",
+      "$value": "{color.linen.100}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only"
@@ -27,7 +27,7 @@
       }
     },
     "subtle": {
-      "$value": "{color.ivory.400}",
+      "$value": "{color.linen.400}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only"
@@ -35,7 +35,7 @@
       }
     },
     "muted": {
-      "$value": "{color.ivory.500}",
+      "$value": "{color.linen.500}",
       "$extensions": {
         "org.samisdat.a11y": {
           "textTier": "neutral-only",
@@ -59,55 +59,55 @@
       "$value": "{color.aubergine.700}"
     },
     "muted": {
-      "$value": "{color.ivory.700}"
+      "$value": "{color.linen.800}"
     }
   },
   "ink": {
     "$type": "color",
-    "red": {
-      "$value": "{color.red.800}"
+    "ruby": {
+      "$value": "{color.red.700}"
     },
-    "orange": {
-      "$value": "{color.orange.800}"
+    "copper": {
+      "$value": "{color.orange.700}"
     },
-    "yellow": {
-      "$value": "{color.yellow.800}"
+    "gold": {
+      "$value": "{color.yellow.700}"
     },
-    "green": {
-      "$value": "{color.green.800}"
+    "jade": {
+      "$value": "{color.green.700}"
     },
-    "teal": {
-      "$value": "{color.teal.800}"
+    "turquoise": {
+      "$value": "{color.teal.700}"
     },
-    "cyan": {
-      "$value": "{color.cyan.900}"
+    "steel": {
+      "$value": "{color.cyan.700}"
     },
-    "blue": {
+    "sapphire": {
       "$value": "{color.blue.700}"
     },
-    "purple": {
-      "$value": "{color.purple.800}"
+    "amethyst": {
+      "$value": "{color.purple.700}"
     },
-    "pink": {
-      "$value": "{color.pink.800}"
+    "rose": {
+      "$value": "{color.pink.700}"
     },
-    "comment": {
+    "lapis": {
       "$value": "{color.periwinkle.700}"
     }
   },
   "status": {
     "$type": "color",
     "danger": {
-      "$value": "{ink.red}"
+      "$value": "{ink.ruby}"
     },
     "warning": {
-      "$value": "{ink.orange}"
+      "$value": "{ink.copper}"
     },
     "success": {
-      "$value": "{ink.green}"
+      "$value": "{ink.jade}"
     },
     "info": {
-      "$value": "{ink.blue}"
+      "$value": "{ink.sapphire}"
     }
   },
   "border": {
@@ -116,13 +116,13 @@
       "$value": "{surface.muted}"
     },
     "default": {
-      "$value": "{color.ivory.700}"
+      "$value": "{color.linen.800}"
     },
     "strong": {
       "$value": "{color.aubergine.700}"
     },
     "focus": {
-      "$value": "{ink.teal}"
+      "$value": "{ink.turquoise}"
     }
   },
   "selection": {
@@ -136,10 +136,10 @@
   },
   "highlight": {
     "$type": "color",
-    "$value": "{color.periwinkle.300}",
+    "$value": "{color.periwinkle.100}",
     "$extensions": {
       "org.samisdat.a11y": {
-        "textTier": "neutral-only"
+        "textTier": "ink"
       }
     }
   },
@@ -185,7 +185,7 @@
       }
     },
     "comment": {
-      "$value": "{ink.comment}",
+      "$value": "{ink.lapis}",
       "$extensions": {
         "org.samisdat.syntax": {
           "fontStyle": "italic"
@@ -193,40 +193,40 @@
       }
     },
     "keyword": {
-      "$value": "{ink.red}"
+      "$value": "{ink.ruby}"
     },
     "string": {
-      "$value": "{ink.green}"
+      "$value": "{ink.jade}"
     },
     "string-special": {
-      "$value": "{ink.cyan}"
+      "$value": "{ink.steel}"
     },
     "number": {
-      "$value": "{ink.green}"
+      "$value": "{ink.jade}"
     },
     "constant": {
-      "$value": "{ink.green}"
+      "$value": "{ink.jade}"
     },
     "function": {
-      "$value": "{ink.blue}"
+      "$value": "{ink.sapphire}"
     },
     "type": {
-      "$value": "{ink.cyan}"
+      "$value": "{ink.steel}"
     },
     "variable": {
       "$value": "{text.default}"
     },
     "parameter": {
-      "$value": "{ink.yellow}"
+      "$value": "{ink.gold}"
     },
     "property": {
-      "$value": "{ink.teal}"
+      "$value": "{ink.turquoise}"
     },
     "tag": {
-      "$value": "{ink.pink}"
+      "$value": "{ink.rose}"
     },
     "tag-attribute": {
-      "$value": "{ink.purple}"
+      "$value": "{ink.amethyst}"
     },
     "operator": {
       "$value": "{text.secondary}"
@@ -235,10 +235,10 @@
       "$value": "{text.secondary}"
     },
     "diff-plus": {
-      "$value": "{ink.green}"
+      "$value": "{ink.jade}"
     },
     "diff-minus": {
-      "$value": "{ink.red}"
+      "$value": "{ink.ruby}"
     }
   },
   "terminal": {
@@ -249,27 +249,27 @@
       "$description": "black"
     },
     "ansi1": {
-      "$value": "{ink.red}",
+      "$value": "{ink.ruby}",
       "$description": "red"
     },
     "ansi2": {
-      "$value": "{ink.green}",
+      "$value": "{ink.jade}",
       "$description": "green"
     },
     "ansi3": {
-      "$value": "{ink.yellow}",
+      "$value": "{ink.gold}",
       "$description": "yellow"
     },
     "ansi4": {
-      "$value": "{ink.blue}",
+      "$value": "{ink.sapphire}",
       "$description": "blue"
     },
     "ansi5": {
-      "$value": "{ink.purple}",
+      "$value": "{ink.amethyst}",
       "$description": "magenta"
     },
     "ansi6": {
-      "$value": "{ink.cyan}",
+      "$value": "{ink.steel}",
       "$description": "cyan"
     },
     "ansi7": {
@@ -281,27 +281,27 @@
       "$description": "bright black"
     },
     "ansi9": {
-      "$value": "{ink.orange}",
+      "$value": "{ink.copper}",
       "$description": "bright red"
     },
     "ansi10": {
-      "$value": "{ink.green}",
+      "$value": "{ink.jade}",
       "$description": "bright green (keine zweite Grün-Ink verfügbar, identisch mit ansi2)"
     },
     "ansi11": {
-      "$value": "{ink.yellow}",
+      "$value": "{ink.gold}",
       "$description": "bright yellow (keine zweite Gelb-Ink verfügbar, identisch mit ansi3)"
     },
     "ansi12": {
-      "$value": "{ink.blue}",
+      "$value": "{ink.sapphire}",
       "$description": "bright blue (keine zweite Blau-Ink verfügbar, identisch mit ansi4)"
     },
     "ansi13": {
-      "$value": "{ink.pink}",
+      "$value": "{ink.rose}",
       "$description": "bright magenta"
     },
     "ansi14": {
-      "$value": "{ink.teal}",
+      "$value": "{ink.turquoise}",
       "$description": "bright cyan"
     },
     "ansi15": {

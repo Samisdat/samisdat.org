@@ -44,7 +44,7 @@ export const SnapshotExceptions: FC = () => {
       ) : (
         <List>
           {m.exceptions.map((e) => (
-            <li key={`${e.kind}-${e.id}`} style={{ borderLeftColor: "var(--cs-ink-orange)" }}>
+            <li key={`${e.kind}-${e.id}`} style={{ borderLeftColor: "var(--cs-ink-copper)" }}>
               <div>
                 <Mono>{e.id}</Mono>{" "}
                 <Badge tone="warn">ohne Prüfung</Badge>

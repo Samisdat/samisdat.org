@@ -36,7 +36,7 @@ export const scholionStyles = `
     font-size: 0.85em;
     border-radius: 2px;
     padding: 0.05em 0.2em;
-    color: var(--color-ink-teal);
+    color: var(--color-ink-turquoise);
     box-shadow: inset 0 -1.5px 0 color-mix(in srgb, currentColor 55%, transparent);
     transition: background-color 0.12s ease;
     cursor: pointer;
@@ -147,7 +147,7 @@ export const scholionStyles = `
   .scholion-peek--text {
     background: var(--color-surface-raised);
     color: var(--color-text-default);
-    border-color: var(--color-ink-teal);
+    border-color: var(--color-ink-turquoise);
   }
 
   .scholion-peek__meta {

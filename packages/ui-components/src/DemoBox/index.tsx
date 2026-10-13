@@ -4,31 +4,31 @@ import { FC, HTMLAttributes } from "react";
 
 const demoBoxColors = {
   red: {
-    background: "var(--color-ink-red)",
+    background: "var(--color-ink-ruby)",
   },
   blue: {
-    background: "var(--color-ink-blue)",
+    background: "var(--color-ink-sapphire)",
   },
   yellow: {
-    background: "var(--color-ink-yellow)",
+    background: "var(--color-ink-gold)",
   },
   orange: {
-    background: "var(--color-ink-orange)",
+    background: "var(--color-ink-copper)",
   },
   green: {
-    background: "var(--color-ink-green)",
+    background: "var(--color-ink-jade)",
   },
   teal: {
-    background: "var(--color-ink-teal)",
+    background: "var(--color-ink-turquoise)",
   },
   purple: {
     background: purple[600],
   },
   pink: {
-    background: "var(--color-ink-pink)",
+    background: "var(--color-ink-rose)",
   },
   cyan: {
-    background: "var(--color-ink-cyan)",
+    background: "var(--color-ink-steel)",
   },
 };
 

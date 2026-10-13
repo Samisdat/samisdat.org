@@ -38,7 +38,7 @@ const Styling = styled.div`
     }
 
     & svg circle {
-        fill: var(--color-ink-red);
+        fill: var(--color-ink-ruby);
     }
 `;
 

@@ -151,10 +151,10 @@ const BadgeRoot = styled.span`
 
 type Tone = "good" | "ok" | "warn" | "bad";
 const tones: Record<Tone, { status: string; label: string }> = {
-  good: { status: cs("status.success"), label: cs("ink.green") },
-  ok: { status: cs("status.info"), label: cs("ink.blue") },
-  warn: { status: cs("status.warning"), label: cs("ink.orange") },
-  bad: { status: cs("status.danger"), label: cs("ink.red") },
+  good: { status: cs("status.success"), label: cs("ink.jade") },
+  ok: { status: cs("status.info"), label: cs("ink.sapphire") },
+  warn: { status: cs("status.warning"), label: cs("ink.copper") },
+  bad: { status: cs("status.danger"), label: cs("ink.ruby") },
 };
 
 export const Badge: FC<{ tone: Tone; children: ReactNode }> = ({ tone, children }) => (

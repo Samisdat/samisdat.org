@@ -28,15 +28,15 @@ const Styling = styled.div`
   padding: 1rem;
   font-family: var(--font-code);
   font-weight: bold;
-  background-color: var(--color-ink-yellow);
+  background-color: var(--color-ink-gold);
 
   [data-theme="light"] & {
-    background-color: var(--color-ink-pink);
+    background-color: var(--color-ink-rose);
   }
 
   @media (prefers-color-scheme: light) {
     :root:not([data-theme]) & {
-      background-color: var(--color-ink-pink);
+      background-color: var(--color-ink-rose);
     }
   }
 

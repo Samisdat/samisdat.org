@@ -1,10 +1,10 @@
 {
   "name": "samisdat",
   "fg": "#1e142e",
-  "bg": "#f6d5d0",
+  "bg": "#f9f2ee",
   "colors": {
     "editor.foreground": "#1e142e",
-    "editor.background": "#f6d5d0"
+    "editor.background": "#f9f2ee"
   },
   "tokenColors": [
     {
@@ -13,7 +13,7 @@
         "punctuation.definition.comment"
       ],
       "settings": {
-        "foreground": "#4c3c93",
+        "foreground": "#014ce6",
         "fontStyle": "italic"
       }
     },
@@ -33,7 +33,7 @@
         "entity.other.inherited-class"
       ],
       "settings": {
-        "foreground": "#8c1134"
+        "foreground": "#c02000"
       }
     },
     {
@@ -45,7 +45,7 @@
         "markup.inline.raw"
       ],
       "settings": {
-        "foreground": "#274c1f"
+        "foreground": "#047233"
       }
     },
     {
@@ -57,7 +57,7 @@
         "keyword.control.anchor.regexp"
       ],
       "settings": {
-        "foreground": "#033c41"
+        "foreground": "#475e5f"
       }
     },
     {
@@ -66,7 +66,7 @@
         "keyword.other.unit"
       ],
       "settings": {
-        "foreground": "#274c1f"
+        "foreground": "#047233"
       }
     },
     {
@@ -78,7 +78,7 @@
         "variable.language"
       ],
       "settings": {
-        "foreground": "#274c1f"
+        "foreground": "#047233"
       }
     },
     {
@@ -90,7 +90,7 @@
         "meta.definition.method entity.name.function"
       ],
       "settings": {
-        "foreground": "#2629cb"
+        "foreground": "#236792"
       }
     },
     {
@@ -103,7 +103,7 @@
         "meta.type.annotation entity.name.type"
       ],
       "settings": {
-        "foreground": "#033c41"
+        "foreground": "#475e5f"
       }
     },
     {
@@ -122,7 +122,7 @@
         "meta.function.parameters variable"
       ],
       "settings": {
-        "foreground": "#492f00"
+        "foreground": "#8b5f01"
       }
     },
     {
@@ -137,7 +137,7 @@
         "entity.name.tag.yaml"
       ],
       "settings": {
-        "foreground": "#2d5054"
+        "foreground": "#087473"
       }
     },
     {
@@ -147,7 +147,7 @@
         "punctuation.definition.tag"
       ],
       "settings": {
-        "foreground": "#7b015d"
+        "foreground": "#ae01b3"
       }
     },
     {
@@ -155,7 +155,7 @@
         "entity.other.attribute-name"
       ],
       "settings": {
-        "foreground": "#59008e"
+        "foreground": "#754db2"
       }
     },
     {
@@ -184,7 +184,7 @@
         "meta.diff.header.to-file"
       ],
       "settings": {
-        "foreground": "#274c1f"
+        "foreground": "#047233"
       }
     },
     {
@@ -193,7 +193,7 @@
         "meta.diff.header.from-file"
       ],
       "settings": {
-        "foreground": "#8c1134"
+        "foreground": "#c02000"
       }
     }
   ],

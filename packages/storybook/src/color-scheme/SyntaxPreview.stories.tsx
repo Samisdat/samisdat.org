@@ -50,7 +50,7 @@ const captures = syntaxForegrounds("dark").map((t) => ({
 // real comments sit outside the template.
 const code = `// Box keeps the label readable on any surface.
 const Box = styled.div\`
-  color: var(--color-ink-red);
+  color: var(--color-ink-ruby);
   padding: \${space[4]};
 \`;
 

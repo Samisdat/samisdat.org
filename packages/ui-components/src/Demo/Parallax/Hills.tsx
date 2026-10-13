@@ -35,7 +35,7 @@ const Styling = styled.div`
     }
 
     & .sun {
-        fill: var(--color-ink-yellow);
+        fill: var(--color-ink-gold);
     }
 
     & .bankHighlight {
@@ -89,15 +89,15 @@ export const DemoParallaxHills = () => {
                             >
                                 <stop
                                     offset="0"
-                                    style={{ stopColor: 'var(--color-ink-yellow)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-gold)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="0.5"
-                                    style={{ stopColor: 'var(--color-ink-green)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-jade)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="1"
-                                    style={{ stopColor: 'var(--color-ink-teal)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--color-ink-turquoise)', stopOpacity: 1 }}
                                 />
                             </linearGradient>
                             <path

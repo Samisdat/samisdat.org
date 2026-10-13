@@ -79,7 +79,7 @@ const FILES = [
 ];
 
 /** Gutter marks: line index -> diff token. */
-const MARKS: Record<number, "ink.green" | "ink.blue" | "ink.red"> = { 3: "ink.green", 4: "ink.green", 8: "ink.blue", 14: "ink.red" };
+const MARKS: Record<number, "ink.jade" | "ink.sapphire" | "ink.ruby"> = { 3: "ink.jade", 4: "ink.jade", 8: "ink.sapphire", 14: "ink.ruby" };
 
 export const SnapshotEditor: FC = () => {
   const { m } = useSnapshot();
@@ -108,7 +108,7 @@ export const SnapshotEditor: FC = () => {
               key={f.name}
               style={{
                 background: f.selected ? cs("highlight") : undefined,
-                color: f.selected ? cs("text.default") : f.dir ? cs("ink.blue") : undefined,
+                color: f.selected ? cs("text.default") : f.dir ? cs("ink.sapphire") : undefined,
                 whiteSpace: "pre",
               }}
             >
@@ -149,7 +149,7 @@ export const SnapshotEditor: FC = () => {
           <Status style={{ background: cs("surface.emphasis"), color: cs("text.secondary"), borderTop: `1px solid ${cs("border.default")}` }}>
             <span>dark.ts</span>
             <span>
-              {cursor + 1}:1 <span style={{ color: cs("ink.teal") }}>● 0</span> <span style={{ color: cs("ink.orange") }}>▲ 1</span>
+              {cursor + 1}:1 <span style={{ color: cs("ink.turquoise") }}>● 0</span> <span style={{ color: cs("ink.copper") }}>▲ 1</span>
             </span>
           </Status>
         </Pane>

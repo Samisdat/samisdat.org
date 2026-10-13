@@ -11,8 +11,8 @@
 import { differenceEuclidean } from "culori";
 import { semantic } from "../generated/semantic";
 import { modes } from "../src/contrast";
+import { MIN_INK_DELTA_E } from "./thresholds";
 
-const MIN_DELTA_E = 0.08;
 const deltaE = differenceEuclidean("oklab");
 
 const errors: string[] = [];
@@ -22,6 +22,7 @@ let commentChecked = 0;
 let commentMinSeen = Infinity;
 
 for (const mode of modes) {
+  const MIN_DELTA_E = MIN_INK_DELTA_E[mode];
   const values = semantic[mode] as Record<string, string>;
   const inks = Object.keys(values).filter((id) => id.startsWith("ink."));
   for (let i = 0; i < inks.length; i++) {
@@ -39,6 +40,7 @@ for (const mode of modes) {
 }
 
 for (const mode of modes) {
+  const MIN_DELTA_E = MIN_INK_DELTA_E[mode];
   const values = semantic[mode] as Record<string, string>;
   const comment = "syntax.comment";
   const others = Object.keys(values).filter(
@@ -63,8 +65,8 @@ if (errors.length > 0) {
   process.exit(1);
 }
 console.log(
-  `Ink distinguishability check passed (${checked} pairs, min ΔE OK ${minSeen.toFixed(4)} >= ${MIN_DELTA_E})`,
+  `Ink distinguishability check passed (${checked} pairs, min ΔE OK ${minSeen.toFixed(4)}; gates dark ${MIN_INK_DELTA_E.dark}, light ${MIN_INK_DELTA_E.light})`,
 );
 console.log(
-  `Comment distinguishability check passed (${commentChecked} pairs, min ΔE OK ${commentMinSeen.toFixed(4)} >= ${MIN_DELTA_E})`,
+  `Comment distinguishability check passed (${commentChecked} pairs, min ΔE OK ${commentMinSeen.toFixed(4)}; gates dark ${MIN_INK_DELTA_E.dark}, light ${MIN_INK_DELTA_E.light})`,
 );

@@ -8,6 +8,7 @@ export type Step = (typeof STEPS)[number];
 export const HUES = [
   "aubergine",
   "ivory",
+  "linen",
   "red",
   "orange",
   "yellow",
