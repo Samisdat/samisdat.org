@@ -27,7 +27,7 @@ werden über den Logger gemeldet, es entsteht nie eine Teildatei).
 - Nur Dark: `base: dark`, Overrides in Hex für Text, Status, Rahmen, Diff,
   Nutzernachricht, Selection und die acht Subagent-Farben.
 - Die Wort-Diff-Varianten (`diffAddedWord`, `diffRemovedWord`) sind der
-  Zeilenhintergrund, in OKLCH zu 30 % in Richtung `ink.green` bzw. `ink.red`
+  Zeilenhintergrund, in OKLCH zu 30 % in Richtung `ink.jade` bzw. `ink.ruby`
   gemischt.
 - Shimmer-Tokens erbt das Preset; der Verlauf bleibt stimmig, ohne dass wir
   jeden Zwischenton pflegen.
@@ -61,10 +61,10 @@ werden über den Logger gemeldet, es entsteht nie eine Teildatei).
 
 `scripts/lint-llm-themes.ts` (Teil von `lint`) prüft die Paare, die die
 generierte Rollenmatrix nicht abdeckt, mit WCAG ≥ 4,5:1: Diff-Hintergründe,
-`text.secondary` und `ink.purple` auf `surface.raised` (Dark) sowie die
+`text.secondary` und `ink.amethyst` auf `surface.raised` (Dark) sowie die
 Kartentexte auf `surface.raised` in beiden Modes. Beim Aufsetzen ist der Lint
 dreimal angeschlagen (`text.subtle` auf `surface.raised` 3,24:1,
-`text.secondary` und `ink.purple` auf `surface.subtle` unter 4,5:1); das
+`text.secondary` und `ink.amethyst` auf `surface.subtle` unter 4,5:1); das
 Mapping wurde daraufhin angepasst, nicht der Schwellwert.
 
 ### Konsequenzen

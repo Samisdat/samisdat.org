@@ -12,7 +12,7 @@ type Pair = [foreground: string, background: string];
 const THEME_PAIRS: Pair[] = [
   ["text.default", "diff.add"],
   ["text.default", "diff.delete"],
-  ["ink.purple", "surface.raised"],
+  ["ink.amethyst", "surface.raised"],
   ["text.secondary", "diff.add"],
   ["text.secondary", "diff.delete"],
 ];
