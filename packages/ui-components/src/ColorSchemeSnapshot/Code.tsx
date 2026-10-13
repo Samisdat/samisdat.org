@@ -4,7 +4,7 @@ import { styled } from "@linaria/react";
 import type { CodeLine } from "@samisdat/color-scheme/snapshot-types";
 import { useState, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hidden, Hint, LevelBadge, Mono, Panel, Scroll, Title, ratio } from "./ui";
+import { Block, Hidden, LevelBadge, Mono, Panel, Scroll, ratio, BlockHeader, type BlockProps } from "./ui";
 import { Segmented } from "../Segmented";
 
 export const Pre = styled.pre`
@@ -75,21 +75,14 @@ const Legend = styled.table`
   }
 `;
 
-export const SnapshotCode: FC = () => {
+export const SnapshotCode: FC<BlockProps> = (props) => {
   const { m } = useSnapshot();
   const [tab, setTab] = useState<"theme" | "diff">("theme");
   const { code } = m;
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Code</Title>
-          <Hint>
-            Gerendert mit dem echten Shiki-Theme des Schemas. Darunter jede Syntaxrolle mit ihrem Kontrast auf dem
-            Code-Hintergrund.
-          </Hint>
-        </div>
+      <BlockHeader {...props} aside={
         <Segmented
           label="Beispiel"
           value={tab}
@@ -99,7 +92,8 @@ export const SnapshotCode: FC = () => {
             { value: "diff", label: "Diff" },
           ]}
         />
-      </BlockHead>
+      }
+      />
       <Panel style={{ background: code.bg, padding: 0 }}>
         {tab === "theme" ? (
           <Pre style={{ color: code.fg }}>

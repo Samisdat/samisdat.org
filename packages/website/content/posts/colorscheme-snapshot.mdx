@@ -9,22 +9,58 @@ Alle Zahlen auf dieser Seite stammen aus einem Skript und stehen in einer Datei,
 
 <ColorSchemeSnapshot id="2026-10b">
 
-<SnapshotInks />
+<SnapshotInks title="Tinten">
 
-<SnapshotMatrix />
+Kontrast jeder Akzentfarbe gegen die gewählte Fläche. Gestrichelt sind die Schwellen. Nur Flächen, auf denen Inks vorkommen: Seite, Raised (Navigationsleiste), Code und die Editor-Füllungen (`highlight`, `selection`). Im Dark Mode sind Raised, Highlight und Selection dieselbe Farbe und stehen in einer Option; dort prüft der Lint alle Inks mit mindestens 4,5:1.
 
-<SnapshotCode />
+</SnapshotInks>
 
-<SnapshotModes />
+<SnapshotMatrix title="Text auf Flächen">
 
-<SnapshotCvd />
+Zeilen sind `text-*`, Spalten die Flächen. Fließtext braucht mindestens AA. Auf den schwächeren Flächen ist nur der neutrale Text vorgesehen, auf muted gar keiner (–).
 
-<SnapshotDistinct />
+</SnapshotMatrix>
 
-<SnapshotScales />
+<SnapshotCode title="Code">
 
-<SnapshotExceptions />
+Gerendert mit dem echten Shiki-Theme des Schemas. Darunter jede Syntaxrolle mit ihrem Kontrast auf dem Code-Hintergrund.
 
-<SnapshotEditor />
+</SnapshotCode>
+
+<SnapshotModes title="Dunkel und Hell nebeneinander">
+
+Gleiche Rolle, beide Modi, jeweils auf dem Code-Hintergrund des Modus. Die Balken zeigen das WCAG-Verhältnis, also wie kräftig die Tinte lesbar ist. Die Seite folgt dem Schalter oben nicht, hier stehen immer beide.
+
+</SnapshotModes>
+
+<SnapshotCvd title="Farbfehlsichtigkeit">
+
+Die Tinten, wie sie bei Rot-, Grün- oder Blau-Fehlsichtigkeit aussehen (Machado 2009, volle Ausprägung). Darunter die engsten Paare nach ΔE OK.
+
+</SnapshotCvd>
+
+<SnapshotDistinct title="Unterscheidbarkeit">
+
+Die engsten Tintenpaare nach zwei Maßen. Farbabstand: wahrnehmbarer Abstand in OKLab, der Lint verlangt einen Mindestwert (Schwelle in der Liste). Namensabstand nach dem c3-Modell (Heer & Stone 2012, Hellinger): 0 heißt, alle nennen die Farben gleich, 1 heißt, die Namen überlappen gar nicht.
+
+</SnapshotDistinct>
+
+<SnapshotScales title="Die Skalen">
+
+Die Primitive: zwölf Farbtöne in elf Stufen. Jede Stufe, die im gewählten Modus ein Token trägt, ist mit dem Token beschriftet. Aliase wie `status.danger` zeigen auf ein Ink und tauchen hier nicht auf.
+
+</SnapshotScales>
+
+<SnapshotExceptions title="Bewusste Ausnahmen">
+
+Was bewusst unter der Regel liegt, mit der Begründung aus den Token-Dateien. Eine Ausnahme ist ein Grenzwert, den du dir selbst nennst, kein Versehen.
+
+</SnapshotExceptions>
+
+<SnapshotEditor title="Im Editor">
+
+So sitzen die Tokens in Neovim: Cursorzeile (`highlight`), Auswahl (`selection`), Dateibaum, Diff-Markierungen am Rand.
+
+</SnapshotEditor>
 
 </ColorSchemeSnapshot>

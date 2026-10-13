@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import { useState, type CSSProperties, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, LevelBadge, Mono, Panel, Scroll, Title, label, ratio } from "./ui";
+import { Block, Hint, LevelBadge, Mono, Panel, Scroll, label, ratio, BlockHeader, type BlockProps } from "./ui";
 import { Segmented } from "../Segmented";
 
 const Chart = styled.div`
@@ -119,7 +119,7 @@ const THRESHOLDS = [
   { value: 7, text: "AAA 7:1" },
 ];
 
-export const SnapshotInks: FC = () => {
+export const SnapshotInks: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
   const [selected, setSelected] = useState("surface.default");
 
@@ -136,16 +136,7 @@ export const SnapshotInks: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Tinten</Title>
-          <Hint>
-            Kontrast jeder Akzentfarbe gegen die gewählte Fläche. Gestrichelt sind die Schwellen. Nur Flächen, auf denen Inks vorkommen: Seite, Raised (Navigationsleiste),
-            Code und die Editor-Füllungen (<Mono>highlight</Mono>, <Mono>selection</Mono>). Im Dark Mode sind Raised, Highlight und Selection dieselbe Farbe und
-            stehen in einer Option; dort prüft der Lint alle Inks mit mindestens 4,5:1.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Segmented
         label="Gemessen auf"
         value={surface}

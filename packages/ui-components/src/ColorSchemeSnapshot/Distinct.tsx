@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import type { FC } from "react";
 import { useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, Mono, Title, label } from "./ui";
+import { Block, Hint, Mono, label, BlockHeader, type BlockProps } from "./ui";
 
 /** Lint gate for ink pairs, ΔE OK (see `scripts/lint-distinct.ts`). */
 const MIN_DELTA_E = 0.08;
@@ -47,7 +47,7 @@ const Names = styled.ul`
   }
 `;
 
-export const SnapshotDistinct: FC = () => {
+export const SnapshotDistinct: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
 
   const closest = (matrix: number[][]) =>
@@ -63,15 +63,7 @@ export const SnapshotDistinct: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Unterscheidbarkeit</Title>
-          <Hint>
-            Die engsten Tintenpaare nach zwei Maßen. Farbabstand: wahrnehmbarer Abstand in OKLab, der Lint verlangt mindestens {MIN_DELTA_E.toFixed(2).replace(".", ",")}. Namensabstand nach dem c3-Modell
-            (Heer &amp; Stone 2012, Hellinger): 0 heißt, alle nennen die Farben gleich, 1 heißt, die Namen überlappen gar nicht.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Lists>
         {lists.map((l) => (
           <div key={l.title}>

@@ -34,6 +34,40 @@ export const Hint = styled.p`
   color: var(--cs-text-secondary);
 `;
 
+/** Editorial text of a block, passed in as markdown children from the post. */
+const IntroRoot = styled.div`
+  margin: 0.25rem 0 0;
+  max-width: 62ch;
+  font-size: 0.875rem;
+  color: var(--cs-text-secondary);
+  p {
+    margin: 0 0 0.5rem;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+  code {
+    font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+    font-size: 0.8em;
+  }
+`;
+
+/** Props every snapshot block takes from the post: its heading and the explanatory markdown. */
+export type BlockProps = { title?: string; children?: ReactNode };
+
+type HeaderProps = BlockProps & { aside?: ReactNode };
+
+/** Heading and intro of a block, `aside` sits at the right edge (e.g. a segmented control). */
+export const BlockHeader: FC<HeaderProps> = ({ title, children, aside }) => (
+  <BlockHead>
+    <div>
+      {title ? <Title>{title}</Title> : null}
+      {children ? <IntroRoot>{children}</IntroRoot> : null}
+    </div>
+    {aside}
+  </BlockHead>
+);
+
 export const Mono = styled.span`
   font-family: var(--font-mono, ui-monospace, Menlo, monospace);
   font-size: 0.8em;

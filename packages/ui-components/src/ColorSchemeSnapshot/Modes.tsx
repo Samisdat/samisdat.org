@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import type { FC } from "react";
 import { useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, Mono, Scroll, Title, label, ratio } from "./ui";
+import { Block, Mono, Scroll, label, ratio, BlockHeader, type BlockProps } from "./ui";
 
 const Grid = styled.div`
   display: grid;
@@ -58,21 +58,13 @@ const Stats = styled.dl`
 
 const rho = (v: number) => v.toFixed(2).replace(".", ",");
 
-export const SnapshotModes: FC = () => {
+export const SnapshotModes: FC<BlockProps> = (props) => {
   const { data } = useSnapshot();
   const { correspondence } = data;
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Dunkel und Hell nebeneinander</Title>
-          <Hint>
-            Gleiche Rolle, beide Modi, jeweils auf dem Code-Hintergrund des Modus. Die Balken zeigen das WCAG-Verhältnis, also wie
-            kräftig die Tinte lesbar ist. Die Seite folgt dem Schalter oben nicht, hier stehen immer beide.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Scroll>
         <Grid>
           {(["dark", "light"] as const).map((mode) => {

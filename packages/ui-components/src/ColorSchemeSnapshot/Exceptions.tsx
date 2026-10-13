@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import type { FC } from "react";
 import { useSnapshot } from "./frame";
-import { Badge, Block, BlockHead, Hint, Mono, Title } from "./ui";
+import { Badge, Block, Hint, Mono, BlockHeader, type BlockProps } from "./ui";
 
 const List = styled.ul`
   display: grid;
@@ -26,19 +26,11 @@ const List = styled.ul`
   }
 `;
 
-export const SnapshotExceptions: FC = () => {
+export const SnapshotExceptions: FC<BlockProps> = (props) => {
   const { m } = useSnapshot();
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Bewusste Ausnahmen</Title>
-          <Hint>
-            Was bewusst unter der Regel liegt, mit der Begründung aus den Token-Dateien. Eine Ausnahme ist ein
-            Grenzwert, den du dir selbst nennst, kein Versehen.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       {m.exceptions.length === 0 ? (
         <Hint>In diesem Modus gibt es keine.</Hint>
       ) : (

@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import type { FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, LevelBadge, Mono, Scroll, Title, label, ratio } from "./ui";
+import { Block, LevelBadge, Scroll, label, ratio, BlockHeader, type BlockProps } from "./ui";
 
 const Table = styled.table`
   border-collapse: separate;
@@ -42,7 +42,7 @@ const Value = styled.span`
   color: var(--cs-text-emphasis);
 `;
 
-export const SnapshotMatrix: FC = () => {
+export const SnapshotMatrix: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
 
   const tokenOf = (id: string) => m.tokens.find((t) => t.id === id);
@@ -63,15 +63,7 @@ export const SnapshotMatrix: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Text auf Flächen</Title>
-          <Hint>
-            Zeilen sind <Mono>text-*</Mono>, Spalten die Flächen. Fließtext braucht mindestens AA. Auf den schwächeren Flächen ist nur der neutrale Text
-            vorgesehen, auf muted gar keiner (–).
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Scroll>
         <Table>
           <thead>
