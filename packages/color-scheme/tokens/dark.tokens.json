@@ -22,7 +22,7 @@
       "$value": "{color.aubergine.800}",
       "$extensions": {
         "org.samisdat.a11y": {
-          "textTier": "neutral-only"
+          "textTier": "ink"
         }
       }
     },
@@ -65,13 +65,7 @@
   "ink": {
     "$type": "color",
     "red": {
-      "$value": "{color.red.500}",
-      "$extensions": {
-        "org.samisdat.a11y": {
-          "apcaMin": 40,
-          "apcaReason": "Bewusst kräftiges Rot für keyword; Entscheidung gegen Lachs-Ton, Lc ≈ 44"
-        }
-      }
+      "$value": "{color.red.400}"
     },
     "orange": {
       "$value": "{color.orange.400}"
@@ -136,7 +130,7 @@
     "$value": "{color.aubergine.800}",
     "$extensions": {
       "org.samisdat.a11y": {
-        "textTier": "neutral-only"
+        "textTier": "ink"
       }
     }
   },
@@ -145,7 +139,7 @@
     "$value": "{color.aubergine.800}",
     "$extensions": {
       "org.samisdat.a11y": {
-        "textTier": "neutral-only"
+        "textTier": "ink"
       }
     }
   },

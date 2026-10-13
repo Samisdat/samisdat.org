@@ -19,13 +19,13 @@
     },
     "./shiki/*": "./generated/shiki/*",
     "./tokens/*": "./tokens/*",
+    "./snapshot-types": {
+      "types": "./scripts/snapshot/types.ts",
+      "import": "./scripts/snapshot/types.ts"
+    },
     "./contrast": {
       "types": "./src/contrast.ts",
       "import": "./src/contrast.ts"
-    },
-    "./apca": {
-      "types": "./src/apca.ts",
-      "import": "./src/apca.ts"
     },
     "./contrast-baseline": {
       "types": "./src/baseline.ts",
@@ -35,13 +35,14 @@
   "scripts": {
     "build": "tz build",
     "check": "tz check",
-    "lint": "tz check && tsx scripts/lint-scale.ts && pnpm lint:contrast && tsx scripts/lint-distinct.ts && tsx scripts/lint-cvd.ts && tsx scripts/lint-fill.ts && tsx scripts/lint-apca.ts && tsx scripts/lint-llm-themes.ts",
+    "lint": "tz check && tsx scripts/lint-scale.ts && pnpm lint:contrast && tsx scripts/lint-distinct.ts && tsx scripts/lint-cvd.ts && tsx scripts/lint-fill.ts && tsx scripts/lint-llm-themes.ts",
     "dev": "tz build --watch",
     "generate:scale": "tsx scripts/generate-scale.ts",
     "lint:contrast": "tz build && tsx scripts/lint-contrast.ts && MODE=dark tz check -c terrazzo.contrast.config.ts && MODE=light tz check -c terrazzo.contrast.config.ts",
     "contrast:baseline": "tsx scripts/contrast-baseline.ts",
     "compare:themes": "tsx scripts/theme-compare/index.ts",
-    "names:inks": "tsx scripts/name-distance.ts"
+    "names:inks": "tsx scripts/name-distance.ts",
+    "snapshot": "tsx scripts/snapshot/index.ts"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.7.0",
@@ -51,7 +52,6 @@
     "@terrazzo/token-tools": "^2.7.0",
     "@types/culori": "^4.0.1",
     "@types/node": "catalog:",
-    "apca-w3": "^0.1.9",
     "culori": "^4.0.2",
     "shiki": "catalog:",
     "tsx": "^4.23.15",

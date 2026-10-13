@@ -95,7 +95,7 @@
           "colorSpace": "oklch",
           "components": [0.854, 0.037, 30]
         },
-        "$description": "Bestehender Wert (primitive-ivory, ivory-base). L von 0.8497 auf 0.854 angehoben: text.default erreicht damit Lc ≥ 75 auf surface.default (war 74.5/74.9)."
+        "$description": "Bestehender Wert (primitive-ivory, ivory-base). L von 0.8497 auf 0.854 angehoben: Kontrast von text.default auf surface.default etwas angehoben."
       },
       "300": {
         "$value": {
@@ -180,15 +180,16 @@
       "400": {
         "$value": {
           "colorSpace": "oklch",
-          "components": [0.7113, 0.1873, 10]
-        }
+          "components": [0.75, 0.15, 32]
+        },
+        "$description": "Dark-Ink (ink.red): AAA (WCAG ≥ 7:1) auf surface.default (7,46:1), heller und wärmer als die Skala; L 0.75, Chroma 0.15, Farbton 32 statt 10. Auf surface.raised, highlight und selection (#45385b) nur 4,52:1, knappe Marge über AA 4,5:1. Vorher: oklch(0.738 0.16 32), 4,30:1 dort."
       },
       "500": {
         "$value": {
           "colorSpace": "oklch",
-          "components": [0.68, 0.208, 25]
+          "components": [0.66, 0.21, 10]
         },
-        "$description": "Dark-Ink (ink.red), bewusst kräftiges Rot für keyword; APCA Lc ≈ 44, dokumentierte Ausnahme (apcaMin 40); Farbton 25 statt 10. Vorher: oklch(0.64 0.22 10)."
+        "$description": "Farbupdate: von keinem Ebene-2-Token mehr genutzt; auf skalenkonsistenten Wert zurückgesetzt (Skalen-Hue 10). Vorher: oklch(0.68 0.208 25)."
       },
       "600": {
         "$value": {
@@ -208,7 +209,7 @@
           "colorSpace": "oklch",
           "components": [0.416, 0.155, 12.5]
         },
-        "$description": "Light-Ink (ink.red), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.416, Chroma 0.155, Farbton 12.5 (Skalen-Hue 10). Letzte Feinabstimmung ab oklch(0.421 0.157 12.5), ΔE OK 0.0054. Vorher: oklch(0.4282 0.165 10)."
+        "$description": "Light-Ink (ink.red), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.416, Chroma 0.155, Farbton 12.5 (Skalen-Hue 10). Letzte Feinabstimmung ab oklch(0.421 0.157 12.5), ΔE OK 0.0054. Vorher: oklch(0.4282 0.165 10)."
       },
       "900": {
         "$value": {
@@ -254,7 +255,7 @@
           "colorSpace": "oklch",
           "components": [0.775, 0.119, 69]
         },
-        "$description": "Dark-Ink (ink.orange), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.775, Chroma 0.119, Farbton 69 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.771 0.122 69.2), ΔE OK 0.0050. Vorher: oklch(0.73 0.16 60)."
+        "$description": "Dark-Ink (ink.orange), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.775, Chroma 0.119, Farbton 69 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.771 0.122 69.2), ΔE OK 0.0050. Vorher: oklch(0.73 0.16 60)."
       },
       "500": {
         "$value": {
@@ -281,7 +282,7 @@
           "colorSpace": "oklch",
           "components": [0.404, 0.102, 53.4]
         },
-        "$description": "Light-Ink (ink.orange), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.404, Chroma 0.102, Farbton 53.4 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.4236 0.1012 57.7), ΔE OK 0.0210. Vorher: oklch(0.4027 0.0944 60)."
+        "$description": "Light-Ink (ink.orange), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.404, Chroma 0.102, Farbton 53.4 (Skalen-Hue 60). Letzte Feinabstimmung ab oklch(0.4236 0.1012 57.7), ΔE OK 0.0210. Vorher: oklch(0.4027 0.0944 60)."
       },
       "900": {
         "$value": {
@@ -321,7 +322,7 @@
           "colorSpace": "oklch",
           "components": [0.832, 0.162, 85.7]
         },
-        "$description": "Dark-Ink (ink.yellow), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.832, Chroma 0.162, Farbton 85.7 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.83 0.16 85), ΔE OK 0.0034."
+        "$description": "Dark-Ink (ink.yellow), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.832, Chroma 0.162, Farbton 85.7 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.83 0.16 85), ΔE OK 0.0034."
       },
       "400": {
         "$value": {
@@ -354,7 +355,7 @@
           "colorSpace": "oklch",
           "components": [0.33, 0.069, 75.8]
         },
-        "$description": "Light-Ink (ink.yellow), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.33, Chroma 0.069, Farbton 75.8 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.354 0.073 80), ΔE OK 0.0249. Vorher: oklch(0.37 0.075 88)."
+        "$description": "Light-Ink (ink.yellow), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.33, Chroma 0.069, Farbton 75.8 (Skalen-Hue 85). Letzte Feinabstimmung ab oklch(0.354 0.073 80), ΔE OK 0.0249. Vorher: oklch(0.37 0.075 88)."
       },
       "900": {
         "$value": {
@@ -400,7 +401,7 @@
           "colorSpace": "oklch",
           "components": [0.746, 0.172, 158.1]
         },
-        "$description": "Dark-Ink (ink.green), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.746, Chroma 0.172, Farbton 158.1 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.742 0.17 157.5), ΔE OK 0.0048. Vorher: oklch(0.758 0.1554 155)."
+        "$description": "Dark-Ink (ink.green), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.746, Chroma 0.172, Farbton 158.1 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.742 0.17 157.5), ΔE OK 0.0048. Vorher: oklch(0.758 0.1554 155)."
       },
       "500": {
         "$value": {
@@ -428,7 +429,7 @@
           "colorSpace": "oklch",
           "components": [0.377, 0.084, 139.9]
         },
-        "$description": "Light-Ink (ink.green), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.377, Chroma 0.084, Farbton 139.9 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.4 0.088 139.8), ΔE OK 0.0233. Vorher: oklch(0.395 0.114 147)."
+        "$description": "Light-Ink (ink.green), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.377, Chroma 0.084, Farbton 139.9 (Skalen-Hue 155). Letzte Feinabstimmung ab oklch(0.4 0.088 139.8), ΔE OK 0.0233. Vorher: oklch(0.395 0.114 147)."
       },
       "900": {
         "$value": {
@@ -474,7 +475,7 @@
           "colorSpace": "oklch",
           "components": [0.793, 0.132, 202.6]
         },
-        "$description": "Dark-Ink (ink.teal), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.793, Chroma 0.132, Farbton 202.6 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.794 0.128 202.6), ΔE OK 0.0041. Vorher: oklch(0.78 0.11 190)."
+        "$description": "Dark-Ink (ink.teal), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.793, Chroma 0.132, Farbton 202.6 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.794 0.128 202.6), ΔE OK 0.0041. Vorher: oklch(0.78 0.11 190)."
       },
       "500": {
         "$value": {
@@ -501,7 +502,7 @@
           "colorSpace": "oklch",
           "components": [0.407, 0.041, 204.9]
         },
-        "$description": "Light-Ink (ink.teal), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.407, Chroma 0.041, Farbton 204.9 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.4203 0.0536 200.5), ΔE OK 0.0187. Vorher: oklch(0.3944 0.0681 190)."
+        "$description": "Light-Ink (ink.teal), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.407, Chroma 0.041, Farbton 204.9 (Skalen-Hue 190). Letzte Feinabstimmung ab oklch(0.4203 0.0536 200.5), ΔE OK 0.0187. Vorher: oklch(0.3944 0.0681 190)."
       },
       "900": {
         "$value": {
@@ -547,7 +548,7 @@
           "colorSpace": "oklch",
           "components": [0.782, 0.048, 198.4]
         },
-        "$description": "Dark-Ink (ink.cyan), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.782, Chroma 0.048, Farbton 198.4 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.781 0.048 198.4), ΔE OK 0.0010. Vorher: oklch(0.7417 0.103 200)."
+        "$description": "Dark-Ink (ink.cyan), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.782, Chroma 0.048, Farbton 198.4 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.781 0.048 198.4), ΔE OK 0.0010. Vorher: oklch(0.7417 0.103 200)."
       },
       "500": {
         "$value": {
@@ -581,7 +582,7 @@
           "colorSpace": "oklch",
           "components": [0.326, 0.054, 204.2]
         },
-        "$description": "Light-Ink (ink.cyan), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.326, Chroma 0.054, Farbton 204.2 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.338 0.054 204.1), ΔE OK 0.0120. Vorher: oklch(0.323 0.0549 200)."
+        "$description": "Light-Ink (ink.cyan), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.326, Chroma 0.054, Farbton 204.2 (Skalen-Hue 200). Letzte Feinabstimmung ab oklch(0.338 0.054 204.1), ΔE OK 0.0120. Vorher: oklch(0.323 0.0549 200)."
       },
       "950": {
         "$value": {
@@ -621,7 +622,7 @@
           "colorSpace": "oklch",
           "components": [0.767, 0.125, 248]
         },
-        "$description": "Dark-Ink (ink.blue), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.767, Chroma 0.125, Farbton 248 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.764 0.125 250.2), ΔE OK 0.0057. Vorher: oklch(0.767 0.1182 265)."
+        "$description": "Dark-Ink (ink.blue), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.767, Chroma 0.125, Farbton 248 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.764 0.125 250.2), ΔE OK 0.0057. Vorher: oklch(0.767 0.1182 265)."
       },
       "500": {
         "$value": {
@@ -641,7 +642,7 @@
           "colorSpace": "oklch",
           "components": [0.422, 0.237, 269.5]
         },
-        "$description": "Light-Ink (ink.blue), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.422, Chroma 0.237, Farbton 269.5 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.427 0.237 269.2), ΔE OK 0.0052. Vorher: oklch(0.465 0.24 268)."
+        "$description": "Light-Ink (ink.blue), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.422, Chroma 0.237, Farbton 269.5 (Skalen-Hue 265). Letzte Feinabstimmung ab oklch(0.427 0.237 269.2), ΔE OK 0.0052. Vorher: oklch(0.465 0.24 268)."
       },
       "800": {
         "$value": {
@@ -687,7 +688,7 @@
           "colorSpace": "oklch",
           "components": [0.838, 0.08, 262.6]
         },
-        "$description": "Dark-Ink (ink.comment), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.838, Chroma 0.08, Farbton 262.6 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.834 0.081 265), ΔE OK 0.0053. Vorher: oklch(0.8266 0.09 285)."
+        "$description": "Dark-Ink (ink.comment), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.838, Chroma 0.08, Farbton 262.6 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.834 0.081 265), ΔE OK 0.0053. Vorher: oklch(0.8266 0.09 285)."
       },
       "400": {
         "$value": {
@@ -713,7 +714,7 @@
           "colorSpace": "oklch",
           "components": [0.422, 0.138, 287.2]
         },
-        "$description": "Light-Ink (ink.comment), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.422, Chroma 0.138, Farbton 287.2 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.428 0.14 288.9), ΔE OK 0.0076. Vorher: oklch(0.46 0.135 285)."
+        "$description": "Light-Ink (ink.comment), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.422, Chroma 0.138, Farbton 287.2 (Skalen-Hue 285). Letzte Feinabstimmung ab oklch(0.428 0.14 288.9), ΔE OK 0.0076. Vorher: oklch(0.46 0.135 285)."
       },
       "800": {
         "$value": {
@@ -765,7 +766,7 @@
           "colorSpace": "oklch",
           "components": [0.777, 0.078, 303.2]
         },
-        "$description": "Dark-Ink (ink.purple), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.777, Chroma 0.078, Farbton 303.2 (Skalen-Hue 305). Letzte Feinabstimmung ab oklch(0.773 0.08 303.4), ΔE OK 0.0045. Vorher: oklch(0.7548 0.1579 305)."
+        "$description": "Dark-Ink (ink.purple), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.777, Chroma 0.078, Farbton 303.2 (Skalen-Hue 305). Letzte Feinabstimmung ab oklch(0.773 0.08 303.4), ΔE OK 0.0045. Vorher: oklch(0.7548 0.1579 305)."
       },
       "500": {
         "$value": {
@@ -832,7 +833,7 @@
           "colorSpace": "oklch",
           "components": [0.807, 0.189, 326.9]
         },
-        "$description": "Dark-Ink (ink.pink), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.807, Chroma 0.189, Farbton 326.9 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.806 0.1907 326.9), ΔE OK 0.0020. Vorher: oklch(0.7971 0.1906 330)."
+        "$description": "Dark-Ink (ink.pink), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.807, Chroma 0.189, Farbton 326.9 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.806 0.1907 326.9), ΔE OK 0.0020. Vorher: oklch(0.7971 0.1906 330)."
       },
       "400": {
         "$value": {
@@ -866,7 +867,7 @@
           "colorSpace": "oklch",
           "components": [0.392, 0.168, 342.4]
         },
-        "$description": "Light-Ink (ink.pink), Lc ≥ 60,5 nach APCA, ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04 / 60); L 0.392, Chroma 0.168, Farbton 342.4 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.4 0.17 345), ΔE OK 0.0113. Vorher: oklch(0.404 0.1841 330)."
+        "$description": "Light-Ink (ink.pink), ΔE OK ≥ 0,082 und CVD ≥ 0,041 (Marge gegenüber den Schwellen 0,08 / 0,04); L 0.392, Chroma 0.168, Farbton 342.4 (Skalen-Hue 330). Letzte Feinabstimmung ab oklch(0.4 0.17 345), ΔE OK 0.0113. Vorher: oklch(0.404 0.1841 330)."
       },
       "900": {
         "$value": {

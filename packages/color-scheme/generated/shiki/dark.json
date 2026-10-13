@@ -33,7 +33,7 @@
         "entity.other.inherited-class"
       ],
       "settings": {
-        "foreground": "#ff5352"
+        "foreground": "#fe8770"
       }
     },
     {
@@ -193,7 +193,7 @@
         "meta.diff.header.from-file"
       ],
       "settings": {
-        "foreground": "#ff5352"
+        "foreground": "#fe8770"
       }
     }
   ],

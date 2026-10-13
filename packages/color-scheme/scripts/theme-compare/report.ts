@@ -15,7 +15,7 @@ const escape = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** Competition ranking (1, 2, 2, 4): ties share the better rank, undefined gets none. */
-function ranks(rows: Metrics[], column: Column): Map<string, number> {
+export function ranks(rows: Metrics[], column: Column): Map<string, number> {
   const scored = rows
     .map((row) => ({ key: row.key, value: column.get(row) }))
     .filter((r): r is { key: string; value: number } => r.value !== undefined && Number.isFinite(r.value))

@@ -4,10 +4,8 @@
  * roles (see ADR 0019, "Barrierefreiheit").
  *
  * Token metadata lives in `$extensions["org.samisdat.a11y"]`:
- * - `textTier` on surfaces: "full" | "neutral-only"
+ * - `textTier` on surfaces: "full" | "ink" | "neutral-only"
  * - `exempt` (string, the reason) on any token: skipped in every pair
- * - `apcaMin` (number) + `apcaReason` (string) on a level 2 token: documented
- *   exception from the APCA minimum (see src/apca.ts); aliases inherit it
  *
  * Consumers: the contrast lint (scripts/lint-contrast.ts,
  * terrazzo.contrast.config.ts) and the Storybook contrast grid.
@@ -20,7 +18,12 @@ export type Mode = (typeof modes)[number];
 
 export const A11Y_EXTENSION = "org.samisdat.a11y";
 
-export type TextTier = "full" | "neutral-only";
+/**
+ * - `full`: every `text.*` and `ink.*` (and `syntax.*` where it is a backdrop)
+ * - `ink`: `text.default`, `text.emphasis`, every `ink.*` and `syntax.*`
+ * - `neutral-only`: `text.default`, `text.emphasis`
+ */
+export type TextTier = "full" | "ink" | "neutral-only";
 
 export type ContrastPair = {
   /** e.g. `dark:text.muted/surface.default` */
@@ -41,8 +44,6 @@ type TokenNode = {
     {
       textTier?: TextTier;
       exempt?: string;
-      apcaMin?: number;
-      apcaReason?: string;
     }
   >;
   [key: string]: unknown;
@@ -59,9 +60,6 @@ export type FlatToken = {
   value: string;
   textTier?: TextTier;
   exempt?: string;
-  /** Lowered APCA minimum |Lc| for this token (documented exception). */
-  apcaMin?: number;
-  apcaReason?: string;
 };
 
 /** Flattens a DTCG group into `id -> token`, ids joined with ".". */
@@ -76,8 +74,6 @@ const collect = (group: unknown, path: string[] = []): FlatToken[] => {
         value: String(node.$value),
         textTier: ext?.textTier,
         exempt: ext?.exempt,
-        apcaMin: ext?.apcaMin,
-        apcaReason: ext?.apcaReason,
       },
     ];
   }
@@ -106,13 +102,19 @@ export const MIN_TEXT = 4.5;
 // min 3 (WCAG 1.4.11 non-text contrast). Checking against all surfaces is not
 // practical: border.strong cannot achieve 3:1 on the lighter dark surfaces.
 //
-// `selection` and `highlight` carry `textTier: "neutral-only"` and are picked up
-// automatically as backgrounds for text.default and text.emphasis (min 4.5:1).
+// Tokens with a `textTier` (selection, highlight, surface.*) are picked up
+// automatically as backgrounds. `neutral-only` checks text.default and
+// text.emphasis, `ink` additionally every ink.* and syntax.* (min 4.5:1).
 export const MIN_BORDER = 3;
 const BORDER_STRONG_IDS = ["border.strong", "border.focus"] as const;
 
 const FOREGROUND_GROUPS = ["text", "ink"] as const;
 const NEUTRAL_TEXT = ["text.default", "text.emphasis"];
+
+const allowsForeground = (bg: FlatToken, fg: FlatToken) =>
+  bg.textTier === "full" ||
+  NEUTRAL_TEXT.includes(fg.id) ||
+  (bg.textTier === "ink" && startsWith(fg, "ink"));
 
 export function borderPairs(mode: Mode): ContrastPair[] {
   const tokens = tokensOf(mode);
@@ -141,7 +143,7 @@ export function contrastMatrix(mode: Mode): ContrastPair[] {
   // Foreground first (grid rows), then surface (columns).
   const surfacePairs = foregrounds.flatMap((fg) =>
     surfaces
-      .filter((bg) => bg.textTier === "full" || NEUTRAL_TEXT.includes(fg.id))
+      .filter((bg) => allowsForeground(bg, fg))
       .map((bg) => pair(mode, fg.id, bg.id)),
   );
 
@@ -157,7 +159,15 @@ const pair = (mode: Mode, foreground: string, background: string): ContrastPair 
 });
 
 export const SYNTAX_BACKGROUND = "syntax.background";
-export const SYNTAX_BACKGROUNDS = [SYNTAX_BACKGROUND, "surface.default"] as const;
+const SYNTAX_BASE_BACKGROUNDS = [SYNTAX_BACKGROUND, "surface.default"];
+
+/** Syntax backdrops of a mode: code block, page, and every `ink`-tier surface. */
+export const syntaxBackgrounds = (mode: Mode): string[] => [
+  ...SYNTAX_BASE_BACKGROUNDS,
+  ...tokensOf(mode)
+    .filter((t) => t.textTier === "ink" && !t.exempt)
+    .map((t) => t.id),
+];
 
 /** `syntax.*` foregrounds of a mode (everything but `syntax.background`). */
 export const syntaxForegrounds = (mode: Mode): FlatToken[] =>
@@ -168,7 +178,7 @@ export const syntaxForegrounds = (mode: Mode): FlatToken[] =>
 /** Every syntax foreground on the code background and on the page. */
 export const syntaxPairs = (mode: Mode): ContrastPair[] =>
   syntaxForegrounds(mode).flatMap((fg) =>
-    SYNTAX_BACKGROUNDS.map((bg) => pair(mode, fg.id, bg)),
+    syntaxBackgrounds(mode).map((bg) => pair(mode, fg.id, bg)),
   );
 
 export const contrastMatrixAll = (): ContrastPair[] =>

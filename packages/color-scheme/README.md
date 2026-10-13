@@ -22,7 +22,7 @@ const Box = styled.div`
 `;
 ```
 
-Importe immer über die Subpfade `@samisdat/color-scheme/primitives`, `/semantic`, `/shiki`, `/contrast`, `/apca`. Einen Sammel-Export gibt es bewusst nicht: wyw-in-js (Linaria) kennt für eine reine Re-Export-Datei keinen Abhängigkeitsgraphen und bricht den Build mit `UnknownDependencyGraphResetError` ab.
+Importe immer über die Subpfade `@samisdat/color-scheme/primitives`, `/semantic`, `/shiki`, `/contrast`. Einen Sammel-Export gibt es bewusst nicht: wyw-in-js (Linaria) kennt für eine reine Re-Export-Datei keinen Abhängigkeitsgraphen und bricht den Build mit `UnknownDependencyGraphResetError` ab.
 
 Welcher alte Name (`ivory-soft`, `red-on-light` …) auf welcher Stufe gelandet ist, steht im `$description` der jeweiligen Stufe.
 
@@ -43,11 +43,12 @@ Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 | Skript | Zweck |
 |---|---|
 | `build` | `tz build`: Lint plus `generated/` neu erzeugen |
-| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts`, `scripts/lint-fill.ts` und `scripts/lint-apca.ts` |
+| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts`, `scripts/lint-fill.ts` |
 | `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
 | `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
 | `names:inks` | Namensdistanz der Inks nach c3 (Heer & Stone) pro Mode ausgeben, nur Anzeige (siehe „Farbnamen“) |
 | `compare:themes` | Syntaxfarben gegen bekannte Shiki-Themes messen und ranken, Bericht nach `reports/theme-compare/index.html` (gitignored; Methode und Grenzen in `scripts/theme-compare/README.md`) |
+| `snapshot <id>` | Aktuellen Stand für einen Blogpost einfrieren: misst alles aus den Tokens und schreibt `packages/website/content/snapshots/<id>.json` (siehe „Snapshot für Blogposts“) |
 | `dev` | `tz build --watch` |
 | `generate:scale` | Skalenvorschlag ausgeben (`--write [datei]`, `--migration`) |
 
@@ -59,6 +60,7 @@ Die Prüfmatrix wird aus den Token-Dateien abgeleitet (`src/contrast.ts`, Export
 
 - `text.*` und `ink.*` auf jedem Surface mit `textTier: "full"`: ≥ 4,5:1
 - `text.default` und `text.emphasis` auf Surfaces mit `textTier: "neutral-only"`: ≥ 4,5:1
+- `text.default`, `text.emphasis`, jedes `ink.*` und jedes `syntax.*` auf Surfaces mit `textTier: "ink"`: ≥ 4,5:1. Das sind im Dark Mode `surface.raised`, `highlight` und `selection` (alle `#45385b`). Es gibt keine surface-spezifischen Inks: AAA auf diesen Flächen ergäbe Pastelltöne, die die Distinct-Lints nicht bestehen. `ink.red` hat dort mit 4,52:1 nur eine knappe Marge. Light Mode bleibt `neutral-only`.
 - `status.*` sind Aliase auf `ink.*` und werden nicht doppelt geprüft (`danger` → `ink.red`, `warning` → `ink.orange`, `success` → `ink.green`, `info` → `ink.blue`, in beiden Modes; `ink.yellow` taugt im Light Mode nicht als Warnfarbe, er wirkt olivbraun)
 - Tokens mit `$extensions["org.samisdat.a11y"].exempt` (Begründung als String) sind ausgenommen
   (z. B. `surface.muted`: nur Rahmen und Fortschrittsbalken, kein Text)
@@ -88,58 +90,41 @@ Fehlschlagende Paare erscheinen mit Simulationstyp, Originalwert und simuliertem
 
 **Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
 
-## APCA (zweites Gate)
-
-WCAG 2 überschätzt hellen Text auf dunklem Grund: Die Dark-Mode-Inks erreichten 5,2:1 und mehr, kamen aber nur auf APCA Lc 36–51 (Polaritätsschwäche des WCAG-2-Verhältnisses). Deshalb gilt neben WCAG ein zweites Gate (`src/apca.ts`, Export `@samisdat/color-scheme/apca`, `scripts/lint-apca.ts`, Teil von `lint`; Berechnung mit `apca-w3` 0.1.9):
-
-| Vordergrund | Hintergrund | Schwelle |  Wirkung |
-|---|---|---|---|
-| jedes `ink.*`, jeder `syntax.*`-Vordergrund | `syntax.background` und `surface.default` | \|Lc\| ≥ 60 | Fehler |
-| `text.default` | `syntax.background` und `surface.default` | \|Lc\| ≥ 75 | nur Warnung (dark auf `surface.default`: 74) |
-
-Verglichen wird der Betrag (Polarität egal) ohne Rundung: Lc 59,7 besteht die Schwelle 60 nicht. Der Lint druckt die vollständige Lc-Tabelle pro Mode mit einer Nachkommastelle. Die Werte sind auf Lc ≥ 60,5 abgestimmt, damit sie nicht auf der Schwelle sitzen (Ausnahme: dark `ink.red`).
-
-**Ausnahme**: `$extensions["org.samisdat.a11y"].apcaMin` (Zahl) und `apcaReason` (deutsche Begründung) am Ebene-2-Token. `syntax.*` und `status.*`, die auf ein solches Token zeigen, erben die Ausnahme (`keyword`, `diff-minus`, `status.danger` …). Aktuell eine Ausnahme:
-
-- dark `ink.red`: `apcaMin` 40. Bewusst kräftiges Rot für `keyword`; Entscheidung gegen einen Lachs-Ton, Lc ≈ 44.
-
-Im Storybook zeigt das Contrast Grid in jeder Zelle `WCAG · Lc` (z. B. „5.52 · Lc 42.7“) und markiert Zellen unter dem jeweiligen APCA-Minimum.
-
 ## Ink-Werte
 
-Level-2-Token → Stufe → Wert; WCAG / Lc jeweils auf `syntax.background` und `surface.default`.
+Level-2-Token → Stufe → Wert; WCAG-Verhältnis jeweils auf `syntax.background` und `surface.default`.
 
 Dark:
 
 | Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
 |---|---|---|---|---|
-| `ink.red` | `red.500` | `oklch(0.68 0.208 25)` | 6,24 · Lc 43,8 | 5,52 · Lc 42,7 |
-| `ink.orange` | `orange.400` | `oklch(0.775 0.119 69)` | 9,53 · Lc 61,6 | 8,42 · Lc 60,5 |
-| `ink.yellow` | `yellow.300` | `oklch(0.832 0.162 85.7)` | 11,69 · Lc 72,6 | 10,34 · Lc 71,5 |
-| `ink.green` | `green.400` | `oklch(0.746 0.172 158.1)` | 9,43 · Lc 61,6 | 8,34 · Lc 60,5 |
-| `ink.teal` | `teal.400` | `oklch(0.793 0.132 202.6)` | 10,86 · Lc 68,9 | 9,61 · Lc 67,8 |
-| `ink.cyan` | `cyan.400` | `oklch(0.782 0.048 198.4)` | 10,16 · Lc 64,7 | 8,98 · Lc 63,6 |
-| `ink.blue` | `blue.400` | `oklch(0.767 0.125 248)` | 9,53 · Lc 61,6 | 8,43 · Lc 60,5 |
-| `ink.purple` | `purple.400` | `oklch(0.777 0.078 303.2)` | 9,56 · Lc 61,6 | 8,45 · Lc 60,5 |
-| `ink.pink` | `pink.300` | `oklch(0.807 0.189 326.9)` | 10,02 · Lc 64,4 | 8,86 · Lc 63,3 |
-| `ink.comment` | `periwinkle.300` | `oklch(0.838 0.08 262.6)` | 12,02 · Lc 74,0 | 10,63 · Lc 72,9 |
+| `ink.red` | `red.400` | `oklch(0.738 0.16 32)` | 8,01 | 7,10 |
+| `ink.orange` | `orange.400` | `oklch(0.775 0.119 69)` | 9,53 | 8,42 |
+| `ink.yellow` | `yellow.300` | `oklch(0.832 0.162 85.7)` | 11,69 | 10,34 |
+| `ink.green` | `green.400` | `oklch(0.746 0.172 158.1)` | 9,43 | 8,34 |
+| `ink.teal` | `teal.400` | `oklch(0.793 0.132 202.6)` | 10,86 | 9,61 |
+| `ink.cyan` | `cyan.400` | `oklch(0.782 0.048 198.4)` | 10,16 | 8,98 |
+| `ink.blue` | `blue.400` | `oklch(0.767 0.125 248)` | 9,53 | 8,43 |
+| `ink.purple` | `purple.400` | `oklch(0.777 0.078 303.2)` | 9,56 | 8,45 |
+| `ink.pink` | `pink.300` | `oklch(0.807 0.189 326.9)` | 10,02 | 8,86 |
+| `ink.comment` | `periwinkle.300` | `oklch(0.838 0.08 262.6)` | 12,02 | 10,63 |
 
 Light:
 
 | Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
 |---|---|---|---|---|
-| `ink.red` | `red.800` | `oklch(0.416 0.155 12.5)` | 6,86 · Lc 69,7 | 5,84 · Lc 60,5 |
-| `ink.orange` | `orange.800` | `oklch(0.404 0.102 53.4)` | 6,88 · Lc 70,9 | 5,86 · Lc 61,8 |
-| `ink.yellow` | `yellow.800` | `oklch(0.33 0.069 75.8)` | 9,04 · Lc 77,7 | 7,70 · Lc 68,5 |
-| `ink.green` | `green.800` | `oklch(0.377 0.084 139.9)` | 7,18 · Lc 72,3 | 6,12 · Lc 63,2 |
-| `ink.teal` | `teal.800` | `oklch(0.407 0.041 204.9)` | 6,43 · Lc 69,7 | 5,48 · Lc 60,6 |
-| `ink.cyan` | `cyan.900` | `oklch(0.326 0.054 204.2)` | 8,89 · Lc 77,1 | 7,57 · Lc 67,9 |
-| `ink.blue` | `blue.700` | `oklch(0.422 0.237 269.5)` | 6,79 · Lc 69,7 | 5,78 · Lc 60,5 |
-| `ink.purple` | `purple.800` | `oklch(0.37 0.192 305)` | 8,49 · Lc 74,3 | 7,23 · Lc 65,2 |
-| `ink.pink` | `pink.800` | `oklch(0.392 0.168 342.4)` | 7,66 · Lc 71,9 | 6,52 · Lc 62,8 |
-| `ink.comment` | `periwinkle.700` | `oklch(0.422 0.138 287.2)` | 6,48 · Lc 69,7 | 5,52 · Lc 60,5 |
+| `ink.red` | `red.800` | `oklch(0.416 0.155 12.5)` | 6,86 | 5,84 |
+| `ink.orange` | `orange.800` | `oklch(0.404 0.102 53.4)` | 6,88 | 5,86 |
+| `ink.yellow` | `yellow.800` | `oklch(0.33 0.069 75.8)` | 9,04 | 7,70 |
+| `ink.green` | `green.800` | `oklch(0.377 0.084 139.9)` | 7,18 | 6,12 |
+| `ink.teal` | `teal.800` | `oklch(0.407 0.041 204.9)` | 6,43 | 5,48 |
+| `ink.cyan` | `cyan.900` | `oklch(0.326 0.054 204.2)` | 8,89 | 7,57 |
+| `ink.blue` | `blue.700` | `oklch(0.422 0.237 269.5)` | 6,79 | 5,78 |
+| `ink.purple` | `purple.800` | `oklch(0.37 0.192 305)` | 8,49 | 7,23 |
+| `ink.pink` | `pink.800` | `oklch(0.392 0.168 342.4)` | 7,66 | 6,52 |
+| `ink.comment` | `periwinkle.700` | `oklch(0.422 0.138 287.2)` | 6,48 | 5,52 |
 
-Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Die Werte sind auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082), Farbfehlsichtigkeit (0,04 → 0,041) und APCA (60 → 60,5) abgestimmt, die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
+Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Die Werte sind auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082) und Farbfehlsichtigkeit (0,04 → 0,041) abgestimmt, die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
 
 ## Füllungen (`highlight`, `selection`)
 
@@ -154,7 +139,19 @@ Stand: Je 4 von 45 Ink-Paaren teilen sich pro Mode den wahrscheinlichsten Namen.
 - Dark: `teal`, `cyan` und `blue` heißen alle vorwiegend „blue" (Distanz 0,38–0,52), `orange` und `yellow` „orange". `ink.comment` wird „lightblue" genannt und liegt nah an `ink.blue`.
 - Light: Die dunklen Inks (L 0,33–0,42) verschieben die Namen. `ink.yellow` heißt zu 87 % „brown" und teilt den Namen mit `ink.orange` (Distanz 0,352), `purple`, `pink` und `comment` sind alle „purple".
 
-**Entscheidung: kein Lint.** (1) Die Schwelle wäre willkürlich, c3 liefert keinen anerkannten Grenzwert; die Hellinger-Distanz hat keine Einheit wie ΔE. (2) Im Light Mode ist die Namensverschiebung eine Folge der dunklen Inks, die für Kontrast (WCAG, APCA) nötig sind; ein Gate würde Hue-Verschiebungen erzwingen, die gegen die bereits knapp abgestimmten ΔE-, CVD- und Kontrastgrenzen arbeiten (Marge 0,002). (3) Code-Farben werden über Position und Kontext gelesen, nicht über ihren Namen; die Namen helfen beim Besprechen („der blaue Ink"), nicht beim Lesen. (4) Das Modell stammt aus einer englischsprachigen Online-Umfrage von 2010 auf unkalibrierten Bildschirmen. Die Ausgabe ist ein Hinweis beim Ändern von Inks, kein Befund. Wenn ein Paar später in der Praxis verwechselt wird, ist ein Lint auf einzelne Paare (nicht auf alle) der nächste Schritt.
+**Entscheidung: kein Lint.** (1) Die Schwelle wäre willkürlich, c3 liefert keinen anerkannten Grenzwert; die Hellinger-Distanz hat keine Einheit wie ΔE. (2) Im Light Mode ist die Namensverschiebung eine Folge der dunklen Inks, die für Kontrast (WCAG) nötig sind; ein Gate würde Hue-Verschiebungen erzwingen, die gegen die bereits knapp abgestimmten ΔE-, CVD- und Kontrastgrenzen arbeiten (Marge 0,002). (3) Code-Farben werden über Position und Kontext gelesen, nicht über ihren Namen; die Namen helfen beim Besprechen („der blaue Ink"), nicht beim Lesen. (4) Das Modell stammt aus einer englischsprachigen Online-Umfrage von 2010 auf unkalibrierten Bildschirmen. Die Ausgabe ist ein Hinweis beim Ändern von Inks, kein Befund. Wenn ein Paar später in der Praxis verwechselt wird, ist ein Lint auf einzelne Paare (nicht auf alle) der nächste Schritt.
+
+## Snapshot für Blogposts
+
+Die Komponenten `ColorSchemeSnapshot` und `Snapshot*` (`packages/ui-components/src/ColorSchemeSnapshot`) zeigen das Schema in einem Post. Sie rechnen nichts und lesen weder Tokens noch CSS-Variablen der Seite, sondern nur eine JSON-Datei. So bleibt ein alter Post unverändert, wenn sich das Schema später ändert.
+
+1. `pnpm build` (die Shiki-Themes werden aus `generated/` gelesen), dann `pnpm --filter @samisdat/color-scheme snapshot <id>`, z. B. `2026-10`.
+2. Die Datei `content/snapshots/<id>.json` wird committet und danach nicht mehr geändert. Für ein Update einen neuen Snapshot mit neuer ID anlegen.
+3. Im Post: `<ColorSchemeSnapshot id="2026-10">` als Rahmen, darin beliebige Bausteine (`SnapshotInks`, `SnapshotMatrix`, `SnapshotCode`, `SnapshotModes`, `SnapshotCvd`, `SnapshotDistinct`, `SnapshotScales`, `SnapshotExceptions`, `SnapshotEditor`) mit Text dazwischen. Beispiel: `content/posts/colorscheme-snapshot.mdx`.
+
+Der Rahmen zeigt ID, Datum und Git-Hash (ein `+` heißt: zum Zeitpunkt lag Uncommittetes in diesem Paket) und hat einen eigenen Dunkel/Hell-Schalter. Er startet mit dem Seiten-Theme. Das Format steht in `scripts/snapshot/types.ts`; ändert es sich inkompatibel, wird `version` erhöht und die Komponenten müssen beide Versionen lesen.
+
+Alle Werte kommen aus Skripten: WCAG-Kontrast aus `src/contrast.ts`/culori, Farbabstand und Farbfehlsichtigkeit mit culori, Farbnamen aus dem c3-Modell. Der Code im Beispiel steht in `scripts/snapshot/code-sample.ts`.
 
 ## Syntax (Ebene 3)
 

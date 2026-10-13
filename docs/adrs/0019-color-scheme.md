@@ -98,10 +98,15 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   - `text.*` und `ink.*` auf jedem Surface mit `textTier: full`: ≥ 4.5:1
   - `border.strong`, `border.focus` auf `surface.default`: ≥ 3:1 (WCAG 1.4.11; gegen alle Surfaces nicht praktikabel, da dunkle Mid-Surfaces keine 3:1-Lücke für einen sichtbaren Rahmen lassen)
   - `syntax.*` auf `syntax.background` und `surface.default`: ≥ 4.5:1
-- Surfaces tragen `textTier: full | neutral-only`. Auf `neutral-only`
-  stehen nur `text.default` und `text.emphasis`. `selection` und `highlight`
-  nutzen `neutral-only`; ihr Hintergrund wird automatisch in die Matrix
-  aufgenommen, sobald `textTier` gesetzt ist.
+- Surfaces tragen `textTier: full | ink | neutral-only`. Auf `neutral-only`
+  stehen nur `text.default` und `text.emphasis`. Auf `ink` zusätzlich jedes
+  `ink.*` und `syntax.*` (≥ 4.5:1). Im Dark Mode tragen `surface.raised`,
+  `selection` und `highlight` `ink`, weil dort Inks und Syntaxfarben stehen
+  (Selektion im Editor, Hervorhebung im Text); `ink.red` hat mit 4.52:1 die
+  knappste Marge. Surface-spezifische Inks gibt es nicht: AAA auf diesen
+  Flächen ergäbe Pastelltöne, die die Distinct-Lints nicht bestehen. Im Light
+  Mode bleiben sie `neutral-only`. Der Hintergrund wird automatisch in die
+  Matrix aufgenommen, sobald `textTier` gesetzt ist.
 - Auch `text.muted` und Code-Kommentare erfüllen 4.5:1.
 - Ausnahmen (dekorativ, deaktiviert) stehen begründet im Token unter
   `$extensions["org.samisdat.a11y"].exempt`; so ist `surface.muted`
@@ -114,15 +119,12 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   Weil Codefarben auch im Fließtext stehen, wird jede Syntaxfarbe auf
   beiden Flächen geprüft.
 - Geprüft werden die Endpunkte des Theme-Morphings, nicht Zwischenframes.
-- **APCA als zweites Gate**: WCAG 2 überschätzt hellen Text auf dunklem
-  Grund (Dark-Mode-Inks mit ≥ 5,2:1 erreichten nur Lc 36–51). Jedes `ink.*`
-  und jeder `syntax.*`-Vordergrund braucht |Lc| ≥ 60 auf `syntax.background`
-  und `surface.default`; `text.default` ≥ 75 gilt nur als Warnung. Ausnahmen
-  stehen mit Begründung im Token (`apcaMin`, `apcaReason`), Aliase erben sie.
-  Bewusste Ausnahme: dark `ink.red` (keyword) mit Lc ≈ 44. Ein helles Rot,
-  das Lc 60 erreicht, ist in sRGB zwangsläufig entsättigt (Lachs); die
-  Gestaltungsentscheidung fiel für ein kräftiges Rot. Fettschrift für
-  Keywords als Alternative (Lc 50) wurde verglichen und verworfen.
+- **APCA** war kurz ein zweites Gate (|Lc| ≥ 60 auf Code-Hintergrund und Seite,
+  Ausnahmen per `apcaMin`). Stand 2026-10 entfernt: für einen privaten Blog
+  übertrieben, WCAG 2 bleibt das einzige Maß. Dark `ink.red` ist
+  `oklch(0.738 0.16 32)`, damit alle Inks auf `surface.default` AAA (7:1)
+  erreichen; das Rot ist heller und wärmer, aber weiter kräftig (Chroma 0,16
+  am sRGB-Rand).
 
 ### Konsumenten
 
@@ -165,7 +167,7 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 - **Farbfehlsichtigkeit** (vorher „später“, jetzt aktiv): Protanopie,
   Deuteranopie und Tritanopie simuliert (Machado 2009, Schweregrad 1);
   ΔE OK ≥ 0,04 zwischen allen Inks sowie zwischen Inks und `text.default` /
-  `text.secondary`. APCA: siehe Barrierefreiheit.
+  `text.secondary`.
 - **Später**: `terminal.*` (ANSI-Palette) für zsh, herdr und nvim;
   Farbnamen-Unterscheidbarkeit (Heer & Stone, c3-Modell).
 
@@ -217,7 +219,8 @@ Phase 6 — `border.*`, `selection`, `highlight`:
   gegen alle Surfaces: auf den hellsten Dark-Surfaces ist kein sichtbarer
   Rahmen mit 3:1 möglich).
 - `selection` und `highlight` tragen `textTier: neutral-only`; die
-  Kontrastmatrix prüft `text.default` und `text.emphasis` automatisch.
+  Kontrastmatrix prüft `text.default` und `text.emphasis` automatisch. (Im
+  Dark Mode später auf `ink` angehoben, siehe „Barrierefreiheit“.)
 - Alle Komponenten, die `surface.muted` als Rahmenfarbe nutzten (Card,
   PlaybackControl, Navi, Demo/Parallax), nutzen jetzt `border.default`.
   Der dekorative Navi-Scrollbalken nutzt `border.muted`.

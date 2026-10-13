@@ -2,7 +2,7 @@
  * Measures how readable and how distinguishable the syntax colors of a Shiki
  * theme are on a fixed code sample (scripts/theme-compare/samples).
  *
- * Per theme: WCAG 2 and APCA contrast against the editor background,
+ * Per theme: WCAG 2 contrast against the editor background,
  * perceptual distance between the colors that are actually used (ΔE OK and
  * ΔE2000), the same distance after simulating protan/deutan/tritan vision, and
  * the lightness spread of the accent colors. Per family with both a dark and a
@@ -27,7 +27,6 @@ import {
   type Color,
 } from "culori";
 import { createHighlighter, type BundledLanguage, type ThemeRegistrationAny } from "shiki";
-import { apcaAbs } from "../../src/apca";
 import type { Mode } from "../../src/contrast";
 
 export type Variant = {
@@ -44,7 +43,6 @@ export type Entry = {
   /** Share of the sample's non-blank characters. */
   weight: number;
   wcag: number;
-  lc: number;
   /** OKLCH lightness. */
   l: number;
   chroma: number;
@@ -53,10 +51,10 @@ export type Entry = {
 
 export type Correspondence = {
   roles: number;
-  /** Spearman rank correlation of |Lc| per role, dark vs. light. */
+  /** Spearman rank correlation of the WCAG ratio per role, dark vs. light. */
   spearman: number;
-  /** Weighted mean |Lc(dark) - Lc(light)| over all roles. */
-  meanAbsDiffLc: number;
+  /** Weighted mean |ratio(dark) - ratio(light)| over all roles. */
+  meanAbsDiffWcag: number;
 };
 
 export type Metrics = {
@@ -68,11 +66,10 @@ export type Metrics = {
   colors: number;
   accents: number;
   wcag: { min: number; median: number; share45: number; share7: number };
-  apca: { min: number; median: number; share45: number; share60: number; share75: number };
   distance: { min: number; pair: Pair | null; below008: number; pairs: number };
   accentDistance: { min: number; pair: Pair | null; below008: number; pairs: number; minDeltaE2000: number };
   cvd: Record<"protan" | "deutan" | "tritan", { min: number; pair: Pair | null; below004: number }>;
-  lightness: { mean: number; sd: number; range: number; lcSd: number };
+  lightness: { mean: number; sd: number; range: number };
   correspondence?: Correspondence;
   palette: Entry[];
 };
@@ -223,7 +220,6 @@ function measureOne(variant: Variant, stream: Stream): Metrics {
         color: c,
         weight: count / total,
         wcag: wcagContrast(c, background),
-        lc: apcaAbs(c, background),
         l: lch.l,
         chroma: lch.c ?? 0,
         hue: lch.h ?? 0,
@@ -232,7 +228,7 @@ function measureOne(variant: Variant, stream: Stream): Metrics {
     .sort((a, b) => b.weight - a.weight);
 
   const share = (test: (e: Entry) => boolean) => palette.filter(test).reduce((a, e) => a + e.weight, 0);
-  const weightedMedian = (key: "wcag" | "lc") => {
+  const weightedMedian = (key: "wcag") => {
     let acc = 0;
     for (const e of [...palette].sort((a, b) => a[key] - b[key])) {
       acc += e.weight;
@@ -247,7 +243,6 @@ function measureOne(variant: Variant, stream: Stream): Metrics {
   const nearest = minOf(all, "ok");
   const nearestAccent = minOf(accent, "ok");
   const lightness = accentEntries.map((e) => e.l);
-  const lcs = accentEntries.map((e) => e.lc);
 
   return {
     key: `${variant.family}|${variant.mode}`,
@@ -262,13 +257,6 @@ function measureOne(variant: Variant, stream: Stream): Metrics {
       median: weightedMedian("wcag"),
       share45: share((e) => e.wcag >= 4.5),
       share7: share((e) => e.wcag >= 7),
-    },
-    apca: {
-      min: Math.min(...palette.map((e) => e.lc)),
-      median: weightedMedian("lc"),
-      share45: share((e) => e.lc >= 45),
-      share60: share((e) => e.lc >= 60),
-      share75: share((e) => e.lc >= 75),
     },
     distance: {
       min: nearest.value,
@@ -289,7 +277,7 @@ function measureOne(variant: Variant, stream: Stream): Metrics {
         return [name, { min: worst.value, pair: worst.pair, below004: accent.filter((p) => p[name] < 0.04).length }];
       }),
     ) as Metrics["cvd"],
-    lightness: { mean: mean(lightness), sd: sd(lightness), range: Math.max(...lightness) - Math.min(...lightness), lcSd: sd(lcs) },
+    lightness: { mean: mean(lightness), sd: sd(lightness), range: Math.max(...lightness) - Math.min(...lightness) },
     palette,
   };
 }
@@ -319,13 +307,13 @@ function correspondence(dark: Stream, light: Stream): Correspondence {
     .filter(([, n]) => n / dark.chars.length >= MIN_WEIGHT)
     .map(([key, n]) => {
       const [d, l] = key.split(">");
-      return { w: n / dark.chars.length, dark: apcaAbs(d, dark.background), light: apcaAbs(l, light.background) };
+      return { w: n / dark.chars.length, dark: wcagContrast(d, dark.background), light: wcagContrast(l, light.background) };
     });
   const weight = rows.reduce((a, r) => a + r.w, 0);
   return {
     roles: rows.length,
     spearman: spearman(rows.map((r) => r.dark), rows.map((r) => r.light)),
-    meanAbsDiffLc: rows.reduce((a, r) => a + Math.abs(r.dark - r.light) * r.w, 0) / weight,
+    meanAbsDiffWcag: rows.reduce((a, r) => a + Math.abs(r.dark - r.light) * r.w, 0) / weight,
   };
 }
 
