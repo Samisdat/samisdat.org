@@ -12,6 +12,18 @@ import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import * as ClientDemos from './ClientAnimations';
+import { SnapshotFrame } from './SnapshotFrame';
+import {
+    SnapshotCode,
+    SnapshotCvd,
+    SnapshotDistinct,
+    SnapshotEditor,
+    SnapshotExceptions,
+    SnapshotInks,
+    SnapshotMatrix,
+    SnapshotModes,
+    SnapshotScales,
+} from '@samisdat/ui-components/ColorSchemeSnapshot';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -76,6 +88,17 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
         DemoAnimationsDisc: ClientDemos.DemoAnimationsDisc,
         DemoAnimationsCrank: ClientDemos.DemoAnimationsCrank,
+        // Color scheme snapshot: frame loads content/snapshots/<id>.json, blocks render it
+        ColorSchemeSnapshot: SnapshotFrame,
+        SnapshotInks,
+        SnapshotMatrix,
+        SnapshotCode,
+        SnapshotModes,
+        SnapshotCvd,
+        SnapshotDistinct,
+        SnapshotScales,
+            SnapshotExceptions,
+        SnapshotEditor,
     };
 
     const hasSandbox = sandboxFiles && Object.keys(sandboxFiles).length > 0;
