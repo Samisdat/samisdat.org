@@ -3,7 +3,8 @@
 import { styled } from "@linaria/react";
 import { useState, type CSSProperties, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, LevelBadge, Mono, Panel, Scroll, Segmented, Title, label, ratio } from "./ui";
+import { Block, BlockHead, Hint, LevelBadge, Mono, Panel, Scroll, Title, label, ratio } from "./ui";
+import { Segmented } from "../Segmented";
 
 const Chart = styled.div`
   position: relative;

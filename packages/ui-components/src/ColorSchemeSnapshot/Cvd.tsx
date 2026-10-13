@@ -3,7 +3,8 @@
 import { styled } from "@linaria/react";
 import { useMemo, useState, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Badge, Block, BlockHead, Hint, Mono, Scroll, Segmented, Title, label } from "./ui";
+import { Badge, Block, BlockHead, Hint, Mono, Scroll, Title, label } from "./ui";
+import { Segmented } from "../Segmented";
 
 type Vision = "normal" | "protan" | "deutan" | "tritan";
 

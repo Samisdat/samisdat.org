@@ -4,7 +4,8 @@ import { styled } from "@linaria/react";
 import type { CodeLine } from "@samisdat/color-scheme/snapshot-types";
 import { useState, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hidden, Hint, LevelBadge, Mono, Panel, Scroll, Segmented, Title, ratio } from "./ui";
+import { Block, BlockHead, Hidden, Hint, LevelBadge, Mono, Panel, Scroll, Title, ratio } from "./ui";
+import { Segmented } from "../Segmented";
 
 export const Pre = styled.pre`
   margin: 0;
