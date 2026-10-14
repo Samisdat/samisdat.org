@@ -41,9 +41,39 @@ const Styling = styled.div`
   }
 
   color: var(--color-surface-default);
+
+  /* Wraps the speed group below the buttons once it no longer fits */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.5rem;
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const SpeedRow = styled(Row)`
+  flex: 1 1 22rem;
+  min-width: 0;
+`;
+
+const SliderWrap = styled.span`
+  display: flex;
+  align-items: center;
+  flex: 1 1 8rem;
+  min-width: 8rem;
+
+  & > input {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 `;
 
 const Notice = styled.div`
+  flex: 0 0 100%;
   margin-top: 0.5rem;
   font-size: 0.85em;
   opacity: 0.8;
@@ -94,7 +124,7 @@ export const PlaybackControl = ({
     }
 
     return (
-      <>
+      <SpeedRow>
         <PlayPauseButton
           type="button"
           value="decrement"
@@ -102,16 +132,18 @@ export const PlaybackControl = ({
         >
           [ - ]
         </PlayPauseButton>
-        [
-        <RangeSlider
-          aria-label="Speed"
-          onChange={handleSpeedChange}
-          step={speedStep}
-          min={speedMin}
-          max={speedMax}
-          value={speed}
-        />
-        ]
+        <SliderWrap>
+          [
+          <RangeSlider
+            aria-label="Speed"
+            onChange={handleSpeedChange}
+            step={speedStep}
+            min={speedMin}
+            max={speedMax}
+            value={speed}
+          />
+          ]
+        </SliderWrap>
         <PlayPauseButton
           type="button"
           value="increment"
@@ -120,24 +152,26 @@ export const PlaybackControl = ({
           [ + ]
         </PlayPauseButton>
         Speed ({speed}x)
-      </>
+      </SpeedRow>
     );
   };
 
   return (
     <Styling>
-      {isPlaying ? (
-        <PlayPauseButton type="button" onClick={onPause}>
-          [ <Icon>⏸</Icon> Pause ]
+      <Row>
+        {isPlaying ? (
+          <PlayPauseButton type="button" onClick={onPause}>
+            [ <Icon>⏸</Icon> Pause ]
+          </PlayPauseButton>
+        ) : (
+          <PlayPauseButton type="button" onClick={onPlay}>
+            [ <Icon>▶</Icon> Play ]
+          </PlayPauseButton>
+        )}
+        <PlayPauseButton type="button" onClick={onReset}>
+          [ ↺ Reset ]
         </PlayPauseButton>
-      ) : (
-        <PlayPauseButton type="button" onClick={onPlay}>
-          [ <Icon>▶</Icon> Play ]
-        </PlayPauseButton>
-      )}
-      <PlayPauseButton type="button" onClick={onReset}>
-        [ ↺ Reset ]
-      </PlayPauseButton>
+      </Row>
       {getSpeedControls()}
       {notice && <Notice>{notice}</Notice>}
     </Styling>
