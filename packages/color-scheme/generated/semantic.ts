@@ -65,7 +65,7 @@ export const semantic = {
     "terminal.ansi5": "oklch(0.777 0.078 303.2)",
     "terminal.ansi6": "oklch(0.782 0.048 198.4)",
     "terminal.ansi7": "oklch(0.854 0.037 30)",
-    "terminal.ansi8": "oklch(0.22 0.05 300)",
+    "terminal.ansi8": "oklch(0.57 0.04 300)",
     "terminal.ansi9": "oklch(0.775 0.119 69)",
     "terminal.ansi10": "oklch(0.746 0.172 158.1)",
     "terminal.ansi11": "oklch(0.832 0.162 85.7)",

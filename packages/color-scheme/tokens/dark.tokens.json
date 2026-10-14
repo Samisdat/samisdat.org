@@ -277,8 +277,8 @@
       "$description": "white"
     },
     "ansi8": {
-      "$value": "{surface.default}",
-      "$description": "bright black"
+      "$value": "{surface.muted}",
+      "$description": "bright black (muted/dim foreground used by many TUI tools, e.g. shell completion descriptions; needs real contrast against background, not a near-identical surface tone)"
     },
     "ansi9": {
       "$value": "{ink.copper}",
