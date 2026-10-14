@@ -4,6 +4,11 @@ import { styled } from "@linaria/react";
 import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import { useEffect, useRef, useState } from "react";
+import {
+  formatDuration,
+  SPEED_MULTIPLIER_PROPS,
+  useSpeedDuration,
+} from "../../PlaybackControl/useSpeedDuration";
 import { useDemoContext } from "../DemoContext";
 
 const svgNamespace = "http://www.w3.org/2000/svg";
@@ -75,11 +80,13 @@ const DiscSvg = ({ initialDur }: { initialDur: number }) => {
 
 export const DemoAnimationsDisc = () => {
   const ctx = useDemoContext();
-  const initialSpeed = parseFloat(ctx?.values.duration ?? '6') || 6;
+  const baseDurationRef = useRef(parseFloat(ctx?.values.duration ?? "6") || 6);
+  const { speed, setSpeed, resetSpeed, duration } = useSpeedDuration(
+    baseDurationRef.current,
+  );
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [speed, setSpeed] = useState(initialSpeed);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getSvg = () =>
@@ -95,12 +102,12 @@ export const DemoAnimationsDisc = () => {
   useEffect(() => {
     containerRef.current
       ?.querySelector("animate, animateTransform")
-      ?.setAttribute("dur", `${speed}s`);
-  }, [speed]);
+      ?.setAttribute("dur", `${duration}s`);
+  }, [duration]);
 
   const onSpeedChange = (value: number) => {
     setSpeed(value);
-    ctx?.setValue('duration', `${value}s`);
+    ctx?.setValue("duration", formatDuration(baseDurationRef.current / value));
   };
 
   const onPlay = () => {
@@ -119,8 +126,8 @@ export const DemoAnimationsDisc = () => {
       svg.pauseAnimations();
       svg.setCurrentTime(0);
     }
-    setSpeed(initialSpeed);
-    ctx?.setValue('duration', `${initialSpeed}s`);
+    resetSpeed();
+    ctx?.setValue("duration", formatDuration(baseDurationRef.current));
     setIsPlaying(false);
   };
 
@@ -129,8 +136,7 @@ export const DemoAnimationsDisc = () => {
       ref={containerRef}
       playbackControl={{
         isPlaying,
-        speedMin: 1,
-        speedMax: 80,
+        ...SPEED_MULTIPLIER_PROPS,
         speedControl: true,
         speed,
         onSpeedChange,
@@ -139,7 +145,7 @@ export const DemoAnimationsDisc = () => {
         onReset,
       }}
     >
-      <DiscSvg initialDur={speed} />
+      <DiscSvg initialDur={duration} />
     </DemoAnimation>
   );
 };
