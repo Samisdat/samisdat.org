@@ -172,7 +172,7 @@ export const ColorSchemeSnapshot: FC<Props> = ({ data, children }) => {
                   checked={mode === value}
                   onChange={() => setMode(value)}
                 />
-                <span>{value === "dark" ? "Dunkel" : "Hell"}</span>
+                <span>{value === "dark" ? "Dark" : "Light"}</span>
               </label>
             ))}
           </Switch>
