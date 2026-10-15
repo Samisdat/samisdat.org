@@ -72,12 +72,36 @@ const SliderWrap = styled.span`
   }
 `;
 
+const SpeedLabel = styled.span`
+  display: inline-block;
+  flex: none;
+  white-space: pre;
+`;
+
 const Notice = styled.div`
   flex: 0 0 100%;
   margin-top: 0.5rem;
   font-size: 0.85em;
   opacity: 0.8;
 `;
+
+const formatSpeed = (speed: number) => `${Number(speed.toFixed(2))}x`;
+
+const countDecimals = (value: number) =>
+  Math.min(2, (String(value).split(".")[1] ?? "").length);
+
+/** Width in ch of the longest label the slider range can produce. */
+const getLabelWidth = (min: number, max: number, step: number) => {
+  const decimals = Math.max(countDecimals(step), countDecimals(min));
+  const digits = Math.max(
+    String(Math.trunc(min)).length,
+    String(Math.trunc(max)).length,
+  );
+  const number = digits + (decimals > 0 ? decimals + 1 : 0);
+
+  // " Speed (" + number + "x)"
+  return 8 + number + 2;
+};
 
 export interface PlaybackControlProps {
   isPlaying: boolean;
@@ -151,7 +175,14 @@ export const PlaybackControl = ({
         >
           [ + ]
         </PlayPauseButton>
-        Speed ({speed}x)
+        <SpeedLabel
+          style={{
+            width: `${getLabelWidth(speedMin, speedMax, speedStep)}ch`,
+          }}
+        >
+          {" "}
+          Speed ({formatSpeed(speed)})
+        </SpeedLabel>
       </SpeedRow>
     );
   };
