@@ -2,7 +2,11 @@
 
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  SPEED_MULTIPLIER_PROPS,
+  useSpeedDuration,
+} from "../../PlaybackControl/useSpeedDuration";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 const SvgStyling = styled.svg`
   .shape {
@@ -28,8 +32,25 @@ const SvgStyling = styled.svg`
     pointer-events: none;
   }
 
+  .point .ring {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+  }
+
+  .target {
+    fill: none;
+    stroke: #1e142e;
+    stroke-width: 3;
+    stroke-dasharray: 8 6;
+  }
+
   .good {
     color: var(--color-ink-jade);
+  }
+
+  .middle {
+    color: var(--color-ink-gold);
   }
 
   .bad {
@@ -49,37 +70,37 @@ const Point = ({
   const cx = cxValues.split(";")[0].trim();
   const cy = cyValues.split(";")[0].trim();
 
+  const animations = (xName: string, yName: string) => (
+    <>
+      <animate
+        attributeName={xName}
+        dur="3s"
+        repeatCount="indefinite"
+        values={cxValues}
+      />
+      <animate
+        attributeName={yName}
+        dur="3s"
+        repeatCount="indefinite"
+        values={cyValues}
+      />
+    </>
+  );
+
   return (
     <g className="point">
+      {label === 0 ? (
+        <circle className="ring" cx={cx} cy={cy} r={21}>
+          {animations("cx", "cy")}
+        </circle>
+      ) : null}
       <circle cx={cx} cy={cy} r={15}>
-        <animate
-          attributeName="cx"
-          dur="3s"
-          repeatCount="indefinite"
-          values={cxValues}
-        />
-        <animate
-          attributeName="cy"
-          dur="3s"
-          repeatCount="indefinite"
-          values={cyValues}
-        />
+        {animations("cx", "cy")}
       </circle>
 
       <text x={cx} y={cy}>
         {label}
-        <animate
-          attributeName="x"
-          dur="3s"
-          repeatCount="indefinite"
-          values={cxValues}
-        />
-        <animate
-          attributeName="y"
-          dur="3s"
-          repeatCount="indefinite"
-          values={cyValues}
-        />
+        {animations("x", "y")}
       </text>
     </g>
   );
@@ -103,6 +124,16 @@ const goodSquarePath = `
   Z
 `;
 
+// Starts at the opposite corner: every point travels through the center.
+const middleSquarePath = `
+  M 240 240
+  C 240 240 60 240 60 240
+  C 60 240 60 60 60 60
+  C 60 60 240 60 240 60
+  C 240 60 240 240 240 240
+  Z
+`;
+
 const badSquarePath = `
   M 60 60
   C 60 60 240 240 240 240
@@ -123,10 +154,28 @@ const MorphShape = ({ morphTo }: { morphTo: string }) => (
   </path>
 );
 
+const Case = ({
+  className,
+  x,
+  morphTo,
+  children,
+}: {
+  className: string;
+  x: number;
+  morphTo: string;
+  children: ReactNode;
+}) => (
+  <g className={className} transform={`translate(${x}, 0)`}>
+    <rect className="target" x={60} y={60} width={180} height={180} />
+    <MorphShape morphTo={morphTo} />
+    {children}
+  </g>
+);
+
 export const DemoAnimationsMorphGood = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [speed, setSpeed] = useState(40);
+  const { speed, setSpeed, resetSpeed, duration } = useSpeedDuration(40);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getSvg = useCallback(
@@ -145,12 +194,10 @@ export const DemoAnimationsMorphGood = () => {
     const svg = getSvg();
     if (!svg) return;
     svg.querySelectorAll("animate")
-      .forEach((el) => el.setAttribute("dur", `${speed}s`));
-  }, [getSvg, speed]);
+      .forEach((el) => el.setAttribute("dur", `${duration}s`));
+  }, [getSvg, duration]);
 
-  const onSpeedChange = useCallback((value: number) => {
-    setSpeed(value);
-  }, []);
+  const onSpeedChange = setSpeed;
 
   const onPlay = useCallback(() => {
     getSvg()?.unpauseAnimations();
@@ -168,17 +215,16 @@ export const DemoAnimationsMorphGood = () => {
       svg.pauseAnimations();
       svg.setCurrentTime(0);
     }
-    setSpeed(40);
+    resetSpeed();
     setIsPlaying(false);
-  }, [getSvg]);
+  }, [getSvg, resetSpeed]);
 
   return (
     <DemoAnimation
       ref={containerRef}
       playbackControl={{
         isPlaying,
-        speedMin: 1,
-        speedMax: 80,
+        ...SPEED_MULTIPLIER_PROPS,
         speed,
         onSpeedChange,
         onPlay,
@@ -186,21 +232,37 @@ export const DemoAnimationsMorphGood = () => {
         onReset,
       }}
     >
-      <SvgStyling viewBox="0 0 600 300">
-        <g className="good">
-          <MorphShape morphTo={goodSquarePath} />
+      <SvgStyling viewBox="0 0 900 300">
+        <Case
+          className="good"
+          x={0}
+          morphTo={goodSquarePath}
+        >
           <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
           <Point label={1} cxValues="265;240;265" cyValues="150;60;150" />
           <Point label={2} cxValues="150;240;150" cyValues="265;240;265" />
           <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
-        </g>
-        <g className="bad" transform="translate(300, 0)">
-          <MorphShape morphTo={badSquarePath} />
+        </Case>
+        <Case
+          className="middle"
+          x={300}
+          morphTo={middleSquarePath}
+        >
+          <Point label={0} cxValues="150;240;150" cyValues="35;240;35" />
+          <Point label={1} cxValues="265;60;265" cyValues="150;240;150" />
+          <Point label={2} cxValues="150;60;150" cyValues="265;60;265" />
+          <Point label={3} cxValues="35;240;35" cyValues="150;60;150" />
+        </Case>
+        <Case
+          className="bad"
+          x={600}
+          morphTo={badSquarePath}
+        >
           <Point label={0} cxValues="150;60;150" cyValues="35;60;35" />
           <Point label={1} cxValues="265;240;265" cyValues="150;240;150" />
           <Point label={2} cxValues="150;240;150" cyValues="265;60;265" />
           <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
-        </g>
+        </Case>
       </SvgStyling>
     </DemoAnimation>
   );
