@@ -259,6 +259,13 @@ importers:
         version: 4.1.11(@types/node@26.6.4)(@vitest/browser-playwright@4.1.11)(@vitest/coverage-v8@4.1.11)(happy-dom@20.14.5)(vite@7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/storybook:
+    dependencies:
+      '@fontsource-variable/inter':
+        specifier: ^5.3.0
+        version: 5.3.0
+      '@fontsource-variable/inter-tight':
+        specifier: ^5.3.0
+        version: 5.3.0
     devDependencies:
       '@babel/preset-react':
         specifier: ^8.0.1
@@ -270,12 +277,6 @@ importers:
         specifier: ^5.4.0
         version: 5.4.0(storybook@10.6.1(@types/react@19.3.0)(prettier@3.9.9)(react@19.3.0))
       '@fontsource-variable/source-code-pro':
-        specifier: ^5.3.0
-        version: 5.3.0
-      '@fontsource-variable/source-sans-3':
-        specifier: ^5.3.0
-        version: 5.3.0
-      '@fontsource-variable/source-serif-4':
         specifier: ^5.3.0
         version: 5.3.0
       '@fontsource/playwrite-no':
@@ -1311,14 +1312,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@fontsource-variable/inter-tight@5.3.0':
+    resolution: {integrity: sha512-ZhZZ29sNZ15P1K+cUt13GeBRYON0akgmNiftshUeDLos7X7zGcRgPzt434879Xhq1QbwlW3M/apBMk7jWabwvA==}
+
+  '@fontsource-variable/inter@5.3.0':
+    resolution: {integrity: sha512-OupL48va4JNofb97w6NYeF9S7W/kHNKM0Er8Dem5nqi4jeOLrVJDoE8tZEpnMJmtkvNbB1EIPPwHcdkF6b1oUA==}
+
   '@fontsource-variable/source-code-pro@5.3.0':
     resolution: {integrity: sha512-CxzAbqtNrQ6EQXTb9ovRZIRiOhFPcBQhNKla58K5UV6IMoL/ROkWxXDSBOa/frIDLuV4B5PLHI4R1e9SWVinYg==}
-
-  '@fontsource-variable/source-sans-3@5.3.0':
-    resolution: {integrity: sha512-dpi0GZk7EQe2tYpg6Q0Fx0OmUgnuGu+0rHPgtXqtKhglYmJuP7jZ12Mu1uN+NfRaJRY1Emn8AQJEWzmoZ4wa9g==}
-
-  '@fontsource-variable/source-serif-4@5.3.0':
-    resolution: {integrity: sha512-9vch9WqxjaaA+1o9Ur8pOgIGbCYLjRReOUel23A6lOpD1syptgjtkORevvNmldJ5kGXQL29onQUqI5Ltz0s3bQ==}
 
   '@fontsource/playwrite-no@5.3.0':
     resolution: {integrity: sha512-iGQ4XeVNeLQ/MYERJcDzntgoqZ71Hq5ArLmKQeTtJnP3SpFythoUTpNjkKdOdZyAdWycR9SadCDKyzmhtzR/YQ==}
@@ -6244,11 +6245,11 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
+  '@fontsource-variable/inter-tight@5.3.0': {}
+
+  '@fontsource-variable/inter@5.3.0': {}
+
   '@fontsource-variable/source-code-pro@5.3.0': {}
-
-  '@fontsource-variable/source-sans-3@5.3.0': {}
-
-  '@fontsource-variable/source-serif-4@5.3.0': {}
 
   '@fontsource/playwrite-no@5.3.0': {}
 

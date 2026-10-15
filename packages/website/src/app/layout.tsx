@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
-import { Playwrite_NO, Source_Code_Pro, Source_Sans_3, Source_Serif_4 } from 'next/font/google';
+import { Inter, Inter_Tight, Playwrite_NO, Source_Code_Pro } from 'next/font/google';
 
 import { Colophon } from '@/components/Colophon';
 
@@ -37,24 +37,32 @@ export const metadata: Metadata = {
     },
 };
 
-const sourceSerif = Source_Serif_4({
-    subsets: ['latin'],
-    variable: '--font-serif',
+// Variable fonts: Google serves the full wght axis, next/font cannot narrow it
+const inter = Inter({
+    subsets: ['latin', 'latin-ext'],
+    variable: '--font-heading',
+    display: 'swap',
+    fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
-const sourceSans = Source_Sans_3({
-    subsets: ['latin'],
-    variable: '--font-sans',
+const interTight = Inter_Tight({
+    subsets: ['latin', 'latin-ext'],
+    variable: '--font-body',
+    style: ['normal', 'italic'],
+    display: 'swap',
+    fallback: ['system-ui', '-apple-system', 'sans-serif'],
 });
 
+// Keywords are set at wght 650, so the variable axis is required
 const sourceCode = Source_Code_Pro({
-    subsets: ['latin'],
+    subsets: ['latin', 'latin-ext'],
     variable: '--font-code',
+    display: 'swap',
 });
 
 const playwrite = Playwrite_NO({
     variable: '--font-italic',
-    weight: 'variable',
+    weight: '400',
     display: 'swap',
 });
 
@@ -66,7 +74,7 @@ export default function RootLayout({
     return (
         <html
             lang="de"
-            className={`${sourceSerif.variable} ${sourceSans.variable} ${sourceCode.variable} ${playwrite.variable}`}
+            className={`${inter.variable} ${interTight.variable} ${sourceCode.variable} ${playwrite.variable}`}
         >
             <body>
                 <Scrolling />

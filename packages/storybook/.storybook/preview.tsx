@@ -6,8 +6,8 @@ import "@samisdat/ui-components/style/globalStyle";
 import "@samisdat/wtal-panorama/colors.css";
 import "./preview.css";
 
-import "@fontsource-variable/source-serif-4";
-import "@fontsource-variable/source-sans-3";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/inter-tight";
 import "@fontsource-variable/source-code-pro";
 import "@fontsource/playwrite-no";
 
@@ -47,12 +47,12 @@ const preview: Preview = {
         typeof document !== "undefined" ? document.documentElement : null;
       if (root) {
         root.style.setProperty(
-          "--font-serif",
-          "'Source Serif 4 Variable', serif",
+          "--font-heading",
+          "'Inter Variable', system-ui, -apple-system, sans-serif",
         );
         root.style.setProperty(
-          "--font-sans",
-          "'Source Sans 3 Variable', sans-serif",
+          "--font-body",
+          "'Inter Tight Variable', system-ui, -apple-system, sans-serif",
         );
         root.style.setProperty(
           "--font-code",

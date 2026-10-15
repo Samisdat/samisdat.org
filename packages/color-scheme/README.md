@@ -215,3 +215,11 @@ Inline-Code im Fließtext: `` `code{:tsx}` `` (rehype-pretty-code) nutzt dasselb
 - `generated/tokens.js`, `generated/tokens.d.ts`: Terrazzo-JS-Plugin, normalisierte Tokens pro Resolver-Permutation.
 
 Nicht von Hand bearbeiten.
+
+## Offene Kontrastpunkte (TODO)
+
+APCA-Messung aus dem Typografie-Update; bewusst nicht gelöst, nur dokumentiert:
+
+- `ink.turquoise` für Links: Lc 68, knapp unter 75 → hellere Stufe im Schema nötig.
+- `syntax.keyword` (Rot): Lc 44 → hellere Rot-Stufe nötig. Bis dahin gleicht die Website das mit `font-weight: 650` auf Keyword-Tokens aus (`globalstyle.ts`).
+- Inline-Code in ca. 14,7px/400 ist für Lc 68 (Türkis) eigentlich zu klein.

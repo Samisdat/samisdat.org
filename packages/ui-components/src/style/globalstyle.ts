@@ -101,6 +101,35 @@ export const globalStyles = css`
       margin-block: 0;
       /* Long code lines scroll inside the block instead of widening the page */
       overflow-x: auto;
+      font-family: var(--font-code);
+      /* Root font size is 20px, so 0.725rem = 14.5px */
+      font-size: 0.725rem;
+      line-height: 1.6;
+      letter-spacing: 0;
+      background: var(--color-syntax-background);
+      color: var(--color-syntax-foreground);
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+
+    /* normalize.css forces monospace on code, so the pre font would not reach the tokens */
+    pre code {
+      font-family: inherit;
+      font-size: inherit;
+      letter-spacing: inherit;
+    }
+
+    /* Inline code only; code inside pre inherits from pre */
+    :not(pre) > code {
+      font-family: var(--font-code);
+      font-size: 0.92em;
+      letter-spacing: 0;
+      color: var(--color-ink-turquoise);
+    }
+
+    /* Shiki's fontStyle only knows bold (700); keywords get 650 to offset the weak red contrast */
+    pre [style*="--color-syntax-keyword"] {
+      font-weight: 650;
     }
 
     p:first-child {
@@ -116,7 +145,7 @@ export const globalStyles = css`
       font-size: 20px;
       background-color: var(--color-surface-default);
       color: var(--color-text-default);
-      font-family: var(--font-sans);
+      font-family: var(--font-body);
       /* The theme switch fades the tokens through --theme-light; no extra color transitions, they would lag behind it */
       transition: --theme-light 450ms ease;
     }
@@ -135,13 +164,14 @@ export const globalStyles = css`
     }
 */
     .storybook-wrapper {
-      font-family: var(--font-sans);
+      font-family: var(--font-body);
     }
 
+    /* Root font size is 20px, so 0.9rem = 18px. No letter-spacing here: paragraphs set their own (see Typo) */
     body {
-      font-family: var(--font-sans);
-      letter-spacing: 0.01em;
-      line-height: 1.6;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      line-height: 1.65;
     }
 
     ${scholionStyles}

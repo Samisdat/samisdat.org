@@ -9,13 +9,22 @@ export const variants = [variantParagraph, variantEm, variantStrong] as const;
 
 export type Variant = (typeof variants)[number];
 
+// letter-spacing lives here, not on body: headings, em and code must not inherit it
 const ParagraphStyling = styled.p`
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
+  color: var(--color-text-default);
+  letter-spacing: 0.01em;
 `;
 
+// Handwriting face: no synthetic italic, no inherited tracking, no effect on line height
 const EmStyling = styled.em`
-  font-family: var(--font-italic);
-  line-height: 0;
+  font-family: var(--font-italic), cursive;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.95em;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--color-text-emphasis);
 
   strong & {
     font-weight: 400;
@@ -26,7 +35,7 @@ const EmStyling = styled.em`
 `;
 
 const BoldStyling = styled.strong`
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
 `;
 
 const htmlTags: { [key in Variant]: any } = {

@@ -42,7 +42,7 @@ const Title = styled(Link)`
 
 const ReadMore = styled(Link)`
     font-size: var(--typo-small-size, 0.875rem);
-    color: var(--color-text-subtle);
+    color: var(--color-text-secondary);
     text-decoration: none;
 
     &:hover {
@@ -52,12 +52,12 @@ const ReadMore = styled(Link)`
 
 const Excerpt = styled.p`
     margin: 0;
-    color: var(--color-text-subtle);
+    color: var(--color-text-default);
 `;
 
 const DateEl = styled.time`
     font-size: var(--typo-small-size, 0.875rem);
-    color: var(--color-text-subtle);
+    color: var(--color-text-secondary);
 `;
 
 function resolveImageSrc(slug: string, image: true | string): string {
