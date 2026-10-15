@@ -16,13 +16,18 @@ export function placeholderTransformer(): ShikiTransformer {
             infos = []
             const lines = code.split('\n')
             const kept: string[] = []
+            let collapseLines = 0
 
             for (let i = 0; i < lines.length; i++) {
                 const trimmed = lines[i].trim()
                 const match = trimmed.match(/^\/\/\s*!placeholder\s+(\S+)\s+"([^"]+)"/)
                 if (match) {
-                    infos.push({ key: match[1], value: match[2], nextLineIndex: kept.length })
+                    infos.push({ key: match[1], value: match[2], nextLineIndex: kept.length - collapseLines })
                     // Strip this line — don't push
+                } else if (/^\/\/\s*!collapse\(/.test(trimmed)) {
+                    // Stripped later by the collapse transformer; keep it in the text, but don't count it as a rendered line
+                    kept.push(lines[i])
+                    collapseLines++
                 } else {
                     kept.push(lines[i])
                 }
