@@ -258,18 +258,7 @@ Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zä
 
 ### Geschwindigkeit ändern
 
-<Stack
-    container
-    directionSmall="column"
-    directionMedium="row"
->
-    <Stack>
-        <DemoAnimationsCrank />
-    </Stack>
-    <Stack>
-        <DemoBox>Mobile unten / Tablet rechts</DemoBox>
-    </Stack>
-</Stack>
+<DemoAnimationsCrank />
 
 SMIL-`<animate>` ist zustandslos: Die Position ist zu jedem Zeitpunkt eine reine Funktion der Uhr — `x = from + frac·(to−from)` mit `frac = ((t − begin) mod dur) / dur`. Beim Ändern von `dur` (in React via `setAttribute`) bleibt `t − begin` gleich, aber `frac` wird neu berechnet → die Position springt.
 
