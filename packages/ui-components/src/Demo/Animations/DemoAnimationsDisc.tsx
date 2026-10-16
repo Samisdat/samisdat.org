@@ -80,10 +80,11 @@ const DiscSvg = ({ initialDur }: { initialDur: number }) => {
 
 export const DemoAnimationsDisc = () => {
   const ctx = useDemoContext();
-  const baseDurationRef = useRef(parseFloat(ctx?.values.duration ?? "6") || 6);
-  const { speed, setSpeed, resetSpeed, duration } = useSpeedDuration(
-    baseDurationRef.current,
+  const [baseDuration] = useState(
+    () => parseFloat(ctx?.values.duration ?? "6") || 6,
   );
+  const { speed, setSpeed, resetSpeed, duration } =
+    useSpeedDuration(baseDuration);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
 
@@ -107,7 +108,7 @@ export const DemoAnimationsDisc = () => {
 
   const onSpeedChange = (value: number) => {
     setSpeed(value);
-    ctx?.setValue("duration", formatDuration(baseDurationRef.current / value));
+    ctx?.setValue("duration", formatDuration(baseDuration / value));
   };
 
   const onPlay = () => {
@@ -127,7 +128,7 @@ export const DemoAnimationsDisc = () => {
       svg.setCurrentTime(0);
     }
     resetSpeed();
-    ctx?.setValue("duration", formatDuration(baseDurationRef.current));
+    ctx?.setValue("duration", formatDuration(baseDuration));
     setIsPlaying(false);
   };
 

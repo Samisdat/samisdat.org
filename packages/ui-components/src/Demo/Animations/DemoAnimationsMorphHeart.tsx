@@ -54,8 +54,9 @@ const thumbPathB =
 
 export const DemoAnimationsMorphHeart = () => {
   const ctx = useDemoContext();
-  const baseDurationRef = useRef(parseFloat(ctx?.values.duration ?? "3") || 3);
-  const baseDuration = baseDurationRef.current;
+  const [baseDuration] = useState(
+    () => parseFloat(ctx?.values.duration ?? "3") || 3,
+  );
   const { speed, setSpeed, resetSpeed, duration } =
     useSpeedDuration(baseDuration);
   const setContextValue = ctx?.setValue;
