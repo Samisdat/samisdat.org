@@ -10,6 +10,11 @@ module.exports = {
   
   versionGroups: [
     {
+      label: 'peerDependencies dürfen Ranges haben',
+      dependencyTypes: ['peer'],
+      isIgnored: true,
+    },
+    {
       label: 'Use workspace protocol for local packages',
       dependencies: ['@samisdat/**'],
       dependencyTypes: ['prod', 'dev'],
