@@ -23,10 +23,12 @@ export const Line = styled.div`
   grid-template-columns: 1.75rem 1fr;
   width: max-content;
   min-width: 100%;
+
   > span:first-child {
     text-align: center;
     user-select: none;
   }
+
   > span:last-child {
     white-space: pre;
     padding: 0 1.25rem 0 0.5rem;
@@ -55,6 +57,7 @@ const Legend = styled.table`
   min-width: 30rem;
   border-collapse: collapse;
   font-size: 0.8125rem;
+
   th,
   td {
     padding: 0.3rem 0.5rem;
@@ -63,6 +66,7 @@ const Legend = styled.table`
     font-weight: 400;
     white-space: nowrap;
   }
+
   i {
     display: inline-block;
     width: 0.8rem;

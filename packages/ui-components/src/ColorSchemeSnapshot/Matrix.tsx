@@ -10,6 +10,7 @@ const Table = styled.table`
   border-spacing: 5px;
   width: 100%;
   min-width: 36rem;
+
   th {
     font-family: var(--font-mono, ui-monospace, Menlo, monospace);
     font-size: 0.6875rem;
@@ -18,6 +19,7 @@ const Table = styled.table`
     text-align: left;
     white-space: nowrap;
   }
+
   td {
     border: 1px solid var(--cs-border-default);
     border-radius: 9px;

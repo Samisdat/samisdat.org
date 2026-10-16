@@ -21,11 +21,13 @@ const Pairs = styled.ol`
   list-style: none;
   font-size: 0.8125rem;
   font-variant-numeric: tabular-nums;
+
   li {
     display: flex;
     gap: 0.75rem;
     align-items: baseline;
   }
+
   strong {
     min-width: 3rem;
     color: var(--cs-text-emphasis);
@@ -40,6 +42,7 @@ const Names = styled.ul`
   padding: 0;
   list-style: none;
   font-size: 0.8125rem;
+
   li {
     display: flex;
     gap: 0.5rem;
