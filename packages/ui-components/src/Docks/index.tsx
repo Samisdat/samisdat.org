@@ -66,7 +66,7 @@ export function useDockNodes(): DockNodes {
 
 const TopDockStyling = styled.div`
   position: fixed;
-  top: var(--navi-height, 0px);
+  top: var(--navi-height, 0);
   left: 0;
   right: 0;
   z-index: ${TOP_DOCK_Z};
