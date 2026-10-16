@@ -54,14 +54,14 @@ export const SnapshotMatrix: FC<BlockProps> = (props) => {
     if (!t || t.exempt) return false;
     return t.textTier === "full" || fg === "text.default" || fg === "text.emphasis";
   };
-  // Surfaces with the same color and tier share one column (dark: raised, highlight, selection).
+  // Surfaces with the same color and tier share one column (dark: raised, highlight, selection); columns without any required text are left out.
   const columns = data.surfaces.reduce<{ ids: string[]; hex: string; tier?: string }[]>((acc, id) => {
     const tier = tokenOf(id)?.textTier;
     const col = acc.find((c) => c.hex === m.colors[id] && c.tier === tier);
     if (col) col.ids.push(id);
     else acc.push({ ids: [id], hex: m.colors[id], tier });
     return acc;
-  }, []);
+  }, []).filter((c) => data.texts.some((fg) => isRequired(fg, c.ids[0])));
 
   return (
     <Block>
@@ -75,7 +75,7 @@ export const SnapshotMatrix: FC<BlockProps> = (props) => {
               </td>
               {columns.map((c) => (
                 <th key={c.ids[0]} scope="col">
-                  {c.ids.map(label).join(" · ")}
+                  {label(c.ids[0])}
                 </th>
               ))}
             </tr>

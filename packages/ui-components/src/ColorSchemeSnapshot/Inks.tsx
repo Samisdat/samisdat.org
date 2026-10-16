@@ -118,6 +118,8 @@ const AltList = styled.ul`
   }
 `;
 
+const SURFACES = ["surface.default", "surface.raised"];
+
 const THRESHOLDS = [
   { value: 3, text: "Groß 3:1" },
   { value: 4.5, text: "AA 4,5:1" },
@@ -128,25 +130,22 @@ export const SnapshotInks: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
   const [selected, setSelected] = useState("surface.default");
 
-  // Surfaces with the same color in this mode share one option (dark: raised, highlight, selection).
-  const groups = data.inkSurfaces.reduce<{ ids: string[]; hex: string }[]>((acc, id) => {
-    const group = acc.find((g) => g.hex === m.colors[id]);
-    if (group) group.ids.push(id);
-    else acc.push({ ids: [id], hex: m.colors[id] });
-    return acc;
-  }, []);
-  const surface = (groups.find((g) => g.ids.includes(selected)) ?? groups[0]).ids[0];
+  const surface = SURFACES.includes(selected) ? selected : SURFACES[0];
 
   const max = Math.max(14, Math.ceil(Math.max(...data.inks.flatMap((i) => data.inkSurfaces.map((s) => m.contrast[i][s].w)))));
 
   return (
     <Block>
-      <BlockHeader {...props} />
-      <Segmented
-        label="Gemessen auf"
-        value={surface}
-        onChange={setSelected}
-        options={groups.map((g) => ({ value: g.ids[0], label: g.ids.map(label).join(" · ") }))}
+      <BlockHeader
+        {...props}
+        aside={
+          <Segmented
+            label="Gemessen auf"
+            value={surface}
+            onChange={setSelected}
+            options={SURFACES.map((id) => ({ value: id, label: label(id) }))}
+          />
+        }
       />
       <Panel style={{ background: cs(surface) }}>
         <Scroll>
@@ -200,7 +199,7 @@ export const SnapshotInks: FC<BlockProps> = (props) => {
         </Panel>
       ) : null}
       <Hint>
-        Fläche: <Mono>{groups.find((g) => g.ids[0] === surface)!.ids.join(" · ")}</Mono>
+        Fläche: <Mono>{surface}</Mono>
       </Hint>
     </Block>
   );
