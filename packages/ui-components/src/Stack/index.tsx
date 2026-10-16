@@ -119,6 +119,7 @@ const StackItemStyling = styled.div<{
   $basis?: string;
 }>`
   flex: ${(props) => props.$grow ?? 1} 1 ${(props) => props.$basis ?? "0%"};
+
   /* Let the item shrink below its content (e.g. a long code line) so the
      overflow scrolls inside the block instead of widening the page */
   min-width: 0;

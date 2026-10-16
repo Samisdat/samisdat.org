@@ -26,6 +26,7 @@ const Swatches = styled.ol`
   margin: 0;
   padding: 0;
   list-style: none;
+
   li {
     display: grid;
     gap: 0.3rem;
@@ -34,6 +35,7 @@ const Swatches = styled.ol`
     font-size: 0.6875rem;
     color: var(--cs-text-secondary);
   }
+
   i {
     width: 100%;
     height: 3rem;
@@ -48,18 +50,21 @@ const Pairs = styled.ol`
   margin: 0;
   padding: 0;
   list-style: none;
+
   li {
     display: flex;
     align-items: center;
     gap: 0.6rem;
     font-size: 0.8125rem;
   }
+
   i {
     width: 1.1rem;
     height: 1.1rem;
     border-radius: 4px;
     border: 1px solid var(--cs-border-default);
   }
+
   b {
     font-variant-numeric: tabular-nums;
     min-width: 3.5rem;

@@ -19,12 +19,14 @@ const Thresholds = styled.div`
   top: 1.75rem;
   height: var(--plot);
   pointer-events: none;
+
   > div {
     position: absolute;
     left: 0;
     right: 0;
     border-top: 1px dashed var(--cs-border-default);
   }
+
   span {
     position: absolute;
     left: 0;
@@ -64,6 +66,7 @@ const Bar = styled.div`
   transform: translateX(-50%);
   border-radius: 6px 6px 2px 2px;
   transition: height 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+
   @media (prefers-reduced-motion: reduce) {
     transition: none;
   }
@@ -93,6 +96,7 @@ const AltRow = styled.li`
   align-items: center;
   gap: 0.6rem;
   font-size: 0.8125rem;
+
   > i {
     display: block;
     height: 0.9rem;
@@ -108,6 +112,7 @@ const AltList = styled.ul`
   padding: 0.75rem;
   list-style: none;
   overflow-x: auto;
+
   > li {
     min-width: 28rem;
   }

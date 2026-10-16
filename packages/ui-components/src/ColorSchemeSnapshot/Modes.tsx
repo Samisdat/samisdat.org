@@ -32,6 +32,7 @@ const Track = styled.div`
   height: 0.55rem;
   border-radius: 999px;
   background: var(--track);
+
   > div {
     height: 100%;
     border-radius: 999px;
@@ -43,10 +44,12 @@ const Stats = styled.dl`
   flex-wrap: wrap;
   gap: 0.5rem 2rem;
   margin: 0;
+
   dt {
     font-size: 0.75rem;
     color: var(--cs-text-secondary);
   }
+
   dd {
     margin: 0;
     font-size: 1.25rem;

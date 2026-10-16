@@ -9,7 +9,8 @@ description: PR-Konventionen dieses Repos. Immer verwenden, wenn ein Task/Featur
 
 Ein PR wird erstellt, wenn der Task fertig ist: Typecheck grün, Änderungen
 committet (Konventionen: Skill `commit` bzw. ADR 0012 — freier Text, keine
-Conventional-Commit-Prefixe, keine Trailer).
+Conventional-Commit-Prefixe, keine Trailer, Autor und Committer
+`samisdat <bastian@pertz.eu>`).
 
 ## Wie
 
@@ -26,7 +27,8 @@ gh pr create --base main --title "<titel>" --body "<body>"
   `docs/plan/STATUS.md` kommt, das Finding benennen (z.B. „Findings 06+11,
   content-layer") — aber **nicht** auf `docs/plan/`-Dateien verlinken, die
   sind bewusst nicht committet und auf GitHub nicht auflösbar.
-  Keine „Generated with …"-Footer.
+  Keine „Generated with …"-Footer, keine Session-Links oder sonstige
+  Tool-Attribution im Body.
 - **Account:** PRs laufen über den GitHub-User `Samisdat`. Wenn
   `gh pr create` mit „Unauthorized" / „Enterprise Managed User" fehlschlägt,
   ist der falsche Account aktiv:

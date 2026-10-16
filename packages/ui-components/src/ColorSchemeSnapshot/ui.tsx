@@ -107,6 +107,7 @@ const BadgeRoot = styled.span`
   font-weight: 600;
   line-height: 1.3;
   white-space: nowrap;
+
   &::before {
     content: "";
     width: 0.5em;
