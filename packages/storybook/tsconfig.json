@@ -14,7 +14,7 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "@/*": ["../../website/src/*"]
+      "@/*": ["../website/src/*"]
     }
   },
   "include": [".storybook", "src"],

@@ -205,9 +205,9 @@ importers:
 
   packages/panorama:
     dependencies:
-      astronomy-engine:
-        specifier: ^2.1.1
-        version: 2.1.19
+      suncalc:
+        specifier: ^2.0.2
+        version: 2.1.0
     devDependencies:
       '@samisdat/tools':
         specifier: workspace:*
@@ -242,9 +242,6 @@ importers:
       react-dom:
         specifier: 'catalog:'
         version: 19.3.0(react@19.3.0)
-      suncalc:
-        specifier: ^2.0.2
-        version: 2.1.0
       tsup:
         specifier: ^8.5.0
         version: 8.5.1(postcss@8.5.28)(supports-color@10.2.2)(tsx@4.23.15)(typescript@5.9.3)(yaml@2.9.1)
@@ -3101,9 +3098,6 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
-
-  astronomy-engine@2.1.19:
-    resolution: {integrity: sha512-8yWKNf7UeNbH458h3sAJ6ZgAjE5jTXp/mNNRFoC20j2SHwZIjAQeEsBB2Q3uCFRaTCCJRv33K2XhkhZQMXoX6w==}
 
   axe-core@4.13.0:
     resolution: {integrity: sha512-UzGt8zg7Ny8djbYMhxl2zuEevVa7r2gJjYY5Lwr1xM7+XU2nd6CkIWFTVcCIbAP63vSz71NaVyyuSk9lHKcy0A==}
@@ -7765,8 +7759,6 @@ snapshots:
   astral-regex@2.0.0: {}
 
   astring@1.9.0: {}
-
-  astronomy-engine@2.1.19: {}
 
   axe-core@4.13.0: {}
 

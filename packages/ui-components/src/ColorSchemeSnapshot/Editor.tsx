@@ -15,7 +15,8 @@ const Window = styled.div`
   font-family: var(--font-mono, ui-monospace, Menlo, monospace);
   font-size: 0.8125rem;
   line-height: 1.7;
-  @media (max-width: 40rem) {
+
+  @media (width <= 40rem) {
     grid-template-columns: 1fr;
   }
 `;
@@ -24,11 +25,13 @@ const Tree = styled.div`
   padding: 0.5rem 0;
   border-right: 1px solid var(--cs-border-default);
   overflow: hidden;
+
   > div {
     padding: 0 0.75rem;
     white-space: nowrap;
   }
-  @media (max-width: 40rem) {
+
+  @media (width <= 40rem) {
     display: none;
   }
 `;
@@ -49,11 +52,13 @@ const Row = styled.div`
   grid-template-columns: 1rem 2.5rem 1fr;
   width: max-content;
   min-width: 100%;
+
   > span:nth-child(2) {
     text-align: right;
     padding-right: 0.75rem;
     user-select: none;
   }
+
   > span:last-child {
     white-space: pre;
     padding-right: 1.25rem;

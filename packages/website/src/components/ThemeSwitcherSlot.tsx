@@ -1,7 +1,31 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useSyncExternalStore } from 'react';
 import { ThemeSwitcher } from './ThemeSwitcher';
+
+let panoramaIntersecting = true;
+
+const subscribePanorama = (onChange: () => void) => {
+    const panorama = document.querySelector('.panorama');
+    if (!panorama) return () => {};
+
+    const observer = new IntersectionObserver(
+        ([entry]) => {
+            panoramaIntersecting = entry.isIntersecting;
+            onChange();
+        },
+        // Viewport-Oberkante um 20px erweitern: Panorama gilt 20px länger
+        // als sichtbar, der Switcher blendet entsprechend 20px später ein.
+        { rootMargin: '20px 0px 0px 0px' }
+    );
+
+    observer.observe(panorama);
+    return () => observer.disconnect();
+};
+
+// Ohne Panorama auf der Seite ist der Switcher immer sichtbar.
+const getPanoramaVisible = () =>
+    document.querySelector('.panorama') !== null && panoramaIntersecting;
 
 /**
  * Blendet den ThemeSwitcher aus, solange das Panorama (`.panorama`) sichtbar
@@ -10,27 +34,12 @@ import { ThemeSwitcher } from './ThemeSwitcher';
  */
 export const ThemeSwitcherSlot = () => {
     const wrapperRef = useRef<HTMLDivElement | null>(null);
-    const [panoramaVisible, setPanoramaVisible] = useState(true);
-
-    useEffect(() => {
-        const panorama = document.querySelector('.panorama');
-        if (!panorama) {
-            setPanoramaVisible(false);
-            return;
-        }
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                setPanoramaVisible(entry.isIntersecting);
-            },
-            // Viewport-Oberkante um 20px erweitern: Panorama gilt 20px länger
-            // als sichtbar, der Switcher blendet entsprechend 20px später ein.
-            { rootMargin: '20px 0px 0px 0px' }
-        );
-
-        observer.observe(panorama);
-        return () => observer.disconnect();
-    }, []);
+    const panoramaVisible = useSyncExternalStore(
+        subscribePanorama,
+        getPanoramaVisible,
+        // Server/Hydration: Panorama gilt als sichtbar, wie bisher der Startwert.
+        () => true
+    );
 
     useEffect(() => {
         const wrapper = wrapperRef.current;

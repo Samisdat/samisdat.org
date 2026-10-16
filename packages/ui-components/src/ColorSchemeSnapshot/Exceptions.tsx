@@ -11,6 +11,7 @@ const List = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+
   li {
     display: grid;
     gap: 0.25rem;
@@ -20,6 +21,7 @@ const List = styled.ul`
     border-radius: 8px;
     font-size: 0.875rem;
   }
+
   p {
     margin: 0;
     color: var(--cs-text-secondary);

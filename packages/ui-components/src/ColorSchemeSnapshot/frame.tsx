@@ -63,6 +63,7 @@ const Bar = styled.figcaption`
 const Stamp = styled.span`
   font-family: var(--font-mono, ui-monospace, Menlo, monospace);
   font-size: 0.75rem;
+
   b {
     font-weight: 600;
     color: var(--color-text-default);
@@ -76,6 +77,7 @@ const Switch = styled.fieldset`
   border: 1px solid var(--color-border-default);
   border-radius: 999px;
   min-inline-size: 0;
+
   legend {
     position: absolute;
     width: 1px;
@@ -83,9 +85,11 @@ const Switch = styled.fieldset`
     overflow: hidden;
     clip-path: inset(50%);
   }
+
   label {
     position: relative;
   }
+
   input {
     position: absolute;
     inset: 0;
@@ -93,6 +97,7 @@ const Switch = styled.fieldset`
     opacity: 0;
     cursor: pointer;
   }
+
   span {
     display: block;
     padding: 0.2rem 0.75rem;
@@ -100,10 +105,12 @@ const Switch = styled.fieldset`
     font-weight: 600;
     color: var(--color-text-secondary);
   }
+
   input:checked + span {
     background: var(--color-text-default);
     color: var(--color-surface-default);
   }
+
   input:focus-visible + span {
     outline: 2px solid var(--color-border-focus);
     outline-offset: 1px;
@@ -118,6 +125,7 @@ const Body = styled.div`
   color: var(--cs-text-default);
   font-size: 0.9375rem;
   line-height: 1.5;
+
   /* inline code, hints and every block stay inside this island */
   isolation: isolate;
   transition: background-color 0.3s;
