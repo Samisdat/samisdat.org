@@ -1,6 +1,7 @@
 "use client";
 
 import { styled } from "@linaria/react";
+import { aubergine } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
 import {
   SPEED_MULTIPLIER_PROPS,
@@ -40,7 +41,7 @@ const SvgStyling = styled.svg`
 
   .target {
     fill: none;
-    stroke: #1e142e;
+    stroke: ${aubergine[950]};
     stroke-width: 3;
     stroke-dasharray: 8 6;
   }

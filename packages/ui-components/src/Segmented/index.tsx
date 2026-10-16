@@ -16,6 +16,7 @@ const SegmentedRoot = styled.fieldset`
   border: 1px solid var(--cs-border-muted, var(--color-border-muted));
   border-radius: 999px;
   min-inline-size: 0;
+
   legend {
     position: absolute;
     width: 1px;
@@ -23,9 +24,11 @@ const SegmentedRoot = styled.fieldset`
     overflow: hidden;
     clip-path: inset(50%);
   }
+
   label {
     position: relative;
   }
+
   input {
     position: absolute;
     inset: 0;
@@ -33,6 +36,7 @@ const SegmentedRoot = styled.fieldset`
     opacity: 0;
     cursor: pointer;
   }
+
   span {
     display: block;
     padding: 0.25rem 0.7rem;
@@ -41,10 +45,12 @@ const SegmentedRoot = styled.fieldset`
     font-weight: 600;
     color: var(--cs-text-secondary, var(--color-text-secondary));
   }
+
   input:checked + span {
     background: var(--cs-surface-raised, var(--color-surface-raised));
     color: var(--cs-text-emphasis, var(--color-text-emphasis));
   }
+
   input:focus-visible + span {
     outline: 2px solid var(--cs-border-focus, var(--color-border-focus));
     outline-offset: 1px;
