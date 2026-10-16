@@ -107,6 +107,7 @@ export const globalStyles = css`
       /* Long code lines scroll inside the block instead of widening the page */
       overflow-x: auto;
       font-family: var(--font-code);
+
       /* Root font size is 20px, so 0.725rem = 14.5px */
       font-size: 0.725rem;
       line-height: 1.6;

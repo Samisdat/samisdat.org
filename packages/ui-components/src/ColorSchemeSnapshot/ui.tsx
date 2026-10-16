@@ -40,12 +40,15 @@ const IntroRoot = styled.div`
   max-width: 62ch;
   font-size: 0.875rem;
   color: var(--cs-text-secondary);
+
   p {
     margin: 0 0 0.5rem;
   }
+
   p:last-child {
     margin-bottom: 0;
   }
+
   code {
     font-family: var(--font-mono, ui-monospace, Menlo, monospace);
     font-size: 0.8em;
@@ -107,6 +110,7 @@ const BadgeRoot = styled.span`
   font-weight: 600;
   line-height: 1.3;
   white-space: nowrap;
+
   &::before {
     content: "";
     width: 0.5em;
