@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import type { FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, LevelBadge, Mono, Scroll, Title, label, ratio } from "./ui";
+import { Block, LevelBadge, Scroll, label, ratio, BlockHeader, type BlockProps } from "./ui";
 
 const Table = styled.table`
   border-collapse: separate;
@@ -44,7 +44,7 @@ const Value = styled.span`
   color: var(--cs-text-emphasis);
 `;
 
-export const SnapshotMatrix: FC = () => {
+export const SnapshotMatrix: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
 
   const tokenOf = (id: string) => m.tokens.find((t) => t.id === id);
@@ -54,26 +54,18 @@ export const SnapshotMatrix: FC = () => {
     if (!t || t.exempt) return false;
     return t.textTier === "full" || fg === "text.default" || fg === "text.emphasis";
   };
-  // Surfaces with the same color and tier share one column (dark: raised, highlight, selection).
+  // Surfaces with the same color and tier share one column (dark: raised, highlight, selection); columns without any required text are left out.
   const columns = data.surfaces.reduce<{ ids: string[]; hex: string; tier?: string }[]>((acc, id) => {
     const tier = tokenOf(id)?.textTier;
     const col = acc.find((c) => c.hex === m.colors[id] && c.tier === tier);
     if (col) col.ids.push(id);
     else acc.push({ ids: [id], hex: m.colors[id], tier });
     return acc;
-  }, []);
+  }, []).filter((c) => data.texts.some((fg) => isRequired(fg, c.ids[0])));
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Text auf Flächen</Title>
-          <Hint>
-            Zeilen sind <Mono>text-*</Mono>, Spalten die Flächen. Fließtext braucht mindestens AA. Auf den schwächeren Flächen ist nur der neutrale Text
-            vorgesehen, auf muted gar keiner (–).
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Scroll>
         <Table>
           <thead>
@@ -83,7 +75,7 @@ export const SnapshotMatrix: FC = () => {
               </td>
               {columns.map((c) => (
                 <th key={c.ids[0]} scope="col">
-                  {c.ids.map(label).join(" · ")}
+                  {label(c.ids[0])}
                 </th>
               ))}
             </tr>

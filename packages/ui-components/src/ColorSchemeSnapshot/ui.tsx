@@ -2,7 +2,7 @@
 
 import { styled } from "@linaria/react";
 import type { WcagLevel } from "@samisdat/color-scheme/snapshot-types";
-import { useId, type CSSProperties, type FC, type ReactNode } from "react";
+import { type CSSProperties, type FC, type ReactNode } from "react";
 import { cs } from "./frame";
 
 export const Block = styled.section`
@@ -34,6 +34,43 @@ export const Hint = styled.p`
   color: var(--cs-text-secondary);
 `;
 
+/** Editorial text of a block, passed in as markdown children from the post. */
+const IntroRoot = styled.div`
+  margin: 0.25rem 0 0;
+  max-width: 62ch;
+  font-size: 0.875rem;
+  color: var(--cs-text-secondary);
+
+  p {
+    margin: 0 0 0.5rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  code {
+    font-family: var(--font-mono, ui-monospace, Menlo, monospace);
+    font-size: 0.8em;
+  }
+`;
+
+/** Props every snapshot block takes from the post: its heading and the explanatory markdown. */
+export type BlockProps = { title?: string; children?: ReactNode };
+
+type HeaderProps = BlockProps & { aside?: ReactNode };
+
+/** Heading and intro of a block, `aside` sits at the right edge (e.g. a segmented control). */
+export const BlockHeader: FC<HeaderProps> = ({ title, children, aside }) => (
+  <BlockHead>
+    <div>
+      {title ? <Title>{title}</Title> : null}
+      {children ? <IntroRoot>{children}</IntroRoot> : null}
+    </div>
+    {aside}
+  </BlockHead>
+);
+
 export const Mono = styled.span`
   font-family: var(--font-mono, ui-monospace, Menlo, monospace);
   font-size: 0.8em;
@@ -59,79 +96,6 @@ export const Panel = styled.div`
   padding: 0.75rem;
   transition: background-color 0.3s;
 `;
-
-const SegmentedRoot = styled.fieldset`
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  margin: 0;
-  padding: 3px;
-  border: 1px solid var(--cs-border-default);
-  border-radius: 999px;
-  background: var(--cs-surface-emphasis);
-  min-inline-size: 0;
-
-  legend {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-  }
-
-  label {
-    position: relative;
-  }
-
-  input {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-    opacity: 0;
-    cursor: pointer;
-  }
-
-  span {
-    display: block;
-    padding: 0.25rem 0.7rem;
-    border-radius: 999px;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--cs-text-secondary);
-  }
-
-  input:checked + span {
-    background: var(--cs-surface-subtle);
-    color: var(--cs-text-emphasis);
-  }
-
-  input:focus-visible + span {
-    outline: 2px solid var(--cs-border-focus);
-    outline-offset: 1px;
-  }
-`;
-
-type SegmentedProps<T extends string> = {
-  label: string;
-  value: T;
-  options: readonly { value: T; label: string }[];
-  onChange: (value: T) => void;
-};
-
-export function Segmented<T extends string>({ label, value, options, onChange }: SegmentedProps<T>) {
-  const name = useId();
-  return (
-    <SegmentedRoot>
-      <legend>{label}</legend>
-      {options.map((o) => (
-        <label key={o.value}>
-          <input type="radio" name={name} value={o.value} checked={o.value === value} onChange={() => onChange(o.value)} />
-          <span>{o.label}</span>
-        </label>
-      ))}
-    </SegmentedRoot>
-  );
-}
 
 const BadgeRoot = styled.span`
   display: inline-flex;

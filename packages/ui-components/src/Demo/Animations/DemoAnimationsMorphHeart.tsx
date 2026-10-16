@@ -2,6 +2,12 @@
 
 import { styled } from "@linaria/react";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
+import {
+  formatDuration,
+  SPEED_MULTIPLIER_PROPS,
+  useSpeedDuration,
+} from "../../PlaybackControl/useSpeedDuration";
+import { useDemoContext } from "../DemoContext";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const SvgStyling = styled.svg`
@@ -47,9 +53,16 @@ const thumbPathB =
   "M360,48c13.3,0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9c0,-13.3 10.7,-24 24,-24Zm-136,24c0,-13.3 10.7,-24 24,-24c13.3,-0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9Z";
 
 export const DemoAnimationsMorphHeart = () => {
+  const ctx = useDemoContext();
+  const [baseDuration] = useState(
+    () => parseFloat(ctx?.values.duration ?? "3") || 3,
+  );
+  const { speed, setSpeed, resetSpeed, duration } =
+    useSpeedDuration(baseDuration);
+  const setContextValue = ctx?.setValue;
+
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const [speed, setSpeed] = useState(3);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const getSvg = useCallback(
@@ -69,12 +82,16 @@ export const DemoAnimationsMorphHeart = () => {
     if (!svg) return;
     svg
       .querySelectorAll("animate")
-      .forEach((el) => el.setAttribute("dur", `${speed}s`));
-  }, [getSvg, speed]);
+      .forEach((el) => el.setAttribute("dur", `${duration}s`));
+  }, [getSvg, duration]);
 
-  const onSpeedChange = useCallback((value: number) => {
-    setSpeed(value);
-  }, []);
+  const onSpeedChange = useCallback(
+    (value: number) => {
+      setSpeed(value);
+      setContextValue?.("duration", formatDuration(baseDuration / value));
+    },
+    [baseDuration, setContextValue, setSpeed],
+  );
 
   const onPlay = useCallback(() => {
     getSvg()?.unpauseAnimations();
@@ -92,17 +109,17 @@ export const DemoAnimationsMorphHeart = () => {
       svg.pauseAnimations();
       svg.setCurrentTime(0);
     }
-    setSpeed(3);
+    resetSpeed();
+    setContextValue?.("duration", formatDuration(baseDuration));
     setIsPlaying(false);
-  }, [getSvg]);
+  }, [getSvg, baseDuration, setContextValue, resetSpeed]);
 
   return (
     <DemoAnimation
       ref={containerRef}
       playbackControl={{
         isPlaying,
-        speedMin: 1,
-        speedMax: 10,
+        ...SPEED_MULTIPLIER_PROPS,
         speed,
         onSpeedChange,
         onPlay,

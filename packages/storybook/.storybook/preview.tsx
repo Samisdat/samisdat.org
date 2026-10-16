@@ -4,6 +4,7 @@ import { themes } from "storybook/theming";
 import { useEffect } from "react";
 import "@samisdat/ui-components/style/globalStyle";
 import "@samisdat/wtal-panorama/colors.css";
+import "./preview.css";
 
 import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/source-sans-3";
