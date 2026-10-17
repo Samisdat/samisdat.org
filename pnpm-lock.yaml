@@ -58,7 +58,7 @@ catalogs:
       specifier: ^8.0.1
       version: 8.0.1
     playwright:
-      specifier: ^1.64.0
+      specifier: ^1.64.1
       version: 1.64.1
     prettier:
       specifier: ^3.9.10
@@ -170,19 +170,19 @@ importers:
   packages/color-scheme:
     devDependencies:
       '@terrazzo/cli':
-        specifier: ^2.8.0
+        specifier: ^2.9.0
         version: 2.9.0(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)
       '@terrazzo/parser':
-        specifier: ^2.8.0
+        specifier: ^2.9.0
         version: 2.9.0(yaml-to-momoa@0.1.0)
       '@terrazzo/plugin-css':
-        specifier: ^2.8.0
+        specifier: ^2.9.0
         version: 2.9.0(@terrazzo/cli@2.9.0(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15))(@terrazzo/parser@2.9.0(yaml-to-momoa@0.1.0))
       '@terrazzo/plugin-js':
-        specifier: ^2.8.0
+        specifier: ^2.9.0
         version: 2.9.0(@terrazzo/cli@2.9.0(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15))(@terrazzo/parser@2.9.0(yaml-to-momoa@0.1.0))
       '@terrazzo/token-tools':
-        specifier: ^2.8.0
+        specifier: ^2.9.0
         version: 2.9.0
       '@types/culori':
         specifier: ^4.0.1
@@ -7800,7 +7800,7 @@ snapshots:
 
   browserslist@4.29.3:
     dependencies:
-      baseline-browser-mapping: 2.11.27
+      baseline-browser-mapping: 2.11.29
       caniuse-lite: 1.0.30001814
       electron-to-chromium: 1.5.444
       node-releases: 2.0.57
