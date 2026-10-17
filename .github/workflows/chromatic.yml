@@ -35,7 +35,7 @@ jobs:
         run: pnpm --filter @samisdat/wtal-panorama build:colors && pnpm build:lib
       
       - name: Publish to Chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@18599f2ae5010524d496b86099c9b69a37f5d8d2 # v18.12.2
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/storybook

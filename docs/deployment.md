@@ -25,7 +25,7 @@ Die Storybook-Dokumentation wird automatisch via **Chromatic** deployed:
    - In diesem Repo: Settings → Secrets and variables → Actions
    - New repository secret:
      - Name: `CHROMATIC_PROJECT_TOKEN`
-     - Value: Das Token von Chromatic (z.B. `chpt_8bad2f6d1a883ec`)
+     - Value: Das Token von Chromatic (Format `chpt_<project-token>`)
    - ⚠️ **Wichtig**: Token NICHT in Code committen!
 
 ### Workflow
