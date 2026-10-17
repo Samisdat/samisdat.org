@@ -3,7 +3,8 @@
 import { styled } from "@linaria/react";
 import { useState, type CSSProperties, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, LevelBadge, Mono, Panel, Scroll, Segmented, Title, label, ratio } from "./ui";
+import { Block, Hint, LevelBadge, Mono, Panel, Scroll, label, ratio, BlockHeader, type BlockProps } from "./ui";
+import { Segmented } from "../Segmented";
 
 const Chart = styled.div`
   position: relative;
@@ -117,44 +118,34 @@ const AltList = styled.ul`
   }
 `;
 
+const SURFACES = ["surface.default", "surface.raised"];
+
 const THRESHOLDS = [
   { value: 3, text: "Groß 3:1" },
   { value: 4.5, text: "AA 4,5:1" },
   { value: 7, text: "AAA 7:1" },
 ];
 
-export const SnapshotInks: FC = () => {
+export const SnapshotInks: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
   const [selected, setSelected] = useState("surface.default");
 
-  // Surfaces with the same color in this mode share one option (dark: raised, highlight, selection).
-  const groups = data.inkSurfaces.reduce<{ ids: string[]; hex: string }[]>((acc, id) => {
-    const group = acc.find((g) => g.hex === m.colors[id]);
-    if (group) group.ids.push(id);
-    else acc.push({ ids: [id], hex: m.colors[id] });
-    return acc;
-  }, []);
-  const surface = (groups.find((g) => g.ids.includes(selected)) ?? groups[0]).ids[0];
+  const surface = SURFACES.includes(selected) ? selected : SURFACES[0];
 
   const max = Math.max(14, Math.ceil(Math.max(...data.inks.flatMap((i) => data.inkSurfaces.map((s) => m.contrast[i][s].w)))));
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Tinten</Title>
-          <Hint>
-            Kontrast jeder Akzentfarbe gegen die gewählte Fläche. Gestrichelt sind die Schwellen. Nur Flächen, auf denen Inks vorkommen: Seite, Raised (Navigationsleiste),
-            Code und die Editor-Füllungen (<Mono>highlight</Mono>, <Mono>selection</Mono>). Im Dark Mode sind Raised, Highlight und Selection dieselbe Farbe und
-            stehen in einer Option; dort prüft der Lint alle Inks mit mindestens 4,5:1.
-          </Hint>
-        </div>
-      </BlockHead>
-      <Segmented
-        label="Gemessen auf"
-        value={surface}
-        onChange={setSelected}
-        options={groups.map((g) => ({ value: g.ids[0], label: g.ids.map(label).join(" · ") }))}
+      <BlockHeader
+        {...props}
+        aside={
+          <Segmented
+            label="Gemessen auf"
+            value={surface}
+            onChange={setSelected}
+            options={SURFACES.map((id) => ({ value: id, label: label(id) }))}
+          />
+        }
       />
       <Panel style={{ background: cs(surface) }}>
         <Scroll>
@@ -208,7 +199,7 @@ export const SnapshotInks: FC = () => {
         </Panel>
       ) : null}
       <Hint>
-        Fläche: <Mono>{groups.find((g) => g.ids[0] === surface)!.ids.join(" · ")}</Mono>
+        Fläche: <Mono>{surface}</Mono>
       </Hint>
     </Block>
   );

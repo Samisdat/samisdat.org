@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Fixed
+
+- `suncalc` is now a runtime dependency (it was a devDependency and got bundled into `dist`).
+- Removed the unused `astronomy-engine` dependency.
+
 ## [2.0.0] - 2026-10-07
 
 ### Breaking Changes

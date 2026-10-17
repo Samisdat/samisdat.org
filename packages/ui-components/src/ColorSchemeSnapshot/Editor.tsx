@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import { Fragment, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, Mono, Title } from "./ui";
+import { Block, Hint, BlockHeader, type BlockProps } from "./ui";
 import { Tokens } from "./Code";
 
 const Window = styled.div`
@@ -86,7 +86,7 @@ const FILES = [
 /** Gutter marks: line index -> diff token. */
 const MARKS: Record<number, "ink.jade" | "ink.sapphire" | "ink.ruby"> = { 3: "ink.jade", 4: "ink.jade", 8: "ink.sapphire", 14: "ink.ruby" };
 
-export const SnapshotEditor: FC = () => {
+export const SnapshotEditor: FC<BlockProps> = (props) => {
   const { m } = useSnapshot();
   const { code, fills } = m;
   const lines = code.theme.slice(0, 16);
@@ -95,17 +95,7 @@ export const SnapshotEditor: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Im Editor</Title>
-          <Hint>
-            So sitzen die Tokens in Neovim: Cursorzeile (<Mono>highlight</Mono>), Auswahl (<Mono>selection</Mono>),
-            Dateibaum, Diff-Markierungen am Rand. Abstand zur Fläche (ΔE OK):{" "}
-            {fills.map((f) => `${f.token} ${f.toSyntax.toFixed(2).replace(".", ",")} / ${f.toSurface.toFixed(2).replace(".", ",")}`).join(", ")}{" "}
-            (Code-Hintergrund / Seite). Das Lint verlangt mindestens 0,1.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Window aria-hidden="true">
         <Tree style={{ background: cs("surface.default"), color: cs("text.secondary") }}>
           {FILES.map((f) => (
@@ -159,6 +149,11 @@ export const SnapshotEditor: FC = () => {
           </Status>
         </Pane>
       </Window>
+      <Hint>
+        Abstand zur Fläche (ΔE OK, Code-Hintergrund / Seite):{" "}
+        {fills.map((f) => `${f.token} ${f.toSyntax.toFixed(2).replace(".", ",")} / ${f.toSurface.toFixed(2).replace(".", ",")}`).join(", ")}. Das Lint
+        verlangt mindestens 0,1.
+      </Hint>
     </Block>
   );
 };

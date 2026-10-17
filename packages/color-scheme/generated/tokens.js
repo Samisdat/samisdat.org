@@ -206,7 +206,7 @@ export const PERMUTATIONS = {
     "terminal.ansi5":{"$type":"color","$description":"magenta","$value":{"colorSpace":"oklch","components":[0.777,0.078,303.2],"alpha":1}},
     "terminal.ansi6":{"$type":"color","$description":"cyan","$value":{"colorSpace":"oklch","components":[0.782,0.048,198.4],"alpha":1}},
     "terminal.ansi7":{"$type":"color","$description":"white","$value":{"colorSpace":"oklch","components":[0.854,0.037,30],"alpha":1}},
-    "terminal.ansi8":{"$type":"color","$description":"bright black","$value":{"colorSpace":"oklch","components":[0.22,0.05,300],"alpha":1}},
+    "terminal.ansi8":{"$type":"color","$description":"bright black (muted/dim foreground used by many TUI tools, e.g. shell completion descriptions; needs real contrast against background, not a near-identical surface tone)","$value":{"colorSpace":"oklch","components":[0.57,0.04,300],"alpha":1}},
     "terminal.ansi9":{"$type":"color","$description":"bright red","$value":{"colorSpace":"oklch","components":[0.775,0.119,69],"alpha":1}},
     "terminal.ansi10":{"$type":"color","$description":"bright green (keine zweite Grün-Ink verfügbar, identisch mit ansi2)","$value":{"colorSpace":"oklch","components":[0.746,0.172,158.1],"alpha":1}},
     "terminal.ansi11":{"$type":"color","$description":"bright yellow (keine zweite Gelb-Ink verfügbar, identisch mit ansi3)","$value":{"colorSpace":"oklch","components":[0.832,0.162,85.7],"alpha":1}},

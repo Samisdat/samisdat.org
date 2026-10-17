@@ -41,13 +41,67 @@ const Styling = styled.div`
   }
 
   color: var(--color-surface-default);
+
+  /* Wraps the speed group below the buttons once it no longer fits */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  row-gap: 0.5rem;
+`;
+
+const Row = styled.div`
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+`;
+
+const SpeedRow = styled(Row)`
+  flex: 1 1 22rem;
+  min-width: 0;
+`;
+
+const SliderWrap = styled.span`
+  display: flex;
+  align-items: center;
+  flex: 1 1 8rem;
+  min-width: 8rem;
+
+  & > input {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+`;
+
+const SpeedLabel = styled.span`
+  display: inline-block;
+  flex: none;
+  white-space: pre;
 `;
 
 const Notice = styled.div`
+  flex: 0 0 100%;
   margin-top: 0.5rem;
   font-size: 0.85em;
   opacity: 0.8;
 `;
+
+const formatSpeed = (speed: number) => `${Number(speed.toFixed(2))}x`;
+
+const countDecimals = (value: number) =>
+  Math.min(2, (String(value).split(".")[1] ?? "").length);
+
+/** Width in ch of the longest label the slider range can produce. */
+const getLabelWidth = (min: number, max: number, step: number) => {
+  const decimals = Math.max(countDecimals(step), countDecimals(min));
+  const digits = Math.max(
+    String(Math.trunc(min)).length,
+    String(Math.trunc(max)).length,
+  );
+  const number = digits + (decimals > 0 ? decimals + 1 : 0);
+
+  // " Speed (" + number + "x)"
+  return 8 + number + 2;
+};
 
 export interface PlaybackControlProps {
   isPlaying: boolean;
@@ -94,7 +148,7 @@ export const PlaybackControl = ({
     }
 
     return (
-      <>
+      <SpeedRow>
         <PlayPauseButton
           type="button"
           value="decrement"
@@ -102,16 +156,18 @@ export const PlaybackControl = ({
         >
           [ - ]
         </PlayPauseButton>
-        [
-        <RangeSlider
-          aria-label="Speed"
-          onChange={handleSpeedChange}
-          step={speedStep}
-          min={speedMin}
-          max={speedMax}
-          value={speed}
-        />
-        ]
+        <SliderWrap>
+          [
+          <RangeSlider
+            aria-label="Speed"
+            onChange={handleSpeedChange}
+            step={speedStep}
+            min={speedMin}
+            max={speedMax}
+            value={speed}
+          />
+          ]
+        </SliderWrap>
         <PlayPauseButton
           type="button"
           value="increment"
@@ -119,25 +175,34 @@ export const PlaybackControl = ({
         >
           [ + ]
         </PlayPauseButton>
-        Speed ({speed}x)
-      </>
+        <SpeedLabel
+          style={{
+            width: `${getLabelWidth(speedMin, speedMax, speedStep)}ch`,
+          }}
+        >
+          {" "}
+          Speed ({formatSpeed(speed)})
+        </SpeedLabel>
+      </SpeedRow>
     );
   };
 
   return (
     <Styling>
-      {isPlaying ? (
-        <PlayPauseButton type="button" onClick={onPause}>
-          [ <Icon>⏸</Icon> Pause ]
+      <Row>
+        {isPlaying ? (
+          <PlayPauseButton type="button" onClick={onPause}>
+            [ <Icon>⏸</Icon> Pause ]
+          </PlayPauseButton>
+        ) : (
+          <PlayPauseButton type="button" onClick={onPlay}>
+            [ <Icon>▶</Icon> Play ]
+          </PlayPauseButton>
+        )}
+        <PlayPauseButton type="button" onClick={onReset}>
+          [ ↺ Reset ]
         </PlayPauseButton>
-      ) : (
-        <PlayPauseButton type="button" onClick={onPlay}>
-          [ <Icon>▶</Icon> Play ]
-        </PlayPauseButton>
-      )}
-      <PlayPauseButton type="button" onClick={onReset}>
-        [ ↺ Reset ]
-      </PlayPauseButton>
+      </Row>
       {getSpeedControls()}
       {notice && <Notice>{notice}</Notice>}
     </Styling>

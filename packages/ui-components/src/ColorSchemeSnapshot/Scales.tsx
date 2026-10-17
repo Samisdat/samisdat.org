@@ -3,7 +3,7 @@
 import { styled } from "@linaria/react";
 import { useMemo, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Block, BlockHead, Hint, Mono, Scroll, Title } from "./ui";
+import { Block, Scroll, BlockHeader, type BlockProps } from "./ui";
 
 const Grid = styled.div`
   display: grid;
@@ -33,7 +33,7 @@ const Head = styled.div`
 
 const USED = /^\{color\.([a-z]+)\.(\d+)\}$/;
 
-export const SnapshotScales: FC = () => {
+export const SnapshotScales: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
   const steps = Object.keys(data.scales.aubergine);
 
@@ -50,15 +50,7 @@ export const SnapshotScales: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Die Skalen</Title>
-          <Hint>
-            Die Primitive: zwölf Farbtöne in elf Stufen. Jede Stufe, die im gewählten Modus ein Token trägt, ist mit dem
-            Token beschriftet. Aliase wie <Mono>status.danger</Mono> zeigen auf ein Ink und tauchen hier nicht auf.
-          </Hint>
-        </div>
-      </BlockHead>
+      <BlockHeader {...props} />
       <Scroll>
         <Grid>
           <div />

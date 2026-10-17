@@ -3,7 +3,8 @@
 import { styled } from "@linaria/react";
 import { useMemo, useState, type FC } from "react";
 import { cs, useSnapshot } from "./frame";
-import { Badge, Block, BlockHead, Hint, Mono, Scroll, Segmented, Title, label } from "./ui";
+import { Badge, Block, Hint, Mono, Scroll, label, BlockHeader, type BlockProps } from "./ui";
+import { Segmented } from "../Segmented";
 
 type Vision = "normal" | "protan" | "deutan" | "tritan";
 
@@ -70,7 +71,7 @@ const Pairs = styled.ol`
   }
 `;
 
-export const SnapshotCvd: FC = () => {
+export const SnapshotCvd: FC<BlockProps> = (props) => {
   const { data, m } = useSnapshot();
   const [vision, setVision] = useState<Vision>("deutan");
   const seen = vision === "normal" ? data.inks.map((i) => m.colors[i]) : m.cvd.simulated[vision];
@@ -85,17 +86,10 @@ export const SnapshotCvd: FC = () => {
 
   return (
     <Block>
-      <BlockHead>
-        <div>
-          <Title>Farbfehlsichtigkeit</Title>
-          <Hint>
-            Die Tinten, wie sie bei Rot-, Grün- oder Blau-Fehlsichtigkeit aussehen (Machado 2009, volle Ausprägung).
-            Darunter die engsten Paare nach ΔE OK. Unter {HARD.toString().replace(".", ",")} fließen zwei Farben praktisch
-            zusammen.
-          </Hint>
-        </div>
+      <BlockHeader {...props} aside={
         <Segmented label="Sehtyp" value={vision} onChange={setVision} options={VISIONS} />
-      </BlockHead>
+      }
+      />
       <Scroll>
         <Swatches style={{ background: cs("syntax.background"), padding: "0.75rem", borderRadius: 12 }}>
           {data.inks.map((ink, i) => (
@@ -119,6 +113,7 @@ export const SnapshotCvd: FC = () => {
           </li>
         ))}
       </Pairs>
+      <Hint>Unter {HARD.toString().replace(".", ",")} fließen zwei Farben praktisch zusammen.</Hint>
     </Block>
   );
 };

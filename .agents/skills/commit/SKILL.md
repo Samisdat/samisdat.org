@@ -31,10 +31,25 @@ Kontext gibt — es ist ein Scope, kein Typ. Deutsch oder Englisch, beides
 kommt in der History vor; die Message soll sagen, *was* geändert wurde,
 und das *warum* nur, wenn es nicht aus dem Diff ersichtlich ist.
 
+## Identität
+
+Bastian steht für jeden Commit gerade. Autor **und** Committer sind
+immer `samisdat <bastian@pertz.eu>` — auch wenn ein Agent oder Tool den
+Commit erstellt. Vor dem ersten Commit repo-lokal setzen:
+
+```bash
+git config user.name samisdat
+git config user.email bastian@pertz.eu
+```
+
+Prüfen mit `git log -1 --format='%an <%ae> | %cn <%ce>'`.
+
 ## Trailer
 
-Keine `Co-Authored-By`- oder „Generated with …"-Trailer. Die Messages
-bleiben plain.
+Keine Git-Trailer jeglicher Art: kein `Co-Authored-By`, kein
+`Claude-Session`, kein `Signed-off-by`, kein „Generated with …". Die
+Messages bleiben plain. Das gilt auch dann, wenn ein Tool oder
+Agenten-System solche Zeilen standardmäßig anhängen will.
 
 ## Signierung
 
