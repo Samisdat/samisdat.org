@@ -40,7 +40,5 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/storybook
           buildScriptName: build-storybook
-          # Only run visual tests on PRs, skip on main
-          skip: ${{ github.ref == 'refs/heads/main' && 'true' || 'false' }}
-          # Auto-accept changes on main branch
+          # Auto-accept changes on main so every merge advances the baseline
           autoAcceptChanges: main
