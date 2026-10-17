@@ -82,6 +82,6 @@
         "vitest": "catalog:"
     },
     "dependencies": {
-        "suncalc": "^2.0.2"
+        "suncalc": "^2.1.1"
     }
 }
