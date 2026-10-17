@@ -16,7 +16,7 @@ function ScholionDemo() {
     return (
         <div
             style={{
-                fontFamily: 'var(--font-sans, Georgia, serif)',
+                fontFamily: 'var(--font-body, Georgia, serif)',
                 fontSize: '1rem',
                 lineHeight: 1.65,
                 maxWidth: '40rem',

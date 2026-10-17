@@ -13,7 +13,7 @@ const Panels = styled.div`
 
 const Panel = styled.section`
   padding: 1rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background: var(--color-surface-default);
   color: var(--color-text-default);
   min-width: 0;

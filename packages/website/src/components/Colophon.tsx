@@ -6,10 +6,10 @@ const FooterWrapper = styled.footer`
     padding: var(--space-4, 2rem) 0;
     text-align: center;
     font-size: var(--typo-small-size, 0.875rem);
-    color: var(--color-text-subtle);
+    color: var(--color-text-secondary);
 
     & a {
-        color: var(--color-text-subtle);
+        color: var(--color-text-secondary);
         text-decoration: underline;
         text-underline-offset: 2px;
 

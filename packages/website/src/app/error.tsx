@@ -17,7 +17,7 @@ export default function Error({ error: _error, reset }: { error: Error & { diges
                     border: '1px solid currentColor',
                     background: 'transparent',
                     color: 'inherit',
-                    fontFamily: 'var(--font-sans)',
+                    fontFamily: 'var(--font-body)',
                     fontSize: '1rem',
                 }}
             >

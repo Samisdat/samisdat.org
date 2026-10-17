@@ -6,7 +6,7 @@ import { tokensOf } from "@samisdat/color-scheme/contrast";
 import { labelColorOn, toHex, toOklch, valueOf } from "./utils";
 
 const Page = styled.div`
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   color: var(--color-text-default);
   background: var(--color-surface-default);
   padding: 1rem;
@@ -40,7 +40,7 @@ const Chart = styled.svg`
   max-width: 32rem;
   height: auto;
   margin-top: 0.5rem;
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   font-size: 9px;
 `;
 

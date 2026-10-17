@@ -14,8 +14,6 @@
     "@babel/preset-typescript": "^8.0.1",
     "@chromatic-com/storybook": "^5.4.0",
     "@fontsource-variable/source-code-pro": "^5.3.0",
-    "@fontsource-variable/source-sans-3": "^5.3.0",
-    "@fontsource-variable/source-serif-4": "^5.3.0",
     "@fontsource/playwrite-no": "^5.3.0",
     "@linaria/react": "catalog:",
     "@samisdat/color-scheme": "workspace:*",
@@ -41,5 +39,9 @@
     "storybook": "^10.6.1",
     "typescript": "catalog:",
     "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "^5.3.0",
+    "@fontsource-variable/inter-tight": "^5.3.0"
   }
 }

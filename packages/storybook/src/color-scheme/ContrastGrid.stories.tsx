@@ -11,7 +11,7 @@ import { contrastBaseline } from "@samisdat/color-scheme/contrast-baseline";
 import { ratio, valueOf } from "./utils";
 
 const Page = styled.div`
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   color: var(--color-text-default);
   background: var(--color-surface-default);
   padding: 1rem;

@@ -4,6 +4,8 @@ import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Stack } from '@samisdat/ui-components/Stack';
+import { Heading } from '@samisdat/ui-components/Heading';
+import { Lead } from '@samisdat/ui-components/Lead';
 import { Typo } from '@samisdat/ui-components/Typo';
 
 import { SandpackFiles } from '@codesandbox/sandpack-react';
@@ -34,6 +36,25 @@ interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
 
 export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _mdxDir, sandboxFiles }) => {
     const components = {
+        h1: (props: any) => (
+            <Heading
+                level={1}
+                {...props}
+            />
+        ),
+        h2: (props: any) => (
+            <Heading
+                level={2}
+                {...props}
+            />
+        ),
+        h3: (props: any) => (
+            <Heading
+                level={3}
+                {...props}
+            />
+        ),
+        Lead: (props: any) => <Lead {...props} />,
         p: (props: any) => (
             <Typo
                 variant="p"
