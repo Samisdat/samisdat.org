@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { fn } from 'storybook/test';
 import { useState } from 'react';
 
@@ -162,15 +162,18 @@ export const Interactive: StoryObj = {
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
 
-        // Start with Play button visible
-        const playButton = canvas.getByRole('button', { name: /play/i });
-        expect(playButton).toBeInTheDocument();
+        // DemoAnimation autoplays via IntersectionObserver, so the initial state
+        // is racy. Click Play only while it is offered and wait for the Pause
+        // button, which every path ends in.
+        await waitFor(async () => {
+            const playButton = canvas.queryByRole('button', { name: /play/i });
+            if (playButton) {
+                await userEvent.click(playButton);
+            }
 
-        // Click to play
-        await userEvent.click(playButton);
-
-        // Pause button should now be visible
-        const pauseButton = await canvas.findByRole('button', { name: /pause/i });
-        expect(pauseButton).toBeInTheDocument();
+            expect(
+                canvas.getByRole('button', { name: /pause/i }),
+            ).toBeInTheDocument();
+        });
     },
 };
