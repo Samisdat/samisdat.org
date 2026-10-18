@@ -1,4 +1,4 @@
-export { ColorSchemeSnapshot, useSnapshot } from "./frame";
+export { ColorSchemeSnapshot, useSiteMode, useSnapshot } from "./frame";
 export { SnapshotInks } from "./Inks";
 export { SnapshotMatrix } from "./Matrix";
 export { SnapshotCode } from "./Code";

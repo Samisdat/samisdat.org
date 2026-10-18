@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { FC, HTMLAttributes } from 'react';
+import { AnchorHTMLAttributes, FC } from 'react';
 
 const LinkStyling = styled.a`
     color: var(--color-ink-turquoise);
@@ -9,6 +9,6 @@ const LinkStyling = styled.a`
     text-decoration-thickness: 1.5px;
 `;
 
-export const Link: FC<HTMLAttributes<HTMLAnchorElement>> = ({ children, ...props }) => (
+export const Link: FC<AnchorHTMLAttributes<HTMLAnchorElement>> = ({ children, ...props }) => (
     <LinkStyling {...props}>{children}</LinkStyling>
 );

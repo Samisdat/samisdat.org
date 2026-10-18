@@ -55,6 +55,22 @@ const SegmentedRoot = styled.fieldset`
     outline: 2px solid var(--cs-border-focus, var(--color-border-focus));
     outline-offset: 1px;
   }
+
+  /* Many options: no shared outline, every option is its own pill, wrapping is plain text flow */
+  &[data-variant="chips"] {
+    gap: 6px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+  }
+
+  &[data-variant="chips"] span {
+    border: 1px solid var(--cs-border-muted, var(--color-border-muted));
+  }
+
+  &[data-variant="chips"] input:checked + span {
+    border-color: var(--cs-text-emphasis, var(--color-text-emphasis));
+  }
 `;
 
 export type SegmentedProps<T extends string> = {
@@ -63,12 +79,17 @@ export type SegmentedProps<T extends string> = {
   value: T;
   options: readonly { value: T; label: string }[];
   onChange: (value: T) => void;
+  /**
+   * "pill" (default): one shared pill outline, for a few options on one row.
+   * "chips": separate pills without a container, for many options that wrap.
+   */
+  variant?: "pill" | "chips";
 };
 
-export function Segmented<T extends string>({ label, value, options, onChange }: SegmentedProps<T>) {
+export function Segmented<T extends string>({ label, value, options, onChange, variant = "pill" }: SegmentedProps<T>) {
   const name = useId();
   return (
-    <SegmentedRoot>
+    <SegmentedRoot data-variant={variant}>
       <legend>{label}</legend>
       {options.map((o) => (
         <label key={o.value}>

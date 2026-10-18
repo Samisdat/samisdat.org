@@ -149,6 +149,10 @@ const subscribeSite = (onChange: () => void) => {
   };
 };
 
+/** The site theme as `"dark" | "light"`, for frames that follow it until the reader picks a mode. */
+export const useSiteMode = (): SnapshotMode =>
+  useSyncExternalStore(subscribeSite, siteMode, () => "dark" as SnapshotMode);
+
 type Props = { data: Snapshot; children?: ReactNode };
 
 export const ColorSchemeSnapshot: FC<Props> = ({ data, children }) => {

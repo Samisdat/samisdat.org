@@ -15,6 +15,8 @@ import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import * as ClientDemos from './ClientAnimations';
 import { SnapshotFrame } from './SnapshotFrame';
+import { TypeSpecimen } from '../TypeSpecimen';
+import { TypographySnapshotFrame } from './TypographySnapshotFrame';
 import {
     SnapshotCode,
     SnapshotCvd,
@@ -120,6 +122,8 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         SnapshotScales,
             SnapshotExceptions,
         SnapshotEditor,
+        TypeSpecimen,
+        TypographySnapshot: TypographySnapshotFrame,
     };
 
     const hasSandbox = sandboxFiles && Object.keys(sandboxFiles).length > 0;
