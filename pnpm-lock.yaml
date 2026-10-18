@@ -43,11 +43,11 @@ catalogs:
       specifier: ^5.0.3
       version: 5.0.4
     '@wyw-in-js/nextjs':
-      specifier: ^2.5.2
-      version: 2.5.2
+      specifier: ^2.6.0
+      version: 2.6.0
     '@wyw-in-js/vite':
-      specifier: ^2.5.1
-      version: 2.5.1
+      specifier: ^2.6.0
+      version: 2.6.0
     fs-extra:
       specifier: ^11.4.1
       version: 11.4.1
@@ -329,7 +329,7 @@ importers:
         version: 5.0.4(@vitest/browser@5.0.4)(vitest@5.0.4)
       '@wyw-in-js/vite':
         specifier: 'catalog:'
-        version: 2.5.1(supports-color@10.2.2)(typescript@5.9.3)(vite@7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
+        version: 2.6.0(supports-color@10.2.2)(typescript@5.9.3)(vite@7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
       culori:
         specifier: ^4.0.2
         version: 4.0.2
@@ -490,7 +490,7 @@ importers:
         version: link:../panorama
       '@wyw-in-js/nextjs':
         specifier: 'catalog:'
-        version: 2.5.2(next@16.4.1(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))
+        version: 2.6.0(next@16.4.1(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))
       fs-extra:
         specifier: 'catalog:'
         version: 11.4.1
@@ -2972,8 +2972,8 @@ packages:
   '@webcontainer/env@1.1.1':
     resolution: {integrity: sha512-6aN99yL695Hi9SuIk1oC88l9o0gmxL1nGWWQ/kNy81HigJ0FoaoTXpytCj6ItzgyCEwA9kF1wixsTuv5cjsgng==}
 
-  '@wyw-in-js/nextjs@2.5.2':
-    resolution: {integrity: sha512-d4IJXG4yy8cBgZBYmRAJ9pSvjV65uKCnq0euy/fKQ5Hqf1C8vF2cEgurNTjOY+VbVfyRxPRlA24/Bcteg0z29g==}
+  '@wyw-in-js/nextjs@2.6.0':
+    resolution: {integrity: sha512-bkuYqzJnwQE/ypypg4JbWb9mgIWo7sZgwyjxPeaqR85aBZq/tmt8dsAJ6WjdKomC5q69j3cGuCe5XmqQkTctlQ==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       next: '>=13.0.0'
@@ -2983,34 +2983,34 @@ packages:
     resolution: {integrity: sha512-Zc7XCCPE+g+Qo0HfQt7pYuyTGTk2PaZwpemzPmCxvRTWXOkLKoEp3lom0qrg89M+9MGRYQFalOgU/2H+wEipIw==}
     engines: {node: '>=22.0.0'}
 
-  '@wyw-in-js/processor-utils@2.5.0':
-    resolution: {integrity: sha512-2R7qFO4lPfe4QnrHQtg+VVD5teM2X8rLOxPhNuUThYMy02jMETEhl0uBUGxvwQmOiCMa0NkQro6PTMkVbcbo7w==}
+  '@wyw-in-js/processor-utils@2.6.0':
+    resolution: {integrity: sha512-+lTv4G7y7+Xl86CQZ/j7jNVvc5LdZJiaMQniUpXLw5DZLxeIJWahvwSO3wxDhSPXqNLAsD/WagDoAqwnYTnIWg==}
     engines: {node: '>=22.0.0'}
 
   '@wyw-in-js/shared@2.4.0':
     resolution: {integrity: sha512-yWYAg2LkuCRxp3wSpubFnPMiLEt0HUNq0Sdt5LKUKs0vdegCAK6dmAkBCh3A//8PP75N6XZ7eJ5FXxKae/bByw==}
     engines: {node: '>=22.0.0'}
 
-  '@wyw-in-js/shared@2.5.0':
-    resolution: {integrity: sha512-0r+cSP6sHuB6sl0N9gkjhSJ/BI0g9tiwsRV0F+TJivJVKw8kn9Mdilkez0gzlL7L8yGoy7hKsHGCsSddM1ctcw==}
+  '@wyw-in-js/shared@2.6.0':
+    resolution: {integrity: sha512-0u/F3mp3/NxB/EleCho6qyHo+0PdLyLKrtX2q6EfFerp8XCiFdqIlv1V6+5S9Yupq2dgSXIGaQPWvzdRVSN7qA==}
     engines: {node: '>=22.0.0'}
 
-  '@wyw-in-js/transform@2.5.1':
-    resolution: {integrity: sha512-6aWtIPAb17Vz3FbowshZ81a46ZjLwUPDao9N2fHAXlawdNJ7f5nwMeThkl4U/1ZJAKY4WMw+gSXx6C8nuu0c4g==}
+  '@wyw-in-js/transform@2.6.0':
+    resolution: {integrity: sha512-pSV38tfSnsNhmZMTXxmcDq772vygmn/1X1red3TPRehBcFRyupZAXHQuLhAXQqBwjE+qZT5J36/JBiqq6mpL5A==}
     engines: {node: '>=22.0.0'}
 
-  '@wyw-in-js/turbopack-loader@2.5.2':
-    resolution: {integrity: sha512-p6z5yfXrcvaroxXeEOnm1yqlaiA1bylgDrHDWA5d102akDH3VCqAvolmkStROr1mGhIfVGg9BrHmX3XUnB8nbg==}
+  '@wyw-in-js/turbopack-loader@2.6.0':
+    resolution: {integrity: sha512-/v5n/6kOeKBGoLV+GOSpq5jxRO33zjxAXo8YKgzcIuvA2VfICYHhbZ5NESFpbTuoMlfCypyHkryukHz9F2c4UA==}
     engines: {node: '>=22.0.0'}
 
-  '@wyw-in-js/vite@2.5.1':
-    resolution: {integrity: sha512-zZM76bAHmGNihCsdn0Ke2Fe+uMUWKi/rBlvedXidG7MM/6bUb3g+VrWmqAFiC9Ed7Rp6tOcz0egeesBmvj2wVg==}
+  '@wyw-in-js/vite@2.6.0':
+    resolution: {integrity: sha512-15wopvgjCM+bdrr8c5uvXTgU9YbrpRovHnURPYPN+qmU0z34jjaOlc39FFjEmxBpPgzrIkYcIoTU6FgrFfl93w==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       vite: ^7.1.0
 
-  '@wyw-in-js/webpack-loader@2.5.1':
-    resolution: {integrity: sha512-4K4PzNF0ErrYxG9tpNpoqb3UjdooUxk2pphn9i5mi+MjaMkgO1DMNypL5tQIZDFGlTaNDIBL+MNkmg7iLx2uVQ==}
+  '@wyw-in-js/webpack-loader@2.6.0':
+    resolution: {integrity: sha512-vjq5l9bJ7iDnToPx1K4fzpeqT45HLNvagrQ+62/Zie/pHt6gTpl+ThBE+mh7DMBvGRWMURwqi0L2y1mA9KsJnw==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       webpack: ^5.76.0
@@ -7601,11 +7601,11 @@ snapshots:
 
   '@webcontainer/env@1.1.1': {}
 
-  '@wyw-in-js/nextjs@2.5.2(next@16.4.1(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))':
+  '@wyw-in-js/nextjs@2.6.0(next@16.4.1(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))':
     dependencies:
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
-      '@wyw-in-js/turbopack-loader': 2.5.2(supports-color@10.2.2)(typescript@5.9.3)
-      '@wyw-in-js/webpack-loader': 2.5.1(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
+      '@wyw-in-js/turbopack-loader': 2.6.0(supports-color@10.2.2)(typescript@5.9.3)
+      '@wyw-in-js/webpack-loader': 2.6.0(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))
       next: 16.4.1(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       webpack: 5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))
     transitivePeerDependencies:
@@ -7620,9 +7620,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wyw-in-js/processor-utils@2.5.0(supports-color@10.2.2)':
+  '@wyw-in-js/processor-utils@2.6.0(supports-color@10.2.2)':
     dependencies:
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
     transitivePeerDependencies:
       - supports-color
 
@@ -7634,7 +7634,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wyw-in-js/shared@2.5.0(supports-color@10.2.2)':
+  '@wyw-in-js/shared@2.6.0(supports-color@10.2.2)':
     dependencies:
       debug: 4.4.3(supports-color@10.2.2)
       find-up: 5.0.0
@@ -7642,12 +7642,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wyw-in-js/transform@2.5.1(supports-color@10.2.2)(typescript@5.9.3)':
+  '@wyw-in-js/transform@2.6.0(supports-color@10.2.2)(typescript@5.9.3)':
     dependencies:
       '@jridgewell/remapping': 2.3.5
       '@jridgewell/trace-mapping': 0.3.31
-      '@wyw-in-js/processor-utils': 2.5.0(supports-color@10.2.2)
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
+      '@wyw-in-js/processor-utils': 2.6.0(supports-color@10.2.2)
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
       cosmiconfig: 8.3.6(typescript@5.9.3)
       happy-dom: 20.14.5
       minimatch: 9.0.9
@@ -7663,10 +7663,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@wyw-in-js/turbopack-loader@2.5.2(supports-color@10.2.2)(typescript@5.9.3)':
+  '@wyw-in-js/turbopack-loader@2.6.0(supports-color@10.2.2)(typescript@5.9.3)':
     dependencies:
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
-      '@wyw-in-js/transform': 2.5.1(supports-color@10.2.2)(typescript@5.9.3)
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
+      '@wyw-in-js/transform': 2.6.0(supports-color@10.2.2)(typescript@5.9.3)
       source-map: 0.7.6
     transitivePeerDependencies:
       - bufferutil
@@ -7674,10 +7674,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@wyw-in-js/vite@2.5.1(supports-color@10.2.2)(typescript@5.9.3)(vite@7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))':
+  '@wyw-in-js/vite@2.6.0(supports-color@10.2.2)(typescript@5.9.3)(vite@7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))':
     dependencies:
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
-      '@wyw-in-js/transform': 2.5.1(supports-color@10.2.2)(typescript@5.9.3)
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
+      '@wyw-in-js/transform': 2.6.0(supports-color@10.2.2)(typescript@5.9.3)
       vite: 7.3.6(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
     transitivePeerDependencies:
       - bufferutil
@@ -7685,10 +7685,10 @@ snapshots:
       - typescript
       - utf-8-validate
 
-  '@wyw-in-js/webpack-loader@2.5.1(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))':
+  '@wyw-in-js/webpack-loader@2.6.0(supports-color@10.2.2)(typescript@5.9.3)(webpack@5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4)))':
     dependencies:
-      '@wyw-in-js/shared': 2.5.0(supports-color@10.2.2)
-      '@wyw-in-js/transform': 2.5.1(supports-color@10.2.2)(typescript@5.9.3)
+      '@wyw-in-js/shared': 2.6.0(supports-color@10.2.2)
+      '@wyw-in-js/transform': 2.6.0(supports-color@10.2.2)(typescript@5.9.3)
       webpack: 5.111.1(esbuild@0.28.2)(lightningcss@1.33.0)(postcss@8.5.28)(sharp@0.35.5(@types/node@26.6.4))
     transitivePeerDependencies:
       - bufferutil
