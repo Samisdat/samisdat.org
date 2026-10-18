@@ -20,13 +20,13 @@ catalog:
   next: ^16.4.0
   
   # TypeScript
-  typescript: ^5.9.3
+  typescript: ^6.0.3
   
   # Linaria/wyw-in-js
   '@linaria/core': ^8.2.0
   '@linaria/react': ^8.2.0
-  '@wyw-in-js/nextjs': ^2.5.2
-  '@wyw-in-js/vite': ^2.5.1
+  '@wyw-in-js/nextjs': ^2.6.0
+  '@wyw-in-js/vite': ^2.6.0
   
   # Prettier
   prettier: ^3.9.10

@@ -76,7 +76,7 @@
         "prettier-plugin-organize-imports": "catalog:",
         "react": "catalog:",
         "react-dom": "catalog:",
-        "tsup": "^8.5.0",
+        "tsup": "^9.0.0",
         "tsx": "^4.23.15",
         "typescript": "catalog:",
         "vitest": "catalog:"
