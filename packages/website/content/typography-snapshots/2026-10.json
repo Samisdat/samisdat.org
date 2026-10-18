@@ -1,0 +1,1097 @@
+{
+  "version": 1,
+  "id": "2026-10",
+  "date": "2026-10-15",
+  "git": {
+    "commit": "445babb9",
+    "dirty": true
+  },
+  "defaultPreset": "inter",
+  "presets": [
+    {
+      "id": "current",
+      "label": "current",
+      "head": {
+        "font": {
+          "name": "Source Serif 4",
+          "cssVar": "--ff-source-serif-4"
+        },
+        "weight": 700,
+        "tracking": "0.01em",
+        "size": "60px",
+        "h2": "55px",
+        "h3": "45px"
+      },
+      "body": {
+        "font": {
+          "name": "Source Sans 3",
+          "cssVar": "--ff-source-sans-3"
+        },
+        "size": "20px",
+        "tracking": "0.01em",
+        "leadWeight": 400,
+        "lineHeight": 1.6
+      },
+      "mono": {
+        "font": {
+          "name": "Source Code Pro",
+          "cssVar": "--ff-source-code-pro"
+        },
+        "size": "16px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Playwrite NO",
+          "cssVar": "--ff-playwrite-no"
+        },
+        "style": "normal",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "inter",
+      "label": "inter",
+      "head": {
+        "font": {
+          "name": "Inter",
+          "cssVar": "--ff-inter"
+        },
+        "weight": 700,
+        "tracking": "-0.03em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Inter Tight",
+          "cssVar": "--ff-inter-tight"
+        },
+        "size": "16px",
+        "tracking": "0.01em",
+        "leadWeight": 500
+      },
+      "mono": {
+        "font": {
+          "name": "Source Code Pro",
+          "cssVar": "--ff-source-code-pro"
+        },
+        "size": "14.5px",
+        "keywordWeight": 650
+      },
+      "em": {
+        "font": {
+          "name": "Playwrite NO",
+          "cssVar": "--ff-playwrite-no"
+        },
+        "style": "normal",
+        "weight": 400,
+        "size": "0.95em"
+      }
+    },
+    {
+      "id": "tight-inter",
+      "label": "tight-inter",
+      "head": {
+        "font": {
+          "name": "Inter Tight",
+          "cssVar": "--ff-inter-tight"
+        },
+        "weight": 700,
+        "tracking": "-0.02em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Inter",
+          "cssVar": "--ff-inter"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 500
+      },
+      "mono": {
+        "font": {
+          "name": "Source Code Pro",
+          "cssVar": "--ff-source-code-pro"
+        },
+        "size": "14.5px",
+        "keywordWeight": 650
+      },
+      "em": {
+        "font": {
+          "name": "Playwrite NO",
+          "cssVar": "--ff-playwrite-no"
+        },
+        "style": "normal",
+        "weight": 400,
+        "size": "0.95em"
+      }
+    },
+    {
+      "id": "editorial",
+      "label": "editorial",
+      "head": {
+        "font": {
+          "name": "Fraunces",
+          "cssVar": "--ff-fraunces"
+        },
+        "weight": 700,
+        "tracking": "-0.02em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Newsreader",
+          "cssVar": "--ff-newsreader"
+        },
+        "size": "17px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "JetBrains Mono",
+          "cssVar": "--ff-jetbrains-mono"
+        },
+        "size": "14px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Newsreader",
+          "cssVar": "--ff-newsreader"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "plex",
+      "label": "plex",
+      "head": {
+        "font": {
+          "name": "IBM Plex Sans",
+          "cssVar": "--ff-ibm-plex-sans"
+        },
+        "weight": 700,
+        "tracking": "-0.02em",
+        "size": "40px"
+      },
+      "body": {
+        "font": {
+          "name": "IBM Plex Serif",
+          "cssVar": "--ff-ibm-plex-serif"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "IBM Plex Mono",
+          "cssVar": "--ff-ibm-plex-mono"
+        },
+        "size": "14px",
+        "keywordWeight": 600
+      },
+      "em": {
+        "font": {
+          "name": "IBM Plex Serif",
+          "cssVar": "--ff-ibm-plex-serif"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "instrument",
+      "label": "instrument",
+      "head": {
+        "font": {
+          "name": "Schibsted Grotesk",
+          "cssVar": "--ff-schibsted-grotesk"
+        },
+        "weight": 800,
+        "tracking": "-0.035em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Instrument Sans",
+          "cssVar": "--ff-instrument-sans"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Martian Mono",
+          "cssVar": "--ff-martian-mono"
+        },
+        "size": "13px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Instrument Serif",
+          "cssVar": "--ff-instrument-serif"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1.15em"
+      }
+    },
+    {
+      "id": "bricolage",
+      "label": "bricolage",
+      "head": {
+        "font": {
+          "name": "Bricolage Grotesque",
+          "cssVar": "--ff-bricolage-grotesque"
+        },
+        "weight": 800,
+        "tracking": "-0.03em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Atkinson Hyperlegible Next",
+          "cssVar": "--ff-atkinson-hyperlegible-next"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Atkinson Hyperlegible Mono",
+          "cssVar": "--ff-atkinson-hyperlegible-mono"
+        },
+        "size": "14.5px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Fraunces",
+          "cssVar": "--ff-fraunces"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "literata",
+      "label": "literata",
+      "head": {
+        "font": {
+          "name": "Literata",
+          "cssVar": "--ff-literata"
+        },
+        "weight": 700,
+        "tracking": "-0.02em",
+        "size": "40px"
+      },
+      "body": {
+        "font": {
+          "name": "Literata",
+          "cssVar": "--ff-literata"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Fira Code",
+          "cssVar": "--ff-fira-code"
+        },
+        "size": "14px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Literata",
+          "cssVar": "--ff-literata"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "garamond",
+      "label": "garamond",
+      "head": {
+        "font": {
+          "name": "Cormorant Garamond",
+          "cssVar": "--ff-cormorant-garamond"
+        },
+        "weight": 700,
+        "tracking": "-0.01em",
+        "size": "48px"
+      },
+      "body": {
+        "font": {
+          "name": "EB Garamond",
+          "cssVar": "--ff-eb-garamond"
+        },
+        "size": "18.5px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Courier Prime",
+          "cssVar": "--ff-courier-prime"
+        },
+        "size": "14.5px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "EB Garamond",
+          "cssVar": "--ff-eb-garamond"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "geist",
+      "label": "geist",
+      "head": {
+        "font": {
+          "name": "Geist",
+          "cssVar": "--ff-geist"
+        },
+        "weight": 700,
+        "tracking": "-0.04em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Geist",
+          "cssVar": "--ff-geist"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Geist Mono",
+          "cssVar": "--ff-geist-mono"
+        },
+        "size": "14px",
+        "keywordWeight": 700
+      },
+      "em": {
+        "font": {
+          "name": "Instrument Serif",
+          "cssVar": "--ff-instrument-serif"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1.15em"
+      }
+    },
+    {
+      "id": "recursive",
+      "label": "recursive",
+      "head": {
+        "font": {
+          "name": "Recursive",
+          "cssVar": "--ff-recursive"
+        },
+        "weight": 800,
+        "tracking": "-0.02em",
+        "size": "42px",
+        "variations": "\"CASL\" 1, \"MONO\" 0"
+      },
+      "body": {
+        "font": {
+          "name": "Recursive",
+          "cssVar": "--ff-recursive"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400,
+        "variations": "\"CASL\" 0, \"MONO\" 0"
+      },
+      "mono": {
+        "font": {
+          "name": "Recursive",
+          "cssVar": "--ff-recursive"
+        },
+        "size": "14px",
+        "keywordWeight": 700,
+        "variations": "\"MONO\" 1, \"CASL\" 0"
+      },
+      "em": {
+        "font": {
+          "name": "Recursive",
+          "cssVar": "--ff-recursive"
+        },
+        "style": "normal",
+        "weight": 400,
+        "size": "1em",
+        "variations": "\"CASL\" 1, \"slnt\" -15, \"CRSV\" 1, \"MONO\" 0"
+      }
+    },
+    {
+      "id": "alegreya",
+      "label": "alegreya",
+      "head": {
+        "font": {
+          "name": "Alegreya Sans",
+          "cssVar": "--ff-alegreya-sans"
+        },
+        "weight": 800,
+        "tracking": "-0.02em",
+        "size": "42px"
+      },
+      "body": {
+        "font": {
+          "name": "Alegreya",
+          "cssVar": "--ff-alegreya"
+        },
+        "size": "17.5px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "Fira Mono",
+          "cssVar": "--ff-fira-mono"
+        },
+        "size": "14px",
+        "keywordWeight": 500
+      },
+      "em": {
+        "font": {
+          "name": "Alegreya",
+          "cssVar": "--ff-alegreya"
+        },
+        "style": "italic",
+        "weight": 400,
+        "size": "1em"
+      }
+    },
+    {
+      "id": "bodoni",
+      "label": "bodoni",
+      "head": {
+        "font": {
+          "name": "Bodoni Moda",
+          "cssVar": "--ff-bodoni-moda"
+        },
+        "weight": 700,
+        "tracking": "-0.01em",
+        "size": "46px"
+      },
+      "body": {
+        "font": {
+          "name": "Libre Franklin",
+          "cssVar": "--ff-libre-franklin"
+        },
+        "size": "16px",
+        "tracking": "0em",
+        "leadWeight": 400
+      },
+      "mono": {
+        "font": {
+          "name": "DM Mono",
+          "cssVar": "--ff-dm-mono"
+        },
+        "size": "14px",
+        "keywordWeight": 500
+      },
+      "em": {
+        "font": {
+          "name": "Bodoni Moda",
+          "cssVar": "--ff-bodoni-moda"
+        },
+        "style": "italic",
+        "weight": 500,
+        "size": "1.05em"
+      }
+    }
+  ],
+  "fonts": [
+    {
+      "name": "Source Serif 4",
+      "cssVar": "--ff-source-serif-4",
+      "files": [
+        {
+          "file": "@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-italic.woff2",
+          "sha256": "96e6393209728ab93c334ae739af8a040cd2006c82e8614d6465a8084db88f89"
+        },
+        {
+          "file": "@fontsource-variable/source-serif-4/files/source-serif-4-latin-opsz-normal.woff2",
+          "sha256": "f2ea9c12d2fe9bd3a9589b02ad2c0909da88f30938c91adc838c4f4098f9f9e0"
+        }
+      ]
+    },
+    {
+      "name": "Source Sans 3",
+      "cssVar": "--ff-source-sans-3",
+      "files": [
+        {
+          "file": "@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-italic.woff2",
+          "sha256": "5fbc14d56cea35e60596c72ca969b349443c6a536f74e11748eed8b3a396e61d"
+        },
+        {
+          "file": "@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2",
+          "sha256": "19143dca075972bc84e3fd9eab7416dd40cc565dccb2435a044bdfabe060c7d5"
+        }
+      ]
+    },
+    {
+      "name": "Source Code Pro",
+      "cssVar": "--ff-source-code-pro",
+      "files": [
+        {
+          "file": "@fontsource-variable/source-code-pro/files/source-code-pro-latin-wght-italic.woff2",
+          "sha256": "97f01332aeda642a2f298030203dd4dd72802c0288ab2705d33daf691278e563"
+        },
+        {
+          "file": "@fontsource-variable/source-code-pro/files/source-code-pro-latin-wght-normal.woff2",
+          "sha256": "8b774aaa5137a38ef40f4ac9d36db9a5eee152b2f66589dfdc82ff007fc87135"
+        }
+      ]
+    },
+    {
+      "name": "Playwrite NO",
+      "cssVar": "--ff-playwrite-no",
+      "files": [
+        {
+          "file": "@fontsource-variable/playwrite-no/files/playwrite-no-fallback-wght-normal.woff2",
+          "sha256": "031b37c2e268e0a735723c29794c724af83e2037ae35cfcb16551206e65b14d0"
+        }
+      ]
+    },
+    {
+      "name": "Inter",
+      "cssVar": "--ff-inter",
+      "files": [
+        {
+          "file": "@fontsource-variable/inter/files/inter-latin-opsz-italic.woff2",
+          "sha256": "c58f9d530baa7e96355f444502eca739d5eefa0f328f3d635b73648373214629"
+        },
+        {
+          "file": "@fontsource-variable/inter/files/inter-latin-opsz-normal.woff2",
+          "sha256": "2c295d99e26dcf357d4d01bcf270fd6924b600c9a13dd8c363ef114f4c6976fa"
+        }
+      ]
+    },
+    {
+      "name": "Inter Tight",
+      "cssVar": "--ff-inter-tight",
+      "files": [
+        {
+          "file": "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-italic.woff2",
+          "sha256": "26da6578cb17ad7922d0c6586697ab1c5de86a3cfd46057eec8a9e1f034ac965"
+        },
+        {
+          "file": "@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2",
+          "sha256": "77fefe8ca19b9f69b5284832c519e0493127c1f091f0a8936884be7721c4e618"
+        }
+      ]
+    },
+    {
+      "name": "Fraunces",
+      "cssVar": "--ff-fraunces",
+      "files": [
+        {
+          "file": "@fontsource-variable/fraunces/files/fraunces-latin-opsz-italic.woff2",
+          "sha256": "066710ce7ed235a339d3d6cdcc8b55c0bea5632232662d83aacea25852108271"
+        },
+        {
+          "file": "@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2",
+          "sha256": "7234ed860a9cc83045413c4faee63c960a8f2d1917adcf728119307d56e0d783"
+        }
+      ]
+    },
+    {
+      "name": "Newsreader",
+      "cssVar": "--ff-newsreader",
+      "files": [
+        {
+          "file": "@fontsource-variable/newsreader/files/newsreader-latin-opsz-italic.woff2",
+          "sha256": "5dfcd10d24af8c82927ba57f7983dd997f7b200594c09c35a1b1ed9fc4597506"
+        },
+        {
+          "file": "@fontsource-variable/newsreader/files/newsreader-latin-opsz-normal.woff2",
+          "sha256": "6e4f2958c3a7c4a80acde4e5a679abe7e01bc1e30b92be3c7a8b696ef401d101"
+        }
+      ]
+    },
+    {
+      "name": "JetBrains Mono",
+      "cssVar": "--ff-jetbrains-mono",
+      "files": [
+        {
+          "file": "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2",
+          "sha256": "18be452724bfdc236c074ca94a249a7f41a86752c7d04ab258ce9ed5651f6a7e"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Sans",
+      "cssVar": "--ff-ibm-plex-sans",
+      "files": [
+        {
+          "file": "@fontsource-variable/ibm-plex-sans/files/ibm-plex-sans-latin-wght-normal.woff2",
+          "sha256": "e2291e842cf5af167122a22881a740c7f2dda7716f1e8cd76680264f4a859470"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Serif",
+      "cssVar": "--ff-ibm-plex-serif",
+      "files": [
+        {
+          "file": "@fontsource/ibm-plex-serif/files/ibm-plex-serif-latin-400-italic.woff2",
+          "sha256": "d3f861b1ca55e50ca94de4c1756cb0d67c73de615172adf6b5b2078d939c723a"
+        },
+        {
+          "file": "@fontsource/ibm-plex-serif/files/ibm-plex-serif-latin-400-normal.woff2",
+          "sha256": "cb2c5eee2c0a43ff30d2365407c7bc8b20e3bd90720a4a64102ba0b328022a02"
+        },
+        {
+          "file": "@fontsource/ibm-plex-serif/files/ibm-plex-serif-latin-600-normal.woff2",
+          "sha256": "e279e4f8baa0d4634d98868092f2198ae0dcd9e142c935822c385b9843352a9b"
+        }
+      ]
+    },
+    {
+      "name": "IBM Plex Mono",
+      "cssVar": "--ff-ibm-plex-mono",
+      "files": [
+        {
+          "file": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2",
+          "sha256": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7"
+        },
+        {
+          "file": "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
+          "sha256": "0d1f0b8d0722224e32e9f28261bdc86c79115be73444ae5eceb73976a1bcdf83"
+        }
+      ]
+    },
+    {
+      "name": "Schibsted Grotesk",
+      "cssVar": "--ff-schibsted-grotesk",
+      "files": [
+        {
+          "file": "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2",
+          "sha256": "4c8b93f431d462c696e12b9d6a033feb3394d36e66e781357c496b95d8a75e05"
+        }
+      ]
+    },
+    {
+      "name": "Instrument Sans",
+      "cssVar": "--ff-instrument-sans",
+      "files": [
+        {
+          "file": "@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-italic.woff2",
+          "sha256": "77210cdde0281b5ecb0d592e063a98656f1bc36993a3b98f506eb91ff4a433a5"
+        },
+        {
+          "file": "@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2",
+          "sha256": "2ee17598a98d8a59e4df8152d015bec9ab8e4d5672cc0ab42bef806b568e3971"
+        }
+      ]
+    },
+    {
+      "name": "Martian Mono",
+      "cssVar": "--ff-martian-mono",
+      "files": [
+        {
+          "file": "@fontsource-variable/martian-mono/files/martian-mono-latin-wght-normal.woff2",
+          "sha256": "d0be3a78a854bcea53a9dc26b6620ba322eaa515ccbd92bb4b6ec20a3c91b291"
+        }
+      ]
+    },
+    {
+      "name": "Instrument Serif",
+      "cssVar": "--ff-instrument-serif",
+      "files": [
+        {
+          "file": "@fontsource/instrument-serif/files/instrument-serif-latin-400-italic.woff2",
+          "sha256": "5a51946dfffa82972bc98745359c46761515641fda557c25116459a9f83da4a7"
+        },
+        {
+          "file": "@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2",
+          "sha256": "5eb09b5ac0e28b67c2f041c8ba6d244604ca0c0980d65912ab2d47fed84ddc31"
+        }
+      ]
+    },
+    {
+      "name": "Bricolage Grotesque",
+      "cssVar": "--ff-bricolage-grotesque",
+      "files": [
+        {
+          "file": "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2",
+          "sha256": "a79fdb52d4a5c76552452f69202add96e287401fff03d3e8c0e38b4dcb5a99cd"
+        }
+      ]
+    },
+    {
+      "name": "Atkinson Hyperlegible Next",
+      "cssVar": "--ff-atkinson-hyperlegible-next",
+      "files": [
+        {
+          "file": "@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-italic.woff2",
+          "sha256": "4a5037bfaf6680f40147407407ec09fa42925774bde809a579283d27f9f08106"
+        },
+        {
+          "file": "@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2",
+          "sha256": "18b2a1a39a2fa298b0ba5390aca68462669826c90925656f1c1f6796e0e1bbaf"
+        }
+      ]
+    },
+    {
+      "name": "Atkinson Hyperlegible Mono",
+      "cssVar": "--ff-atkinson-hyperlegible-mono",
+      "files": [
+        {
+          "file": "@fontsource-variable/atkinson-hyperlegible-mono/files/atkinson-hyperlegible-mono-latin-wght-normal.woff2",
+          "sha256": "2706b1ee4f452e744ea91f7e4908cbde9c5d35521bf5ffffc71a382a2de89613"
+        }
+      ]
+    },
+    {
+      "name": "Literata",
+      "cssVar": "--ff-literata",
+      "files": [
+        {
+          "file": "@fontsource-variable/literata/files/literata-latin-opsz-italic.woff2",
+          "sha256": "97bc5aa317653eb249d66782c8533e5f1bd7d27a97b5265155a3d1700e785b7b"
+        },
+        {
+          "file": "@fontsource-variable/literata/files/literata-latin-opsz-normal.woff2",
+          "sha256": "29de894c768689feef6ab4ef274a9a16d19bfc5b0c3cbfcdac80ef220816210c"
+        }
+      ]
+    },
+    {
+      "name": "Fira Code",
+      "cssVar": "--ff-fira-code",
+      "files": [
+        {
+          "file": "@fontsource-variable/fira-code/files/fira-code-latin-wght-normal.woff2",
+          "sha256": "771bf4b79a97fc005d12866168bd39d868a9dd3d5903008fe8b796723c8a56f4"
+        }
+      ]
+    },
+    {
+      "name": "Cormorant Garamond",
+      "cssVar": "--ff-cormorant-garamond",
+      "files": [
+        {
+          "file": "@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2",
+          "sha256": "d80df8ff5aecd299a61549f9e29ab1ed0b9b05f4ea71d50fe978e07d5240b235"
+        }
+      ]
+    },
+    {
+      "name": "EB Garamond",
+      "cssVar": "--ff-eb-garamond",
+      "files": [
+        {
+          "file": "@fontsource-variable/eb-garamond/files/eb-garamond-latin-wght-italic.woff2",
+          "sha256": "c664773f7e1d42d36326aa457becf7674236168c74cf7d74e87e5778ef7640f9"
+        },
+        {
+          "file": "@fontsource-variable/eb-garamond/files/eb-garamond-latin-wght-normal.woff2",
+          "sha256": "88603384163d301aebd5bd769832a8bfe3c9004ec24178417b9817f0ad32c63b"
+        }
+      ]
+    },
+    {
+      "name": "Courier Prime",
+      "cssVar": "--ff-courier-prime",
+      "files": [
+        {
+          "file": "@fontsource/courier-prime/files/courier-prime-latin-400-normal.woff2",
+          "sha256": "f09844e1f4fe9e67df2cc77474519e68756d559b4648278b9dd4f03c8ac9c31f"
+        },
+        {
+          "file": "@fontsource/courier-prime/files/courier-prime-latin-700-normal.woff2",
+          "sha256": "5c7ae1cc9aae183453565c836b74a1b988f5f2e52b65098decb909b3930957ec"
+        }
+      ]
+    },
+    {
+      "name": "Geist",
+      "cssVar": "--ff-geist",
+      "files": [
+        {
+          "file": "@fontsource-variable/geist/files/geist-latin-wght-italic.woff2",
+          "sha256": "9b10496762af92659f3b05d2b084b0c8f962c3ecdf637aa764e3b7fd17f5acaf"
+        },
+        {
+          "file": "@fontsource-variable/geist/files/geist-latin-wght-normal.woff2",
+          "sha256": "19f9c92546aa300c312235e3125af1b81394d8db9a4bc4a425cd5b641d2d54e1"
+        }
+      ]
+    },
+    {
+      "name": "Geist Mono",
+      "cssVar": "--ff-geist-mono",
+      "files": [
+        {
+          "file": "@fontsource-variable/geist-mono/files/geist-mono-latin-wght-normal.woff2",
+          "sha256": "684ad5b531f81d43c1e8c7038262d5db7cdc1f68006e04d6c7769efa8d33c8cc"
+        }
+      ]
+    },
+    {
+      "name": "Recursive",
+      "cssVar": "--ff-recursive",
+      "files": [
+        {
+          "file": "@fontsource-variable/recursive/files/recursive-latin-full-normal.woff2",
+          "sha256": "14ef41458aeba3d812284c4e32ee956910b88845062c61e91cc8578c2b78bccb"
+        }
+      ]
+    },
+    {
+      "name": "Alegreya Sans",
+      "cssVar": "--ff-alegreya-sans",
+      "files": [
+        {
+          "file": "@fontsource/alegreya-sans/files/alegreya-sans-latin-400-normal.woff2",
+          "sha256": "b2a5a35a2563a2f9bf9fb91939fc6ea6c115e9811cda5c4a37d02f623c7c4dbe"
+        },
+        {
+          "file": "@fontsource/alegreya-sans/files/alegreya-sans-latin-700-normal.woff2",
+          "sha256": "5acd19a588614d23e52b741a21dd8555178ab4932c3195c6d8fb4b296f84acae"
+        },
+        {
+          "file": "@fontsource/alegreya-sans/files/alegreya-sans-latin-800-normal.woff2",
+          "sha256": "93e1e6c3b5ee009ad7ea835a9f2a49a2503644ecca8a0f0c15e27487fb43a75d"
+        }
+      ]
+    },
+    {
+      "name": "Alegreya",
+      "cssVar": "--ff-alegreya",
+      "files": [
+        {
+          "file": "@fontsource-variable/alegreya/files/alegreya-latin-wght-italic.woff2",
+          "sha256": "1846c307495f922d3fc00ce3c32aaaba8eefc7c348425a8244a7ffc63ddc0993"
+        },
+        {
+          "file": "@fontsource-variable/alegreya/files/alegreya-latin-wght-normal.woff2",
+          "sha256": "2431eca3ed8ed66e713cf7093d170d77a083a793a5f19a615506d63770abd973"
+        }
+      ]
+    },
+    {
+      "name": "Fira Mono",
+      "cssVar": "--ff-fira-mono",
+      "files": [
+        {
+          "file": "@fontsource/fira-mono/files/fira-mono-latin-400-normal.woff2",
+          "sha256": "8d1e753569ea7964a3beacda126450f8469b70c14c161ae8062cf4c12835e947"
+        },
+        {
+          "file": "@fontsource/fira-mono/files/fira-mono-latin-500-normal.woff2",
+          "sha256": "291f90e3f0baf1f357ece7b82634b8bcd6c080def7648694894548af3d28af26"
+        }
+      ]
+    },
+    {
+      "name": "Bodoni Moda",
+      "cssVar": "--ff-bodoni-moda",
+      "files": [
+        {
+          "file": "@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-italic.woff2",
+          "sha256": "b737328c13b92784ee78d99e62e3bcc38eeef0f2dba41d107637b3acea46781f"
+        },
+        {
+          "file": "@fontsource-variable/bodoni-moda/files/bodoni-moda-latin-opsz-normal.woff2",
+          "sha256": "c032219ef636f7b4932f7d1dc91bdab602c970f090770b546bea4effaab3463c"
+        }
+      ]
+    },
+    {
+      "name": "Libre Franklin",
+      "cssVar": "--ff-libre-franklin",
+      "files": [
+        {
+          "file": "@fontsource-variable/libre-franklin/files/libre-franklin-latin-wght-italic.woff2",
+          "sha256": "c9fb9170f00060c83306219df8357a81a56c5ad142e25b3e3d9c21d2d47e2009"
+        },
+        {
+          "file": "@fontsource-variable/libre-franklin/files/libre-franklin-latin-wght-normal.woff2",
+          "sha256": "52e605852c72cc2df1473df1fb7f26a3a0be58e31835bc8f33f29b1918c82cbd"
+        }
+      ]
+    },
+    {
+      "name": "DM Mono",
+      "cssVar": "--ff-dm-mono",
+      "files": [
+        {
+          "file": "@fontsource/dm-mono/files/dm-mono-latin-400-normal.woff2",
+          "sha256": "e1896b13b2b1bb112fac2f9571bd6c40e118746e77a4511edbf43fbb41bf3e1e"
+        },
+        {
+          "file": "@fontsource/dm-mono/files/dm-mono-latin-500-normal.woff2",
+          "sha256": "9964608a849396bd00c4bfd7034afe03486469dcf20b4f6b8cbdfdd310369951"
+        }
+      ]
+    }
+  ],
+  "colors": {
+    "source": "2026-10b",
+    "dark": {
+      "surface.default": "#1e142e",
+      "surface.emphasis": "#0f051d",
+      "surface.raised": "#45385b",
+      "surface.subtle": "#574c6a",
+      "surface.muted": "#7b728c",
+      "text.default": "#e6c7c1",
+      "text.emphasis": "#f6d5d0",
+      "text.secondary": "#ceafa9",
+      "text.subtle": "#a58782",
+      "text.muted": "#997c77",
+      "ink.ruby": "#fe8770",
+      "ink.copper": "#e7a75c",
+      "ink.gold": "#f7bf27",
+      "ink.jade": "#0fcc82",
+      "ink.turquoise": "#1ad4e0",
+      "ink.steel": "#94c2c3",
+      "ink.sapphire": "#6fbaff",
+      "ink.amethyst": "#c0abe0",
+      "ink.rose": "#fe90ff",
+      "ink.lapis": "#aecbff",
+      "status.danger": "#fe8770",
+      "status.warning": "#e7a75c",
+      "status.success": "#0fcc82",
+      "status.info": "#6fbaff",
+      "border.muted": "#7b728c",
+      "border.default": "#978cae",
+      "border.strong": "#997c77",
+      "border.focus": "#1ad4e0",
+      "selection": "#45385b",
+      "highlight": "#45385b",
+      "diff.add": "#274c1f",
+      "diff.delete": "#8c1134",
+      "diff.change": "#1d3c8f",
+      "syntax.foreground": "#e6c7c1",
+      "syntax.background": "#0f051d",
+      "syntax.comment": "#aecbff",
+      "syntax.keyword": "#fe8770",
+      "syntax.string": "#0fcc82",
+      "syntax.string-special": "#94c2c3",
+      "syntax.number": "#0fcc82",
+      "syntax.constant": "#0fcc82",
+      "syntax.function": "#6fbaff",
+      "syntax.type": "#94c2c3",
+      "syntax.variable": "#e6c7c1",
+      "syntax.parameter": "#f7bf27",
+      "syntax.property": "#1ad4e0",
+      "syntax.tag": "#fe90ff",
+      "syntax.tag-attribute": "#c0abe0",
+      "syntax.operator": "#ceafa9",
+      "syntax.punctuation": "#ceafa9",
+      "syntax.diff-plus": "#0fcc82",
+      "syntax.diff-minus": "#fe8770",
+      "terminal.ansi0": "#0f051d",
+      "terminal.ansi1": "#fe8770",
+      "terminal.ansi2": "#0fcc82",
+      "terminal.ansi3": "#f7bf27",
+      "terminal.ansi4": "#6fbaff",
+      "terminal.ansi5": "#c0abe0",
+      "terminal.ansi6": "#94c2c3",
+      "terminal.ansi7": "#e6c7c1",
+      "terminal.ansi8": "#1e142e",
+      "terminal.ansi9": "#e7a75c",
+      "terminal.ansi10": "#0fcc82",
+      "terminal.ansi11": "#f7bf27",
+      "terminal.ansi12": "#6fbaff",
+      "terminal.ansi13": "#fe90ff",
+      "terminal.ansi14": "#1ad4e0",
+      "terminal.ansi15": "#f6d5d0"
+    },
+    "light": {
+      "surface.default": "#f4e4dc",
+      "surface.emphasis": "#9d8b81",
+      "surface.raised": "#f9f2ee",
+      "surface.subtle": "#d4bfb4",
+      "surface.muted": "#baa69b",
+      "text.default": "#1e142e",
+      "text.emphasis": "#0f051d",
+      "text.secondary": "#45385b",
+      "text.subtle": "#574c6a",
+      "text.muted": "#5c5049",
+      "ink.ruby": "#c02000",
+      "ink.copper": "#6e5a3d",
+      "ink.gold": "#8b5f01",
+      "ink.jade": "#047233",
+      "ink.turquoise": "#087473",
+      "ink.steel": "#475e5f",
+      "ink.sapphire": "#236792",
+      "ink.amethyst": "#754db2",
+      "ink.rose": "#ae01b3",
+      "ink.lapis": "#014ce6",
+      "status.danger": "#c02000",
+      "status.warning": "#6e5a3d",
+      "status.success": "#047233",
+      "status.info": "#236792",
+      "border.muted": "#baa69b",
+      "border.default": "#5c5049",
+      "border.strong": "#574c6a",
+      "border.focus": "#087473",
+      "selection": "#c0abe0",
+      "highlight": "#dde8fe",
+      "diff.add": "#d8f6e1",
+      "diff.delete": "#ffdee1",
+      "diff.change": "#e4edff",
+      "syntax.foreground": "#1e142e",
+      "syntax.background": "#f9f2ee",
+      "syntax.comment": "#014ce6",
+      "syntax.keyword": "#c02000",
+      "syntax.string": "#047233",
+      "syntax.string-special": "#475e5f",
+      "syntax.number": "#047233",
+      "syntax.constant": "#047233",
+      "syntax.function": "#236792",
+      "syntax.type": "#475e5f",
+      "syntax.variable": "#1e142e",
+      "syntax.parameter": "#8b5f01",
+      "syntax.property": "#087473",
+      "syntax.tag": "#ae01b3",
+      "syntax.tag-attribute": "#754db2",
+      "syntax.operator": "#45385b",
+      "syntax.punctuation": "#45385b",
+      "syntax.diff-plus": "#047233",
+      "syntax.diff-minus": "#c02000",
+      "terminal.ansi0": "#0f051d",
+      "terminal.ansi1": "#c02000",
+      "terminal.ansi2": "#047233",
+      "terminal.ansi3": "#8b5f01",
+      "terminal.ansi4": "#236792",
+      "terminal.ansi5": "#754db2",
+      "terminal.ansi6": "#475e5f",
+      "terminal.ansi7": "#f4e4dc",
+      "terminal.ansi8": "#1e142e",
+      "terminal.ansi9": "#6e5a3d",
+      "terminal.ansi10": "#047233",
+      "terminal.ansi11": "#8b5f01",
+      "terminal.ansi12": "#236792",
+      "terminal.ansi13": "#ae01b3",
+      "terminal.ansi14": "#087473",
+      "terminal.ansi15": "#f9f2ee"
+    }
+  }
+}

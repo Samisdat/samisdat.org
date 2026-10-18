@@ -1,33 +1,37 @@
 import { styled } from "@linaria/react";
 import { ComponentType, FC, HTMLAttributes } from "react";
 
-const fontFamily = `font-family: var(--font-heading);`;
+// --f-head, --hw, --hls, --hz (h1), --h2z, --h3z, --v-head come from a typography preset (website); the fallbacks are the current site values
+const fontFamily = `
+  font-family: var(--f-head, var(--font-heading));
+  font-variation-settings: var(--v-head, normal);
+`;
 
 // Root font size is 20px, so 2.1rem = 42px and 1.1rem = 22px
 const H1 = styled.h1`
   ${fontFamily}
   color: var(--color-text-emphasis);
-  font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem);
-  font-weight: 700;
+  font-size: var(--hz, clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem));
+  font-weight: var(--hw, 700);
   line-height: 1.05;
-  letter-spacing: -0.03em;
+  letter-spacing: var(--hls, -0.03em);
 `;
 const H2 = styled.h2`
   ${fontFamily}
   color: var(--color-text-emphasis);
-  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.55rem);
-  font-weight: 650;
+  font-size: var(--h2z, clamp(1.3rem, 1.1rem + 0.8vw, 1.55rem));
+  font-weight: var(--hw, 650);
   line-height: 1.15;
-  letter-spacing: -0.022em;
+  letter-spacing: var(--hls, -0.022em);
 `;
 
 const H3 = styled.h3`
   ${fontFamily}
   color: var(--color-text-emphasis);
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: var(--h3z, 1.1rem);
+  font-weight: var(--hw, 600);
   line-height: 1.25;
-  letter-spacing: -0.015em;
+  letter-spacing: var(--hls, -0.015em);
 `;
 
 const H4 = styled.h4`

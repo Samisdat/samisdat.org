@@ -13,6 +13,14 @@ export const globalStyles = css`
       initial-value: 0;
     }
 
+    /* Registered so 68ch resolves against the element that sets it (body font), not against headings that read it */
+    @property --measure {
+      syntax: "<length>";
+      inherits: true;
+      /* stylelint-disable-next-line length-zero-no-unit -- registered <length> needs a unit in the initial value */
+      initial-value: 0px;
+    }
+
     @property --theme-light {
       syntax: "<number>";
       inherits: true;
@@ -106,10 +114,11 @@ export const globalStyles = css`
 
       /* Long code lines scroll inside the block instead of widening the page */
       overflow-x: auto;
-      font-family: var(--font-code);
+      font-family: var(--f-mono, var(--font-code));
+      font-variation-settings: var(--v-mono, normal);
 
       /* Root font size is 20px, so 0.725rem = 14.5px */
-      font-size: 0.725rem;
+      font-size: var(--mz, 0.725rem);
       line-height: 1.6;
       letter-spacing: 0;
       background: var(--color-syntax-background);
@@ -127,7 +136,8 @@ export const globalStyles = css`
 
     /* Inline code only; code inside pre inherits from pre */
     :not(pre) > code {
-      font-family: var(--font-code);
+      font-family: var(--f-mono, var(--font-code));
+      font-variation-settings: var(--v-mono, normal);
       font-size: 0.92em;
       letter-spacing: 0;
       color: var(--color-ink-turquoise);
@@ -135,7 +145,7 @@ export const globalStyles = css`
 
     /* Shiki's fontStyle only knows bold (700); keywords get 650 to offset the weak red contrast */
     pre [style*="--color-syntax-keyword"] {
-      font-weight: 650;
+      font-weight: var(--kw, 650);
     }
 
     p:first-child {

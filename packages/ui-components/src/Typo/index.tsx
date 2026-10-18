@@ -10,18 +10,21 @@ export const variants = [variantParagraph, variantEm, variantStrong] as const;
 export type Variant = (typeof variants)[number];
 
 // letter-spacing lives here, not on body: headings, em and code must not inherit it
+// --f-body, --bls, --v-body ... come from a typography preset (website); fallbacks are the current site values
 const ParagraphStyling = styled.p`
-  font-family: var(--font-body);
+  font-family: var(--f-body, var(--font-body));
+  font-variation-settings: var(--v-body, normal);
   color: var(--color-text-default);
-  letter-spacing: 0.01em;
+  letter-spacing: var(--bls, 0.01em);
 `;
 
-// Handwriting face: no synthetic italic, no inherited tracking, no effect on line height
+// Handwriting face by default: no synthetic italic (--es), no inherited tracking, no effect on line height
 const EmStyling = styled.em`
-  font-family: var(--font-italic), cursive;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 0.95em;
+  font-family: var(--f-em, var(--font-italic)), cursive;
+  font-variation-settings: var(--v-em, normal);
+  font-style: var(--es, normal);
+  font-weight: var(--ew, 400);
+  font-size: var(--ez, 0.95em);
   line-height: 1;
   letter-spacing: 0;
   color: var(--color-text-emphasis);
@@ -35,7 +38,7 @@ const EmStyling = styled.em`
 `;
 
 const BoldStyling = styled.strong`
-  font-family: var(--font-body);
+  font-family: var(--f-body, var(--font-body));
 `;
 
 const htmlTags: { [key in Variant]: any } = {

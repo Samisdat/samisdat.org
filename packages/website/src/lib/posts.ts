@@ -3,6 +3,8 @@ import matter from 'gray-matter';
 import path from 'path';
 import { z } from 'zod';
 
+import { PRESET_IDS } from './typography/ids';
+
 const POSTS_DIR = path.join(process.cwd(), 'content/posts');
 
 /** Only lowercase alphanumeric slugs with hyphens — prevents path traversal. */
@@ -18,6 +20,14 @@ export const frontmatterSchema = z.object({
     published: z.boolean({ message: 'published must be a boolean' }),
     description: z.string().optional(),
     image: z.union([z.literal(true), z.string()]).optional(),
+    // Unknown ids must not break the build: warn and fall back to the default preset
+    typography: z
+        .enum(PRESET_IDS)
+        .optional()
+        .catch(ctx => {
+            console.warn(`[typography] unknown preset "${String(ctx.input)}" in frontmatter, using the default`);
+            return undefined;
+        }),
 });
 
 export type Frontmatter = z.infer<typeof frontmatterSchema>;

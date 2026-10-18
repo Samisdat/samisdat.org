@@ -33,7 +33,8 @@ export const scholionStyles = `
   /* ── C: lemma in prose ───────────────────────────────────────────────── */
   .ref-target {
     font-family: var(--font-code, monospace);
-    font-size: 0.85em;
+    /* The inner <code> already scales to 0.92em; shrinking here too would compound */
+    font-size: 1em;
     border-radius: 2px;
     padding: 0.05em 0.2em;
     color: var(--color-ink-turquoise);
@@ -61,16 +62,14 @@ export const scholionStyles = `
   }
 
   .backref {
-    font-size: 0.78em;
-    color: var(--color-text-subtle);
+    /* Keep the regular link color (from Link) at full strength; only size and underline differ */
+    font-size: max(14px, 0.78em);
     text-decoration: none;
     margin-left: 0.5em;
-    opacity: 0.7;
-    transition: opacity 0.12s ease;
   }
 
   .backref:hover {
-    opacity: 1;
+    text-decoration: underline;
   }
 
   /* ── Stage 3: SVG wire overlay ──────────────────────────────────────── */
