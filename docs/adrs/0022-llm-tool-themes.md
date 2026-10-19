@@ -89,7 +89,7 @@ Mapping wurde daraufhin angepasst, nicht der Schwellwert.
   sprengen das Zeichenlimit. Das volle CSS liegt im Skill und kann in ein
   Claude-Design-System-Artifact übernommen werden.
 - **Generieren statt von Hand pflegen**: Alle Werte folgen den Tokens und damit
-  den bestehenden Kontrast-, APCA- und Farbfehlsichtigkeits-Gates.
+  den bestehenden Kontrast- und Farbfehlsichtigkeits-Gates.
 - **Ein gemeinsamer Helper** statt je Plugin eigener Mode-Auflösung.
 
 ## Verworfen
