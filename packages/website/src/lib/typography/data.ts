@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 
+import { deriveSizes, fluidCss, parsePx, type Fluid } from './fluid';
 import type { PresetId } from './ids';
 
 // Pure data (no next/font), so plain Node scripts can read it, e.g. the snapshot script.
@@ -44,19 +45,11 @@ const Bodoni = font('Bodoni Moda', '--ff-bodoni-moda');
 const LibreFranklin = font('Libre Franklin', '--ff-libre-franklin');
 const DMMono = font('DM Mono', '--ff-dm-mono');
 
-export interface Preset {
+/** What is written down per preset: the sizes at the wide end (px); the fluid range is derived from them. */
+interface PresetSource {
     id: PresetId;
     label: string;
-    head: {
-        font: Font;
-        weight: number;
-        tracking: string;
-        size: string;
-        /** h2/h3 sizes; default to the ratios of the site (0.74 / 0.53 of the h1 size) */
-        h2?: string;
-        h3?: string;
-        variations?: string;
-    };
+    head: { font: Font; weight: number; tracking: string; size: string; variations?: string };
     body: {
         font: Font;
         size: string;
@@ -69,13 +62,38 @@ export interface Preset {
     em: { font: Font; style: 'normal' | 'italic'; weight: number; size: string; variations?: string };
 }
 
-export const PRESET_DATA: readonly Preset[] = [
+/** A preset with resolved sizes (px at the narrow and wide end of the viewport range); this is what snapshots freeze. */
+export interface Preset {
+    id: PresetId;
+    label: string;
+    head: {
+        font: Font;
+        weight: number;
+        tracking: string;
+        size: Fluid;
+        h2: Fluid;
+        h3: Fluid;
+        variations?: string;
+    };
+    body: {
+        font: Font;
+        size: Fluid;
+        tracking: string;
+        leadWeight: number;
+        lineHeight?: number;
+        variations?: string;
+    };
+    mono: { font: Font; size: Fluid; keywordWeight: number; variations?: string };
+    em: { font: Font; style: 'normal' | 'italic'; weight: number; size: string; variations?: string };
+}
+
+const PRESET_SOURCE: readonly PresetSource[] = [
     {
         id: 'current',
         label: 'current',
         // The site as on main: Source Serif 4 / Source Sans 3 at 20px, 1.6 line height,
-        // 0.01em tracking on everything, h1-h3 at 3 / 2.75 / 2.25rem (root is 20px)
-        head: { font: SourceSerif, weight: 700, tracking: '0.01em', size: '60px', h2: '55px', h3: '45px' },
+        // 0.01em tracking on everything, h1 at 3rem (root is 20px)
+        head: { font: SourceSerif, weight: 700, tracking: '0.01em', size: '60px' },
         body: { font: SourceSans, size: '20px', tracking: '0.01em', leadWeight: 400, lineHeight: 1.6 },
         mono: { font: SourceCodePro, size: '16px', keywordWeight: 700 },
         em: { font: PlaywriteNO, style: 'normal', weight: 400, size: '1em' },
@@ -185,6 +203,29 @@ export const PRESET_DATA: readonly Preset[] = [
     },
 ];
 
+function resolve({ head, body, mono, ...rest }: PresetSource): Preset {
+    const sizes = deriveSizes({ head: parsePx(head.size), body: parsePx(body.size), mono: parsePx(mono.size) });
+    return {
+        ...rest,
+        head: { ...head, size: sizes.h1, h2: sizes.h2, h3: sizes.h3 },
+        body: { ...body, size: sizes.body },
+        mono: { ...mono, size: sizes.mono },
+    };
+}
+
+export const PRESET_DATA: readonly Preset[] = PRESET_SOURCE.map(resolve);
+
+/** The font sizes of a preset as CSS variables; needs the root variables of FLUID_ROOT_VARS. */
+export function presetSizeStyle({ head, body, mono }: Preset): CSSProperties {
+    return {
+        '--hz': fluidCss(head.size),
+        '--h2z': fluidCss(head.h2),
+        '--h3z': fluidCss(head.h3),
+        '--bz': fluidCss(body.size),
+        '--mz': fluidCss(mono.size),
+    } as CSSProperties;
+}
+
 /** The preset as the CSS variables the components read (see Heading, Typo, Lead, globalstyle). */
 export function presetStyle(preset: Preset): CSSProperties {
     const { head, body, mono, em } = preset;
@@ -192,19 +233,13 @@ export function presetStyle(preset: Preset): CSSProperties {
         '--f-head': `var(${head.font.cssVar})`,
         '--hw': head.weight,
         '--hls': head.tracking,
-        '--hz': head.size,
-        // h2 is not part of the preset table; it keeps the ratio of the site (31px at 42px)
-        '--h2z': head.h2 ?? 'calc(var(--hz) * 0.74)',
-        '--h3z': head.h3 ?? 'calc(var(--hz) * 0.53)',
         '--v-head': head.variations ?? 'normal',
         '--f-body': `var(${body.font.cssVar})`,
-        '--bz': body.size,
         '--blh': body.lineHeight ?? 1.65,
         '--bls': body.tracking,
         '--lw': body.leadWeight,
         '--v-body': body.variations ?? 'normal',
         '--f-mono': `var(${mono.font.cssVar})`,
-        '--mz': mono.size,
         '--kw': mono.keywordWeight,
         '--v-mono': mono.variations ?? 'normal',
         '--f-em': `var(${em.font.cssVar})`,
@@ -213,7 +248,7 @@ export function presetStyle(preset: Preset): CSSProperties {
         '--ez': em.size,
         '--v-em': em.variations ?? 'normal',
     };
-    return vars as CSSProperties;
+    return { ...vars, ...presetSizeStyle(preset) } as CSSProperties;
 }
 
 export const presetFonts = (preset: Preset): Font[] => [

@@ -71,7 +71,7 @@ const fonts: SnapshotFont[] = [...fontMap].map(([cssVar, name]) => {
 });
 
 const snapshot: TypographySnapshot = {
-    version: 1,
+    version: 2,
     id,
     date: new Date().toISOString().slice(0, 10),
     git: { commit: git('rev-parse --short HEAD'), dirty: git('status --porcelain').length > 0 },
