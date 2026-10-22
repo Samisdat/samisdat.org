@@ -4,11 +4,3 @@
   animation: none;
   --theme-progress: 1;
 }
-
-/* The fluid heading sizes come from the website layout (default preset on html); Storybook has no layout,
-   so fixed stand-ins keep headings sized as before (root font size is 20px). */
-:root {
-  --hz: 2.1rem;
-  --h2z: 1.55rem;
-  --h3z: 1.1rem;
-}
