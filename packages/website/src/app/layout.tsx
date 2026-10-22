@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { presetSizeStyle } from '@/lib/typography/data';
+import { FLUID_ROOT_VARS } from '@/lib/typography/fluid';
 import { inter, interTight, playwriteNo, sourceCodePro } from '@/lib/typography/fonts';
+import { getDefaultPreset } from '@/lib/typography/presets';
 
 import { Colophon } from '@/components/Colophon';
 
@@ -46,9 +49,12 @@ export default function RootLayout({
         <html
             lang="de"
             className={`${inter.variable} ${interTight.variable} ${sourceCodePro.variable} ${playwriteNo.variable}`}
-            // Site chrome keeps the default fonts; posts override them per preset on their own wrapper
+            // Site chrome keeps the default fonts and takes the sizes of the default preset (fluid, driven by --t);
+            // posts override both per preset on their own wrapper
             style={
                 {
+                    ...FLUID_ROOT_VARS,
+                    ...presetSizeStyle(getDefaultPreset()),
                     '--font-heading': 'var(--ff-inter)',
                     '--font-body': 'var(--ff-inter-tight)',
                     '--font-code': 'var(--ff-source-code-pro)',
