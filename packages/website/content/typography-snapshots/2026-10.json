@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "id": "2026-10",
   "date": "2026-10-19",
   "git": {
@@ -18,16 +18,28 @@
         },
         "weight": 700,
         "tracking": "0.01em",
-        "size": "60px",
-        "h2": "55px",
-        "h3": "45px"
+        "size": {
+          "min": 60,
+          "max": 60
+        },
+        "h2": {
+          "min": 55,
+          "max": 55
+        },
+        "h3": {
+          "min": 45,
+          "max": 45
+        }
       },
       "body": {
         "font": {
           "name": "Source Sans 3",
           "cssVar": "--ff-source-sans-3"
         },
-        "size": "20px",
+        "size": {
+          "min": 20,
+          "max": 20
+        },
         "tracking": "0.01em",
         "leadWeight": 400,
         "lineHeight": 1.6
@@ -37,7 +49,10 @@
           "name": "Source Code Pro",
           "cssVar": "--ff-source-code-pro"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -60,14 +75,28 @@
         },
         "weight": 700,
         "tracking": "-0.03em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Inter Tight",
           "cssVar": "--ff-inter-tight"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0.01em",
         "leadWeight": 500
       },
@@ -76,7 +105,10 @@
           "name": "Source Code Pro",
           "cssVar": "--ff-source-code-pro"
         },
-        "size": "14.5px",
+        "size": {
+          "min": 14.5,
+          "max": 14.5
+        },
         "keywordWeight": 650
       },
       "em": {
@@ -99,14 +131,28 @@
         },
         "weight": 700,
         "tracking": "-0.02em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Inter",
           "cssVar": "--ff-inter"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 500
       },
@@ -115,7 +161,10 @@
           "name": "Source Code Pro",
           "cssVar": "--ff-source-code-pro"
         },
-        "size": "14.5px",
+        "size": {
+          "min": 14.5,
+          "max": 14.5
+        },
         "keywordWeight": 650
       },
       "em": {
@@ -138,14 +187,28 @@
         },
         "weight": 700,
         "tracking": "-0.02em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Newsreader",
           "cssVar": "--ff-newsreader"
         },
-        "size": "17px",
+        "size": {
+          "min": 17,
+          "max": 17
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -154,7 +217,10 @@
           "name": "JetBrains Mono",
           "cssVar": "--ff-jetbrains-mono"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -177,14 +243,28 @@
         },
         "weight": 700,
         "tracking": "-0.02em",
-        "size": "40px"
+        "size": {
+          "min": 40,
+          "max": 40
+        },
+        "h2": {
+          "min": 29.6,
+          "max": 29.6
+        },
+        "h3": {
+          "min": 21.2,
+          "max": 21.2
+        }
       },
       "body": {
         "font": {
           "name": "IBM Plex Serif",
           "cssVar": "--ff-ibm-plex-serif"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -193,7 +273,10 @@
           "name": "IBM Plex Mono",
           "cssVar": "--ff-ibm-plex-mono"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 600
       },
       "em": {
@@ -216,14 +299,28 @@
         },
         "weight": 800,
         "tracking": "-0.035em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Instrument Sans",
           "cssVar": "--ff-instrument-sans"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -232,7 +329,10 @@
           "name": "Martian Mono",
           "cssVar": "--ff-martian-mono"
         },
-        "size": "13px",
+        "size": {
+          "min": 13,
+          "max": 13
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -255,14 +355,28 @@
         },
         "weight": 800,
         "tracking": "-0.03em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Atkinson Hyperlegible Next",
           "cssVar": "--ff-atkinson-hyperlegible-next"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -271,7 +385,10 @@
           "name": "Atkinson Hyperlegible Mono",
           "cssVar": "--ff-atkinson-hyperlegible-mono"
         },
-        "size": "14.5px",
+        "size": {
+          "min": 14.5,
+          "max": 14.5
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -294,14 +411,28 @@
         },
         "weight": 700,
         "tracking": "-0.02em",
-        "size": "40px"
+        "size": {
+          "min": 40,
+          "max": 40
+        },
+        "h2": {
+          "min": 29.6,
+          "max": 29.6
+        },
+        "h3": {
+          "min": 21.2,
+          "max": 21.2
+        }
       },
       "body": {
         "font": {
           "name": "Literata",
           "cssVar": "--ff-literata"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -310,7 +441,10 @@
           "name": "Fira Code",
           "cssVar": "--ff-fira-code"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -333,14 +467,28 @@
         },
         "weight": 700,
         "tracking": "-0.01em",
-        "size": "48px"
+        "size": {
+          "min": 48,
+          "max": 48
+        },
+        "h2": {
+          "min": 35.52,
+          "max": 35.52
+        },
+        "h3": {
+          "min": 25.44,
+          "max": 25.44
+        }
       },
       "body": {
         "font": {
           "name": "EB Garamond",
           "cssVar": "--ff-eb-garamond"
         },
-        "size": "18.5px",
+        "size": {
+          "min": 18.5,
+          "max": 18.5
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -349,7 +497,10 @@
           "name": "Courier Prime",
           "cssVar": "--ff-courier-prime"
         },
-        "size": "14.5px",
+        "size": {
+          "min": 14.5,
+          "max": 14.5
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -372,14 +523,28 @@
         },
         "weight": 700,
         "tracking": "-0.04em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Geist",
           "cssVar": "--ff-geist"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -388,7 +553,10 @@
           "name": "Geist Mono",
           "cssVar": "--ff-geist-mono"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 700
       },
       "em": {
@@ -411,15 +579,29 @@
         },
         "weight": 800,
         "tracking": "-0.02em",
-        "size": "42px",
-        "variations": "\"CASL\" 1, \"MONO\" 0"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "variations": "\"CASL\" 1, \"MONO\" 0",
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Recursive",
           "cssVar": "--ff-recursive"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400,
         "variations": "\"CASL\" 0, \"MONO\" 0"
@@ -429,7 +611,10 @@
           "name": "Recursive",
           "cssVar": "--ff-recursive"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 700,
         "variations": "\"MONO\" 1, \"CASL\" 0"
       },
@@ -454,14 +639,28 @@
         },
         "weight": 800,
         "tracking": "-0.02em",
-        "size": "42px"
+        "size": {
+          "min": 42,
+          "max": 42
+        },
+        "h2": {
+          "min": 31.08,
+          "max": 31.08
+        },
+        "h3": {
+          "min": 22.26,
+          "max": 22.26
+        }
       },
       "body": {
         "font": {
           "name": "Alegreya",
           "cssVar": "--ff-alegreya"
         },
-        "size": "17.5px",
+        "size": {
+          "min": 17.5,
+          "max": 17.5
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -470,7 +669,10 @@
           "name": "Fira Mono",
           "cssVar": "--ff-fira-mono"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 500
       },
       "em": {
@@ -493,14 +695,28 @@
         },
         "weight": 700,
         "tracking": "-0.01em",
-        "size": "46px"
+        "size": {
+          "min": 46,
+          "max": 46
+        },
+        "h2": {
+          "min": 34.04,
+          "max": 34.04
+        },
+        "h3": {
+          "min": 24.38,
+          "max": 24.38
+        }
       },
       "body": {
         "font": {
           "name": "Libre Franklin",
           "cssVar": "--ff-libre-franklin"
         },
-        "size": "16px",
+        "size": {
+          "min": 16,
+          "max": 16
+        },
         "tracking": "0em",
         "leadWeight": 400
       },
@@ -509,7 +725,10 @@
           "name": "DM Mono",
           "cssVar": "--ff-dm-mono"
         },
-        "size": "14px",
+        "size": {
+          "min": 14,
+          "max": 14
+        },
         "keywordWeight": 500
       },
       "em": {

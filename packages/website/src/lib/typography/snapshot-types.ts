@@ -1,4 +1,4 @@
-/** Format of a typography snapshot (content/typography-snapshots/<id>.json). Bump `version` on breaking changes. */
+/** Format of a typography snapshot (content/typography-snapshots/<id>.json). Bump `version` on breaking changes (2: preset sizes are { min, max } px). */
 import type { Preset } from './data';
 import type { PresetId } from './ids';
 
@@ -10,7 +10,7 @@ export type SnapshotFont = {
 };
 
 export type TypographySnapshot = {
-    version: 1;
+    version: 2;
     id: string;
     /** ISO date. */
     date: string;

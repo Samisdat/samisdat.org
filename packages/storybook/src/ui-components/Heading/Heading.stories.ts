@@ -8,6 +8,8 @@ const meta = {
   component: Heading,
   // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
   tags: ["autodocs"],
+  // Fluid sizes: one snapshot per width (narrow end, middle, wide end of the fluid range)
+  parameters: { chromatic: { viewports: [360, 800, 1280] } },
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
 } satisfies Meta<typeof Heading>;
 

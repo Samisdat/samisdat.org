@@ -6,6 +6,10 @@ import "@samisdat/ui-components/style/globalStyle";
 import "@samisdat/wtal-panorama/colors.css";
 import "./preview.css";
 
+import { PRESET_DATA, presetSizeStyle } from "../../website/src/lib/typography/data";
+import { FLUID_ROOT_VARS } from "../../website/src/lib/typography/fluid";
+import { DEFAULT_PRESET_ID } from "../../website/src/lib/typography/ids";
+
 import "@fontsource-variable/inter";
 import "@fontsource-variable/inter-tight";
 import "@fontsource-variable/source-code-pro";
@@ -59,6 +63,17 @@ const preview: Preview = {
           "'Source Code Pro Variable', monospace",
         );
         root.style.setProperty("--font-italic", "'Playwrite NO', cursive");
+
+        // Fluid sizes as the website layout sets them on html: the progress value plus the default preset's sizes
+        const defaultPreset = PRESET_DATA.find(
+          (preset) => preset.id === DEFAULT_PRESET_ID,
+        )!;
+        for (const [name, value] of Object.entries({
+          ...FLUID_ROOT_VARS,
+          ...presetSizeStyle(defaultPreset),
+        })) {
+          root.style.setProperty(name, String(value));
+        }
       }
       return <Story />;
     },
