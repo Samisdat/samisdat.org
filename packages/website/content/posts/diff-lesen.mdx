@@ -1,0 +1,141 @@
+---
+title: Diff lesen, nicht vergleichen
+date: 2026-10-23T00:00:00.000Z
+published: false
+description: Ein Diff reißt Code aus seiner Datei. Die Alternative liest die neue Fassung durchgehend und legt die Änderung als Schicht darüber, Schritt für Schritt an einer Datei ohne Sinn.
+---
+
+Ein Pull Request ändert eine Datei. Ein Diff zeigt aber nicht die Datei, sondern Ausschnitte daraus: Hunks, drei Zeilen Kontext, ein `@@`-Kopf. Wer verstehen will, was jetzt dort steht, setzt die Datei im Kopf aus Stücken zusammen.
+
+Dieser Post probiert eine andere Darstellung aus. Die neue Fassung der Datei wird durchgehend gelesen, und die Änderung liegt als Schicht darüber.
+
+Als Beispiel dient eine ausgedachte Datei, und der Code darin ist Lorem ipsum. Das ist Absicht: Mit sinnvollem Code liest man den Code und achtet nicht auf das Diff. Geschrieben ist er so, wie ich TypeScript schreibe, mit Konstanten und Pfeilfunktionen, nie mit dem Schlüsselwort `function`.
+
+## Acht kleine Schritte
+
+Ich habe die Änderung in acht Schritte zerlegt, wie acht kleine Commits. Jeder Schritt zeigt genau ein Feature der Ansicht. Zuerst steht das klassische Diff ohne Farbe, so wie `git diff --no-color` es ausgibt, danach dieselbe Änderung integriert. Die Summe der acht Schritte steht ganz am Ende noch einmal als Ganzes.
+
+### 1. Neue Zeilen
+
+Der erste Schritt legt ein Interface `Cillum` an: acht neue Zeilen, sonst nichts. Das klassische Diff zeigt sie als Block aus `+`-Zeilen, mit dem Kopf, den git vor jeden Diff setzt (`diff --git`, `index`, `---` und `+++`). Der Kopf steht nur hier. Ab dem zweiten Schritt fehlt er, weil er sich nicht ändert und die Hunks sonst im Weg stehen.
+
+Die integrierte Ansicht zeigt die Datei, wie sie jetzt ist. Die neuen Zeilen erkennt man an der grünen Spur links. Unveränderte Stücke sind schon eingeklappt, dazu gleich mehr.
+
+<DiffStepDemo
+    step={1}
+    file="src/ipsum.ts"
+    header
+/>
+
+### 2. Unverändertes einfalten
+
+Eine einzige Zeile kommt dazu, ein Import. Der Rest der Datei, rund 45 Zeilen, bleibt wie er war. Das klassische Diff zeigt drei Zeilen Kontext und lässt den Rest weg, ohne zu sagen, wie viel das ist.
+
+Die integrierte Ansicht faltet jedes unveränderte Stück auf eine Zeile zusammen: die erste Anweisung des Stücks und `N Zeilen unverändert`. Ein Klick öffnet es, ein weiterer Klick auf die erste Zeile schließt es wieder. Zwei Zeilen Kontext bleiben um jede Änderung stehen. So tritt das Mechanische zurück, und man sieht auf einen Blick, wo etwas passiert ist.
+
+<DiffStepDemo
+    step={2}
+    file="src/ipsum.ts"
+/>
+
+### 3. Ein Token ändert sich
+
+In drei Zeilen wechselt `string` zu `Amet`. Klassisch sind das drei Paare aus einer `-` und einer `+` Zeile, in denen man das eine geänderte Wort suchen muss.
+
+Integriert bleibt jede Zeile eine Zeile. An der Stelle der Änderung steht ein Chip mit dem Alten und dem Neuen nebeneinander, `string → Amet`. Der Pfeil ist nur gezeichnet und kein Zeichen im Code. Die Spur links ist blau und sagt: geändert.
+
+<DiffStepDemo
+    step={3}
+    file="src/ipsum.ts"
+/>
+
+### 4. Etwas fällt weg
+
+`ipsum?: string` wird zu `ipsum: Amet`. Das `?` fällt weg, und `string` wird zu `Amet`. Ein Token, das nur wegfällt, steht als gestrichelter Chip da. Davor entfällt ein Kommentar. Entfernte Zeilen stehen nicht zwischen den neuen. Eine kleine Zeile mit rotem Strich in der Spur sagt nur, wie viele es waren: `− 1 Zeile entfernt`. Ein Klick öffnet sie und zeigt, was dort stand.
+
+<DiffStepDemo
+    step={4}
+    file="src/ipsum.ts"
+/>
+
+### 5. Mehrere Stellen in einer Zeile
+
+Die Tabelle verliert ihr `export`, die Konstante heißt jetzt `cupidatat`, und ihr Typ ist `Proident` statt `Sit`. Drei Dinge passieren in einer Zeile. Klassisch stehen zwei fast gleiche Zeilen untereinander, und man vergleicht sie Wort für Wort.
+
+Integriert zeigt die Zeile jede der drei Stellen an Ort und Stelle: den gestrichelten Chip für `export`, die beiden Chips für die Umbenennung und den neuen Typ. Man sieht, was vorher in der Zeile stand und was nachher, und die Zeile bleibt eine Zeile.
+
+<DiffStepDemo
+    step={5}
+    file="src/ipsum.ts"
+/>
+
+### 6. Wenn in einer Zeile zu viel passiert
+
+Aus `velit.lorem === IPSUM ? velit.ipsum : velit.dolor` wird `[velit.ipsum, velit.dolor].find(Boolean) ?? IPSUM`. Hier wäre jeder Chip Rauschen. Bis zu drei Stellen oder zehn geänderte Token trägt eine Zeile inline. Wird es mehr, steht die alte Zeile über der neuen, wie im klassischen Diff. Jede der beiden markiert nur ihre Seite: oben das, was wegfiel, unten das, was dazukam.
+
+<DiffStepDemo
+    step={6}
+    file="src/ipsum.ts"
+/>
+
+### 7. Nur die Einrückung ändert sich
+
+Ein früher Rückgabewert löst den `if`-Block auf. Zwei Zeilen behalten ihren Inhalt und rücken nur nach links. Klassisch stehen sie trotzdem doppelt da, einmal mit `-` und einmal mit `+`, und man muss selbst sehen, dass sie gleich sind.
+
+Integriert bleiben diese beiden Zeilen normal, und nur die Spur links ist gedämpft: Hier hat sich nur Leerraum geändert. Die Änderung, auf die es ankommt, ist die Bedingung in der Zeile darüber.
+
+<DiffStepDemo
+    step={7}
+    file="src/ipsum.ts"
+/>
+
+### 8. Neu, weg und dazu
+
+Der letzte Schritt zieht vier Zeilen aus `consequat` in eine neue Funktion `exercitation`. Die neue Funktion steht grün in der Spur. Die Zeilen, die in `consequat` weggefallen sind, sind ein kleiner Hinweis (`− 5 Zeilen entfernt`) an der Stelle, an der sie waren. Ein Klick öffnet ihn in einem gestrichelten Kasten, der den Text gedämpft zeigt, mit einem Minus pro Zeile. Die erste Zeile bleibt beim Öffnen an ihrem Platz, ein weiterer Klick darauf schließt den Kasten wieder.
+
+Der Aufruf `dolor(irure, aute)` gewinnt nur Text. Deshalb gibt es hier keinen Chip, sondern nur das neue Stück in Grün.
+
+<DiffStepDemo
+    step={8}
+    file="src/ipsum.ts"
+/>
+
+Dass die vier Zeilen nicht weg, sondern verschoben sind, erkennt diese Ansicht nicht. Dazu weiter unten mehr.
+
+## Wo der klassische Diff besser ist
+
+Der Standard-Diff ist robust, überall lesbar und braucht keine Werkzeuge. Bei einer reinen Umordnung oder bei einer Datei, die kaum eine alte Zeile behält, sagt eine Spalte aus Rot und Grün mehr als jede Paarung von Zeilen. Dort liest sich die neue Fassung mit lauter Hinweisen und Markierungen schlechter als der klassische Block.
+
+## Zum Vergleich: Difftastic
+
+[Difftastic](https://difftastic.wilfred.me.uk/) geht einen anderen Weg. Es vergleicht nicht Zeilen, sondern die Struktur des Codes, zeigt alt und neu nebeneinander und markiert nur die Token, die sich wirklich ändern. Eine Zeile, in der sich nur die Einrückung ändert, ist für Difftastic keine Änderung. Das hier ist die echte Ausgabe von `difft` 0.71.0 (`--display side-by-side --width 120`) für alle acht Schritte zusammen, mit den Farben dieses Blogs.
+
+<DifftasticDemo file="src/ipsum.ts" />
+
+Der Unterschied zur integrierten Ansicht liegt im Prinzip, nicht in den Markierungen. Difftastic zeigt zwei Fassungen und verlangt, dass das Auge zwischen den Spalten springt. Die integrierte Ansicht liest die neue Fassung durchgehend und legt die Änderung darüber.
+
+## Was ein Syntaxbaum zusätzlich könnte
+
+Difftastic nutzt tree-sitter, um Code zu parsen, bleibt in der Darstellung aber bei Zeilen und Token. Ein Syntaxbaum kennt mehr: Deklarationen, ihre Namen und ihre Grenzen. Daraus lässt sich eine Sicht bauen, die nicht Zeilen zählt, sondern sagt, was mit dem Code passiert ist. Hier steht sie für dieselbe Datei. Sie ist keine Ausgabe von tree-sitter, sondern mit dem TypeScript-Parser nachgebaut, der für diese Aufgabe dasselbe liefert, nämlich die Deklarationen der obersten Ebene.
+
+<SemanticDemo file="ipsum.ts" />
+
+Vier Dinge sind darin zu sehen, die ein Zeilen-Diff nicht kennt:
+
+- **Deklarationen als Einheiten.** Die Liste folgt dem Code, nicht den Zeilennummern. Was unverändert ist, zählt nur.
+- **Umbenennungen.** Die Tabelle `adipiscing` heißt jetzt `cupidatat`. Die Deklaration wird über ihren Inhalt wiedererkannt, obwohl sich ihr Name geändert hat.
+- **Muster, die sich wiederholen.** `string` → `Amet` steht nur einmal da, mit der Anzahl.
+- **Verschiebungen.** Vier Zeilen verlassen `consequat` und stehen unverändert in `exercitation`. Die integrierte Ansicht zeigt darüber nur, dass Zeilen entfernt und andere neu sind, ohne den Zusammenhang zu kennen.
+
+Aus diesem Wissen lassen sich auch die Faltungen der integrierten Ansicht beschriften: Statt der ersten Zeile des versteckten Bereichs stünde dort die Deklaration, die gerade eingeklappt ist.
+
+## Das ganze Diff
+
+Zum Schluss alle acht Schritte auf einmal. Zuerst das klassische Diff, wie git es ausgibt, diesmal wieder mit dem vollen Kopf. Dann dieselbe Änderung integriert, wie die Ansicht sie im Ganzen zeigt: Neue Blöcke, Chips, gestrichelte Chips, Hinweise auf entfernte Zeilen und eingeklappte Stücke stehen nebeneinander. Man liest die Datei von oben nach unten und sieht, wo etwas passiert ist.
+
+<DiffStepDemo
+    from={0}
+    to={8}
+    file="src/ipsum.ts"
+    header
+/>

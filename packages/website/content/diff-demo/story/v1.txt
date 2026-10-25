@@ -1,0 +1,49 @@
+import { dolor } from './dolor';
+import type { Amet } from './amet';
+
+const LOREM = 3;
+const IPSUM = 'consectetur';
+
+export interface Sit {
+    lorem: string;
+    /** Sed do eiusmod tempor, incididunt ut labore et dolore */
+    ipsum?: string;
+    dolor?: string;
+    amet: string;
+}
+
+export interface Cillum {
+    fugiat: string;
+    nulla: number;
+    pariatur: boolean;
+    excepteur: string[];
+    sint: Sit;
+}
+
+export const adipiscing: readonly Sit[] = [
+    { lorem: 'elit', ipsum: 'sed', dolor: 'do', amet: 'eiusmod' },
+    { lorem: 'tempor', ipsum: 'incididunt', dolor: 'ut', amet: 'labore' },
+    { lorem: 'et', ipsum: 'dolore', dolor: 'magna', amet: 'aliqua' },
+    { lorem: 'enim', ipsum: 'ad', dolor: 'minim', amet: 'veniam' },
+    { lorem: 'quis', ipsum: 'nostrud', dolor: 'exercitation', amet: 'ullamco' },
+    { lorem: 'laboris', ipsum: 'nisi', dolor: 'aliquip', amet: 'commodo' },
+];
+
+export const consequat = (duis: Sit, aute: number) => {
+    const irure = {
+        lorem: duis.lorem,
+        ipsum: duis.ipsum,
+        dolor: duis.dolor,
+        amet: duis.amet,
+    };
+    if (aute > LOREM) {
+        const reprehenderit = dolor(irure, aute);
+        return reprehenderit;
+    }
+    return irure;
+};
+
+export const voluptate = (velit: Sit) => {
+    const esse = velit.lorem === IPSUM ? velit.ipsum : velit.dolor;
+    return esse;
+};
