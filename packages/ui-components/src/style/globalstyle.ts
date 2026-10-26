@@ -121,10 +121,7 @@ export const globalStyles = css`
       font-size: var(--mz, 0.725rem);
       line-height: 1.6;
       letter-spacing: 0;
-      background: var(--color-syntax-background);
       color: var(--color-syntax-foreground);
-      border-radius: 8px;
-      padding: 12px 14px;
     }
 
     /* normalize.css forces monospace on code, so the pre font would not reach the tokens */
