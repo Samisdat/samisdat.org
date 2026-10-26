@@ -14,6 +14,7 @@ import { Link } from '../Link';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import * as ClientDemos from './ClientAnimations';
+import { DifftasticDemo, DiffStepDemo, SemanticDemo } from '../Diff/DiffDemo';
 import { SnapshotFrame } from './SnapshotFrame';
 import { TypeSpecimen } from '../TypeSpecimen';
 import { TypographySnapshotFrame } from './TypographySnapshotFrame';
@@ -111,6 +112,10 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
         DemoAnimationsDisc: ClientDemos.DemoAnimationsDisc,
         DemoAnimationsCrank: ClientDemos.DemoAnimationsCrank,
+        // Diff demos: all read content/diff-demo/<id>.{before,after}.txt
+        DiffStepDemo,
+        DifftasticDemo,
+        SemanticDemo,
         // Color scheme snapshot: frame loads content/snapshots/<id>.json, blocks render it
         ColorSchemeSnapshot: SnapshotFrame,
         SnapshotInks,

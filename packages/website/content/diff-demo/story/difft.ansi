@@ -1,0 +1,66 @@
+[1m[93msrc/ipsum.ts[39m[0m[2m --- 1/2 --- TypeScript[0m
+[2m 1 [0m[1mimport[0m { dolor } [1mfrom[0m [95m'./dolor'[0m;                          [2m 1 [0m[1mimport[0m { dolor } [1mfrom[0m [95m'./dolor'[0m;
+[2m 2 [0m[1mimport[0m [1mtype[0m { [1mAmet[0m } [1mfrom[0m [95m'./amet'[0m;                       [2m 2 [0m[1mimport[0m [1mtype[0m { [1mAmet[0m } [1mfrom[0m [95m'./amet'[0m;
+[2m . [0m                                                          [92;1m 3 [0m[92;1mimport[0m [92;1m{[0m [92moccaecat[0m [92;1m}[0m [92;1mfrom[0m [92m'./occaecat';[0m
+[2m 3 [0m                                                          [2m 4 [0m
+[2m 4 [0m[1mconst[0m [1mLOREM[0m [1m=[0m 3;                                          [2m 5 [0m[1mconst[0m [1mLOREM[0m [1m=[0m 3;
+[2m 5 [0m[1mconst[0m [1mIPSUM[0m [1m=[0m [95m'consectetur'[0m;                              [2m 6 [0m[1mconst[0m [1mIPSUM[0m [1m=[0m [95m'consectetur'[0m;
+[2m 6 [0m                                                          [2m 7 [0m
+[2m 7 [0m[1mexport[0m [1minterface[0m [1mSit[0m {                                    [2m 8 [0m[1mexport[0m [1minterface[0m [1mSit[0m {
+[91;1m 8 [0m    lorem: [91;1mstring[0m;                                        [92;1m 9 [0m    lorem: [92;1mAmet[0m;
+[91;1m 9 [0m    [91;3m/** Sed do eiusmod tempor, incididunt ut labore et d[0m  [2m . [0m
+[91;1m[2m . [0m[0m[91;3molore */[0m                                                  [2m . [0m
+[91;1m10 [0m    ipsum[91m?[0m: [91;1mstring[0m;                                       [92;1m10 [0m    ipsum: [92;1mAmet[0m;
+[91;1m11 [0m    dolor[91m?[0m: [91;1mstring[0m;                                       [92;1m11 [0m    dolor: [92;1mAmet[0m;
+[91;1m12 [0m    amet: [91;1mstring[0m;                                         [92;1m12 [0m    amet: [92;1mAmet[0m;
+[2m13 [0m}                                                         [2m13 [0m}
+[2m14 [0m                                                          [2m14 [0m
+[91;1m15 [0m[1mexport[0m [1mconst[0m [91madipiscing[0m: [1mreadonly[0m [91;1mSit[0m[] [1m=[0m [               [92;1m15 [0m[1mexport[0m [92;1minterface[0m [92;1mCillum[0m [92;1m{[0m
+[2m.. [0m                                                          [92;1m16 [0m    [92mfugiat:[0m [92;1mAmet[0m[92m;[0m
+[2m.. [0m                                                          [92;1m17 [0m    [92mnulla:[0m [92;1mnumber[0m[92m;[0m
+[2m.. [0m                                                          [92;1m18 [0m    [92mpariatur:[0m [92;1mboolean[0m[92m;[0m
+[2m.. [0m                                                          [92;1m19 [0m    [92mexcepteur:[0m [92;1mstring[][0m[92m;[0m
+[2m.. [0m                                                          [92;1m20 [0m    [92msint:[0m [92;1mSit[0m[92m;[0m
+[2m.. [0m                                                          [92;1m21 [0m[92;1m}[0m
+[2m.. [0m                                                          [92;1m22 [0m
+[2m.. [0m                                                          [92;1m23 [0m[1mconst[0m [92mcupidatat[0m: [1mreadonly[0m [92;1mProident[0m[] [1m=[0m [
+[2m16 [0m    { lorem: [95m'elit'[0m, ipsum: [95m'sed'[0m, dolor: [95m'do'[0m, amet: [95m'e[0m  [2m24 [0m    { lorem: [95m'elit'[0m, ipsum: [95m'sed'[0m, dolor: [95m'do'[0m, amet: [95m'e[0m
+[2m[2m.. [0m[0m[95miusmod'[0m },                                                [2m[2m.. [0m[0m[95miusmod'[0m },
+[2m17 [0m    { lorem: [95m'tempor'[0m, ipsum: [95m'incididunt'[0m, dolor: [95m'ut'[0m,  [2m25 [0m    { lorem: [95m'tempor'[0m, ipsum: [95m'incididunt'[0m, dolor: [95m'ut'[0m,
+[2m[2m.. [0m[0m amet: [95m'labore'[0m },                                        [2m[2m.. [0m[0m amet: [95m'labore'[0m },
+[2m18 [0m    { lorem: [95m'et'[0m, ipsum: [95m'dolore'[0m, dolor: [95m'magna'[0m, amet  [2m26 [0m    { lorem: [95m'et'[0m, ipsum: [95m'dolore'[0m, dolor: [95m'magna'[0m, amet
+[2m[2m.. [0m[0m: [95m'aliqua'[0m },                                             [2m[2m.. [0m[0m: [95m'aliqua'[0m },
+
+[1msrc/ipsum.ts[0m[2m --- 2/2 --- TypeScript[0m
+[2m21 [0m    { lorem: [95m'laboris'[0m, ipsum: [95m'nisi'[0m, dolor: [95m'aliquip'[0m,  [2m29 [0m    { lorem: [95m'laboris'[0m, ipsum: [95m'nisi'[0m, dolor: [95m'aliquip'[0m,
+[2m[2m.. [0m[0m amet: [95m'commodo'[0m },                                       [2m[2m.. [0m[0m amet: [95m'commodo'[0m },
+[2m22 [0m];                                                        [2m30 [0m];
+[2m.. [0m                                                          [92;1m31 [0m
+[2m.. [0m                                                          [92;1m32 [0m[92;1mexport[0m [92;1mconst[0m [92mexercitation[0m [92;1m=[0m [92;1m([0m[92mduis:[0m [92;1mSit)[0m [92;1m=>[0m [92;1m({[0m
+[2m.. [0m                                                          [92;1m33 [0m    [92mlorem:[0m [92mduis.lorem,[0m
+[2m.. [0m                                                          [92;1m34 [0m    [92mipsum:[0m [92mduis.ipsum,[0m
+[2m.. [0m                                                          [92;1m35 [0m    [92mdolor:[0m [92mduis.dolor,[0m
+[2m.. [0m                                                          [92;1m36 [0m    [92mamet:[0m [92mduis.amet,[0m
+[2m.. [0m                                                          [92;1m37 [0m[92;1m})[0m[92m;[0m
+[2m23 [0m                                                          [2m38 [0m
+[2m24 [0m[1mexport[0m [1mconst[0m consequat [1m=[0m (duis: [1mSit[0m, aute: [1mnumber[0m) [1m=>[0m {   [2m39 [0m[1mexport[0m [1mconst[0m consequat [1m=[0m (duis: [1mSit[0m, aute: [1mnumber[0m) [1m=>[0m {
+[91;1m25 [0m    [1mconst[0m irure [1m=[0m [91;1m{[0m                                       [92;1m40 [0m    [1mconst[0m irure [1m=[0m [92mexercitation[0m[92;1m([0mduis[92;1m)[0m;
+[91;1m26 [0m        [91mlorem:[0m duis[91m.lorem,[0m                                [2m.. [0m
+[91;1m27 [0m        [91mipsum:[0m [91mduis.ipsum,[0m                                [2m.. [0m
+[91;1m28 [0m        [91mdolor:[0m [91mduis.dolor,[0m                                [2m.. [0m
+[91;1m29 [0m        [91mamet:[0m [91mduis.amet,[0m                                  [2m.. [0m
+[91;1m30 [0m    [91;1m}[0m;                                                    [2m.. [0m
+[91;1m31 [0m    [1mif[0m (aute [91;1m>[0m [1mLOREM[0m) [91;1m{[0m                                   [92;1m41 [0m    [1mif[0m (aute [92;1m<=[0m [1mLOREM[0m) [92;1mreturn[0m [92mirure;[0m
+[2m.. [0m                                                          [92;1m42 [0m
+[2m32 [0m        [1mconst[0m reprehenderit [1m=[0m dolor(irure, aute);         [92;1m43 [0m    [1mconst[0m reprehenderit [1m=[0m dolor(irure, aute[92m,[0m [92;1mLOREM[0m);
+[2m33 [0m        [1mreturn[0m reprehenderit;                             [2m44 [0m    [1mreturn[0m reprehenderit;
+[91;1m34 [0m    [91;1m}[0m                                                     [2m.. [0m
+[91;1m35 [0m    [91;1mreturn[0m [91mirure;[0m                                         [2m.. [0m
+[2m36 [0m};                                                        [2m45 [0m};
+[2m37 [0m                                                          [2m46 [0m
+[2m38 [0m[1mexport[0m [1mconst[0m voluptate [1m=[0m (velit: [1mSit[0m) [1m=>[0m {                [2m47 [0m[1mexport[0m [1mconst[0m voluptate [1m=[0m (velit: [1mSit[0m) [1m=>[0m {
+[91;1m39 [0m    [1mconst[0m esse [1m=[0m [91mvelit.lorem[0m [91;1m===[0m [91;1mIPSUM[0m [91m?[0m velit.ipsum [91m:[0m v  [92;1m48 [0m    [1mconst[0m esse [1m=[0m [92;1m[[0mvelit.ipsum[92m,[0m velit.dolor[92;1m][0m[92m.find[0m[92;1m(Boolean[0m
+[91;1m[2m.. [0m[0melit.dolor;                                               [92;1m[2m.. [0m[0m[92;1m)[0m [92;1m??[0m [92;1mIPSUM[0m;
+[2m40 [0m    [1mreturn[0m esse;                                          [2m49 [0m    [1mreturn[0m esse;
+[2m41 [0m};                                                        [2m50 [0m};
+
