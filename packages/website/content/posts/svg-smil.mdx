@@ -266,52 +266,109 @@ Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zä
 
 ### Änderungen an `dur` sind hart unintuitiv
 
-<DemoContext duration="40s">
-<Stack
-    container
-    directionSmall="column"
-    directionMedium="row"
-    sticky
+Ich wollte bei dem Panorama auch einen steuerbaren Zeitraffer.
+Da bin ich mit Smil wirklich hart verzweifelt, weil die Änderung der Dauer einer `<animate>` sehr eigenwillig ist.
+
+Wahrscheinlich gibt es Menschen, die sich das XML angucken und sich vorstellen können, was wann passiert.
+Ich gehört nicht dazu.
+
+Die Doku aus derselben Oldschool-Liga wie die [Apache Doku](https://httpd.apache.org/docs/2.4/rewrite/tech.html#InternalRuleset):
+
+Solange man sie braucht, versteht man sie nicht und sobald man es verstanden hat, braucht man sie nicht mehr.
+Aber beim Verstehen hilft sie nicht wirklich.
+
+> Element simple time calculation
 >
-    <Stack>
-        <DemoAnimationsCrank />
+> The element simple time is the time that is used to establish runtime synchronization for a media element, or to compute an animation function's input value or sampling time. If the element is a time container, this is also the time that is seen by all children of a time container
+> [https://www.w3.org/TR/SMIL3/smil-timing.html](https://www.w3.org/TR/SMIL3/smil-timing.html#q109)
+
+Was ich dann irgenwann verstanden habe:
+
+Ein laufendes `<animate>` speichert keine Position, sondern wertet bei jedem Frame
+`x = from + frac · (to − from)` mit `frac = ((t − begin) mod dur) / dur`
+neu aus, wobei `begin` der Zeitpunkt ist, auf den das [`begin`-Attribut](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/begin) für das laufende Intervall aufgelöst wurde; ändert man [`dur`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/dur), bleibt `t − begin` unangetastet, aber `dur` steckt gleich zweimal in der Formel, im mod und im Nenner, und aus demselben Moment wird eine andere Phase.
+
+Immer noch ein komplizierter Satz und verstanden ist relativ:
+
+Bei einem Bier erklärten könnte ich es nicht,
+aber mir hätte diese Demo geholfen:
+
+Wenn Du die Geschwindigkeit änderst, dann änderst sich die `dur` und Du siehst den Hebel springen.
+
+<DemoContext duration="40s">
+    <Stack
+        container
+        directionSmall="column"
+        directionMedium="row"
+        sticky
+    >
+        <Stack>
+            <DemoAnimationsCrank />
+        </Stack>
+        <Stack>
+            <DemoAnimationsCrankFormula
+                locale="de-DE"
+                texts={{
+                    phaseComment: 'Phase im Zyklus (t, dur in s)',
+                    angleComment: 'Winkel in Grad',
+                    consoleComment: 'In der Konsole nachmessen',
+                    hint: ['Ändere die Geschwindigkeit in der Demo,', 'um den Effekt zu sehen'],
+                    jump: [
+                        'dur {before}s → {after}s bei t = {t}s',
+                        'angle springt',
+                        'von {angleBefore}° auf {angleAfter}°',
+                        'Δ {delta}°',
+                    ],
+                    reset: ['Zurückgesetzt auf t = 0.'],
+                    resetLimit: ['Zurückgesetzt auf t = 0.', 't erreichte {limit}s'],
+                }}
+            />
+        </Stack>
     </Stack>
-    <Stack>
-        <DemoAnimationsCrankFormula
-            locale="de-DE"
-            texts={{
-                phaseComment: "Phase im Zyklus (t, dur in s)",
-                angleComment: "Winkel in Grad",
-                consoleComment: "In der Konsole nachmessen",
-                hint: [
-                    "Ändere die Geschwindigkeit in der Demo,",
-                    "um den Effekt zu sehen",
-                ],
-                jump: [
-                    "dur {before}s → {after}s bei t = {t}s",
-                    "angle springt",
-                    "von {angleBefore}° auf {angleAfter}°",
-                    "Δ {delta}°",
-                ],
-                reset: ["Zurückgesetzt auf t = 0."],
-                resetLimit: ["Zurückgesetzt auf t = 0.", "t erreichte {limit}s"],
-            }}
-        />
-    </Stack>
-</Stack>
 </DemoContext>
 
-SMIL-`<animate>` führt keinen Positionszustand mit: Die Position ist zu jedem Zeitpunkt eine reine Funktion von Dokumentzeit und Beginn des aktuellen Intervalls. Es gilt x = from + frac·(to−from) mit frac = ((t − begin) mod dur) / dur, wobei begin der aufgelöste Start des laufenden Intervalls ist, nicht zwingend der Attributwert. Beim Ändern von dur (in React via setAttribute) bleibt t − begin gleich, aber frac wird neu berechnet, und die Position springt.
-
 In der Demo habe ich `begin` oben weggelassen, weil es dort immer 0 ist.
-Prinzipiell ließe sich der Sprung patchen, indem man beim Ändern von `dur` auch `begin` verschiebt, sodass `(t − begin) / dur` gleich bleibt: `begin = t − frac · dur_neu`. Praktisch geht das über `beginElementAt()` mit negativem Offset, das startet das Intervall neu, als wäre es schon `frac · dur_neu` Sekunden gelaufen.
-Schwierig wird es, wenn mehrere Animationen mit unterschiedlichem `dur` synchron bleiben sollen, etwa die Dämmerung und die Bewegung von Mond und Sonne: Jede hat ihre eigene Phase und braucht ihr eigenes neues `begin`. Alle müssen im selben Moment und um denselben Faktor umgebaut werden, sonst verschiebt sich die Phase gegeneinander. Hängt eine per `begin="andere.end"` an einer anderen oder läuft mit einem anderen Faktor, ist die Synchronität weg.
+Prinzipiell ließe sich der Sprung patchen, indem man beim Ändern von `dur` auch `begin` verschiebt, sodass `(t − begin) / dur` gleich bleibt: `begin = t − frac · dur_neu`.
+
+Praktisch geht das über `beginElementAt()` mit negativem Offset, das startet das Intervall neu, als wäre es schon `frac · dur_neu` Sekunden gelaufen.
+Schwierig wird es, wenn mehrere Animationen mit unterschiedlichem `dur` synchron bleiben sollen, etwa die Dämmerung und die Bewegung von Mond und Sonne: Jede hat ihre eigene Phase und braucht ihr eigenes neues `begin`. Alle müssen im selben Moment und um denselben Faktor umgebaut werden, sonst verschiebt sich die Phase gegeneinander.
 
 ## Considerations
 
-## The only SMIL Animation in header
+Offensichtlich hab ich viel Zeit in Smil gesteckt.
+
+Der erste und zweite Blick ist überraschend gut gewesen, obwohl ich [gewarnt war](https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM?pli=1), dass Smile wahrscheinlich nicht mehr weiterentwickelt wird.
+
+Mein dritte und vierte Blick waren ehr ernüchternd:
+
+1. Ich wollte Morphing-Parralax und hab es nicht bekommen.
+2. Ich wollte steuerbaren Zeitraffer und hab ihn nicht bekommen.
+3. Und mich nervt wirklich hart, dass ich mit dem DevTools die Animationen nicht wirklich debuggen kann. Da steht halt immer nur das intitale SVG, aber nie der aktuelle Stand.
+
+Nach meiner Erfahung ist das ein gefähricher Punkt:
+Viel Zeit versenkt, aber noch nicht am Ziel.
+
+Da tritt man sich schnell einen gröseren Haufen Scheiße ein:
+
+Jetzt hab ich schon so viel Zeit da rein gesteckt, mit noch ein bischen mehr Zeit, LLM und Token könnte ich:
+
+- noch drei andere Wege in Affinity probieren, sie Zustände zu pflegen oder noch vier andere Tools testen
+- `dur` Problem mit `begin` patchen
+- doch noch eine oder zwei SMIL-Animationsbibelothek anschauen. Die haben das doch sicher abstrahiert
+- ein eigenes DevTools Panel bauen, dass mir Smil-Timeline in die DevTools holt
+
+Ich war auch jeden Fall in Versuchung.
+
+Hier ist es mir leicht gefallen, zu widerstehen:
+Ich will hier ja vor allem Spaß haben und was lernen.
+
+Daher ist mein Smil Abenteuer hier zu Ende.
+
+Zumindest fast.
+
+## Der kleine Rest SMIIL Animation in Header
+
+Die beiden kleinen Schwebebahnen im Header fahren mit SMIL hin und her.
+Die sollen einfach immer gleichschnell vor und zurück, dass kann SMIL
 
 <DemoAnimationsSvg />
-
-<DemoAnimationsMorphCoffee />
-<DemoAnimationsMorphThumb />
