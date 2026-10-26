@@ -278,10 +278,23 @@ Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zä
     </Stack>
     <Stack>
         <DemoAnimationsCrankFormula
+            locale="de-DE"
             texts={{
                 phaseComment: "Phase im Zyklus (t, dur in s)",
                 angleComment: "Winkel in Grad",
                 consoleComment: "In der Konsole nachmessen",
+                hint: [
+                    "Ändere die Geschwindigkeit in der Demo,",
+                    "um den Effekt zu sehen",
+                ],
+                jump: [
+                    "dur {before}s → {after}s bei t = {t}s",
+                    "angle springt",
+                    "von {angleBefore}° auf {angleAfter}°",
+                    "Δ {delta}°",
+                ],
+                reset: ["Zurückgesetzt auf t = 0."],
+                resetLimit: ["Zurückgesetzt auf t = 0.", "t erreichte {limit}s"],
             }}
         />
     </Stack>

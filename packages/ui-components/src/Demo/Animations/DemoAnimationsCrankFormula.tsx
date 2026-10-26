@@ -12,29 +12,48 @@ import {
   type CrankEvent,
 } from "./crankEvents";
 
-export const fmt = (value: number, digits: number) =>
-  value.toLocaleString("de-DE", {
+const fmt = (locale: string, value: number, digits: number) =>
+  value.toLocaleString(locale, {
     minimumFractionDigits: digits,
     maximumFractionDigits: digits,
   });
 
-export const fmtDur = (value: number) =>
-  value.toLocaleString("de-DE", { maximumFractionDigits: 2 });
+const fmtDur = (locale: string, value: number) =>
+  value.toLocaleString(locale, { maximumFractionDigits: 2 });
+
+/** Signed number with a real minus sign (U+2212). */
+const fmtSigned = (locale: string, value: number, digits: number) =>
+  `${value < 0 ? "−" : "+"}${fmt(locale, Math.abs(value), digits)}`;
 
 /** Plain JS number literal (dot decimals) for the code-style blocks. */
 const num = (value: number, digits: number) => value.toFixed(digits);
 const numDur = (value: number) => String(Number(value.toFixed(2)));
 
-export const fmtDuration = (value: number) => `${fmtDur(value)}s`;
+/** Replaces `{name}` placeholders; unknown names are left as they are. */
+const interpolate = (template: string, values: Record<string, string>) =>
+  template.replace(/\{(\w+)\}/g, (match, name: string) => values[name] ?? match);
 
-/** Signed number with a real minus sign (U+2212). */
-export const fmtSigned = (value: number, digits: number) =>
-  `${value < 0 ? "−" : "+"}${fmt(Math.abs(value), digits)}`;
-
-const INITIAL_JUMP_LINES = [
-  "Ändere die Geschwindigkeit in der Demo,",
-  "um den Effekt zu sehen",
-] as const;
+/**
+ * All natural-language copy, set in the MDX so the post can be translated
+ * without touching this component. Lines are arrays (no embedded newlines);
+ * `{placeholders}` are filled with numbers formatted for `locale`.
+ */
+export type CrankFormulaTexts = {
+  /** Comment above the phase line (the leading `// ` is added here). */
+  phaseComment: string;
+  /** Comment above the angle line. */
+  angleComment: string;
+  /** First line of the console snippet. */
+  consoleComment: string;
+  /** Shown until the first change. */
+  hint: string[];
+  /** After a `dur` change: {before} {after} {t} {angleBefore} {angleAfter} {delta}. */
+  jump: string[];
+  /** After the Reset button. */
+  reset: string[];
+  /** After the automatic reset: {limit}. */
+  resetLimit: string[];
+};
 
 export type FormulaField =
   | "t"
@@ -88,9 +107,8 @@ export const createFormulaWriter = (root: HTMLElement) => {
         set(name, values[name]),
       );
     },
-    setJump: (line1: string, line2 = "") => {
-      set("jump1", line1);
-      set("jump2", line2);
+    setJump: (lines: string[]) => {
+      set("jump", lines.join("\n"));
     },
     flash: () => {
       FLASH_FIELDS.forEach((name) =>
@@ -182,7 +200,6 @@ const Block = styled.div`
 
   .jump {
     color: var(--color-status-danger);
-    min-height: 4lh;
   }
 `;
 
@@ -214,22 +231,20 @@ const ConsoleSnippet = ({ comment }: { comment: string }) =>
     customLanguages: styledGrammarLangs,
   });
 
-/**
- * Copy for the comments, set in the MDX so the post can be translated
- * without touching this component (the leading `// ` is added here).
- */
-export type CrankFormulaTexts = {
-  phaseComment: string;
-  angleComment: string;
-  consoleComment: string;
+type DemoAnimationsCrankFormulaProps = {
+  texts: CrankFormulaTexts;
+  /** BCP 47 tag for the numbers inside the messages, e.g. "de-DE". */
+  locale: string;
 };
 
 export const DemoAnimationsCrankFormula = ({
   texts,
-}: {
-  texts: CrankFormulaTexts;
-}) => {
+  locale,
+}: DemoAnimationsCrankFormulaProps) => {
   const ctx = useDemoContext();
+  // The subscription is set up once; it reads the current copy through a ref.
+  const copyRef = useRef({ texts, locale });
+  copyRef.current = { texts, locale };
   const [baseDuration] = useState(
     () => parseFloat(ctx?.values.duration ?? "") || BASE_DURATION_FALLBACK,
   );
@@ -238,6 +253,13 @@ export const DemoAnimationsCrankFormula = ({
 
   const rootRef = useRef<HTMLDivElement | null>(null);
   const live = ctx?.live;
+  // Reserve the tallest message so the layout does not jump on the first change.
+  const jumpLines = Math.max(
+    texts.hint.length,
+    texts.jump.length,
+    texts.reset.length,
+    texts.resetLimit.length,
+  );
 
   useEffect(() => {
     if (!rootRef.current || !live) {
@@ -258,21 +280,33 @@ export const DemoAnimationsCrankFormula = ({
             measured: num(event.measured, 1),
           });
           break;
-        case "jump":
-          writer.setJump(
-            `dur ${fmtDuration(event.before)} → ${fmtDuration(event.after)} bei t = ${fmt(event.t, 2)}s`,
-            `angle springt\nvon ${fmt(event.thetaBefore, 1)}° auf ${fmt(event.thetaAfter, 1)}°\nΔ ${fmtSigned(event.delta, 1)}°`,
-          );
+        case "jump": {
+          const { texts, locale } = copyRef.current;
+          const values = {
+            before: fmtDur(locale, event.before),
+            after: fmtDur(locale, event.after),
+            t: fmt(locale, event.t, 2),
+            angleBefore: fmt(locale, event.thetaBefore, 1),
+            angleAfter: fmt(locale, event.thetaAfter, 1),
+            delta: fmtSigned(locale, event.delta, 1),
+          };
+          writer.setJump(texts.jump.map((line) => interpolate(line, values)));
           if (event.flash) {
             writer.flash();
           }
           break;
-        case "reset":
+        }
+        case "reset": {
+          const { texts } = copyRef.current;
           writer.setJump(
-            "Zurückgesetzt auf t = 0.",
-            event.reason === "limit" ? `t erreichte ${AUTO_RESET_AT}s` : "",
+            event.reason === "limit"
+              ? texts.resetLimit.map((line) =>
+                  interpolate(line, { limit: String(AUTO_RESET_AT) }),
+                )
+              : texts.reset,
           );
           break;
+        }
       }
     });
   }, [live]);
@@ -338,9 +372,13 @@ export const DemoAnimationsCrankFormula = ({
           <V f="theta" init={num(0, 1)} />
         </div>
       </div>
-      <div className="jump" aria-live="polite">
-        <div data-f="jump1">{INITIAL_JUMP_LINES[0]}</div>
-        <div data-f="jump2">{INITIAL_JUMP_LINES[1]}</div>
+      <div
+        className="jump"
+        aria-live="polite"
+        data-f="jump"
+        style={{ minHeight: `${jumpLines}lh` }}
+      >
+        {texts.hint.join("\n")}
       </div>
       <div className="measured">
         <div className="snippet">
