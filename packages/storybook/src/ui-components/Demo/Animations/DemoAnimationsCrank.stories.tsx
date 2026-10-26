@@ -19,7 +19,13 @@ const meta = {
             <DemoAnimationsCrank />
           </Stack>
           <Stack>
-            <DemoAnimationsCrankFormula />
+            <DemoAnimationsCrankFormula
+              texts={{
+                phaseComment: "Phase im Zyklus (t, dur in s)",
+                angleComment: "Winkel in Grad",
+                consoleComment: "In der Konsole nachmessen",
+              }}
+            />
           </Stack>
         </Stack>
       </DemoContext>

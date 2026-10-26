@@ -202,19 +202,33 @@ const Cont = ({ pad }: { pad: number }) => (
   <span className="comment">{`//${" ".repeat(pad)}`}</span>
 );
 
-const CONSOLE_SNIPPET = `// In der Konsole nachmessen
+const consoleSnippet = (comment: string) => `// ${comment}
 const g = document
   .querySelector("#${CRANK_ELEMENT_ID}");
 const { a, b } = g.getCTM();
 (Math.atan2(b, a) * 180 / Math.PI
   + 360) % 360`;
 
-const ConsoleSnippet = () =>
-  useShikiHighlighter(CONSOLE_SNIPPET, "javascript", shikiTheme, {
+const ConsoleSnippet = ({ comment }: { comment: string }) =>
+  useShikiHighlighter(consoleSnippet(comment), "javascript", shikiTheme, {
     customLanguages: styledGrammarLangs,
   });
 
-export const DemoAnimationsCrankFormula = () => {
+/**
+ * Copy for the comments, set in the MDX so the post can be translated
+ * without touching this component (the leading `// ` is added here).
+ */
+export type CrankFormulaTexts = {
+  phaseComment: string;
+  angleComment: string;
+  consoleComment: string;
+};
+
+export const DemoAnimationsCrankFormula = ({
+  texts,
+}: {
+  texts: CrankFormulaTexts;
+}) => {
   const ctx = useDemoContext();
   const [baseDuration] = useState(
     () => parseFloat(ctx?.values.duration ?? "") || BASE_DURATION_FALLBACK,
@@ -272,7 +286,7 @@ export const DemoAnimationsCrankFormula = () => {
           <V f="t" init={zero} />
         </div>
         <div>{" "}</div>
-        <div className="comment">{"// Phase im Zyklus (t, dur in s)"}</div>
+        <div className="comment">{`// ${texts.phaseComment}`}</div>
         <div>
           <Tok f="frac">frac</Tok>
           {"  = ("}
@@ -305,7 +319,7 @@ export const DemoAnimationsCrankFormula = () => {
           <V f="frac" init={num(0, 4)} />
         </div>
         <div>{" "}</div>
-        <div className="comment">{"// Winkel in Grad"}</div>
+        <div className="comment">{`// ${texts.angleComment}`}</div>
         <div>
           <Tok f="theta">angle</Tok>
           {" = from + "}
@@ -330,7 +344,7 @@ export const DemoAnimationsCrankFormula = () => {
       </div>
       <div className="measured">
         <div className="snippet">
-          <ConsoleSnippet />
+          <ConsoleSnippet comment={texts.consoleComment} />
         </div>
         <div className="result">
           {"// → "}
