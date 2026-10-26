@@ -23,8 +23,8 @@ Posts, der Rest der Site hing an den Fallbacks.
 - **Ableitung pro Preset** (`deriveSizes`): Body und h1 behalten das aufgeschriebene
   Maß als Maximum, das Ratio ist `(h1/body)^(1/4)`, h2/h3 folgen der Skala. Die
   schmale Seite nutzt dasselbe Min:Max-Verhältnis der Ratios wie das PoC (1,2 : 1,333).
-  Body fällt nicht unter 16px, Mono folgt dem Body, aber nicht unter 14px; liegt ein
-  Maß schon unter seinem Boden, bleibt es fix.
+  Body fällt nicht unter 18px, Mono folgt dem Body, aber nicht unter 16px; steht ein
+  Maß unter seinem Boden, wird es auf den Boden angehoben und bleibt dort fix.
 - **Zwischen den Endpunkten wird pro Größe linear interpoliert.** Die geometrische
   Skala gilt exakt nur an Min und Max; dazwischen weicht sie um wenige Prozent ab
   (ca. 4 % bei h1 auf halber Breite).
