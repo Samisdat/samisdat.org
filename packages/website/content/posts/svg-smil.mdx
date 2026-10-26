@@ -1,5 +1,5 @@
 ---
-title: Animationen mit Smil
+title: Animationen mit SMIL
 date: 2025-11-17T00:00:00.000Z
 published: true
 description: SMIL-Animationen sind seit SVG 1.0 dabei – pures XML, erstaunlich leistungsfähig. Ein praktischer Blick auf einen vergessenen Standard im modernen Header-Einsatz.
@@ -9,7 +9,7 @@ image: true
 Schon seit der [Version 1.0](https://www.w3.org/TR/2001/REC-SVG-20010904/) von 2001 sind [SMIL-Animationen](https://www.w3.org/TR/2001/REC-SVG-20010904/animate.html) mit in SVG drin.
 
 Viel oldschuliger und abgehangener geht es im Internet kaum:
-Hat sogar _Multimedia_ im Namen und ist pures XML.
+Es hat sogar _Multimedia_ im Namen und ist pures XML.
 
 Nachdem ich mich für SVG im Header entschieden hatte, habe ich mir auch SMIL angesehen.
 
@@ -77,18 +77,18 @@ Viele Kreise mit [`<circle>`](#circle). Der jeweils nächste Kreis wird etwas kl
 
 Das [`<animateTransform>`](#anim) steckt in der Gruppe, daher wird diese animiert — alle Kreise drehen sich mit.
 
-Animiere den Wert des Attributes `transform`. Rotiere um den Punkt x/y 100/100 in sechs Sekunden. Starte bei null Grad und ende bei 360.
+Animiere den Wert des Attributs `transform`. Rotiere um den Punkt x/y 100/100 in sechs Sekunden. Starte bei null Grad und ende bei 360.
 
-Dann ist die Animation durch, die Kreise stehen wieder da wo sie anfangs waren und mit [`repeatCount`](#repeat) `indefinite` fangt wieder alles von vorne an.
+Dann ist die Animation durch, die Kreise stehen wieder da, wo sie anfangs waren, und mit [`repeatCount`](#repeat) `indefinite` fängt wieder alles von vorne an.
 
 ## Ü-Ei - Pfad Morphing
 
 [`<animate>`](#animate) interpoliert den Wert eines Attributs von einem Eintrag der values-Liste zum nächsten.
-Überraschenderweise für mich, frisst das auch komplette Pfade.
+Überraschenderweise für mich frisst das auch komplette Pfade.
 
-Pfade in SVG werden mit [`<path>`](#path)-Elementen definiert und der Pfadverlauf steckt Attribut `d` als Liste von [Kommandos](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/d#path_commands), die den Pfad beschreiben.
+Pfade in SVG werden mit [`<path>`](#path)-Elementen definiert und der Pfadverlauf steckt im Attribut `d` als Liste von [Kommandos](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/d#path_commands), die den Pfad beschreiben.
 
-Wenn ich zwischen zwei verschiedenen Sets von Pfad Kommandos animiere, dann bekomme ich überraschend smoothe Animationen.
+Wenn ich zwischen zwei verschiedenen Sets von Pfad-Kommandos animiere, dann bekomme ich überraschend smoothe Animationen.
 
 <DemoContext duration="6s">
 <Stack
@@ -204,10 +204,10 @@ Wenn ich zwischen zwei verschiedenen Sets von Pfad Kommandos animiere, dann beko
 </Stack>
 </DemoContext>
 
-Eine Animation, die sauber und endlos loopt und hin- und hermorpht, kommt allerdings mit einem krassen Overhead.
+Eine Animation, die sauber und endlos loopt und hin- und hermorpht, bringt allerdings einen krassen Overhead mit sich.
 Die Pfaddaten, die zum Morphing gehören, muss ich viermal im SVG haben; der Ausgangspfad allein dreimal. Zwei davon sind reine Duplikate.
 
-1. [Der Ausgangspfad](#src) im `d`-Attribute des `<path>`
+1. [Der Ausgangspfad](#src) im `d`-Attribut des `<path>`
 
 2. Nochmal der Ausgangspfad als [erster Wert in der values-Liste](#first). Damit startet die Animation
 
@@ -215,7 +215,7 @@ Die Pfaddaten, die zum Morphing gehören, muss ich viermal im SVG haben; der Aus
 
 4. Nochmal der [Ausgangspfad](#last). Damit endet der Durchlauf der Animation
 
-2 und 4 sind einhundertprozentige Duplikate von 1. Bei kleinen Animationen zu verkraften, aber das SVG wird beim komplexen Animationen sehr schnell größer und schlechter pflegbar.
+Punkt 2 und 4 sind einhundertprozentige Duplikate von Punkt 1. Bei kleinen Animationen zu verkraften, aber das SVG wird bei komplexen Animationen sehr schnell größer und schlechter pflegbar.
 
 ### Was ich machen wollte
 
@@ -231,7 +231,7 @@ Die Pfaddaten, die zum Morphing gehören, muss ich viermal im SVG haben; der Aus
     <Stack>
 Ich hatte gedacht, dass ich damit einen Parallax-Effekt hinbekommen würde, bei dem sich die einzelnen Ebenen nicht nur gegeneinander verschieben, sondern die Hügel wirklich flacher werden.
 
-Aber ich hab die Idee schnell wieder verworfen, weil das SVG deutlich größer und für mich nicht mehr wartbar geworden wäre:
+Aber ich hab die Idee schnell wieder verworfen, weil das SVG deutlich größer und für mich nicht mehr wartbar geworden wäre.
 
 Das SVG ist ein Export aus Affinity Designer.
 Dort besteht das Panorama aus mehreren Dutzend Ebenen, rund hundert Pfaden und mehreren tausend Punkten. Für die animierten Teile hätte ich die Pfade doppelt vorhalten müssen: einmal für den Start- und einmal für den Zielzustand.
@@ -244,7 +244,7 @@ Im `d`-Attribut eines `<path>` stehen alle Kommandos einfach hintereinanderweg, 
 Hätte ich also in einem Zustand einen Punkt hinzugefügt oder ein Kurvensegment zu einer Geraden gemacht, hätte ich genau dieselbe Änderung auch im anderen Zustand machen müssen.
 
 Ein Fehler, und der Teil der Animation ist einfach kaputt.
-Wenn ich es geschafft hätte, alle PfadKommandos passend zu haben, dann hätte das nächste Problem gelauert:
+Wenn ich es geschafft hätte, alle Pfad-Kommandos passend zu haben, hätte das nächste Problem gelauert:
 
 </Stack>
 
@@ -254,25 +254,25 @@ Wenn ich es geschafft hätte, alle PfadKommandos passend zu haben, dann hätte d
 
 Nicht nur die Art der Punkte ist wichtig, sondern auch deren Reihenfolge.
 
-Beim Interpolieren werden aus den Kommandos in den Pfaden und Paare gebildet.
+Beim Interpolieren werden aus den Kommandos in den Pfaden Paare gebildet.
 
 <DemoAnimationsMorphGood />
 
 Jeweils zwei Pfade: ein Kreis, der zu einem Quadrat morpht. Beim grünen stimmt die Reihenfolge der Punkte. Beim gelben beginnt das Quadrat an der Gegenecke, beim roten sind 1 und 2 vertauscht.
-Alle Animationen haben dieselbe `dur`, aber die Punkte in dem gelben haben die weiteren Wege, desshalb ist die Bewegung schneller.
+Alle Animationen haben dieselbe `dur`, aber die Punkte im gelben haben längere Wege, deshalb ist die Bewegung schneller.
 
 Verrutscht die Zuordnung — etwa weil der Pfad an einer anderen Ecke beginnt — bekommt jedes Kommando einen neuen Partner, und die Animation verdrillt sich oder klappt um.
-Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zählen und vergleichen
+Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händisch zählen und vergleichen.
 
 ### Änderungen an `dur` sind hart unintuitiv
 
 Ich wollte bei dem Panorama auch einen steuerbaren Zeitraffer.
-Da bin ich mit Smil wirklich hart verzweifelt, weil die Änderung der Dauer einer `<animate>` sehr eigenwillig ist.
+Da bin ich mit SMIL wirklich verzweifelt, weil die Änderung der Dauer einer `<animate>` sehr eigenwillig ist.
 
 Wahrscheinlich gibt es Menschen, die sich das XML angucken und sich vorstellen können, was wann passiert.
-Ich gehört nicht dazu.
+Ich gehöre nicht dazu.
 
-Die Doku aus derselben Oldschool-Liga wie die [Apache Doku](https://httpd.apache.org/docs/2.4/rewrite/tech.html#InternalRuleset):
+Die Doku spielt in derselben Oldschool-Liga wie die [Apache-Doku](https://httpd.apache.org/docs/2.4/rewrite/tech.html#InternalRuleset):
 
 Solange man sie braucht, versteht man sie nicht und sobald man es verstanden hat, braucht man sie nicht mehr.
 Aber beim Verstehen hilft sie nicht wirklich.
@@ -282,18 +282,18 @@ Aber beim Verstehen hilft sie nicht wirklich.
 > The element simple time is the time that is used to establish runtime synchronization for a media element, or to compute an animation function's input value or sampling time. If the element is a time container, this is also the time that is seen by all children of a time container
 > [https://www.w3.org/TR/SMIL3/smil-timing.html](https://www.w3.org/TR/SMIL3/smil-timing.html#q109)
 
-Was ich dann irgenwann verstanden habe:
+Was ich dann irgendwann verstanden habe:
 
 Ein laufendes `<animate>` speichert keine Position, sondern wertet bei jedem Frame
 `x = from + frac · (to − from)` mit `frac = ((t − begin) mod dur) / dur`
-neu aus, wobei `begin` der Zeitpunkt ist, auf den das [`begin`-Attribut](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/begin) für das laufende Intervall aufgelöst wurde; ändert man [`dur`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/dur), bleibt `t − begin` unangetastet, aber `dur` steckt gleich zweimal in der Formel, im mod und im Nenner, und aus demselben Moment wird eine andere Phase.
+neu aus, wobei `begin` der Zeitpunkt ist, auf den das [`begin`-Attribut](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/begin) für das laufende Intervall aufgelöst wurde. Ändert man [`dur`](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/dur), bleibt `t − begin` unangetastet. Aber `dur` steckt gleich zweimal in der Formel, im mod und im Nenner, und aus demselben Moment wird eine andere Phase.
 
 Immer noch ein komplizierter Satz und verstanden ist relativ:
 
-Bei einem Bier erklärten könnte ich es nicht,
+Bei einem Bier erklären könnte ich es nicht,
 aber mir hätte diese Demo geholfen:
 
-Wenn Du die Geschwindigkeit änderst, dann änderst sich die `dur` und Du siehst den Hebel springen.
+Wenn Du die Geschwindigkeit änderst, dann ändert sich die `dur` und Du siehst den Hebel springen.
 
 <DemoContext duration="40s">
     <Stack
@@ -335,40 +335,40 @@ Schwierig wird es, wenn mehrere Animationen mit unterschiedlichem `dur` synchron
 
 ## Considerations
 
-Offensichtlich hab ich viel Zeit in Smil gesteckt.
+Offensichtlich habe ich viel Zeit in SMIL gesteckt.
 
-Der erste und zweite Blick ist überraschend gut gewesen, obwohl ich [gewarnt war](https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM?pli=1), dass Smile wahrscheinlich nicht mehr weiterentwickelt wird.
+Der erste und zweite Blick sind überraschend gut gewesen, obwohl ich [gewarnt war](https://groups.google.com/a/chromium.org/g/blink-dev/c/5o0yiO440LM?pli=1), dass SMIL wahrscheinlich nicht mehr weiterentwickelt wird.
 
-Mein dritte und vierte Blick waren ehr ernüchternd:
+Mein dritter und vierter Blick waren eher ernüchternd:
 
-1. Ich wollte Morphing-Parralax und hab es nicht bekommen.
+1. Ich wollte Morphing-Parallax und hab es nicht bekommen.
 2. Ich wollte steuerbaren Zeitraffer und hab ihn nicht bekommen.
-3. Und mich nervt wirklich hart, dass ich mit dem DevTools die Animationen nicht wirklich debuggen kann. Da steht halt immer nur das intitale SVG, aber nie der aktuelle Stand.
+3. Und mich nervt wirklich sehr, dass ich mit den DevTools die Animationen nicht wirklich debuggen kann. Da steht halt immer nur das initiale SVG, aber nie der aktuelle Stand.
 
-Nach meiner Erfahung ist das ein gefähricher Punkt:
+Nach meiner Erfahrung ist das ein gefährlicher Punkt:
 Viel Zeit versenkt, aber noch nicht am Ziel.
 
-Da tritt man sich schnell einen gröseren Haufen Scheiße ein:
+Da tritt man sich schnell einen größeren Haufen Scheiße ein:
 
-Jetzt hab ich schon so viel Zeit da rein gesteckt, mit noch ein bischen mehr Zeit, LLM und Token könnte ich:
+Jetzt habe ich schon so viel Zeit da reingesteckt. Mit noch ein bisschen mehr Zeit, LLM und Token könnte ich:
 
-- noch drei andere Wege in Affinity probieren, sie Zustände zu pflegen oder noch vier andere Tools testen
-- `dur` Problem mit `begin` patchen
-- doch noch eine oder zwei SMIL-Animationsbibelothek anschauen. Die haben das doch sicher abstrahiert
-- ein eigenes DevTools Panel bauen, dass mir Smil-Timeline in die DevTools holt
+- noch drei andere Wege in Affinity probieren, die Zustände zu pflegen oder noch vier andere Tools testen
+- das `dur`-Problem mit `begin` patchen
+- doch noch eine oder zwei SMIL-Animationsbibliotheken anschauen. Die haben das doch sicher abstrahiert
+- ein eigenes DevTools-Panel bauen, das mir die SMIL-Timeline in die DevTools holt
 
-Ich war auch jeden Fall in Versuchung.
+Ich war auf jeden Fall in Versuchung.
 
 Hier ist es mir leicht gefallen, zu widerstehen:
 Ich will hier ja vor allem Spaß haben und was lernen.
 
-Daher ist mein Smil Abenteuer hier zu Ende.
+Daher ist mein SMIL-Abenteuer hier zu Ende.
 
 Zumindest fast.
 
-## Der kleine Rest SMIIL Animation in Header
+## Der kleine Rest SMIL-Animation im Header
 
 Die beiden kleinen Schwebebahnen im Header fahren mit SMIL hin und her.
-Die sollen einfach immer gleichschnell vor und zurück, dass kann SMIL
+Die sollen einfach immer gleich schnell vor und zurück fahren. Das kann SMIL.
 
 <DemoAnimationsSvg />
