@@ -63,6 +63,10 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrank').then(mod => ({
             default: mod.DemoAnimationsCrank,
         })),
+    DemoAnimationsCrankFormula: () =>
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrankFormula').then(mod => ({
+            default: mod.DemoAnimationsCrankFormula,
+        })),
     DemoParallaxSectors: () =>
         import('@samisdat/ui-components/Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
     DemoParallaxHills: () =>
@@ -106,6 +110,7 @@ export const DemoAnimationsMorphGood = demos.DemoAnimationsMorphGood;
 export const DemoAnimationsMorphHeart = demos.DemoAnimationsMorphHeart;
 export const DemoAnimationsDisc = demos.DemoAnimationsDisc;
 export const DemoAnimationsCrank = demos.DemoAnimationsCrank;
+export const DemoAnimationsCrankFormula = demos.DemoAnimationsCrankFormula;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
 export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;

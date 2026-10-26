@@ -266,9 +266,27 @@ Und es ist super schwer zu debuggen, da bleibt irgendwann nur noch händlich zä
 
 ### Änderungen an `dur` sind hart unintuitiv
 
-<DemoAnimationsCrank />
+<DemoContext duration="40s">
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+>
+    <Stack>
+        <DemoAnimationsCrank />
+    </Stack>
+    <Stack>
+        <DemoAnimationsCrankFormula />
+    </Stack>
+</Stack>
+</DemoContext>
 
 SMIL-`<animate>` führt keinen Positionszustand mit: Die Position ist zu jedem Zeitpunkt eine reine Funktion von Dokumentzeit und Beginn des aktuellen Intervalls. Es gilt x = from + frac·(to−from) mit frac = ((t − begin) mod dur) / dur, wobei begin der aufgelöste Start des laufenden Intervalls ist, nicht zwingend der Attributwert. Beim Ändern von dur (in React via setAttribute) bleibt t − begin gleich, aber frac wird neu berechnet, und die Position springt.
+
+In der Demo habe ich `begin` oben weggelassen, weil es dort immer 0 ist.
+Prinzipiell ließe sich der Sprung patchen, indem man beim Ändern von `dur` auch `begin` verschiebt, sodass `(t − begin) / dur` gleich bleibt: `begin = t − frac · dur_neu`. Praktisch geht das über `beginElementAt()` mit negativem Offset, das startet das Intervall neu, als wäre es schon `frac · dur_neu` Sekunden gelaufen.
+Schwierig wird es, wenn mehrere Animationen mit unterschiedlichem `dur` synchron bleiben sollen, etwa die Dämmerung und die Bewegung von Mond und Sonne: Jede hat ihre eigene Phase und braucht ihr eigenes neues `begin`. Alle müssen im selben Moment und um denselben Faktor umgebaut werden, sonst verschiebt sich die Phase gegeneinander. Hängt eine per `begin="andere.end"` an einer anderen oder läuft mit einem anderen Faktor, ist die Synchronität weg.
 
 ## Considerations
 
