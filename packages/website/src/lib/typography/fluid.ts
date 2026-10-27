@@ -12,8 +12,8 @@ export const VIEWPORT_REM = { min: 18, max: 64 } as const;
 /** Ratio of the type scale at the narrow and the wide end; the preset's own max ratio is derived from its h1/body. */
 const RATIO = { min: 1.2, max: 1.333 } as const;
 
-const BODY_FLOOR_PX = 16;
-const MONO_FLOOR_PX = 14;
+const BODY_FLOOR_PX = 18;
+const MONO_FLOOR_PX = 16;
 
 /** Scale steps above the body size. */
 const STEP = { h1: 4, h2: 3, h3: 2 } as const;
@@ -40,10 +40,12 @@ export type FluidSizes = { h1: Fluid; h2: Fluid; h3: Fluid; body: Fluid; mono: F
 /**
  * Body and h1 keep their given size as the maximum. The scale ratio is whatever takes body to h1 in four steps,
  * h2/h3 follow the scale. The narrow end uses the same min:max relation of the ratio as RATIO.
- * Body never drops below BODY_FLOOR_PX, mono follows the body proportionally but not below MONO_FLOOR_PX
- * (a size that is already below its floor stays fixed).
+ * Body never drops below BODY_FLOOR_PX, mono follows the body proportionally but not below MONO_FLOOR_PX;
+ * a size written down below its floor is raised to the floor and stays fixed there.
  */
-export function deriveSizes({ head, body, mono }: SizeInput): FluidSizes {
+export function deriveSizes({ head, body: bodyIn, mono: monoIn }: SizeInput): FluidSizes {
+    const body = Math.max(bodyIn, BODY_FLOOR_PX);
+    const mono = Math.max(monoIn, MONO_FLOOR_PX);
     const bodyMin = Math.min(body, BODY_FLOOR_PX);
     const ratioMax = (head / body) ** (1 / STEP.h1);
     const ratioMin = ratioMax * (RATIO.min / RATIO.max);

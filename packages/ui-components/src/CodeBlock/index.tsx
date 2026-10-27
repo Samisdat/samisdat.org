@@ -8,6 +8,7 @@ const Figure = styled.figure`
 
   & pre {
     background: var(--color-surface-default);
+    padding: 12px 14px;
   }
 `;
 

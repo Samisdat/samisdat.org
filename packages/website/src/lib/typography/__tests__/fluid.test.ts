@@ -4,25 +4,25 @@ import { PRESET_DATA } from '../data';
 import { deriveSizes, fluidCss, sizeAt } from '../fluid';
 
 describe('deriveSizes', () => {
-    it('keeps body and h1 as the maximum and the body floor at 16px', () => {
+    it('keeps body and h1 as the maximum and the body floor at 18px', () => {
         const sizes = deriveSizes({ head: 60, body: 20, mono: 16 });
 
         expect(sizes.h1.max).toBe(60);
-        expect(sizes.body).toEqual({ min: 16, max: 20 });
-        expect(sizes.h1.min).toBe(31.5);
+        expect(sizes.body).toEqual({ min: 18, max: 20 });
+        expect(sizes.h1.min).toBe(35.5);
         expect(sizes.h2.max).toBeLessThan(sizes.h1.max);
         expect(sizes.h3.max).toBeLessThan(sizes.h2.max);
     });
 
-    it('lets mono follow the body, but not below 14px', () => {
-        expect(deriveSizes({ head: 60, body: 20, mono: 16 }).mono).toEqual({ min: 14, max: 16 });
+    it('lets mono follow the body, but not below 16px', () => {
+        expect(deriveSizes({ head: 60, body: 24, mono: 20 }).mono).toEqual({ min: 16, max: 20 });
     });
 
-    it('keeps a body or mono that is already at or below its floor fixed', () => {
+    it('raises a body or mono written down below its floor to the floor and keeps it fixed', () => {
         const sizes = deriveSizes({ head: 42, body: 16, mono: 13 });
 
-        expect(sizes.body).toEqual({ min: 16, max: 16 });
-        expect(sizes.mono).toEqual({ min: 13, max: 13 });
+        expect(sizes.body).toEqual({ min: 18, max: 18 });
+        expect(sizes.mono).toEqual({ min: 16, max: 16 });
     });
 
     it('still makes the heads fluid when the body is fixed', () => {
@@ -56,15 +56,15 @@ describe('presets', () => {
         const current = PRESET_DATA.find(preset => preset.id === 'current')!;
 
         expect(current.head.size.max).toBe(60);
-        expect(current.body.size).toEqual({ min: 16, max: 20 });
-        expect(current.mono.size).toEqual({ min: 14, max: 16 });
+        expect(current.body.size).toEqual({ min: 18, max: 20 });
+        expect(current.mono.size).toEqual({ min: 16, max: 16 });
     });
 
     it('never shrink below the body floor or below the mono floor unless fixed below it', () => {
         for (const { body, mono } of PRESET_DATA) {
-            expect(body.size.min).toBeLessThanOrEqual(16);
-            expect(body.size.min).toBeGreaterThanOrEqual(Math.min(body.size.max, 16));
-            expect(mono.size.min).toBeGreaterThanOrEqual(Math.min(mono.size.max, 14));
+            expect(body.size.min).toBeLessThanOrEqual(18);
+            expect(body.size.min).toBeGreaterThanOrEqual(Math.min(body.size.max, 18));
+            expect(mono.size.min).toBeGreaterThanOrEqual(Math.min(mono.size.max, 16));
         }
     });
 });

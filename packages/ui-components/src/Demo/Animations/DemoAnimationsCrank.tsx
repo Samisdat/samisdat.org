@@ -3,24 +3,19 @@
 import { styled } from "@linaria/react";
 import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import { Stack } from "@samisdat/ui-components/Stack";
 import { useEffect, useRef, useState, type RefObject } from "react";
 import {
   SPEED_MULTIPLIER_PROPS,
   useSpeedDuration,
 } from "../../PlaybackControl/useSpeedDuration";
+import { useDemoContext } from "../DemoContext";
 import {
-  CrankFormula,
-  createFormulaWriter,
-  fmt,
-  fmtDuration,
-  fmtSigned,
-  fmtDur,
-  mod,
-  type FormulaWriter,
-} from "./CrankFormula";
+  AUTO_RESET_AT,
+  BASE_DURATION_FALLBACK,
+  CRANK_ELEMENT_ID,
+  type CrankEvent,
+} from "./crankEvents";
 
-const BASE_DURATION = 40;
 const GHOST_FADE_MS = 1600;
 
 const CrankStyling = styled.svg`
@@ -61,15 +56,21 @@ type CrankSvgProps = {
   groupRef: RefObject<SVGGElement | null>;
   animRef: RefObject<SVGAnimateTransformElement | null>;
   ghostRef: RefObject<SVGGElement | null>;
+  baseDuration: number;
 };
 
 // `dur` is only ever written via setAttribute: a changing prop would make
 // React touch the element, and the running interval must stay untouched.
-const CrankSvg = ({ groupRef, animRef, ghostRef }: CrankSvgProps) => {
+const CrankSvg = ({
+  groupRef,
+  animRef,
+  ghostRef,
+  baseDuration,
+}: CrankSvgProps) => {
   return (
     <CrankStyling viewBox="0 0 200 200">
       <circle cx={100} cy={100} r={80} className="plate"></circle>
-      <g ref={groupRef}>
+      <g ref={groupRef} id={CRANK_ELEMENT_ID}>
         <rect x={96} y={30} width={8} height={72} rx={4} className="arm"></rect>
         <circle cx={100} cy={100} r={12} className="hub"></circle>
         <circle cx={100} cy={30} r={16} className="grip"></circle>
@@ -80,7 +81,7 @@ const CrankSvg = ({ groupRef, animRef, ghostRef }: CrankSvgProps) => {
           type="rotate"
           from="0 100 100"
           to="360 100 100"
-          dur={`${BASE_DURATION}s`}
+          dur={`${baseDuration}s`}
           repeatCount="indefinite"
         ></animateTransform>
       </g>
@@ -95,24 +96,30 @@ const CrankSvg = ({ groupRef, animRef, ghostRef }: CrankSvgProps) => {
 const prefersReducedMotion = () =>
   window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// θ = from + frac · (to − from) with from = 0°, to = 360°
+const mod = (a: number, b: number) => ((a % b) + b) % b;
+
+// angle = from + frac · (to − from) with from = 0°, to = 360°
 const angleAt = (t: number, begin: number, dur: number) =>
   (mod(t - begin, dur) / dur) * 360;
 
 export const DemoAnimationsCrank = () => {
+  const ctx = useDemoContext();
+  const [baseDuration] = useState(
+    () => parseFloat(ctx?.values.duration ?? "") || BASE_DURATION_FALLBACK,
+  );
+  const publish = (event: CrankEvent) => ctx?.live.publish(event);
+
   const { speed, setSpeed, resetSpeed, duration } =
-    useSpeedDuration(BASE_DURATION);
+    useSpeedDuration(baseDuration);
 
   const containerRef = useRef<HTMLDivElement | null>(null);
   const groupRef = useRef<SVGGElement | null>(null);
   const animRef = useRef<SVGAnimateTransformElement | null>(null);
   const ghostRef = useRef<SVGGElement | null>(null);
-  const formulaRef = useRef<HTMLDivElement | null>(null);
-  const writerRef = useRef<FormulaWriter | null>(null);
   const ghostAnimationRef = useRef<Animation | null>(null);
 
   // The duration the browser currently runs with.
-  const durRef = useRef(BASE_DURATION);
+  const durRef = useRef(baseDuration);
 
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -137,18 +144,17 @@ export const DemoAnimationsCrank = () => {
   }, []);
 
   useEffect(() => {
-    if (!formulaRef.current) {
-      return;
-    }
-    const writer = createFormulaWriter(formulaRef.current);
-    writerRef.current = writer;
-
     let frame = 0;
     const tick = () => {
       const svg = getSvg();
       if (svg) {
         const dur = durRef.current;
         const t = svg.getCurrentTime();
+        if (t >= AUTO_RESET_AT) {
+          resetRef.current("limit");
+          frame = requestAnimationFrame(tick);
+          return;
+        }
         const begin = getBegin();
         const local = mod(t - begin, dur);
         const frac = local / dur;
@@ -158,24 +164,13 @@ export const DemoAnimationsCrank = () => {
           ? mod((Math.atan2(m.b, m.a) * 180) / Math.PI, 360)
           : 0;
 
-        writer.write({
-          t: fmt(t, 2),
-          begin: fmt(begin, 2),
-          dur: fmtDur(dur),
-          local: fmt(local, 2),
-          frac: fmt(frac, 4),
-          theta: fmt(frac * 360, 1),
-          measured: fmt(measured, 1),
-        });
+        publish({ kind: "frame", t, begin, dur, local, frac, theta: frac * 360, measured });
       }
       frame = requestAnimationFrame(tick);
     };
     frame = requestAnimationFrame(tick);
 
-    return () => {
-      cancelAnimationFrame(frame);
-      writerRef.current = null;
-    };
+    return () => cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {
@@ -194,17 +189,23 @@ export const DemoAnimationsCrank = () => {
 
     animRef.current?.setAttribute("dur", `${duration}s`);
 
-    const writer = writerRef.current;
-    writer?.setJump(
-      `dur ${fmtDuration(before)} → ${fmtDuration(duration)} bei t = ${fmt(t, 2)}s`,
-      `θ springt von ${fmt(thetaBefore, 1)}° auf ${fmt(thetaAfter, 1)}° (Δ ${fmtSigned(delta, 1)}°)`,
-    );
+    const reducedMotion = prefersReducedMotion();
+    publish({
+      kind: "jump",
+      before,
+      after: duration,
+      t,
+      thetaBefore,
+      thetaAfter,
+      delta,
+      flash: !reducedMotion,
+    });
 
     const ghost = ghostRef.current;
     ghostAnimationRef.current?.cancel();
     if (ghost) {
       ghost.setAttribute("transform", `rotate(${thetaBefore} 100 100)`);
-      if (prefersReducedMotion()) {
+      if (reducedMotion) {
         ghost.style.opacity = "1";
       } else {
         ghost.style.opacity = "";
@@ -212,7 +213,6 @@ export const DemoAnimationsCrank = () => {
           [{ opacity: 1 }, { opacity: 0 }],
           { duration: GHOST_FADE_MS, easing: "ease-out" },
         );
-        writer?.flash();
       }
     }
   }, [duration]);
@@ -227,7 +227,7 @@ export const DemoAnimationsCrank = () => {
     setIsPlaying(false);
   };
 
-  const onReset = () => {
+  const reset = (reason: "button" | "limit") => {
     const svg = getSvg();
     if (svg) {
       svg.pauseAnimations();
@@ -236,43 +236,43 @@ export const DemoAnimationsCrank = () => {
 
     // Apply the base duration right away so the duration effect sees no
     // change and does not report a jump for a reset.
-    durRef.current = BASE_DURATION;
-    animRef.current?.setAttribute("dur", `${BASE_DURATION}s`);
+    durRef.current = baseDuration;
+    animRef.current?.setAttribute("dur", `${baseDuration}s`);
     resetSpeed();
 
     ghostAnimationRef.current?.cancel();
     if (ghostRef.current) {
       ghostRef.current.style.opacity = "0";
     }
-    writerRef.current?.setJump("Zurückgesetzt auf t = 0.");
+    publish({ kind: "reset", reason });
     setIsPlaying(false);
   };
 
+  // The rAF loop is set up once; it must always call the latest closure.
+  const resetRef = useRef(reset);
+  resetRef.current = reset;
+
+  const onReset = () => reset("button");
+
   return (
-    <Stack container directionSmall="column" directionMedium="row">
-      <Stack>
-        <DemoAnimation
-          ref={containerRef}
-          playbackControl={{
-            isPlaying,
-            ...SPEED_MULTIPLIER_PROPS,
-            speed,
-            onSpeedChange: setSpeed,
-            onPlay,
-            onPause,
-            onReset,
-          }}
-        >
-          <CrankSvg
-            groupRef={groupRef}
-            animRef={animRef}
-            ghostRef={ghostRef}
-          />
-        </DemoAnimation>
-      </Stack>
-      <Stack>
-        <CrankFormula ref={formulaRef} baseDuration={BASE_DURATION} />
-      </Stack>
-    </Stack>
+    <DemoAnimation
+      ref={containerRef}
+      playbackControl={{
+        isPlaying,
+        ...SPEED_MULTIPLIER_PROPS,
+        speed,
+        onSpeedChange: setSpeed,
+        onPlay,
+        onPause,
+        onReset,
+      }}
+    >
+      <CrankSvg
+        groupRef={groupRef}
+        animRef={animRef}
+        ghostRef={ghostRef}
+        baseDuration={baseDuration}
+      />
+    </DemoAnimation>
   );
 };

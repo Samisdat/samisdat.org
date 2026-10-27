@@ -17,6 +17,8 @@ import { ComponentType } from 'react';
  * @see REPORT-12-MDX-REGISTRY.md
  */
 
+type DemoLoader = () => Promise<{ default: ComponentType<any> }>;
+
 /**
  * Registry-Eintrag: Import-Pfad für jede Demo-Komponente.
  */
@@ -63,13 +65,17 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrank').then(mod => ({
             default: mod.DemoAnimationsCrank,
         })),
+    DemoAnimationsCrankFormula: () =>
+        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrankFormula').then(mod => ({
+            default: mod.DemoAnimationsCrankFormula,
+        })),
     DemoParallaxSectors: () =>
         import('@samisdat/ui-components/Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
     DemoParallaxHills: () =>
         import('@samisdat/ui-components/Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
     DemoParallaxCircles: () =>
         import('@samisdat/ui-components/Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
-} as const satisfies Record<string, () => Promise<{ default: ComponentType<any> }>>;
+} as const satisfies Record<string, DemoLoader>;
 
 /**
  * Typsichere Demo-Komponenten-Namen.
@@ -81,7 +87,7 @@ export type DemoComponentName = keyof typeof demoRegistry;
  * Alle Demos verwenden `ssr: true` für konsistentes Hydration-Verhalten.
  */
 const createDynamicDemos = () => {
-    const entries = Object.entries(demoRegistry) as [DemoComponentName, (typeof demoRegistry)[DemoComponentName]][];
+    const entries = Object.entries(demoRegistry) as [DemoComponentName, DemoLoader][];
 
     return entries.reduce(
         (acc, [name, loader]) => {
@@ -106,6 +112,7 @@ export const DemoAnimationsMorphGood = demos.DemoAnimationsMorphGood;
 export const DemoAnimationsMorphHeart = demos.DemoAnimationsMorphHeart;
 export const DemoAnimationsDisc = demos.DemoAnimationsDisc;
 export const DemoAnimationsCrank = demos.DemoAnimationsCrank;
+export const DemoAnimationsCrankFormula = demos.DemoAnimationsCrankFormula;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
 export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
