@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "oxlint .",
-    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
+    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ../../.prettierrc.cjs",
     "test": "vitest",
     "test:ci": "vitest run --coverage",
     "sandbox:create": "tsx scripts/create-sandbox.ts",

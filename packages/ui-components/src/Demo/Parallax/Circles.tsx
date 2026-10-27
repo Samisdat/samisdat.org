@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react';
 import { CSSProperties, useRef } from 'react';
-import { useParallax } from './useParallax';
+import { useParallax } from '@samisdat/tools';
 
 const Styling = styled.div`
     svg {

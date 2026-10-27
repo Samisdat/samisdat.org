@@ -8,6 +8,9 @@ packages:
 # Storybook's Vite 8 support is fixed.
 overrides:
   vite: ^7.1.0
+  # security: patched versions of transitive dependencies
+  fast-uri: ^3.1.9
+  happy-dom: ^21.0.4
 
 catalog:
   # React ecosystem - shared across all packages

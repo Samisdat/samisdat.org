@@ -39,7 +39,7 @@
         "lint": "oxlint .",
         "test": "vitest",
         "test:run": "vitest run",
-        "format": "prettier --write \"./**/*.{ts,tsx}\" --config ./.prettierrc.cjs",
+        "format": "prettier --write \"./**/*.{ts,tsx}\" --config ../../.prettierrc.cjs",
         "prepublishOnly": "pnpm build:colors && npm run build:lib"
     },
     "keywords": [

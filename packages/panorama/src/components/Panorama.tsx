@@ -36,8 +36,7 @@ import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 
-import { useMouseParallax } from '@/components/hook/useMouseParallax';
-import { useAnimationFrame, usePrefersReducedMotion } from '@samisdat/tools';
+import { useAnimationFrame, useParallax, usePrefersReducedMotion } from '@samisdat/tools';
 import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
 
@@ -46,7 +45,7 @@ export const Panorama = (): ReactElement => {
 
     const reduceMotion = usePrefersReducedMotion();
 
-    useMouseParallax(ref);
+    useParallax(ref, { scroll: true });
 
     const { sunTimes } = useTal();
     const { windowOpacity } = sunTimes;
