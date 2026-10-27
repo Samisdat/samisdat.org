@@ -28,10 +28,10 @@ export function sameLayout(a: Layout, b: Layout): boolean {
     })
 }
 
-const viewportHeight = () => window.visualViewport?.height ?? innerHeight
+export const viewportHeight = () => window.visualViewport?.height ?? innerHeight
 
 /** Height of the sticky header: the top dock sits right below it (`top: var(--navi-height)`). */
-function headerOffset(docks: Docks): number {
+export function headerOffset(docks: Docks): number {
     return docks.top ? parseFloat(getComputedStyle(docks.top).top) || 0 : 0
 }
 
