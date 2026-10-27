@@ -40,6 +40,8 @@ exclude_patterns = [
   "**/templates/**",
   "**/testdata/**",
   "**/vendor/**",
+  # deliberate stand-alone copies of the demos, their duplication is expected
+  "packages/website/codesandboxes/**",
 ]
 
 test_patterns = [
