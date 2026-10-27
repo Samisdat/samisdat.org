@@ -17,7 +17,7 @@ catalog:
   '@types/react-dom': ^19.3.0
   
   # Next.js
-  next: ^16.4.0
+  next: ^16.4.2
   
   # TypeScript
   typescript: ^6.0.3
@@ -25,8 +25,8 @@ catalog:
   # Linaria/wyw-in-js
   '@linaria/core': ^8.2.0
   '@linaria/react': ^8.2.0
-  '@wyw-in-js/nextjs': ^2.6.0
-  '@wyw-in-js/vite': ^2.6.0
+  '@wyw-in-js/nextjs': ^2.7.0
+  '@wyw-in-js/vite': ^2.7.0
   
   # Prettier
   prettier: ^3.9.10
@@ -49,9 +49,9 @@ catalog:
   '@types/node': ^26
   
   # Testing
-  vitest: ^5.0.4
-  '@vitest/browser-playwright': ^5.0.3
-  '@vitest/coverage-v8': ^5.0.3
+  vitest: ^5.0.5
+  '@vitest/browser-playwright': ^5.0.5
+  '@vitest/coverage-v8': ^5.0.5
   playwright: ^1.64.1
 
 allowBuilds:
