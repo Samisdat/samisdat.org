@@ -36,17 +36,18 @@ describe('remarkScholion', () => {
         expect(html).toContain('id="desc-anim"')
     })
 
-    it('transforms fragment link to ref-target span', async () => {
+    it('keeps the fragment link as a ref-target link to the code token', async () => {
         const html = await process(FIXTURE)
-        expect(html).toContain('class="ref-target"')
+        expect(html).toMatch(/<a [^>]*class="ref-target"[^>]*>/)
         expect(html).toContain('data-ref="anim"')
+        expect(html).toContain('href="#ref-anim"')
+        expect(html).toContain('zum Code"')
     })
 
-    it('appends backref link to explanation paragraph', async () => {
+    it('adds no extra backlink to the explanation paragraph', async () => {
         const html = await process(FIXTURE)
-        expect(html).toContain('class="backref"')
-        expect(html).toContain('href="#ref-anim"')
-        expect(html).toContain('Zum Code')
+        expect(html).not.toContain('backref')
+        expect(html).not.toContain('Zum Code')
     })
 
     it('injects :has() CSS for the ref', async () => {

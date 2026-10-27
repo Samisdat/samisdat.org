@@ -63,18 +63,20 @@ function ScholionDemo() {
             <p id="explain-anim" data-explains="anim" tabIndex={-1}>
                 <span id="desc-anim">
                     Das{' '}
-                    <span className="ref-target" data-ref="anim">
+                    <a
+                        className="ref-target"
+                        data-ref="anim"
+                        href="#ref-anim"
+                        aria-label="<animateTransform>, zum Code"
+                    >
                         {'<animateTransform>'}
-                    </span>{' '}
+                    </a>{' '}
                     steckt in der Gruppe. Daher wird diese animiert, und alles, was in{' '}
                     <code style={{ fontFamily: 'var(--font-code, monospace)', fontSize: '0.85em' }}>
                         #spinner
                     </code>{' '}
                     liegt, dreht sich mit.
-                </span>{' '}
-                <a className="backref" href="#ref-anim" aria-label="Zurück zum Code: animateTransform">
-                    Zum Code
-                </a>
+                </span>
             </p>
         </div>
     )

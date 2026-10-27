@@ -111,6 +111,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
         DemoAnimationsDisc: ClientDemos.DemoAnimationsDisc,
         DemoAnimationsCrank: ClientDemos.DemoAnimationsCrank,
+        DemoAnimationsCrankFormula: ClientDemos.DemoAnimationsCrankFormula,
         // Color scheme snapshot: frame loads content/snapshots/<id>.json, blocks render it
         ColorSchemeSnapshot: SnapshotFrame,
         SnapshotInks,

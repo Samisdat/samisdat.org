@@ -2,11 +2,11 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, u
 import { ScholionContext, type ScholionContextValue } from './context'
 import { Chip } from './Chip'
 import type { Docks } from './dockNode'
-import type { PeekKind, PeekPos, Want } from './layout'
+import { inView, type PeekKind, type PeekPos, type Want } from './layout'
 import { Peek } from './Peek'
 import { scanRefs, type Registry } from './scan'
 import { createState, reduce, type ScholionState } from './state'
-import { useScholionLayout } from './useScholionLayout'
+import { headerOffset, useScholionLayout, viewportHeight } from './useScholionLayout'
 import { useTokenColors } from './useTokenColors'
 import { Wires } from './Wires'
 
@@ -168,15 +168,25 @@ function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks
             const targetId = refId(target, '.ref-target[data-ref]')
             const id = linkId ?? targetId
             const { state } = live.current
-            // Keyboard clicks (detail 0) and mouse clicks keep the plain behavior
+            // Both ends in view: the wire is the connection, the link does nothing for pointer input.
+            // Keyboard activation (detail 0) still follows the link so focus moves with it.
+            if (id && e.detail !== 0) {
+                const { a, cs } = refs[id]
+                const vh = viewportHeight()
+                const topEdge = headerOffset(docks)
+                if (inView(a.getBoundingClientRect(), vh, topEdge) && inView(cs[0]?.getClientRects()[0] ?? null, vh, topEdge)) {
+                    e.preventDefault()
+                    if (lastPointerTouch && state.touchId !== id) dispatch({ type: 'tap', id })
+                    return
+                }
+            }
+            // One end is out of view (peek shown): mouse clicks follow the link, the first tap on touch only activates
             if (id && lastPointerTouch && e.detail !== 0 && state.touchId !== id) {
                 // First tap only activates the ref (peek/wire); no scrolling, no navigation
                 e.preventDefault()
                 dispatch({ type: 'tap', id })
                 return
             }
-            // Clicking the text side brings the code reference back into view; a.ref stays a plain link
-            if (targetId) refs[targetId].a.scrollIntoView({ block: 'center', inline: 'center', behavior: smoothBehavior() })
             if (!id && state.touchId !== null && !target.closest('.scholion-peek, .scholion-chip')) dispatch({ type: 'touchClear' })
         }
         const onKeyDown = (e: KeyboardEvent) => {
@@ -203,7 +213,7 @@ function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks
             document.removeEventListener('keydown', onKeyDown)
             Object.values(timers).forEach(clearTimeout)
         }
-    }, [registry])
+    }, [registry, docks])
 
     // ── Mirrors into the document (the injected per-ref CSS reads these) ───
     useEffect(() => {

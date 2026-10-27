@@ -7,6 +7,13 @@ import { useParallax } from './useParallax';
 const Styling = styled.div`
     aspect-ratio: 450/600;
 
+    --hills-layer-dark: #0c1d22;
+    --hills-layer-light: #bac3a2;
+    --hills-sun: #f3e4b7;
+    --hills-sky-0: #f3e4b7;
+    --hills-sky-50: #a2b49a;
+    --hills-sky-100: #84a38f;
+
     & svg {
         width: 100%;
         height: 100%;
@@ -27,7 +34,7 @@ const Styling = styled.div`
     }
 
     & .colorLayer {
-        fill: color-mix(in srgb, var(--color-text-default) calc(100% - var(--mix)), var(--color-surface-default) var(--mix));
+        fill: color-mix(in srgb, var(--hills-layer-dark) calc(100% - var(--mix)), var(--hills-layer-light) var(--mix));
     }
 
     & .heaven {
@@ -35,7 +42,7 @@ const Styling = styled.div`
     }
 
     & .sun {
-        fill: var(--color-ink-gold);
+        fill: var(--hills-sun);
     }
 
     & .bankHighlight {
@@ -89,15 +96,15 @@ export const DemoParallaxHills = () => {
                             >
                                 <stop
                                     offset="0"
-                                    style={{ stopColor: 'var(--color-ink-gold)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--hills-sky-0)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="0.5"
-                                    style={{ stopColor: 'var(--color-ink-jade)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--hills-sky-50)', stopOpacity: 1 }}
                                 />
                                 <stop
                                     offset="1"
-                                    style={{ stopColor: 'var(--color-ink-turquoise)', stopOpacity: 1 }}
+                                    style={{ stopColor: 'var(--hills-sky-100)', stopOpacity: 1 }}
                                 />
                             </linearGradient>
                             <path
