@@ -31,6 +31,17 @@ export const scholionStyles = `
   }
 
   /* ── C: lemma in prose ───────────────────────────────────────────────── */
+  /* a.ref-target is rendered through the Markdown link component; neutralize its link look (turquoise, bold, underline) */
+  a.ref-target {
+    font-weight: inherit;
+    text-decoration: none;
+  }
+
+  /* The inline <code> would bring its own turquoise; the target carries the token color of its ref */
+  .ref-target code {
+    color: inherit;
+  }
+
   .ref-target {
     font-family: var(--font-code, monospace);
     /* The inner <code> already scales to 0.92em; shrinking here too would compound */
@@ -39,8 +50,14 @@ export const scholionStyles = `
     padding: 0.05em 0.2em;
     color: var(--color-ink-turquoise);
     box-shadow: inset 0 -1.5px 0 color-mix(in srgb, currentColor 55%, transparent);
+    text-decoration: none;
     transition: background-color 0.12s ease;
     cursor: pointer;
+  }
+
+  .ref-target:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 
   /* ── B: explanation paragraph ────────────────────────────────────────── */
@@ -238,7 +255,6 @@ export const scholionStyles = `
   @media (prefers-reduced-motion: reduce) {
     a.ref,
     .ref-target,
-    .backref,
     .scholion-g,
     .scholion-peek,
     .scholion-chip {

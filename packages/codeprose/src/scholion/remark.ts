@@ -1,4 +1,4 @@
-import type { Code, Link, Paragraph, Parent, PhrasingContent, Root } from 'mdast'
+import type { Code, Paragraph, Parent, PhrasingContent, Root } from 'mdast'
 import type { Plugin } from 'unified'
 import { visit } from 'unist-util-visit'
 import { parseScholionMeta } from './parse-meta'
@@ -16,14 +16,26 @@ function makeHastNode(hName: string, props: Record<string, unknown>, children: P
     return { type: `scholion-${hName}`, data: { hName, hProperties: props }, children }
 }
 
+function textOf(nodes: PhrasingContent[]): string {
+    return nodes
+        .map(node => ('value' in node ? node.value : 'children' in node ? textOf(node.children as PhrasingContent[]) : ''))
+        .join('')
+}
+
 function transformChildren(children: PhrasingContent[], refId: string): PhrasingContent[] {
     return children.map(child => {
         if (child.type === 'link') {
             const frag = child.url?.startsWith('#') ? child.url.slice(1) : null
             if (frag === refId) {
+                // A real link, so the prose side is reachable by keyboard and AT like the code side (a.ref)
                 return makeHastNode(
-                    'span',
-                    { className: ['ref-target'], 'data-ref': refId },
+                    'a',
+                    {
+                        className: ['ref-target'],
+                        'data-ref': refId,
+                        href: `#ref-${refId}`,
+                        ariaLabel: `${textOf(child.children as PhrasingContent[])}, zum Code`,
+                    },
                     child.children as PhrasingContent[]
                 ) as unknown as PhrasingContent
             }
@@ -69,9 +81,7 @@ export const remarkScholion: Plugin<[], Root> = () => {
             const firstRefId = findFirstScholionRef(node.children, refMap)
             if (!firstRefId) return
 
-            const ref = refMap.get(firstRefId)!
             explainedRefs.add(firstRefId)
-            const displayLabel = ref.pattern.replace(/^<\/?/, '')
 
             // Annotate paragraph with explain attributes (paragraph handler uses data.hProperties)
             node.data = {
@@ -83,25 +93,14 @@ export const remarkScholion: Plugin<[], Root> = () => {
                 },
             }
 
-            // Replace children: [descSpan, backlink]
+            // Wrap children in the description span (aria-describedby target of the code token)
             const descSpan = makeHastNode(
                 'span',
                 { id: `desc-${firstRefId}` },
                 transformChildren(node.children, firstRefId)
             )
-            const backlink: Link = {
-                type: 'link',
-                url: `#ref-${firstRefId}`,
-                data: {
-                    hProperties: {
-                        className: ['backref'],
-                        ariaLabel: `Zurück zum Code: ${displayLabel}`,
-                    },
-                },
-                children: [{ type: 'text', value: 'Zum Code' }],
-            }
 
-            node.children = [descSpan as unknown as PhrasingContent, backlink as PhrasingContent]
+            node.children = [descSpan as unknown as PhrasingContent]
         })
 
         // Validate: refs without any explanation

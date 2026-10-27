@@ -49,7 +49,13 @@ function codeSnapshot(a: HTMLAnchorElement, id: string): { html: string; lineNum
 function textSnapshot(d: HTMLElement): string {
     const clone = d.cloneNode(true) as Element
     clone.removeAttribute('id')
-    clone.querySelectorAll('.ref-target').forEach(s => s.classList.add('scholion-peek__token'))
+    // The peek is aria-hidden and sits inside a button: no nested links
+    clone.querySelectorAll('a.ref-target').forEach(node => {
+        const span = document.createElement('span')
+        span.innerHTML = node.innerHTML
+        span.className = 'ref-target scholion-peek__token'
+        node.replaceWith(span)
+    })
     return clone.outerHTML
 }
 
