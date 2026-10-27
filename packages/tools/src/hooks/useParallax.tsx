@@ -1,14 +1,24 @@
 'use client';
 
 import { RefObject, useCallback, useEffect, useRef } from 'react';
-import { useAnimationFrame, usePrefersReducedMotion } from '@samisdat/tools';
+import { useAnimationFrame } from './useAnimationFrame';
+import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
-export type Coords = { x: number; y: number };
+export type ParallaxCoords = { x: number; y: number };
 
-export const useParallax = (ref: RefObject<HTMLDivElement | null>) => {
+export type UseParallaxOptions = {
+    /** Also write `--scroll` (0..1): how far the element has scrolled out of view. */
+    scroll?: boolean;
+};
+
+/**
+ * Writes the pointer position inside `ref` as `--parallax-x` / `--parallax-y` (-1..1) on the element.
+ * Does nothing for users who prefer reduced motion.
+ */
+export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = false }: UseParallaxOptions = {}) => {
     const reduceMotion = usePrefersReducedMotion();
 
-    const lastCoordsRef = useRef<Coords>({ x: 0, y: 0 });
+    const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
 
     const doParallax = useCallback(() => {
         if (null === ref.current) {
@@ -19,7 +29,17 @@ export const useParallax = (ref: RefObject<HTMLDivElement | null>) => {
 
         ref.current.style.setProperty('--parallax-x', String(x));
         ref.current.style.setProperty('--parallax-y', String(y));
-    }, [ref]);
+
+        if (!scroll) {
+            return;
+        }
+
+        const boundingClientRect = ref.current.getBoundingClientRect();
+
+        const scrolled = reduceMotion ? 0 : Math.min(Math.abs(boundingClientRect.y) / boundingClientRect.height, 1);
+
+        ref.current.style.setProperty('--scroll', String(scrolled));
+    }, [ref, reduceMotion, scroll]);
 
     useAnimationFrame(doParallax);
 
