@@ -9,70 +9,49 @@ import { ivory, aubergine } from "@samisdat/color-scheme/primitives";
 
 const svgNamespace = "http://www.w3.org/2000/svg";
 
-const DiscStyling = styled.svg`
-  circle.white {
-    fill: ${ivory[100]};
-  }
-
-  circle.black {
+const BlackCircle = styled.circle`
     fill: ${aubergine[950]};
-  }
 `;
 
-const DiscSvg = ({ initialDur }: { initialDur: number }) => {
-  const ref = useRef<SVGGElement>(null);
+const WhiteCircle= styled.circle`
+    fill: ${ivory[100]};
+`;
 
-  useEffect(() => {
-    const group = ref.current;
-    if (!group) {
-      return;
-    }
-
-    const count = 20;
-    const startRadius = 100;
-    const diff = 5;
-
-    const createCircle = (cx: number, r: number, className: string) => {
-      const circle = document.createElementNS(svgNamespace, "circle");
-      circle.setAttribute("cx", `${cx}`);
-      circle.setAttribute("cy", "100");
-      circle.setAttribute("r", `${r}`);
-      circle.setAttribute("class", className);
-      return circle;
-    };
-
-    let x = 100;
-    let className = "black";
-
-    for (let i = 0; i < count; i++) {
-      group.appendChild(createCircle(x, startRadius - i * diff, className));
-
-      className = className === "black" ? "white" : "black";
-      x += i <= 11 ? diff : -diff;
-    }
-
-    group.appendChild(createCircle(x + diff / 2, diff / 2, className));
-
-    const animate = document.createElementNS(svgNamespace, "animateTransform");
-    animate.setAttribute("attributeName", "transform");
-    animate.setAttribute("type", "rotate");
-    animate.setAttribute("from", "0 100 100");
-    animate.setAttribute("to", "360 100 100");
-    animate.setAttribute("dur", `${initialDur}s`);
-    animate.setAttribute("repeatCount", "indefinite");
-    group.appendChild(animate);
-
-    return () => {
-      group.replaceChildren();
-    };
-  }, []);
-
-  return (
-    <DiscStyling viewBox="0 0 200 200">
-      <g ref={ref}></g>
-    </DiscStyling>
+const DiscSvg = ({ initialDur }: { initialDur: number }) => (
+    <svg viewBox="0 0 200 200">
+      <g>
+        <BlackCircle cx="100" cy="100" r="100" />
+        <WhiteCircle cx="105" cy="100" r="95" /> 
+        <BlackCircle cx="110" cy="100" r="90" />
+        <WhiteCircle cx="115" cy="100" r="85" /> 
+        <BlackCircle cx="120" cy="100" r="80" /> 
+        <WhiteCircle cx="125" cy="100" r="75" /> 
+        <BlackCircle cx="130" cy="100" r="70" />
+        <WhiteCircle cx="135" cy="100" r="65" /> 
+        <BlackCircle cx="140" cy="100" r="60" />
+        <WhiteCircle cx="145" cy="100" r="55" /> 
+        <BlackCircle cx="150" cy="100" r="50" /> 
+        <WhiteCircle cx="155" cy="100" r="45" /> 
+        <BlackCircle cx="160" cy="100" r="40" /> 
+        <WhiteCircle cx="155" cy="100" r="35" /> 
+        <BlackCircle cx="150" cy="100" r="30" /> 
+        <WhiteCircle cx="145" cy="100" r="25" /> 
+        <BlackCircle cx="140" cy="100" r="20" />
+        <WhiteCircle cx="135" cy="100" r="15" /> 
+        <BlackCircle cx="130" cy="100" r="10" /> 
+        <WhiteCircle cx="125" cy="100" r="5" /> 
+        <BlackCircle cx="122.5" cy="100" r="2.5" /> 
+        <animateTransform 
+          attributeName="transform" 
+          type="rotate" 
+          from="0 100 100" 
+          to="360 100 100" 
+          dur={`${initialDur}s`} 
+          repeatCount="indefinite">
+        </animateTransform>
+      </g>
+    </svg>
   );
-};
 
 export const DemoSmilDisc = () => {
   const ctx = useDemoContext();
