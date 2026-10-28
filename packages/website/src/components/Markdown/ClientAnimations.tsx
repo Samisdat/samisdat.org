@@ -23,6 +23,12 @@ type DemoLoader = () => Promise<{ default: ComponentType<any> }>;
  * Registry-Eintrag: Import-Pfad für jede Demo-Komponente.
  */
 const demoRegistry = {
+      // smil demo
+      DemoSmilDisc: () =>
+        import('@samisdat/ui-components/Demo/Smil/Disc').then(mod => ({
+            default: mod.DemoSmilDisc,
+        })),
+
     DemoAnimationsCompare: () =>
         import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
     DemoAnimationsSvg: () =>
@@ -57,11 +63,7 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHeart').then(mod => ({
             default: mod.DemoAnimationsMorphHeart,
         })),
-    DemoAnimationsDisc: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsDisc').then(mod => ({
-            default: mod.DemoAnimationsDisc,
-        })),
-    DemoAnimationsCrank: () =>
+   DemoAnimationsCrank: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrank').then(mod => ({
             default: mod.DemoAnimationsCrank,
         })),
@@ -101,6 +103,8 @@ const createDynamicDemos = () => {
 export const demos = createDynamicDemos();
 
 // Named Exports für direkte Nutzung und Abwärtskompatibilität
+export const DemoSmilDisc = demos.DemoSmilDisc;
+
 export const DemoAnimationsCompare = demos.DemoAnimationsCompare;
 export const DemoAnimationsSvg = demos.DemoAnimationsSvg;
 export const DemoAnimationsCssJs = demos.DemoAnimationsCssJs;
@@ -110,7 +114,6 @@ export const DemoAnimationsMorphHills = demos.DemoAnimationsMorphHills;
 export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
 export const DemoAnimationsMorphGood = demos.DemoAnimationsMorphGood;
 export const DemoAnimationsMorphHeart = demos.DemoAnimationsMorphHeart;
-export const DemoAnimationsDisc = demos.DemoAnimationsDisc;
 export const DemoAnimationsCrank = demos.DemoAnimationsCrank;
 export const DemoAnimationsCrankFormula = demos.DemoAnimationsCrankFormula;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
