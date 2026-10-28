@@ -1,13 +1,10 @@
 "use client";
-
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { styled } from "@linaria/react";
+
 import { aubergine } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import {
-  SPEED_MULTIPLIER_PROPS,
-  useSpeedDuration,
-} from "../../PlaybackControl/useSpeedDuration";
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useSpeedDuration,  SPEED_MULTIPLIER_PROPS } from "../../../PlaybackControl/useSpeedDuration";
 
 const SvgStyling = styled.svg`
   .shape {
@@ -173,7 +170,7 @@ const Case = ({
   </g>
 );
 
-export const DemoAnimationsMorphGood = () => {
+export const DemoSmilMorphMistakes = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const { speed, setSpeed, resetSpeed, duration } = useSpeedDuration(40);
@@ -268,3 +265,4 @@ export const DemoAnimationsMorphGood = () => {
     </DemoAnimation>
   );
 };
+

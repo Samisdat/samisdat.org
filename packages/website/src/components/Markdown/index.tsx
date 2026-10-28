@@ -28,6 +28,7 @@ import {
     SnapshotModes,
     SnapshotScales,
 } from '@samisdat/ui-components/ColorSchemeSnapshot';
+import { DemoSmilMorphMistakes } from '@samisdat/ui-components/Demo/Smil/MorphMistakes';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -104,7 +105,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         DemoAnimationsMorphThumb: ClientDemos.DemoAnimationsMorphThumb,
         DemoAnimationsMorphCoffee: ClientDemos.DemoAnimationsMorphCoffee,
         DemoAnimationsMorphHills: ClientDemos.DemoAnimationsMorphHills,
-        DemoAnimationsMorphGood: ClientDemos.DemoAnimationsMorphGood,
+        DemoSmilMorphMistakes: ClientDemos.DemoSmilMorphMistakes,
         DemoAnimationsMorphHeart: ClientDemos.DemoAnimationsMorphHeart,
         DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
         DemoParallaxHills: ClientDemos.DemoParallaxHills,

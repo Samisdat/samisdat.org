@@ -28,7 +28,11 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Smil/Disc').then(mod => ({
             default: mod.DemoSmilDisc,
         })),
-
+      DemoSmilMorphMistakes: () =>
+        import('@samisdat/ui-components/Demo/Smil/MorphMistakes').then(mod => ({
+            default: mod.DemoSmilMorphMistakes,
+        })),
+ 
     DemoAnimationsCompare: () =>
         import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
     DemoAnimationsSvg: () =>
@@ -55,11 +59,7 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
             default: mod.DemoAnimationsMorphCoffee,
         })),
-    DemoAnimationsMorphGood: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphGood').then(mod => ({
-            default: mod.DemoAnimationsMorphGood,
-        })),
-    DemoAnimationsMorphHeart: () =>
+   DemoAnimationsMorphHeart: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHeart').then(mod => ({
             default: mod.DemoAnimationsMorphHeart,
         })),
@@ -104,6 +104,7 @@ export const demos = createDynamicDemos();
 
 // Named Exports für direkte Nutzung und Abwärtskompatibilität
 export const DemoSmilDisc = demos.DemoSmilDisc;
+export const DemoSmilMorphMistakes = demos.DemoSmilMorphMistakes;
 
 export const DemoAnimationsCompare = demos.DemoAnimationsCompare;
 export const DemoAnimationsSvg = demos.DemoAnimationsSvg;
@@ -112,7 +113,6 @@ export const DemoAnimationsJsAttributes = demos.DemoAnimationsJsAttributes;
 export const DemoAnimationsMorphThumb = demos.DemoAnimationsMorphThumb;
 export const DemoAnimationsMorphHills = demos.DemoAnimationsMorphHills;
 export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
-export const DemoAnimationsMorphGood = demos.DemoAnimationsMorphGood;
 export const DemoAnimationsMorphHeart = demos.DemoAnimationsMorphHeart;
 export const DemoAnimationsCrank = demos.DemoAnimationsCrank;
 export const DemoAnimationsCrankFormula = demos.DemoAnimationsCrankFormula;
