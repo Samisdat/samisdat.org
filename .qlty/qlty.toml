@@ -71,22 +71,33 @@ name = "actionlint"
 [[plugin]]
 name = "osv-scanner"
 
+# Prettier versions mirror pnpm-workspace.yaml (catalog).
+# qlty installs with npm, which cannot resolve "catalog:".
 [[plugin]]
 name = "prettier"
-package_file = "package.json"
-package_filters = ["prettier"]
+version = "3.9.10"
+extra_packages = [
+  "prettier-plugin-organize-imports@4.3.0",
+  "prettier-plugin-multiline-arrays@4.1.11",
+]
 prefix = "packages/panorama"
 
 [[plugin]]
 name = "prettier"
-package_file = "package.json"
-package_filters = ["prettier"]
+version = "3.9.10"
+extra_packages = [
+  "prettier-plugin-organize-imports@4.3.0",
+  "prettier-plugin-multiline-arrays@4.1.11",
+]
 prefix = "packages/website"
 
 [[plugin]]
 name = "prettier"
-package_file = "package.json"
-package_filters = ["prettier"]
+version = "3.9.10"
+extra_packages = [
+  "prettier-plugin-organize-imports@4.3.0",
+  "prettier-plugin-multiline-arrays@4.1.11",
+]
 prefix = "packages/ui-components"
 
 [[plugin]]
