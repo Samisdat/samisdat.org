@@ -110,7 +110,8 @@ name = "shellcheck"
 [[plugin]]
 name = "stylelint"
 package_file = "package.json"
-package_filters = ["stylelint"]
+# postcss-styled-syntax is the customSyntax in .stylelintrc.json; its name does not contain "stylelint"
+package_filters = ["stylelint", "postcss-styled-syntax"]
 
 [[plugin]]
 name = "trufflehog"
