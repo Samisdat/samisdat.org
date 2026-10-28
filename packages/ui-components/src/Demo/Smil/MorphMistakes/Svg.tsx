@@ -39,22 +39,21 @@ const badSquarePath = `
   Z
 `;
 
-const SvgStyling = styled.svg`
-  .shape {
+const TargetRect = styled.rect`
     fill: none;
-    stroke: currentColor;
-    stroke-width: 4;
-    stroke-linejoin: round;
-    stroke-linecap: round;
-  }
+    stroke: ${aubergine[950]};
+    stroke-width: 3;
+    stroke-dasharray: 8 6;
+ `
+const PointGroup = styled.g`
 
-  .point circle {
+  & circle {
     fill: currentColor;
     stroke: white;
     stroke-width: 0;
   }
 
-  .point text {
+  & text {
     fill: white;
     font-size: 14px;
     font-weight: 800;
@@ -63,18 +62,23 @@ const SvgStyling = styled.svg`
     pointer-events: none;
   }
 
-  .point .ring {
+  &.ring {
     fill: none;
     stroke: currentColor;
     stroke-width: 3;
   }
+ `
 
-  .target {
+
+const MorphPath = styled.path`
     fill: none;
-    stroke: ${aubergine[950]};
-    stroke-width: 3;
-    stroke-dasharray: 8 6;
-  }
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+`
+
+const SvgStyling = styled.svg`
 
   .good {
     color: var(--color-ink-jade);
@@ -120,7 +124,7 @@ const Point = ({
   const cy = cyValues.split(";")[0].trim();
 
   return (
-    <g className="point">
+    <PointGroup>
       {label === 0 ? (
         <circle className="ring" cx={cx} cy={cy} r={21}>
           {animations("cx", "cy", cxValues, cyValues)}
@@ -134,19 +138,19 @@ const Point = ({
         {label}
         {animations("x", "y", cxValues, cyValues)}
       </text>
-    </g>
+    </PointGroup>
   );
 };
 
 const MorphShape = ({ morphTo }: { morphTo: string }) => (
-  <path className="shape" d={circlePath}>
+  <MorphPath d={circlePath}>
     <animate
       attributeName="d"
       dur="3s"
       repeatCount="indefinite"
       values={`${circlePath};${morphTo};${circlePath}`}
     />
-  </path>
+  </MorphPath>
 );
 
 const Case = ({
@@ -161,7 +165,7 @@ const Case = ({
   children: ReactNode;
 }) => (
   <g className={className} transform={`translate(${x}, 0)`}>
-    <rect className="target" x={60} y={60} width={180} height={180} />
+    <TargetRect x={60} y={60} width={180} height={180} />
     <MorphShape morphTo={morphTo} />
     {children}
   </g>
