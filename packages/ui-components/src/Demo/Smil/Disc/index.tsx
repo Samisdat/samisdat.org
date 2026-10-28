@@ -1,15 +1,11 @@
 "use client";
 
 import { styled } from "@linaria/react";
-import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
+import { useSpeedDuration, formatDuration, SPEED_MULTIPLIER_PROPS } from "../../../PlaybackControl/useSpeedDuration";
 import { useEffect, useRef, useState } from "react";
-import {
-  formatDuration,
-  SPEED_MULTIPLIER_PROPS,
-  useSpeedDuration,
-} from "../../PlaybackControl/useSpeedDuration";
-import { useDemoContext } from "../DemoContext";
+import { useDemoContext } from "@samisdat/ui-components/Demo/DemoContext";
+import { ivory, aubergine } from "@samisdat/color-scheme/primitives";
 
 const svgNamespace = "http://www.w3.org/2000/svg";
 
@@ -78,7 +74,7 @@ const DiscSvg = ({ initialDur }: { initialDur: number }) => {
   );
 };
 
-export const DemoAnimationsDisc = () => {
+export const DemoSmilDisc = () => {
   const ctx = useDemoContext();
   const [baseDuration] = useState(
     () => parseFloat(ctx?.values.duration ?? "6") || 6,
