@@ -21,3 +21,10 @@ export const MIN_FILL_DELTA_E: Record<Mode, { highlight: number; selection: numb
   dark: { highlight: 0.1, selection: 0.1 },
   light: { highlight: 0.045, selection: 0.1 },
 };
+
+/**
+ * nvim fills (dark only): `nvim.cursorline` and `nvim.visual` against the two
+ * grounds like the other fills, and against each other. `between` matches the
+ * dark ink gate; blue.900 vs purple.900 differ mostly in hue (0.086).
+ */
+export const MIN_NVIM_FILL_DELTA_E = { ground: 0.1, between: 0.08 };

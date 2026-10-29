@@ -188,6 +188,8 @@ export interface Tokens {
   "border.focus": Color;
   "selection": Color;
   "highlight": Color;
+  "nvim.cursorline": Color;
+  "nvim.visual": Color;
   "diff.add": Color;
   "diff.delete": Color;
   "diff.change": Color;
