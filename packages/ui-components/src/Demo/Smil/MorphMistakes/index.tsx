@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 
 import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
+import { PlayPauseButton } from "../../../PlaybackControl";
 import { useSpeedDuration,  SPEED_MULTIPLIER_PROPS } from "../../../PlaybackControl/useSpeedDuration";
 import { MorphMistakesSvg } from "./Svg";
 
@@ -10,6 +11,7 @@ export const DemoSmilMorphMistakes = () => {
 
   const { speed, setSpeed, resetSpeed, duration } = useSpeedDuration(40);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [showGuides, setShowGuides] = useState(false);
 
   const getSvg = useCallback(
     () => containerRef.current?.querySelector<SVGSVGElement>("svg") ?? null,
@@ -52,6 +54,10 @@ export const DemoSmilMorphMistakes = () => {
     setIsPlaying(false);
   }, [getSvg, resetSpeed]);
 
+  const onToggleGuides = useCallback(() => {
+    setShowGuides((prev) => !prev);
+  }, []);
+
   return (
     <DemoAnimation
       ref={containerRef}
@@ -63,9 +69,18 @@ export const DemoSmilMorphMistakes = () => {
         onPlay,
         onPause,
         onReset,
+        extra: (
+          <PlayPauseButton
+            type="button"
+            aria-pressed={showGuides}
+            onClick={onToggleGuides}
+          >
+            [ Target &amp; path: {showGuides ? "on" : "off"} ]
+          </PlayPauseButton>
+        ),
       }}
     >
-      <MorphMistakesSvg />
+      <MorphMistakesSvg showGuides={showGuides} />
    </DemoAnimation>
   );
 };

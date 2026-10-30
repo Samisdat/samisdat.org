@@ -223,29 +223,33 @@ const Case = ({
   x,
   morphTo,
   points,
+  showGuides,
 }: {
   type: CaseType;
   x: number;
   morphTo: string;
   points: PointDef[];
+  showGuides: boolean;
 }) => {
   const CaseWrapper = caseComponent[type];
 
   return (
     <CaseWrapper transform={`translate(${x}, 0)`}>
-      {points.map(({ label, cxValues, cyValues }) => {
-        const [startCx, endCx] = cxValues.split(";").map((value) => value.trim());
-        const [startCy, endCy] = cyValues.split(";").map((value) => value.trim());
+      <g opacity={showGuides ? 1 : 0} pointerEvents={showGuides ? "auto" : "none"}>
+        {points.map(({ label, cxValues, cyValues }) => {
+          const [startCx, endCx] = cxValues.split(";").map((value) => value.trim());
+          const [startCy, endCy] = cyValues.split(";").map((value) => value.trim());
 
-        return (
-          <g key={label}>
-            <Trail phase="outbound" cxValues={cxValues} cyValues={cyValues} targetCx={endCx} targetCy={endCy} />
-            <Trail phase="return" cxValues={cxValues} cyValues={cyValues} targetCx={startCx} targetCy={startCy} />
-            <GhostPoint phase="outbound" label={label} cx={endCx} cy={endCy} />
-            <GhostPoint phase="return" label={label} cx={startCx} cy={startCy} />
-          </g>
-        );
-      })}
+          return (
+            <g key={label}>
+              <Trail phase="outbound" cxValues={cxValues} cyValues={cyValues} targetCx={endCx} targetCy={endCy} />
+              <Trail phase="return" cxValues={cxValues} cyValues={cyValues} targetCx={startCx} targetCy={startCy} />
+              <GhostPoint phase="outbound" label={label} cx={endCx} cy={endCy} />
+              <GhostPoint phase="return" label={label} cx={startCx} cy={startCy} />
+            </g>
+          );
+        })}
+      </g>
       <MorphShape morphTo={morphTo} />
       {points.map(({ label, cxValues, cyValues }) => (
         <Point key={label} label={label} cxValues={cxValues} cyValues={cyValues} />
@@ -254,12 +258,13 @@ const Case = ({
   );
 };
 
-export const MorphMistakesSvg = () => (
+export const MorphMistakesSvg = ({ showGuides = false }: { showGuides?: boolean } = {}) => (
       <svg viewBox="0 0 900 300">
         <Case
           type="good"
           x={0}
           morphTo={goodSquarePath}
+          showGuides={showGuides}
           points={[
             { label: "A", cxValues: "150;60;150", cyValues: "35;60;35" },
             { label: "B", cxValues: "265;240;265", cyValues: "150;60;150" },
@@ -271,6 +276,7 @@ export const MorphMistakesSvg = () => (
           type="middle"
           x={300}
           morphTo={middleSquarePath}
+          showGuides={showGuides}
           points={[
             { label: "A", cxValues: "150;240;150", cyValues: "35;240;35" },
             { label: "B", cxValues: "265;60;265", cyValues: "150;240;150" },
@@ -282,6 +288,7 @@ export const MorphMistakesSvg = () => (
           type="bad"
           x={600}
           morphTo={badSquarePath}
+          showGuides={showGuides}
           points={[
             { label: "A", cxValues: "150;60;150", cyValues: "35;60;35" },
             { label: "B", cxValues: "265;240;265", cyValues: "150;240;150" },
