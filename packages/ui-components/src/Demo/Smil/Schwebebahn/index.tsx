@@ -105,7 +105,7 @@ const Svg = () => (
   </BridgeSvgStyling>
 );
 
-export const DemoAnimationsSvg = () => {
+export const DemoSmilSchwebebahn = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [speed, setSpeed] = useState(40);
