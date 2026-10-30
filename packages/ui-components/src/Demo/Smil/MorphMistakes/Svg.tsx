@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ComponentType, ReactNode, SVGProps } from "react";
 import { styled } from "@linaria/react";
 import { aubergine } from "@samisdat/color-scheme/primitives";
 
@@ -77,21 +77,29 @@ const MorphPath = styled.path`
     stroke-linejoin: round;
     stroke-linecap: round;
 `
+export const caseType= ['good', 'middle', 'bad'] as const;
+export type CaseType = (typeof caseType)[number];
 
-const SvgStyling = styled.svg`
 
-  .good {
+const Good = styled.g`
     color: var(--color-ink-jade);
-  }
-
-  .middle {
-    color: var(--color-ink-gold);
-  }
-
-  .bad {
-    color: var(--color-ink-ruby);
-  }
 `;
+
+ const Middle = styled.g`
+    color: var(--color-ink-gold);
+`;
+
+ const Bad = styled.g`
+   color: var(--color-ink-ruby);
+`;
+
+type CaseGroupComponent = ComponentType<SVGProps<SVGGElement>>;
+
+export const caseComponent: Record<CaseType, CaseGroupComponent> = {
+  good: Good,
+  middle: Middle,
+  bad: Bad,
+};
 
   const animations = (xName: string, yName: string, cxValues:string, cyValues:string) => (
     <>
@@ -154,27 +162,31 @@ const MorphShape = ({ morphTo }: { morphTo: string }) => (
 );
 
 const Case = ({
-  className,
+  type,
   x,
   morphTo,
   children,
 }: {
-  className: string;
+  type: CaseType;
   x: number;
   morphTo: string;
   children: ReactNode;
-}) => (
-  <g className={className} transform={`translate(${x}, 0)`}>
-    <TargetRect x={60} y={60} width={180} height={180} />
-    <MorphShape morphTo={morphTo} />
-    {children}
-  </g>
-);
+}) => {
+  const CaseWrapper = caseComponent[type];
+
+  return (
+    <CaseWrapper transform={`translate(${x}, 0)`}>
+      <TargetRect x={60} y={60} width={180} height={180} />
+      <MorphShape morphTo={morphTo} />
+      {children}
+    </CaseWrapper>
+  );
+};
 
 export const MorphMistakesSvg = () => (
-      <SvgStyling viewBox="0 0 900 300">
+      <svg viewBox="0 0 900 300">
         <Case
-          className="good"
+          type="good"
           x={0}
           morphTo={goodSquarePath}
         >
@@ -184,7 +196,7 @@ export const MorphMistakesSvg = () => (
           <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
         </Case>
         <Case
-          className="middle"
+          type="middle"
           x={300}
           morphTo={middleSquarePath}
         >
@@ -194,7 +206,7 @@ export const MorphMistakesSvg = () => (
           <Point label={3} cxValues="35;240;35" cyValues="150;60;150" />
         </Case>
         <Case
-          className="bad"
+          type="bad"
           x={600}
           morphTo={badSquarePath}
         >
@@ -203,5 +215,5 @@ export const MorphMistakesSvg = () => (
           <Point label={2} cxValues="150;240;150" cyValues="265;60;265" />
           <Point label={3} cxValues="35;60;35" cyValues="150;240;150" />
         </Case>
-      </SvgStyling>
+      </svg>
 );
