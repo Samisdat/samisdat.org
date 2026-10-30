@@ -3,8 +3,8 @@
 import { styled } from "@linaria/react";
 import { useEffect, useRef, useState } from "react";
 import { useShikiHighlighter } from "react-shiki";
-import { shikiTheme, styledGrammarLangs } from "../../utils/shikiTheme";
-import { useDemoContext } from "../DemoContext";
+import { shikiTheme, styledGrammarLangs } from "../../../utils/shikiTheme";
+import { useDemoContext } from "@samisdat/ui-components/Demo/DemoContext";
 import {
   AUTO_RESET_AT,
   BASE_DURATION_FALLBACK,
@@ -237,7 +237,7 @@ type DemoAnimationsCrankFormulaProps = {
   locale: string;
 };
 
-export const DemoAnimationsCrankFormula = ({
+export const DemoSmilCrankFormula = ({
   texts,
   locale,
 }: DemoAnimationsCrankFormulaProps) => {

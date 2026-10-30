@@ -7,14 +7,16 @@ import { useEffect, useRef, useState, type RefObject } from "react";
 import {
   SPEED_MULTIPLIER_PROPS,
   useSpeedDuration,
-} from "../../PlaybackControl/useSpeedDuration";
-import { useDemoContext } from "../DemoContext";
+} from "../../../PlaybackControl/useSpeedDuration";
+import { useDemoContext } from "@samisdat/ui-components/Demo/DemoContext";
 import {
   AUTO_RESET_AT,
   BASE_DURATION_FALLBACK,
   CRANK_ELEMENT_ID,
   type CrankEvent,
 } from "./crankEvents";
+
+export { DemoSmilCrankFormula } from "./Formula";
 
 const GHOST_FADE_MS = 1600;
 
@@ -102,7 +104,7 @@ const mod = (a: number, b: number) => ((a % b) + b) % b;
 const angleAt = (t: number, begin: number, dur: number) =>
   (mod(t - begin, dur) / dur) * 360;
 
-export const DemoAnimationsCrank = () => {
+export const DemoSmilCrank = () => {
   const ctx = useDemoContext();
   const [baseDuration] = useState(
     () => parseFloat(ctx?.values.duration ?? "") || BASE_DURATION_FALLBACK,

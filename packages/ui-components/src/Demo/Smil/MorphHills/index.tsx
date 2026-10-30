@@ -40,7 +40,7 @@ const steam4 =
 const BACK_FACTOR = 1.6;
 const EASING = "0.37 0 0.63 1";
 
-export const DemoAnimationsMorphHills = () => {
+export const DemoSmilMorphHills = () => {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const [speed, setSpeed] = useState<number>(10);
