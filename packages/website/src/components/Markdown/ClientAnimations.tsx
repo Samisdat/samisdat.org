@@ -36,6 +36,22 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Smil/Schwebebahn').then(mod => ({
             default: mod.DemoSmilSchwebebahn,
         })),
+      DemoSmilMorphHeart: () =>
+        import('@samisdat/ui-components/Demo/Smil/MorphHeart').then(mod => ({
+            default: mod.DemoSmilMorphHeart,
+        })),
+      DemoSmilMorphHills: () =>
+        import('@samisdat/ui-components/Demo/Smil/MorphHills').then(mod => ({
+            default: mod.DemoSmilMorphHills,
+        })),
+      DemoSmilCrank: () =>
+        import('@samisdat/ui-components/Demo/Smil/Crank').then(mod => ({
+            default: mod.DemoSmilCrank,
+        })),
+      DemoSmilCrankFormula: () =>
+        import('@samisdat/ui-components/Demo/Smil/Crank').then(mod => ({
+            default: mod.DemoSmilCrankFormula,
+        })),
 
     DemoAnimationsCompare: () =>
         import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
@@ -51,25 +67,9 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphThumb').then(mod => ({
             default: mod.DemoAnimationsMorphThumb,
         })),
-    DemoAnimationsMorphHills: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHills').then(mod => ({
-            default: mod.DemoAnimationsMorphHills,
-        })),
     DemoAnimationsMorphCoffee: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphCoffee').then(mod => ({
             default: mod.DemoAnimationsMorphCoffee,
-        })),
-   DemoAnimationsMorphHeart: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHeart').then(mod => ({
-            default: mod.DemoAnimationsMorphHeart,
-        })),
-   DemoAnimationsCrank: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrank').then(mod => ({
-            default: mod.DemoAnimationsCrank,
-        })),
-    DemoAnimationsCrankFormula: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCrankFormula').then(mod => ({
-            default: mod.DemoAnimationsCrankFormula,
         })),
     DemoParallaxSectors: () =>
         import('@samisdat/ui-components/Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
@@ -106,16 +106,16 @@ export const demos = createDynamicDemos();
 export const DemoSmilDisc = demos.DemoSmilDisc;
 export const DemoSmilMorphMistakes = demos.DemoSmilMorphMistakes;
 export const DemoSmilSchwebebahn = demos.DemoSmilSchwebebahn;
+export const DemoSmilMorphHeart = demos.DemoSmilMorphHeart;
+export const DemoSmilMorphHills = demos.DemoSmilMorphHills;
+export const DemoSmilCrank = demos.DemoSmilCrank;
+export const DemoSmilCrankFormula = demos.DemoSmilCrankFormula;
 
 export const DemoAnimationsCompare = demos.DemoAnimationsCompare;
 export const DemoAnimationsCssJs = demos.DemoAnimationsCssJs;
 export const DemoAnimationsJsAttributes = demos.DemoAnimationsJsAttributes;
 export const DemoAnimationsMorphThumb = demos.DemoAnimationsMorphThumb;
-export const DemoAnimationsMorphHills = demos.DemoAnimationsMorphHills;
 export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
-export const DemoAnimationsMorphHeart = demos.DemoAnimationsMorphHeart;
-export const DemoAnimationsCrank = demos.DemoAnimationsCrank;
-export const DemoAnimationsCrankFormula = demos.DemoAnimationsCrankFormula;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
 export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
