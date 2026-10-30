@@ -32,14 +32,14 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Smil/MorphMistakes').then(mod => ({
             default: mod.DemoSmilMorphMistakes,
         })),
- 
+        DemoSmilSchwebebahn: () =>
+        import('@samisdat/ui-components/Demo/Smil/Schwebebahn').then(mod => ({
+            default: mod.DemoSmilSchwebebahn,
+        })),
+
     DemoAnimationsCompare: () =>
         import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
-    DemoAnimationsSvg: () =>
-        import('@samisdat/ui-components/Demo/Animations/DemoAnimationsSvg').then(mod => ({
-            default: mod.DemoAnimationsSvg,
-        })),
-    DemoAnimationsCssJs: () =>
+       DemoAnimationsCssJs: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCssJs').then(mod => ({
             default: mod.DemoAnimationsCssJs,
         })),
@@ -105,9 +105,9 @@ export const demos = createDynamicDemos();
 // Named Exports für direkte Nutzung und Abwärtskompatibilität
 export const DemoSmilDisc = demos.DemoSmilDisc;
 export const DemoSmilMorphMistakes = demos.DemoSmilMorphMistakes;
+export const DemoSmilSchwebebahn = demos.DemoSmilSchwebebahn;
 
 export const DemoAnimationsCompare = demos.DemoAnimationsCompare;
-export const DemoAnimationsSvg = demos.DemoAnimationsSvg;
 export const DemoAnimationsCssJs = demos.DemoAnimationsCssJs;
 export const DemoAnimationsJsAttributes = demos.DemoAnimationsJsAttributes;
 export const DemoAnimationsMorphThumb = demos.DemoAnimationsMorphThumb;
