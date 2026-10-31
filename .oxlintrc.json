@@ -1,3 +1,307 @@
 {
-  "plugins": ["react", "nextjs"]
+    "plugins": ["react", "nextjs"],
+    "ignorePatterns": [
+        "**/Buildings/**",
+        "**/codesandboxes/**",
+        "**/generated/**",
+        "**/dist/**",
+        "**/__tests__/**",
+        "**/*.test.*",
+        "**/*.stories.*"
+    ],
+    "rules": {
+        "complexity": [
+            "error",
+            {
+                "max": 15
+            }
+        ],
+        "max-lines": [
+            "error",
+            {
+                "max": 250,
+                "skipBlankLines": true,
+                "skipComments": true
+            }
+        ],
+        "max-lines-per-function": [
+            "error",
+            {
+                "max": 100,
+                "skipBlankLines": true,
+                "skipComments": true
+            }
+        ],
+        "max-depth": [
+            "error",
+            {
+                "max": 4
+            }
+        ],
+        "max-nested-callbacks": [
+            "error",
+            {
+                "max": 4
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": ["packages/codeprose/src/scholion/runtime/ScholionProvider.tsx"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 175,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "complexity": [
+                    "error",
+                    {
+                        "max": 17
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/codeprose/src/scholion/runtime/state.ts"],
+            "rules": {
+                "complexity": [
+                    "error",
+                    {
+                        "max": 20
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/codeprose/src/scholion/runtime/useScholionLayout.ts"],
+            "rules": {
+                "complexity": [
+                    "error",
+                    {
+                        "max": 24
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/plugins/plugin-nvim.ts"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 280,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 165,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/plugins/plugin-shiki.ts"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 102,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/plugins/plugin-ts-module.ts"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 111,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/scripts/generate-scale.ts"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 465,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/scripts/lint-fill.ts"],
+            "rules": {
+                "max-depth": [
+                    "error",
+                    {
+                        "max": 5
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/color-scheme/scripts/theme-compare/measure.ts"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 281,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-depth": [
+                    "error",
+                    {
+                        "max": 5
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/panorama/src/components/Heaven/Heaven.tsx"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 106,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/panorama/src/components/Panorama.tsx"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 142,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/panorama/src/lib/TalContext.tsx"],
+            "rules": {
+                "complexity": [
+                    "error",
+                    {
+                        "max": 20
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/ui-components/src/Demo/Animations/DemoAnimationsCrank.tsx"],
+            "rules": {
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 146,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/ui-components/src/Demo/Animations/DemoAnimationsCrankFormula.tsx"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 327,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 150,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/ui-components/src/Demo/Parallax/Hills.tsx"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 267,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 211,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/ui-components/src/Post/index.tsx"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 255,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-lines-per-function": [
+                    "error",
+                    {
+                        "max": 247,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["packages/website/src/lib/typography/fonts.ts"],
+            "rules": {
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 333,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ]
+            }
+        }
+    ]
 }
