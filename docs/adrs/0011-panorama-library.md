@@ -15,6 +15,7 @@ Das Panorama lebt als eigenständiges Package (`@samisdat/wtal-panorama`)
 im Monorepo und wird als npm-Library gebaut und publiziert.
 
 Build-Setup:
+
 - **tsup** als Bundler (schnell, zero-config für Libraries)
 - Dual-Output: ESM (`.js`) + CommonJS (`.cjs`)
 - TypeScript-Deklarationen (`.d.ts`) werden mitgeneriert

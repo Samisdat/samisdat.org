@@ -1,55 +1,55 @@
 name: npm publish
 
 on:
-    push:
-        branches: [main]
-        paths:
-            - 'packages/panorama/**'
-            - '.github/workflows/npm-publish.yml'
-    # Canary nur auf manuellen Trigger, z.B.:
-    #   gh workflow run npm-publish.yml --ref feature/mein-branch
-    workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/panorama/**'
+      - '.github/workflows/npm-publish.yml'
+  # Canary nur auf manuellen Trigger, z.B.:
+  #   gh workflow run npm-publish.yml --ref feature/mein-branch
+  workflow_dispatch:
 
 permissions:
-    id-token: write
-    contents: read
+  id-token: write
+  contents: read
 
 jobs:
-    publish:
-        runs-on: ubuntu-latest
-        defaults:
-            run:
-                working-directory: packages/panorama
-        steps:
-            - uses: actions/checkout@v7
-              with:
-                  persist-credentials: false
-            - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
-            - uses: actions/setup-node@v7
-              with:
-                  node-version-file: '.nvmrc'
-                  registry-url: 'https://registry.npmjs.org'
-            - run: pnpm install --frozen-lockfile
-              working-directory: .
-            - run: pnpm run build:lib
+  publish:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/panorama
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: '.nvmrc'
+          registry-url: 'https://registry.npmjs.org'
+      - run: pnpm install --frozen-lockfile
+        working-directory: .
+      - run: pnpm run build:lib
 
-            - name: canary version
-              if: github.ref_name != 'main'
-              run: |
-                  base=$(node -p "require('./package.json').version")
-                  npm version --no-git-tag-version \
-                    "${base}-canary.${{ github.run_number }}.$(git rev-parse --short HEAD)"
+      - name: canary version
+        if: github.ref_name != 'main'
+        run: |
+          base=$(node -p "require('./package.json').version")
+          npm version --no-git-tag-version \
+            "${base}-canary.${{ github.run_number }}.$(git rev-parse --short HEAD)"
 
-            - name: publish canary
-              if: github.ref_name != 'main'
-              run: npm publish --tag canary --access public
+      - name: publish canary
+        if: github.ref_name != 'main'
+        run: npm publish --tag canary --access public
 
-            - name: publish release
-              if: github.ref_name == 'main'
-              run: |
-                  version=$(node -p "require('./package.json').version")
-                  if npm view "@samisdat/wtal-panorama@${version}" version >/dev/null 2>&1; then
-                    echo "Version ${version} liegt schon auf der Registry — skip."
-                  else
-                    npm publish --access public
-                  fi
+      - name: publish release
+        if: github.ref_name == 'main'
+        run: |
+          version=$(node -p "require('./package.json').version")
+          if npm view "@samisdat/wtal-panorama@${version}" version >/dev/null 2>&1; then
+            echo "Version ${version} liegt schon auf der Registry — skip."
+          else
+            npm publish --access public
+          fi

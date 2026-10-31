@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { DemoParallaxCircles } from '@samisdat/ui-components/Demo/Parallax/Circles';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Demo/Parallax/Circles',

@@ -10,8 +10,8 @@ const Styling = styled.div`
 
     & svg {
         border-radius: 0.5rem;
- border: 1px solid var(--color-border-default);
-  background-color: var(--color-surface-raised);
+        border: 1px solid var(--color-border-default);
+        background-color: var(--color-surface-raised);
 
         &:hover {
             border-color: var(--color-text-subtle);

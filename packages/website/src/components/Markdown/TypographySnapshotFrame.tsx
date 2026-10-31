@@ -3,6 +3,7 @@ import fs from 'fs';
 import path from 'path';
 
 import { TypographySnapshot } from '../TypographySnapshot';
+
 import type { TypographySnapshot as Data } from '@/lib/typography/snapshot-types';
 
 const SNAPSHOTS_DIR = path.join(process.cwd(), 'content/typography-snapshots');
@@ -19,7 +20,9 @@ function verifyFonts(data: Data) {
     const changed = data.fonts
         .flatMap(font => font.files)
         .filter(({ file, sha256 }) => {
-            const hash = createHash('sha256').update(fs.readFileSync(path.join(NODE_MODULES, file))).digest('hex');
+            const hash = createHash('sha256')
+                .update(fs.readFileSync(path.join(NODE_MODULES, file)))
+                .digest('hex');
             return hash !== sha256;
         })
         .map(({ file }) => file);

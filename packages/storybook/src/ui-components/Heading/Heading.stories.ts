@@ -1,16 +1,16 @@
-import type { Meta, StoryObj } from "@storybook/react";
+import { Heading } from '@samisdat/ui-components/Heading';
 
-import { Heading } from "@samisdat/ui-components/Heading";
+import type { Meta, StoryObj } from '@storybook/react';
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: "Typo/Heading",
-  component: Heading,
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ["autodocs"],
-  // Fluid sizes: one snapshot per width (narrow end, middle, wide end of the fluid range)
-  parameters: { chromatic: { viewports: [360, 800, 1280] } },
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
+    title: 'Typo/Heading',
+    component: Heading,
+    // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+    tags: ['autodocs'],
+    // Fluid sizes: one snapshot per width (narrow end, middle, wide end of the fluid range)
+    parameters: { chromatic: { viewports: [360, 800, 1280] } },
+    // More on argTypes: https://storybook.js.org/docs/api/argtypes
 } satisfies Meta<typeof Heading>;
 
 export default meta;
@@ -18,38 +18,38 @@ type Story = StoryObj<typeof meta>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Level1: Story = {
-  args: {
-    children: "Heading",
-    level: 1,
-  },
+    args: {
+        children: 'Heading',
+        level: 1,
+    },
 };
 export const Level2: Story = {
-  args: {
-    children: "Heading",
-    level: 2,
-  },
+    args: {
+        children: 'Heading',
+        level: 2,
+    },
 };
 export const Level3: Story = {
-  args: {
-    children: "Heading",
-    level: 3,
-  },
+    args: {
+        children: 'Heading',
+        level: 3,
+    },
 };
 export const Level4: Story = {
-  args: {
-    children: "Heading",
-    level: 4,
-  },
+    args: {
+        children: 'Heading',
+        level: 4,
+    },
 };
 export const Level5: Story = {
-  args: {
-    children: "Heading",
-    level: 5,
-  },
+    args: {
+        children: 'Heading',
+        level: 5,
+    },
 };
 export const Level6: Story = {
-  args: {
-    children: "Heading",
-    level: 6,
-  },
+    args: {
+        children: 'Heading',
+        level: 6,
+    },
 };

@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react';
+
 import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps } from './shared';
 

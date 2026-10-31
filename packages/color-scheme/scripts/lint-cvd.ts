@@ -7,24 +7,25 @@
  * Failing pairs are named with simulation type and values.
  */
 import {
-  differenceEuclidean,
-  filterDeficiencyDeuter,
-  filterDeficiencyProt,
-  filterDeficiencyTrit,
-  parse,
-  formatHex,
-} from "culori";
-import { semantic } from "../generated/semantic";
-import { modes } from "../src/contrast";
-import { MIN_CVD_DELTA_E } from "./thresholds";
+    differenceEuclidean,
+    filterDeficiencyDeuter,
+    filterDeficiencyProt,
+    filterDeficiencyTrit,
+    parse,
+    formatHex,
+} from 'culori';
 
-const TEXT = ["text.default", "text.secondary"];
-const deltaE = differenceEuclidean("oklab");
+import { semantic } from '../generated/semantic';
+import { modes } from '../src/contrast';
+import { MIN_CVD_DELTA_E } from './thresholds';
+
+const TEXT = ['text.default', 'text.secondary'];
+const deltaE = differenceEuclidean('oklab');
 
 const simulations = {
-  protanopia: filterDeficiencyProt(1),
-  deuteranopia: filterDeficiencyDeuter(1),
-  tritanopia: filterDeficiencyTrit(1),
+    protanopia: filterDeficiencyProt(1),
+    deuteranopia: filterDeficiencyDeuter(1),
+    tritanopia: filterDeficiencyTrit(1),
 } as const;
 
 const errors: string[] = [];
@@ -32,41 +33,43 @@ let checked = 0;
 const mins: Record<string, { value: number; pair: string }> = {};
 
 for (const mode of modes) {
-  const MIN_DELTA_E = MIN_CVD_DELTA_E[mode];
-  const values = semantic[mode] as Record<string, string>;
-  const inks = Object.keys(values).filter((id) => id.startsWith("ink."));
-  const pairs: [string, string][] = [];
-  for (let i = 0; i < inks.length; i++) {
-    for (let j = i + 1; j < inks.length; j++) pairs.push([inks[i], inks[j]]);
-    for (const text of TEXT) pairs.push([inks[i], text]);
-  }
-
-  for (const [name, simulate] of Object.entries(simulations)) {
-    for (const [a, b] of pairs) {
-      const sa = simulate(parse(values[a])!);
-      const sb = simulate(parse(values[b])!);
-      const distance = deltaE(sa, sb);
-      checked++;
-      const key = `${mode} ${name}`;
-      if (!mins[key] || distance < mins[key].value) {
-        mins[key] = { value: distance, pair: `${a} ~ ${b}` };
-      }
-      if (distance < MIN_DELTA_E) {
-        errors.push(
-          `${mode}, ${name}: ${a} (${values[a]} → ${formatHex(sa)}) ~ ${b} (${values[b]} → ${formatHex(sb)}): ΔE OK ${distance.toFixed(4)} < ${MIN_DELTA_E}`,
-        );
-      }
+    const MIN_DELTA_E = MIN_CVD_DELTA_E[mode];
+    const values = semantic[mode] as Record<string, string>;
+    const inks = Object.keys(values).filter(id => id.startsWith('ink.'));
+    const pairs: [string, string][] = [];
+    for (let i = 0; i < inks.length; i++) {
+        for (let j = i + 1; j < inks.length; j++) pairs.push([inks[i], inks[j]]);
+        for (const text of TEXT) pairs.push([inks[i], text]);
     }
-  }
+
+    for (const [name, simulate] of Object.entries(simulations)) {
+        for (const [a, b] of pairs) {
+            const sa = simulate(parse(values[a])!);
+            const sb = simulate(parse(values[b])!);
+            const distance = deltaE(sa, sb);
+            checked++;
+            const key = `${mode} ${name}`;
+            if (!mins[key] || distance < mins[key].value) {
+                mins[key] = { value: distance, pair: `${a} ~ ${b}` };
+            }
+            if (distance < MIN_DELTA_E) {
+                errors.push(
+                    `${mode}, ${name}: ${a} (${values[a]} → ${formatHex(sa)}) ~ ${b} (${values[b]} → ${formatHex(sb)}): ΔE OK ${distance.toFixed(4)} < ${MIN_DELTA_E}`
+                );
+            }
+        }
+    }
 }
 
 for (const [key, { value, pair }] of Object.entries(mins)) {
-  console.log(`  min ΔE OK ${key}: ${value.toFixed(4)} (${pair})`);
+    console.log(`  min ΔE OK ${key}: ${value.toFixed(4)} (${pair})`);
 }
 
 if (errors.length > 0) {
-  console.error(`CVD check failed (${errors.length}):`);
-  for (const error of errors) console.error(`  ✗ ${error}`);
-  process.exit(1);
+    console.error(`CVD check failed (${errors.length}):`);
+    for (const error of errors) console.error(`  ✗ ${error}`);
+    process.exit(1);
 }
-console.log(`CVD check passed (${checked} simulated pairs, gates dark ${MIN_CVD_DELTA_E.dark}, light ${MIN_CVD_DELTA_E.light})`);
+console.log(
+    `CVD check passed (${checked} simulated pairs, gates dark ${MIN_CVD_DELTA_E.dark}, light ${MIN_CVD_DELTA_E.light})`
+);

@@ -1,25 +1,25 @@
 {
-    "hooks": {
-        "PostToolUse": [
-            {
-                "matcher": "Edit|Write|MultiEdit",
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "node \"$CLAUDE_PROJECT_DIR\"/scripts/claude-hooks/lint-edited-file.mjs"
-                    }
-                ]
-            }
-        ],
-        "Stop": [
-            {
-                "hooks": [
-                    {
-                        "type": "command",
-                        "command": "node \"$CLAUDE_PROJECT_DIR\"/scripts/claude-hooks/lint-on-stop.mjs"
-                    }
-                ]
-            }
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/scripts/claude-hooks/lint-edited-file.mjs"
+          }
         ]
-    }
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"$CLAUDE_PROJECT_DIR\"/scripts/claude-hooks/lint-on-stop.mjs"
+          }
+        ]
+      }
+    ]
+  }
 }

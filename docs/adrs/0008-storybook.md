@@ -13,6 +13,7 @@ Wir verwenden Storybook 10 (`@storybook/react-vite`) im Package
 `packages/ui-components` als Entwicklungs- und Dokumentationstool.
 
 Konfiguration:
+
 - Vite als Builder (mit `@wyw-in-js/vite` für Linaria-Support)
 - `@storybook/addon-a11y` für Barrierefreiheits-Checks
 - `@storybook/addon-themes` für Dark/Light-Theme-Switching

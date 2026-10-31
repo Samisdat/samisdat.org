@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
 import Link from 'next/link';
 
 import { ObfuscatedEmail } from '@/components/ObfuscatedEmail';
 import { SITE_AUTHOR } from '@/lib/constants';
+
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
     title: 'Impressum',

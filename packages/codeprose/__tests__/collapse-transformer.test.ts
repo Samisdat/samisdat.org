@@ -1,10 +1,11 @@
-import rehypePrettyCode from 'rehype-pretty-code'
-import rehypeStringify from 'rehype-stringify'
-import remarkParse from 'remark-parse'
-import remarkRehype from 'remark-rehype'
-import { unified } from 'unified'
-import { describe, expect, it } from 'vitest'
-import { collapseTransformer } from '../src/annotations/collapse-transformer.ts'
+import rehypePrettyCode from 'rehype-pretty-code';
+import rehypeStringify from 'rehype-stringify';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import { unified } from 'unified';
+import { describe, expect, it } from 'vitest';
+
+import { collapseTransformer } from '../src/annotations/collapse-transformer.ts';
 
 async function process(md: string): Promise<string> {
     const result = await unified()
@@ -14,8 +15,8 @@ async function process(md: string): Promise<string> {
             transformers: [collapseTransformer()],
         })
         .use(rehypeStringify)
-        .process(md)
-    return String(result)
+        .process(md);
+    return String(result);
 }
 
 describe('collapseTransformer', () => {
@@ -27,11 +28,11 @@ describe('collapseTransformer', () => {
             "import { bar } from 'bar'",
             'const x = 1',
             '```',
-        ].join('\n')
-        const html = await process(md)
-        expect(html).toContain('<details')
-        expect(html).toContain('<summary>imports</summary>')
-    })
+        ].join('\n');
+        const html = await process(md);
+        expect(html).toContain('<details');
+        expect(html).toContain('<summary>imports</summary>');
+    });
 
     it('strips the annotation comment line from output', async () => {
         const md = [
@@ -40,29 +41,23 @@ describe('collapseTransformer', () => {
             "import { foo } from 'foo'",
             "import { bar } from 'bar'",
             '```',
-        ].join('\n')
-        const html = await process(md)
-        expect(html).not.toContain('!collapse')
-    })
+        ].join('\n');
+        const html = await process(md);
+        expect(html).not.toContain('!collapse');
+    });
 
     it('uses default label when none provided', async () => {
-        const md = ['```js', '// !collapse(1:1)', 'const x = 1', '```'].join('\n')
-        const html = await process(md)
-        expect(html).toContain('<summary>···</summary>')
-    })
+        const md = ['```js', '// !collapse(1:1)', 'const x = 1', '```'].join('\n');
+        const html = await process(md);
+        expect(html).toContain('<summary>···</summary>');
+    });
 
     it('leaves lines outside the range uncollapsed', async () => {
-        const md = [
-            '```js',
-            '// !collapse(1:1) imports',
-            "import { foo } from 'foo'",
-            'const x = 1',
-            '```',
-        ].join('\n')
-        const html = await process(md)
-        const outside = html.replace(/<details[^>]*>.*?<\/details>/s, '')
-        expect(outside).toContain('x')
-    })
+        const md = ['```js', '// !collapse(1:1) imports', "import { foo } from 'foo'", 'const x = 1', '```'].join('\n');
+        const html = await process(md);
+        const outside = html.replace(/<details[^>]*>.*?<\/details>/s, '');
+        expect(outside).toContain('x');
+    });
 
     it('handles multiple collapses in one block', async () => {
         const md = [
@@ -73,55 +68,43 @@ describe('collapseTransformer', () => {
             '// !collapse(1:1) second',
             "import { bar } from 'bar'",
             '```',
-        ].join('\n')
-        const html = await process(md)
-        expect((html.match(/<details/g) ?? []).length).toBe(2)
-        expect(html).toContain('<summary>first</summary>')
-        expect(html).toContain('<summary>second</summary>')
-    })
+        ].join('\n');
+        const html = await process(md);
+        expect((html.match(/<details/g) ?? []).length).toBe(2);
+        expect(html).toContain('<summary>first</summary>');
+        expect(html).toContain('<summary>second</summary>');
+    });
 
     it('applies padding-left matching the indentation of the first collapsed line', async () => {
-        const md = [
-            '```js',
-            'function foo() {',
-            '  // !collapse(1:1) body',
-            '  const x = 1',
-            '}',
-            '```',
-        ].join('\n')
-        const html = await process(md)
-        expect(html).toContain('padding-left: 2ch')
-    })
+        const md = ['```js', 'function foo() {', '  // !collapse(1:1) body', '  const x = 1', '}', '```'].join('\n');
+        const html = await process(md);
+        expect(html).toContain('padding-left: 2ch');
+    });
 
     it('omits padding-left when collapsed lines have no indentation', async () => {
-        const md = ['```js', '// !collapse(1:1)', 'const x = 1', '```'].join('\n')
-        const html = await process(md)
-        expect(html).not.toContain('padding-left')
-    })
+        const md = ['```js', '// !collapse(1:1)', 'const x = 1', '```'].join('\n');
+        const html = await process(md);
+        expect(html).not.toContain('padding-left');
+    });
 
     it('does nothing for blocks without annotation', async () => {
-        const html = await process('```js\nconst x = 1\n```')
-        expect(html).not.toContain('<details')
-    })
+        const html = await process('```js\nconst x = 1\n```');
+        expect(html).not.toContain('<details');
+    });
 
     it('renders two labelled spans when label contains " | "', async () => {
-        const md = [
-            '```js',
-            '// !collapse(1:1) more circles | less circles',
-            'const x = 1',
-            '```',
-        ].join('\n')
-        const html = await process(md)
-        expect(html).toContain('data-collapse-closed')
-        expect(html).toContain('more circles')
-        expect(html).toContain('data-collapse-open')
-        expect(html).toContain('less circles')
-    })
+        const md = ['```js', '// !collapse(1:1) more circles | less circles', 'const x = 1', '```'].join('\n');
+        const html = await process(md);
+        expect(html).toContain('data-collapse-closed');
+        expect(html).toContain('more circles');
+        expect(html).toContain('data-collapse-open');
+        expect(html).toContain('less circles');
+    });
 
     it('keeps single-text summary when no pipe separator', async () => {
-        const md = ['```js', '// !collapse(1:1) imports', 'const x = 1', '```'].join('\n')
-        const html = await process(md)
-        expect(html).toContain('<summary>imports</summary>')
-        expect(html).not.toContain('data-collapse-closed')
-    })
-})
+        const md = ['```js', '// !collapse(1:1) imports', 'const x = 1', '```'].join('\n');
+        const html = await process(md);
+        expect(html).toContain('<summary>imports</summary>');
+        expect(html).not.toContain('data-collapse-closed');
+    });
+});

@@ -1,22 +1,19 @@
 import { compile, run } from '@mdx-js/mdx';
+import { collapseTransformer } from '@samisdat/codeprose/annotations/collapse-transformer';
+import { placeholderTransformer } from '@samisdat/codeprose/annotations/placeholder-transformer';
+import { remarkScholion } from '@samisdat/codeprose/scholion/remark';
+import { scholionTransformer } from '@samisdat/codeprose/scholion/transformer';
+import { shikiTheme, styledGrammarLangs } from '@samisdat/ui-components/utils/shikiTheme';
 import * as runtime from 'react/jsx-runtime';
-
-import remarkBreaks from 'remark-breaks';
-import remarkFrontmatter from 'remark-frontmatter';
-import remarkGfm from 'remark-gfm';
-import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-
 import { rehypeAccessibleEmojis } from 'rehype-accessible-emojis';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
-
+import remarkBreaks from 'remark-breaks';
+import remarkFrontmatter from 'remark-frontmatter';
+import remarkGfm from 'remark-gfm';
+import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
 import { getSingletonHighlighter } from 'shiki';
-import { remarkScholion } from '@samisdat/codeprose/scholion/remark';
-import { scholionTransformer } from '@samisdat/codeprose/scholion/transformer';
-import { placeholderTransformer } from '@samisdat/codeprose/annotations/placeholder-transformer'
-import { collapseTransformer } from '@samisdat/codeprose/annotations/collapse-transformer';
-import { shikiTheme, styledGrammarLangs } from '@samisdat/ui-components/utils/shikiTheme';
 
 import { Frontmatter } from './Frontmatter';
 import { remarkSandboxCollector } from './remarkSandboxCollector';

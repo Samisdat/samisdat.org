@@ -31,7 +31,7 @@ trennen**, nicht in einer Datei mischen.
 Beleg: `Demo/Parallax/useParallax.tsx` kapselt genau einen Belang — die
 Zeiger-Position in CSS-Custom-Properties übersetzen, inklusive
 `prefers-reduced-motion`. Die Komponente, die den Hook nutzt, kümmert
-sich nicht darum, *wie* Parallax funktioniert, nur dass sie ein `ref`
+sich nicht darum, _wie_ Parallax funktioniert, nur dass sie ein `ref`
 übergibt. Ändert sich die Parallax-Logik (z. B. anderes Easing), ändert
 sich nur `useParallax.tsx`.
 

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 export const Smil = ({ isPlaying, resetTrigger }: DemoAnimationsCompareProps) => {

@@ -1,135 +1,125 @@
-import type { Element, ElementContent } from 'hast'
-import type { ShikiTransformer } from 'shiki'
-import { parseScholionMeta } from './parse-meta'
-import type { ScholionRef } from './types'
+import { parseScholionMeta } from './parse-meta';
+
+import type { ScholionRef } from './types';
+import type { Element, ElementContent } from 'hast';
+import type { ShikiTransformer } from 'shiki';
 
 function nodeText(node: ElementContent): string {
-    if (node.type === 'text') return node.value
-    if (node.type === 'element') return node.children.map(nodeText).join('')
-    return ''
+    if (node.type === 'text') return node.value;
+    if (node.type === 'element') return node.children.map(nodeText).join('');
+    return '';
 }
 
 // Return a copy of `node` containing only characters [start, end) of its text,
 // or null if that range is empty. Element nodes are cloned so token styling
 // (Shiki's inline color spans) is preserved on every fragment.
 function sliceContent(node: ElementContent, start: number, end: number): ElementContent | null {
-    if (end <= 0 || start >= nodeText(node).length) return null
+    if (end <= 0 || start >= nodeText(node).length) return null;
     if (node.type === 'text') {
-        const value = node.value.slice(Math.max(0, start), Math.max(0, end))
-        return value ? { type: 'text', value } : null
+        const value = node.value.slice(Math.max(0, start), Math.max(0, end));
+        return value ? { type: 'text', value } : null;
     }
     if (node.type === 'element') {
-        let offset = 0
-        const children: ElementContent[] = []
+        let offset = 0;
+        const children: ElementContent[] = [];
         for (const child of node.children) {
-            const sliced = sliceContent(child, start - offset, end - offset)
-            if (sliced) children.push(sliced)
-            offset += nodeText(child).length
+            const sliced = sliceContent(child, start - offset, end - offset);
+            if (sliced) children.push(sliced);
+            offset += nodeText(child).length;
         }
-        return children.length ? { ...node, children } : null
+        return children.length ? { ...node, children } : null;
     }
-    return node
+    return node;
 }
 
 function wrapRef(codeEl: Element, ref: ScholionRef): void {
-    const lines = codeEl.children.filter(
-        (c): c is Element => c.type === 'element' && c.tagName === 'span'
-    )
+    const lines = codeEl.children.filter((c): c is Element => c.type === 'element' && c.tagName === 'span');
 
-    type LineMatch = { lineEl: Element; lineNum: number; matchStart: number; matchEnd: number }
-    const matches: LineMatch[] = []
+    type LineMatch = { lineEl: Element; lineNum: number; matchStart: number; matchEnd: number };
+    const matches: LineMatch[] = [];
 
     for (let li = 0; li < lines.length; li++) {
-        const lineEl = lines[li]
-        const lineNum = li + 1
-        if (ref.line !== undefined && ref.line !== lineNum) continue
+        const lineEl = lines[li];
+        const lineNum = li + 1;
+        if (ref.line !== undefined && ref.line !== lineNum) continue;
 
-        const lineText = lineEl.children.map(nodeText).join('')
-        let from = 0
+        const lineText = lineEl.children.map(nodeText).join('');
+        let from = 0;
         while (true) {
-            const idx = lineText.indexOf(ref.pattern, from)
-            if (idx === -1) break
-            matches.push({ lineEl, lineNum, matchStart: idx, matchEnd: idx + ref.pattern.length })
-            from = idx + 1
+            const idx = lineText.indexOf(ref.pattern, from);
+            if (idx === -1) break;
+            matches.push({ lineEl, lineNum, matchStart: idx, matchEnd: idx + ref.pattern.length });
+            from = idx + 1;
         }
     }
 
     if (matches.length === 0) {
-        throw new Error(
-            `scholion: ref "${ref.id}" – "${ref.pattern}" not found in code block`
-        )
+        throw new Error(`scholion: ref "${ref.id}" – "${ref.pattern}" not found in code block`);
     }
 
-    let target: LineMatch
+    let target: LineMatch;
     if (ref.line !== undefined) {
         if (matches.length > 1) {
             throw new Error(
                 `scholion: ref "${ref.id}" – "${ref.pattern}" found ${matches.length} times in line ${ref.line}. Use #n to select.`
-            )
+            );
         }
-        target = matches[0]
+        target = matches[0];
     } else if (ref.occurrence !== undefined) {
-        const occ = ref.occurrence
+        const occ = ref.occurrence;
         if (occ < 1 || occ > matches.length) {
             throw new Error(
                 `scholion: ref "${ref.id}" – occurrence #${occ} requested but only ${matches.length} found`
-            )
+            );
         }
-        target = matches[occ - 1]
+        target = matches[occ - 1];
     } else {
         if (matches.length > 1) {
-            const lineNums = matches.map(m => m.lineNum).join(', ')
+            const lineNums = matches.map(m => m.lineNum).join(', ');
             throw new Error(
                 `scholion: ref "${ref.id}" – "${ref.pattern}" found ${matches.length} times (lines ${lineNums}). Use @line or #n.`
-            )
+            );
         }
-        target = matches[0]
+        target = matches[0];
     }
 
-    wrapSpansInLine(target.lineEl, target.matchStart, target.matchEnd, ref)
+    wrapSpansInLine(target.lineEl, target.matchStart, target.matchEnd, ref);
 }
 
-function wrapSpansInLine(
-    lineEl: Element,
-    matchStart: number,
-    matchEnd: number,
-    ref: ScholionRef
-): void {
-    type SpanInfo = { idx: number; charStart: number; charEnd: number }
-    const infos: SpanInfo[] = []
-    let offset = 0
+function wrapSpansInLine(lineEl: Element, matchStart: number, matchEnd: number, ref: ScholionRef): void {
+    type SpanInfo = { idx: number; charStart: number; charEnd: number };
+    const infos: SpanInfo[] = [];
+    let offset = 0;
 
     for (let i = 0; i < lineEl.children.length; i++) {
-        const child = lineEl.children[i]
-        const text = nodeText(child as ElementContent)
-        infos.push({ idx: i, charStart: offset, charEnd: offset + text.length })
-        offset += text.length
+        const child = lineEl.children[i];
+        const text = nodeText(child as ElementContent);
+        infos.push({ idx: i, charStart: offset, charEnd: offset + text.length });
+        offset += text.length;
     }
 
-    const covered = infos.filter(
-        info => info.charEnd > matchStart && info.charStart < matchEnd
-    )
-    if (covered.length === 0) return
+    const covered = infos.filter(info => info.charEnd > matchStart && info.charStart < matchEnd);
+    if (covered.length === 0) return;
 
-    const firstIdx = covered[0].idx
-    const lastIdx = covered[covered.length - 1].idx
-    const displayLabel = ref.pattern.replace(/^<\/?/, '')
+    const firstIdx = covered[0].idx;
+    const lastIdx = covered[covered.length - 1].idx;
+    const displayLabel = ref.pattern.replace(/^<\/?/, '');
 
     // Split the first/last covered span at the match boundaries. Shiki merges a
     // line's leading indentation into its first token span, so slicing whole
     // spans would pull that whitespace into the anchor and the underline would
     // start at the left code margin instead of under the token.
-    const before: ElementContent[] = []
-    const inside: ElementContent[] = []
-    const after: ElementContent[] = []
+    const before: ElementContent[] = [];
+    const inside: ElementContent[] = [];
+    const after: ElementContent[] = [];
     for (const info of covered) {
-        const child = lineEl.children[info.idx] as ElementContent
-        const pre = sliceContent(child, 0, matchStart - info.charStart)
-        const mid = sliceContent(child, matchStart - info.charStart, matchEnd - info.charStart)
-        const post = sliceContent(child, matchEnd - info.charStart, info.charEnd - info.charStart)
-        if (pre) before.push(pre)
-        if (mid) inside.push(mid)
-        if (post) after.push(post)
+        const child = lineEl.children[info.idx] as ElementContent;
+        const pre = sliceContent(child, 0, matchStart - info.charStart);
+        const mid = sliceContent(child, matchStart - info.charStart, matchEnd - info.charStart);
+        const post = sliceContent(child, matchEnd - info.charStart, info.charEnd - info.charStart);
+        if (pre) before.push(pre);
+        if (mid) inside.push(mid);
+        if (post) after.push(post);
     }
 
     const anchor: Element = {
@@ -144,21 +134,21 @@ function wrapSpansInLine(
             'aria-label': `${displayLabel}, zur Erklärung`,
         },
         children: inside,
-    }
+    };
 
-    lineEl.children.splice(firstIdx, lastIdx - firstIdx + 1, ...before, anchor, ...after)
+    lineEl.children.splice(firstIdx, lastIdx - firstIdx + 1, ...before, anchor, ...after);
 }
 
 export function scholionTransformer(): ShikiTransformer {
     return {
         name: '@samisdat/codeprose/scholion',
         code(codeEl) {
-            const raw = (this.options as { meta?: { __raw?: string } }).meta?.__raw ?? ''
-            const refs = parseScholionMeta(raw)
-            if (refs.length === 0) return
+            const raw = (this.options as { meta?: { __raw?: string } }).meta?.__raw ?? '';
+            const refs = parseScholionMeta(raw);
+            if (refs.length === 0) return;
             for (const ref of refs) {
-                wrapRef(codeEl, ref)
+                wrapRef(codeEl, ref);
             }
         },
-    }
+    };
 }

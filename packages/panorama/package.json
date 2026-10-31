@@ -1,87 +1,87 @@
 {
-    "name": "@samisdat/wtal-panorama",
-    "version": "2.0.0",
-    "private": false,
-    "type": "module",
-    "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
-    "main": "./dist/index.cjs",
-    "module": "./dist/index.js",
-    "types": "./dist/index.d.ts",
-    "exports": {
-        "./package.json": "./package.json",
-        ".": {
-            "types": "./dist/index.d.ts",
-            "require": "./dist/index.cjs",
-            "import": "./dist/index.js"
-        },
-        "./colors": {
-            "types": "./dist/generated/colors.d.ts",
-            "import": "./dist/generated/colors.js",
-            "require": "./dist/generated/colors.cjs",
-            "default": "./dist/generated/colors.js"
-        },
-        "./colors.css": "./dist/colors.css",
-        "./style.css": "./src/components/panorama.css"
+  "name": "@samisdat/wtal-panorama",
+  "version": "2.0.0",
+  "private": false,
+  "type": "module",
+  "description": "Wuppertal panorama with realistic astronomical sun and moon animations",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
     },
-    "files": [
-        "dist",
-        "src/components/panorama.css",
-        "src/generated",
-        "CHANGELOG.md"
-    ],
-    "scripts": {
-        "dev": "next dev",
-        "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
-        "build": "next build",
-        "build:colors": "tsx scripts/build-colors.ts",
-        "build:lib": "tsup src/index.tsx src/generated/colors.ts --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
-        "start": "next start",
-        "lint": "oxlint .",
-        "test": "vitest",
-        "test:run": "vitest run",
-        "format": "prettier --write \"./**/*.{ts,tsx}\" --config ../../.prettierrc.cjs",
-        "prepublishOnly": "pnpm build:colors && npm run build:lib"
+    "./colors": {
+      "types": "./dist/generated/colors.d.ts",
+      "import": "./dist/generated/colors.js",
+      "require": "./dist/generated/colors.cjs",
+      "default": "./dist/generated/colors.js"
     },
-    "keywords": [
-        "wuppertal",
-        "panorama",
-        "svg",
-        "animation",
-        "sun",
-        "moon",
-        "astronomy",
-        "react",
-        "suncalc"
-    ],
-    "author": "Bastian Pertz <bastian@pertz.eu> (https://samisdat.org/)",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/Samisdat/samisdat.org.git",
-        "directory": "packages/panorama"
-    },
-    "peerDependencies": {
-        "react": "^19.2.7",
-        "react-dom": "^19.2.7"
-    },
-    "devDependencies": {
-        "@samisdat/tools": "workspace:*",
-        "@types/node": "catalog:",
-        "@types/react": "catalog:",
-        "@types/react-dom": "catalog:",
-        "@types/suncalc": "^1.9.2",
-        "next": "catalog:",
-        "prettier": "catalog:",
-        "prettier-plugin-multiline-arrays": "catalog:",
-        "prettier-plugin-organize-imports": "catalog:",
-        "react": "catalog:",
-        "react-dom": "catalog:",
-        "tsup": "^9.0.0",
-        "tsx": "^4.23.15",
-        "typescript": "catalog:",
-        "vitest": "catalog:"
-    },
-    "dependencies": {
-        "suncalc": "^2.1.1"
-    }
+    "./colors.css": "./dist/colors.css",
+    "./style.css": "./src/components/panorama.css"
+  },
+  "files": [
+    "dist",
+    "src/components/panorama.css",
+    "src/generated",
+    "CHANGELOG.md"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
+    "build": "next build",
+    "build:colors": "tsx scripts/build-colors.ts",
+    "build:lib": "tsup src/index.tsx src/generated/colors.ts --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
+    "start": "next start",
+    "lint": "oxlint .",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "format": "prettier --write \"./**/*.{ts,tsx}\" --config ../../.prettierrc.cjs",
+    "prepublishOnly": "pnpm build:colors && npm run build:lib"
+  },
+  "keywords": [
+    "wuppertal",
+    "panorama",
+    "svg",
+    "animation",
+    "sun",
+    "moon",
+    "astronomy",
+    "react",
+    "suncalc"
+  ],
+  "author": "Bastian Pertz <bastian@pertz.eu> (https://samisdat.org/)",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Samisdat/samisdat.org.git",
+    "directory": "packages/panorama"
+  },
+  "peerDependencies": {
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@samisdat/tools": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@types/suncalc": "^1.9.2",
+    "next": "catalog:",
+    "prettier": "catalog:",
+    "prettier-plugin-multiline-arrays": "catalog:",
+    "prettier-plugin-organize-imports": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "tsup": "^9.0.0",
+    "tsx": "^4.23.15",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "suncalc": "^2.1.1"
+  }
 }

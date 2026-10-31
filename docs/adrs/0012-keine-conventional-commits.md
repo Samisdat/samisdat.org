@@ -16,11 +16,13 @@ Commit-Messages werden als freier Text geschrieben — klar, kurz und
 beschreibend, aber ohne erzwungenes Prefix-Schema.
 
 Gut:
+
 - `node version aus .nvmrc lesen`
 - `panorama: repository-feld für provenance fixen`
 - `workflow für npm publish`
 
 Nicht nötig:
+
 - `fix: use .nvmrc for node version in workflow`
 - `chore(ci): add npm publish workflow`
 

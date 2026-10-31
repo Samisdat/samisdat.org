@@ -6,12 +6,13 @@ import { Segmented } from '@samisdat/ui-components/Segmented';
 import { FC, useState } from 'react';
 
 import { presetFontNames, presetStyle } from '@/lib/typography/data';
-import type { PresetId } from '@/lib/typography/ids';
 import { fontClasses } from '@/lib/typography/presets';
-import type { TypographySnapshot as Data } from '@/lib/typography/snapshot-types';
 
 import { PostProse } from './PostLayout';
 import { TypeSpecimenText } from './TypeSpecimen';
+
+import type { PresetId } from '@/lib/typography/ids';
+import type { TypographySnapshot as Data } from '@/lib/typography/snapshot-types';
 
 type Mode = 'dark' | 'light';
 

@@ -1,7 +1,8 @@
 'use client';
 
-import { useTal } from '@/lib/TalContext';
 import { CSSProperties } from 'react';
+
+import { useTal } from '@/lib/TalContext';
 
 const ClockFace = () => (
     <>

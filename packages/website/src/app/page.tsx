@@ -1,4 +1,5 @@
 import { getAllPosts, getAllPublishedPosts } from '@/lib/posts';
+
 import { PostCard } from '../components/PostCard';
 
 export default async function Home() {

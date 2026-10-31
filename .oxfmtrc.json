@@ -24,11 +24,7 @@
       "builtin",
       "external",
       "internal",
-      [
-        "parent",
-        "sibling",
-        "index"
-      ],
+      ["parent", "sibling", "index"],
       "style",
       "type",
       "unknown"
@@ -36,12 +32,7 @@
   },
   "overrides": [
     {
-      "files": [
-        "**/*.toml",
-        "**/*.yml",
-        "**/*.yaml",
-        "**/*.json"
-      ],
+      "files": ["**/*.toml", "**/*.yml", "**/*.yaml", "**/*.json"],
       "options": {
         "tabWidth": 2
       }

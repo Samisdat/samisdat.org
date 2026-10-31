@@ -1,7 +1,9 @@
-import type { SandpackFiles } from '@codesandbox/sandpack-react';
 import fs from 'fs';
 import path from 'path';
+
 import { SandboxProps } from './props';
+
+import type { SandpackFiles } from '@codesandbox/sandpack-react';
 
 const isSafeSegment = (seg: string) => {
     return !seg.includes('..') && !path.isAbsolute(seg);

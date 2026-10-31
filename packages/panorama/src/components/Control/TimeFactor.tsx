@@ -1,5 +1,6 @@
-import { useTal } from '@/lib/TalContext';
 import { ChangeEvent } from 'react';
+
+import { useTal } from '@/lib/TalContext';
 
 export const TimeFactor = () => {
     const { timeFactor, setTimeFactor } = useTal();

@@ -13,6 +13,7 @@
 
 import fs from 'fs';
 import path from 'path';
+
 import { loadTemplate } from '../src/components/Sandbox/loadTemplates';
 
 type Template = 'react-ts' | 'vanilla-ts';
