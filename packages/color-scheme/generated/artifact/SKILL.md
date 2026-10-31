@@ -46,6 +46,8 @@ Generated – do not edit. Paste the CSS below into the artifact's `<style>` and
   --color-border-focus: oklch(79.3% 0.132 202.6);
   --color-selection: oklch(37% 0.06 300);
   --color-highlight: oklch(37% 0.06 300);
+  --color-nvim-cursorline: oklch(30.29% 0.114 265);
+  --color-nvim-visual: oklch(30.04% 0.132 305);
   --color-diff-add: oklch(37.7% 0.084 139.9);
   --color-diff-delete: oklch(41.6% 0.155 12.5);
   --color-diff-change: oklch(38.64% 0.1425 265);
@@ -101,6 +103,8 @@ Generated – do not edit. Paste the CSS below into the artifact's `<style>` and
   --color-border-focus: oklch(50.7% 0.085 193.7);
   --color-selection: oklch(77.7% 0.078 303.2);
   --color-highlight: oklch(93% 0.032 263);
+  --color-nvim-cursorline: oklch(93% 0.032 263);
+  --color-nvim-visual: oklch(77.7% 0.078 303.2);
   --color-diff-add: oklch(94.66% 0.0422 155);
   --color-diff-delete: oklch(92.8% 0.0373 10);
   --color-diff-change: oklch(94.52% 0.0259 265);

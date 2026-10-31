@@ -3,13 +3,12 @@ import { toHex } from "./hex";
 
 const HEADER = `-- Generated – do not edit.
 -- Source: tokens/*.tokens.json, built by \`pnpm --filter @samisdat/color-scheme build\`.
--- Base: tokyonight (moon for dark, day for light); surfaces, text, status and
--- syntax groups are replaced with samisdat values (same mapping as the Shiki
--- theme). Terminal colours and diagnostics are mapped too; plugin-specific
--- highlight groups are out of scope for now.
+-- Base: tokyonight moon; surfaces, text, status and syntax groups are
+-- replaced with samisdat values (same mapping as the Shiki theme). Terminal
+-- colours, diagnostics and the plugin groups below are mapped too.
+-- Dark only: the theme sets background=dark.
 --
--- Use:   :set rtp^=<path to generated/nvim> | colorscheme samisdat
--- Light: :set background=light | colorscheme samisdat`;
+-- Use:   :set rtp^=<path to generated/nvim> | colorscheme samisdat`;
 
 // Base tokens for the tokyonight \`on_colors\` surfaces/text/status mapping.
 const BASE_IDS = [
@@ -25,8 +24,9 @@ const BASE_IDS = [
   "border.default",
   "border.muted",
   "border.focus",
-  "selection",
   "highlight",
+  "nvim.cursorline",
+  "nvim.visual",
   "diff.add",
   "diff.delete",
   "diff.change",
@@ -84,17 +84,13 @@ const luaTable = (entries: Record<string, string>, indent: string) =>
     .join("\n") +
   `\n${indent}}`;
 
-const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
+const render = (dark: Record<string, string>) =>
   [
     HEADER,
     "",
-    "local T = {",
-    `  dark = ${luaTable(perMode.dark, "  ")},`,
-    `  light = ${luaTable(perMode.light, "  ")},`,
-    "}",
+    `local t = ${luaTable(dark, "")}`,
     "",
-    'local mode = vim.o.background == "light" and "light" or "dark"',
-    "local t = T[mode]",
+    'vim.o.background = "dark"',
     "",
     ...TERMINAL_ANSI_IDS.map(
       (id, i) => `vim.g.terminal_color_${i} = t["${id}"]`,
@@ -107,7 +103,7 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     "end",
     "",
     "tokyonight.load({",
-    '  style = mode == "light" and "day" or "moon",',
+    '  style = "moon",',
     "  cache = false,",
     "  on_colors = function(c)",
     '    -- surfaces: editor = code background (syntax.background), floats/sidebars = page surface',
@@ -118,9 +114,10 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     '    c.bg_sidebar = t["surface.default"]',
     '    c.bg_popup = t["surface.default"]',
     '    c.bg_statusline = t["surface.default"]',
-    '    c.bg_highlight = t["highlight"]',
-    '    c.bg_visual = t["selection"]',
-    '    c.bg_search = t["selection"]',
+    '    -- three distinct fills: CursorLine blue, Visual purple, references/search inverted (on_highlights)',
+    '    c.bg_highlight = t["nvim.cursorline"]',
+    '    c.bg_visual = t["nvim.visual"]',
+    '    c.bg_search = t["nvim.visual"]',
     '    c.diff.add = t["diff.add"]',
     '    c.diff.delete = t["diff.delete"]',
     '    c.diff.change = t["diff.change"]',
@@ -168,6 +165,15 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
     '    set({ "@module", "@namespace" }, { fg = s("variable") })',
     '    set({ "Added", "diffAdded", "@diff.plus" }, { fg = s("diff-plus") })',
     '    set({ "Removed", "diffRemoved", "@diff.minus" }, { fg = s("diff-minus") })',
+    "    -- word highlights and search: inverted (text.default as fill, syntax.background as text).",
+    "    -- tokyonight puts references on fg_gutter (border.muted), which is barely darker than the text.",
+    '    local inverted = { fg = t["syntax.background"], bg = t["text.default"] }',
+    '    set({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite", "IlluminatedWordText", "IlluminatedWordRead",',
+    '      "IlluminatedWordWrite", "illuminatedWord", "illuminatedCurWord", "Search" }, inverted)',
+    '    set({ "IncSearch", "CurSearch" }, vim.tbl_extend("force", inverted, { bold = true }))',
+    '    set({ "PmenuSel" }, { bg = t["nvim.cursorline"] })',
+    '    set({ "PmenuMatchSel" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })',
+    '    set({ "Folded" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })',
     "    -- diagnostics",
     '    set({ "DiagnosticError", "DiagnosticVirtualTextError" }, { fg = c.error })',
     '    set({ "DiagnosticWarn", "DiagnosticVirtualTextWarn" }, { fg = c.warning })',
@@ -247,9 +253,9 @@ const render = (perMode: Record<"dark" | "light", Record<string, string>>) =>
 /**
  * Emits the nvim theme (`colors/samisdat.lua`) from the level 3 `syntax.*`
  * tokens plus the surface/text/status tokens used for tokyonight's base
- * `on_colors`. The theme sits on top of tokyonight (moon for dark, day for
- * light) and covers syntax highlighting, terminal colours and diagnostics;
- * plugin-specific highlight groups are later tickets.
+ * `on_colors`. The theme sits on top of tokyonight moon and is dark only
+ * (light was never used); the light permutation is still checked for missing
+ * tokens but not emitted.
  */
 export default function pluginNvim(): Plugin {
   return {
@@ -289,12 +295,9 @@ export default function pluginNvim(): Plugin {
         perMode[mode as "dark" | "light"] = hex;
       }
 
-      if (!perMode.dark || !perMode.light) return;
+      if (!perMode.dark) return;
 
-      outputFile(
-        "nvim/colors/samisdat.lua",
-        render(perMode as Record<"dark" | "light", Record<string, string>>),
-      );
+      outputFile("nvim/colors/samisdat.lua", render(perMode.dark));
     },
   };
 }

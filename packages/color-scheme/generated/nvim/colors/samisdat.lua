@@ -1,130 +1,71 @@
 -- Generated – do not edit.
 -- Source: tokens/*.tokens.json, built by `pnpm --filter @samisdat/color-scheme build`.
--- Base: tokyonight (moon for dark, day for light); surfaces, text, status and
--- syntax groups are replaced with samisdat values (same mapping as the Shiki
--- theme). Terminal colours and diagnostics are mapped too; plugin-specific
--- highlight groups are out of scope for now.
+-- Base: tokyonight moon; surfaces, text, status and syntax groups are
+-- replaced with samisdat values (same mapping as the Shiki theme). Terminal
+-- colours, diagnostics and the plugin groups below are mapped too.
+-- Dark only: the theme sets background=dark.
 --
 -- Use:   :set rtp^=<path to generated/nvim> | colorscheme samisdat
--- Light: :set background=light | colorscheme samisdat
 
-local T = {
-  dark = {
-    ["syntax.foreground"] = "#e6c7c1",
-    ["syntax.background"] = "#0f051d",
-    ["surface.default"] = "#1e142e",
-    ["surface.emphasis"] = "#0f051d",
-    ["text.default"] = "#e6c7c1",
-    ["text.secondary"] = "#ceafa9",
-    ["text.muted"] = "#997c77",
-    ["text.subtle"] = "#a58782",
-    ["ink.lapis"] = "#aecbff",
-    ["border.default"] = "#978cae",
-    ["border.muted"] = "#7b728c",
-    ["border.focus"] = "#1ad4e0",
-    ["selection"] = "#45385b",
-    ["highlight"] = "#45385b",
-    ["diff.add"] = "#274c1f",
-    ["diff.delete"] = "#8c1134",
-    ["diff.change"] = "#1d3c8f",
-    ["status.danger"] = "#fe8770",
-    ["status.warning"] = "#e7a75c",
-    ["status.info"] = "#6fbaff",
-    ["ink.turquoise"] = "#1ad4e0",
-    ["terminal.ansi0"] = "#0f051d",
-    ["terminal.ansi1"] = "#fe8770",
-    ["terminal.ansi2"] = "#0fcc82",
-    ["terminal.ansi3"] = "#f7bf27",
-    ["terminal.ansi4"] = "#6fbaff",
-    ["terminal.ansi5"] = "#c0abe0",
-    ["terminal.ansi6"] = "#94c2c3",
-    ["terminal.ansi7"] = "#e6c7c1",
-    ["terminal.ansi8"] = "#7b728c",
-    ["terminal.ansi9"] = "#e7a75c",
-    ["terminal.ansi10"] = "#0fcc82",
-    ["terminal.ansi11"] = "#f7bf27",
-    ["terminal.ansi12"] = "#6fbaff",
-    ["terminal.ansi13"] = "#fe90ff",
-    ["terminal.ansi14"] = "#1ad4e0",
-    ["terminal.ansi15"] = "#f6d5d0",
-    ["syntax.comment"] = "#aecbff",
-    ["syntax.keyword"] = "#fe8770",
-    ["syntax.string"] = "#0fcc82",
-    ["syntax.string-special"] = "#94c2c3",
-    ["syntax.number"] = "#0fcc82",
-    ["syntax.constant"] = "#0fcc82",
-    ["syntax.function"] = "#6fbaff",
-    ["syntax.type"] = "#94c2c3",
-    ["syntax.variable"] = "#e6c7c1",
-    ["syntax.parameter"] = "#f7bf27",
-    ["syntax.property"] = "#1ad4e0",
-    ["syntax.tag"] = "#fe90ff",
-    ["syntax.tag-attribute"] = "#c0abe0",
-    ["syntax.operator"] = "#ceafa9",
-    ["syntax.punctuation"] = "#ceafa9",
-    ["syntax.diff-plus"] = "#0fcc82",
-    ["syntax.diff-minus"] = "#fe8770",
-  },
-  light = {
-    ["syntax.foreground"] = "#1e142e",
-    ["syntax.background"] = "#f9f2ee",
-    ["surface.default"] = "#f4e4dc",
-    ["surface.emphasis"] = "#9d8b81",
-    ["text.default"] = "#1e142e",
-    ["text.secondary"] = "#45385b",
-    ["text.muted"] = "#5c5049",
-    ["text.subtle"] = "#574c6a",
-    ["ink.lapis"] = "#014ce6",
-    ["border.default"] = "#5c5049",
-    ["border.muted"] = "#baa69b",
-    ["border.focus"] = "#087473",
-    ["selection"] = "#c0abe0",
-    ["highlight"] = "#dde8fe",
-    ["diff.add"] = "#d8f6e1",
-    ["diff.delete"] = "#ffdee1",
-    ["diff.change"] = "#e4edff",
-    ["status.danger"] = "#c02000",
-    ["status.warning"] = "#6e5a3d",
-    ["status.info"] = "#236792",
-    ["ink.turquoise"] = "#087473",
-    ["terminal.ansi0"] = "#0f051d",
-    ["terminal.ansi1"] = "#c02000",
-    ["terminal.ansi2"] = "#047233",
-    ["terminal.ansi3"] = "#8b5f01",
-    ["terminal.ansi4"] = "#236792",
-    ["terminal.ansi5"] = "#754db2",
-    ["terminal.ansi6"] = "#475e5f",
-    ["terminal.ansi7"] = "#f4e4dc",
-    ["terminal.ansi8"] = "#1e142e",
-    ["terminal.ansi9"] = "#6e5a3d",
-    ["terminal.ansi10"] = "#047233",
-    ["terminal.ansi11"] = "#8b5f01",
-    ["terminal.ansi12"] = "#236792",
-    ["terminal.ansi13"] = "#ae01b3",
-    ["terminal.ansi14"] = "#087473",
-    ["terminal.ansi15"] = "#f9f2ee",
-    ["syntax.comment"] = "#014ce6",
-    ["syntax.keyword"] = "#c02000",
-    ["syntax.string"] = "#047233",
-    ["syntax.string-special"] = "#475e5f",
-    ["syntax.number"] = "#047233",
-    ["syntax.constant"] = "#047233",
-    ["syntax.function"] = "#236792",
-    ["syntax.type"] = "#475e5f",
-    ["syntax.variable"] = "#1e142e",
-    ["syntax.parameter"] = "#8b5f01",
-    ["syntax.property"] = "#087473",
-    ["syntax.tag"] = "#ae01b3",
-    ["syntax.tag-attribute"] = "#754db2",
-    ["syntax.operator"] = "#45385b",
-    ["syntax.punctuation"] = "#45385b",
-    ["syntax.diff-plus"] = "#047233",
-    ["syntax.diff-minus"] = "#c02000",
-  },
+local t = {
+  ["syntax.foreground"] = "#e6c7c1",
+  ["syntax.background"] = "#0f051d",
+  ["surface.default"] = "#1e142e",
+  ["surface.emphasis"] = "#0f051d",
+  ["text.default"] = "#e6c7c1",
+  ["text.secondary"] = "#ceafa9",
+  ["text.muted"] = "#997c77",
+  ["text.subtle"] = "#a58782",
+  ["ink.lapis"] = "#aecbff",
+  ["border.default"] = "#978cae",
+  ["border.muted"] = "#7b728c",
+  ["border.focus"] = "#1ad4e0",
+  ["highlight"] = "#45385b",
+  ["nvim.cursorline"] = "#112867",
+  ["nvim.visual"] = "#3e1161",
+  ["diff.add"] = "#274c1f",
+  ["diff.delete"] = "#8c1134",
+  ["diff.change"] = "#1d3c8f",
+  ["status.danger"] = "#fe8770",
+  ["status.warning"] = "#e7a75c",
+  ["status.info"] = "#6fbaff",
+  ["ink.turquoise"] = "#1ad4e0",
+  ["terminal.ansi0"] = "#0f051d",
+  ["terminal.ansi1"] = "#fe8770",
+  ["terminal.ansi2"] = "#0fcc82",
+  ["terminal.ansi3"] = "#f7bf27",
+  ["terminal.ansi4"] = "#6fbaff",
+  ["terminal.ansi5"] = "#c0abe0",
+  ["terminal.ansi6"] = "#94c2c3",
+  ["terminal.ansi7"] = "#e6c7c1",
+  ["terminal.ansi8"] = "#7b728c",
+  ["terminal.ansi9"] = "#e7a75c",
+  ["terminal.ansi10"] = "#0fcc82",
+  ["terminal.ansi11"] = "#f7bf27",
+  ["terminal.ansi12"] = "#6fbaff",
+  ["terminal.ansi13"] = "#fe90ff",
+  ["terminal.ansi14"] = "#1ad4e0",
+  ["terminal.ansi15"] = "#f6d5d0",
+  ["syntax.comment"] = "#aecbff",
+  ["syntax.keyword"] = "#fe8770",
+  ["syntax.string"] = "#0fcc82",
+  ["syntax.string-special"] = "#94c2c3",
+  ["syntax.number"] = "#0fcc82",
+  ["syntax.constant"] = "#0fcc82",
+  ["syntax.function"] = "#6fbaff",
+  ["syntax.type"] = "#94c2c3",
+  ["syntax.variable"] = "#e6c7c1",
+  ["syntax.parameter"] = "#f7bf27",
+  ["syntax.property"] = "#1ad4e0",
+  ["syntax.tag"] = "#fe90ff",
+  ["syntax.tag-attribute"] = "#c0abe0",
+  ["syntax.operator"] = "#ceafa9",
+  ["syntax.punctuation"] = "#ceafa9",
+  ["syntax.diff-plus"] = "#0fcc82",
+  ["syntax.diff-minus"] = "#fe8770",
 }
 
-local mode = vim.o.background == "light" and "light" or "dark"
-local t = T[mode]
+vim.o.background = "dark"
 
 vim.g.terminal_color_0 = t["terminal.ansi0"]
 vim.g.terminal_color_1 = t["terminal.ansi1"]
@@ -150,7 +91,7 @@ if not ok then
 end
 
 tokyonight.load({
-  style = mode == "light" and "day" or "moon",
+  style = "moon",
   cache = false,
   on_colors = function(c)
     -- surfaces: editor = code background (syntax.background), floats/sidebars = page surface
@@ -161,9 +102,10 @@ tokyonight.load({
     c.bg_sidebar = t["surface.default"]
     c.bg_popup = t["surface.default"]
     c.bg_statusline = t["surface.default"]
-    c.bg_highlight = t["highlight"]
-    c.bg_visual = t["selection"]
-    c.bg_search = t["selection"]
+    -- three distinct fills: CursorLine blue, Visual purple, references/search inverted (on_highlights)
+    c.bg_highlight = t["nvim.cursorline"]
+    c.bg_visual = t["nvim.visual"]
+    c.bg_search = t["nvim.visual"]
     c.diff.add = t["diff.add"]
     c.diff.delete = t["diff.delete"]
     c.diff.change = t["diff.change"]
@@ -211,6 +153,15 @@ tokyonight.load({
     set({ "@module", "@namespace" }, { fg = s("variable") })
     set({ "Added", "diffAdded", "@diff.plus" }, { fg = s("diff-plus") })
     set({ "Removed", "diffRemoved", "@diff.minus" }, { fg = s("diff-minus") })
+    -- word highlights and search: inverted (text.default as fill, syntax.background as text).
+    -- tokyonight puts references on fg_gutter (border.muted), which is barely darker than the text.
+    local inverted = { fg = t["syntax.background"], bg = t["text.default"] }
+    set({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite", "IlluminatedWordText", "IlluminatedWordRead",
+      "IlluminatedWordWrite", "illuminatedWord", "illuminatedCurWord", "Search" }, inverted)
+    set({ "IncSearch", "CurSearch" }, vim.tbl_extend("force", inverted, { bold = true }))
+    set({ "PmenuSel" }, { bg = t["nvim.cursorline"] })
+    set({ "PmenuMatchSel" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })
+    set({ "Folded" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })
     -- diagnostics
     set({ "DiagnosticError", "DiagnosticVirtualTextError" }, { fg = c.error })
     set({ "DiagnosticWarn", "DiagnosticVirtualTextWarn" }, { fg = c.warning })
