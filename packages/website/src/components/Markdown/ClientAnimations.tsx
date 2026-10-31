@@ -36,9 +36,9 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Smil/Schwebebahn').then(mod => ({
             default: mod.DemoSmilSchwebebahn,
         })),
-      DemoSmilMorphHeart: () =>
-        import('@samisdat/ui-components/Demo/Smil/MorphHeart').then(mod => ({
-            default: mod.DemoSmilMorphHeart,
+      DemoSmilMorphIcons: () =>
+        import('@samisdat/ui-components/Demo/Smil/MorphIcons').then(mod => ({
+            default: mod.DemoSmilMorphIcons,
         })),
       DemoSmilMorphHills: () =>
         import('@samisdat/ui-components/Demo/Smil/MorphHills').then(mod => ({
@@ -106,7 +106,7 @@ export const demos = createDynamicDemos();
 export const DemoSmilDisc = demos.DemoSmilDisc;
 export const DemoSmilMorphMistakes = demos.DemoSmilMorphMistakes;
 export const DemoSmilSchwebebahn = demos.DemoSmilSchwebebahn;
-export const DemoSmilMorphHeart = demos.DemoSmilMorphHeart;
+export const DemoSmilMorphIcons = demos.DemoSmilMorphIcons;
 export const DemoSmilMorphHills = demos.DemoSmilMorphHills;
 export const DemoSmilCrank = demos.DemoSmilCrank;
 export const DemoSmilCrankFormula = demos.DemoSmilCrankFormula;
