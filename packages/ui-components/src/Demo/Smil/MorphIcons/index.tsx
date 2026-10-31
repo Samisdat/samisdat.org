@@ -18,11 +18,6 @@ const SvgStyling = styled.svg`
     opacity: 0.5;
   }
 
-  .heart {
-    fill: currentColor;
-    color: var(--color-ink-ruby, #d94a4a);
-  }
-
   .thumb path {
     fill-rule: nonzero;
     fill: currentColor;
@@ -52,7 +47,7 @@ const thumbPathA =
 const thumbPathB =
   "M360,48c13.3,0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9c0,-13.3 10.7,-24 24,-24Zm-136,24c0,-13.3 10.7,-24 24,-24c13.3,-0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9Z";
 
-export const DemoSmilMorphHeart = () => {
+export const DemoSmilMorphIcons = () => {
   const ctx = useDemoContext();
   const [baseDuration] = useState(
     () => parseFloat(ctx?.values.duration ?? "3") || 3,

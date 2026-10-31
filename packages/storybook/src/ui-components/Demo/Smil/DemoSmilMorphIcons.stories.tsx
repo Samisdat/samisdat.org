@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { DemoSmilMorphHeart } from "@samisdat/ui-components/Demo/Smil/MorphHeart";
+import { DemoSmilMorphIcons } from "@samisdat/ui-components/Demo/Smil/MorphIcons";
 
 const meta = {
-  title: "Demo/Smil/MorphHeart",
-  component: DemoSmilMorphHeart,
+  title: "Demo/Smil/MorphIcons",
+  component: DemoSmilMorphIcons,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof DemoSmilMorphHeart>;
+} satisfies Meta<typeof DemoSmilMorphIcons>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
