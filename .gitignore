@@ -53,9 +53,10 @@ storybook-static
 
 .idea
 
-# .claude lokal halten — außer dem skills-Verweis auf .agents/skills
+# .claude lokal halten — außer dem skills-Verweis auf .agents/skills und den geteilten Hooks
 .claude/*
 !.claude/skills
+!.claude/settings.json
 
 # UPPERCASE.md sind temporäre Arbeitsnotizen (ADR 0013)
 [A-Z]*[A-Z].md
