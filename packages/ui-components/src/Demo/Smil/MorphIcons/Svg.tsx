@@ -1,14 +1,6 @@
 "use client";
 
 import { styled } from "@linaria/react";
-import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import {
-  formatDuration,
-  SPEED_MULTIPLIER_PROPS,
-  useSpeedDuration,
-} from "../../PlaybackControl/useSpeedDuration";
-import { useDemoContext } from "../DemoContext";
-import { useCallback, useEffect, useRef, useState } from "react";
 
 const SvgStyling = styled.svg`
   rect {
@@ -16,11 +8,6 @@ const SvgStyling = styled.svg`
     stroke: black;
     stroke-width: 48px;
     opacity: 0.5;
-  }
-
-  .heart {
-    fill: currentColor;
-    color: var(--color-ink-ruby, #d94a4a);
   }
 
   .thumb path {
@@ -52,82 +39,8 @@ const thumbPathA =
 const thumbPathB =
   "M360,48c13.3,0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9c0,-13.3 10.7,-24 24,-24Zm-136,24c0,-13.3 10.7,-24 24,-24c13.3,-0 24,10.7 24,24c0,38.9 -23.4,59.4 -39.1,73.1l-1.1,1c-16.3,14.3 -23.8,21.8 -23.8,37.9c0,13.3 -10.7,24 -24,24c-13.3,-0 -24,-10.7 -24,-24c0,-38.9 23.4,-59.4 39.1,-73.1l1.1,-1c16.3,-14.2 23.8,-21.8 23.8,-37.9Z";
 
-export const DemoAnimationsMorphHeart = () => {
-  const ctx = useDemoContext();
-  const [baseDuration] = useState(
-    () => parseFloat(ctx?.values.duration ?? "3") || 3,
-  );
-  const { speed, setSpeed, resetSpeed, duration } =
-    useSpeedDuration(baseDuration);
-  const setContextValue = ctx?.setValue;
-
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const getSvg = useCallback(
-    () => containerRef.current?.querySelector<SVGSVGElement>("svg") ?? null,
-    [],
-  );
-
-  useEffect(() => {
-    const svg = getSvg();
-    if (!svg) return;
-    svg.pauseAnimations();
-    svg.setCurrentTime(0);
-  }, [getSvg]);
-
-  useEffect(() => {
-    const svg = getSvg();
-    if (!svg) return;
-    svg
-      .querySelectorAll("animate")
-      .forEach((el) => el.setAttribute("dur", `${duration}s`));
-  }, [getSvg, duration]);
-
-  const onSpeedChange = useCallback(
-    (value: number) => {
-      setSpeed(value);
-      setContextValue?.("duration", formatDuration(baseDuration / value));
-    },
-    [baseDuration, setContextValue, setSpeed],
-  );
-
-  const onPlay = useCallback(() => {
-    getSvg()?.unpauseAnimations();
-    setIsPlaying(true);
-  }, [getSvg]);
-
-  const onPause = useCallback(() => {
-    getSvg()?.pauseAnimations();
-    setIsPlaying(false);
-  }, [getSvg]);
-
-  const onReset = useCallback(() => {
-    const svg = getSvg();
-    if (svg) {
-      svg.pauseAnimations();
-      svg.setCurrentTime(0);
-    }
-    resetSpeed();
-    setContextValue?.("duration", formatDuration(baseDuration));
-    setIsPlaying(false);
-  }, [getSvg, baseDuration, setContextValue, resetSpeed]);
-
-  return (
-    <DemoAnimation
-      ref={containerRef}
-      playbackControl={{
-        isPlaying,
-        ...SPEED_MULTIPLIER_PROPS,
-        speed,
-        onSpeedChange,
-        onPlay,
-        onPause,
-        onReset,
-      }}
-    >
-      <SvgStyling viewBox={`0 0 ${640 * 2} 640`} aria-hidden="true">
+export const SmilMorphIcons = () =>  (
+     <SvgStyling viewBox={`0 0 ${640 * 2} 640`} aria-hidden="true">
         <svg x="0" y="0" width="640" height="640" viewBox="0 0 640 640">
           <g className="thumb">
             <path d="M443.706,208l28.294,0l7.4,0.4c36.3,3.7 64.6,34.4 64.6,71.6c0,13.2 -3.6,25.4 -9.8,36c6.1,10.6 9.7,22.8 9.8,36c0,18.3 -6.9,34.8 -18,47.5c1.3,5.3 2,10.8 2,16.5c0,25.1 -12.9,47 -32.2,59.9c-1.9,35.5 -29.4,64.2 -64.4,67.7l-7.4,0.4l-104.1,0c-18,0 -35.9,-3.4 -52.6,-9.9l-7.1,-3l-0.7,-0.3l-6.6,-3.2l-0.7,-0.3l-12.2,-6.5l-1.134,-0.606l-1.127,-0.616l-1.677,-0.942l-1.66,-0.963l-1.642,-0.983l-1.313,-0.809l-1.554,-0.983l-1.178,-0.765l-0.98,-0.649l-0.457,-0.307c-4.772,-3.217 -9.308,-6.702 -13.599,-10.418l-1.268,-1.11l-0.387,-0.345l-0.948,-0.854l-1.15,-1.055l-0.815,-0.763l-0.303,-0.286c-0.574,-0.545 -1.144,-1.093 -1.708,-1.646c-0.036,0.237 -0.074,0.473 -0.113,0.712c-15.214,-12.712 -32.987,-31.571 -32.987,-51.527l-0,-164.752l37.8,-0l-0,111.567l0.2,7.9c2.4,32.7 21.4,62.1 50.7,77.7l11.5,6.1l6.3,3.1c12.4,5.6 25.8,8.5 39.4,8.5l104.1,-0l2.4,-0.1c12.1,-1.2 21.6,-11.5 21.6,-23.9l-0.2,-2.6c-0.1,-0.9 -0.2,-1.7 -0.4,-2.6c-2.7,-12.1 4.3,-24.2 16,-28c9.7,-3.1 16.6,-12.2 16.6,-22.8c-0,-4.3 -1.1,-8.2 -3.1,-11.8c-6.3,-11.1 -2.8,-25.2 8,-32c6.8,-4.3 11.2,-11.8 11.2,-20.2c-0,-7.1 -3.1,-13.5 -8.2,-18c-5.2,-4.6 -8.2,-11.1 -8.2,-18c-0,-6.9 3,-13.4 8.2,-18c5.1,-4.5 8.2,-10.9 8.2,-18l-0.1,-2.4c-1.1,-11.3 -10.1,-20.3 -21.4,-21.4l-2.4,-0.1l-28.494,-0l-0,-48.1Z" />
@@ -160,6 +73,4 @@ export const DemoAnimationsMorphHeart = () => {
           </g>
         </svg>
       </SvgStyling>
-    </DemoAnimation>
   );
-};

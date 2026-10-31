@@ -1,7 +1,5 @@
-import { panoramaCssVars } from "@samisdat/wtal-panorama/colors";
 import { styled } from "@linaria/react";
-import { DemoAnimation } from "@samisdat/ui-components/DemoAnimation";
-import { useEffect, useRef, useState } from "react";
+import { panoramaCssVars } from "@samisdat/wtal-panorama/colors";
 const HillsSvgStyling = styled.svg`
   & svg {
     fill-rule: evenodd;
@@ -40,51 +38,8 @@ const steam4 =
 const BACK_FACTOR = 1.6;
 const EASING = "0.37 0 0.63 1";
 
-export const DemoAnimationsMorphHills = () => {
-  const containerRef = useRef<HTMLDivElement | null>(null);
-
-  const [speed, setSpeed] = useState<number>(10);
-
-  const [isPlaying, setIsPlaying] = useState<boolean>(false);
-
-  const onSpeedChange = (value: number) => {
-    setSpeed(value);
-  };
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const animates =
-      containerRef.current.querySelectorAll<SVGAnimateElement>("animate");
-    animates[0]?.setAttribute("dur", `${speed * BACK_FACTOR}s`);
-    animates[1]?.setAttribute("dur", `${speed}s`);
-  }, [speed]);
-
-  const onPlay = () => {
-    setIsPlaying(true);
-  };
-  const onPause = () => {
-    setIsPlaying(false);
-  };
-  const onReset = () => {
-    setIsPlaying(false);
-  };
-
-  return (
-    <DemoAnimation
-      ref={containerRef}
-      playbackControl={{
-        isPlaying,
-        speedMin: 1,
-        speedMax: 30,
-        speed,
-        speedControl: false,
-        onSpeedChange,
-        onPlay,
-        onPause,
-        onReset,
-      }}
-    >
-      <HillsSvgStyling viewBox="0 0 50 50">
+export const SmilMorphHills = ({ speed }: { speed: number }) => (
+     <HillsSvgStyling viewBox="0 0 50 50">
         <rect x="0" y="0" width="50" height="50" />
         <path d={steam1} className="hill-back">
           <animate
@@ -109,6 +64,4 @@ export const DemoAnimationsMorphHills = () => {
           />
         </path>
       </HillsSvgStyling>
-    </DemoAnimation>
   );
-};

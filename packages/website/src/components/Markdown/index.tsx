@@ -28,6 +28,7 @@ import {
     SnapshotModes,
     SnapshotScales,
 } from '@samisdat/ui-components/ColorSchemeSnapshot';
+import { DemoSmilMorphMistakes } from '@samisdat/ui-components/Demo/Smil/MorphMistakes';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -98,20 +99,20 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         },
         // Demo-Komponenten aus Registry: explizite Named Exports für MDX-Build-Zeit-Analyse
         DemoAnimationsCompare: ClientDemos.DemoAnimationsCompare,
-        DemoAnimationsSvg: ClientDemos.DemoAnimationsSvg,
         DemoAnimationsCssJs: ClientDemos.DemoAnimationsCssJs,
         DemoAnimationsJsAttributes: ClientDemos.DemoAnimationsJsAttributes,
         DemoAnimationsMorphThumb: ClientDemos.DemoAnimationsMorphThumb,
         DemoAnimationsMorphCoffee: ClientDemos.DemoAnimationsMorphCoffee,
-        DemoAnimationsMorphHills: ClientDemos.DemoAnimationsMorphHills,
-        DemoAnimationsMorphGood: ClientDemos.DemoAnimationsMorphGood,
-        DemoAnimationsMorphHeart: ClientDemos.DemoAnimationsMorphHeart,
+        DemoSmilMorphMistakes: ClientDemos.DemoSmilMorphMistakes,
+        DemoSmilSchwebebahn: ClientDemos.DemoSmilSchwebebahn,
+        DemoSmilMorphIcons: ClientDemos.DemoSmilMorphIcons,
+        DemoSmilMorphHills: ClientDemos.DemoSmilMorphHills,
         DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
         DemoParallaxHills: ClientDemos.DemoParallaxHills,
         DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
-        DemoAnimationsDisc: ClientDemos.DemoAnimationsDisc,
-        DemoAnimationsCrank: ClientDemos.DemoAnimationsCrank,
-        DemoAnimationsCrankFormula: ClientDemos.DemoAnimationsCrankFormula,
+        DemoSmilDisc: ClientDemos.DemoSmilDisc,
+        DemoSmilCrank: ClientDemos.DemoSmilCrank,
+        DemoSmilCrankFormula: ClientDemos.DemoSmilCrankFormula,
         // Color scheme snapshot: frame loads content/snapshots/<id>.json, blocks render it
         ColorSchemeSnapshot: SnapshotFrame,
         SnapshotInks,
