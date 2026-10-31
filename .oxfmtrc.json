@@ -33,5 +33,18 @@
       "type",
       "unknown"
     ]
-  }
+  },
+  "overrides": [
+    {
+      "files": [
+        "**/*.toml",
+        "**/*.yml",
+        "**/*.yaml",
+        "**/*.json"
+      ],
+      "options": {
+        "tabWidth": 2
+      }
+    }
+  ]
 }

@@ -21,6 +21,8 @@ PostToolUse-Hook, der nach jedem Edit läuft, ist das zu langsam. oxfmt braucht
   externe Pakete, interne, relative (`parent`/`sibling`/`index`), Styles, Types, Rest;
   zwischen den Gruppen steht eine Leerzeile. Es entfernt keine ungenutzten Imports
   (das konnte `organize-imports`), die meldet oxlint.
+- **TOML, YAML und JSON** bekommen per `overrides` `tabWidth: 2` (wie pnpm es für
+  `package.json` schreibt); Code bleibt bei 4.
 - Neovim (conform.nvim) und der Claude-Hook nutzen oxfmt, sobald `.oxfmtrc.json` und
   die lokale Binary da sind. Ohne Config bleibt Neovim bei prettierd.
 - Prettier bleibt vorerst für die `format`-Skripte und qlty. Die Frage, ob Prettier
