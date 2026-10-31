@@ -1,0 +1,109 @@
+---
+title: Was ein Linter über LLM-Code verrät
+date: 2026-10-31T00:00:00.000Z
+published: false
+description: Das Scholion ist zu 100 % von einem LLM geschrieben und funktioniert. Warum markiert qlty es trotzdem als Hotspot, und wie sieht handgeschriebener Code im Vergleich aus?
+---
+
+Das [Scholion](/posts/scholion-demo) in diesem Blog ist zu 100 % von einem LLM geschrieben.
+Es funktioniert, ist getestet und hat die a11y-Details, die ich selbst eher vergessen hätte.
+Trotzdem steht es in [qlty](https://qlty.sh) ganz oben in der Hotspot-Liste.
+
+Dieser Post ist kein Urteil über LLMs.
+Er vergleicht zwei Entstehungsweisen mit denselben Metriken: das Scholion und das Panorama aus dem Header, das ich überwiegend von Hand gebaut habe.
+
+## Wie schnell es ging
+
+Gestartet habe ich am 3. Oktober, dem Tag der Einheit.
+Die Idee und ein lauffähiger Prototyp als einzelne HTML-Datei lagen schon vor, der Rest entstand mit dem LLM im Repo.
+Nach rund 1 h 15 war die erste lauffähige Stufe da: das Markdown-Plugin und ein Demo-Post.
+
+## Ausgangslage
+
+Die Projekt-Note ist ein A.
+Zwei Dateien haben ein F.
+
+![qlty Cloud: Übersicht mit Trend, Sunburst und Hotspot-Liste](/posts/llm-vs-hand-qlty/qlty-overview.png)
+
+Das ist keine Ungereimtheit.
+Die Projekt-Note hängt an der Technical Debt Ratio, also dem Aufwand, alle Smells zu beheben, geteilt durch den geschätzten Aufwand, alles neu zu schreiben.
+Bei 1,87 % ist das ein A.
+Die Datei-Note ist laut Doku eine logarithmische Funktion der Technical Debt der Datei, feste Grenzen nennt qlty dafür nicht.
+Eine Gesamtnote versteckt also Ausreißer.
+
+## Warum das Scholion ein Hotspot ist
+
+Es sind nur zwei Funktionen.
+
+| Datei | Funktion | kognitiv | Zeilen |
+| --- | --- | --- | --- |
+| `ScholionProvider.tsx` | `ScholionRuntime` | 75 | 204 |
+| `useScholionLayout.ts` | `useScholionLayout` | 45 | 110 |
+| `transformer.ts` | `wrapRef` | 22 | 57 |
+| `remark.ts` | `remarkScholion` | 22 | 57 |
+
+![ScholionProvider.tsx in qlty: Note F, 81 Komplexität](/posts/llm-vs-hand-qlty/qlty-provider.png)
+
+`ScholionRuntime` ist eine einzelne Komponente mit sieben Document-Listenern, vier Effekten und der Scroll- und Fokus-Logik.
+Jedes Feature passt lokal.
+Zusammen sind sie eine Funktion, die niemand mehr überblickt.
+
+Die reine Logik dagegen ist klein und sauber zerlegt: `state.ts`, `layout.ts` und `scan.ts` liegen bei maximal 20, dazu kommen 73 Tests.
+Das Problem liegt im Glue-Code zwischen DOM, React und State, nicht in der Fachlogik.
+
+![useScholionLayout.ts in qlty: Note F, 53 Komplexität](/posts/llm-vs-hand-qlty/qlty-layout.png)
+
+## Der Vergleich
+
+Als Gegenstück dient das Panorama.
+Die Basis stammt aus Dezember 2024 und liegt in [wtal-panorama](https://github.com/Samisdat/wtal-panorama).
+Als Messpunkt nehme ich den Stand von Juni 2025, vor den Änderungen ab Oktober 2025.
+
+|  | Panorama Juni 2025 | Panorama heute | Scholion |
+| --- | --- | --- | --- |
+| Komplexeste Datei (kognitiv) | 9 | 30 | 81 |
+| Funktions-Smells | 0 | 3 | 7 |
+| Duplikation | 7 | 6 (SVG-Gebäude) | 0 |
+| Tests | 0 | 1 (testet nur `suncalc`) | 73 |
+
+Die Fehlerarten sind fast spiegelbildlich.
+Von Hand habe ich kopiert: Im Panorama stehen 27 bis 33 Zeilen mehrfach in `Panorama.tsx`.
+Das LLM dupliziert nichts, verdichtet dafür alles in einer Funktion.
+
+Beim Panorama zeigt `TalContext` denselben Mechanismus.
+Die Komplexität stieg von 9 auf 30, sobald Zeitsteuerung, Sonnenstand und Reduced-Motion in dieselbe Komponente angebaut wurden.
+Anbauen in eine bestehende Funktion erzeugt den Hotspot, egal wer schreibt.
+
+Ehrlich dazu: Die Vergleichbarkeit hat Grenzen.
+Das Scholion ist größer und deutlich interaktiver als die Panorama-Animation.
+Verglichen werden deshalb die Arten der Smells, nicht die absoluten Noten.
+
+## Stärken und Schwächen
+
+Das LLM-Ergebnis:
+
+- Stärke: Die reine Logik ist klein, getestet und kommentiert. Die Kommentare erklären das Warum, etwa warum ein `MutationObserver` bewusst fehlt.
+- Stärke: Die a11y-Details wie `aria-describedby`, `prefers-reduced-motion` und Fokus-Management sind konsequent umgesetzt.
+- Schwäche: Die Gesamtform wächst durch Anbauen in eine Funktion.
+
+Das Handgeschriebene:
+
+- Stärke: Es ist klein, flach und direkt lesbar.
+- Schwäche: Duplikate, abgeleiteter State per Effekt, ein Tippfehler in einer Fehlermeldung, ein Kommentar, der nicht zum Wert passt, kaum Tests.
+
+## Was ich dagegen mache
+
+Noch nicht umgesetzt, aber getestet: oxlint kann `complexity`, `max-lines`, `max-lines-per-function`, `max-depth` und `max-nested-callbacks` prüfen.
+Ein Probelauf mit Grenzwerten von 10, 150 und 60 trifft zehn Stellen im Scholion.
+
+Zwei Einschränkungen:
+
+- oxlint kennt nur die zyklomatische Komplexität, nicht die kognitive von qlty. `ScholionRuntime` fällt nur über `max-lines-per-function` auf.
+- Der Bestand würde sofort rot. Neue Dateien bekommen deshalb strenge Grenzen, für den Bestand gilt eine Ausnahme, die nur sinken darf.
+
+Damit das LLM das Feedback beim Schreiben bekommt, kommt ein Claude-Code-Hook dazu: Nach jedem Edit läuft oxlint auf der Datei, und Verstöße gehen mit Exit-Code 2 zurück an das Modell.
+Ein zweiter Hook verhindert das Beenden mit offenen Fehlern.
+
+## Ergebnis
+
+_Folgt, sobald das Gate läuft: dieselben qlty-Zahlen vorher und nachher._
