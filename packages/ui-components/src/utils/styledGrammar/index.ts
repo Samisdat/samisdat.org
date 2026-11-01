@@ -1,3 +1,6 @@
+import cssStyled from './css.styled.json';
+import styledComponents from './styled-components.json';
+
 /**
  * Shiki injection grammars for CSS-in-JS (styled-components / @linaria/react).
  *
@@ -11,11 +14,9 @@
  *   styled.div`color: red;`          → CSS property + value highlighted
  *   const s = css`font-size: 1rem;`  → same
  */
-import type { LanguageRegistration } from "shiki";
-import cssStyled from "./css.styled.json";
-import styledComponents from "./styled-components.json";
+import type { LanguageRegistration } from 'shiki';
 
 export const styledGrammarLangs: LanguageRegistration[] = [
-  cssStyled as unknown as LanguageRegistration,
-  styledComponents as unknown as LanguageRegistration,
+    cssStyled as unknown as LanguageRegistration,
+    styledComponents as unknown as LanguageRegistration,
 ];

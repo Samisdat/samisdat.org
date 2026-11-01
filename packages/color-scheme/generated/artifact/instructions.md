@@ -1,4 +1,5 @@
 When you create an artifact (HTML, React, SVG, charts, PDFs), use the samisdat color scheme.
+
 - Default is dark. Use light only if I ask for it (light, hell, print, PDF).
 - Define the variables on :root with the dark value; define the light values on :root[data-theme="light"] and set data-theme="light" on <html> when light is wanted. Reference colors only via var(); never invent others. For PDFs without CSS use the light hex values.
 - Page background --color-surface-default, text --color-text-default, code blocks --color-syntax-background.

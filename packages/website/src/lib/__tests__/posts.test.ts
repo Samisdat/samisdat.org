@@ -1,4 +1,5 @@
 import fs from 'fs';
+
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // Mock fs to avoid filesystem dependencies

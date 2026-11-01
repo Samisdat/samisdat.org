@@ -1,9 +1,9 @@
 'use client';
 
-import { Grid } from '@samisdat/ui-components/Grid';
 import { styled } from '@linaria/react';
-import { CSSProperties, ReactNode, useRef } from 'react';
 import { useParallax } from '@samisdat/tools';
+import { Grid } from '@samisdat/ui-components/Grid';
+import { CSSProperties, ReactNode, useRef } from 'react';
 const Styling = styled.div`
     aspect-ratio: 450/600;
 
@@ -38,7 +38,7 @@ const Styling = styled.div`
     }
 
     & .heaven {
-        fill: url("#Linear2");
+        fill: url('#Linear2');
     }
 
     & .sun {

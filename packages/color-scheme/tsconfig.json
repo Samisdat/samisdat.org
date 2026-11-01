@@ -1,12 +1,8 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "esnext"
-    ],
-    "types": [
-      "node"
-    ],
+    "lib": ["esnext"],
+    "types": ["node"],
     "strict": true,
     "noEmit": true,
     "skipLibCheck": true,
@@ -17,12 +13,5 @@
     "isolatedModules": true,
     "allowImportingTsExtensions": true
   },
-  "include": [
-    "scripts",
-    "plugins",
-    "generated",
-    "src",
-    "terrazzo.config.ts",
-    "terrazzo.contrast.config.ts"
-  ]
+  "include": ["scripts", "plugins", "generated", "src", "terrazzo.config.ts", "terrazzo.contrast.config.ts"]
 }

@@ -1,7 +1,7 @@
-import type { CSSProperties } from 'react';
-
 import { deriveSizes, fluidCss, parsePx, type Fluid } from './fluid';
+
 import type { PresetId } from './ids';
+import type { CSSProperties } from 'react';
 
 // Pure data (no next/font), so plain Node scripts can read it, e.g. the snapshot script.
 

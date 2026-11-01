@@ -1,8 +1,10 @@
 'use client';
 
-import { useTal } from '@/lib/TalContext';
 import { useEffect, useRef, useState } from 'react';
 import * as SunCalc from 'suncalc';
+
+import { useTal } from '@/lib/TalContext';
+
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { Sun } from './Sun';

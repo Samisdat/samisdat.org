@@ -1,10 +1,13 @@
-import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
-import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
-import { PostLayout } from '@/components/PostLayout';
-import { Heading } from '@samisdat/ui-components/Heading';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import path from 'path';
+
+import { Heading } from '@samisdat/ui-components/Heading';
+import { notFound } from 'next/navigation';
+
+import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
+import { PostLayout } from '@/components/PostLayout';
+import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
+
+import type { Metadata } from 'next';
 
 const isDev = process.env.NODE_ENV === 'development';
 

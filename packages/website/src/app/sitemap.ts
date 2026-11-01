@@ -1,7 +1,7 @@
-import type { MetadataRoute } from 'next';
-
 import { SITE_URL } from '@/lib/constants';
 import { getAllPublishedPosts } from '@/lib/posts';
+
+import type { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
     const posts = getAllPublishedPosts();

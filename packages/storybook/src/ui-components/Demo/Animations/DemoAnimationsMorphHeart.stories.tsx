@@ -1,13 +1,14 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { DemoAnimationsMorphHeart } from "@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHeart";
+import { DemoAnimationsMorphHeart } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsMorphHeart';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: "Demo/Animations/MorphHeart",
-  component: DemoAnimationsMorphHeart,
-  parameters: {
-    layout: "centered",
-  },
-  tags: ["autodocs"],
+    title: 'Demo/Animations/MorphHeart',
+    component: DemoAnimationsMorphHeart,
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
 } satisfies Meta<typeof DemoAnimationsMorphHeart>;
 
 export default meta;

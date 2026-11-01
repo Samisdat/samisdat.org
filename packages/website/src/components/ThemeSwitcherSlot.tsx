@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useSyncExternalStore } from 'react';
+
 import { ThemeSwitcher } from './ThemeSwitcher';
 
 let panoramaIntersecting = true;
@@ -24,8 +25,7 @@ const subscribePanorama = (onChange: () => void) => {
 };
 
 // Ohne Panorama auf der Seite ist der Switcher immer sichtbar.
-const getPanoramaVisible = () =>
-    document.querySelector('.panorama') !== null && panoramaIntersecting;
+const getPanoramaVisible = () => document.querySelector('.panorama') !== null && panoramaIntersecting;
 
 /**
  * Blendet den ThemeSwitcher aus, solange das Panorama (`.panorama`) sichtbar

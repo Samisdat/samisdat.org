@@ -1,6 +1,7 @@
 import './parallax.css';
 
 import { CSSProperties, ReactNode, useRef } from 'react';
+
 import { useDeviceTiltParallax } from './useDeviceTiltParallax';
 import { useParallax } from './useParallax';
 

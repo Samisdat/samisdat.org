@@ -1,6 +1,7 @@
 'use client';
 
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
+
 import { useAnimationFrame } from './useAnimationFrame';
 import { useMatchMediaQuery } from './useMatchMediaQuery';
 

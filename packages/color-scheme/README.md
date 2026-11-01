@@ -6,19 +6,19 @@ Quelle der Wahrheit sind absolute OKLCH-Werte im W3C-DTCG-Format (`tokens/*.toke
 
 ## Ebenen
 
-| Ebene | Inhalt | Status |
-|---|---|---|
-| 1 · Wert | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `linen`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `periwinkle`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`) |
-| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.lapis`, `status` (weitere Rollen folgen) | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
-| 3 · Einsatzort | `syntax.*`, später `terminal.*` | `syntax.*` vorhanden (in `tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
+| Ebene          | Inhalt                                                                                                                                                    | Status                                                                          |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| 1 · Wert       | Skalen `50–950` (50 = hell) für `aubergine`, `ivory`, `linen`, `red`, `orange`, `yellow`, `green`, `teal`, `cyan`, `blue`, `periwinkle`, `purple`, `pink` | vorhanden (`tokens/primitives.tokens.json`)                                     |
+| 2 · Bedeutung  | `surface`, `text`, `ink.<hue>`, `ink.lapis`, `status` (weitere Rollen folgen)                                                                             | vorhanden (`tokens/dark.tokens.json`, `tokens/light.tokens.json`)               |
+| 3 · Einsatzort | `syntax.*`, später `terminal.*`                                                                                                                           | `syntax.*` vorhanden (in `tokens/dark.tokens.json`, `tokens/light.tokens.json`) |
 
 Ebene 1 wird nie zu einer CSS-Variable. Im Web gelangt sie als typisierter Import ins CSS:
 
 ```ts
-import { ivory } from "@samisdat/color-scheme/primitives";
+import { ivory } from '@samisdat/color-scheme/primitives';
 
 const Box = styled.div`
-  background: ${ivory[200]};
+    background: ${ivory[200]};
 `;
 ```
 
@@ -40,17 +40,17 @@ Für eine neue Hue schlägt `pnpm --filter @samisdat/color-scheme generate:scale
 
 Im Package (`pnpm --filter @samisdat/color-scheme <script>`):
 
-| Skript | Zweck |
-|---|---|
-| `build` | `tz build`: Lint plus `generated/` neu erzeugen |
-| `lint` | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts`, `scripts/lint-fill.ts` |
-| `lint:contrast` | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten) |
-| `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen |
-| `names:inks` | Namensdistanz der Inks nach c3 (Heer & Stone) pro Mode ausgeben, nur Anzeige (siehe „Farbnamen“) |
-| `compare:themes` | Syntaxfarben gegen bekannte Shiki-Themes messen und ranken, Bericht nach `reports/theme-compare/index.html` (gitignored; Methode und Grenzen in `scripts/theme-compare/README.md`) |
-| `snapshot <id>` | Aktuellen Stand für einen Blogpost einfrieren: misst alles aus den Tokens und schreibt `packages/website/content/snapshots/<id>.json` (siehe „Snapshot für Blogposts“) |
-| `dev` | `tz build --watch` |
-| `generate:scale` | Skalenvorschlag ausgeben (`--write [datei]`, `--migration`) |
+| Skript              | Zweck                                                                                                                                                                              |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `build`             | `tz build`: Lint plus `generated/` neu erzeugen                                                                                                                                    |
+| `lint`              | `tz check` (Terrazzo-Regeln), `scripts/lint-scale.ts`, `lint:contrast`, `scripts/lint-distinct.ts`, `scripts/lint-cvd.ts`, `scripts/lint-fill.ts`                                  |
+| `lint:contrast`     | Kontrast-Lint pro Mode plus Baseline-Konsistenz (siehe unten)                                                                                                                      |
+| `contrast:baseline` | `contrast-baseline.json` aus den aktuellen Werten neu erzeugen                                                                                                                     |
+| `names:inks`        | Namensdistanz der Inks nach c3 (Heer & Stone) pro Mode ausgeben, nur Anzeige (siehe „Farbnamen“)                                                                                   |
+| `compare:themes`    | Syntaxfarben gegen bekannte Shiki-Themes messen und ranken, Bericht nach `reports/theme-compare/index.html` (gitignored; Methode und Grenzen in `scripts/theme-compare/README.md`) |
+| `snapshot <id>`     | Aktuellen Stand für einen Blogpost einfrieren: misst alles aus den Tokens und schreibt `packages/website/content/snapshots/<id>.json` (siehe „Snapshot für Blogposts“)             |
+| `dev`               | `tz build --watch`                                                                                                                                                                 |
+| `generate:scale`    | Skalenvorschlag ausgeben (`--write [datei]`, `--migration`)                                                                                                                        |
 
 Im Repo-Root: `pnpm lint:tokens` (build, lint und Prüfung, dass `generated/` aktuell ist; läuft in CI), `pnpm dev:tokens` (Watch).
 
@@ -88,7 +88,7 @@ Fehlschlagende Paare erscheinen mit Simulationstyp, Originalwert und simuliertem
 
 **Kommentare** (zweiter Teil von `lint-distinct.ts`): `syntax.comment` muss sich von jedem anderen Syntax-Vordergrund (alle `syntax.*` außer `syntax.background`) um ΔE OK ≥ 0,08 unterscheiden, pro Mode. So bleibt ein Kommentar auch gegen textbasierte Syntaxfarben (`variable`, `operator`, `punctuation`) eindeutig. Kleinste Distanz (Rohwert, ohne Rundung): Dark 0,0820 (zu `tag-attribute`), Light 0,0903 (zu `tag-attribute`).
 
-**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): *Contrast Grid* (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), *Palette* (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und *Syntax Preview* (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
+**Storybook** (`pnpm storybook`, Gruppe „Color Scheme“): _Contrast Grid_ (Vordergründe × Surfaces pro Mode, Pflichtpaare umrandet, übrige abgedunkelt, Baseline markiert, ausgenommene Surfaces als „exempt“ mit Begründung als Tooltip), _Palette_ (Skalen mit L/C-Kurve, Ebene 2 mit Alias und Wert) und _Syntax Preview_ (Codeblock und Inline-Code in hell/dunkel; das Contrast Grid hat zusätzlich je Mode einen Abschnitt „Syntax“). Die Daten kommen aus `generated/` und dem Kontrast-Modul, nicht aus berechnetem CSS.
 
 ## Ink-Namen
 
@@ -100,33 +100,33 @@ Level-2-Token → Stufe → Wert; WCAG-Verhältnis jeweils auf `syntax.backgroun
 
 Dark:
 
-| Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
-|---|---|---|---|---|
-| `ink.ruby` | `red.400` | `oklch(0.738 0.16 32)` | 8,01 | 7,10 |
-| `ink.copper` | `orange.400` | `oklch(0.775 0.119 69)` | 9,53 | 8,42 |
-| `ink.gold` | `yellow.300` | `oklch(0.832 0.162 85.7)` | 11,69 | 10,34 |
-| `ink.jade` | `green.400` | `oklch(0.746 0.172 158.1)` | 9,43 | 8,34 |
-| `ink.turquoise` | `teal.400` | `oklch(0.793 0.132 202.6)` | 10,86 | 9,61 |
-| `ink.steel` | `cyan.400` | `oklch(0.782 0.048 198.4)` | 10,16 | 8,98 |
-| `ink.sapphire` | `blue.400` | `oklch(0.767 0.125 248)` | 9,53 | 8,43 |
-| `ink.amethyst` | `purple.400` | `oklch(0.777 0.078 303.2)` | 9,56 | 8,45 |
-| `ink.rose` | `pink.300` | `oklch(0.807 0.189 326.9)` | 10,02 | 8,86 |
-| `ink.lapis` | `periwinkle.300` | `oklch(0.838 0.08 262.6)` | 12,02 | 10,63 |
+| Token           | Stufe            | OKLCH                      | `syntax.background` | `surface.default` |
+| --------------- | ---------------- | -------------------------- | ------------------- | ----------------- |
+| `ink.ruby`      | `red.400`        | `oklch(0.738 0.16 32)`     | 8,01                | 7,10              |
+| `ink.copper`    | `orange.400`     | `oklch(0.775 0.119 69)`    | 9,53                | 8,42              |
+| `ink.gold`      | `yellow.300`     | `oklch(0.832 0.162 85.7)`  | 11,69               | 10,34             |
+| `ink.jade`      | `green.400`      | `oklch(0.746 0.172 158.1)` | 9,43                | 8,34              |
+| `ink.turquoise` | `teal.400`       | `oklch(0.793 0.132 202.6)` | 10,86               | 9,61              |
+| `ink.steel`     | `cyan.400`       | `oklch(0.782 0.048 198.4)` | 10,16               | 8,98              |
+| `ink.sapphire`  | `blue.400`       | `oklch(0.767 0.125 248)`   | 9,53                | 8,43              |
+| `ink.amethyst`  | `purple.400`     | `oklch(0.777 0.078 303.2)` | 9,56                | 8,45              |
+| `ink.rose`      | `pink.300`       | `oklch(0.807 0.189 326.9)` | 10,02               | 8,86              |
+| `ink.lapis`     | `periwinkle.300` | `oklch(0.838 0.08 262.6)`  | 12,02               | 10,63             |
 
 Light:
 
-| Token | Stufe | OKLCH | `syntax.background` | `surface.default` |
-|---|---|---|---|---|
-| `ink.ruby` | `red.700` | `oklch(0.520 0.197 32)` | 5,48 | 4,93 |
-| `ink.copper` | `orange.700` | `oklch(0.480 0.050 76.4)` | 5,93 | 5,33 |
-| `ink.gold` | `yellow.700` | `oklch(0.519 0.108 77.2)` | 5,07 | 4,56 |
-| `ink.jade` | `green.700` | `oklch(0.483 0.131 150.1)` | 5,48 | 4,92 |
-| `ink.turquoise` | `teal.700` | `oklch(0.507 0.085 193.7)` | 5,03 | 4,52 |
-| `ink.steel` | `cyan.700` | `oklch(0.464 0.028 199.6)` | 6,23 | 5,60 |
-| `ink.sapphire` | `blue.700` | `oklch(0.492 0.096 240.6)` | 5,52 | 4,96 |
-| `ink.amethyst` | `purple.700` | `oklch(0.514 0.155 299.1)` | 5,46 | 4,91 |
-| `ink.rose` | `pink.700` | `oklch(0.530 0.245 326.9)` | 5,49 | 4,93 |
-| `ink.lapis` | `periwinkle.700` | `oklch(0.494 0.239 262.6)` | 5,94 | 5,34 |
+| Token           | Stufe            | OKLCH                      | `syntax.background` | `surface.default` |
+| --------------- | ---------------- | -------------------------- | ------------------- | ----------------- |
+| `ink.ruby`      | `red.700`        | `oklch(0.520 0.197 32)`    | 5,48                | 4,93              |
+| `ink.copper`    | `orange.700`     | `oklch(0.480 0.050 76.4)`  | 5,93                | 5,33              |
+| `ink.gold`      | `yellow.700`     | `oklch(0.519 0.108 77.2)`  | 5,07                | 4,56              |
+| `ink.jade`      | `green.700`      | `oklch(0.483 0.131 150.1)` | 5,48                | 4,92              |
+| `ink.turquoise` | `teal.700`       | `oklch(0.507 0.085 193.7)` | 5,03                | 4,52              |
+| `ink.steel`     | `cyan.700`       | `oklch(0.464 0.028 199.6)` | 6,23                | 5,60              |
+| `ink.sapphire`  | `blue.700`       | `oklch(0.492 0.096 240.6)` | 5,52                | 4,96              |
+| `ink.amethyst`  | `purple.700`     | `oklch(0.514 0.155 299.1)` | 5,46                | 4,91              |
+| `ink.rose`      | `pink.700`       | `oklch(0.530 0.245 326.9)` | 5,49                | 4,93              |
+| `ink.lapis`     | `periwinkle.700` | `oklch(0.494 0.239 262.6)` | 5,94                | 5,34              |
 
 Hue-, Chroma- und L-Abweichungen von der Skala stehen im `$description` der jeweiligen Stufe. Dark ist auf eine kleine Marge über den Schwellen von Unterscheidbarkeit (ΔE OK 0,08 → Ziel 0,082) und Farbfehlsichtigkeit (0,04 → 0,041) abgestimmt, Light hat eigene, niedrigere Schwellen (siehe oben) und liegt ebenfalls knapp darüber. Die Gates selbst vergleichen exakt; eine Änderung an einem Ink verschiebt meist mehrere Lints gleichzeitig.
 
@@ -138,7 +138,7 @@ Das nvim-Theme hat eigene Füllungen, weil es drei unterscheidbare Stufen brauch
 
 ## Farbnamen (nur Anzeige)
 
-ΔE OK und die CVD-Simulation messen, wie weit zwei Inks wahrnehmungsmäßig auseinanderliegen, nicht, ob man sie auch *anders nennt*. Dafür gibt es `pnpm --filter @samisdat/color-scheme names:inks` (`scripts/name-distance.ts`): Farbnamen-Modell **c3** (Heer & Stone, CHI 2012; Daten: XKCD-Farbumfrage, 153 Namen auf einem CIELAB-Raster mit 8325 Zellen). Jeder Ink wird auf die nächste Modellzelle abgebildet (Abstand dazu ΔE 0,8–3,7, also im Raster); die Namensdistanz zweier Inks ist die Hellinger-Distanz ihrer Namensverteilungen (0 identisch, 1 ohne gemeinsamen Namen), wie `c3.color.hellinger` in der Originalbibliothek. Das Modell liegt unverändert in `vendor/c3/` (BSD-3-Clause, Stanford; Quelle, Commit und Lizenz in `vendor/c3/README.md`).
+ΔE OK und die CVD-Simulation messen, wie weit zwei Inks wahrnehmungsmäßig auseinanderliegen, nicht, ob man sie auch _anders nennt_. Dafür gibt es `pnpm --filter @samisdat/color-scheme names:inks` (`scripts/name-distance.ts`): Farbnamen-Modell **c3** (Heer & Stone, CHI 2012; Daten: XKCD-Farbumfrage, 153 Namen auf einem CIELAB-Raster mit 8325 Zellen). Jeder Ink wird auf die nächste Modellzelle abgebildet (Abstand dazu ΔE 0,8–3,7, also im Raster); die Namensdistanz zweier Inks ist die Hellinger-Distanz ihrer Namensverteilungen (0 identisch, 1 ohne gemeinsamen Namen), wie `c3.color.hellinger` in der Originalbibliothek. Das Modell liegt unverändert in `vendor/c3/` (BSD-3-Clause, Stanford; Quelle, Commit und Lizenz in `vendor/c3/README.md`).
 
 Stand: Dark 4, Light 3 von 45 Ink-Paaren teilen sich den wahrscheinlichsten Namen. Kleinste Namensdistanz Dark 0,260 (`ink.sapphire` ~ `ink.lapis`), Light 0,372 (`ink.copper` ~ `ink.gold`).
 
@@ -167,26 +167,26 @@ Token-ID: Capture mit `-` statt `.` (`tag.attribute` → `syntax.tag-attribute`)
 
 **Kommentarregel**: Kommentare haben eine eigene, farbige Ink-Rolle `ink.lapis` (Hue `periwinkle`, Blauviolett, Hue 285) und liegen nie auf einer `text.*`-Farbe. Warmgraue Kommentare waren von `punctuation` kaum zu trennen (ΔE OK 0,037 dark / 0,064 light). `ink.lapis` = dark `color.periwinkle.300` (`oklch(0.838 0.08 262.6)`: 12,02:1 auf `syntax.background`, 10,63:1 auf `surface.default`), light `color.periwinkle.700` (`oklch(0.422 0.138 287.2)`: 6,48:1 / 5,52:1). `punctuation` zeigt dafür auf `text.secondary` (wie `operator`).
 
-| Capture | Alias | Gedacht für |
-|---|---|---|
-| `foreground` | `text.default` | Grundfarbe |
-| `background` | dark `surface.emphasis`, light `surface.raised` | Codeblock; folgt dem Theme, dark dunkler und light heller als die Seite |
-| `comment` | `ink.lapis` (italic) | Kommentare; eigene Farbe, siehe unten |
-| `keyword` | `ink.ruby` | `const`, `import`, `return`, Storage |
-| `string` | `ink.copper` | Strings, Anführungszeichen, Template-Strings |
-| `string.special` | `ink.steel` | Regex, Escape-Sequenzen |
-| `number` | `ink.jade` | Zahlen, CSS-Einheiten |
-| `constant` | `ink.jade` | `true`, `null`, `this`, Konstanten |
-| `function` | `ink.sapphire` | Funktions- und Methodennamen |
-| `type` | `ink.steel` | Typen, Klassen, Namespaces |
-| `variable` | `text.default` | Variablen |
-| `parameter` | `ink.gold` | Parameter |
-| `property` | `ink.turquoise` | Properties, Objekt-Keys, JSON-/CSS-Properties |
-| `tag` | `ink.rose` | Tag-Namen samt `<` `>` |
-| `tag.attribute` | `ink.amethyst` | Attribute |
-| `operator` | `text.secondary` | Operatoren, `=>` |
-| `punctuation` | `text.secondary` | Klammern, Trenner |
-| `diff.plus` / `diff.minus` | `ink.jade` / `ink.ruby` | Diff-Zeilen (Vordergrund, kein Alpha) |
+| Capture                    | Alias                                           | Gedacht für                                                             |
+| -------------------------- | ----------------------------------------------- | ----------------------------------------------------------------------- |
+| `foreground`               | `text.default`                                  | Grundfarbe                                                              |
+| `background`               | dark `surface.emphasis`, light `surface.raised` | Codeblock; folgt dem Theme, dark dunkler und light heller als die Seite |
+| `comment`                  | `ink.lapis` (italic)                            | Kommentare; eigene Farbe, siehe unten                                   |
+| `keyword`                  | `ink.ruby`                                      | `const`, `import`, `return`, Storage                                    |
+| `string`                   | `ink.copper`                                    | Strings, Anführungszeichen, Template-Strings                            |
+| `string.special`           | `ink.steel`                                     | Regex, Escape-Sequenzen                                                 |
+| `number`                   | `ink.jade`                                      | Zahlen, CSS-Einheiten                                                   |
+| `constant`                 | `ink.jade`                                      | `true`, `null`, `this`, Konstanten                                      |
+| `function`                 | `ink.sapphire`                                  | Funktions- und Methodennamen                                            |
+| `type`                     | `ink.steel`                                     | Typen, Klassen, Namespaces                                              |
+| `variable`                 | `text.default`                                  | Variablen                                                               |
+| `parameter`                | `ink.gold`                                      | Parameter                                                               |
+| `property`                 | `ink.turquoise`                                 | Properties, Objekt-Keys, JSON-/CSS-Properties                           |
+| `tag`                      | `ink.rose`                                      | Tag-Namen samt `<` `>`                                                  |
+| `tag.attribute`            | `ink.amethyst`                                  | Attribute                                                               |
+| `operator`                 | `text.secondary`                                | Operatoren, `=>`                                                        |
+| `punctuation`              | `text.secondary`                                | Klammern, Trenner                                                       |
+| `diff.plus` / `diff.minus` | `ink.jade` / `ink.ruby`                         | Diff-Zeilen (Vordergrund, kein Alpha)                                   |
 
 Zuordnungsprinzip: Im Light Mode sind Gelb, Cyan, Lila, Rosa und Grün absichtlich dunkler (schwerer), Rot, Orange, Türkis und Blau heller. Da der Alias in beiden Modes gleich ist, liegen die schweren Inks auf seltenen Kategorien (`number`, `constant`, `tag.attribute`, `parameter`, `type`), die helleren auf häufigen (`keyword`, `string`, `function`, `property`). Geteilte Inks (`number`/`constant`, `type`/`string.special`) liegen auf Kategorien, die selten nebeneinander stehen.
 
@@ -201,8 +201,8 @@ Zuordnungsprinzip: Im Light Mode sind Gelb, Cyan, Lila, Rosa und Grün absichtli
 - `generated/claude-code/samisdat.json`: Custom Theme für die Claude Code CLI (`base: dark`, Overrides in Hex; Shimmer-Tokens erbt das Preset). Nach `~/.claude/themes/samisdat.json` verlinken, in `/theme` `custom:samisdat` wählen. Mapping in `plugins/plugin-claude-code.ts`.
 - `generated/pi/samisdat.json`: pi-Theme (nur Dark; alle 51 Pflichtfarben plus `thinkingMax`, Werte als OKLCH, das pi selbst in sRGB mappt). Nach `~/.pi/agent/themes/samisdat.json` verlinken, in den pi-Einstellungen `samisdat` wählen. `thinking*` ist eine Rampe von `border.muted` über Blau, Türkis, Grün, Gelb, Orange bis Pink. Mapping in `plugins/plugin-pi.ts`.
 - `generated/artifact/`: Farben für Claude-Artifacts (claude.ai kennt keinen Theme-Mechanismus). `samisdat.css` setzt die Tokens als `--color-*` (gleiche Namen wie die Website, ohne Ebene 1 und `terminal.*`): Dark auf `:root` als Default, Light auf `:root[data-theme="light"]`; kein Morphing. `instructions.md` ist der kompakte Text für die Custom Instructions in claude.ai: Regeln plus 20 Rollen als Hex (dark / light); der Build bricht ab, wenn er 3000 Zeichen überschreitet (Annahme, das Limit von claude.ai ist nicht verifiziert). `SKILL.md` ist der Claude-Code-Skill `samisdat-artifacts` mit dem vollständigen Zwei-Mode-CSS; Ordner nach `~/.claude/skills/samisdat-artifacts/` legen.
-  - **Light steuern**: Standard ist Dark. Light gilt nur auf Anfrage („hell“, „light“, Druck, PDF); Claude setzt dann `data-theme="light"` auf `<html>`. PDFs ohne CSS (reportlab) nutzen die Light-Hex-Werte aus `instructions.md`.
-  - **Karten**: `surface.raised` ist `neutral-only`; darauf stehen nur `text.default`, `-emphasis`, `-secondary`. Akzenttexte (`ink.*`) nur auf `surface.default` oder `syntax.background`.
+    - **Light steuern**: Standard ist Dark. Light gilt nur auf Anfrage („hell“, „light“, Druck, PDF); Claude setzt dann `data-theme="light"` auf `<html>`. PDFs ohne CSS (reportlab) nutzen die Light-Hex-Werte aus `instructions.md`.
+    - **Karten**: `surface.raised` ist `neutral-only`; darauf stehen nur `text.default`, `-emphasis`, `-secondary`. Akzenttexte (`ink.*`) nur auf `surface.default` oder `syntax.background`.
 - Kontrast der neuen Paare, die die Rollenmatrix nicht abdeckt (z. B. `text.secondary` auf `surface.raised`, in beiden Modes für die Artifact-Karten): `scripts/lint-llm-themes.ts`, Teil von `lint`, ≥ 4,5:1.
 - `syntax.*` steht außerdem in `generated/semantic.ts`; `ui-components` rendert daraus `--color-syntax-*` wie alle Ebene-2-Variablen.
 

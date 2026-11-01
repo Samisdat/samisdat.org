@@ -1,7 +1,9 @@
-import { ColorSchemeSnapshot } from '@samisdat/ui-components/ColorSchemeSnapshot';
-import type { Snapshot } from '@samisdat/color-scheme/snapshot-types';
 import fs from 'fs';
 import path from 'path';
+
+import { ColorSchemeSnapshot } from '@samisdat/ui-components/ColorSchemeSnapshot';
+
+import type { Snapshot } from '@samisdat/color-scheme/snapshot-types';
 import type { ReactNode } from 'react';
 
 const SNAPSHOTS_DIR = path.join(process.cwd(), 'content/snapshots');

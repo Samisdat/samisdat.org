@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react';
+
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 const CssCircleAnimationStyled = styled(SvgStyling)`

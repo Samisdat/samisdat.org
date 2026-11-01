@@ -16,6 +16,7 @@ Build-Zeit mit `@mdx-js/mdx` und einer Pipeline aus remark/rehype-Plugins
 verarbeitet.
 
 Plugin-Pipeline:
+
 - `remark-frontmatter` + `remark-mdx-frontmatter` — Metadaten (Titel,
   Datum, Tags) als Frontmatter
 - `remark-gfm` — GitHub Flavored Markdown (Tabellen, Strikethrough)

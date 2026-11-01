@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react';
 
 // Per-ref :has() CSS that the remark plugin would inject at build time.
 // Required for Stage 1 hover to work in the story.
@@ -10,7 +10,7 @@ const PER_REF_CSS = `
     outline: var(--scholion-b-outline);
     outline-offset: 2px;
   }
-`
+`;
 
 function ScholionDemo() {
     return (
@@ -60,7 +60,11 @@ function ScholionDemo() {
                 </code>
             </pre>
 
-            <p id="explain-anim" data-explains="anim" tabIndex={-1}>
+            <p
+                id="explain-anim"
+                data-explains="anim"
+                tabIndex={-1}
+            >
                 <span id="desc-anim">
                     Das{' '}
                     <a
@@ -72,14 +76,12 @@ function ScholionDemo() {
                         {'<animateTransform>'}
                     </a>{' '}
                     steckt in der Gruppe. Daher wird diese animiert, und alles, was in{' '}
-                    <code style={{ fontFamily: 'var(--font-code, monospace)', fontSize: '0.85em' }}>
-                        #spinner
-                    </code>{' '}
+                    <code style={{ fontFamily: 'var(--font-code, monospace)', fontSize: '0.85em' }}>#spinner</code>{' '}
                     liegt, dreht sich mit.
                 </span>
             </p>
         </div>
-    )
+    );
 }
 
 const meta = {
@@ -89,21 +91,21 @@ const meta = {
     parameters: {
         layout: 'padded',
     },
-} satisfies Meta<typeof ScholionDemo>
+} satisfies Meta<typeof ScholionDemo>;
 
-export default meta
-type Story = StoryObj<typeof meta>
+export default meta;
+type Story = StoryObj<typeof meta>;
 
-export const Stage0Html: Story = {}
+export const Stage0Html: Story = {};
 
 export const Stage1HoverOnLemma: Story = {
     parameters: {
         pseudo: { hover: ['.ref-target[data-ref="anim"]'] },
     },
-}
+};
 
 export const Stage1HoverOnToken: Story = {
     parameters: {
         pseudo: { hover: ['a.ref[data-ref="anim"]'] },
     },
-}
+};

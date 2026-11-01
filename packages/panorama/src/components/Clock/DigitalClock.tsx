@@ -1,5 +1,6 @@
-import { useTal } from '@/lib/TalContext';
 import { ReactElement } from 'react';
+
+import { useTal } from '@/lib/TalContext';
 
 export const DigitalClock = (): ReactElement | null => {
     const { time } = useTal();

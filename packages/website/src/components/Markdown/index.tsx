@@ -1,22 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
-
-import { DemoBox } from '@samisdat/ui-components/DemoBox';
-import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
-import { Grid } from '@samisdat/ui-components/Grid';
-import { Stack } from '@samisdat/ui-components/Stack';
-import { Heading } from '@samisdat/ui-components/Heading';
-import { Lead } from '@samisdat/ui-components/Lead';
-import { Typo } from '@samisdat/ui-components/Typo';
-
 import { SandpackFiles } from '@codesandbox/sandpack-react';
-import { Code } from '../Code';
-import { Link } from '../Link';
-import { Sandbox } from '../Sandbox';
-import { SandPackCSS } from '../Sandbox/SandPackCSS';
-import * as ClientDemos from './ClientAnimations';
-import { SnapshotFrame } from './SnapshotFrame';
-import { TypeSpecimen } from '../TypeSpecimen';
-import { TypographySnapshotFrame } from './TypographySnapshotFrame';
 import {
     SnapshotCode,
     SnapshotCvd,
@@ -28,6 +10,23 @@ import {
     SnapshotModes,
     SnapshotScales,
 } from '@samisdat/ui-components/ColorSchemeSnapshot';
+import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
+import { DemoBox } from '@samisdat/ui-components/DemoBox';
+import { Grid } from '@samisdat/ui-components/Grid';
+import { Heading } from '@samisdat/ui-components/Heading';
+import { Lead } from '@samisdat/ui-components/Lead';
+import { Stack } from '@samisdat/ui-components/Stack';
+import { Typo } from '@samisdat/ui-components/Typo';
+import { FC, HTMLAttributes } from 'react';
+
+import { Code } from '../Code';
+import { Link } from '../Link';
+import { Sandbox } from '../Sandbox';
+import { SandPackCSS } from '../Sandbox/SandPackCSS';
+import { TypeSpecimen } from '../TypeSpecimen';
+import * as ClientDemos from './ClientAnimations';
+import { SnapshotFrame } from './SnapshotFrame';
+import { TypographySnapshotFrame } from './TypographySnapshotFrame';
 
 interface MarkdownProps extends HTMLAttributes<HTMLDivElement> {
     MDXContent: React.ComponentType<{ components?: Record<string, React.ComponentType<any>> }>;
@@ -121,7 +120,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         SnapshotCvd,
         SnapshotDistinct,
         SnapshotScales,
-            SnapshotExceptions,
+        SnapshotExceptions,
         SnapshotEditor,
         TypeSpecimen,
         TypographySnapshot: TypographySnapshotFrame,

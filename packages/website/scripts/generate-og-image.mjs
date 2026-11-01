@@ -5,9 +5,9 @@
  * Output: packages/website/src/app/opengraph-image.png
  */
 
+import { createRequire } from 'module';
 import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -99,16 +99,12 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="${WIDTH}" height="
 
 const outputPath = resolve(repoRoot, 'packages/website/src/app/opengraph-image.png');
 
-await sharp(Buffer.from(ogSvg))
-    .png({ quality: 90 })
-    .toFile(outputPath);
+await sharp(Buffer.from(ogSvg)).png({ quality: 90 }).toFile(outputPath);
 
 console.log(`✓ OG image generated: ${outputPath}`);
 
 // Also generate twitter-image (same dimensions for summary_large_image)
 const twitterPath = resolve(repoRoot, 'packages/website/src/app/twitter-image.png');
-await sharp(Buffer.from(ogSvg))
-    .png({ quality: 90 })
-    .toFile(twitterPath);
+await sharp(Buffer.from(ogSvg)).png({ quality: 90 }).toFile(twitterPath);
 
 console.log(`✓ Twitter image generated: ${twitterPath}`);

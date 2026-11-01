@@ -11,5 +11,5 @@ pnpm add @samisdat/tools
 ## Usage
 
 ```typescript
-import { /* ... */ } from '@samisdat/tools';
+import {} from /* ... */ '@samisdat/tools';
 ```

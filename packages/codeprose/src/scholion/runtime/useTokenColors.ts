@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
-import { readTokenColor, type Registry } from './scan'
+import { useEffect, useState } from 'react';
+
+import { readTokenColor, type Registry } from './scan';
 
 function readColors(registry: Registry): Record<string, string> {
-    return Object.fromEntries(registry.ids.map(id => [id, readTokenColor(registry.refs[id].a)]))
+    return Object.fromEntries(registry.ids.map(id => [id, readTokenColor(registry.refs[id].a)]));
 }
 
 /**
@@ -12,28 +13,31 @@ function readColors(registry: Registry): Record<string, string> {
  * provider's own `--scholion-color-*` writes on `<html>` from looping back here.
  */
 export function useTokenColors(registry: Registry): Record<string, string> {
-    const [colors, setColors] = useState(() => readColors(registry))
+    const [colors, setColors] = useState(() => readColors(registry));
 
     useEffect(() => {
-        let raf = 0
+        let raf = 0;
         const refresh = () => {
-            cancelAnimationFrame(raf)
+            cancelAnimationFrame(raf);
             raf = requestAnimationFrame(() => {
-                const next = readColors(registry)
-                setColors(prev => (registry.ids.every(id => prev[id] === next[id]) ? prev : next))
-            })
-        }
-        refresh()
-        const observer = new MutationObserver(refresh)
-        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['style', 'class', 'data-theme'] })
-        const scheme = matchMedia('(prefers-color-scheme: dark)')
-        scheme.addEventListener('change', refresh)
+                const next = readColors(registry);
+                setColors(prev => (registry.ids.every(id => prev[id] === next[id]) ? prev : next));
+            });
+        };
+        refresh();
+        const observer = new MutationObserver(refresh);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['style', 'class', 'data-theme'],
+        });
+        const scheme = matchMedia('(prefers-color-scheme: dark)');
+        scheme.addEventListener('change', refresh);
         return () => {
-            cancelAnimationFrame(raf)
-            observer.disconnect()
-            scheme.removeEventListener('change', refresh)
-        }
-    }, [registry])
+            cancelAnimationFrame(raf);
+            observer.disconnect();
+            scheme.removeEventListener('change', refresh);
+        };
+    }, [registry]);
 
-    return colors
+    return colors;
 }

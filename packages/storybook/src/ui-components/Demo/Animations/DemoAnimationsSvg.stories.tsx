@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsSvg } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsSvg';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Demo/Animations/Svg',
