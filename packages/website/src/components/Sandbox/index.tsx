@@ -3,10 +3,10 @@
  */
 
 import { SandpackCodeEditor, SandpackLayout, SandpackPreview, SandpackProvider } from '@codesandbox/sandpack-react';
+import { nightOwl } from '@codesandbox/sandpack-themes';
 import { styled } from '@linaria/react';
 import { FC } from 'react';
 
-import { nightOwl } from '@codesandbox/sandpack-themes';
 import { SandboxProps } from './props';
 
 const SandboxStyling = styled.div``;

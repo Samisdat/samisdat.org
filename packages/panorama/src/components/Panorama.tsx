@@ -1,10 +1,27 @@
+import './panorama.css';
+
+import { useAnimationFrame, useParallax, usePrefersReducedMotion } from '@samisdat/tools';
+import { Activity, ReactElement, useRef } from 'react';
+
 import { GelberTurm } from '@/components/Buildings/GelberTurm';
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
 import { GreenTower } from '@/components/Buildings/GreenTower';
+import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
+import { BeforeGreenTower } from '@/components/Hills/BeforeGreenTower';
+import { Hardt } from '@/components/Hills/Hardt';
+import { Hill100 } from '@/components/Hills/Hill0100';
+import { Hill1110 } from '@/components/Hills/Hill1100';
+import { Hill2800 } from '@/components/Hills/Hill2800';
+import { Hill2900 } from '@/components/Hills/Hill2900';
+import { Hill3200 } from '@/components/Hills/Hill3200';
+import { Hill3800 } from '@/components/Hills/Hill3800';
+import { Hill4100 } from '@/components/Hills/Hill4100';
+import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
+import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 import { useTal } from '@/lib/TalContext';
-import { Activity, ReactElement, useRef } from 'react';
+
 import { BeyenburgerDom } from './Buildings/BeyenburgerDom';
 import { BlueHouse } from './Buildings/BlueHouse';
 import { Elisenturm } from './Buildings/Elisenturm';
@@ -21,24 +38,8 @@ import { Hill020 } from './Hills/Hill020';
 import { Hill030 } from './Hills/Hill030';
 import { Hill040 } from './Hills/Hill040';
 import { Hill050 } from './Hills/Hill050';
-import { Track } from './Track/Track';
-
-import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
-import { BeforeGreenTower } from '@/components/Hills/BeforeGreenTower';
-import { Hardt } from '@/components/Hills/Hardt';
-import { Hill100 } from '@/components/Hills/Hill0100';
-import { Hill1110 } from '@/components/Hills/Hill1100';
-import { Hill2800 } from '@/components/Hills/Hill2800';
-import { Hill2900 } from '@/components/Hills/Hill2900';
-import { Hill3200 } from '@/components/Hills/Hill3200';
-import { Hill3800 } from '@/components/Hills/Hill3800';
-import { Hill4100 } from '@/components/Hills/Hill4100';
-import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
-import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
-
-import { useAnimationFrame, useParallax, usePrefersReducedMotion } from '@samisdat/tools';
-import './panorama.css';
 import { ParallaxLayer } from './ParallaxLayer';
+import { Track } from './Track/Track';
 
 export const Panorama = (): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);

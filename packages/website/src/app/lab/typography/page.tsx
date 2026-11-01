@@ -1,4 +1,5 @@
 import { TypeSpecimen } from '@/components/TypeSpecimen';
+
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {

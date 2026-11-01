@@ -24,16 +24,16 @@ export function toCSS(
     .join("\\n");
 }`;
 
-export type DiffKind = "hunk" | "ctx" | "add" | "del";
+export type DiffKind = 'hunk' | 'ctx' | 'add' | 'del';
 
 export const SAMPLE_DIFF: { kind: DiffKind; text: string }[] = [
-  { kind: "hunk", text: "@@ tokens/dark.ts @@" },
-  { kind: "ctx", text: "export const syntax = {" },
-  { kind: "ctx", text: "  background: surface.emphasis," },
-  { kind: "ctx", text: "  foreground: text.default," },
-  { kind: "del", text: "  comment: text.muted," },
-  { kind: "add", text: "  comment: ink.lapis," },
-  { kind: "ctx", text: "  keyword: ink.ruby," },
-  { kind: "add", text: "  parameter: ink.gold," },
-  { kind: "ctx", text: "};" },
+    { kind: 'hunk', text: '@@ tokens/dark.ts @@' },
+    { kind: 'ctx', text: 'export const syntax = {' },
+    { kind: 'ctx', text: '  background: surface.emphasis,' },
+    { kind: 'ctx', text: '  foreground: text.default,' },
+    { kind: 'del', text: '  comment: text.muted,' },
+    { kind: 'add', text: '  comment: ink.lapis,' },
+    { kind: 'ctx', text: '  keyword: ink.ruby,' },
+    { kind: 'add', text: '  parameter: ink.gold,' },
+    { kind: 'ctx', text: '};' },
 ];

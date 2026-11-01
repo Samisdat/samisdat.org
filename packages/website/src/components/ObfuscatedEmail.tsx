@@ -64,6 +64,7 @@ export function ObfuscatedEmail() {
     return (
         <Wrapper>
             {chars.map((ch, i) => (
+                // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                 <Fragment key={i}>
                     {i % 4 === 0 && <Decoy aria-hidden="true">{NOISE[i % NOISE.length]}</Decoy>}
                     <Glyph style={{ '--c': `"${ch}"` } as React.CSSProperties} />

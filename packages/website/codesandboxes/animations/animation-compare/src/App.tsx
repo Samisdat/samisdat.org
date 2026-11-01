@@ -2,13 +2,13 @@
 
 import { faPause, faPlay, faReply } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import { useEffect, useRef, useState } from 'react';
+
 import { Css } from './Css';
 import { Js } from './Js';
 import { JsCss } from './JsCss';
-import { Smil } from './Smil';
 import { config } from './shared';
+import { Smil } from './Smil';
 
 export const App = () => {
     const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);

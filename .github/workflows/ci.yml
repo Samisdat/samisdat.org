@@ -15,48 +15,45 @@ jobs:
       - uses: actions/checkout@v7
         with:
           persist-credentials: false
-      
+
       - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
-      
+
       - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-      
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-      
+
       - name: Install Playwright browsers
         run: pnpm --filter @samisdat/storybook exec playwright install chromium --with-deps
-      
+
       - name: Lint CSS
         run: pnpm lint:css
-      
+
       - name: Lint hardcoded colors
         run: pnpm lint:colors
 
       - name: Lint color tokens
         run: pnpm lint:tokens
-      
-      - name: Lint JavaScript/TypeScript
-        run: pnpm lint
-      
+
       - name: Build panorama library
         run: pnpm --filter @samisdat/wtal-panorama build:colors && pnpm build:lib
 
-      - name: Typecheck
-        run: pnpm -r exec tsc --noEmit
-      
+      - name: Lint and typecheck
+        run: pnpm lint
+
       - name: Check version consistency
         run: pnpm syncpack lint
-      
+
       - name: Run tests
         run: |
           pnpm --filter @samisdat/website test:ci
           pnpm --filter @samisdat/storybook test:ci
-      
+
       - name: Build website
         run: pnpm --filter @samisdat/website build
-      
+
       - name: Build Storybook
         run: pnpm build-storybook

@@ -11,8 +11,9 @@ import { createHash } from 'node:crypto';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
-import { DEFAULT_PRESET_ID } from '../src/lib/typography/ids';
 import { PRESET_DATA, presetFonts } from '../src/lib/typography/data';
+import { DEFAULT_PRESET_ID } from '../src/lib/typography/ids';
+
 import type { SnapshotFont, TypographySnapshot } from '../src/lib/typography/snapshot-types';
 
 const root = new URL('..', import.meta.url).pathname;
@@ -65,7 +66,9 @@ const fonts: SnapshotFont[] = [...fontMap].map(([cssVar, name]) => {
     }
     const files = [...declared].sort().map(file => ({
         file,
-        sha256: createHash('sha256').update(readFileSync(join(root, 'node_modules', file))).digest('hex'),
+        sha256: createHash('sha256')
+            .update(readFileSync(join(root, 'node_modules', file)))
+            .digest('hex'),
     }));
     return { name, cssVar, files };
 });

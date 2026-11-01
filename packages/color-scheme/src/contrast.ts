@@ -10,84 +10,82 @@
  * Consumers: the contrast lint (scripts/lint-contrast.ts,
  * terrazzo.contrast.config.ts) and the Storybook contrast grid.
  */
-import darkTokens from "../tokens/dark.tokens.json";
-import lightTokens from "../tokens/light.tokens.json";
+import darkTokens from '../tokens/dark.tokens.json';
+import lightTokens from '../tokens/light.tokens.json';
 
-export const modes = ["dark", "light"] as const;
+export const modes = ['dark', 'light'] as const;
 export type Mode = (typeof modes)[number];
 
-export const A11Y_EXTENSION = "org.samisdat.a11y";
+export const A11Y_EXTENSION = 'org.samisdat.a11y';
 
 /**
  * - `full`: every `text.*` and `ink.*` (and `syntax.*` where it is a backdrop)
  * - `ink`: `text.default`, `text.emphasis`, every `ink.*` and `syntax.*`
  * - `neutral-only`: `text.default`, `text.emphasis`
  */
-export type TextTier = "full" | "ink" | "neutral-only";
+export type TextTier = 'full' | 'ink' | 'neutral-only';
 
 export type ContrastPair = {
-  /** e.g. `dark:text.muted/surface.default` */
-  id: string;
-  mode: Mode;
-  /** Token id of the foreground, e.g. `text.muted` */
-  foreground: string;
-  /** Token id of the background, e.g. `surface.default` */
-  background: string;
-  /** Minimum WCAG contrast ratio */
-  min: number;
+    /** e.g. `dark:text.muted/surface.default` */
+    id: string;
+    mode: Mode;
+    /** Token id of the foreground, e.g. `text.muted` */
+    foreground: string;
+    /** Token id of the background, e.g. `surface.default` */
+    background: string;
+    /** Minimum WCAG contrast ratio */
+    min: number;
 };
 
 type TokenNode = {
-  $value?: unknown;
-  $extensions?: Record<
-    string,
-    {
-      textTier?: TextTier;
-      exempt?: string;
-    }
-  >;
-  [key: string]: unknown;
+    $value?: unknown;
+    $extensions?: Record<
+        string,
+        {
+            textTier?: TextTier;
+            exempt?: string;
+        }
+    >;
+    [key: string]: unknown;
 };
 
 const tokenFiles: Record<Mode, Record<string, unknown>> = {
-  dark: darkTokens,
-  light: lightTokens,
+    dark: darkTokens,
+    light: lightTokens,
 };
 
 export type FlatToken = {
-  id: string;
-  /** Raw `$value`, e.g. `{color.aubergine.900}` */
-  value: string;
-  textTier?: TextTier;
-  exempt?: string;
+    id: string;
+    /** Raw `$value`, e.g. `{color.aubergine.900}` */
+    value: string;
+    textTier?: TextTier;
+    exempt?: string;
 };
 
 /** Flattens a DTCG group into `id -> token`, ids joined with ".". */
 const collect = (group: unknown, path: string[] = []): FlatToken[] => {
-  if (typeof group !== "object" || group === null) return [];
-  const node = group as TokenNode;
-  if ("$value" in node) {
-    const ext = node.$extensions?.[A11Y_EXTENSION];
-    return [
-      {
-        id: path.join("."),
-        value: String(node.$value),
-        textTier: ext?.textTier,
-        exempt: ext?.exempt,
-      },
-    ];
-  }
-  return Object.entries(node)
-    .filter(([key]) => !key.startsWith("$"))
-    .flatMap(([key, child]) => collect(child, [...path, key]));
+    if (typeof group !== 'object' || group === null) return [];
+    const node = group as TokenNode;
+    if ('$value' in node) {
+        const ext = node.$extensions?.[A11Y_EXTENSION];
+        return [
+            {
+                id: path.join('.'),
+                value: String(node.$value),
+                textTier: ext?.textTier,
+                exempt: ext?.exempt,
+            },
+        ];
+    }
+    return Object.entries(node)
+        .filter(([key]) => !key.startsWith('$'))
+        .flatMap(([key, child]) => collect(child, [...path, key]));
 };
 
 /** All level 2 tokens of a mode with their a11y metadata. */
-export const tokensOf = (mode: Mode): FlatToken[] =>
-  collect(tokenFiles[mode]);
+export const tokensOf = (mode: Mode): FlatToken[] => collect(tokenFiles[mode]);
 
-const startsWith = (token: FlatToken, prefix: string) =>
-  token.id.startsWith(`${prefix}.`);
+const startsWith = (token: FlatToken, prefix: string) => token.id.startsWith(`${prefix}.`);
 
 export const MIN_TEXT = 4.5;
 
@@ -106,80 +104,67 @@ export const MIN_TEXT = 4.5;
 // automatically as backgrounds. `neutral-only` checks text.default and
 // text.emphasis, `ink` additionally every ink.* and syntax.* (min 4.5:1).
 export const MIN_BORDER = 3;
-const BORDER_STRONG_IDS = ["border.strong", "border.focus"] as const;
+const BORDER_STRONG_IDS = ['border.strong', 'border.focus'] as const;
 
-const FOREGROUND_GROUPS = ["text", "ink"] as const;
-const NEUTRAL_TEXT = ["text.default", "text.emphasis"];
+const FOREGROUND_GROUPS = ['text', 'ink'] as const;
+const NEUTRAL_TEXT = ['text.default', 'text.emphasis'];
 
 const allowsForeground = (bg: FlatToken, fg: FlatToken) =>
-  bg.textTier === "full" ||
-  NEUTRAL_TEXT.includes(fg.id) ||
-  (bg.textTier === "ink" && startsWith(fg, "ink"));
+    bg.textTier === 'full' || NEUTRAL_TEXT.includes(fg.id) || (bg.textTier === 'ink' && startsWith(fg, 'ink'));
 
 export function borderPairs(mode: Mode): ContrastPair[] {
-  const tokens = tokensOf(mode);
-  const borders = tokens.filter(
-    (t) => BORDER_STRONG_IDS.includes(t.id as typeof BORDER_STRONG_IDS[number]) && !t.exempt,
-  );
-  return borders.map((b) => ({
-    id: `${mode}:${b.id}/surface.default`,
-    mode,
-    foreground: b.id,
-    background: "surface.default",
-    min: MIN_BORDER,
-  }));
+    const tokens = tokensOf(mode);
+    const borders = tokens.filter(
+        t => BORDER_STRONG_IDS.includes(t.id as (typeof BORDER_STRONG_IDS)[number]) && !t.exempt
+    );
+    return borders.map(b => ({
+        id: `${mode}:${b.id}/surface.default`,
+        mode,
+        foreground: b.id,
+        background: 'surface.default',
+        min: MIN_BORDER,
+    }));
 }
 
 export function contrastMatrix(mode: Mode): ContrastPair[] {
-  const tokens = tokensOf(mode);
-  // surfaces: surface.* group + any token with textTier (selection, highlight)
-  const surfaces = tokens.filter(
-    (t) => (startsWith(t, "surface") || t.textTier !== undefined) && !t.exempt,
-  );
-  const foregrounds = tokens.filter(
-    (t) => FOREGROUND_GROUPS.some((g) => startsWith(t, g)) && !t.exempt,
-  );
+    const tokens = tokensOf(mode);
+    // surfaces: surface.* group + any token with textTier (selection, highlight)
+    const surfaces = tokens.filter(t => (startsWith(t, 'surface') || t.textTier !== undefined) && !t.exempt);
+    const foregrounds = tokens.filter(t => FOREGROUND_GROUPS.some(g => startsWith(t, g)) && !t.exempt);
 
-  // Foreground first (grid rows), then surface (columns).
-  const surfacePairs = foregrounds.flatMap((fg) =>
-    surfaces
-      .filter((bg) => allowsForeground(bg, fg))
-      .map((bg) => pair(mode, fg.id, bg.id)),
-  );
+    // Foreground first (grid rows), then surface (columns).
+    const surfacePairs = foregrounds.flatMap(fg =>
+        surfaces.filter(bg => allowsForeground(bg, fg)).map(bg => pair(mode, fg.id, bg.id))
+    );
 
-  return [...surfacePairs, ...syntaxPairs(mode), ...borderPairs(mode)];
+    return [...surfacePairs, ...syntaxPairs(mode), ...borderPairs(mode)];
 }
 
 const pair = (mode: Mode, foreground: string, background: string): ContrastPair => ({
-  id: `${mode}:${foreground}/${background}`,
-  mode,
-  foreground,
-  background,
-  min: MIN_TEXT,
+    id: `${mode}:${foreground}/${background}`,
+    mode,
+    foreground,
+    background,
+    min: MIN_TEXT,
 });
 
-export const SYNTAX_BACKGROUND = "syntax.background";
-const SYNTAX_BASE_BACKGROUNDS = [SYNTAX_BACKGROUND, "surface.default"];
+export const SYNTAX_BACKGROUND = 'syntax.background';
+const SYNTAX_BASE_BACKGROUNDS = [SYNTAX_BACKGROUND, 'surface.default'];
 
 /** Syntax backdrops of a mode: code block, page, and every `ink`-tier surface. */
 export const syntaxBackgrounds = (mode: Mode): string[] => [
-  ...SYNTAX_BASE_BACKGROUNDS,
-  ...tokensOf(mode)
-    .filter((t) => t.textTier === "ink" && !t.exempt)
-    .map((t) => t.id),
+    ...SYNTAX_BASE_BACKGROUNDS,
+    ...tokensOf(mode)
+        .filter(t => t.textTier === 'ink' && !t.exempt)
+        .map(t => t.id),
 ];
 
 /** `syntax.*` foregrounds of a mode (everything but `syntax.background`). */
 export const syntaxForegrounds = (mode: Mode): FlatToken[] =>
-  tokensOf(mode).filter(
-    (t) => startsWith(t, "syntax") && t.id !== SYNTAX_BACKGROUND && !t.exempt,
-  );
+    tokensOf(mode).filter(t => startsWith(t, 'syntax') && t.id !== SYNTAX_BACKGROUND && !t.exempt);
 
 /** Every syntax foreground on the code background and on the page. */
 export const syntaxPairs = (mode: Mode): ContrastPair[] =>
-  syntaxForegrounds(mode).flatMap((fg) =>
-    syntaxBackgrounds(mode).map((bg) => pair(mode, fg.id, bg)),
-  );
+    syntaxForegrounds(mode).flatMap(fg => syntaxBackgrounds(mode).map(bg => pair(mode, fg.id, bg)));
 
-export const contrastMatrixAll = (): ContrastPair[] =>
-  modes.flatMap((mode) => contrastMatrix(mode));
+export const contrastMatrixAll = (): ContrastPair[] => modes.flatMap(mode => contrastMatrix(mode));

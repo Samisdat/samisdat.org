@@ -1,9 +1,11 @@
-import { css } from "@linaria/core";
-import "normalize.css";
-import { breakpoints } from "../tokens/breakpoints";
-import { borderWidth, borderRadius } from "../tokens/border";
-import { scholionStyles } from "./scholion";
-import { getDarkTheme, getThemeMixTokens } from "../tokens/themes";
+import 'normalize.css';
+
+import { css } from '@linaria/core';
+
+import { borderWidth, borderRadius } from '../tokens/border';
+import { breakpoints } from '../tokens/breakpoints';
+import { getDarkTheme, getThemeMixTokens } from '../tokens/themes';
+import { scholionStyles } from './scholion';
 
 export const globalStyles = css`
   :global() {

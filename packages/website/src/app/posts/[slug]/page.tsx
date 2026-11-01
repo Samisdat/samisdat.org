@@ -1,14 +1,17 @@
-import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
-import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
-import { PostLayout } from '@/components/PostLayout';
-import { Heading } from '@samisdat/ui-components/Heading';
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 import path from 'path';
+
+import { Heading } from '@samisdat/ui-components/Heading';
+import { notFound } from 'next/navigation';
+
+import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
+import { PostLayout } from '@/components/PostLayout';
+import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
+
+import type { Metadata } from 'next';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = loadPost(slug);
 
@@ -24,7 +27,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const post = loadPost(slug);
 

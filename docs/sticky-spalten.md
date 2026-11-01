@@ -9,7 +9,12 @@ Dieses Dokument beschreibt die Lösung mit `position: sticky` von Grund auf, ink
 Im Projekt steckt das Prinzip im Layout-Baustein `Stack` (`packages/ui-components/src/Stack`):
 
 ```mdx
-<Stack container directionSmall="column" directionMedium="row" sticky>
+<Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+>
     <Stack>…Demo…</Stack>
     <Stack>…Text…</Stack>
 </Stack>
@@ -40,22 +45,22 @@ Daraus folgt die wichtigste Regel: **Sticky braucht Platz zum Wandern.** Ist das
 
 ```html
 <div class="pair">
-  <article class="pair__long">…lange Erklärung…</article>
-  <aside class="pair__short">…Vorschau und Code…</aside>
+    <article class="pair__long">…lange Erklärung…</article>
+    <aside class="pair__short">…Vorschau und Code…</aside>
 </div>
 ```
 
 ```css
 .pair {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 2rem;
-  align-items: start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
 }
 
 .pair > * {
-  position: sticky;
-  top: 1rem;
+    position: sticky;
+    top: 1rem;
 }
 ```
 
@@ -78,14 +83,21 @@ In der Demo zeigen die ersten beiden Fälle das: Fall 1 hat links den langen Tex
 Manchmal willst du `stretch` behalten, etwa weil die Spalten einen Hintergrund oder eine Trennlinie über die volle Höhe haben sollen. Dann trennst du Fläche und sticky Inhalt:
 
 ```html
-<aside class="pair__short">          <!-- streckt sich, trägt Hintergrund -->
-  <div class="pair__sticky">…</div>  <!-- wandert darin -->
+<aside class="pair__short">
+    <!-- streckt sich, trägt Hintergrund -->
+    <div class="pair__sticky">…</div>
+    <!-- wandert darin -->
 </aside>
 ```
 
 ```css
-.pair { align-items: stretch; }
-.pair__sticky { position: sticky; top: 1rem; }
+.pair {
+    align-items: stretch;
+}
+.pair__sticky {
+    position: sticky;
+    top: 1rem;
+}
 ```
 
 Der äußere Container ist zeilenhoch, der innere hat seine natürliche Höhe und darin Platz. Den Beide-sticky-Trick verlierst du dabei: Du musst wissen, welche Seite den inneren Wrapper bekommt.
@@ -95,10 +107,12 @@ Der äußere Container ist zeilenhoch, der innere hat seine natürliche Höhe un
 `top` ist der Abstand zum oberen Rand des Scroll-Containers, also meist des Viewports, an dem das Element hängen bleibt. Hast du eine sticky Kopfzeile, muss deren Höhe mit hinein, sonst verschwindet die Spalte darunter:
 
 ```css
-:root { --header-h: 4rem; }
+:root {
+    --header-h: 4rem;
+}
 
 .pair > * {
-  top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 1rem);
+    top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + 1rem);
 }
 ```
 
@@ -112,23 +126,23 @@ Das ist der Fall, den das Grundgerüst nicht löst. Ist die „kurze“ Spalte 1
 
 ### Lösung A: am unteren Ende kleben lassen
 
-Du misst die Höhe und berechnest `top` so, dass das Element bei Überhöhe mit seinem *unteren* Rand am Viewport-Boden hängen bleibt:
+Du misst die Höhe und berechnest `top` so, dass das Element bei Überhöhe mit seinem _unteren_ Rand am Viewport-Boden hängen bleibt:
 
 ```css
 .pair > * {
-  --gap: 1rem;
-  --top: calc(var(--header-h) + var(--gap));
-  position: sticky;
-  top: min(var(--top), calc(100svh - var(--h, 0px) - var(--gap)));
+    --gap: 1rem;
+    --top: calc(var(--header-h) + var(--gap));
+    position: sticky;
+    top: min(var(--top), calc(100svh - var(--h, 0px) - var(--gap)));
 }
 ```
 
 ```ts
 const ro = new ResizeObserver(entries => {
-  for (const { target, borderBoxSize } of entries) {
-    const h = borderBoxSize[0].blockSize;
-    (target as HTMLElement).style.setProperty('--h', `${h}px`);
-  }
+    for (const { target, borderBoxSize } of entries) {
+        const h = borderBoxSize[0].blockSize;
+        (target as HTMLElement).style.setProperty('--h', `${h}px`);
+    }
 });
 document.querySelectorAll('.pair > *').forEach(el => ro.observe(el));
 ```
@@ -145,9 +159,9 @@ Fall 3 der Demo zeigt das Verhalten. Am deutlichsten wird es, wenn du das Browse
 
 ```css
 .pair__short {
-  max-height: calc(100svh - var(--header-h) - 2rem);
-  overflow-y: auto;
-  overscroll-behavior: contain;
+    max-height: calc(100svh - var(--header-h) - 2rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
 ```
 
@@ -167,9 +181,9 @@ Für die erste Ursache hilft dieses Snippet in der Konsole. Es listet alle Vorfa
 ```js
 let el = document.querySelector('.pair__short');
 while ((el = el.parentElement)) {
-  const { overflow, overflowX, overflowY } = getComputedStyle(el);
-  if (/(auto|scroll|hidden)/.test(overflow + overflowX + overflowY))
-    console.log(el, { overflow, overflowX, overflowY });
+    const { overflow, overflowX, overflowY } = getComputedStyle(el);
+    if (/(auto|scroll|hidden)/.test(overflow + overflowX + overflowY))
+        console.log(el, { overflow, overflowX, overflowY });
 }
 ```
 
@@ -179,8 +193,12 @@ Auf schmalen Bildschirmen werden die Spalten gestapelt, und sticky muss aus:
 
 ```css
 @media (max-width: 760px) {
-  .pair { grid-template-columns: 1fr; }
-  .pair > * { position: static; }
+    .pair {
+        grid-template-columns: 1fr;
+    }
+    .pair > * {
+        position: static;
+    }
 }
 ```
 
@@ -190,7 +208,9 @@ Weniger offensichtlich ist die **Höhe** des Viewports. Bei 200 % oder 400 % Zoo
 
 ```css
 @media (min-width: 761px) and (min-height: 560px) {
-  .pair > * { position: sticky; }
+    .pair > * {
+        position: sticky;
+    }
 }
 ```
 
@@ -203,7 +223,9 @@ Schreibt man sticky gleich in diese Media Query, entfällt das Zurücksetzen auf
 **Fokus verdeckt (WCAG 2.2, 2.4.11).** Das betrifft weniger die sticky Spalte als eine sticky Kopfzeile darüber. Springt der Fokus per Tab auf einen Link in der langen Spalte, kann der Browser ihn so scrollen, dass er unter der Kopfzeile landet. `scroll-padding-top` auf `html` sagt dem Browser, dass oben ein Bereich verdeckt ist:
 
 ```css
-html { scroll-padding-top: calc(var(--header-h) + 1rem); }
+html {
+    scroll-padding-top: calc(var(--header-h) + 1rem);
+}
 ```
 
 Das gilt auch für Sprungmarken (`#abschnitt`).
@@ -218,12 +240,14 @@ Der neue CSS-Weg sind Scroll-State Container Queries. Sie werden derzeit nur in 
 
 ```css
 .pair__short {
-  container-type: scroll-state;
-  position: sticky;
-  top: 1rem;
+    container-type: scroll-state;
+    position: sticky;
+    top: 1rem;
 }
 @container scroll-state(stuck: top) {
-  .pair__short > * { box-shadow: 0 0 0 1px var(--line); }
+    .pair__short > * {
+        box-shadow: 0 0 0 1px var(--line);
+    }
 }
 ```
 
@@ -232,35 +256,42 @@ Der klassische Weg mit Support überall ist ein IntersectionObserver auf ein uns
 ## Zusammengefasst
 
 ```css
-:root { --header-h: 4rem; --gap: 1rem; }
-html { scroll-padding-top: calc(var(--header-h) + var(--gap)); }
+:root {
+    --header-h: 4rem;
+    --gap: 1rem;
+}
+html {
+    scroll-padding-top: calc(var(--header-h) + var(--gap));
+}
 
 .pair {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 2rem;
-  align-items: start;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
 }
 
 @media (min-width: 761px) and (min-height: 560px) {
-  .pair > * {
-    --top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + var(--gap));
-    position: sticky;
-    top: min(var(--top), calc(100svh - var(--h, 0px) - var(--gap)));
-  }
+    .pair > * {
+        --top: calc(env(safe-area-inset-top, 0px) + var(--header-h) + var(--gap));
+        position: sticky;
+        top: min(var(--top), calc(100svh - var(--h, 0px) - var(--gap)));
+    }
 }
 
 @media (max-width: 760px) {
-  .pair { grid-template-columns: 1fr; }
+    .pair {
+        grid-template-columns: 1fr;
+    }
 }
 ```
 
 ```ts
 const ro = new ResizeObserver(entries => {
-  for (const { target, borderBoxSize } of entries) {
-    const h = borderBoxSize[0].blockSize;
-    (target as HTMLElement).style.setProperty('--h', `${h}px`);
-  }
+    for (const { target, borderBoxSize } of entries) {
+        const h = borderBoxSize[0].blockSize;
+        (target as HTMLElement).style.setProperty('--h', `${h}px`);
+    }
 });
 document.querySelectorAll('.pair > *').forEach(el => ro.observe(el));
 ```

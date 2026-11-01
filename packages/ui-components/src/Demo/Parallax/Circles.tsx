@@ -1,8 +1,8 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { CSSProperties, useRef } from 'react';
 import { useParallax } from '@samisdat/tools';
+import { CSSProperties, useRef } from 'react';
 
 const Styling = styled.div`
     svg {
@@ -15,8 +15,8 @@ const Styling = styled.div`
         stroke-miterlimit: 1.5;
         display: block;
         border-radius: 0.5rem;
- border: 1px solid var(--color-border-default);
-  background-color: var(--color-surface-raised);
+        border: 1px solid var(--color-border-default);
+        background-color: var(--color-surface-raised);
 
         &:hover {
             border-color: var(--color-text-subtle);
@@ -30,19 +30,19 @@ const Styling = styled.div`
     }
 
     & rect {
-        fill: var(--color-surface-raised); 
+        fill: var(--color-surface-raised);
     }
 
     & circle.red {
-        fill: var(--color-ink-ruby); 
+        fill: var(--color-ink-ruby);
     }
 
     & circle.blue {
-        fill: var(--color-ink-sapphire); 
+        fill: var(--color-ink-sapphire);
     }
 
     & circle.yellow {
-        fill: var(--color-ink-gold); 
+        fill: var(--color-ink-gold);
     }
 `;
 

@@ -1,5 +1,5 @@
-import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 import { styled } from '@linaria/react';
+import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 
 export * from './config';
 
@@ -14,7 +14,7 @@ export const SvgStyling = styled.svg`
 
     & circle {
         fill-rule: nonzero;
-        stroke: ${panoramaCssVars["aubergine"]};
+        stroke: ${panoramaCssVars['aubergine']};
         stroke-width: 0.5px;
     }
 `;

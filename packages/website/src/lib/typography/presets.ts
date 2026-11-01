@@ -1,6 +1,6 @@
-import { DEFAULT_PRESET_ID, isPresetId, type PresetId } from './ids';
-import * as f from './fonts';
 import { PRESET_DATA, presetFonts, type Preset } from './data';
+import * as f from './fonts';
+import { DEFAULT_PRESET_ID, isPresetId } from './ids';
 
 export { DEFAULT_PRESET_ID, PRESET_IDS, type PresetId } from './ids';
 export { presetFontNames, presetStyle, type Font, type Preset } from './data';

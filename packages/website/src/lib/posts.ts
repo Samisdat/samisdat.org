@@ -1,6 +1,7 @@
 import fs from 'fs';
-import matter from 'gray-matter';
 import path from 'path';
+
+import matter from 'gray-matter';
 import { z } from 'zod';
 
 import { PRESET_IDS } from './typography/ids';

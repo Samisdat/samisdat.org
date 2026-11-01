@@ -1,55 +1,61 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { useState } from "react";
+import { Segmented as SegmentedComponent } from '@samisdat/ui-components/Segmented';
+import { useState } from 'react';
 
-import { Segmented as SegmentedComponent } from "@samisdat/ui-components/Segmented";
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: "Controls/Segmented",
-  component: SegmentedComponent,
-  tags: ["autodocs"],
-  parameters: {},
+    title: 'Controls/Segmented',
+    component: SegmentedComponent,
+    tags: ['autodocs'],
+    parameters: {},
 } satisfies Meta<typeof SegmentedComponent>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 const options = [
-  { value: "default", label: "default" },
-  { value: "raised", label: "raised · highlight · selection" },
-  { value: "code", label: "code" },
+    { value: 'default', label: 'default' },
+    { value: 'raised', label: 'raised · highlight · selection' },
+    { value: 'code', label: 'code' },
 ];
 
 export const Segmented: Story = {
-  args: {
-    label: "Gemessen auf",
-    value: "raised",
-    options,
-    onChange: () => {},
-  },
-  render: (args) => {
-    const [value, setValue] = useState(args.value);
-    return <SegmentedComponent {...args} value={value} onChange={setValue} />;
-  },
+    args: {
+        label: 'Gemessen auf',
+        value: 'raised',
+        options,
+        onChange: () => {},
+    },
+    render: args => {
+        const [value, setValue] = useState(args.value);
+        return (
+            <SegmentedComponent
+                {...args}
+                value={value}
+                onChange={setValue}
+            />
+        );
+    },
 };
 
 // --- many options -----------------------------------------------------------------------------
 // The typography preset switcher has 13 options; the pill wraps into an uneven second row.
 
 const presets = [
-  "current",
-  "inter",
-  "tight-inter",
-  "editorial",
-  "plex",
-  "instrument",
-  "bricolage",
-  "literata",
-  "garamond",
-  "geist",
-  "recursive",
-  "alegreya",
-  "bodoni",
-].map((value) => ({ value, label: value }));
+    'current',
+    'inter',
+    'tight-inter',
+    'editorial',
+    'plex',
+    'instrument',
+    'bricolage',
+    'literata',
+    'garamond',
+    'geist',
+    'recursive',
+    'alegreya',
+    'bodoni',
+].map(value => ({ value, label: value }));
 
 // Proposals are story-local overrides of the existing markup (fieldset > label > input + span),
 // doubled class for specificity over the component's own styles.
@@ -101,54 +107,64 @@ const proposalCss = `
 `;
 
 const Controlled = ({ className, width }: { className?: string; width: number }) => {
-  const [value, setValue] = useState("plex");
-  return (
-    <div className={className} style={{ width, maxWidth: "100%" }}>
-      <SegmentedComponent
-        label="Typography preset"
-        value={value}
-        options={presets}
-        onChange={setValue}
-      />
-    </div>
-  );
+    const [value, setValue] = useState('plex');
+    return (
+        <div
+            className={className}
+            style={{ width, maxWidth: '100%' }}
+        >
+            <SegmentedComponent
+                label="Typography preset"
+                value={value}
+                options={presets}
+                onChange={setValue}
+            />
+        </div>
+    );
 };
 
 /** Today's component with 13 options: wraps inside one pill. */
 export const Multiline: Story = {
-  args: { label: "Typography preset", value: "plex", options: presets, onChange: () => {} },
-  render: () => <Controlled width={720} />,
+    args: { label: 'Typography preset', value: 'plex', options: presets, onChange: () => {} },
+    render: () => <Controlled width={720} />,
 };
 
 /** `variant="chips"`: the chosen layout for many options. */
 export const Chips: Story = {
-  args: { label: "Typography preset", value: "plex", options: presets, onChange: () => {}, variant: "chips" },
-  render: (args) => {
-    const [value, setValue] = useState(args.value);
-    return (
-      <div style={{ width: 720, maxWidth: "100%" }}>
-        <SegmentedComponent {...args} value={value} onChange={setValue} />
-      </div>
-    );
-  },
+    args: { label: 'Typography preset', value: 'plex', options: presets, onChange: () => {}, variant: 'chips' },
+    render: args => {
+        const [value, setValue] = useState(args.value);
+        return (
+            <div style={{ width: 720, maxWidth: '100%' }}>
+                <SegmentedComponent
+                    {...args}
+                    value={value}
+                    onChange={setValue}
+                />
+            </div>
+        );
+    },
 };
 
 /** The three proposals at the same width, same data. */
 export const MultilineProposals: Story = {
-  args: Multiline.args,
-  render: () => (
-    <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr)", gap: 32 }}>
-      <style>{proposalCss}</style>
-      {[
-        ["A · Grid", "seg-grid"],
-        ["B · Chips", "seg-chips"],
-        ["C · Scrolling row", "seg-scroll"],
-      ].map(([title, cls]) => (
-        <div key={cls}>
-          <p style={{ margin: "0 0 8px", fontSize: 14, color: "var(--color-text-secondary)" }}>{title}</p>
-          <Controlled className={cls} width={720} />
+    args: Multiline.args,
+    render: () => (
+        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr)', gap: 32 }}>
+            <style>{proposalCss}</style>
+            {[
+                ['A · Grid', 'seg-grid'],
+                ['B · Chips', 'seg-chips'],
+                ['C · Scrolling row', 'seg-scroll'],
+            ].map(([title, cls]) => (
+                <div key={cls}>
+                    <p style={{ margin: '0 0 8px', fontSize: 14, color: 'var(--color-text-secondary)' }}>{title}</p>
+                    <Controlled
+                        className={cls}
+                        width={720}
+                    />
+                </div>
+            ))}
         </div>
-      ))}
-    </div>
-  ),
+    ),
 };
