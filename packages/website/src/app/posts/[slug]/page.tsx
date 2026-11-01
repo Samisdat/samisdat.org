@@ -1,10 +1,7 @@
-import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
+import { PostArticle } from '@/components/PostArticle';
 import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
-import { PostLayout } from '@/components/PostLayout';
-import { Heading } from '@samisdat/ui-components/Heading';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import path from 'path';
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -32,17 +29,11 @@ export default async function PostPage({ params }: { params: { slug: string } })
         return notFound();
     }
 
-    const mdxDir = path.join(process.cwd(), 'content/posts');
-
     return (
-        <PostLayout typography={post.frontmatter.typography}>
-            <Heading level={1}>{post.frontmatter.title}</Heading>
-            <MarkdownServer
-                content={post.source}
-                mdxDir={mdxDir}
-                slug={slug}
-            />
-        </PostLayout>
+        <PostArticle
+            slug={slug}
+            {...post}
+        />
     );
 }
 
