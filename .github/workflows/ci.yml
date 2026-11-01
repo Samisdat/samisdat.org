@@ -38,14 +38,11 @@ jobs:
       - name: Lint color tokens
         run: pnpm lint:tokens
 
-      - name: Lint JavaScript/TypeScript
-        run: pnpm lint
-
       - name: Build panorama library
         run: pnpm --filter @samisdat/wtal-panorama build:colors && pnpm build:lib
 
-      - name: Typecheck
-        run: pnpm -r exec tsc --noEmit
+      - name: Lint and typecheck
+        run: pnpm lint
 
       - name: Check version consistency
         run: pnpm syncpack lint
