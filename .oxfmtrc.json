@@ -17,7 +17,7 @@
   "embeddedLanguageFormatting": "auto",
   "singleAttributePerLine": true,
   "sortPackageJson": false,
-  "ignorePatterns": [],
+  "ignorePatterns": ["**/generated/**"],
   "sortImports": {
     "groups": [
       "side_effect",
