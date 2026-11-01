@@ -1,5 +1,5 @@
 {
-  "plugins": ["react", "nextjs"],
+  "plugins": ["react", "nextjs", "typescript", "jsx-a11y", "import"],
   "ignorePatterns": [
     "**/Buildings/**",
     "**/codesandboxes/**",
@@ -7,7 +7,8 @@
     "**/dist/**",
     "**/__tests__/**",
     "**/*.test.*",
-    "**/*.stories.*"
+    "**/*.stories.*",
+    "**/Sandbox/templates/**"
   ],
   "rules": {
     "complexity": [
@@ -43,7 +44,26 @@
       {
         "max": 4
       }
-    ]
+    ],
+    "react/jsx-no-constructed-context-values": "error",
+    "react/no-array-index-key": "error",
+    "react/jsx-key": "error",
+    "react/no-unstable-nested-components": "error",
+    "eqeqeq": [
+      "error",
+      "always",
+      {
+        "null": "ignore"
+      }
+    ],
+    "no-console": [
+      "error",
+      {
+        "allow": ["warn", "error"]
+      }
+    ],
+    "no-var": "error",
+    "prefer-const": "error"
   },
   "overrides": [
     {
@@ -248,6 +268,12 @@
             "skipComments": true
           }
         ]
+      }
+    },
+    {
+      "files": ["**/scripts/**", "scripts/**"],
+      "rules": {
+        "no-console": "off"
       }
     }
   ]

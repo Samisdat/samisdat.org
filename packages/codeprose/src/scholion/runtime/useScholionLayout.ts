@@ -138,7 +138,7 @@ export function useScholionLayout(
         ro.observe(document.body);
         cleanups.push(() => ro.disconnect());
 
-        document.fonts?.ready.then(schedule);
+        void document.fonts?.ready.then(schedule);
         schedule();
 
         return () => {

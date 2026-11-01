@@ -45,7 +45,7 @@ interface ThemeSwitcherProps {
     theme: ThemeName;
 }
 
-export const ThemeSwitcher = ({ theme = 'dark', onUpdate }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ theme, onUpdate }: ThemeSwitcherProps) => {
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const checked = e.target.checked;
 

@@ -31,6 +31,8 @@ export const Code: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props })
     return (
         <pre
             ref={ref}
+            // A scroll container must be keyboard-reachable; set only while it actually scrolls
+            // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
             tabIndex={scrollable ? 0 : undefined}
             {...props}
         >

@@ -44,6 +44,7 @@ export const Tokens: FC<{ line: CodeLine; fallback: string }> = ({ line, fallbac
     <>
         {line.map((t, i) => (
             <span
+                // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                 key={i}
                 style={{
                     color: t.f ?? fallback,
@@ -87,6 +88,7 @@ const ThemeLines = ({ code }: { code: CodeData }) => (
     <Pre style={{ color: code.fg }}>
         <code>
             {code.theme.map((line, i) => (
+                // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                 <Line key={i}>
                     <span aria-hidden="true" />
                     <span>
@@ -107,6 +109,7 @@ const DiffLines = ({ code }: { code: CodeData }) => (
         <code>
             {code.diff.map((row, i) => (
                 <Line
+                    // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                     key={i}
                     style={{
                         background:

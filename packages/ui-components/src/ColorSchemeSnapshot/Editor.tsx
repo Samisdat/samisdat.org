@@ -121,6 +121,7 @@ export const SnapshotEditor: FC<BlockProps> = props => {
                     <Code>
                         {lines.map((line, i) => (
                             <Row
+                                // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                                 key={i}
                                 style={{ background: i === cursor ? cs('highlight') : undefined }}
                             >
@@ -139,6 +140,7 @@ export const SnapshotEditor: FC<BlockProps> = props => {
                                         <Fragment>
                                             {line.map((t, k) => (
                                                 <span
+                                                    // oxlint-disable-next-line react/no-array-index-key -- static list, never reordered; the index is its only identity
                                                     key={k}
                                                     style={{
                                                         color: t.f ?? code.fg,

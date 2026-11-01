@@ -11,7 +11,6 @@ export const TimeFactor = () => {
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const newValue = e.currentTarget.value;
-        console.log(newValue);
         setTimeFactor(parseInt(newValue, 10));
     };
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useState, type ReactNode } from 'react';
+import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 
 type LiveListener = (event: unknown) => void;
 
@@ -49,5 +49,7 @@ export function DemoContext({ children, ...props }: { children?: ReactNode; [k: 
 
     const setValue = useCallback((key: string, value: string) => setValues(prev => ({ ...prev, [key]: value })), []);
 
-    return <Ctx.Provider value={{ values, setValue, live }}>{children}</Ctx.Provider>;
+    const value = useMemo(() => ({ values, setValue, live }), [values, setValue, live]);
+
+    return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
