@@ -79,7 +79,7 @@
     "remark-mdx-frontmatter": "^6.0.0",
     "shiki": "catalog:",
     "unified": "^11.0.5",
-    "unist-util-visit": "^5.0.0",
+    "unist-util-visit": "^5.2.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
@@ -90,7 +90,7 @@
     "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "catalog:",
-    "baseline-browser-mapping": "^2.11.30",
+    "baseline-browser-mapping": "^2.11.34",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",

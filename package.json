@@ -30,7 +30,7 @@
   "devDependencies": {
     "concurrently": "^10.0.6",
     "oxfmt": "^0.75.0",
-    "oxlint": "^1.89.0",
+    "oxlint": "^1.90.0",
     "oxlint-tsgolint": "^7.0.2005",
     "postcss-styled-syntax": "^0.7.4",
     "stylelint": "^17.15.0",
