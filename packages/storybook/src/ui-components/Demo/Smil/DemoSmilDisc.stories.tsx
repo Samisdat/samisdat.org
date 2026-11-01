@@ -1,15 +1,15 @@
-import { DemoAnimationsSvg } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsSvg';
+import { DemoSmilDisc } from '@samisdat/ui-components/Demo/Smil/Disc';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'Demo/Animations/Svg',
-    component: DemoAnimationsSvg,
+    title: 'Demo/Smil/Disc',
+    component: DemoSmilDisc,
     parameters: {
         layout: 'centered',
     },
     tags: ['autodocs'],
-} satisfies Meta<typeof DemoAnimationsSvg>;
+} satisfies Meta<typeof DemoSmilDisc>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
