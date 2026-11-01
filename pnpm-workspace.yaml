@@ -20,7 +20,7 @@ catalog:
   '@types/react-dom': ^19.3.0
 
   # Next.js
-  next: ^16.4.2
+  next: ^16.4.3
 
   # TypeScript
   typescript: ^6.0.3
