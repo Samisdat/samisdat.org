@@ -15,7 +15,7 @@ export const PostProse = styled.article`
     line-height: var(--blh, 1.65);
 
     & > :is(h1, h2, h3),
-    & > div > :is(p, ul, ol, h1, h2, h3, h4, blockquote) {
+    & > div > :is(p, ul, ol, h1, h2, h3, h4, blockquote, figure[data-quote]) {
         max-width: var(--measure);
     }
 `;
