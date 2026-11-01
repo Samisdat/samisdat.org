@@ -1,5 +1,6 @@
 import { FC, HTMLAttributes } from 'react';
 
+import { BlogCollectorCard } from '@samisdat/ui-components/BlogCollectorCard';
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
 import { Grid } from '@samisdat/ui-components/Grid';
@@ -87,6 +88,7 @@ export const Markdown: FC<MarkdownProps> = ({ MDXContent, slug: _slug, mdxDir: _
         Stack: (props: any) => {
             return <Stack {...props} />;
         },
+        BlogCollectorCard: (props: any) => <BlogCollectorCard {...props} />,
         Sandbox: (props: any) => {
             const files = sandboxFiles?.[props.name];
             return (
