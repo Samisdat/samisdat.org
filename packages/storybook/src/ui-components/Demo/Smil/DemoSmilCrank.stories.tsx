@@ -1,13 +1,13 @@
-import { DemoAnimationsCrank } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsCrank';
-import { DemoAnimationsCrankFormula } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsCrankFormula';
 import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
+import { DemoSmilCrank } from '@samisdat/ui-components/Demo/Smil/Crank';
+import { DemoSmilCrankFormula } from '@samisdat/ui-components/Demo/Smil/Crank';
 import { Stack } from '@samisdat/ui-components/Stack';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-    title: 'Demo/Animations/Crank',
-    component: DemoAnimationsCrank,
+    title: 'Demo/Smil/Crank',
+    component: DemoSmilCrank,
     parameters: {
         layout: 'centered',
     },
@@ -22,10 +22,10 @@ const meta = {
                     sticky
                 >
                     <Stack>
-                        <DemoAnimationsCrank />
+                        <DemoSmilCrank />
                     </Stack>
                     <Stack>
-                        <DemoAnimationsCrankFormula
+                        <DemoSmilCrankFormula
                             locale="de-DE"
                             texts={{
                                 phaseComment: 'Phase im Zyklus (t, dur in s)',
@@ -47,7 +47,7 @@ const meta = {
             </DemoContext>
         ),
     ],
-} satisfies Meta<typeof DemoAnimationsCrank>;
+} satisfies Meta<typeof DemoSmilCrank>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

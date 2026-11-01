@@ -24,7 +24,7 @@ Funktioniert auf den ersten Blick erstaunlich gut.
   >
     <Stack>
 
-<DemoAnimationsDisc />
+<DemoSmilDisc />
 
     </Stack>
     <Stack>
@@ -99,7 +99,7 @@ Wenn ich zwischen zwei verschiedenen Sets von Pfad-Kommandos animiere, dann beko
 >
 
     <Stack>
-        <DemoAnimationsMorphHeart />
+        <DemoSmilMorphIcons />
     </Stack>
     <Stack>
 
@@ -226,7 +226,7 @@ Punkt 2 und 4 sind einhundertprozentige Duplikate von Punkt 1. Bei kleinen Anima
     sticky
 >
     <Stack>
-        <DemoAnimationsMorphHills />
+        <DemoSmilMorphHills />
     </Stack>
     <Stack>
 Ich hatte gedacht, dass ich damit einen Parallax-Effekt hinbekommen würde, bei dem sich die einzelnen Ebenen nicht nur gegeneinander verschieben, sondern die Hügel wirklich flacher werden.
@@ -256,9 +256,10 @@ Nicht nur die Art der Punkte ist wichtig, sondern auch deren Reihenfolge.
 
 Beim Interpolieren werden aus den Kommandos in den Pfaden Paare gebildet.
 
-<DemoAnimationsMorphGood />
+<DemoSmilMorphMistakes />
 
-Jeweils zwei Pfade: ein Kreis, der zu einem Quadrat morpht. Beim grünen stimmt die Reihenfolge der Punkte. Beim gelben beginnt das Quadrat an der Gegenecke, beim roten sind 1 und 2 vertauscht.
+Jeweils zwei Pfade: Das eigentliche Ziel ist ein Kreis, der zu einem Quadrat morpht.
+Beim grünen stimmt die Reihenfolge der Punkte. Beim gelben beginnt das Quadrat an der Gegenecke, beim roten sind 1 und 2 vertauscht.
 Alle Animationen haben dieselbe `dur`, aber die Punkte im gelben haben längere Wege, deshalb ist die Bewegung schneller.
 
 Verrutscht die Zuordnung – etwa weil der Pfad an einer anderen Ecke beginnt – bekommt jedes Kommando einen neuen Partner, und die Animation verdrillt sich oder klappt um.
@@ -303,10 +304,10 @@ Wenn Du die Geschwindigkeit änderst, dann ändert sich die `dur` und Du siehst 
         sticky
     >
         <Stack>
-            <DemoAnimationsCrank />
+            <DemoSmilCrank />
         </Stack>
         <Stack>
-            <DemoAnimationsCrankFormula
+            <DemoSmilCrankFormula
                 locale="de-DE"
                 texts={{
                     phaseComment: 'Phase im Zyklus (t, dur in s)',
@@ -372,4 +373,4 @@ Zumindest fast.
 Die beiden kleinen Schwebebahnen im Header fahren mit SMIL hin und her.
 Die sollen einfach immer gleich schnell vor und zurück fahren. Das kann SMIL.
 
-<DemoAnimationsSvg />
+<DemoSmilSchwebebahn />

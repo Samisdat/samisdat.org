@@ -9,6 +9,8 @@ import { Block, Hidden, LevelBadge, Mono, Panel, Scroll, ratio, BlockHeader, typ
 
 import type { CodeLine } from '@samisdat/color-scheme/snapshot-types';
 
+type CodeData = ReturnType<typeof useSnapshot>['m']['code'];
+
 export const Pre = styled.pre`
     margin: 0;
     padding: 1rem 0;
@@ -81,6 +83,62 @@ const Legend = styled.table`
     }
 `;
 
+const ThemeLines = ({ code }: { code: CodeData }) => (
+    <Pre style={{ color: code.fg }}>
+        <code>
+            {code.theme.map((line, i) => (
+                <Line key={i}>
+                    <span aria-hidden="true" />
+                    <span>
+                        <Tokens
+                            line={line}
+                            fallback={code.fg}
+                        />
+                        {line.length === 0 ? ' ' : null}
+                    </span>
+                </Line>
+            ))}
+        </code>
+    </Pre>
+);
+
+const DiffLines = ({ code }: { code: CodeData }) => (
+    <Pre style={{ color: code.fg }}>
+        <code>
+            {code.diff.map((row, i) => (
+                <Line
+                    key={i}
+                    style={{
+                        background:
+                            row.kind === 'add' ? cs('diff.add') : row.kind === 'del' ? cs('diff.delete') : undefined,
+                    }}
+                >
+                    <span
+                        aria-hidden="true"
+                        style={{
+                            color: row.kind === 'add' ? cs('syntax.diff-plus') : cs('syntax.diff-minus'),
+                        }}
+                    >
+                        {row.kind === 'add' ? '+' : row.kind === 'del' ? '-' : ''}
+                    </span>
+                    <span>
+                        {row.kind === 'add' ? <Hidden>Hinzugefügt: </Hidden> : null}
+                        {row.kind === 'del' ? <Hidden>Entfernt: </Hidden> : null}
+                        {row.kind === 'hunk' ? (
+                            <span style={{ color: cs('syntax.string-special') }}>{row.line[0].c}</span>
+                        ) : (
+                            <Tokens
+                                line={row.line}
+                                fallback={code.fg}
+                            />
+                        )}
+                    </span>
+                </Line>
+            ))}
+        </code>
+    </Pre>
+);
+
 export const SnapshotCode: FC<BlockProps> = props => {
     const { m } = useSnapshot();
     const [tab, setTab] = useState<'theme' | 'diff'>('theme');
@@ -103,64 +161,7 @@ export const SnapshotCode: FC<BlockProps> = props => {
                 }
             />
             <Panel style={{ background: code.bg, padding: 0 }}>
-                {tab === 'theme' ? (
-                    <Pre style={{ color: code.fg }}>
-                        <code>
-                            {code.theme.map((line, i) => (
-                                <Line key={i}>
-                                    <span aria-hidden="true" />
-                                    <span>
-                                        <Tokens
-                                            line={line}
-                                            fallback={code.fg}
-                                        />
-                                        {line.length === 0 ? ' ' : null}
-                                    </span>
-                                </Line>
-                            ))}
-                        </code>
-                    </Pre>
-                ) : (
-                    <Pre style={{ color: code.fg }}>
-                        <code>
-                            {code.diff.map((row, i) => (
-                                <Line
-                                    key={i}
-                                    style={{
-                                        background:
-                                            row.kind === 'add'
-                                                ? cs('diff.add')
-                                                : row.kind === 'del'
-                                                  ? cs('diff.delete')
-                                                  : undefined,
-                                    }}
-                                >
-                                    <span
-                                        aria-hidden="true"
-                                        style={{
-                                            color:
-                                                row.kind === 'add' ? cs('syntax.diff-plus') : cs('syntax.diff-minus'),
-                                        }}
-                                    >
-                                        {row.kind === 'add' ? '+' : row.kind === 'del' ? '-' : ''}
-                                    </span>
-                                    <span>
-                                        {row.kind === 'add' ? <Hidden>Hinzugefügt: </Hidden> : null}
-                                        {row.kind === 'del' ? <Hidden>Entfernt: </Hidden> : null}
-                                        {row.kind === 'hunk' ? (
-                                            <span style={{ color: cs('syntax.string-special') }}>{row.line[0].c}</span>
-                                        ) : (
-                                            <Tokens
-                                                line={row.line}
-                                                fallback={code.fg}
-                                            />
-                                        )}
-                                    </span>
-                                </Line>
-                            ))}
-                        </code>
-                    </Pre>
-                )}
+                {tab === 'theme' ? <ThemeLines code={code} /> : <DiffLines code={code} />}
             </Panel>
             <Scroll>
                 <Legend>

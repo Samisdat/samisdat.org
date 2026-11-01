@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { ChangeEvent, MouseEvent } from 'react';
+import { ChangeEvent, MouseEvent, ReactNode } from 'react';
 
 import { RangeSlider } from './RangeSlider';
 
@@ -9,7 +9,7 @@ const Icon = styled.span`
     text-align: center;
 `;
 
-const PlayPauseButton = styled.button`
+export const PlayPauseButton = styled.button`
     /* ghost button */
     appearance: none;
     background: none;
@@ -85,6 +85,11 @@ const Notice = styled.div`
     opacity: 0.8;
 `;
 
+const ExtraRow = styled.div`
+    flex: 0 0 100%;
+    margin-top: 0.5rem;
+`;
+
 const formatSpeed = (speed: number) => `${Number(speed.toFixed(2))}x`;
 
 const countDecimals = (value: number) => Math.min(2, (String(value).split('.')[1] ?? '').length);
@@ -108,6 +113,8 @@ export interface PlaybackControlProps {
     speedControl?: boolean;
     resetControl?: boolean;
     notice?: string;
+    /** Slot for a demo-specific control (e.g. a checkbox) rendered below the playback row. */
+    extra?: ReactNode;
     onPlay: () => void;
     onPause: () => void;
     onReset: () => void;
@@ -123,6 +130,7 @@ export const PlaybackControl = ({
     speedControl = true,
     resetControl: _resetControl = true,
     notice,
+    extra,
     onPlay,
     onPause,
     onReset,
@@ -210,6 +218,7 @@ export const PlaybackControl = ({
             </Row>
             {getSpeedControls()}
             {notice && <Notice>{notice}</Notice>}
+            {extra && <ExtraRow>{extra}</ExtraRow>}
         </Styling>
     );
 };

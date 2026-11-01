@@ -47,25 +47,6 @@
   },
   "overrides": [
     {
-      "files": ["packages/codeprose/src/scholion/runtime/ScholionProvider.tsx"],
-      "rules": {
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 175,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ],
-        "complexity": [
-          "error",
-          {
-            "max": 17
-          }
-        ]
-      }
-    },
-    {
       "files": ["packages/codeprose/src/scholion/runtime/state.ts"],
       "rules": {
         "complexity": [
@@ -164,7 +145,7 @@
         "max-lines": [
           "error",
           {
-            "max": 281,
+            "max": 259,
             "skipBlankLines": true,
             "skipComments": true
           }
@@ -215,33 +196,12 @@
       }
     },
     {
-      "files": ["packages/ui-components/src/Demo/Animations/DemoAnimationsCrank.tsx"],
+      "files": ["packages/ui-components/src/Demo/Smil/Crank/index.tsx"],
       "rules": {
         "max-lines-per-function": [
           "error",
           {
-            "max": 146,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
-      "files": ["packages/ui-components/src/Demo/Animations/DemoAnimationsCrankFormula.tsx"],
-      "rules": {
-        "max-lines": [
-          "error",
-          {
-            "max": 327,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ],
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 150,
+            "max": 143,
             "skipBlankLines": true,
             "skipComments": true
           }
@@ -284,19 +244,6 @@
           "error",
           {
             "max": 247,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
-      "files": ["packages/website/src/lib/typography/fonts.ts"],
-      "rules": {
-        "max-lines": [
-          "error",
-          {
-            "max": 333,
             "skipBlankLines": true,
             "skipComments": true
           }

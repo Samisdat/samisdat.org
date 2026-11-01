@@ -20,9 +20,11 @@ const FooterWrapper = styled.footer`
     }
 `;
 
+// Evaluated once per server start/build; the footer only shows the year
+const YEAR = new Date().getFullYear();
+
 export const Colophon: FC<HTMLAttributes<HTMLElement>> = props => (
     <FooterWrapper {...props}>
-        © {new Date().getFullYear()} samisdat.org · <Link href="/impressum">Impressum</Link> ·{' '}
-        <Link href="/datenschutz">Datenschutz</Link>
+        © {YEAR} samisdat.org · <Link href="/impressum">Impressum</Link> · <Link href="/datenschutz">Datenschutz</Link>
     </FooterWrapper>
 );

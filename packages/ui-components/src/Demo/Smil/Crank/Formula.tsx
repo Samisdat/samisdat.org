@@ -1,12 +1,13 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { useEffect, useRef, useState } from 'react';
+import { useDemoContext } from '@samisdat/ui-components/Demo/DemoContext';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useShikiHighlighter } from 'react-shiki';
 
-import { shikiTheme, styledGrammarLangs } from '../../utils/shikiTheme';
-import { useDemoContext } from '../DemoContext';
+import { shikiTheme, styledGrammarLangs } from '../../../utils/shikiTheme';
 import { AUTO_RESET_AT, BASE_DURATION_FALLBACK, CRANK_ELEMENT_ID, type CrankEvent } from './crankEvents';
+import { FormulaLines, num } from './FormulaLines';
 
 const fmt = (locale: string, value: number, digits: number) =>
     value.toLocaleString(locale, {
@@ -21,7 +22,6 @@ const fmtSigned = (locale: string, value: number, digits: number) =>
     `${value < 0 ? '−' : '+'}${fmt(locale, Math.abs(value), digits)}`;
 
 /** Plain JS number literal (dot decimals) for the code-style blocks. */
-const num = (value: number, digits: number) => value.toFixed(digits);
 const numDur = (value: number) => String(Number(value.toFixed(2)));
 
 /** Replaces `{name}` placeholders; unknown names are left as they are. */
@@ -190,20 +190,6 @@ const Block = styled.div`
 `;
 
 /** Static token, colored like the live value of the same variable. */
-const Tok = ({ f, children }: { f: FormulaField; children: string }) => <span className={`v-${f}`}>{children}</span>;
-
-const V = ({ f, init }: { f: FormulaField; init: string }) => (
-    <span
-        data-f={f}
-        className={`v v-${f}`}
-    >
-        {init}
-    </span>
-);
-
-// Continuation of an assignment as a comment, "=" aligned under the one above.
-const Cont = ({ pad }: { pad: number }) => <span className="comment">{`//${' '.repeat(pad)}`}</span>;
-
 const consoleSnippet = (comment: string) => `// ${comment}
 const g = document
   .querySelector("#${CRANK_ELEMENT_ID}");
@@ -222,11 +208,13 @@ type DemoAnimationsCrankFormulaProps = {
     locale: string;
 };
 
-export const DemoAnimationsCrankFormula = ({ texts, locale }: DemoAnimationsCrankFormulaProps) => {
+export const DemoSmilCrankFormula = ({ texts, locale }: DemoAnimationsCrankFormulaProps) => {
     const ctx = useDemoContext();
     // The subscription is set up once; it reads the current copy through a ref.
     const copyRef = useRef({ texts, locale });
-    copyRef.current = { texts, locale };
+    useLayoutEffect(() => {
+        copyRef.current = { texts, locale };
+    });
     const [baseDuration] = useState(() => parseFloat(ctx?.values.duration ?? '') || BASE_DURATION_FALLBACK);
     const dur = numDur(baseDuration);
     const zero = num(0, 2);
@@ -286,92 +274,11 @@ export const DemoAnimationsCrankFormula = ({ texts, locale }: DemoAnimationsCran
 
     return (
         <Block ref={rootRef}>
-            <div className="formula">
-                <div>
-                    <Tok f="t">t</Tok>
-                    {' = '}
-                    <V
-                        f="t"
-                        init={zero}
-                    />
-                </div>
-                <div> </div>
-                <div className="comment">{`// ${texts.phaseComment}`}</div>
-                <div>
-                    <Tok f="frac">frac</Tok>
-                    {'  = ('}
-                    <Tok f="t">t</Tok>
-                    {' % '}
-                    <Tok f="dur">dur</Tok>
-                    {') / '}
-                    <Tok f="dur">dur</Tok>
-                    {';'}
-                </div>
-                <div>
-                    <Cont pad={4} />
-                    {'= ('}
-                    <V
-                        f="t"
-                        init={zero}
-                    />
-                    {' % '}
-                    <V
-                        f="dur"
-                        init={dur}
-                    />
-                    {') / '}
-                    <V
-                        f="dur"
-                        init={dur}
-                    />
-                </div>
-                <div>
-                    <Cont pad={4} />
-                    {'= '}
-                    <V
-                        f="local"
-                        init={zero}
-                    />
-                    {' / '}
-                    <V
-                        f="dur"
-                        init={dur}
-                    />
-                </div>
-                <div>
-                    <Cont pad={4} />
-                    {'= '}
-                    <V
-                        f="frac"
-                        init={num(0, 4)}
-                    />
-                </div>
-                <div> </div>
-                <div className="comment">{`// ${texts.angleComment}`}</div>
-                <div>
-                    <Tok f="theta">angle</Tok>
-                    {' = from + '}
-                    <Tok f="frac">frac</Tok>
-                    {' * (to - from);'}
-                </div>
-                <div>
-                    <Cont pad={4} />
-                    {'= 0 + '}
-                    <V
-                        f="frac"
-                        init={num(0, 4)}
-                    />
-                    {' * (360 - 0)'}
-                </div>
-                <div>
-                    <Cont pad={4} />
-                    {'= '}
-                    <V
-                        f="theta"
-                        init={num(0, 1)}
-                    />
-                </div>
-            </div>
+            <FormulaLines
+                texts={texts}
+                zero={zero}
+                dur={dur}
+            />
             <div
                 className="jump"
                 aria-live="polite"

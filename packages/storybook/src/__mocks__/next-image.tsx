@@ -10,7 +10,9 @@ interface ImageProps {
     height?: number;
 }
 
+// Storybook stand-in for next/image: a plain <img> is the point of this mock
 const Image = ({ src, alt, fill, style, sizes: _sizes, ...props }: ImageProps) => (
+    // oxlint-disable-next-line next/no-img-element
     <img
         src={src}
         alt={alt}

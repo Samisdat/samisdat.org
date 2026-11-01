@@ -5,7 +5,7 @@ import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react';
 
 export const Code: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
     const ref = useRef<HTMLPreElement>(null);
-    const ctx = useDemoContext();
+    const values = useDemoContext()?.values;
     const [scrollable, setScrollable] = useState(false);
 
     // A horizontally scrolling block must be reachable by keyboard; Safari does not focus scroll containers itself
@@ -20,13 +20,13 @@ export const Code: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props })
     }, []);
 
     useEffect(() => {
-        if (!ctx || !ref.current) return;
-        for (const [key, value] of Object.entries(ctx.values)) {
+        if (!values || !ref.current) return;
+        for (const [key, value] of Object.entries(values)) {
             for (const span of ref.current.querySelectorAll<HTMLElement>(`[data-placeholder="${key}"]`)) {
                 span.textContent = value;
             }
         }
-    }, [ctx?.values]);
+    }, [values]);
 
     return (
         <pre

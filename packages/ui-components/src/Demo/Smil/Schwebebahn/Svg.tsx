@@ -1,9 +1,5 @@
-'use client';
-
 import { styled } from '@linaria/react';
-import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
-import { useEffect, useRef, useState } from 'react';
 
 const BridgeSvgStyling = styled.svg`
     background: ${panoramaCssVars['deep-pine']};
@@ -46,7 +42,7 @@ const BridgeSvgStyling = styled.svg`
     }
 `;
 
-const Svg = () => (
+export const Schwebebahn = () => (
     <BridgeSvgStyling viewBox="0 0 200 100">
         <g className="bridgeBehind">
             <path
@@ -114,67 +110,3 @@ const Svg = () => (
         </g>
     </BridgeSvgStyling>
 );
-
-export const DemoAnimationsSvg = () => {
-    const containerRef = useRef<HTMLDivElement | null>(null);
-
-    const [speed, setSpeed] = useState(40);
-    const [isPlaying, setIsPlaying] = useState(false);
-
-    const getSvg = () => containerRef.current?.querySelector<SVGSVGElement>('svg') ?? null;
-
-    useEffect(() => {
-        const svg = getSvg();
-        if (!svg) {
-            return;
-        }
-        svg.pauseAnimations();
-        svg.setCurrentTime(0);
-    }, []);
-
-    useEffect(() => {
-        containerRef.current?.querySelector('animate')?.setAttribute('dur', `${speed}s`);
-    }, [speed]);
-
-    const onSpeedChange = (value: number) => {
-        setSpeed(value);
-    };
-
-    const onPlay = () => {
-        getSvg()?.unpauseAnimations();
-        setIsPlaying(true);
-    };
-
-    const onPause = () => {
-        getSvg()?.pauseAnimations();
-        setIsPlaying(false);
-    };
-
-    const onReset = () => {
-        const svg = getSvg();
-        if (svg) {
-            svg.pauseAnimations();
-            svg.setCurrentTime(0);
-        }
-        setSpeed(40);
-        setIsPlaying(false);
-    };
-
-    return (
-        <DemoAnimation
-            ref={containerRef}
-            playbackControl={{
-                isPlaying,
-                speedMin: 1,
-                speedMax: 80,
-                speed,
-                onSpeedChange,
-                onPlay,
-                onPause,
-                onReset,
-            }}
-        >
-            <Svg />
-        </DemoAnimation>
-    );
-};

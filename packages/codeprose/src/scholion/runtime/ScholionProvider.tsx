@@ -2,17 +2,16 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useReducer, useRef, u
 
 import { Chip } from './Chip';
 import { ScholionContext, type ScholionContextValue } from './context';
-import { inView, type PeekKind, type PeekPos, type Want } from './layout';
+import { type PeekKind, type PeekPos, type Want } from './layout';
 import { Peek } from './Peek';
 import { scanRefs, type Registry } from './scan';
 import { createState, reduce, type ScholionState } from './state';
-import { headerOffset, useScholionLayout, viewportHeight } from './useScholionLayout';
+import { useDelegatedListeners } from './useDelegatedListeners';
+import { useScholionLayout } from './useScholionLayout';
 import { useTokenColors } from './useTokenColors';
 import { Wires } from './Wires';
 
 import type { Docks } from './dockNode';
-
-const GRACE_MS = 250;
 
 type ScholionProviderProps = {
     children: ReactNode;
@@ -40,7 +39,7 @@ export function ScholionProvider({ children, contentKey, docks }: ScholionProvid
     useEffect(() => {
         // The scan needs the committed DOM, so setting state in the effect is intended here
         const registry = scanRefs(document);
-        // oxlint-disable-next-line react-compiler/react-compiler
+        // oxlint-disable-next-line react/set-state-in-effect
         setScan(prev => (registry.ids.length ? { n: (prev?.n ?? 0) + 1, registry } : null));
     }, [contentKey]);
 
@@ -119,108 +118,7 @@ function ScholionRuntime({ registry, docks }: { registry: Registry; docks: Docks
     const peekEnter = useCallback((id: string) => dispatch({ type: 'peekEnter', id }), []);
     const peekLeave = useCallback((id: string) => dispatch({ type: 'peekLeave', id }), []);
 
-    // ── Delegated document listeners ───────────────────────────────────────
-    useEffect(() => {
-        const refs = registry.refs;
-
-        const refId = (el: Element | null, selector: string): string | null => {
-            const hit = el?.closest<HTMLElement>(selector);
-            const id = hit?.dataset.ref;
-            return hit && id && refs[id] ? id : null;
-        };
-        const hoverSelector = 'a.ref[data-ref], .ref-target[data-ref]';
-
-        const hoverOn = (id: string) => {
-            clearTimeout(grace.current[id]);
-            dispatch({ type: 'hoverOn', id });
-        };
-        const hoverOff = (id: string) => {
-            clearTimeout(grace.current[id]);
-            grace.current[id] = setTimeout(() => dispatch({ type: 'hoverExpire', id }), GRACE_MS);
-        };
-
-        const onPointerOver = (e: PointerEvent) => {
-            if (e.pointerType !== 'mouse') return;
-            const el = (e.target as Element).closest(hoverSelector);
-            const id = refId(el, hoverSelector);
-            if (id && !el!.contains(e.relatedTarget as Node | null)) hoverOn(id);
-        };
-        const onPointerOut = (e: PointerEvent) => {
-            if (e.pointerType !== 'mouse') return;
-            const el = (e.target as Element).closest(hoverSelector);
-            const id = refId(el, hoverSelector);
-            if (id && !el!.contains(e.relatedTarget as Node | null)) hoverOff(id);
-        };
-        const onFocusIn = (e: FocusEvent) => {
-            const el = e.target as Element;
-            const id = refId(el, 'a.ref[data-ref]');
-            if (id && el.matches(':focus-visible')) dispatch({ type: 'focus', id });
-        };
-        const onFocusOut = (e: FocusEvent) => {
-            const id = refId(e.target as Element, 'a.ref[data-ref]');
-            if (id) dispatch({ type: 'blur', id });
-        };
-        // Pointer type of the most recent pointerdown; 'touch' and 'pen' count as touch
-        let lastPointerTouch = false;
-        const onPointerDown = (e: PointerEvent) => {
-            lastPointerTouch = e.pointerType === 'touch' || e.pointerType === 'pen';
-        };
-        const onClick = (e: MouseEvent) => {
-            const target = e.target as Element;
-            const linkId = refId(target, 'a.ref[data-ref]');
-            const targetId = refId(target, '.ref-target[data-ref]');
-            const id = linkId ?? targetId;
-            const { state } = live.current;
-            // Both ends in view: the wire is the connection, the link does nothing for pointer input.
-            // Keyboard activation (detail 0) still follows the link so focus moves with it.
-            if (id && e.detail !== 0) {
-                const { a, cs } = refs[id];
-                const vh = viewportHeight();
-                const topEdge = headerOffset(docks);
-                if (
-                    inView(a.getBoundingClientRect(), vh, topEdge) &&
-                    inView(cs[0]?.getClientRects()[0] ?? null, vh, topEdge)
-                ) {
-                    e.preventDefault();
-                    if (lastPointerTouch && state.touchId !== id) dispatch({ type: 'tap', id });
-                    return;
-                }
-            }
-            // One end is out of view (peek shown): mouse clicks follow the link, the first tap on touch only activates
-            if (id && lastPointerTouch && e.detail !== 0 && state.touchId !== id) {
-                // First tap only activates the ref (peek/wire); no scrolling, no navigation
-                e.preventDefault();
-                dispatch({ type: 'tap', id });
-                return;
-            }
-            if (!id && state.touchId !== null && !target.closest('.scholion-peek, .scholion-chip'))
-                dispatch({ type: 'touchClear' });
-        };
-        const onKeyDown = (e: KeyboardEvent) => {
-            if (e.key !== 'Escape') return;
-            const { state } = live.current;
-            if (state.ret || state.touchId !== null) dispatch({ type: 'escape' });
-        };
-
-        document.addEventListener('pointerdown', onPointerDown, { capture: true, passive: true });
-        document.addEventListener('pointerover', onPointerOver);
-        document.addEventListener('pointerout', onPointerOut);
-        document.addEventListener('focusin', onFocusIn);
-        document.addEventListener('focusout', onFocusOut);
-        document.addEventListener('click', onClick);
-        document.addEventListener('keydown', onKeyDown);
-        const timers = grace.current;
-        return () => {
-            document.removeEventListener('pointerdown', onPointerDown, { capture: true });
-            document.removeEventListener('pointerover', onPointerOver);
-            document.removeEventListener('pointerout', onPointerOut);
-            document.removeEventListener('focusin', onFocusIn);
-            document.removeEventListener('focusout', onFocusOut);
-            document.removeEventListener('click', onClick);
-            document.removeEventListener('keydown', onKeyDown);
-            Object.values(timers).forEach(clearTimeout);
-        };
-    }, [registry, docks]);
+    useDelegatedListeners(registry, docks, dispatch, live, grace);
 
     // ── Mirrors into the document (the injected per-ref CSS reads these) ───
     useEffect(() => {

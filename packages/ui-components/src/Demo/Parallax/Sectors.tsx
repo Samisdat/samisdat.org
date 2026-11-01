@@ -83,12 +83,13 @@ export const DemoParallaxSectors = () => {
         setCoords({ pixel, relative, norm });
     }, []);
 
+    const setValue = ctx?.setValue;
     useEffect(() => {
-        ctx?.setValue('pixelX', coords.pixel.x.toFixed(2));
-        ctx?.setValue('pixelY', coords.pixel.y.toFixed(2));
-        ctx?.setValue('normX', coords.norm.x.toFixed(2));
-        ctx?.setValue('normY', coords.norm.y.toFixed(2));
-    }, [coords]);
+        setValue?.('pixelX', coords.pixel.x.toFixed(2));
+        setValue?.('pixelY', coords.pixel.y.toFixed(2));
+        setValue?.('normX', coords.norm.x.toFixed(2));
+        setValue?.('normY', coords.norm.y.toFixed(2));
+    }, [coords, setValue]);
 
     useEffect(() => {
         const el = ref.current;
