@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsCompare } from '@samisdat/ui-components/Demo/Animations/Compare';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Demo/Animations/Compare',
