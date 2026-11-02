@@ -1,7 +1,7 @@
 'use client';
 
-import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useDemoContext } from '@samisdat/ui-components/Demo/DemoContext';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useRef, useState } from 'react';
 
 import { SPEED_MULTIPLIER_PROPS, useSpeedDuration } from '../../../PlaybackControl/useSpeedDuration';
