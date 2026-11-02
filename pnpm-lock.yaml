@@ -144,6 +144,9 @@ importers:
       '@types/unist':
         specifier: ^3.0.3
         version: 3.0.3
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 5.0.5(@vitest/browser@5.0.5)(vitest@5.0.5)
       react:
         specifier: 'catalog:'
         version: 19.3.1
@@ -232,6 +235,9 @@ importers:
       '@types/suncalc':
         specifier: ^1.9.2
         version: 1.9.2
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 5.0.5(@vitest/browser@5.0.5)(vitest@5.0.5)
       next:
         specifier: 'catalog:'
         version: 16.4.2(@babel/core@8.0.6)(@types/node@26.6.4)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)

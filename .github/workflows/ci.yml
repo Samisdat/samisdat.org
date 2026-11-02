@@ -49,8 +49,52 @@ jobs:
 
       - name: Run tests
         run: |
+          pnpm --filter @samisdat/codeprose test:ci
+          pnpm --filter @samisdat/wtal-panorama test:ci
           pnpm --filter @samisdat/website test:ci
           pnpm --filter @samisdat/storybook test:ci
+
+      - name: Publish codeprose coverage to Qlty
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.COVERAGE_TOKEN }}
+          files: packages/codeprose/coverage/lcov.info
+          add-prefix: packages/codeprose/
+          name: codeprose
+          total-parts-count: 4
+
+      - name: Publish panorama coverage to Qlty
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.COVERAGE_TOKEN }}
+          files: packages/panorama/coverage/lcov.info
+          add-prefix: packages/panorama/
+          name: panorama
+          total-parts-count: 4
+
+      - name: Publish website coverage to Qlty
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.COVERAGE_TOKEN }}
+          files: packages/website/coverage/lcov.info
+          add-prefix: packages/website/
+          name: website
+          total-parts-count: 4
+
+      - name: Make storybook coverage paths repo-relative
+        run: sed -i 's#^SF:\.\./#SF:packages/#' packages/storybook/coverage/lcov.info
+
+      - name: Publish storybook coverage to Qlty
+        if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: qltysh/qlty-action/coverage@v2
+        with:
+          token: ${{ secrets.COVERAGE_TOKEN }}
+          files: packages/storybook/coverage/lcov.info
+          name: storybook
+          total-parts-count: 4
 
       - name: Build website
         run: pnpm --filter @samisdat/website build

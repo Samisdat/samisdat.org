@@ -9,7 +9,7 @@ export default defineConfig({
         environment: 'node',
         coverage: {
             provider: 'v8',
-            reporter: ['text', 'html', 'lcov'],
+            reporter: ['text', 'lcov'],
             include: ['src/**/*.{ts,tsx}'],
             exclude: [
                 '**/*.test.{ts,tsx}',
