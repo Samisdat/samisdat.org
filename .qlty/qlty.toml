@@ -76,28 +76,19 @@ name = "osv-scanner"
 [[plugin]]
 name = "prettier"
 version = "3.9.10"
-extra_packages = [
-  "prettier-plugin-organize-imports@4.3.0",
-  "prettier-plugin-multiline-arrays@4.1.11",
-]
+extra_packages = ["prettier-plugin-organize-imports@4.3.0", "prettier-plugin-multiline-arrays@4.1.11"]
 prefix = "packages/panorama"
 
 [[plugin]]
 name = "prettier"
 version = "3.9.10"
-extra_packages = [
-  "prettier-plugin-organize-imports@4.3.0",
-  "prettier-plugin-multiline-arrays@4.1.11",
-]
+extra_packages = ["prettier-plugin-organize-imports@4.3.0", "prettier-plugin-multiline-arrays@4.1.11"]
 prefix = "packages/website"
 
 [[plugin]]
 name = "prettier"
 version = "3.9.10"
-extra_packages = [
-  "prettier-plugin-organize-imports@4.3.0",
-  "prettier-plugin-multiline-arrays@4.1.11",
-]
+extra_packages = ["prettier-plugin-organize-imports@4.3.0", "prettier-plugin-multiline-arrays@4.1.11"]
 prefix = "packages/ui-components"
 
 [[plugin]]

@@ -1,6 +1,7 @@
+/* oxlint-disable jsx-a11y/media-has-caption -- placeholder markup without real media */
 import { styled } from '@linaria/react';
-import { FC, HTMLAttributes } from 'react';
 import { Heading } from '@samisdat/ui-components/Heading';
+import { FC, HTMLAttributes } from 'react';
 
 const PostStyled = styled.main`
     width: min(100%, 80ch);

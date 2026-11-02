@@ -3,11 +3,12 @@
 import { styled } from '@linaria/react';
 import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
 import { useEffect, useRef, useState } from 'react';
+
 import { Css } from './Css';
 import { Js } from './Js';
 import { JsCss } from './JsCss';
-import { Smil } from './Smil';
 import { config } from './shared';
+import { Smil } from './Smil';
 
 const DemoAnimationsCompareStyling = styled.div`
     max-width: 450px;

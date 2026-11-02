@@ -67,13 +67,13 @@ Dann gilt als Minimalvariante „go mit Einfrieren und Self-Hosting“:
 
 ## Muss-Kriterien
 
-| Kriterium | Ergebnis |
-| --- | --- |
-| `files`-Map (React+TS) mit Editor und Preview | **Teilweise.** Beide Beispiele laufen, aber nur über den Inliner. LiveCodes hat kein Multi-File-Modell. |
-| npm-Dependencies in der Sandbox | **Ja.** Bare Imports (`react`, `react-dom/client`) werden zur Laufzeit über esm.sh aufgelöst; Versionen per `react@18`, eigene Import-Map über `config.imports`. |
-| Dunkles Theming passend zum Blog | **Ja, nicht pixelgleich.** `theme: 'dark'`, `editorTheme: 'one-dark-pro'`. Sandpack nutzt `nightOwl`; ein passendes LiveCodes-Theme wurde nicht gesucht. Die App-Chrome-Farben (`themeColor`) wurden nicht angepasst. |
-| Einbettung im App Router ohne Hydration-Probleme | **Ja.** `'use client'`, `createPlayground` nur im `useEffect`, Iframe wird im Client erzeugt. Keine Hydration-Warnung, keine React-Fehler in der Konsole. Eine Stolperfalle: das SDK verlangt eine **absolute** `appUrl` (relativer Pfad wirft „is not a valid URL"), und `public/` liefert kein Directory-Index aus, daher `…/livecodes-app/index.html`. |
-| Self-Hosting ohne Laufzeitabhängigkeit von livecodes.io (K.-o.) | **Ja, verifiziert** mit `SELF_HOSTED`-Build und eigener Sandbox-Origin (Befund 2). Weiterhin Fremd-CDNs (Befund 3). |
+| Kriterium                                                       | Ergebnis                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `files`-Map (React+TS) mit Editor und Preview                   | **Teilweise.** Beide Beispiele laufen, aber nur über den Inliner. LiveCodes hat kein Multi-File-Modell.                                                                                                                                                                                                                                                   |
+| npm-Dependencies in der Sandbox                                 | **Ja.** Bare Imports (`react`, `react-dom/client`) werden zur Laufzeit über esm.sh aufgelöst; Versionen per `react@18`, eigene Import-Map über `config.imports`.                                                                                                                                                                                          |
+| Dunkles Theming passend zum Blog                                | **Ja, nicht pixelgleich.** `theme: 'dark'`, `editorTheme: 'one-dark-pro'`. Sandpack nutzt `nightOwl`; ein passendes LiveCodes-Theme wurde nicht gesucht. Die App-Chrome-Farben (`themeColor`) wurden nicht angepasst.                                                                                                                                     |
+| Einbettung im App Router ohne Hydration-Probleme                | **Ja.** `'use client'`, `createPlayground` nur im `useEffect`, Iframe wird im Client erzeugt. Keine Hydration-Warnung, keine React-Fehler in der Konsole. Eine Stolperfalle: das SDK verlangt eine **absolute** `appUrl` (relativer Pfad wirft „is not a valid URL"), und `public/` liefert kein Directory-Index aus, daher `…/livecodes-app/index.html`. |
+| Self-Hosting ohne Laufzeitabhängigkeit von livecodes.io (K.-o.) | **Ja, verifiziert** mit `SELF_HOSTED`-Build und eigener Sandbox-Origin (Befund 2). Weiterhin Fremd-CDNs (Befund 3).                                                                                                                                                                                                                                       |
 
 ## Befunde
 
@@ -154,13 +154,13 @@ ist dieselbe, nur die Anbieter unterscheiden sich. Vollständiges Vendoring wurd
 
 Alle Zahlen via `gh api` am 2026-10-26.
 
-| Messgröße | Wert |
-| --- | --- |
-| Erstellt / letzter Push | 2021-01-10 / 2026-10-24, nicht archiviert |
-| Lizenz | MIT |
-| Stars / Forks / offene Issues | 1522 / 272 / 25 (inkl. PRs) |
-| npm-Downloads (Monat bis 2026-10-22) | 7079 |
-| SDK-Versionen | 26 auf npm, alle `0.x`, erste 2022-09-08, aktuell 0.14.1 (2026-05-08) |
+| Messgröße                            | Wert                                                                  |
+| ------------------------------------ | --------------------------------------------------------------------- |
+| Erstellt / letzter Push              | 2021-01-10 / 2026-10-24, nicht archiviert                             |
+| Lizenz                               | MIT                                                                   |
+| Stars / Forks / offene Issues        | 1522 / 272 / 25 (inkl. PRs)                                           |
+| npm-Downloads (Monat bis 2026-10-22) | 7079                                                                  |
+| SDK-Versionen                        | 26 auf npm, alle `0.x`, erste 2022-09-08, aktuell 0.14.1 (2026-05-08) |
 
 **Commit-Kadenz (Default-Branch)**: 2021: 870 · 2022: 801 · 2023: 893 · 2024: 1203 · 2025: 814 ·
 2026 (bis Oktober): 746. Letzte 12 Monate pro Monat: 55, 25, 33, 27, 68, 96, 7, 72, 52, 141, 8, 142,

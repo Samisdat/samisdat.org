@@ -7,7 +7,14 @@ import { Segmented } from '@samisdat/ui-components/Segmented';
 import { Typo } from '@samisdat/ui-components/Typo';
 import { CSSProperties, FC, useState } from 'react';
 
-import { ALL_FONT_CLASSES, PRESETS, presetFontNames, presetStyle, resolvePreset, type PresetId } from '@/lib/typography/presets';
+import {
+    ALL_FONT_CLASSES,
+    PRESETS,
+    presetFontNames,
+    presetStyle,
+    resolvePreset,
+    type PresetId,
+} from '@/lib/typography/presets';
 
 import { Link } from './Link';
 import { PostProse } from './PostLayout';
@@ -47,18 +54,18 @@ export const TypeSpecimenText: FC = () => (
             <Typo variant="p">
                 Lorem ipsum dolor sit amet, <Typo variant="em">consectetur adipiscing</Typo> elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat — Größe, Maß und Straße, „typografische“ Anführungszeichen
-                inklusive.
+                laboris nisi ut aliquip ex ea commodo consequat — Größe, Maß und Straße, „typografische“
+                Anführungszeichen inklusive.
             </Typo>
             <Typo variant="p">
-                Duis aute irure dolor in reprehenderit in <Typo variant="em">voluptate velit</Typo> esse cillum dolore. Der
-                Fortschritt steckt in <code>--theme-progress</code>, mehr dazu auf der{' '}
+                Duis aute irure dolor in reprehenderit in <Typo variant="em">voluptate velit</Typo> esse cillum dolore.
+                Der Fortschritt steckt in <code>--theme-progress</code>, mehr dazu auf der{' '}
                 <Link href="/">Startseite</Link>. Excepteur sint occaecat cupidatat non proident.
             </Typo>
             <Heading level={3}>Vestibulum cursus</Heading>
             <Typo variant="p">
-                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
-                aperiam, eaque ipsa quae ab illo inventore veritatis.
+                Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam
+                rem aperiam, eaque ipsa quae ab illo inventore veritatis.
             </Typo>
             <pre>
                 <code>
@@ -94,8 +101,8 @@ export const TypeSpecimenText: FC = () => (
                 variant="p"
                 style={{ fontStyle: 'italic' }}
             >
-                Und zum Schluss ein kursiver Absatz: Sed quia consequuntur magni dolores eos qui ratione voluptatem sequi
-                nesciunt, neque porro quisquam est.
+                Und zum Schluss ein kursiver Absatz: Sed quia consequuntur magni dolores eos qui ratione voluptatem
+                sequi nesciunt, neque porro quisquam est.
             </Typo>
         </div>
     </>

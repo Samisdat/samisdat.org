@@ -23,39 +23,39 @@ type DemoLoader = () => Promise<{ default: ComponentType<any> }>;
  * Registry-Eintrag: Import-Pfad für jede Demo-Komponente.
  */
 const demoRegistry = {
-      // smil demo
-      DemoSmilDisc: () =>
+    // smil demo
+    DemoSmilDisc: () =>
         import('@samisdat/ui-components/Demo/Smil/Disc').then(mod => ({
             default: mod.DemoSmilDisc,
         })),
-      DemoSmilMorphMistakes: () =>
+    DemoSmilMorphMistakes: () =>
         import('@samisdat/ui-components/Demo/Smil/MorphMistakes').then(mod => ({
             default: mod.DemoSmilMorphMistakes,
         })),
-        DemoSmilSchwebebahn: () =>
+    DemoSmilSchwebebahn: () =>
         import('@samisdat/ui-components/Demo/Smil/Schwebebahn').then(mod => ({
             default: mod.DemoSmilSchwebebahn,
         })),
-      DemoSmilMorphIcons: () =>
+    DemoSmilMorphIcons: () =>
         import('@samisdat/ui-components/Demo/Smil/MorphIcons').then(mod => ({
             default: mod.DemoSmilMorphIcons,
         })),
-      DemoSmilMorphHills: () =>
+    DemoSmilMorphHills: () =>
         import('@samisdat/ui-components/Demo/Smil/MorphHills').then(mod => ({
             default: mod.DemoSmilMorphHills,
         })),
-      DemoSmilCrank: () =>
+    DemoSmilCrank: () =>
         import('@samisdat/ui-components/Demo/Smil/Crank').then(mod => ({
             default: mod.DemoSmilCrank,
         })),
-      DemoSmilCrankFormula: () =>
+    DemoSmilCrankFormula: () =>
         import('@samisdat/ui-components/Demo/Smil/Crank').then(mod => ({
             default: mod.DemoSmilCrankFormula,
         })),
 
     DemoAnimationsCompare: () =>
         import('@samisdat/ui-components/Demo/Animations/Compare').then(mod => ({ default: mod.DemoAnimationsCompare })),
-       DemoAnimationsCssJs: () =>
+    DemoAnimationsCssJs: () =>
         import('@samisdat/ui-components/Demo/Animations/DemoAnimationsCssJs').then(mod => ({
             default: mod.DemoAnimationsCssJs,
         })),
