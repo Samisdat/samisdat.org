@@ -58,7 +58,7 @@ jobs:
         if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         uses: qltysh/qlty-action/coverage@v2
         with:
-          token: ${{ secrets.COVERAGE_TOKEN }}
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: packages/codeprose/coverage/lcov.info
           add-prefix: packages/codeprose/
           name: codeprose
@@ -68,7 +68,7 @@ jobs:
         if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         uses: qltysh/qlty-action/coverage@v2
         with:
-          token: ${{ secrets.COVERAGE_TOKEN }}
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: packages/panorama/coverage/lcov.info
           add-prefix: packages/panorama/
           name: panorama
@@ -78,7 +78,7 @@ jobs:
         if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         uses: qltysh/qlty-action/coverage@v2
         with:
-          token: ${{ secrets.COVERAGE_TOKEN }}
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: packages/website/coverage/lcov.info
           add-prefix: packages/website/
           name: website
@@ -91,7 +91,7 @@ jobs:
         if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
         uses: qltysh/qlty-action/coverage@v2
         with:
-          token: ${{ secrets.COVERAGE_TOKEN }}
+          token: ${{ secrets.QLTY_COVERAGE_TOKEN }}
           files: packages/storybook/coverage/lcov.info
           name: storybook
           total-parts-count: 4
