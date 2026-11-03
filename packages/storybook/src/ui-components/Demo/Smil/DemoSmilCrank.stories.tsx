@@ -3,12 +3,15 @@ import { DemoSmilCrank } from '@samisdat/ui-components/Demo/Smil/Crank';
 import { DemoSmilCrankFormula } from '@samisdat/ui-components/Demo/Smil/Crank';
 import { Stack } from '@samisdat/ui-components/Stack';
 
+import { viewportModes } from '../../../../.storybook/chromaticModes';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Demo/Smil/Crank',
     component: DemoSmilCrank,
     parameters: {
+        chromatic: { modes: viewportModes },
         layout: 'centered',
     },
     tags: ['autodocs'],

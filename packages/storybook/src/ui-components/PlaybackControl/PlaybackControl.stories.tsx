@@ -2,13 +2,17 @@ import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
 import { expect, userEvent, within } from 'storybook/test';
 import { fn } from 'storybook/test';
 
+import { viewportModes } from '../../../.storybook/chromaticModes';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Interaction/PlaybackControl',
     component: PlaybackControl,
     tags: ['autodocs'],
-    parameters: {},
+    parameters: {
+        chromatic: { modes: viewportModes },
+    },
 } satisfies Meta<typeof PlaybackControl>;
 
 export default meta;
