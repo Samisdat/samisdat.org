@@ -4,6 +4,7 @@ import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { useParallax } from '@samisdat/tools';
 import { FC, HTMLAttributes, useRef, useState } from 'react';
+import { ScreenReaderOnly } from '../ScreenReaderOnly';
 
 export const globals = css`
     :global() {
@@ -85,17 +86,6 @@ const FlipCard = styled.button`
     }
 `;
 
-const SrOnly = styled.span`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
-`;
 
 export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children: _children }) => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -116,7 +106,7 @@ export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children
                 aria-pressed={flipped}
                 onClick={() => setFlipped((value) => !value)}
             >
-                <SrOnly>Karte umdrehen</SrOnly>
+                <ScreenReaderOnly>Karte umdrehen</ScreenReaderOnly>
             </FlipCard>
         </BlogCollectorCardStyling>
     );
