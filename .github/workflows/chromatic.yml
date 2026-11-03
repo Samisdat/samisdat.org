@@ -1,17 +1,35 @@
 name: Chromatic Deployment
 
-# Deploy Storybook to Chromatic on every push to main and every PR
+# Deploy Storybook to Chromatic on pushes to main and on PRs, but only when
+# something the stories render has changed. The free plan has a monthly
+# snapshot budget, so every run has to earn its snapshots.
 on:
   push:
     branches:
       - main
+    paths: &visual-paths
+      - 'packages/ui-components/**'
+      - 'packages/storybook/**'
+      - 'packages/color-scheme/**'
+      - 'packages/panorama/**'
+      - 'packages/tools/**'
+      - '.github/workflows/chromatic.yml'
   pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+    paths: *visual-paths
+
+# A newer push to the same PR supersedes the running build. Builds on main are
+# never cancelled so the baseline always advances.
+concurrency:
+  group: chromatic-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   chromatic:
     # Dependabot-Läufe bekommen keine Actions-Secrets (CHROMATIC_PROJECT_TOKEN
     # fehlt) — und visuelle Regression auf Dependency-Bumps braucht es nicht.
-    if: github.actor != 'dependabot[bot]'
+    # Draft-PRs werden erst bei ready_for_review gebaut.
+    if: github.actor != 'dependabot[bot]' && github.event.pull_request.draft != true
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -43,5 +61,8 @@ jobs:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           workingDir: packages/storybook
           buildScriptName: build-storybook
+          # TurboSnap: only snapshot stories affected by the change (needs the
+          # full git history from the checkout above)
+          onlyChanged: true
           # Auto-accept changes on main so every merge advances the baseline
           autoAcceptChanges: main
