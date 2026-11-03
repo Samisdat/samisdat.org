@@ -1,8 +1,19 @@
 'use client';
 
+import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { useParallax } from '@samisdat/tools';
 import { FC, HTMLAttributes, useRef } from 'react';
+
+export const globals = css`
+    :global() {
+        @property --progress {
+            syntax: '<number>';
+            inherits: true;
+            initial-value: 0;
+        }
+    }
+`;
 
 const BlogCollectorCardStyling = styled.article`
     position: relative;
@@ -37,7 +48,23 @@ const Face = styled.div`
 `;
 const FrontFace = styled(Face)``;
 
-const BackFace = styled(Face)``;
+const BackFace = styled(Face)`
+    transform: rotateY(180deg);
+`;
+
+const FlipCard = styled.button`
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    border-radius: 5cqw;
+    color: inherit;
+    font: inherit;
+`;
 
 export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => {
     const ref = useRef<HTMLDivElement | null>(null);
@@ -47,9 +74,10 @@ export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children
     return (
         <BlogCollectorCardStyling>
             <CardFaces ref={ref}>
-                <FrontFace>{children}</FrontFace>
-                <BackFace>{children}</BackFace>
+                <FrontFace>Front</FrontFace>
+                <BackFace>Back</BackFace>
             </CardFaces>
+            <FlipCard>Drehen</FlipCard>
         </BlogCollectorCardStyling>
     );
 };
