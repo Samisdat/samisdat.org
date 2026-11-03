@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { fn } from 'storybook/test';
 
+import { viewportModes } from '../../../.storybook/chromaticModes';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -11,7 +13,7 @@ const meta = {
     tags: ['autodocs'],
     parameters: {
         // Disable autoplay in Storybook to test manual controls
-        chromatic: { disableSnapshot: false },
+        chromatic: { disableSnapshot: false, modes: viewportModes },
     },
 } satisfies Meta<typeof DemoAnimation>;
 

@@ -2,6 +2,8 @@ import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Stack } from '@samisdat/ui-components/Stack';
 import { space } from '@samisdat/ui-components/tokens/space';
 
+import { viewportModes } from '../../../.storybook/chromaticModes';
+
 import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
@@ -9,6 +11,7 @@ const meta = {
     component: Stack,
     tags: ['autodocs'],
     parameters: {
+        chromatic: { modes: viewportModes },
         layout: 'fullscreen',
     },
 } satisfies Meta<typeof Stack>;

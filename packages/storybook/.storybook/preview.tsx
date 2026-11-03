@@ -13,6 +13,7 @@ import { themes } from 'storybook/theming';
 import { PRESET_DATA, presetSizeStyle } from '../../website/src/lib/typography/data';
 import { FLUID_ROOT_VARS } from '../../website/src/lib/typography/fluid';
 import { DEFAULT_PRESET_ID } from '../../website/src/lib/typography/ids';
+import { viewportOptions } from './chromaticModes';
 
 import type { Preview, Decorator } from '@storybook/react';
 
@@ -79,6 +80,7 @@ const preview: Preview = {
                 { name: 'Light', class: 'light', color: '#ffffff' },
             ],
         },
+        viewport: { options: viewportOptions },
         a11y: {
             test: 'todo',
         },
