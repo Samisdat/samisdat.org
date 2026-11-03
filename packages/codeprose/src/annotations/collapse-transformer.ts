@@ -1,79 +1,79 @@
-import type { ShikiTransformer } from 'shiki'
-import type { Element } from 'hast'
+import type { Element } from 'hast';
+import type { ShikiTransformer } from 'shiki';
 
-const DEFAULT_LABEL = '···'
-const ANNOTATION_RE = /^\/\/\s*!collapse\((\d+):(\d+)\)(?:[ \t]+(\S[^\n]*))?$/
+const DEFAULT_LABEL = '···';
+const ANNOTATION_RE = /^\/\/\s*!collapse\((\d+):(\d+)\)(?:[ \t]+(\S[^\n]*))?$/;
 
 type CollapseInfo = {
-    label: string
-    openLabel?: string
-    startLineIndex: number
-    count: number
-    indent: number
-}
+    label: string;
+    openLabel?: string;
+    startLineIndex: number;
+    count: number;
+    indent: number;
+};
 
 export function collapseTransformer(): ShikiTransformer {
-    let infos: CollapseInfo[] = []
+    let infos: CollapseInfo[] = [];
 
     return {
         name: '@samisdat/collapse',
         preprocess(code) {
-            infos = []
-            const lines = code.split('\n')
-            const kept: string[] = []
+            infos = [];
+            const lines = code.split('\n');
+            const kept: string[] = [];
 
             for (let i = 0; i < lines.length; i++) {
-                const match = lines[i].trim().match(ANNOTATION_RE)
+                const match = lines[i].trim().match(ANNOTATION_RE);
                 if (match) {
-                    const from = parseInt(match[1], 10)
-                    const to = parseInt(match[2], 10)
-                    const raw = match[3]?.trim() || DEFAULT_LABEL
-                    const pipeIdx = raw.indexOf(' | ')
-                    const label = pipeIdx === -1 ? raw : raw.slice(0, pipeIdx).trimEnd()
-                    const openLabel = pipeIdx === -1 ? undefined : raw.slice(pipeIdx + 3).trimStart()
-                    const indent = (lines[i + 1] ?? '').match(/^(\s*)/)?.[1]?.length ?? 0
+                    const from = parseInt(match[1], 10);
+                    const to = parseInt(match[2], 10);
+                    const raw = match[3]?.trim() || DEFAULT_LABEL;
+                    const pipeIdx = raw.indexOf(' | ');
+                    const label = pipeIdx === -1 ? raw : raw.slice(0, pipeIdx).trimEnd();
+                    const openLabel = pipeIdx === -1 ? undefined : raw.slice(pipeIdx + 3).trimStart();
+                    const indent = (lines[i + 1] ?? '').match(/^(\s*)/)?.[1]?.length ?? 0;
                     infos.push({
                         label,
                         openLabel,
                         startLineIndex: kept.length + from - 1,
                         count: to - from + 1,
                         indent,
-                    })
+                    });
                 } else {
-                    kept.push(lines[i])
+                    kept.push(lines[i]);
                 }
             }
 
-            return kept.join('\n')
+            return kept.join('\n');
         },
         code(codeEl) {
-            if (infos.length === 0) return
+            if (infos.length === 0) return;
 
             // Process in reverse so earlier splice indices stay valid after mutations
-            const sorted = [...infos].sort((a, b) => b.startLineIndex - a.startLineIndex)
+            const sorted = [...infos].sort((a, b) => b.startLineIndex - a.startLineIndex);
             for (const info of sorted) {
-                wrapCollapse(codeEl, info)
+                wrapCollapse(codeEl, info);
             }
         },
-    }
+    };
 }
 
 function wrapCollapse(codeEl: Element, info: CollapseInfo): void {
-    const lineIndices: number[] = []
+    const lineIndices: number[] = [];
     for (let i = 0; i < codeEl.children.length; i++) {
-        const child = codeEl.children[i]
+        const child = codeEl.children[i];
         if (child.type === 'element' && child.tagName === 'span') {
-            lineIndices.push(i)
+            lineIndices.push(i);
         }
     }
 
-    const lastLine = info.startLineIndex + info.count - 1
-    if (lastLine >= lineIndices.length) return
+    const lastLine = info.startLineIndex + info.count - 1;
+    if (lastLine >= lineIndices.length) return;
 
-    const firstChildIdx = lineIndices[info.startLineIndex]
-    const lastChildIdx = lineIndices[lastLine]
+    const firstChildIdx = lineIndices[info.startLineIndex];
+    const lastChildIdx = lineIndices[lastLine];
 
-    const extracted = codeEl.children.splice(firstChildIdx, lastChildIdx - firstChildIdx + 1)
+    const extracted = codeEl.children.splice(firstChildIdx, lastChildIdx - firstChildIdx + 1);
 
     const details: Element = {
         type: 'element',
@@ -86,14 +86,24 @@ function wrapCollapse(codeEl: Element, info: CollapseInfo): void {
                 properties: info.indent > 0 ? { style: `padding-left: ${info.indent}ch` } : {},
                 children: info.openLabel
                     ? [
-                          { type: 'element', tagName: 'span', properties: { 'data-collapse-closed': true }, children: [{ type: 'text', value: info.label }] },
-                          { type: 'element', tagName: 'span', properties: { 'data-collapse-open': true }, children: [{ type: 'text', value: info.openLabel }] },
+                          {
+                              type: 'element',
+                              tagName: 'span',
+                              properties: { 'data-collapse-closed': true },
+                              children: [{ type: 'text', value: info.label }],
+                          },
+                          {
+                              type: 'element',
+                              tagName: 'span',
+                              properties: { 'data-collapse-open': true },
+                              children: [{ type: 'text', value: info.openLabel }],
+                          },
                       ]
                     : [{ type: 'text', value: info.label }],
             },
             ...extracted,
         ],
-    }
+    };
 
-    codeEl.children.splice(firstChildIdx, 0, details)
+    codeEl.children.splice(firstChildIdx, 0, details);
 }

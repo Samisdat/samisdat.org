@@ -1,1 +1,1 @@
-export { ScholionProvider } from './ScholionProvider'
+export { ScholionProvider } from './ScholionProvider';

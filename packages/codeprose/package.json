@@ -27,19 +27,20 @@
   },
   "scripts": {
     "test": "vitest",
-    "test:ci": "vitest run"
+    "test:ci": "vitest run --coverage"
   },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "dependencies": {
-    "unist-util-visit": "^5.0.0"
+    "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
     "@types/react": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "rehype-pretty-code": "^0.14.5",

@@ -143,6 +143,26 @@
       }
     }
   },
+  "nvim": {
+    "$type": "color",
+    "$description": "Nur für Mode-Parität: das nvim-Theme wird ausschließlich in Dark erzeugt. Light-Werte sind Aliase auf highlight/selection.",
+    "cursorline": {
+      "$value": "{highlight}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "ink"
+        }
+      }
+    },
+    "visual": {
+      "$value": "{selection}",
+      "$extensions": {
+        "org.samisdat.a11y": {
+          "textTier": "neutral-only"
+        }
+      }
+    }
+  },
   "diff": {
     "$type": "color",
     "$description": "Opake nvim-Diff-Hintergründe (DiffAdd/DiffDelete, DiffChange/DiffText), ersetzen tokyonights alpha-blendete Defaults. textTier neutral-only wie selection/highlight.",

@@ -1,10 +1,11 @@
 import { styled } from '@linaria/react';
+import { Stack } from '@samisdat/ui-components/Stack';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import type { Post } from '@/lib/posts';
-import { Stack } from '@samisdat/ui-components/Stack';
 import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
+
+import type { Post } from '@/lib/posts';
 
 const Card = styled.article`
     padding-block: 1.5rem;

@@ -1,6 +1,6 @@
 /* The global style drives --theme-progress by scroll position (scroll() timeline).
    Stories don't scroll, so pin it to 1: the theme then follows data-theme alone. */
 :root {
-  animation: none;
-  --theme-progress: 1;
+    animation: none;
+    --theme-progress: 1;
 }
