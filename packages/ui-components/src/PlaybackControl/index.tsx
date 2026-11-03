@@ -58,6 +58,10 @@ const Row = styled.div`
 const SpeedRow = styled(Row)`
     flex: 1 1 22rem;
     min-width: 0;
+
+    /* Below ~320px the label no longer fits next to the slider, so it wraps */
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
 `;
 
 const SliderWrap = styled.span`

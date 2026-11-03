@@ -113,6 +113,10 @@ const StackItemStyling = styled.div<{
     /* Let the item shrink below its content (e.g. a long code line) so the
      overflow scrolls inside the block instead of widening the page */
     min-width: 0;
+
+    /* In a column stack with align-items: start the item sizes to its content,
+     so a wide child (e.g. a demo) would push past the viewport */
+    max-width: 100%;
     order: ${props => props.$orderSmall ?? 'auto'};
 
     @media (min-width: ${breakpoints.medium}) {
