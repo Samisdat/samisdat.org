@@ -2,7 +2,7 @@
 
 import { useDemoContext } from '@samisdat/ui-components/Demo/DemoContext';
 import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { SPEED_MULTIPLIER_PROPS, useSpeedDuration } from '../../../PlaybackControl/useSpeedDuration';
 import { BASE_DURATION_FALLBACK, type CrankEvent } from './crankEvents';
@@ -59,7 +59,9 @@ export const DemoSmilCrank = () => {
         publish({ kind: 'reset', reason });
         setIsPlaying(false);
     };
-    resetRef.current = reset;
+    useEffect(() => {
+        resetRef.current = reset;
+    });
 
     return (
         <DemoAnimation

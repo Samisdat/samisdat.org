@@ -112,7 +112,9 @@ type DemoAnimationsCrankFormulaProps = {
 export const DemoSmilCrankFormula = ({ texts, locale }: DemoAnimationsCrankFormulaProps) => {
     const ctx = useDemoContext();
     const copyRef = useRef<Copy>({ texts, locale });
-    copyRef.current = { texts, locale };
+    useEffect(() => {
+        copyRef.current = { texts, locale };
+    });
     const [baseDuration] = useState(() => parseFloat(ctx?.values.duration ?? '') || BASE_DURATION_FALLBACK);
 
     const rootRef = useRef<HTMLDivElement | null>(null);

@@ -1,6 +1,6 @@
 'use client';
 import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
-import { useCallback, useEffect, useRef, useState, type ReactNode } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { PlayPauseButton } from '../../../PlaybackControl';
 import { useSpeedDuration, SPEED_MULTIPLIER_PROPS } from '../../../PlaybackControl/useSpeedDuration';

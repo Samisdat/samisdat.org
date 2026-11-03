@@ -11,7 +11,6 @@ import {
     SnapshotScales,
 } from '@samisdat/ui-components/ColorSchemeSnapshot';
 import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
-import { DemoSmilMorphMistakes } from '@samisdat/ui-components/Demo/Smil/MorphMistakes';
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { Heading } from '@samisdat/ui-components/Heading';
