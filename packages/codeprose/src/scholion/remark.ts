@@ -1,31 +1,35 @@
-import type { Code, Paragraph, Parent, PhrasingContent, Root } from 'mdast'
-import type { Plugin } from 'unified'
-import { visit } from 'unist-util-visit'
-import { parseScholionMeta } from './parse-meta'
-import type { ScholionRef } from './types'
+import { visit } from 'unist-util-visit';
+
+import { parseScholionMeta } from './parse-meta';
+
+import type { ScholionRef } from './types';
+import type { Code, Paragraph, Parent, PhrasingContent, Root } from 'mdast';
+import type { Plugin } from 'unified';
 
 // Custom node types that mdast-util-to-hast's unknownHandler will convert
 // via data.hName + data.hProperties + children recursion.
 type HastMappedNode = {
-    type: string
-    data: { hName: string; hProperties: Record<string, unknown> }
-    children: PhrasingContent[]
-}
+    type: string;
+    data: { hName: string; hProperties: Record<string, unknown> };
+    children: PhrasingContent[];
+};
 
 function makeHastNode(hName: string, props: Record<string, unknown>, children: PhrasingContent[]): HastMappedNode {
-    return { type: `scholion-${hName}`, data: { hName, hProperties: props }, children }
+    return { type: `scholion-${hName}`, data: { hName, hProperties: props }, children };
 }
 
 function textOf(nodes: PhrasingContent[]): string {
     return nodes
-        .map(node => ('value' in node ? node.value : 'children' in node ? textOf(node.children as PhrasingContent[]) : ''))
-        .join('')
+        .map(node =>
+            'value' in node ? node.value : 'children' in node ? textOf(node.children as PhrasingContent[]) : ''
+        )
+        .join('');
 }
 
 function transformChildren(children: PhrasingContent[], refId: string): PhrasingContent[] {
     return children.map(child => {
         if (child.type === 'link') {
-            const frag = child.url?.startsWith('#') ? child.url.slice(1) : null
+            const frag = child.url?.startsWith('#') ? child.url.slice(1) : null;
             if (frag === refId) {
                 // A real link, so the prose side is reachable by keyboard and AT like the code side (a.ref)
                 return makeHastNode(
@@ -37,11 +41,11 @@ function transformChildren(children: PhrasingContent[], refId: string): Phrasing
                         ariaLabel: `${textOf(child.children as PhrasingContent[])}, zum Code`,
                     },
                     child.children as PhrasingContent[]
-                ) as unknown as PhrasingContent
+                ) as unknown as PhrasingContent;
             }
         }
-        return child
-    })
+        return child;
+    });
 }
 
 function generateCss(refs: ScholionRef[]): string {
@@ -60,28 +64,28 @@ function generateCss(refs: ScholionRef[]): string {
 }`,
             ].join('\n')
         )
-        .join('\n')
+        .join('\n');
 }
 
 export const remarkScholion: Plugin<[], Root> = () => {
     return (tree, file) => {
         // Pass 1: collect all scholion refs from code fences
-        const refMap = new Map<string, ScholionRef>()
+        const refMap = new Map<string, ScholionRef>();
         visit(tree, 'code', (node: Code) => {
-            if (!node.meta) return
+            if (!node.meta) return;
             for (const ref of parseScholionMeta(node.meta)) {
-                refMap.set(ref.id, ref)
+                refMap.set(ref.id, ref);
             }
-        })
-        if (refMap.size === 0) return
+        });
+        if (refMap.size === 0) return;
 
         // Pass 2: transform explanation paragraphs
-        const explainedRefs = new Set<string>()
+        const explainedRefs = new Set<string>();
         visit(tree, 'paragraph', (node: Paragraph) => {
-            const firstRefId = findFirstScholionRef(node.children, refMap)
-            if (!firstRefId) return
+            const firstRefId = findFirstScholionRef(node.children, refMap);
+            if (!firstRefId) return;
 
-            explainedRefs.add(firstRefId)
+            explainedRefs.add(firstRefId);
 
             // Annotate paragraph with explain attributes (paragraph handler uses data.hProperties)
             node.data = {
@@ -91,45 +95,42 @@ export const remarkScholion: Plugin<[], Root> = () => {
                     'data-explains': firstRefId,
                     tabIndex: -1,
                 },
-            }
+            };
 
             // Wrap children in the description span (aria-describedby target of the code token)
             const descSpan = makeHastNode(
                 'span',
                 { id: `desc-${firstRefId}` },
                 transformChildren(node.children, firstRefId)
-            )
+            );
 
-            node.children = [descSpan as unknown as PhrasingContent]
-        })
+            node.children = [descSpan as unknown as PhrasingContent];
+        });
 
         // Validate: refs without any explanation
         for (const [id] of refMap) {
             if (!explainedRefs.has(id)) {
-                file.message(`scholion: ref "${id}" is never explained in prose`)
+                file.message(`scholion: ref "${id}" is never explained in prose`);
             }
         }
 
         // Inject per-ref :has() CSS as a custom node (unknownHandler → <style>)
-        const css = generateCss([...refMap.values()])
+        const css = generateCss([...refMap.values()]);
         const styleNode = {
             type: 'scholion-style-inject',
             data: { hName: 'style', hProperties: {} },
             children: [{ type: 'text', value: css }],
-        }
-        ;(tree as Parent).children.push(styleNode as unknown as Root['children'][number])
-    }
-}
+        };
+        (tree as Parent).children.push(styleNode as unknown as Root['children'][number]);
+    };
+};
 
-function findFirstScholionRef(
-    children: PhrasingContent[],
-    refMap: Map<string, ScholionRef>
-): string | null {
+function findFirstScholionRef(children: PhrasingContent[], refMap: Map<string, ScholionRef>): string | null {
     for (const child of children) {
         if (child.type === 'link') {
-            const frag = child.url?.startsWith('#') ? child.url.slice(1) : null
-            if (frag && refMap.has(frag)) return frag
+            const frag = child.url?.startsWith('#') ? child.url.slice(1) : null;
+            if (frag && refMap.has(frag)) return frag;
         }
     }
-    return null
+    return null;
 }

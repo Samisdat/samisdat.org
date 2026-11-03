@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
 import { DemoAnimationsCssJs } from '@samisdat/ui-components/Demo/Animations/DemoAnimationsCssJs';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Demo/Animations/CssJs',

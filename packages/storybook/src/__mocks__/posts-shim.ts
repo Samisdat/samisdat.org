@@ -1,13 +1,13 @@
 export interface Frontmatter {
-  title: string;
-  date: Date;
-  published: boolean;
-  description?: string;
-  image?: true | string;
+    title: string;
+    date: Date;
+    published: boolean;
+    description?: string;
+    image?: true | string;
 }
 
 export interface Post {
-  slug: string;
-  frontmatter: Frontmatter;
-  source: string;
+    slug: string;
+    frontmatter: Frontmatter;
+    source: string;
 }

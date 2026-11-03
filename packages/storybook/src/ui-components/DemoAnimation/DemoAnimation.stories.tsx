@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
+import { useState } from 'react';
 import { expect, userEvent, waitFor, within } from 'storybook/test';
 import { fn } from 'storybook/test';
-import { useState } from 'react';
 
-import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Interaction/DemoAnimation',
@@ -100,7 +100,7 @@ export const PlaybackInteraction: Story = {
         // Verify Play button is rendered and clickable
         const playButton = canvas.getByRole('button', { name: /play/i });
         expect(playButton).toBeInTheDocument();
-        
+
         // Click it (the mock will be called internally)
         await userEvent.click(playButton);
     },
@@ -123,10 +123,10 @@ export const SpeedChange: Story = {
 
         // Find increment button and verify it's clickable
         const buttons = canvas.getAllByRole('button');
-        const incrementButton = buttons.find((btn) => btn.textContent?.includes('+'));
+        const incrementButton = buttons.find(btn => btn.textContent?.includes('+'));
 
         expect(incrementButton).toBeInTheDocument();
-        
+
         if (incrementButton) {
             await userEvent.click(incrementButton);
         }
@@ -171,9 +171,7 @@ export const Interactive: StoryObj = {
                 await userEvent.click(playButton);
             }
 
-            expect(
-                canvas.getByRole('button', { name: /pause/i }),
-            ).toBeInTheDocument();
+            expect(canvas.getByRole('button', { name: /pause/i })).toBeInTheDocument();
         });
     },
 };

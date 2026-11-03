@@ -1,11 +1,12 @@
-import { readFileSync, realpathSync } from "node:fs";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFileSync, realpathSync } from 'node:fs';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import type { StorybookConfig } from "@storybook/react-vite";
-import wyw from "@wyw-in-js/vite";
+import wyw from '@wyw-in-js/vite';
 
-const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
+import type { StorybookConfig } from '@storybook/react-vite';
+
+const packageRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /**
  * Package dirs of all workspace packages this package depends on.
@@ -22,90 +23,83 @@ const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
  * ignores node_modules and .git.
  */
 const workspacePackageDirs = (): string[] => {
-  const pkg = JSON.parse(
-    readFileSync(join(packageRoot, "package.json"), "utf8"),
-  ) as Record<string, Record<string, string> | undefined>;
-  const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+    const pkg = JSON.parse(readFileSync(join(packageRoot, 'package.json'), 'utf8')) as Record<
+        string,
+        Record<string, string> | undefined
+    >;
+    const deps = { ...pkg.dependencies, ...pkg.devDependencies };
 
-  return Object.entries(deps)
-    .filter(([, version]) => version.startsWith("workspace:"))
-    .map(([name]) => realpathSync(join(packageRoot, "node_modules", name)));
+    return Object.entries(deps)
+        .filter(([, version]) => version.startsWith('workspace:'))
+        .map(([name]) => realpathSync(join(packageRoot, 'node_modules', name)));
 };
 
 // `vite` is not a direct dependency of this package, so the plugin is typed
 // structurally instead of importing `Plugin` from "vite".
 const watchWorkspaceSources = () => ({
-  name: "samisdat:watch-workspace-sources",
-  apply: "serve" as const,
-  configureServer(server: { watcher: { add(paths: string[]): unknown } }) {
-    server.watcher.add(workspacePackageDirs());
-  },
+    name: 'samisdat:watch-workspace-sources',
+    apply: 'serve' as const,
+    configureServer(server: { watcher: { add(paths: string[]): unknown } }) {
+        server.watcher.add(workspacePackageDirs());
+    },
 });
 
 const config: StorybookConfig = {
-  stories: ["../src/**/*.mdx", "../src/**/*.stories.@(ts|tsx)"],
-  staticDirs: [resolve(packageRoot, "../website/public")],
-  addons: [
-    "@chromatic-com/storybook",
-    "@storybook/addon-docs",
-    "@storybook/addon-a11y",
-    "@storybook/addon-vitest",
-    "@storybook/addon-themes",
-  ],
-  framework: "@storybook/react-vite",
-  async viteFinal(config) {
-    // Pre-include all component deps to prevent Vite from re-optimizing
-    // (and renaming chunk files) during story navigation. Deps that are not
-    // direct deps of this package are resolved through the workspace package
-    // that owns them (Vite's nested "a > b" syntax).
-    config.optimizeDeps = config.optimizeDeps || {};
-    config.optimizeDeps.exclude = [
-      ...(config.optimizeDeps.exclude || []),
-      "next/image",
-      "next/link",
-    ];
-    config.optimizeDeps.include = [
-      ...(config.optimizeDeps.include || []),
-      "react",
-      "react/jsx-runtime",
-      "react/jsx-dev-runtime",
-      "react-dom",
-      "@linaria/react",
-      "culori",
-      "@samisdat/ui-components > @linaria/core",
-      "@samisdat/ui-components > react-shiki",
-      "@samisdat/ui-components > @fortawesome/react-fontawesome",
-      "@samisdat/ui-components > @fortawesome/free-regular-svg-icons",
-      "@samisdat/ui-components > @fortawesome/free-solid-svg-icons",
-      "@samisdat/ui-components > @fortawesome/fontawesome-svg-core",
-    ];
+    stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
+    staticDirs: [resolve(packageRoot, '../website/public')],
+    addons: [
+        '@chromatic-com/storybook',
+        '@storybook/addon-docs',
+        '@storybook/addon-a11y',
+        '@storybook/addon-vitest',
+        '@storybook/addon-themes',
+    ],
+    framework: '@storybook/react-vite',
+    async viteFinal(config) {
+        // Pre-include all component deps to prevent Vite from re-optimizing
+        // (and renaming chunk files) during story navigation. Deps that are not
+        // direct deps of this package are resolved through the workspace package
+        // that owns them (Vite's nested "a > b" syntax).
+        config.optimizeDeps = config.optimizeDeps || {};
+        config.optimizeDeps.exclude = [...(config.optimizeDeps.exclude || []), 'next/image', 'next/link'];
+        config.optimizeDeps.include = [
+            ...(config.optimizeDeps.include || []),
+            'react',
+            'react/jsx-runtime',
+            'react/jsx-dev-runtime',
+            'react-dom',
+            '@linaria/react',
+            'culori',
+            '@samisdat/ui-components > @linaria/core',
+            '@samisdat/ui-components > react-shiki',
+            '@samisdat/ui-components > @fortawesome/react-fontawesome',
+            '@samisdat/ui-components > @fortawesome/free-regular-svg-icons',
+            '@samisdat/ui-components > @fortawesome/free-solid-svg-icons',
+            '@samisdat/ui-components > @fortawesome/fontawesome-svg-core',
+        ];
 
-    config.resolve = config.resolve || {};
-    config.resolve.alias = {
-      ...(config.resolve.alias as Record<string, string> | undefined),
-      "next/image": resolve(packageRoot, "src/__mocks__/next-image.tsx"),
-      "next/link": resolve(packageRoot, "src/__mocks__/next-link.tsx"),
-      "@/lib/posts": resolve(packageRoot, "src/__mocks__/posts-shim.ts"),
-    };
+        config.resolve = config.resolve || {};
+        config.resolve.alias = {
+            ...(config.resolve.alias as Record<string, string> | undefined),
+            'next/image': resolve(packageRoot, 'src/__mocks__/next-image.tsx'),
+            'next/link': resolve(packageRoot, 'src/__mocks__/next-link.tsx'),
+            '@/lib/posts': resolve(packageRoot, 'src/__mocks__/posts-shim.ts'),
+        };
 
-    config.plugins = config.plugins || [];
-    config.plugins.push(
-      wyw({
-        include: ["**/*.{ts,tsx,js,jsx}"],
-        // color-scheme is generated plain data; nothing for Linaria to extract.
-        exclude: [
-          "**/node_modules/**",
-          "**/.cache/**",
-          "**/color-scheme/generated/**",
-        ],
-        babelOptions: {
-          presets: ["@babel/preset-typescript", "@babel/preset-react"],
-        },
-      }),
-      watchWorkspaceSources(),
-    );
+        config.plugins = config.plugins || [];
+        config.plugins.push(
+            wyw({
+                include: ['**/*.{ts,tsx,js,jsx}'],
+                // color-scheme is generated plain data; nothing for Linaria to extract.
+                exclude: ['**/node_modules/**', '**/.cache/**', '**/color-scheme/generated/**'],
+                babelOptions: {
+                    presets: ['@babel/preset-typescript', '@babel/preset-react'],
+                },
+            }),
+            watchWorkspaceSources()
+        );
 
-    return config;
-  },
+        return config;
+    },
 };
 export default config;

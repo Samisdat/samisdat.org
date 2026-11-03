@@ -18,6 +18,7 @@ Namen und API öffentlich sichtbar — Konsistenz wird wichtiger.
 **Content (Blog-Posts, UI-Texte) und Dokumentation**: Deutsch
 
 Konkret:
+
 - Variablen, Funktionen, Typen, Klassen, Komponenten: Englisch
 - Code-Kommentare, JSDoc, Inline-Erklärungen: Englisch
 - Commit-Messages, ADRs, README, Markdown-Docs: Deutsch (Status quo)
@@ -41,6 +42,6 @@ Konkret:
 - Bestehende Kommentare werden **nicht** massenhaft umgeschrieben — nur
   bei Gelegenheit (wenn die Datei ohnehin angefasst wird).
 - Irreführende oder schlecht benannte Komponenten werden umbenannt:
-  - `LotOfHassleForSmallFx` → `RangeSlider` (in diesem Branch)
-  - `RedCurch` → `RedChurch` (bereits in `feature/panorama-cleanup` gefixt)
+    - `LotOfHassleForSmallFx` → `RangeSlider` (in diesem Branch)
+    - `RedCurch` → `RedChurch` (bereits in `feature/panorama-cleanup` gefixt)
 - Commit-Messages bleiben deutsch (wie bisher üblich in diesem Projekt).

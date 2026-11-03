@@ -1,29 +1,29 @@
 'use client';
 
-import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
 import { DemoAnimation } from '@samisdat/ui-components/DemoAnimation';
+import { panoramaCssVars } from '@samisdat/wtal-panorama/colors';
 import { useEffect, useRef, useState } from 'react';
 
 const SvgWithSunStyling = styled.svg`
-    background: ${panoramaCssVars["midnight-blue"]};
+    background: ${panoramaCssVars['midnight-blue']};
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-miterlimit: 1.5;
 
     & .heaven {
-        fill: ${panoramaCssVars["sky-blue"]};
+        fill: ${panoramaCssVars['sky-blue']};
     }
 
     & .sunPath {
         fill: none;
-        stroke: ${panoramaCssVars["dusty-rose"]};
+        stroke: ${panoramaCssVars['dusty-rose']};
         stroke-width: 3.5px;
     }
 
     & .sun {
-        fill: ${panoramaCssVars["neon-yellow"]};
+        fill: ${panoramaCssVars['neon-yellow']};
     }
 `;
 
@@ -54,14 +54,14 @@ export const DemoAnimationsJsAttributes = () => {
         const frames = Math.min(delta, 100) / (1000 / 60);
         setTime(prev => {
             const newTime = (prev + speed * frames) % dayLength;
-            
+
             // Update sun position based on new time
             if (pathRef.current && lengthRef.current) {
                 const distance = (lengthRef.current * newTime) / dayLength;
                 const point = pathRef.current.getPointAtLength(distance);
                 setSunPosition({ cx: point.x, cy: point.y });
             }
-            
+
             return newTime;
         });
     };

@@ -1,19 +1,20 @@
-import type { Meta, StoryObj } from "@storybook/react";
-import { CodeBlock } from "@samisdat/ui-components/CodeBlock";
+import { CodeBlock } from '@samisdat/ui-components/CodeBlock';
+
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
-  title: "CodeBlock",
-  component: CodeBlock,
-  tags: ["autodocs"],
+    title: 'CodeBlock',
+    component: CodeBlock,
+    tags: ['autodocs'],
 } satisfies Meta<typeof CodeBlock>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Html: Story = {
-  args: {
-    language: "html",
-    code: `<svg viewBox="0 0 450 300" width="100%" height="100%">
+    args: {
+        language: 'html',
+        code: `<svg viewBox="0 0 450 300" width="100%" height="100%">
   <rect x="0" y="0" width="450" height="300" fill="oklch(0.32 0.11 150)" />
   <path class="wupper" d="M0,273 Q225,240 450,273 L450,300 L0,300 Z" />
   <rect class="car" x="20" y="236" width="40" height="20" rx="4">
@@ -26,13 +27,13 @@ export const Html: Story = {
     />
   </rect>
 </svg>`,
-  },
+    },
 };
 
 export const Css: Story = {
-  args: {
-    language: "css",
-    code: `:root {
+    args: {
+        language: 'css',
+        code: `:root {
   --border-width-default: 1px;
   --border-radius-none: 0;
   --color-surface-default: oklch(0.22 0.05 300);
@@ -50,13 +51,13 @@ export const Css: Story = {
   background-size: 1rem 1rem;
   padding: 1rem;
 }`,
-  },
+    },
 };
 
 export const Js: Story = {
-  args: {
-    language: "js",
-    code: `const path = document.querySelector(".sunPath");
+    args: {
+        language: 'js',
+        code: `const path = document.querySelector(".sunPath");
 const length = path.getTotalLength();
 
 function animate(time) {
@@ -68,13 +69,13 @@ function animate(time) {
 }
 
 requestAnimationFrame(animate);`,
-  },
+    },
 };
 
 export const Ts: Story = {
-  args: {
-    language: "ts",
-    code: `export type PanoramaColorName = keyof typeof panoramaColors;
+    args: {
+        language: 'ts',
+        code: `export type PanoramaColorName = keyof typeof panoramaColors;
 
 export const panoramaColors = {
   "deep-pine": "oklch(0.32 0.11 150)",
@@ -87,13 +88,13 @@ export const panoramaCssVars = {
   "river-blue": "var(--panorama-river-blue)",
   "brick-red": "var(--panorama-brick-red)",
 } as const;`,
-  },
+    },
 };
 
 export const Tsx: Story = {
-  args: {
-    language: "tsx",
-    code: `const BridgeSvgStyling = styled.svg\`
+    args: {
+        language: 'tsx',
+        code: `const BridgeSvgStyling = styled.svg\`
   background: \${panoramaCssVars["deep-pine"]};
 
   .wupper {
@@ -113,5 +114,5 @@ export const DemoAnimationsSvg = () => (
     <BridgeSvgStyling viewBox="0 0 450 300" />
   </DemoAnimation>
 );`,
-  },
+    },
 };

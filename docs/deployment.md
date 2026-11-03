@@ -14,19 +14,19 @@ Die Storybook-Dokumentation wird automatisch via **Chromatic** deployed:
 ### Einrichtung (einmalig)
 
 1. **Chromatic-Account anlegen**:
-   - Gehe zu [chromatic.com](https://www.chromatic.com)
-   - Sign in with GitHub
-   
+    - Gehe zu [chromatic.com](https://www.chromatic.com)
+    - Sign in with GitHub
+
 2. **Projekt erstellen**:
-   - "Add Project" → Repository auswählen
-   - Notiere das **Project Token** (beginnt mit `chpt_...`)
+    - "Add Project" → Repository auswählen
+    - Notiere das **Project Token** (beginnt mit `chpt_...`)
 
 3. **GitHub Secret hinzufügen**:
-   - In diesem Repo: Settings → Secrets and variables → Actions
-   - New repository secret:
-     - Name: `CHROMATIC_PROJECT_TOKEN`
-     - Value: Das Token von Chromatic (Format `chpt_<project-token>`)
-   - ⚠️ **Wichtig**: Token NICHT in Code committen!
+    - In diesem Repo: Settings → Secrets and variables → Actions
+    - New repository secret:
+        - Name: `CHROMATIC_PROJECT_TOKEN`
+        - Value: Das Token von Chromatic (Format `chpt_<project-token>`)
+    - ⚠️ **Wichtig**: Token NICHT in Code committen!
 
 ### Workflow
 
@@ -34,9 +34,9 @@ Nach dem Setup:
 
 - Jeder Push zu `main` deployed automatisch zu Chromatic
 - Jeder PR bekommt einen Chromatic-Check:
-  - ✅ Keine visuellen Änderungen → auto-pass
-  - ⚠️  Änderungen erkannt → Review auf Chromatic-Dashboard
-  - Link zur Preview erscheint im PR-Kommentar
+    - ✅ Keine visuellen Änderungen → auto-pass
+    - ⚠️ Änderungen erkannt → Review auf Chromatic-Dashboard
+    - Link zur Preview erscheint im PR-Kommentar
 
 ### Konfiguration
 
@@ -44,6 +44,7 @@ Nach dem Setup:
 - **Config**: `packages/storybook/chromatic.config.json`
 
 **Wichtige Config-Optionen**:
+
 - `autoAcceptChanges: "main"` — Änderungen auf main werden automatisch akzeptiert
 - `onlyChanged: true` — Nur Stories bauen, die sich geändert haben (schneller)
 - `exitZeroOnChanges: true` — CI schlägt nicht fehl bei visuellen Änderungen
@@ -60,8 +61,8 @@ Nach dem Setup:
 Die Website (`packages/website`) wird via Vercel deployed:
 
 - Root `package.json` enthält:
-  - `deploy:preview` — Preview-Deployment
-  - `deploy:prod` — Production-Deployment
+    - `deploy:preview` — Preview-Deployment
+    - `deploy:prod` — Production-Deployment
 
 Details siehe Vercel-Dashboard.
 

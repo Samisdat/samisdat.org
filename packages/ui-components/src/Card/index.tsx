@@ -1,22 +1,19 @@
-import { styled } from "@linaria/react";
-
-import { FC, HTMLAttributes } from "react";
+import { styled } from '@linaria/react';
+import { FC, HTMLAttributes } from 'react';
 
 const CardStyling = styled.div`
-  border: 1px solid var(--color-border-default);
-  background-color: var(--color-surface-raised);
-  padding: 1rem;
-  border-radius: 0.5rem;
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-surface-raised);
+    padding: 1rem;
+    border-radius: 0.5rem;
 
-  & > *:first-child {
-    margin-block-start: 0;
-  }
+    & > *:first-child {
+        margin-block-start: 0;
+    }
 
-  & > *:last-child {
-    margin-block-end: 0;
-  }
+    & > *:last-child {
+        margin-block-end: 0;
+    }
 `;
 
-export const Card: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => (
-  <CardStyling>{children}</CardStyling>
-);
+export const Card: FC<HTMLAttributes<HTMLDivElement>> = ({ children }) => <CardStyling>{children}</CardStyling>;

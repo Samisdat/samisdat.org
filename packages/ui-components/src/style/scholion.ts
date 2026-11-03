@@ -261,4 +261,4 @@ export const scholionStyles = `
       transition: none !important;
     }
   }
-`
+`;

@@ -1,9 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import { ThemeName, ThemeSwitcher } from '@samisdat/ui-components/ThemeSwitcher';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { fn } from 'storybook/test';
-import { useState } from 'react';
 
-import { ThemeName, ThemeSwitcher } from '@samisdat/ui-components/ThemeSwitcher';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const meta = {
     title: 'Interaction/ThemeSwitcher',
@@ -18,7 +18,12 @@ type Story = StoryObj<typeof meta>;
 // Wrapper to demonstrate state management
 const ThemeSwitcherWithState = () => {
     const [theme, setTheme] = useState<ThemeName>('light');
-    return <ThemeSwitcher theme={theme} onUpdate={setTheme} />;
+    return (
+        <ThemeSwitcher
+            theme={theme}
+            onUpdate={setTheme}
+        />
+    );
 };
 
 export const LightMode: Story = {

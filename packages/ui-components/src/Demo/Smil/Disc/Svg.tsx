@@ -1,48 +1,60 @@
-import { styled } from "@linaria/react";
-import { aubergine, ivory } from "@samisdat/color-scheme/primitives";
+import { styled } from '@linaria/react';
+import { aubergine, ivory } from '@samisdat/color-scheme/primitives';
 
 const BlackCircle = styled.circle`
     fill: ${aubergine[950]};
 `;
 
-const WhiteCircle= styled.circle`
+const WhiteCircle = styled.circle`
     fill: ${ivory[100]};
 `;
 
+const CIRCLES = [
+    ['black', 100, 100],
+    ['white', 105, 95],
+    ['black', 110, 90],
+    ['white', 115, 85],
+    ['black', 120, 80],
+    ['white', 125, 75],
+    ['black', 130, 70],
+    ['white', 135, 65],
+    ['black', 140, 60],
+    ['white', 145, 55],
+    ['black', 150, 50],
+    ['white', 155, 45],
+    ['black', 160, 40],
+    ['white', 155, 35],
+    ['black', 150, 30],
+    ['white', 145, 25],
+    ['black', 140, 20],
+    ['white', 135, 15],
+    ['black', 130, 10],
+    ['white', 125, 5],
+    ['black', 122.5, 2.5],
+] as const;
+
 export const DiscSvg = ({ initialDur }: { initialDur: number }) => (
     <svg viewBox="0 0 200 200">
-      <g>
-        <BlackCircle cx="100" cy="100" r="100" />
-        <WhiteCircle cx="105" cy="100" r="95" /> 
-        <BlackCircle cx="110" cy="100" r="90" />
-        <WhiteCircle cx="115" cy="100" r="85" /> 
-        <BlackCircle cx="120" cy="100" r="80" /> 
-        <WhiteCircle cx="125" cy="100" r="75" /> 
-        <BlackCircle cx="130" cy="100" r="70" />
-        <WhiteCircle cx="135" cy="100" r="65" /> 
-        <BlackCircle cx="140" cy="100" r="60" />
-        <WhiteCircle cx="145" cy="100" r="55" /> 
-        <BlackCircle cx="150" cy="100" r="50" /> 
-        <WhiteCircle cx="155" cy="100" r="45" /> 
-        <BlackCircle cx="160" cy="100" r="40" /> 
-        <WhiteCircle cx="155" cy="100" r="35" /> 
-        <BlackCircle cx="150" cy="100" r="30" /> 
-        <WhiteCircle cx="145" cy="100" r="25" /> 
-        <BlackCircle cx="140" cy="100" r="20" />
-        <WhiteCircle cx="135" cy="100" r="15" /> 
-        <BlackCircle cx="130" cy="100" r="10" /> 
-        <WhiteCircle cx="125" cy="100" r="5" /> 
-        <BlackCircle cx="122.5" cy="100" r="2.5" /> 
-        <animateTransform 
-          attributeName="transform" 
-          type="rotate" 
-          from="0 100 100" 
-          to="360 100 100" 
-          dur={`${initialDur}s`} 
-          repeatCount="indefinite">
-        </animateTransform>
-      </g>
+        <g>
+            {CIRCLES.map(([kind, cx, r]) => {
+                const Circle = kind === 'black' ? BlackCircle : WhiteCircle;
+                return (
+                    <Circle
+                        key={`${kind}-${cx}-${r}`}
+                        cx={cx}
+                        cy="100"
+                        r={r}
+                    />
+                );
+            })}
+            <animateTransform
+                attributeName="transform"
+                type="rotate"
+                from="0 100 100"
+                to="360 100 100"
+                dur={`${initialDur}s`}
+                repeatCount="indefinite"
+            ></animateTransform>
+        </g>
     </svg>
-  );
-
-
+);

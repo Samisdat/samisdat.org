@@ -1,63 +1,64 @@
+import { modes } from '../../src/contrast';
+
 /** Renders the comparison as one self-contained HTML page with a rank per metric. */
-import type { Metrics } from "./measure";
-import { modes } from "../../src/contrast";
+import type { Metrics } from './measure';
 
 export type Column = {
-  id: string;
-  label: string;
-  hint: string;
-  higherIsBetter: boolean;
-  get: (metrics: Metrics) => number | undefined;
-  format: (value: number) => string;
+    id: string;
+    label: string;
+    hint: string;
+    higherIsBetter: boolean;
+    get: (metrics: Metrics) => number | undefined;
+    format: (value: number) => string;
 };
 
 const escape = (text: string) =>
-  text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+    text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 /** Competition ranking (1, 2, 2, 4): ties share the better rank, undefined gets none. */
 export function ranks(rows: Metrics[], column: Column): Map<string, number> {
-  const scored = rows
-    .map((row) => ({ key: row.key, value: column.get(row) }))
-    .filter((r): r is { key: string; value: number } => r.value !== undefined && Number.isFinite(r.value))
-    .sort((a, b) => (column.higherIsBetter ? b.value - a.value : a.value - b.value));
-  const out = new Map<string, number>();
-  scored.forEach((r, i) => {
-    const previous = scored[i - 1];
-    out.set(r.key, previous && previous.value === r.value ? (out.get(previous.key) ?? i + 1) : i + 1);
-  });
-  return out;
+    const scored = rows
+        .map(row => ({ key: row.key, value: column.get(row) }))
+        .filter((r): r is { key: string; value: number } => r.value !== undefined && Number.isFinite(r.value))
+        .sort((a, b) => (column.higherIsBetter ? b.value - a.value : a.value - b.value));
+    const out = new Map<string, number>();
+    scored.forEach((r, i) => {
+        const previous = scored[i - 1];
+        out.set(r.key, previous && previous.value === r.value ? (out.get(previous.key) ?? i + 1) : i + 1);
+    });
+    return out;
 }
 
 function table(mode: string, rows: Metrics[], columns: Column[]): string {
-  const rankBy = new Map(columns.map((c) => [c.id, ranks(rows, c)]));
-  const mean = (row: Metrics) => {
-    const own = columns.flatMap((c) => {
-      const r = rankBy.get(c.id)?.get(row.key);
-      return r === undefined ? [] : [r];
-    });
-    return own.reduce((a, b) => a + b, 0) / own.length;
-  };
-  const sorted = [...rows].sort((a, b) => mean(a) - mean(b));
-  const head = columns
-    .map((c) => `<th title="${escape(c.hint)}">${escape(c.label)}<small>${c.higherIsBetter ? "↑" : "↓"}</small></th>`)
-    .join("");
-  const body = sorted
-    .map((row) => {
-      const cells = columns
-        .map((c) => {
-          const value = c.get(row);
-          const rank = rankBy.get(c.id)?.get(row.key);
-          if (value === undefined || rank === undefined) return `<td class="na">–</td>`;
-          const cls = rank === 1 ? "first" : rank <= 3 ? "top" : "";
-          return `<td class="${cls}"><span>${escape(c.format(value))}</span><b>${rank}</b></td>`;
+    const rankBy = new Map(columns.map(c => [c.id, ranks(rows, c)]));
+    const mean = (row: Metrics) => {
+        const own = columns.flatMap(c => {
+            const r = rankBy.get(c.id)?.get(row.key);
+            return r === undefined ? [] : [r];
+        });
+        return own.reduce((a, b) => a + b, 0) / own.length;
+    };
+    const sorted = [...rows].sort((a, b) => mean(a) - mean(b));
+    const head = columns
+        .map(c => `<th title="${escape(c.hint)}">${escape(c.label)}<small>${c.higherIsBetter ? '↑' : '↓'}</small></th>`)
+        .join('');
+    const body = sorted
+        .map(row => {
+            const cells = columns
+                .map(c => {
+                    const value = c.get(row);
+                    const rank = rankBy.get(c.id)?.get(row.key);
+                    if (value === undefined || rank === undefined) return `<td class="na">–</td>`;
+                    const cls = rank === 1 ? 'first' : rank <= 3 ? 'top' : '';
+                    return `<td class="${cls}"><span>${escape(c.format(value))}</span><b>${rank}</b></td>`;
+                })
+                .join('');
+            const own = row.family === 'samisdat' ? ` class="own"` : '';
+            const bg = `<i style="background:${escape(row.background)}"></i>`;
+            return `<tr${own}><th scope="row">${bg}${escape(row.family)}<small>${escape(row.theme)}</small></th><td class="avg">${mean(row).toFixed(1)}</td>${cells}</tr>`;
         })
-        .join("");
-      const own = row.family === "samisdat" ? ` class="own"` : "";
-      const bg = `<i style="background:${escape(row.background)}"></i>`;
-      return `<tr${own}><th scope="row">${bg}${escape(row.family)}<small>${escape(row.theme)}</small></th><td class="avg">${mean(row).toFixed(1)}</td>${cells}</tr>`;
-    })
-    .join("\n");
-  return `<section><h2>${escape(mode)}</h2><div class="scroll"><table>
+        .join('\n');
+    return `<section><h2>${escape(mode)}</h2><div class="scroll"><table>
 <thead><tr><th>Theme</th><th title="Mean rank over all metrics with a value">Ø rank</th>${head}</tr></thead>
 <tbody>
 ${body}
@@ -65,16 +66,16 @@ ${body}
 }
 
 export function render(metrics: Metrics[], columns: Column[]): string {
-  const sections = modes
-    .map((mode) =>
-      table(
-        mode,
-        metrics.filter((m) => m.mode === mode),
-        columns,
-      ),
-    )
-    .join("\n");
-  return `<!doctype html>
+    const sections = modes
+        .map(mode =>
+            table(
+                mode,
+                metrics.filter(m => m.mode === mode),
+                columns
+            )
+        )
+        .join('\n');
+    return `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">

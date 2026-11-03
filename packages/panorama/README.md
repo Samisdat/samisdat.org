@@ -25,11 +25,11 @@ npm install @samisdat/wtal-panorama
 import { WtalPanorama } from '@samisdat/wtal-panorama';
 
 export default function App() {
-  return (
-    <div>
-      <WtalPanorama />
-    </div>
-  );
+    return (
+        <div>
+            <WtalPanorama />
+        </div>
+    );
 }
 ```
 
@@ -41,18 +41,19 @@ If you want to use the panorama with custom controls or access to the time conte
 import { TalProvider, Panorama } from '@samisdat/wtal-panorama';
 
 export default function App() {
-  return (
-    <TalProvider>
-      <Panorama />
-      {/* Add your custom controls here */}
-    </TalProvider>
-  );
+    return (
+        <TalProvider>
+            <Panorama />
+            {/* Add your custom controls here */}
+        </TalProvider>
+    );
 }
 ```
 
 ## How It Works
 
 The panorama uses:
+
 - **SunCalc** to calculate precise sunrise and sunset times for Wuppertal
 - **astronomy-engine** for accurate moon position and phase calculations
 - **React State** to animate the sun and moon positions along a defined SVG path
@@ -80,11 +81,11 @@ import { panoramaColors } from '@samisdat/wtal-panorama/colors';
 Use the values directly in Linaria/CSS-in-JS so build-time evaluation embeds literal color strings — no runtime CSS variable lookup required:
 
 ```tsx
-import { panoramaColors } from '@samisdat/wtal-panorama/colors';
 import { styled } from '@linaria/react';
+import { panoramaColors } from '@samisdat/wtal-panorama/colors';
 
 const Svg = styled.svg`
-  background: ${panoramaColors["deep-pine"]};
+    background: ${panoramaColors['deep-pine']};
 `;
 ```
 

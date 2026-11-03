@@ -34,9 +34,9 @@ Please include:
 - **Acknowledgment**: You'll receive a response within 72 hours confirming receipt.
 - **Assessment**: We'll evaluate the vulnerability and determine severity.
 - **Fix Timeline**: For confirmed vulnerabilities:
-  - Critical/High: Fix within 7 days
-  - Medium: Fix within 30 days
-  - Low: Fix in the next regular release cycle
+    - Critical/High: Fix within 7 days
+    - Medium: Fix within 30 days
+    - Low: Fix in the next regular release cycle
 - **Disclosure**: Once a fix is available and deployed, we'll coordinate public disclosure with you.
 
 ### Out of Scope

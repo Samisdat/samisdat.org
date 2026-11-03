@@ -6,6 +6,7 @@ import { Container } from '@samisdat/ui-components/Container';
 import { Stack } from '@samisdat/ui-components/Stack';
 import Link from 'next/link';
 import { FC, HTMLAttributes } from 'react';
+
 import { breakpoints } from '../../../ui-components/src/tokens/breakpoints';
 import { space } from '../../../ui-components/src/tokens/space';
 import { ThemeSwitcherSlot } from './ThemeSwitcherSlot';

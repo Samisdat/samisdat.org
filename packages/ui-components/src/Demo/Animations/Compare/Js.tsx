@@ -1,6 +1,7 @@
 import { styled } from '@linaria/react';
 import { useAnimationFrame } from '@samisdat/tools';
 import { useEffect, useRef } from 'react';
+
 import { config, DemoAnimationsCompareProps, SvgStyling } from './shared';
 
 const JsStyling = styled(SvgStyling)`
