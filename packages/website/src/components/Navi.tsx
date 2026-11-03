@@ -62,6 +62,10 @@ const StyledLink = styled(Link)`
     font-weight: bold;
     font-size: var(--typo-h5-size);
 
+    @media (max-width: ${breakpoints.narrow}) {
+        font-size: var(--typo-h6-size);
+    }
+
     @media (min-width: ${breakpoints.medium}) {
         font-size: var(--typo-h4-size);
     }
@@ -94,6 +98,15 @@ const IconNav = styled.nav`
     & svg {
         width: var(--typo-h5-size);
         height: var(--typo-h5-size);
+    }
+
+    @media (max-width: ${breakpoints.narrow}) {
+        gap: var(--space-2, 0.5rem);
+
+        & svg {
+            width: var(--typo-h6-size);
+            height: var(--typo-h6-size);
+        }
     }
 
     @media (min-width: ${breakpoints.medium}) {

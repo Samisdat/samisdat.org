@@ -12,6 +12,10 @@ const MiniPanoWrapper = styled.div`
     border-radius: 1rem;
     height: var(--typo-h5-size);
 
+    @media (max-width: ${breakpoints.narrow}) {
+        height: var(--typo-h6-size);
+    }
+
     @media (min-width: ${breakpoints.medium}) {
         height: var(--typo-h4-size);
     }
