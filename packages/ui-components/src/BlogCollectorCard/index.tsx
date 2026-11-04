@@ -3,8 +3,11 @@
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
 import { useParallax } from '@samisdat/tools';
-import { FC, HTMLAttributes, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
+
 import { ScreenReaderOnly } from '../ScreenReaderOnly';
+import { BackContent } from './BackContent';
+import { CardData, FrontContent } from './FrontContent';
 
 export const globals = css`
     :global() {
@@ -34,12 +37,11 @@ const CardFaces = styled.div`
     position: relative;
     aspect-ratio: 5 / 7;
     width: 100%;
-    border: 1px solid var(--color-border-default);
-    background-color: var(--color-surface-raised);
 
     transform-style: preserve-3d;
     transition: --progress 1.1s cubic-bezier(0.5, 0, 0.2, 1);
     will-change: transform;
+    cursor: pointer;
     transform: perspective(60rem) rotateY(calc(var(--tilt) * var(--parallax-x)))
         rotateX(calc(var(--tilt) * var(--parallax-y) * -1)) rotateY(calc(var(--progress) * 180deg));
 
@@ -55,11 +57,16 @@ const CardFaces = styled.div`
 const Face = styled.div`
     position: absolute;
     inset: 0;
+    display: grid;
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     backface-visibility: hidden;
     -webkit-backface-visibility: hidden;
     border-radius: 5cqw;
     padding: 3.2cqw;
     overflow: hidden;
+    background: var(--color-surface-raised);
+    box-shadow: inset 0 0 0 0.5cqw var(--color-border-default);
 `;
 const FrontFace = styled(Face)``;
 
@@ -79,6 +86,8 @@ const FlipCard = styled.button`
     border-radius: 5cqw;
     color: inherit;
     font: inherit;
+    /* Keyboard-only control: pointer events go to the faces, so the back can scroll */
+    pointer-events: none;
 
     &:focus-visible {
         outline: 3px solid var(--color-border-focus);
@@ -86,10 +95,12 @@ const FlipCard = styled.button`
     }
 `;
 
+export type BlogCollectorCardProps = CardData;
 
-export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children: _children }) => {
+export const BlogCollectorCard = (card: BlogCollectorCardProps) => {
     const ref = useRef<HTMLDivElement | null>(null);
     const [flipped, setFlipped] = useState(false);
+    const toggle = () => setFlipped(value => !value);
 
     // The pointer is tracked on the unrotated wrapper, so the tilt does not feed back into the measured rect
     // and the overlay button does not swallow pointer events.
@@ -97,14 +108,21 @@ export const BlogCollectorCard: FC<HTMLAttributes<HTMLDivElement>> = ({ children
 
     return (
         <BlogCollectorCardStyling ref={ref}>
-            <CardFaces data-flipped={flipped}>
-                <FrontFace aria-hidden={flipped}>Front</FrontFace>
-                <BackFace aria-hidden={!flipped}>Back</BackFace>
+            <CardFaces
+                data-flipped={flipped}
+                onClick={toggle}
+            >
+                <FrontFace aria-hidden={flipped}>
+                    <FrontContent {...card} />
+                </FrontFace>
+                <BackFace aria-hidden={!flipped}>
+                    <BackContent {...card} />
+                </BackFace>
             </CardFaces>
             <FlipCard
                 type="button"
                 aria-pressed={flipped}
-                onClick={() => setFlipped((value) => !value)}
+                onClick={toggle}
             >
                 <ScreenReaderOnly>Karte umdrehen</ScreenReaderOnly>
             </FlipCard>
