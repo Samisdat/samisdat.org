@@ -104,9 +104,9 @@ const Facts = styled.dl`
     }
 `;
 
-type BackProps = Pick<BlogCollectorCardProps, 'name' | 'domain' | 'no' | 'total' | 'hue' | 'themen' | 'facts'>;
+type BackProps = Pick<BlogCollectorCardProps, 'name' | 'domain' | 'no' | 'total' | 'hue' | 'topics' | 'facts'>;
 
-export const Back = ({ name, no, total, hue, themen, facts }: BackProps) => (
+export const Back = ({ name, no, total, hue, topics, facts }: BackProps) => (
     <BackInner style={{ ['--hue' as string]: hue }}>
         <Head>
             <span>Blog-Serie</span>
@@ -121,8 +121,8 @@ export const Back = ({ name, no, total, hue, themen, facts }: BackProps) => (
             <Themen>
                 <Label>Themen</Label>
                 <Chips>
-                    {themen.map(thema => (
-                        <li key={thema}>{thema}</li>
+                    {topics.map(topic => (
+                        <li key={topic}>{topic}</li>
                     ))}
                 </Chips>
             </Themen>

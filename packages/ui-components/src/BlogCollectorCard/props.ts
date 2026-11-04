@@ -14,7 +14,7 @@ export interface BlogCollectorCardProps {
     /** CSS color used as accent for this card. */
     hue: string;
     /** Topics the blog covers. */
-    themen: string[];
+    topics: string[];
     /** Label/value rows of the facts table, in display order. */
     facts: [label: string, value: string][];
 }

@@ -21,7 +21,7 @@ export const BlogCollectorCard: Story = {
         shot: '/posts/blogs/josh-comeau.jpg',
         shotLight: '/posts/blogs/josh-comeau-light.jpg',
         hue: 'var(--color-ink-rose)',
-        themen: ['CSS', 'React', 'Interaktives'],
+        topics: ['CSS', 'React', 'Interaktives'],
         facts: [
             ['Sprache', 'Englisch'],
             ['Nationalität', 'Kanada'],
