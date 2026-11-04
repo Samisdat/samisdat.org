@@ -1,4 +1,5 @@
 import { SandpackFiles } from '@codesandbox/sandpack-react';
+import { BlogCollectorCard } from '@samisdat/ui-components/BlogCollectorCard';
 import {
     SnapshotCode,
     SnapshotCvd,
@@ -10,7 +11,6 @@ import {
     SnapshotModes,
     SnapshotScales,
 } from '@samisdat/ui-components/ColorSchemeSnapshot';
-import { BlogCollectorCard } from '@samisdat/ui-components/BlogCollectorCard';
 import { DemoContext } from '@samisdat/ui-components/Demo/DemoContext';
 import { DemoBox } from '@samisdat/ui-components/DemoBox';
 import { Grid } from '@samisdat/ui-components/Grid';
