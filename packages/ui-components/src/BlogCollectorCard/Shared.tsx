@@ -31,8 +31,8 @@ export const Banner = styled.div`
         white-space: nowrap;
         text-transform: uppercase;
         color: var(--color-text-emphasis);
-        background: var(--color-surface-raised);
+        position: relative;
         clip-path: inherit;
-        text-shadow: 0 0.3cqw 0.6cqw var(--color-surface-emphasis);
+        text-shadow: 0 0.3cqw 0.6cqw color-mix(in oklab, var(--color-surface-emphasis) 80%, transparent);
     }
 `;

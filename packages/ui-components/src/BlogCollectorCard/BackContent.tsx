@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react';
 
+import { metal } from './Metal';
 import { Banner, Inner } from './Shared';
 
 import type { CardData } from './FrontContent';
@@ -27,6 +28,8 @@ const Head = styled.div`
 
 const NameBanner = styled(Banner)`
     > span {
+        --shift: -30%;
+
         padding: 2.4cqw 5cqw 2cqw;
         font-size: 8cqw;
         font-weight: 800;
@@ -100,68 +103,9 @@ const Facts = styled.dl`
         overflow-wrap: anywhere;
         color: var(--color-text-emphasis);
     }
-
-    .primary dd {
-        font-size: 6.4cqw;
-        color: var(--hue);
-    }
 `;
 
-const Unverified = styled.span`
-    font-weight: 700;
-    color: var(--color-ink-gold);
-`;
-
-const SrOnly = styled.span`
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-`;
-
-interface FactProps {
-    label: string;
-    value: string;
-    className?: string;
-}
-
-const Fact = ({ label, value, className }: FactProps) => {
-    const [text, ...rest] = value.split('?');
-    const unverified = rest.length > 0;
-
-    return (
-        <div className={className}>
-            <dt>{label}</dt>
-            <dd>
-                {text}
-                {unverified && (
-                    <>
-                        <Unverified aria-hidden="true">?</Unverified>
-                        <SrOnly>(ungeprüft)</SrOnly>
-                        {rest.join('?')}
-                    </>
-                )}
-            </dd>
-        </div>
-    );
-};
-
-export const BackContent = ({
-    name,
-    no,
-    total,
-    hue,
-    themen,
-    sprache,
-    nat,
-    rolle,
-    wohnort,
-    format,
-    stack,
-}: CardData) => (
+export const BackContent = ({ name, no, total, hue, themen, facts }: CardData) => (
     <BackInner style={{ ['--hue' as string]: hue }}>
         <Head>
             <span>Blog-Serie</span>
@@ -170,7 +114,7 @@ export const BackContent = ({
             </span>
         </Head>
         <NameBanner>
-            <span>{name}</span>
+            <span className={metal}>{name}</span>
         </NameBanner>
         <div>
             <Themen>
@@ -182,31 +126,12 @@ export const BackContent = ({
                 </Chips>
             </Themen>
             <Facts>
-                <Fact
-                    className="primary"
-                    label="Sprache"
-                    value={sprache}
-                />
-                <Fact
-                    label="Nationalität"
-                    value={nat}
-                />
-                <Fact
-                    label="Rolle"
-                    value={rolle}
-                />
-                <Fact
-                    label="Wohnort"
-                    value={wohnort}
-                />
-                <Fact
-                    label="Format"
-                    value={format}
-                />
-                <Fact
-                    label="Gebaut mit"
-                    value={stack}
-                />
+                {facts.map(([label, value]) => (
+                    <div key={label}>
+                        <dt>{label}</dt>
+                        <dd>{value}</dd>
+                    </div>
+                ))}
             </Facts>
         </div>
     </BackInner>

@@ -8,6 +8,8 @@ import { useRef, useState } from 'react';
 import { ScreenReaderOnly } from '../ScreenReaderOnly';
 import { BackContent } from './BackContent';
 import { CardData, FrontContent } from './FrontContent';
+import { light, lightPalette } from './light';
+import { metal } from './Metal';
 
 export const globals = css`
     :global() {
@@ -29,6 +31,8 @@ const BlogCollectorCardStyling = styled.div`
     width: 100%;
     max-width: 15rem;
     container-type: inline-size;
+
+    ${light(lightPalette)}
 `;
 
 const CardFaces = styled.div`
@@ -65,12 +69,15 @@ const Face = styled.div`
     border-radius: 5cqw;
     padding: 3.2cqw;
     overflow: hidden;
-    background: var(--color-surface-raised);
-    box-shadow: inset 0 0 0 0.5cqw var(--color-border-default);
+    box-shadow:
+        inset 0 0 0 0.5cqw var(--color-border-default),
+        0 2cqw 6cqw rgb(15 5 29 / 0.35);
 `;
 const FrontFace = styled(Face)``;
 
 const BackFace = styled(Face)`
+    --shift: -30%;
+
     transform: rotateY(180deg);
 `;
 
@@ -112,10 +119,16 @@ export const BlogCollectorCard = (card: BlogCollectorCardProps) => {
                 data-flipped={flipped}
                 onClick={toggle}
             >
-                <FrontFace aria-hidden={flipped}>
+                <FrontFace
+                    className={metal}
+                    aria-hidden={flipped}
+                >
                     <FrontContent {...card} />
                 </FrontFace>
-                <BackFace aria-hidden={!flipped}>
+                <BackFace
+                    className={metal}
+                    aria-hidden={!flipped}
+                >
                     <BackContent {...card} />
                 </BackFace>
             </CardFaces>

@@ -1,7 +1,10 @@
 import { styled } from '@linaria/react';
 
-import { QrCode } from './QrCode';
+import { light } from './light';
+import { metal } from './Metal';
+import { Scan } from './Scan';
 import { Banner, Inner } from './Shared';
+import { Shield } from './Shield';
 
 export interface CardData {
     /** Display name of the blog author. */
@@ -12,19 +15,16 @@ export interface CardData {
     no: string;
     /** Size of the series. */
     total: number;
-    /** URL of the homepage screenshot. */
+    /** URL of the homepage screenshot (the dark one when `shotLight` is given). */
     shot: string;
+    /** Screenshot of the site in its light theme, shown instead of `shot` in the light theme. */
+    shotLight?: string;
     /** CSS color used as accent for this card. */
     hue: string;
     /** Topics the blog covers. */
     themen: string[];
-    sprache: string;
-    nat: string;
-    rolle: string;
-    wohnort: string;
-    format: string;
-    /** What the blog is built with. A `?` in any fact marks it as unverified. */
-    stack: string;
+    /** Label/value rows of the facts table, in display order. */
+    facts: [label: string, value: string][];
 }
 
 const Backdrop = styled.div`
@@ -37,29 +37,82 @@ const Backdrop = styled.div`
             transparent 70%
         ),
         var(--color-surface-emphasis);
+
+    /* Light cone behind the screenshot */
+    &::after {
+        content: '';
+        position: absolute;
+        left: -10%;
+        right: -10%;
+        top: -5%;
+        height: 75%;
+        background: radial-gradient(closest-side, color-mix(in oklab, var(--hue) 35%, transparent), transparent);
+    }
+
+    ${light(`
+        background:
+            radial-gradient(
+                120% 70% at 50% 25%,
+                color-mix(in oklab, var(--hue) 18%, var(--color-surface-raised)),
+                transparent 70%
+            ),
+            var(--color-surface-emphasis);
+
+        &::after {
+            background: radial-gradient(closest-side, color-mix(in oklab, var(--hue) 22%, transparent), transparent);
+        }
+    `)}
 `;
 
 const Chrome = styled.div`
     position: absolute;
-    left: 7cqw;
-    right: 7cqw;
-    top: 7cqw;
-    height: 50cqw;
+    left: 5cqw;
+    right: 5cqw;
+    top: 5.5cqw;
+    height: 53cqw;
     display: grid;
-    grid-template-rows: 5.5cqw 1fr;
-    border-radius: 2cqw;
+    grid-template-rows: 5.5cqw minmax(0, 1fr);
+    padding: 1.5cqw;
+    border-radius: 2.8cqw;
     background: var(--color-surface-raised);
     overflow: hidden;
-    box-shadow: 0 2cqw 5cqw var(--color-surface-emphasis);
+    /* Ring like the card edge, then a drop shadow that lifts the screenshot off the card */
+    box-shadow:
+        0 0 0 0.5cqw var(--color-border-default),
+        0 1.6cqw 2cqw rgb(15 5 29 / 0.45);
 
     img {
         display: block;
         width: 100%;
         height: 100%;
         min-height: 0;
+        border-radius: 0 0 1.4cqw 1.4cqw;
+        background: var(--color-surface-emphasis);
+        box-shadow: 0 0 0 0.3cqw var(--color-surface-raised);
         object-fit: cover;
         object-position: top center;
     }
+
+    ${light(`
+        box-shadow:
+            0 0 0 0.5cqw var(--color-border-default),
+            0 1.6cqw 2cqw rgb(30 20 46 / 0.35);
+    `)}
+
+    /* With a light screenshot both images are rendered and the theme picks one */
+    img[data-theme-shot='light'] {
+        display: none;
+    }
+
+    ${light(`
+        img[data-theme-shot='dark'] {
+            display: none;
+        }
+
+        img[data-theme-shot='light'] {
+            display: block;
+        }
+    `)}
 `;
 
 const ChromeBar = styled.div`
@@ -67,19 +120,21 @@ const ChromeBar = styled.div`
     align-items: center;
     gap: 1.2cqw;
     padding-inline: 2.4cqw;
-    background: var(--color-surface-subtle);
+    border-radius: 1.4cqw 1.4cqw 0 0;
+    background: var(--hue);
 
     i {
         width: 1.8cqw;
         height: 1.8cqw;
         border-radius: 50%;
-        background: var(--color-surface-muted);
+        background: color-mix(in oklab, var(--color-surface-default) 75%, transparent);
     }
 
     span {
         margin-left: 2cqw;
         font-size: 2.6cqw;
-        color: var(--color-text-secondary);
+        font-weight: 700;
+        color: var(--color-surface-default);
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -111,6 +166,8 @@ const DomainBanner = styled(Banner)`
     bottom: 43.5cqw;
 
     > span {
+        --shift: -8%;
+
         padding: 1.8cqw 4cqw 1.5cqw;
         font-size: 5cqw;
         font-weight: 700;
@@ -120,143 +177,47 @@ const DomainBanner = styled(Banner)`
     }
 `;
 
-const Shield = styled.div`
-    position: absolute;
-    left: 8cqw;
-    bottom: 3.5cqw;
-    width: 20cqw;
-    aspect-ratio: 5 / 6;
+type FrontContentProps = Pick<CardData, 'name' | 'domain' | 'no' | 'total' | 'shot' | 'shotLight' | 'hue'>;
 
-    svg {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        overflow: visible;
-        fill: var(--color-surface-raised);
-        stroke: var(--color-border-default);
-        stroke-width: 3;
-        stroke-linejoin: round;
-    }
-
-    > div {
-        position: relative;
-        display: grid;
-        align-content: center;
-        justify-items: center;
-        height: 100%;
-        padding-bottom: 12%;
-        line-height: 1;
-        text-align: center;
-        color: var(--color-text-emphasis);
-    }
-
-    small {
-        font-size: 3cqw;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-    }
-
-    b {
-        font-size: 8.5cqw;
-        font-weight: 800;
-    }
-
-    span {
-        font-size: 3.8cqw;
-        font-weight: 700;
-    }
-`;
-
-const SHIELD_PATH =
-    'M50 3C62 8 80 11 94 12Q98 12.5 97.5 17L96 60C95 78 80 94 54 116Q50 119 46 116C20 94 5 78 4 60L2.5 17Q2 12.5 6 12C20 11 38 8 50 3Z';
-
-const Scan = styled.div`
-    position: absolute;
-    right: 6cqw;
-    bottom: 4.5cqw;
-    display: flex;
-    align-items: flex-end;
-    gap: 2.4cqw;
-
-    span {
-        font-size: 3.6cqw;
-        font-weight: 700;
-        line-height: 1.05;
-        text-align: right;
-        text-transform: uppercase;
-        color: var(--color-text-default);
-    }
-
-    svg {
-        display: block;
-        width: 20cqw;
-        height: 20cqw;
-        max-width: 100%;
-        padding: 1.2cqw;
-        background: var(--color-text-emphasis);
-    }
-
-    path {
-        fill: var(--color-surface-emphasis);
-    }
-`;
-
-type FrontContentProps = Pick<CardData, 'name' | 'domain' | 'no' | 'total' | 'shot' | 'hue'>;
-
-export const FrontContent = ({
-    name,
-    domain,
-    no,
-    total,
-    shot,
-    hue,
-}: FrontContentProps) => (
-    <Inner style={{ ['--hue' as string]: hue }}>
-        <Backdrop aria-hidden="true" />
-        <Chrome>
-            <ChromeBar aria-hidden="true">
-                <i />
-                <i />
-                <i />
-                <span>{domain}</span>
-            </ChromeBar>
-            {/* oxlint-disable-next-line next/no-img-element -- ui-components is framework-agnostic; the shot is a small static file */}
-            <img
-                src={shot}
-                alt={`Startseite von ${domain}`}
+export const FrontContent = ({ name, domain, no, total, shot, shotLight, hue }: FrontContentProps) => {
+    return (
+        <Inner style={{ ['--hue' as string]: hue }}>
+            <Backdrop aria-hidden="true" />
+            <Chrome>
+                <ChromeBar aria-hidden="true">
+                    <i />
+                    <i />
+                    <i />
+                    <span>{domain}</span>
+                </ChromeBar>
+                {/* oxlint-disable-next-line next/no-img-element -- ui-components is framework-agnostic; the shot is a small static file */}
+                <img
+                    src={shot}
+                    alt={`Startseite von ${domain}`}
+                    loading="lazy"
+                    data-theme-shot={shotLight ? 'dark' : undefined}
+                />
+                {shotLight && (
+                    // oxlint-disable-next-line next/no-img-element -- see above
+                    <img
+                        src={shotLight}
+                        alt={`Startseite von ${domain}`}
+                        loading="lazy"
+                        data-theme-shot="light"
+                    />
+                )}
+            </Chrome>
+            <NameBanner>
+                <span className={metal}>{name}</span>
+            </NameBanner>
+            <DomainBanner>
+                <span className={metal}>{domain}</span>
+            </DomainBanner>
+            <Shield
+                no={no}
+                total={total}
             />
-        </Chrome>
-        <NameBanner>
-            <span>{name}</span>
-        </NameBanner>
-        <DomainBanner>
-            <span>{domain}</span>
-        </DomainBanner>
-        <Shield>
-            <svg
-                viewBox="0 0 100 120"
-                aria-hidden="true"
-            >
-                <path d={SHIELD_PATH} />
-            </svg>
-            <div>
-                <small>Nr.</small>
-                <b>{no}</b>
-                <span>/ {total}</span>
-            </div>
-        </Shield>
-        <Scan>
-            <span>
-                Scan
-                <br />
-                zum Blog
-            </span>
-            <QrCode
-                url={`https://${domain}`}
-                label={`QR-Code für ${domain}`}
-            />
-        </Scan>
-    </Inner>
-);
+            <Scan domain={domain} />
+        </Inner>
+    );
+};
