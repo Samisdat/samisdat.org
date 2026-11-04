@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react';
 
-import { QrCode } from './QrCode';
+import { QrCode } from './QrCodeSvg';
 
 const ScanStyling = styled.div`
     position: absolute;

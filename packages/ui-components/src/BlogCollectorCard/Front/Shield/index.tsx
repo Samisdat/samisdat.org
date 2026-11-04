@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react';
 
-import { metal } from './Metal';
+import { metal } from '../../Metal';
 
 const SHIELD_PATH =
     'M50 3C62 8 80 11 94 12Q98 12.5 97.5 17L96 60C95 78 80 94 54 116Q50 119 46 116C20 94 5 78 4 60L2.5 17Q2 12.5 6 12C20 11 38 8 50 3Z';

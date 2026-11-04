@@ -6,8 +6,8 @@ import { useParallax } from '@samisdat/tools';
 import { useRef, useState } from 'react';
 
 import { ScreenReaderOnly } from '../ScreenReaderOnly';
-import { BackContent } from './BackContent';
-import { CardData, FrontContent } from './FrontContent';
+import { Back } from './Back';
+import { CardData, Front } from './Front';
 import { light, lightPalette } from './light';
 import { metal } from './Metal';
 
@@ -123,13 +123,13 @@ export const BlogCollectorCard = (card: BlogCollectorCardProps) => {
                     className={metal}
                     aria-hidden={flipped}
                 >
-                    <FrontContent {...card} />
+                    <Front {...card} />
                 </FrontFace>
                 <BackFace
                     className={metal}
                     aria-hidden={!flipped}
                 >
-                    <BackContent {...card} />
+                    <Back {...card} />
                 </BackFace>
             </CardFaces>
             <FlipCard

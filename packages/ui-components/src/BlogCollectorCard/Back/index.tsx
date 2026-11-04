@@ -1,9 +1,9 @@
 import { styled } from '@linaria/react';
 
-import { metal } from './Metal';
-import { Banner, Inner } from './Shared';
+import { metal } from '../Metal';
+import { Banner, Inner } from '../Shared';
 
-import type { CardData } from './FrontContent';
+import type { CardData } from '../Front';
 
 const BackInner = styled(Inner)`
     display: grid;
@@ -105,7 +105,7 @@ const Facts = styled.dl`
     }
 `;
 
-export const BackContent = ({ name, no, total, hue, themen, facts }: CardData) => (
+export const Back = ({ name, no, total, hue, themen, facts }: CardData) => (
     <BackInner style={{ ['--hue' as string]: hue }}>
         <Head>
             <span>Blog-Serie</span>
