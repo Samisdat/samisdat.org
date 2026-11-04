@@ -3,30 +3,10 @@ import { styled } from '@linaria/react';
 import { BrowserChrome, BrowserChromeBar } from '../BrowserChrome';
 import { light } from '../light';
 import { metal } from '../Metal';
+import { BlogCollectorCardProps } from '../props';
 import { Banner, Inner } from '../Shared';
 import { Scan } from './QrCode';
 import { Shield } from './Shield';
-
-export interface CardData {
-    /** Display name of the blog author. */
-    name: string;
-    /** Bare domain, e.g. `joshwcomeau.com`. */
-    domain: string;
-    /** Serial number within the series, e.g. `01`. */
-    no: string;
-    /** Size of the series. */
-    total: number;
-    /** URL of the homepage screenshot (the dark one when `shotLight` is given). */
-    shot: string;
-    /** Screenshot of the site in its light theme, shown instead of `shot` in the light theme. */
-    shotLight?: string;
-    /** CSS color used as accent for this card. */
-    hue: string;
-    /** Topics the blog covers. */
-    themen: string[];
-    /** Label/value rows of the facts table, in display order. */
-    facts: [label: string, value: string][];
-}
 
 // Hue wash plus a light cone behind the screenshot, painted as background layers of the face itself.
 // The cone is the former pseudo-element box (left/right -10%, top -5%, height 75%) as a gradient ellipse.
@@ -88,9 +68,9 @@ const DomainBanner = styled(Banner)`
     }
 `;
 
-type FrontContentProps = Pick<CardData, 'name' | 'domain' | 'no' | 'total' | 'shot' | 'shotLight' | 'hue'>;
+type FrontProps = Pick<BlogCollectorCardProps, 'name' | 'domain' | 'no' | 'total' | 'shot' | 'shotLight' | 'hue'>;
 
-export const FrontContent = ({ name, domain, no, total, shot, shotLight, hue }: FrontContentProps) => {
+export const Front = ({ name, domain, no, total, shot, shotLight, hue }: FrontProps) => {
     return (
         <FrontInner style={{ ['--hue' as string]: hue }}>
             <BrowserChrome>

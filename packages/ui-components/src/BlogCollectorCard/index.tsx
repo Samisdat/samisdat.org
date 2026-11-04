@@ -7,9 +7,10 @@ import { useRef, useState } from 'react';
 
 import { ScreenReaderOnly } from '../ScreenReaderOnly';
 import { Back } from './Back';
-import { CardData, Front } from './Front';
+import { Front } from './Front';
 import { light, lightPalette } from './light';
 import { metal } from './Metal';
+import { BlogCollectorCardProps } from './props';
 
 export const globals = css`
     :global() {
@@ -101,8 +102,6 @@ const FlipCard = styled.button`
         outline-offset: 4px;
     }
 `;
-
-export type BlogCollectorCardProps = CardData;
 
 export const BlogCollectorCard = (card: BlogCollectorCardProps) => {
     const ref = useRef<HTMLDivElement | null>(null);
