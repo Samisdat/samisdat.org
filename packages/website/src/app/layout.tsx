@@ -5,6 +5,7 @@ import { config } from '@fortawesome/fontawesome-svg-core';
 import { Container } from '@samisdat/ui-components/Container';
 import { BottomDockContainer, DockProvider, TopDockContainer } from '@samisdat/ui-components/Docks';
 import { WtalPanorama } from '@samisdat/wtal-panorama';
+import { Analytics } from '@vercel/analytics/next';
 
 import { Colophon } from '@/components/Colophon';
 import { Page } from '@/components/Page';
@@ -74,6 +75,7 @@ export default function RootLayout({
                     <TopDockContainer />
                     <BottomDockContainer />
                 </DockProvider>
+                <Analytics />
             </body>
         </html>
     );
