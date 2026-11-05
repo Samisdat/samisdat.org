@@ -1,10 +1,6 @@
-import path from 'path';
-
-import { Heading } from '@samisdat/ui-components/Heading';
 import { notFound } from 'next/navigation';
 
-import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
-import { PostLayout } from '@/components/PostLayout';
+import { PostArticle } from '@/components/PostArticle';
 import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
 
 import type { Metadata } from 'next';
@@ -35,17 +31,11 @@ export default async function PostPage({ params }: { params: Promise<{ slug: str
         return notFound();
     }
 
-    const mdxDir = path.join(process.cwd(), 'content/posts');
-
     return (
-        <PostLayout typography={post.frontmatter.typography}>
-            <Heading level={1}>{post.frontmatter.title}</Heading>
-            <MarkdownServer
-                content={post.source}
-                mdxDir={mdxDir}
-                slug={slug}
-            />
-        </PostLayout>
+        <PostArticle
+            slug={slug}
+            {...post}
+        />
     );
 }
 
