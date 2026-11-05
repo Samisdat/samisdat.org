@@ -66,6 +66,7 @@
     "@samisdat/tools": "workspace:*",
     "@samisdat/ui-components": "workspace:*",
     "@samisdat/wtal-panorama": "workspace:*",
+    "@vercel/analytics": "^2.0.1",
     "@wyw-in-js/nextjs": "catalog:",
     "fs-extra": "catalog:",
     "gray-matter": "^4.0.3",
