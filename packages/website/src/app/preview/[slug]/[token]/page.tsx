@@ -1,8 +1,10 @@
+import { notFound } from 'next/navigation';
+
 import { PostArticle } from '@/components/PostArticle';
 import { loadPost } from '@/lib/posts';
 import { isValidPreviewToken } from '@/lib/preview';
+
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 // Rendered per request: the token is checked on the server, nothing is prebuilt.
 export const dynamic = 'force-dynamic';

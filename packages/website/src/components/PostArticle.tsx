@@ -1,8 +1,11 @@
+import path from 'path';
+
+import { Heading } from '@samisdat/ui-components/Heading';
+
 import { MarkdownServer } from '@/components/Markdown/MarkdownServer';
 import { PostLayout } from '@/components/PostLayout';
+
 import type { Frontmatter } from '@/lib/posts';
-import { Heading } from '@samisdat/ui-components/Heading';
-import path from 'path';
 
 interface PostArticleProps {
     slug: string;
