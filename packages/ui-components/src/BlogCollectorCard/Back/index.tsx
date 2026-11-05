@@ -18,7 +18,7 @@ const BackInner = styled(Inner)`
 const Head = styled.div`
     display: flex;
     justify-content: space-between;
-    font-size: 3cqw;
+    font-size: max(11px, 3.4cqw);
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -37,7 +37,7 @@ const NameBanner = styled(Banner)`
 `;
 
 const Label = styled.span`
-    font-size: 3cqw;
+    font-size: max(11px, 3.4cqw);
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -72,20 +72,24 @@ const Chips = styled.ul`
 
 const Facts = styled.dl`
     display: grid;
+    /* The label column is as wide as the longest label, shared by all rows via subgrid */
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: 2cqw;
     align-content: start;
     margin: 0;
 
     > div {
         display: grid;
-        grid-template-columns: 26cqw 1fr;
-        gap: 2cqw;
+        grid-template-columns: subgrid;
+        grid-column: 1 / -1;
         align-items: baseline;
         padding-block: 2.3cqw;
         border-top: 0.3cqw solid var(--color-border-muted);
     }
 
     dt {
-        font-size: 3cqw;
+        white-space: nowrap;
+        font-size: max(11px, 3.4cqw);
         font-weight: 600;
         letter-spacing: 0.14em;
         text-transform: uppercase;
@@ -95,7 +99,7 @@ const Facts = styled.dl`
     dd {
         min-width: 0;
         margin: 0;
-        font-size: 4.6cqw;
+        font-size: max(13px, 4.6cqw);
         font-weight: 600;
         line-height: 1.15;
         letter-spacing: 0.02em;
