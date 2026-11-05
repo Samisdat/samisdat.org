@@ -28,8 +28,8 @@ Nicht erwünscht:
 
 Ein optionales `bereich:`-Prefix (wie `panorama:` oben) ist ok, wenn es
 Kontext gibt — es ist ein Scope, kein Typ. Deutsch oder Englisch, beides
-kommt in der History vor; die Message soll sagen, *was* geändert wurde,
-und das *warum* nur, wenn es nicht aus dem Diff ersichtlich ist.
+kommt in der History vor; die Message soll sagen, _was_ geändert wurde,
+und das _warum_ nur, wenn es nicht aus dem Diff ersichtlich ist.
 
 ## Identität
 

@@ -111,11 +111,12 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         };
     }, [timeFactor, reduceMotion]);
 
-    return (
-        <TalContext.Provider value={{ animate, time, timeFactor, setTimeFactor, sunTimes }}>
-            {children}
-        </TalContext.Provider>
+    const value = useMemo(
+        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes }),
+        [animate, time, timeFactor, setTimeFactor, sunTimes]
     );
+
+    return <TalContext.Provider value={value}>{children}</TalContext.Provider>;
 };
 
 export const useTal = (): TalContextType => {

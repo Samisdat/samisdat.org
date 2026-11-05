@@ -54,11 +54,11 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 
 ### Drei Ebenen
 
-| Ebene | Inhalt | Im Web |
-|---|---|---|
-| 1 · Wert | Volle Skalen `50–950` (50 = hell) | keine CSS-Variable; TS-Import |
-| 2 · Bedeutung | `surface`, `text`, `ink.<hue>`, `ink.lapis`, `status`, `border`, `selection`, `highlight` | `--color-<pfad>` |
-| 3 · Einsatzort | geteilte Orte: `syntax.*`, später `terminal.*` | `--color-<pfad>` |
+| Ebene          | Inhalt                                                                                    | Im Web                        |
+| -------------- | ----------------------------------------------------------------------------------------- | ----------------------------- |
+| 1 · Wert       | Volle Skalen `50–950` (50 = hell)                                                         | keine CSS-Variable; TS-Import |
+| 2 · Bedeutung  | `surface`, `text`, `ink.<hue>`, `ink.lapis`, `status`, `border`, `selection`, `highlight` | `--color-<pfad>`              |
+| 3 · Einsatzort | geteilte Orte: `syntax.*`, später `terminal.*`                                            | `--color-<pfad>`              |
 
 - **Ebene 1**: Skalen für `aubergine`, `ivory` (Eigennamen der
   Markenfarben) und generisch benannte Akzente (`red`, `orange`, `yellow`,
@@ -68,32 +68,32 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   Literal ein, der Bundler verwirft Ungenutztes).
 - **Ebene 2**: `ink.<hue>` ist der Satz lesbarer Akzentfarben mit
   Kontrastgarantie; `status.*` sind Aliase darauf.
-  - Rollen: `surface.default|emphasis|raised|subtle|muted` und
-    `text.default|emphasis|secondary|subtle|muted`. Die Modifier stammen aus
-    dem bisherigen Schema und wurden für eine Migration ohne optische
-    Änderung beibehalten.
-  - `ink.lapis` (Skala `periwinkle`) ist die Kommentarfarbe. Kommentare
-    sollen auf einen Blick erkennbar sein: eigener Farbton statt Grau,
-    kursiv, und mindestens ΔE OK 0,08 zu jeder anderen Syntaxfarbe.
-    Satzzeichen nutzen deshalb `text.secondary`, nicht das Grau von
-    `text.subtle`.
-  - `status.warning` zeigt auf `ink.copper`, nicht auf Gelb: Ein Gelb, das
-    auf hellem Grund 4,5:1 erreicht, ist oliv und liest sich nicht mehr als
-    Warnung.
-  - Im Light Mode liegen die Inks auf der AA-Grenze (4,5:1) auf
-    `surface.default`, L ≈ 0,46–0,53, Stufe 700 der Hue-Skalen. Die erste
-    Light-Fassung war aus einem Tausch von Grund und Text entstanden und
-    verlangte AAA für alle Inks (L 0,33–0,42); das machte Gelb und Orange zu
-    Braun und das Schema ärmer als Dark. Vergleich mit 16 Light-Themes
-    (`compare:themes`): kein Theme hat alle Inks bei AAA, GitHub High Contrast
-    kommt auf 91 % der Zeichen, normale Themes liegen bei 0–57 %. Light
-    verlangt AA, Dark erreicht AAA.
-  - Der Light-Grund ist `linen` (L 0,93, warm, Hue 50), nicht mehr `ivory`
-    (Dark-Text). Gelb im Sinne von „yellow“ ist auf hellem Grund bei 4,5:1
-    nicht möglich; `ink.gold` ist dort ein Olivbraun.
-  - Inks heißen nach Materialien (`ruby`, `copper`, `gold`, `jade`,
-    `turquoise`, `steel`, `sapphire`, `amethyst`, `rose`, `lapis`), nicht nach
-    Farbtönen, weil dieselbe Rolle in beiden Modes anders aussieht.
+    - Rollen: `surface.default|emphasis|raised|subtle|muted` und
+      `text.default|emphasis|secondary|subtle|muted`. Die Modifier stammen aus
+      dem bisherigen Schema und wurden für eine Migration ohne optische
+      Änderung beibehalten.
+    - `ink.lapis` (Skala `periwinkle`) ist die Kommentarfarbe. Kommentare
+      sollen auf einen Blick erkennbar sein: eigener Farbton statt Grau,
+      kursiv, und mindestens ΔE OK 0,08 zu jeder anderen Syntaxfarbe.
+      Satzzeichen nutzen deshalb `text.secondary`, nicht das Grau von
+      `text.subtle`.
+    - `status.warning` zeigt auf `ink.copper`, nicht auf Gelb: Ein Gelb, das
+      auf hellem Grund 4,5:1 erreicht, ist oliv und liest sich nicht mehr als
+      Warnung.
+    - Im Light Mode liegen die Inks auf der AA-Grenze (4,5:1) auf
+      `surface.default`, L ≈ 0,46–0,53, Stufe 700 der Hue-Skalen. Die erste
+      Light-Fassung war aus einem Tausch von Grund und Text entstanden und
+      verlangte AAA für alle Inks (L 0,33–0,42); das machte Gelb und Orange zu
+      Braun und das Schema ärmer als Dark. Vergleich mit 16 Light-Themes
+      (`compare:themes`): kein Theme hat alle Inks bei AAA, GitHub High Contrast
+      kommt auf 91 % der Zeichen, normale Themes liegen bei 0–57 %. Light
+      verlangt AA, Dark erreicht AAA.
+    - Der Light-Grund ist `linen` (L 0,93, warm, Hue 50), nicht mehr `ivory`
+      (Dark-Text). Gelb im Sinne von „yellow“ ist auf hellem Grund bei 4,5:1
+      nicht möglich; `ink.gold` ist dort ein Olivbraun.
+    - Inks heißen nach Materialien (`ruby`, `copper`, `gold`, `jade`,
+      `turquoise`, `steel`, `sapphire`, `amethyst`, `rose`, `lapis`), nicht nach
+      Farbtönen, weil dieselbe Rolle in beiden Modes anders aussieht.
 - **Ebene 3**: Geteilte Einsatzorte liegen im Paket. `syntax.*` folgt dem
   Vokabular der Neovim-Tree-sitter-Captures (`keyword`, `string`,
   `function`, `tag`, `tag.attribute` …), mit `fontStyle` neben der Farbe.
@@ -106,9 +106,9 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
 ### Barrierefreiheit (WCAG 2.2 AA)
 
 - Die Prüfmatrix wird aus Rollen generiert, nicht von Hand gepflegt:
-  - `text.*` und `ink.*` auf jedem Surface mit `textTier: full`: ≥ 4.5:1
-  - `border.strong`, `border.focus` auf `surface.default`: ≥ 3:1 (WCAG 1.4.11; gegen alle Surfaces nicht praktikabel, da dunkle Mid-Surfaces keine 3:1-Lücke für einen sichtbaren Rahmen lassen)
-  - `syntax.*` auf `syntax.background` und `surface.default`: ≥ 4.5:1
+    - `text.*` und `ink.*` auf jedem Surface mit `textTier: full`: ≥ 4.5:1
+    - `border.strong`, `border.focus` auf `surface.default`: ≥ 3:1 (WCAG 1.4.11; gegen alle Surfaces nicht praktikabel, da dunkle Mid-Surfaces keine 3:1-Lücke für einen sichtbaren Rahmen lassen)
+    - `syntax.*` auf `syntax.background` und `surface.default`: ≥ 4.5:1
 - Surfaces tragen `textTier: full | ink | neutral-only`. Auf `neutral-only`
   stehen nur `text.default` und `text.emphasis`. Auf `ink` zusätzlich jedes
   `ink.*` und `syntax.*` (≥ 4.5:1). Im Dark Mode tragen `surface.raised`,
@@ -165,18 +165,18 @@ Neues Paket `@samisdat/color-scheme` (`packages/color-scheme`).
   Paletten-Ansicht mit L/C-Kurve, Syntax-Vorschau (Codeblock und Fließtext
   mit Inline-Code).
 - **Lints**:
-  - Kontrast: Terrazzo `a11y/min-contrast`, Paare in `terrazzo.config.ts`
-    generiert. Die Regel sieht nur den Default-Mode, deshalb läuft der
-    Check einmal pro Mode (`MODE=dark|light`).
-  - Gamut: Terrazzo `core/max-gamut` mit `gamut: 'srgb'`.
-  - Skala (L monoton, Mindestabstand): eigenes Skript.
-  - Unterscheidbarkeit: ΔE OK zwischen allen Inks pro Mode, Dark ≥ 0,08,
-    Light ≥ 0,05 (`scripts/thresholds.ts`; das Light-Band ist bei AA schmaler,
-    0,05 liegt am schwächeren Ende der gemessenen Light-Themes), eigenes
-    Skript.
-  - Architektur (`lint:colors`): keine Hex- und Farbliterale (`oklch()`,
-    `rgb()`, `hsl()`), kein `var(--color-<palette>-<n>)` und keine alten
-    Variablennamen in Komponenten.
+    - Kontrast: Terrazzo `a11y/min-contrast`, Paare in `terrazzo.config.ts`
+      generiert. Die Regel sieht nur den Default-Mode, deshalb läuft der
+      Check einmal pro Mode (`MODE=dark|light`).
+    - Gamut: Terrazzo `core/max-gamut` mit `gamut: 'srgb'`.
+    - Skala (L monoton, Mindestabstand): eigenes Skript.
+    - Unterscheidbarkeit: ΔE OK zwischen allen Inks pro Mode, Dark ≥ 0,08,
+      Light ≥ 0,05 (`scripts/thresholds.ts`; das Light-Band ist bei AA schmaler,
+      0,05 liegt am schwächeren Ende der gemessenen Light-Themes), eigenes
+      Skript.
+    - Architektur (`lint:colors`): keine Hex- und Farbliterale (`oklch()`,
+      `rgb()`, `hsl()`), kein `var(--color-<palette>-<n>)` und keine alten
+      Variablennamen in Komponenten.
 - **Ausführung**: `pnpm lint:tokens` in CI, `pnpm dev:tokens` als Watch.
 - **Farbfehlsichtigkeit** (vorher „später“, jetzt aktiv): Protanopie,
   Deuteranopie und Tritanopie simuliert (Machado 2009, Schweregrad 1);

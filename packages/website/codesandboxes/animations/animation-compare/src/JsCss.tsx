@@ -1,4 +1,5 @@
 import { CSSProperties, useEffect, useRef } from 'react';
+
 import { Checkerboard } from './Checkerboard';
 import { config, DemoAnimationsCompareProps } from './shared';
 import { useAnimationFrame } from './useAnimationFrame';

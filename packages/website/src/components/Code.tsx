@@ -1,36 +1,42 @@
-'use client'
+'use client';
 
-import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react'
-import { useDemoContext } from '@samisdat/ui-components/Demo/DemoContext'
+import { useDemoContext } from '@samisdat/ui-components/Demo/DemoContext';
+import { FC, HTMLAttributes, useEffect, useRef, useState } from 'react';
 
 export const Code: FC<HTMLAttributes<HTMLPreElement>> = ({ children, ...props }) => {
-    const ref = useRef<HTMLPreElement>(null)
-    const ctx = useDemoContext()
-    const [scrollable, setScrollable] = useState(false)
+    const ref = useRef<HTMLPreElement>(null);
+    const values = useDemoContext()?.values;
+    const [scrollable, setScrollable] = useState(false);
 
     // A horizontally scrolling block must be reachable by keyboard; Safari does not focus scroll containers itself
     useEffect(() => {
-        const pre = ref.current
-        if (!pre) return
-        const check = () => setScrollable(pre.scrollWidth > pre.clientWidth)
-        check()
-        const observer = new ResizeObserver(check)
-        observer.observe(pre)
-        return () => observer.disconnect()
-    }, [])
+        const pre = ref.current;
+        if (!pre) return;
+        const check = () => setScrollable(pre.scrollWidth > pre.clientWidth);
+        check();
+        const observer = new ResizeObserver(check);
+        observer.observe(pre);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
-        if (!ctx || !ref.current) return
-        for (const [key, value] of Object.entries(ctx.values)) {
+        if (!values || !ref.current) return;
+        for (const [key, value] of Object.entries(values)) {
             for (const span of ref.current.querySelectorAll<HTMLElement>(`[data-placeholder="${key}"]`)) {
-                span.textContent = value
+                span.textContent = value;
             }
         }
-    }, [ctx?.values])
+    }, [values]);
 
     return (
-        <pre ref={ref} tabIndex={scrollable ? 0 : undefined} {...props}>
+        <pre
+            ref={ref}
+            // A scroll container must be keyboard-reachable; set only while it actually scrolls
+            // oxlint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+            tabIndex={scrollable ? 0 : undefined}
+            {...props}
+        >
             {children}
         </pre>
-    )
-}
+    );
+};

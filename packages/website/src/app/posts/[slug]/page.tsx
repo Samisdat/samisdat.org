@@ -1,11 +1,13 @@
+import { notFound } from 'next/navigation';
+
 import { PostArticle } from '@/components/PostArticle';
 import { getAllPostSlugs, getPublishedPostSlugs, loadPost } from '@/lib/posts';
+
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
     const { slug } = await params;
     const post = loadPost(slug);
 
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     };
 }
 
-export default async function PostPage({ params }: { params: { slug: string } }) {
+export default async function PostPage({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params;
     const post = loadPost(slug);
 

@@ -1,26 +1,26 @@
-import type { Metadata } from 'next';
+import '@samisdat/wtal-panorama/style.css';
+import '@fortawesome/fontawesome-svg-core/styles.css';
 
+import { config } from '@fortawesome/fontawesome-svg-core';
+import { Container } from '@samisdat/ui-components/Container';
+import { BottomDockContainer, DockProvider, TopDockContainer } from '@samisdat/ui-components/Docks';
+import { WtalPanorama } from '@samisdat/wtal-panorama';
+
+import { Colophon } from '@/components/Colophon';
+import { Page } from '@/components/Page';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { presetSizeStyle } from '@/lib/typography/data';
 import { FLUID_ROOT_VARS } from '@/lib/typography/fluid';
 import { inter, interTight, playwriteNo, sourceCodePro } from '@/lib/typography/fonts';
 import { getDefaultPreset } from '@/lib/typography/presets';
 
-import { Colophon } from '@/components/Colophon';
-
-import { Page } from '@/components/Page';
-import { Container } from '@samisdat/ui-components/Container';
-import { BottomDockContainer, DockProvider, TopDockContainer } from '@samisdat/ui-components/Docks';
-import { WtalPanorama } from '@samisdat/wtal-panorama';
-import '@samisdat/wtal-panorama/style.css';
-
-import { config } from '@fortawesome/fontawesome-svg-core';
-import '@fortawesome/fontawesome-svg-core/styles.css';
+import type { Metadata } from 'next';
 config.autoAddCss = false;
+
+import '@samisdat/ui-components/globalStyle';
 
 import { Navi } from '@/components/Navi';
 import { Scrolling } from '@/components/Scrolling';
-import '@samisdat/ui-components/globalStyle';
 
 export const metadata: Metadata = {
     title: {
