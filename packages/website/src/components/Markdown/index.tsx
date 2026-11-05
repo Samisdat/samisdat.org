@@ -1,4 +1,5 @@
 import { SandpackFiles } from '@codesandbox/sandpack-react';
+import { BlogCollectorCard } from '@samisdat/ui-components/BlogCollectorCard';
 import {
     SnapshotCode,
     SnapshotCvd,
@@ -78,6 +79,7 @@ const baseComponents = {
     Stack: (props: any) => {
         return <Stack {...props} />;
     },
+    BlogCollectorCard: (props: any) => <BlogCollectorCard {...props} />,
     // Demo-Komponenten aus Registry: explizite Named Exports für MDX-Build-Zeit-Analyse
     DemoAnimationsCompare: ClientDemos.DemoAnimationsCompare,
     DemoAnimationsCssJs: ClientDemos.DemoAnimationsCssJs,
