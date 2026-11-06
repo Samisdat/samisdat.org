@@ -160,10 +160,16 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
                         >
                             <ThemeSwitcherSlot />
                             <IconNav aria-label="Externe Links">
-                                <a href="https://github.com/Samisdat/">
+                                <a
+                                    href="https://github.com/Samisdat/"
+                                    aria-label="GitHub"
+                                >
                                     <FontAwesomeIcon icon={faGithub} />
                                 </a>
-                                <a href="https://www.linkedin.com/in/bastian-pertz">
+                                <a
+                                    href="https://www.linkedin.com/in/bastian-pertz"
+                                    aria-label="LinkedIn"
+                                >
                                     <FontAwesomeIcon icon={faLinkedin} />
                                 </a>
                                 <Link

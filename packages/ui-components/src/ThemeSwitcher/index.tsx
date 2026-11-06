@@ -55,10 +55,9 @@ export const ThemeSwitcher = ({ theme, onUpdate }: ThemeSwitcherProps) => {
         <Fieldset>
             <Legend>Farbschema</Legend>
             <Label>
-                <span>{'dark' === theme ? 'Dark Mode eingeschaltet' : 'Light Mode eingeschaltet'}</span>
+                <span>Dark Mode</span>
                 <Input
                     type="checkbox"
-                    aria-description={'Aktiv: dark'}
                     checked={'dark' === theme}
                     onChange={onChange}
                 />
