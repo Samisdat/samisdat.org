@@ -21,6 +21,7 @@ config.autoAddCss = false;
 import '@samisdat/ui-components/globalStyle';
 
 import { Navi } from '@/components/Navi';
+import { SkipLink } from '@/components/SkipLink';
 import { Scrolling } from '@/components/Scrolling';
 
 export const metadata: Metadata = {
@@ -67,9 +68,16 @@ export default function RootLayout({
                 <Scrolling />
                 <DockProvider>
                     <Page>
+                        <SkipLink />
                         <WtalPanorama />
                         <Navi />
-                        <Container>{children}</Container>
+                        <main
+                            id="main"
+                            tabIndex={-1}
+                            style={{ scrollMarginTop: 'var(--navi-height)', outline: 'none' }}
+                        >
+                            <Container>{children}</Container>
+                        </main>
                         <Colophon />
                     </Page>
                     <TopDockContainer />

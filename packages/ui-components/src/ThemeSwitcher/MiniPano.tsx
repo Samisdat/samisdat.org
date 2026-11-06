@@ -98,6 +98,8 @@ const MiniPanoSvg = styled.svg`
 export const MiniPano = () => (
     <MiniPanoWrapper>
         <MiniPanoSvg
+            aria-hidden="true"
+            focusable="false"
             width="100%"
             height="100%"
             viewBox="0 0 179 59"

@@ -36,6 +36,8 @@ export const Clock = () => {
 
     return (
         <svg
+            aria-hidden="true"
+            focusable="false"
             className="clock"
             x={220}
             y={420}
