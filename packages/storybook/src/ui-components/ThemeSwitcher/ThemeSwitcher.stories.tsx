@@ -39,8 +39,8 @@ export const LightMode: Story = {
         expect(checkbox).toBeInTheDocument();
         expect(checkbox).not.toBeChecked(); // light = unchecked
 
-        // Verify label text
-        expect(canvas.getByText(/light mode eingeschaltet/i)).toBeInTheDocument();
+        // Label is static; the checked state conveys on/off
+        expect(canvas.getByRole('checkbox', { name: 'Dark Mode' })).toBeInTheDocument();
     },
 };
 
@@ -57,8 +57,8 @@ export const DarkMode: Story = {
         expect(checkbox).toBeInTheDocument();
         expect(checkbox).toBeChecked(); // dark = checked
 
-        // Verify label text
-        expect(canvas.getByText(/dark mode eingeschaltet/i)).toBeInTheDocument();
+        // Label is static; the checked state conveys on/off
+        expect(canvas.getByRole('checkbox', { name: 'Dark Mode' })).toBeInTheDocument();
     },
 };
 
