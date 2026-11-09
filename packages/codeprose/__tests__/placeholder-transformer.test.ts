@@ -78,3 +78,17 @@ describe('placeholderTransformer', () => {
         expect(marked(html, 'k')).toEqual(['0.00']);
     });
 });
+
+describe('placeholderTransformer marker parsing', () => {
+    it('stays fast on pathological marker lines', async () => {
+        const evil = '// !placeholder ! a' + ' '.repeat(50000) + '\u0000';
+        const start = performance.now();
+        await process(block('js', evil, 'const x = 1;'));
+        expect(performance.now() - start).toBeLessThan(2000);
+    });
+
+    it('treats a marker without a value as plain code', async () => {
+        const html = await process(block('js', '// !placeholder onlykey', 'const x = 1;'));
+        expect(html).not.toContain('data-placeholder');
+    });
+});

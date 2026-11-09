@@ -11,29 +11,36 @@ type PlaceholderInfo = {
 
 const QUOTES = ['"', "'", '`'];
 
-const MARKER_RE = /^\/\/\s*!placeholder\s+(\S+)\s+(.+?)\s*$/;
+const MARKER_PREFIX_RE = /^\/\/\s*!placeholder\s+/;
 
 /**
  * `// !placeholder key value`, `// !placeholder key "value"` and an optional `#n` suffix
  * (`// !placeholder key 0.00#2`). Quotes around the value in the comment are optional.
  */
 function parseMarker(trimmed: string): Pick<PlaceholderInfo, 'key' | 'value' | 'occurrence'> | null {
-    const match = trimmed.match(MARKER_RE);
-    if (!match) return null;
+    const prefix = trimmed.match(MARKER_PREFIX_RE);
+    if (!prefix) return null;
 
-    let rest = match[2];
+    // Plain string operations instead of one regex with overlapping \s / .+? parts (polynomial backtracking)
+    const rest = trimmed.slice(prefix[0].length);
+    const keyEnd = rest.search(/\s/);
+    if (keyEnd === -1) return null;
+
+    const key = rest.slice(0, keyEnd);
+    let value = rest.slice(keyEnd).trim();
     let occurrence = 1;
-    const occ = rest.match(/#(\d+)$/);
-    if (occ) {
-        occurrence = Number(occ[1]);
-        rest = rest.slice(0, occ.index);
-    }
-    if (rest.length >= 2 && rest.startsWith('"') && rest.endsWith('"')) {
-        rest = rest.slice(1, -1);
-    }
-    if (rest === '' || occurrence < 1) return null;
 
-    return { key: match[1], value: rest, occurrence };
+    const hash = value.lastIndexOf('#');
+    if (hash !== -1 && /^\d+$/.test(value.slice(hash + 1))) {
+        occurrence = Number(value.slice(hash + 1));
+        value = value.slice(0, hash);
+    }
+    if (value.length >= 2 && value.startsWith('"') && value.endsWith('"')) {
+        value = value.slice(1, -1);
+    }
+    if (value === '' || occurrence < 1) return null;
+
+    return { key, value, occurrence };
 }
 
 /** The quote character if `text` is a quoted literal (same quote on both ends), otherwise null. */
