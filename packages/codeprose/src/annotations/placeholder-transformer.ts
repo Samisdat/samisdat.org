@@ -9,8 +9,6 @@ type PlaceholderInfo = {
     nextLineIndex: number;
 };
 
-const QUOTES = ['"', "'", '`'];
-
 const MARKER_PREFIX_RE = /^\/\/\s*!placeholder\s+/;
 
 /**
@@ -41,13 +39,6 @@ function parseMarker(trimmed: string): Pick<PlaceholderInfo, 'key' | 'value' | '
     if (value === '' || occurrence < 1) return null;
 
     return { key, value, occurrence };
-}
-
-/** The quote character if `text` is a quoted literal (same quote on both ends), otherwise null. */
-function quoteOf(text: string): string | null {
-    if (text.length < 2) return null;
-    const first = text[0];
-    return QUOTES.includes(first) && text.endsWith(first) ? first : null;
 }
 
 export function placeholderTransformer(): ShikiTransformer {
@@ -86,7 +77,7 @@ export function placeholderTransformer(): ShikiTransformer {
             for (const info of infos) {
                 const lineEl = lines[info.nextLineIndex];
                 if (!lineEl) continue;
-                markPlaceholder(lineEl, info, { seen: 0 });
+                markPlaceholder(lineEl, info);
             }
         },
     };
@@ -98,34 +89,79 @@ function getText(node: ElementContent): string {
     return '';
 }
 
-function markPlaceholder(lineEl: Element, info: PlaceholderInfo, counter: { seen: number }): boolean {
-    for (const child of lineEl.children) {
-        if (child.type !== 'element') continue;
-        const text = getText(child);
-        const trimmed = text.trimStart();
-        const prefix = text.slice(0, text.length - trimmed.length);
-        const quote = quoteOf(trimmed);
+const WORD_CHAR = /[\w$]/;
 
-        if (trimmed === info.value && ++counter.seen === info.occurrence) {
-            child.properties = { ...child.properties, 'data-placeholder': info.key };
-            return true;
-        }
-        if (quote && trimmed.slice(1, -1) === info.value && ++counter.seen === info.occurrence) {
-            // Keep quotes (and any leading whitespace) outside the marked span
-            // so textContent updates don't clobber them.
-            child.children = [
-                { type: 'text', value: prefix + quote },
-                {
-                    type: 'element',
-                    tagName: 'span',
-                    properties: { 'data-placeholder': info.key },
-                    children: [{ type: 'text', value: info.value }],
-                },
-                { type: 'text', value: quote },
-            ];
-            return true;
-        }
-        if (markPlaceholder(child, info, counter)) return true;
+/** A hit must not be part of a longer word or number (`0.0` must not match in `10.05` or `0.05`). */
+function isDelimited(text: string, start: number, end: number): boolean {
+    const before = text[start - 1];
+    const after = text[end];
+    const next = text[end + 1];
+
+    if (before !== undefined && WORD_CHAR.test(before)) return false;
+    if (after !== undefined && WORD_CHAR.test(after)) return false;
+    if (after === '.' && next !== undefined && /\d/.test(next)) return false;
+    return true;
+}
+
+function findOccurrence(text: string, value: string, occurrence: number): number {
+    let seen = 0;
+    for (let at = text.indexOf(value); at !== -1; at = text.indexOf(value, at + 1)) {
+        if (isDelimited(text, at, at + value.length) && ++seen === occurrence) return at;
     }
-    return false;
+    return -1;
+}
+
+const isPlainToken = (node: ElementContent): boolean =>
+    node.type === 'text' || (node.type === 'element' && node.children.every(c => c.type === 'text'));
+
+const pieceOf = (node: ElementContent, value: string): ElementContent =>
+    node.type === 'element' ? { ...node, children: [{ type: 'text', value }] } : { type: 'text', value };
+
+/**
+ * Marks the nth occurrence of the value in the line. The match runs on the concatenated line text, because a
+ * theme may split one literal into several tokens (`0.0` becomes `0`, `.`, `0`). The tokens are cut at the
+ * boundaries of the hit and the hit becomes one span that keeps the style of its first token; everything
+ * around it (quotes, punctuation) stays outside, so textContent updates don't clobber it.
+ */
+function markPlaceholder(lineEl: Element, info: PlaceholderInfo): boolean {
+    const tokens = lineEl.children;
+    if (!tokens.every(isPlainToken)) return false;
+
+    const text = tokens.map(getText).join('');
+    const start = findOccurrence(text, info.value, info.occurrence);
+    if (start === -1) return false;
+    const end = start + info.value.length;
+
+    const result: ElementContent[] = [];
+    let offset = 0;
+    let placed = false;
+
+    for (const token of tokens) {
+        const tokenText = getText(token);
+        const tokenStart = offset;
+        const tokenEnd = offset + tokenText.length;
+        offset = tokenEnd;
+
+        if (tokenEnd <= start || tokenStart >= end) {
+            result.push(token);
+            continue;
+        }
+
+        const left = tokenText.slice(0, Math.max(0, start - tokenStart));
+        const right = tokenText.slice(Math.min(tokenText.length, end - tokenStart));
+        if (left) result.push(pieceOf(token, left));
+        if (!placed) {
+            placed = true;
+            result.push({
+                type: 'element',
+                tagName: 'span',
+                properties: { ...(token.type === 'element' ? token.properties : {}), 'data-placeholder': info.key },
+                children: [{ type: 'text', value: info.value }],
+            });
+        }
+        if (right) result.push(pieceOf(token, right));
+    }
+
+    lineEl.children = result;
+    return true;
 }
