@@ -11,6 +11,7 @@ image: true
     container
     directionSmall="column"
     directionMedium="row"
+    sticky
   >
     <Stack orderSmall={2} orderMedium={1}>
 
@@ -19,28 +20,49 @@ image: true
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
 
-<p>Mouse Position</p>
+{/* prettier-ignore */}
+```js
+/**
+ * position in pixel within the svg
+ */
+const position = {
+    // !placeholder pixelX 0.00
+    x: 0.00,
+    // !placeholder pixelY 0.00
+    y: 0.00,
+};
 
-```json
-{
-    // !placeholder pixelX "0.00"
-    "x": "0.00",
-    // !placeholder pixelY "0.00"
-    "y": "0.00"
-}
-```
-
-<p>Normalisiert</p>
-
-```json
-{
+/**
+ * [-1, 1] from element center, Y down
+ */
+const normalised = {
     // !placeholder normX "0.00"
-    "x": "0.00",
+    "x": 0.00,
     // !placeholder normY "0.00"
-    "y": "0.00"
-}
+    "y": 0.00
+};
 ```
 
+    </Stack>
+
+  </Stack>
+</DemoContext>
+
+blabla zu normalisierung
+
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+      <DemoParallaxCircles />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+      bla
     </Stack>
 
   </Stack>
@@ -106,10 +128,6 @@ useAnimationFrame(doParallax);
                     orderSmall={1}
                 >
 
-<DemoParallaxCircles />
-
- </Grid></Grid>
-
 ```css
 .parallax {
     transition: transform 10ms ease;
@@ -120,10 +138,10 @@ useAnimationFrame(doParallax);
 
 <DemoParallaxHills />
 
-<Sandbox
-    name={'hills'}
-    visibleFiles={['/src/App.tsx', '/src/parallax.css']}
-    activeFile={'/src/App.tsx'}
-/>
-
 Lorem Ipsum
+
+Bonus Level
+
+Schöner Effekt auf Mobilen Geräten, aber permissons nerven
+
+<DemoParallaxHills />
