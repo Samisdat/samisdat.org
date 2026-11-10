@@ -14,6 +14,7 @@ export type UseParallaxOptions = {
 
 /**
  * Writes the pointer position inside `ref` as `--parallax-x` / `--parallax-y` (-1..1) on the element.
+ * Also works on touch: `touch-action: pan-y` keeps vertical swipes scrolling, a tap or horizontal drag sets the position.
  * Does nothing for users who prefer reduced motion.
  */
 export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = false }: UseParallaxOptions = {}) => {
@@ -80,7 +81,14 @@ export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = fa
         const el = ref.current;
         if (!el) return;
 
+        // touch: vertical swipes keep scrolling the page, horizontal drags and taps drive the parallax
+        el.style.touchAction = 'pan-y';
         el.addEventListener('pointermove', handlePointerMove, { passive: true });
-        return () => el.removeEventListener('pointermove', handlePointerMove);
+        el.addEventListener('pointerdown', handlePointerMove, { passive: true });
+        return () => {
+            el.style.touchAction = '';
+            el.removeEventListener('pointermove', handlePointerMove);
+            el.removeEventListener('pointerdown', handlePointerMove);
+        };
     }, [handlePointerMove, ref]);
 };

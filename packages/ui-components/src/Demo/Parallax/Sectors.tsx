@@ -7,6 +7,8 @@ import { useDemoContext } from '../DemoContext';
 
 const Styling = styled.div`
     aspect-ratio: 15/10;
+    /* vertical swipes keep scrolling the page, horizontal drags go to the demo */
+    touch-action: pan-y;
 
     & svg {
         border-radius: 0.5rem;
@@ -95,7 +97,11 @@ export const DemoParallaxSectors = () => {
         const el = ref.current;
         if (!el) return;
         el.addEventListener('pointermove', handlePointerMove, { passive: true });
-        return () => el.removeEventListener('pointermove', handlePointerMove);
+        el.addEventListener('pointerdown', handlePointerMove, { passive: true });
+        return () => {
+            el.removeEventListener('pointermove', handlePointerMove);
+            el.removeEventListener('pointerdown', handlePointerMove);
+        };
     }, [handlePointerMove]);
 
     return (

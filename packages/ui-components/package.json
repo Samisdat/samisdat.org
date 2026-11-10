@@ -73,6 +73,7 @@
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typescript-styled-plugin": "^0.18.3"
   }
 }

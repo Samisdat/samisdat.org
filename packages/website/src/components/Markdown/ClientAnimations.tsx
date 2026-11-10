@@ -77,6 +77,20 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
     DemoParallaxCircles: () =>
         import('@samisdat/ui-components/Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
+    DemoParallaxCirclesScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/CirclesScroll').then(mod => ({
+            default: mod.DemoParallaxCirclesScroll,
+        })),
+    DemoParallaxHillsHybrid: () =>
+        import('@samisdat/ui-components/Demo/Parallax/HillsHybrid').then(mod => ({
+            default: mod.DemoParallaxHillsHybrid,
+        })),
+    DemoParallaxHillsScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/HillsScroll').then(mod => ({
+            default: mod.DemoParallaxHillsScroll,
+        })),
+    DemoParallaxScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/Scroll').then(mod => ({ default: mod.DemoParallaxScroll })),
 } as const satisfies Record<string, DemoLoader>;
 
 /**
@@ -119,3 +133,7 @@ export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
 export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
+export const DemoParallaxCirclesScroll = demos.DemoParallaxCirclesScroll;
+export const DemoParallaxHillsHybrid = demos.DemoParallaxHillsHybrid;
+export const DemoParallaxHillsScroll = demos.DemoParallaxHillsScroll;
+export const DemoParallaxScroll = demos.DemoParallaxScroll;
