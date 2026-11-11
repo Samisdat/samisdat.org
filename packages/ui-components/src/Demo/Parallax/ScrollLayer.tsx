@@ -9,6 +9,8 @@ const Scroller = styled.div`
     inset: 0;
     overflow: scroll;
     overscroll-behavior-x: contain;
+    /* no rubber-band, the page takes over via forwardVerticalOverscroll */
+    overscroll-behavior-y: none;
     scrollbar-width: none;
 
     &::-webkit-scrollbar {
@@ -18,6 +20,7 @@ const Scroller = styled.div`
     /* horizontal only: vertical swipes scroll the page */
     &[data-axis='x'] {
         overflow-y: hidden;
+        overscroll-behavior-y: auto;
     }
 
     &[data-axis='x'] > div {
@@ -27,7 +30,7 @@ const Scroller = styled.div`
 
 const Content = styled.div`
     width: 200%;
-    height: 200%;
+    height: 150%;
 `;
 
 export type Position = { x: number; y: number };
@@ -113,17 +116,31 @@ export const ScrollLayer = ({ onChange, axis = 'both' }: ScrollLayerProps) => {
             return;
         }
 
-        element.scrollLeft = (element.scrollWidth - element.clientWidth) / 2;
-        element.scrollTop = (element.scrollHeight - element.clientHeight) / 2;
+        // starts centered, on resize the relative position is kept (also centers once the width is known)
+        let relative: Position = { x: 0.5, y: 0.5 };
 
-        const update = () => onChange(readScrollPosition(element));
+        const restore = () => {
+            element.scrollLeft = relative.x * (element.scrollWidth - element.clientWidth);
+            element.scrollTop = relative.y * (element.scrollHeight - element.clientHeight);
+        };
+
+        const update = () => {
+            const position = readScrollPosition(element);
+            relative = position.relative;
+            onChange(position);
+        };
+
+        restore();
         update();
 
         element.addEventListener('scroll', update, { passive: true });
         const stopForwarding = axis === 'both' ? forwardVerticalOverscroll(element) : undefined;
 
         // rotation or layout changes do not fire a scroll event
-        const resizeObserver = new ResizeObserver(update);
+        const resizeObserver = new ResizeObserver(() => {
+            restore();
+            update();
+        });
         resizeObserver.observe(element);
 
         return () => {

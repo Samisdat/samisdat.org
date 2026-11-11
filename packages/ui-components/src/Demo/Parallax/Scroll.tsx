@@ -1,5 +1,37 @@
 'use client';
 
+/**
+ * Scroll container variant: an invisible scroll layer drives both axes (see ScrollLayer).
+ * Kept for mobile (tested on iPhone). Weaknesses and what was done about them:
+ *
+ * Noticeable on touch devices
+ * 1. Scroll trap: vertical swipes first move the invisible content before the page scrolls.
+ *    Mitigated: the content is only 150% high, so the dead travel is about a quarter of the demo.
+ *    Open ideas:
+ *    - Opt in: `pointer-events: none` until the demo is tapped, tap outside releases it.
+ *    - `touch-action: pan-x` on the scroller, vertical swipes always scroll the page
+ *      (that is the hybrid variant, so x and y can no longer be driven at the same time).
+ * 2. Overscroll forwarding only works while the finger is down (touchmove + window.scrollBy).
+ *    No momentum on the page after a fling at the edge. Vertical wobble during a horizontal drag
+ *    at the vertical edge scrolls the page unintentionally.
+ *    Mitigated: `overscroll-behavior-y: none` against the iOS rubber-band (iOS 16+). Side effect:
+ *    wheel/trackpad scrolling no longer chains to the page at the edge either.
+ *    Open ideas:
+ *    - Track the touch velocity and continue with a decaying requestAnimationFrame scrollBy
+ *      after touchend when the scroller sits at the edge.
+ *    - Dead zone: only forward when the gesture is dominantly vertical (|dy| > |dx|).
+ *
+ * Edge cases
+ * 3. Coarse travel: only 100% horizontally and 50% vertically of the demo size, so the feel
+ *    depends on the demo size. Postponed. Ideas: fixed travel in px, gain or easing on the norm.
+ * 4. Centered only on mount: if the layer has no width yet (lazy import, hidden), it started at
+ *    an edge. Mitigated: the relative position is kept on resize (starts at 0.5, so it centers
+ *    as soon as the width is known).
+ * 5. Desktop: wheel/trackpad over the demo is captured by the invisible scroller. The pointer
+ *    variant makes more sense there. Postponed. Ideas: `@media (hover: hover)` disables the
+ *    scroller, or render the scroll variant only for `(pointer: coarse)`.
+ */
+
 import { styled } from '@linaria/react';
 import { useEffect, useState } from 'react';
 
