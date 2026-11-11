@@ -15,6 +15,8 @@ export type UseInteractionGhostOptions = {
     onTakeover?: () => void;
     /** cumulative pointer travel in px that counts as takeover */
     takeoverDistance?: number;
+    /** play even though the person prefers reduced motion (explicit Play press) */
+    forceMotion?: boolean;
 };
 
 export type InteractionGhost = {
@@ -37,8 +39,10 @@ export const useInteractionGhost = ({
     onDone,
     onTakeover,
     takeoverDistance = TAKEOVER_DISTANCE,
+    forceMotion = false,
 }: UseInteractionGhostOptions): InteractionGhost => {
-    const reducedMotion = usePrefersReducedMotion();
+    const prefersReducedMotion = usePrefersReducedMotion();
+    const reducedMotion = prefersReducedMotion && !forceMotion;
     const containerRef = useRef<HTMLDivElement | null>(null);
     const composed = useMemo(() => createComposedSource(), []);
     const detector = useMemo(() => createTakeoverDetector(takeoverDistance), [takeoverDistance]);

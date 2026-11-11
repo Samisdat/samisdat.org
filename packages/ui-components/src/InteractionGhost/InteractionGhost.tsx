@@ -1,6 +1,7 @@
 'use client';
 
 import { styled } from '@linaria/react';
+import { useEffect, useRef } from 'react';
 
 import { GhostOverlay, type PhaseLabels } from './GhostOverlay';
 import { useInteractionGhost, type UseInteractionGhostOptions } from './useInteractionGhost';
@@ -29,14 +30,26 @@ export type InteractionGhostProps = UseInteractionGhostOptions & {
     aspectRatio?: number;
     /** Text of the aria-hidden Tap / Pan label next to the marker. */
     labels?: PhaseLabels;
+    /** Increment to play again from the start and give the ghost control back. */
+    restartToken?: number;
 };
 
 /**
  * Plays `script` over the demo and hands control to the person as soon as they touch or move the pointer.
  * `<InteractionGhost script={s} playing>{(source) => <Demo source={source} />}</InteractionGhost>`
  */
-export const InteractionGhost = ({ children, hint, aspectRatio = 3 / 2, labels, ...options }: InteractionGhostProps) => {
-    const { containerRef, source, frame, reducedMotion, takenOver } = useInteractionGhost(options);
+export const InteractionGhost = ({ children, hint, aspectRatio = 3 / 2, labels, restartToken = 0, ...options }: InteractionGhostProps) => {
+    const { containerRef, source, frame, reducedMotion, takenOver, restart } = useInteractionGhost(options);
+    const restartRef = useRef(restart);
+    const lastToken = useRef(restartToken);
+    useEffect(() => {
+        restartRef.current = restart;
+    });
+    useEffect(() => {
+        if (lastToken.current === restartToken) return;
+        lastToken.current = restartToken;
+        restartRef.current();
+    }, [restartToken]);
 
     return (
         <div>
