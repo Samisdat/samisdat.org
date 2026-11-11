@@ -8,11 +8,16 @@ export interface DemoAnimationProps extends HTMLAttributes<HTMLDivElement> {
     children: ReactNode;
     playbackControl: PlaybackControlProps;
     ref?: RefObject<HTMLDivElement | null>;
+    /**
+     * Autoplay only the first time the demo becomes visible, pause when it leaves the viewport and never
+     * restart automatically. Playing again is up to Play / Reset.
+     */
+    playOnce?: boolean;
 }
 
 const REDUCED_MOTION_NOTICE = '⚠ Reduced motion aktiv — Autoplay deaktiviert. Drücke Play für manuellen Start.';
 
-export const DemoAnimation = ({ children, playbackControl, ref: outerRef, ...props }: DemoAnimationProps) => {
+export const DemoAnimation = ({ children, playbackControl, playOnce = false, ref: outerRef, ...props }: DemoAnimationProps) => {
     const innerRef = useRef<HTMLDivElement | null>(null);
     const ref = outerRef ?? innerRef;
     const reducedMotion = usePrefersReducedMotion();
@@ -21,6 +26,8 @@ export const DemoAnimation = ({ children, playbackControl, ref: outerRef, ...pro
     useEffect(() => {
         playbackControlRef.current = playbackControl;
     });
+
+    const startedRef = useRef(false);
 
     useEffect(() => {
         const el = ref.current;
@@ -34,6 +41,8 @@ export const DemoAnimation = ({ children, playbackControl, ref: outerRef, ...pro
                 const { isPlaying, onPlay, onPause } = playbackControlRef.current;
 
                 if (entry.isIntersecting) {
+                    if (playOnce && startedRef.current) return;
+                    startedRef.current = true;
                     if (!isPlaying) onPlay();
                 } else {
                     if (isPlaying) onPause();
@@ -44,7 +53,7 @@ export const DemoAnimation = ({ children, playbackControl, ref: outerRef, ...pro
 
         observer.observe(el);
         return () => observer.disconnect();
-    }, [reducedMotion, ref]);
+    }, [reducedMotion, ref, playOnce]);
 
     return (
         <>
