@@ -2,6 +2,7 @@
 
 import { RefObject, useCallback, useEffect, useRef } from 'react';
 
+import { type Norm, type NormSource, pointerSource } from '../norm';
 import { useAnimationFrame } from './useAnimationFrame';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
@@ -15,9 +16,14 @@ export type UseParallaxOptions = {
 /**
  * Writes the pointer position inside `ref` as `--parallax-x` / `--parallax-y` (-1..1) on the element.
  * Also works on touch: `touch-action: pan-y` keeps vertical swipes scrolling, a tap or horizontal drag sets the position.
+ * Pass a `source` to drive it from something other than the pointer (default: pointer on `ref`).
  * Does nothing for users who prefer reduced motion.
  */
-export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = false }: UseParallaxOptions = {}) => {
+export const useParallax = (
+    ref: RefObject<HTMLDivElement | null>,
+    { scroll = false }: UseParallaxOptions = {},
+    source?: NormSource
+) => {
     const reduceMotion = usePrefersReducedMotion();
 
     const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
@@ -45,30 +51,18 @@ export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = fa
 
     useAnimationFrame(doParallax);
 
-    const handlePointerMove = useCallback(
-        (event: PointerEvent) => {
+    const handleNorm = useCallback(
+        ({ x, y }: Norm) => {
             if (reduceMotion) {
                 return;
             }
-
-            const el = ref.current;
-            if (!el) return;
-
-            const rect = el.getBoundingClientRect();
-            if (rect.width === 0 || rect.height === 0) return;
-
-            const relativeX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-            const relativeY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-
-            const x = (relativeX - 0.5) * 2;
-            const y = (relativeY - 0.5) * 2;
 
             const prev = lastCoordsRef.current;
             if (prev.x === x && prev.y === y) return;
 
             lastCoordsRef.current = { x, y };
         },
-        [ref, reduceMotion]
+        [reduceMotion]
     );
 
     useEffect(() => {
@@ -78,17 +72,19 @@ export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = fa
     }, [reduceMotion]);
 
     useEffect(() => {
+        if (source) {
+            return source.subscribe(handleNorm);
+        }
+
         const el = ref.current;
         if (!el) return;
 
         // touch: vertical swipes keep scrolling the page, horizontal drags and taps drive the parallax
         el.style.touchAction = 'pan-y';
-        el.addEventListener('pointermove', handlePointerMove, { passive: true });
-        el.addEventListener('pointerdown', handlePointerMove, { passive: true });
+        const unsubscribe = pointerSource(el).subscribe(handleNorm);
         return () => {
             el.style.touchAction = '';
-            el.removeEventListener('pointermove', handlePointerMove);
-            el.removeEventListener('pointerdown', handlePointerMove);
+            unsubscribe();
         };
-    }, [handlePointerMove, ref]);
+    }, [handleNorm, ref, source]);
 };
