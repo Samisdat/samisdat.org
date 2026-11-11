@@ -1,0 +1,45 @@
+---
+title: Parallax Ghost
+date: 2026-11-11T00:00:00.000Z
+published: false
+description: Ein Ghost spielt Trackpad-Gesten über Parallax-Demos ab, bis du selbst übernimmst – Testbett für Marker, Spur und Steuerung.
+---
+
+Parallax-Demos reagieren auf den Zeiger. Wer nur liest, sieht davon nichts. Der Ghost spielt deshalb eine kurze Geste vor: ein Marker tippt und zieht über die Demo, hinterlässt Spur und Ripple, und die Szene folgt ihm. Sobald du den Zeiger bewegst oder die Demo berührst, übernimmst du und der Ghost verschwindet.
+
+Die Wiedergabe startet einmal, wenn die Demo in den Viewport scrollt. Mit Play, Pause, Reset und Tempo darunter steuerst du sie selbst.
+
+## Sectors
+
+<DemoGhostSectors />
+
+## Hills
+
+<DemoGhostHills />
+
+## Skriptformat
+
+Beide Demos spielen dasselbe Skript. Koordinaten sind normalisiert: `[0, 0]` ist die Mitte, `[-1, -1]` oben links, `[1, 1]` unten rechts. Pans laufen als Spline durch die Wegpunkte.
+
+```ts
+const script = [
+  { tap: [0.55, -0.5] },
+  {
+    pan: [
+      [-0.6, 0.45],
+      [-0.1, -0.2],
+      [0.6, 0.3],
+    ],
+    ms: 1600,
+  },
+  { wait: 600 },
+];
+```
+
+## Reduced Motion
+
+Bei `prefers-reduced-motion: reduce` startet nichts von selbst. Statt der Animation zeigt die Demo ein Standbild der Geste (Tap als gestrichelter Zielkreis, Pan als Pfad mit Pfeil) und einen Hinweis. Erst ein Klick auf Play spielt den Ghost ab.
+
+## Tastatur
+
+Die Demo selbst reagiert nur auf Zeiger und Touch. Der Ghost-Marker ist `aria-hidden`, die Hinweistexte stehen als normaler Text daneben. Pause, Play, Reset und das Tempo sind echte Buttons und ein Slider und lassen sich per Tastatur bedienen.

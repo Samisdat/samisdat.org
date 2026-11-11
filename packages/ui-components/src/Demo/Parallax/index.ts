@@ -6,3 +6,6 @@ export { DemoParallaxHillsScroll } from './HillsScroll';
 export { DemoParallaxSectors } from './Sectors';
 
 export { DemoParallaxScroll } from './Scroll';
+
+export { DemoGhostHills } from './GhostHills';
+export { DemoGhostSectors } from './GhostSectors';
