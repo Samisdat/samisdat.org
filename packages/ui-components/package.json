@@ -29,6 +29,10 @@
       "types": "./src/Demo/Parallax/*.tsx",
       "import": "./src/Demo/Parallax/*.tsx"
     },
+    "./InteractionGhost/*": {
+      "types": "./src/InteractionGhost/*.tsx",
+      "import": "./src/InteractionGhost/*.tsx"
+    },
     "./style/globalStyle": {
       "types": "./src/style/globalstyle.ts",
       "import": "./src/style/globalstyle.ts"
