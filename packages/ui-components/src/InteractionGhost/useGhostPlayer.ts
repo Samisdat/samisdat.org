@@ -66,5 +66,5 @@ export const useGhostPlayer = (script: Script, { playing, speed = 1, onDone }: G
         setRun(r => r + 1);
     }, [script]);
 
-    return { norm: frame.norm, finger: frame.finger, restart };
+    return { ...frame, restart };
 };

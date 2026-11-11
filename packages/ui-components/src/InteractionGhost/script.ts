@@ -1,4 +1,6 @@
-/** Normalized coordinate: x, y in -1..1, center is 0. */
+import type { Norm } from '@samisdat/tools';
+
+/** Tuple form of `Norm` (x, y in -1..1, center is 0) for compact script literals. */
 export type Point = [x: number, y: number];
 
 export type TapStep = { tap: Point };
@@ -20,8 +22,12 @@ export type Finger = {
     age: number;
 };
 
+export type Phase = 'tap' | 'pan';
+
 export type Frame = {
     /** value fed to the demos */
-    norm: { x: number; y: number };
+    norm: Norm;
     finger: Finger;
+    /** kind of the current step, null while waiting or finished */
+    phase: Phase | null;
 };

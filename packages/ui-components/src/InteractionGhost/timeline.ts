@@ -1,6 +1,6 @@
 import { createSpline } from './spline';
 
-import type { Finger, Frame, PanStep, Point, Script, Step, TapStep } from './script';
+import type { Finger, Frame, PanStep, Phase, Point, Script, Step, TapStep } from './script';
 
 export const TAP_FADE_IN = 300;
 export const TAP_DOWN_AT = 400;
@@ -34,9 +34,10 @@ export const stepDuration = (step: Step): number => {
 
 export const totalDuration = (script: Script): number => script.reduce((sum, s) => sum + stepDuration(s), 0);
 
-const toFrame = (norm: Point, finger: Finger): Frame => ({
+const toFrame = (norm: Point, finger: Finger, phase: Phase | null = null): Frame => ({
     norm: { x: norm[0], y: norm[1] },
     finger,
+    phase,
 });
 
 const idle = (at: Point, held: Point): Frame =>
@@ -48,13 +49,17 @@ const tapFrame = (target: Point, from: Point, t: number): Frame => {
     const hover = HOVER_OFFSET * (1 - prog(t, 0, TAP_FADE_IN));
     const k = eout(prog(t, TAP_DOWN_AT, TAP_DOWN_AT + 150));
     const norm: Point = [lerp(from[0], target[0], k), lerp(from[1], target[1], k)];
-    return toFrame(norm, {
-        x: target[0],
-        y: target[1] - hover,
-        presence,
-        down,
-        age: t >= TAP_DOWN_AT ? t - TAP_DOWN_AT : Infinity,
-    });
+    return toFrame(
+        norm,
+        {
+            x: target[0],
+            y: target[1] - hover,
+            presence,
+            down,
+            age: t >= TAP_DOWN_AT ? t - TAP_DOWN_AT : Infinity,
+        },
+        'tap'
+    );
 };
 
 const splines = new WeakMap<PanStep, ReturnType<typeof createSpline>>();
@@ -74,13 +79,11 @@ const panFrame = (step: PanStep, held: Point, t: number): Frame => {
     const p = spline.at(k);
     const presence = prog(t, 0, PAN_FADE) * (1 - prog(t, moveEnd, moveEnd + PAN_FADE));
     const down = t >= PAN_FADE && t < moveEnd;
-    return toFrame(t < PAN_FADE ? held : p, {
-        x: p[0],
-        y: p[1],
-        presence,
-        down,
-        age: t >= PAN_FADE ? t - PAN_FADE : Infinity,
-    });
+    return toFrame(
+        t < PAN_FADE ? held : p,
+        { x: p[0], y: p[1], presence, down, age: t >= PAN_FADE ? t - PAN_FADE : Infinity },
+        'pan'
+    );
 };
 
 const stepEnd = (step: Step, held: Point): Point => {
