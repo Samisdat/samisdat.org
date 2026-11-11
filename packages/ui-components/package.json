@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  },
   "exports": {
     "./package.json": "./package.json",
     "./*": {
@@ -70,10 +74,12 @@
     "@types/culori": "^4.0.1",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "happy-dom": "^21.0.4",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "typescript": "catalog:",
-    "typescript-styled-plugin": "^0.18.3"
+    "typescript-styled-plugin": "^0.18.3",
+    "vitest": "catalog:"
   }
 }

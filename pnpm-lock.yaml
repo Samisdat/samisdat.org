@@ -461,6 +461,9 @@ importers:
       '@types/react-dom':
         specifier: 'catalog:'
         version: 19.3.0(@types/react@19.3.0)
+      happy-dom:
+        specifier: ^21.0.4
+        version: 21.0.4
       prettier:
         specifier: 'catalog:'
         version: 3.10.1
@@ -476,6 +479,9 @@ importers:
       typescript-styled-plugin:
         specifier: ^0.18.3
         version: 0.18.3
+      vitest:
+        specifier: 'catalog:'
+        version: 5.0.5(@types/node@26.6.4)(@vitest/browser-playwright@5.0.5)(@vitest/coverage-v8@5.0.5)(@vitest/ui@5.0.5)(happy-dom@21.0.4)(vite@7.3.7(@types/node@26.6.4)(lightningcss@1.33.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
 
   packages/website:
     dependencies:
