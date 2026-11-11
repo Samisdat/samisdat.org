@@ -1,15 +1,20 @@
 'use client';
 
-import { useParallax } from '@samisdat/tools';
+import { type NormSource, useParallax } from '@samisdat/tools';
 import { Grid } from '@samisdat/ui-components/Grid';
 import { useRef } from 'react';
 
 import { HillsView } from './HillsView';
 
-export const DemoParallaxHills = () => {
+type DemoParallaxHillsProps = {
+    /** Drives the demo instead of the pointer on the container. */
+    source?: NormSource;
+};
+
+export const DemoParallaxHills = ({ source }: DemoParallaxHillsProps = {}) => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    useParallax(ref);
+    useParallax(ref, {}, source);
 
     return (
         <Grid container>
