@@ -55,6 +55,7 @@ const ExtraRow = styled.div`
 const Device = styled.div`
     flex: none;
     color: inherit;
+    margin-right: 1rem;
 `;
 
 const Controls = styled.div`
