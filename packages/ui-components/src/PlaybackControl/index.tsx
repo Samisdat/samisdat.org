@@ -114,6 +114,10 @@ const Device = styled.div`
     flex: none;
     color: inherit;
     margin-right: 1rem;
+
+    @media (max-width: 480px) {
+        margin-right: 0.5rem;
+    }
 `;
 
 const Controls = styled.div`
@@ -199,14 +203,14 @@ export const PlaybackControl = ({
                     type="button"
                     onClick={onPause}
                 >
-                    [ <Icon>⏸</Icon> Pause ]
+                    [ <Icon>{'⏸︎'}</Icon> Pause ]
                 </PlayPauseButton>
             ) : (
                 <PlayPauseButton
                     type="button"
                     onClick={onPlay}
                 >
-                    [ <Icon>▶</Icon> Play ]
+                    [ <Icon>{'▶︎'}</Icon> Play ]
                 </PlayPauseButton>
             )}
             <PlayPauseButton

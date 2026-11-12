@@ -4,12 +4,18 @@ import type { ReactNode } from 'react';
 
 const Svg = styled.svg`
     display: block;
-    /* matches the two rows of the control bar; the width follows from the aspect ratio */
+    /* matches the two rows of the control bar; the width follows from the aspect ratio set per box */
     height: 3.5rem;
     width: auto;
-    aspect-ratio: 88 / 52;
     color: inherit;
     transition: opacity 0.3s ease;
+
+    /* the wide landscape sketches would push the buttons into two lines on a phone, so they get smaller there */
+    @media (max-width: 480px) {
+        &[data-landscape='true'] {
+            height: 2rem;
+        }
+    }
 
     .sk {
         fill: none;
@@ -34,16 +40,33 @@ const Svg = styled.svg`
     }
 `;
 
-export const SketchSvg = ({ dimmed, children }: { dimmed: boolean; children: ReactNode }) => (
-    <Svg
-        viewBox="0 0 88 52"
-        aria-hidden="true"
-        focusable="false"
-        style={{ opacity: dimmed ? 0.35 : 1 }}
-    >
-        {children}
-    </Svg>
-);
+/** Landscape box for pad and mouse; the portrait phones use the middle slice of it, so they do not claim free width. */
+const LANDSCAPE = { viewBox: '0 0 88 52', aspectRatio: '88 / 52' };
+const PORTRAIT = { viewBox: '24 0 40 52', aspectRatio: '40 / 52' };
+
+export const SketchSvg = ({
+    dimmed,
+    portrait = false,
+    children,
+}: {
+    dimmed: boolean;
+    portrait?: boolean;
+    children: ReactNode;
+}) => {
+    const box = portrait ? PORTRAIT : LANDSCAPE;
+
+    return (
+        <Svg
+            viewBox={box.viewBox}
+            data-landscape={!portrait}
+            aria-hidden="true"
+            focusable="false"
+            style={{ opacity: dimmed ? 0.35 : 1, aspectRatio: box.aspectRatio }}
+        >
+            {children}
+        </Svg>
+    );
+};
 
 /** Ripple radius/opacity from the age (ms) of the last press; hidden once finished. */
 export const ripple = (age: number, duration: number, growth: number, from = 2) => {

@@ -25,7 +25,10 @@ export const DeviceSketch = ({ kind, frame, dimmed = false }: DeviceSketchProps)
     const Sketch = SKETCHES[kind];
 
     return (
-        <SketchSvg dimmed={dimmed}>
+        <SketchSvg
+            dimmed={dimmed}
+            portrait={kind === 'touch' || kind === 'tilt'}
+        >
             <Sketch frame={frame} />
         </SketchSvg>
     );
