@@ -14,10 +14,10 @@ const TOTAL = 1400;
 let root: Root;
 let latest: GhostPlayer;
 
-type Props = { playing: boolean; speed?: number; onDone?: () => void };
+type Props = { playing: boolean; speed?: number; loop?: boolean; onDone?: () => void };
 
-const Probe = ({ playing, speed, onDone }: Props) => {
-    latest = useGhostPlayer(script, { playing, speed, onDone });
+const Probe = ({ playing, speed, loop, onDone }: Props) => {
+    latest = useGhostPlayer(script, { playing, speed, loop, onDone });
     return null;
 };
 
@@ -89,5 +89,59 @@ describe('useGhostPlayer', () => {
         expect(latest.finger.presence).toBe(0);
         await advance(TOTAL + 500);
         expect(onDone).toHaveBeenCalledTimes(2);
+    });
+
+    it('reports position and duration in seconds', async () => {
+        await render({ playing: true });
+        expect(latest.duration).toBeCloseTo(1.4);
+        expect(latest.position).toBe(0);
+        await advance(500);
+        expect(latest.position).toBeGreaterThan(0.4);
+        expect(latest.position).toBeLessThan(0.6);
+        await advance(2000);
+        expect(latest.position).toBeCloseTo(1.4);
+    });
+
+    it('seek() sets time and frame while paused', async () => {
+        await render({ playing: false });
+        await act(async () => latest.seek(0.45));
+        expect(latest.position).toBeCloseTo(0.45);
+        expect(latest.finger.down).toBe(true);
+        expect(vi.getTimerCount()).toBe(0);
+        await act(async () => latest.seek(99));
+        expect(latest.position).toBeCloseTo(1.4);
+        await act(async () => latest.seek(-5));
+        expect(latest.position).toBe(0);
+    });
+
+    it('seek() while playing continues from the new time', async () => {
+        await render({ playing: true });
+        await advance(200);
+        await act(async () => latest.seek(0.4));
+        await advance(100);
+        expect(latest.position).toBeGreaterThan(0.45);
+        expect(latest.position).toBeLessThan(0.6);
+    });
+
+    it('seek() after the end resumes playing and onDone fires again', async () => {
+        const onDone = vi.fn();
+        await render({ playing: true, onDone });
+        await advance(TOTAL + 500);
+        expect(onDone).toHaveBeenCalledTimes(1);
+        await act(async () => latest.seek(0.2));
+        await advance(TOTAL);
+        expect(onDone).toHaveBeenCalledTimes(2);
+    });
+
+    it('loop wraps around and never calls onDone', async () => {
+        const onDone = vi.fn();
+        await render({ playing: true, loop: true, onDone });
+        await advance(TOTAL + 500);
+        expect(onDone).not.toHaveBeenCalled();
+        expect(latest.position).toBeGreaterThan(0.3);
+        expect(latest.position).toBeLessThan(0.7);
+        await advance(TOTAL * 3);
+        expect(onDone).not.toHaveBeenCalled();
+        expect(vi.getTimerCount()).toBeGreaterThan(0);
     });
 });

@@ -1,6 +1,6 @@
-import type { Script } from './script';
+import { defineScript } from './script';
 
-export const trackpadDemoScript: Script = [
+export const padDemoScript = defineScript('pad', [
     { tap: [0.55, -0.5] },
     {
         pan: [
@@ -11,4 +11,7 @@ export const trackpadDemoScript: Script = [
         ms: 1600,
     },
     { wait: 600 },
-];
+]);
+
+/** @deprecated alias of padDemoScript */
+export const trackpadDemoScript = padDemoScript;
