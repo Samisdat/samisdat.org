@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { PlayPauseButton } from './PlayPauseButton';
 import { Row, SpeedControls } from './SpeedControls';
-import { formatTimecode, Timeline, type Mark, type TimelineProps } from './Timeline';
+import { activeMarkLabel, formatTimecode, Timeline, type Mark, type TimelineProps } from './Timeline';
 
 export { PlayPauseButton };
 export type { Mark, TimelineProps };
@@ -76,8 +76,13 @@ const ControlRow = styled(Row)`
     row-gap: 0.25rem;
 `;
 
-const Timecode = styled.span`
+const MarkLabel = styled.span`
     margin-left: auto;
+    padding-left: 1ch;
+    font-weight: 500;
+`;
+
+const Timecode = styled.span`
     padding-left: 1ch;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
@@ -185,7 +190,14 @@ export const PlaybackControl = ({
             <Controls>
                 <ControlRow>
                     {playRow}
-                    {timeline && <Timecode aria-hidden="true">{formatTimecode(timeline.position)}</Timecode>}
+                    {timeline && (
+                        <>
+                            <MarkLabel aria-hidden="true">
+                                {activeMarkLabel(timeline.marks, timeline.position)}
+                            </MarkLabel>
+                            <Timecode aria-hidden="true">{formatTimecode(timeline.position)}</Timecode>
+                        </>
+                    )}
                 </ControlRow>
                 {timeline && <Timeline {...timeline} />}
                 {speedControl && (

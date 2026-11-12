@@ -4,17 +4,12 @@ import type { ReactNode } from 'react';
 
 const Svg = styled.svg`
     display: block;
-    /* fills the height of the control bar; the width follows from the aspect ratio */
-    height: 6rem;
+    /* matches the two rows of the control bar; the width follows from the aspect ratio */
+    height: 3.5rem;
     width: auto;
     aspect-ratio: 88 / 52;
     color: inherit;
     transition: opacity 0.3s ease;
-
-    /* on phones the controls wrap below the sketch, keep it compact there */
-    @media (max-width: 480px) {
-        height: 4rem;
-    }
 
     .sk {
         fill: none;

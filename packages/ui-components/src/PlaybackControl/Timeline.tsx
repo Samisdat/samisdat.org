@@ -32,54 +32,43 @@ const Styling = styled.div`
     align-items: center;
 
     & > input {
+        grid-column: 2;
+        grid-row: 1;
+        position: relative;
+        z-index: 1;
         width: 100%;
         min-width: 0;
     }
 `;
 
+/** Sits on the slider track, behind the thumb. */
 const Marks = styled.div`
     grid-column: 2;
+    grid-row: 1;
     position: relative;
-    height: 1.3rem;
+    align-self: stretch;
     margin-inline: 5px;
+    pointer-events: none;
 `;
 
 const Diamond = styled.span`
     position: absolute;
-    top: 2px;
-    width: 6px;
-    height: 6px;
-    margin-left: -3px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin: -3.5px 0 0 -3.5px;
     background: currentColor;
     transform: rotate(45deg);
 `;
 
 const Bar = styled.span`
     position: absolute;
-    top: 3px;
-    height: 4px;
+    top: 50%;
+    height: 6px;
+    margin-top: -3px;
     background: currentColor;
-    border-radius: 2px;
+    border-radius: 3px;
     opacity: 0.55;
-`;
-
-const Label = styled.span`
-    position: absolute;
-    top: 8px;
-    font-size: 0.7rem;
-    font-weight: 500;
-    line-height: 1.2;
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-
-    &[data-active='true'] {
-        opacity: 1;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-        transition: none;
-    }
 `;
 
 const percent = (seconds: number, duration: number) =>
@@ -87,40 +76,28 @@ const percent = (seconds: number, duration: number) =>
 
 const getRange = (mark: Mark) => ('at' in mark ? [mark.at, mark.at + POINT_LABEL_SECONDS] : [mark.from, mark.to]);
 
-/** Labels in the right half grow leftwards so they stay inside the track. */
-const labelPosition = (start: number, duration: number) => {
-    const left = percent(start, duration);
+/** Label of the mark the position currently sits in, if it has one. */
+export const activeMarkLabel = (marks: Mark[], position: number) => {
+    const active = marks.find(mark => {
+        const [start, end] = getRange(mark);
 
-    return left > 60 ? { right: `${100 - left}%` } : { left: `${left}%` };
+        return mark.label && position >= start && position < end;
+    });
+
+    return active?.label;
 };
 
-const MarkView = ({ mark, position, duration }: { mark: Mark; position: number; duration: number }) => {
-    const [start, end] = getRange(mark);
-    const active = position >= start && position < end;
-
-    return (
-        <>
-            {'at' in mark ? (
-                <Diamond style={{ left: `${percent(mark.at, duration)}%` }} />
-            ) : (
-                <Bar
-                    style={{
-                        left: `${percent(mark.from, duration)}%`,
-                        width: `${percent(mark.to, duration) - percent(mark.from, duration)}%`,
-                    }}
-                />
-            )}
-            {mark.label && (
-                <Label
-                    data-active={active}
-                    style={labelPosition(start, duration)}
-                >
-                    {mark.label}
-                </Label>
-            )}
-        </>
+const MarkView = ({ mark, duration }: { mark: Mark; duration: number }) =>
+    'at' in mark ? (
+        <Diamond style={{ left: `${percent(mark.at, duration)}%` }} />
+    ) : (
+        <Bar
+            style={{
+                left: `${percent(mark.from, duration)}%`,
+                width: `${percent(mark.to, duration) - percent(mark.from, duration)}%`,
+            }}
+        />
     );
-};
 
 export const Timeline = ({ position, duration, marks, onSeek }: TimelineProps) => {
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,6 +107,15 @@ export const Timeline = ({ position, duration, marks, onSeek }: TimelineProps) =
     return (
         <Styling>
             <span aria-hidden="true">[</span>
+            <Marks aria-hidden="true">
+                {marks.map(mark => (
+                    <MarkView
+                        key={`${'at' in mark ? mark.at : `${mark.from}-${mark.to}`}-${mark.label ?? ''}`}
+                        mark={mark}
+                        duration={duration}
+                    />
+                ))}
+            </Marks>
             <RangeSlider
                 aria-label="Position in der Aufzeichnung"
                 aria-valuetext={formatTimecode(position)}
@@ -140,16 +126,6 @@ export const Timeline = ({ position, duration, marks, onSeek }: TimelineProps) =
                 onChange={handleChange}
             />
             <span aria-hidden="true">]</span>
-            <Marks aria-hidden="true">
-                {marks.map((mark) => (
-                    <MarkView
-                        key={`${'at' in mark ? mark.at : `${mark.from}-${mark.to}`}-${mark.label ?? ''}`}
-                        mark={mark}
-                        position={position}
-                        duration={duration}
-                    />
-                ))}
-            </Marks>
         </Styling>
     );
 };

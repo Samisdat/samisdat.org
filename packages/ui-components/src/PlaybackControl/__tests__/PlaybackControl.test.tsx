@@ -61,12 +61,13 @@ describe('PlaybackControl', () => {
         expect(host.textContent).toContain('00:03.42');
         expect(host.textContent).toContain('Takeover');
         expect(host.querySelector('input[aria-label="Speed"]')).toBeNull();
-        expect(host.textContent).toContain('Click');
-        expect(host.textContent).toContain('Pan');
-        expect(host.querySelectorAll('[aria-hidden="true"] span[data-active]')).toHaveLength(2);
+        // marks sit on the track as three decorative elements, no label while the position is outside every mark
+        expect(host.querySelectorAll('div[aria-hidden="true"] > span')).toHaveLength(3);
+        expect(host.textContent).not.toContain('Click');
+        expect(host.textContent).not.toContain('Pan');
     });
 
-    it('marks only the label around the position as active', () => {
+    it('shows only the label of the mark around the position', () => {
         act(() =>
             root.render(
                 <PlaybackControl
@@ -75,9 +76,9 @@ describe('PlaybackControl', () => {
                 />
             )
         );
-        const active = [...host.querySelectorAll('span[data-active="true"]')].map((n) => n.textContent);
 
-        expect(active).toEqual(['Pan']);
+        expect(host.textContent).toContain('Pan');
+        expect(host.textContent).not.toContain('Click');
     });
 
     it('exposes the timecode as aria-valuetext and calls onSeek', () => {
