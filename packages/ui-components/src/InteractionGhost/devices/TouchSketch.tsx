@@ -6,7 +6,7 @@ export const TouchSketch = ({ frame }: SketchProps) => {
     const f = frame.finger ?? { x: frame.norm.x, y: frame.norm.y, presence: 1, down: false, age: Infinity };
     const sx = 44 + f.x * 9;
     const sy = 26 + f.y * 18;
-    const wave = ripple(f.age, 0.6, 6);
+    const wave = ripple(f.age, 600, 6);
 
     return (
         <>

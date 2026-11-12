@@ -1,13 +1,13 @@
 import { styled } from '@linaria/react';
 import { useState } from 'react';
 
-import { GhostMarker } from './GhostMarker';
+import { GhostMarker, type GhostMarkerKind } from './GhostMarker';
 import { GhostPath } from './GhostPath';
-import { Ripple } from './Ripple';
 import { scriptPaths } from './scriptPaths';
 import { Trail } from './Trail';
 
 import type { Finger, Phase, Script } from './script';
+import type { Norm } from '@samisdat/tools';
 
 const Svg = styled.svg`
     position: absolute;
@@ -24,6 +24,7 @@ const Svg = styled.svg`
     }
 `;
 
+/** Kept for consumers; the click wave now lives inside the markers (`age`). */
 export const RIPPLE_MS = 600;
 export const TRAIL_POINTS = 19;
 const VIEW_WIDTH = 150;
@@ -41,24 +42,23 @@ export type GhostOverlayProps = {
     /** Shows the static path overview of this script instead of the live ghost. */
     still?: Script;
     labels?: PhaseLabels;
+    /** Device the marker stands for (default 'touch'). */
+    kind?: GhostMarkerKind;
+    /** Current scene norm; the tilt marker rolls its ball with it. */
+    norm?: Norm;
 };
 
-/** Trail history and ripple origin, derived while rendering (no extra commit per frame). */
-const useFingerTrace = (finger: Finger, toSvg: (x: number, y: number) => XY) => {
+/** Trail history, derived while rendering (no extra commit per frame). */
+const useFingerTrail = (finger: Finger, toSvg: (x: number, y: number) => XY) => {
     const [seen, setSeen] = useState(finger);
     const [trail, setTrail] = useState<XY[]>([]);
-    const [origin, setOrigin] = useState<XY | null>(null);
 
     if (seen !== finger) {
         setSeen(finger);
-        const point = toSvg(finger.x, finger.y);
-        setTrail(finger.presence > 0 ? [...trail.slice(-(TRAIL_POINTS - 1)), point] : []);
-        if (Number.isFinite(finger.age) && (!Number.isFinite(seen.age) || finger.age < seen.age)) {
-            setOrigin(point);
-        }
+        setTrail(finger.presence > 0 ? [...trail.slice(-(TRAIL_POINTS - 1)), toSvg(finger.x, finger.y)] : []);
     }
 
-    return { trail, origin };
+    return trail;
 };
 
 export const GhostOverlay = ({
@@ -67,10 +67,12 @@ export const GhostOverlay = ({
     aspectRatio,
     still,
     labels = DEFAULT_PHASE_LABELS,
+    kind = 'touch',
+    norm,
 }: GhostOverlayProps) => {
     const height = VIEW_WIDTH / aspectRatio;
     const toSvg = (x: number, y: number): XY => ({ x: (x + 1) * (VIEW_WIDTH / 2), y: (y + 1) * (height / 2) });
-    const { trail, origin } = useFingerTrace(finger, toSvg);
+    const trail = useFingerTrail(finger, toSvg);
 
     if (still) {
         return (
@@ -90,23 +92,19 @@ export const GhostOverlay = ({
         );
     }
 
-    const at = toSvg(finger.x, finger.y);
-    const rippleProgress = finger.age / RIPPLE_MS;
+    const tilting = kind === 'tilt';
+    // the tilt ring sits in the middle of the demo, the ball rolls with the norm
+    const at = tilting ? { x: VIEW_WIDTH / 2, y: height / 2 } : toSvg(finger.x, finger.y);
 
     return (
         <Svg
             aria-hidden="true"
             viewBox={`0 0 ${VIEW_WIDTH} ${height}`}
         >
-            <Trail
-                points={trail}
-                presence={finger.presence}
-            />
-            {origin && rippleProgress < 1 && (
-                <Ripple
-                    x={origin.x}
-                    y={origin.y}
-                    progress={rippleProgress}
+            {!tilting && (
+                <Trail
+                    points={trail}
+                    presence={finger.presence}
                 />
             )}
             <GhostMarker
@@ -114,6 +112,9 @@ export const GhostOverlay = ({
                 y={at.y}
                 presence={finger.presence}
                 down={finger.down}
+                kind={kind}
+                age={finger.age / 1000}
+                norm={norm}
             />
             {phase && finger.presence > 0 && (
                 <text

@@ -17,8 +17,8 @@ type Args = {
 
 const toFrame = ({ x, y, down, betaDeg, gammaDeg }: Args): DeviceFrame => ({
     norm: { x, y },
-    finger: { x, y, presence: 1, down, age: down ? 0.2 : Infinity },
-    press: { down, age: down ? 0.2 : Infinity },
+    finger: { x, y, presence: 1, down, age: down ? 200 : Infinity },
+    press: { down, age: down ? 200 : Infinity },
     tilt: { beta: (betaDeg * Math.PI) / 180, gamma: (gammaDeg * Math.PI) / 180 },
 });
 

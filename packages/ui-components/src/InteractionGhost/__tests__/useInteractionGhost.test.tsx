@@ -40,7 +40,7 @@ const fire = (type: string, clientX = 0, clientY = 0) =>
     });
 
 beforeEach(() => {
-    vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout'] });
+    vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout', 'clearTimeout'] });
     host = document.createElement('div');
     root = createRoot(host);
     norms = [];

@@ -6,7 +6,7 @@ export const PadSketch = ({ frame }: SketchProps) => {
     const f = frame.finger ?? { x: frame.norm.x, y: frame.norm.y, presence: 1, down: false, age: Infinity };
     const cx = 44 + f.x * 26;
     const cy = 26 + f.y * 17;
-    const wave = ripple(f.age, 0.6, 7);
+    const wave = ripple(f.age, 600, 7);
 
     return (
         <>

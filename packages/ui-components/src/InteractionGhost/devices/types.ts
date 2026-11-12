@@ -1,14 +1,9 @@
-/** Input of the device sketches; structurally compatible with the ghost player frame. */
-export type DeviceFrame = {
-    /** Pointer position, -1…1, center 0. */
-    norm: { x: number; y: number };
-    finger?: { x: number; y: number; presence: number; down: boolean; age: number };
-    press?: { down: boolean; age: number };
-    /** Radians. */
-    tilt?: { beta: number; gamma: number };
-};
+import type { Device, Frame } from '../script';
 
-export type DeviceKind = 'pad' | 'mouse' | 'touch' | 'tilt';
+/** Input of the device sketches: the ghost player frame, only `norm` is required. Ages are in ms. */
+export type DeviceFrame = Pick<Frame, 'norm'> & Partial<Pick<Frame, 'finger' | 'press' | 'tilt'>>;
+
+export type DeviceKind = Device;
 
 export type SketchProps = {
     frame: DeviceFrame;

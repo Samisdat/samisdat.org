@@ -2,8 +2,10 @@ import type { Norm, NormListener, NormSource } from '@samisdat/tools';
 
 /** Duration of the scene blend from the last ghost norm to the real pointer. */
 export const TAKEOVER_BLEND_MS = 250;
+/** Duration of the scene blend from the real pointer back to the recording. */
+export const RESUME_BLEND_MS = 500;
 
-type Mode = 'ghost' | 'blend' | 'pointer';
+type Mode = 'ghost' | 'blend' | 'handback' | 'pointer';
 
 export type ComposedSource = {
     source: NormSource;
@@ -16,6 +18,8 @@ export type ComposedSource = {
     pushPointer: (norm: Norm) => void;
     /** Ghost -> pointer. Blends over `blendMs` (0 = jump). False if the ghost was not driving. */
     takeover: (blendMs?: number) => boolean;
+    /** Pointer -> ghost. Blends over `blendMs` from the last emitted norm to the (moving) ghost norm. */
+    resume: (blendMs?: number) => void;
     /** Back to the initial pointer mode, cancels a running blend. */
     reset: () => void;
     destroy: () => void;
@@ -33,6 +37,7 @@ export const createComposedSource = (): ComposedSource => {
     let mode: Mode = 'pointer';
     let lastEmitted: Norm = { x: 0, y: 0 };
     let lastPointer: Norm | null = null;
+    let lastGhost: Norm | null = null;
     let raf = 0;
 
     const emit = (norm: Norm) => {
@@ -51,24 +56,38 @@ export const createComposedSource = (): ComposedSource => {
         if (lastPointer) emit(lastPointer);
     };
 
-    const startBlend = (blendMs: number) => {
+    /** Eases from the last emitted norm to a (moving) target; `done` runs once it arrived. */
+    const animate = (blendMs: number, next: Mode, target: () => Norm | null, done: () => void) => {
         const from = lastEmitted;
         let startedAt: number | undefined;
-        mode = 'blend';
+        mode = next;
 
         const tick = (now: number) => {
             startedAt ??= now;
             const k = (now - startedAt) / blendMs;
             if (k >= 1) {
-                finish();
+                cancelBlend();
+                done();
                 return;
             }
-            // target is read every frame: the pointer keeps moving while we blend
-            emit(blendNorm(from, lastPointer ?? from, k));
+            // target is read every frame: pointer / ghost keep moving while we blend
+            emit(blendNorm(from, target() ?? from, k));
             raf = requestAnimationFrame(tick);
         };
         raf = requestAnimationFrame(tick);
     };
+
+    const startBlend = (blendMs: number) => animate(blendMs, 'blend', () => lastPointer, finish);
+    const startHandback = (blendMs: number) =>
+        animate(
+            blendMs,
+            'handback',
+            () => lastGhost,
+            () => {
+                mode = 'ghost';
+                if (lastGhost) emit(lastGhost);
+            }
+        );
 
     return {
         source: {
@@ -79,13 +98,16 @@ export const createComposedSource = (): ComposedSource => {
         },
         mode: () => mode,
         engage: () => {
+            if (mode === 'handback') return;
             cancelBlend();
             mode = 'ghost';
         },
         release: () => {
-            if (mode === 'ghost') mode = 'pointer';
+            if (mode === 'handback') cancelBlend();
+            if (mode === 'ghost' || mode === 'handback') mode = 'pointer';
         },
         pushGhost: (norm) => {
+            lastGhost = norm;
             if (mode === 'ghost') emit(norm);
         },
         pushPointer: (norm) => {
@@ -93,10 +115,21 @@ export const createComposedSource = (): ComposedSource => {
             if (mode === 'pointer') emit(norm);
         },
         takeover: (blendMs = TAKEOVER_BLEND_MS) => {
-            if (mode !== 'ghost') return false;
+            if (mode !== 'ghost' && mode !== 'handback') return false;
+            cancelBlend();
             if (blendMs <= 0) finish();
             else startBlend(blendMs);
             return true;
+        },
+        resume: (blendMs = RESUME_BLEND_MS) => {
+            if (mode !== 'pointer' && mode !== 'blend') return;
+            cancelBlend();
+            if (blendMs <= 0) {
+                mode = 'ghost';
+                if (lastGhost) emit(lastGhost);
+            } else {
+                startHandback(blendMs);
+            }
         },
         reset: () => {
             cancelBlend();

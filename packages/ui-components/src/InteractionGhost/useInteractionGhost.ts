@@ -1,9 +1,11 @@
 import { type NormSource, pointerSource, usePrefersReducedMotion } from '@samisdat/tools';
 import { useCallback, useEffect, useMemo, useRef, useState, type RefObject } from 'react';
 
-import { createComposedSource, TAKEOVER_BLEND_MS } from './composedSource';
+import { createComposedSource, RESUME_BLEND_MS, TAKEOVER_BLEND_MS } from './composedSource';
 import { createTakeoverDetector, TAKEOVER_DISTANCE } from './takeover';
 import { useGhostPlayer } from './useGhostPlayer';
+import { useResumeAfterIdle } from './useResumeAfterIdle';
+import { useTakeoverListeners } from './useTakeoverListeners';
 
 import type { Frame, Script } from './script';
 
@@ -17,6 +19,15 @@ export type UseInteractionGhostOptions = {
     takeoverDistance?: number;
     /** play even though the person prefers reduced motion (explicit Play press) */
     forceMotion?: boolean;
+    /**
+     * After a takeover, continue the recording from the paused position once no input came for this long
+     * (ms); the scene blends back over 0.5 s. Undefined = the person keeps control.
+     */
+    resumeAfterMs?: number;
+    /** wrap around instead of finishing (never calls onDone) */
+    loop?: boolean;
+    /** the recording continues after a takeover */
+    onResume?: () => void;
 };
 
 export type InteractionGhost = {
@@ -30,6 +41,24 @@ export type InteractionGhost = {
     takenOver: boolean;
     /** play again from the start and give the ghost control back */
     restart: () => void;
+    /** continue the recording after a takeover right away (blends back over 0.5 s) */
+    resume: () => void;
+    /** script time in seconds */
+    position: number;
+    /** script length in seconds */
+    duration: number;
+    /** jump to script time (seconds); drives the scene even while paused, is not a takeover */
+    seek: (tSeconds: number) => void;
+};
+
+type ActivityInput = { playing: boolean; reducedMotion: boolean; takenOver: boolean; done: boolean; scrubbed: boolean };
+
+/** active: the player runs. holding: the ghost owns the scene (also paused after a seek). */
+const deriveActivity = ({ playing, reducedMotion, takenOver, done, scrubbed }: ActivityInput) => {
+    const free = !reducedMotion && !takenOver;
+    const active = free && playing && !done;
+
+    return { active, holding: free && (active || scrubbed) };
 };
 
 export const useInteractionGhost = ({
@@ -40,6 +69,9 @@ export const useInteractionGhost = ({
     onTakeover,
     takeoverDistance = TAKEOVER_DISTANCE,
     forceMotion = false,
+    resumeAfterMs,
+    loop = false,
+    onResume,
 }: UseInteractionGhostOptions): InteractionGhost => {
     const prefersReducedMotion = usePrefersReducedMotion();
     const reducedMotion = prefersReducedMotion && !forceMotion;
@@ -48,26 +80,32 @@ export const useInteractionGhost = ({
     const detector = useMemo(() => createTakeoverDetector(takeoverDistance), [takeoverDistance]);
     const [takenOver, setTakenOver] = useState(false);
     const [done, setDone] = useState(false);
-    const onTakeoverRef = useRef(onTakeover);
+    // a seek parks the ghost on the scene even while paused
+    const [scrubbed, setScrubbed] = useState(false);
+    // the recording was running when the person took over (only then it continues by itself)
+    const [resumable, setResumable] = useState(false);
+    const [heldAtTakeover, setHeldAtTakeover] = useState(false);
+    const callbacks = useRef({ onTakeover, onResume });
     useEffect(() => {
-        onTakeoverRef.current = onTakeover;
+        callbacks.current = { onTakeover, onResume };
     });
 
-    const active = playing && !reducedMotion && !takenOver && !done;
+    const { active, holding } = deriveActivity({ playing, reducedMotion, takenOver, done, scrubbed });
 
     const handleDone = useCallback(() => {
         setDone(true);
+        setScrubbed(false);
         onDone?.();
     }, [onDone]);
 
-    const player = useGhostPlayer(script, { playing: active, speed, onDone: handleDone });
-    const { norm, finger, phase } = player;
-    const frame: Frame = useMemo(() => ({ norm, finger, phase }), [norm, finger, phase]);
+    const player = useGhostPlayer(script, { playing: active, speed, loop, onDone: handleDone });
+    const { norm, finger, phase, press, tilt, position, duration } = player;
+    const frame: Frame = useMemo(() => ({ norm, finger, phase, press, tilt }), [norm, finger, phase, press, tilt]);
 
     useEffect(() => {
-        if (active) composed.engage();
+        if (holding) composed.engage();
         else composed.release();
-    }, [active, composed]);
+    }, [holding, composed]);
 
     useEffect(() => composed.pushGhost(norm), [norm, composed]);
 
@@ -80,38 +118,52 @@ export const useInteractionGhost = ({
         return pointerSource(element).subscribe(composed.pushPointer);
     }, [composed]);
 
-    useEffect(() => {
-        const element = containerRef.current;
-        if (!element || !active) return;
+    const takeover = useCallback((event: Event) => {
+        if (!composed.takeover(TAKEOVER_BLEND_MS)) return;
+        setResumable(playing);
+        setHeldAtTakeover(event.type === 'pointerdown' || event.type === 'touchstart');
+        setTakenOver(true);
+        setScrubbed(false);
+        callbacks.current.onTakeover?.();
+    }, [composed, playing]);
 
-        const takeover = () => {
-            if (!composed.takeover(TAKEOVER_BLEND_MS)) return;
-            setTakenOver(true);
-            onTakeoverRef.current?.();
-        };
-        const onMove = (event: PointerEvent) => {
-            if (detector.move(event.clientX, event.clientY)) takeover();
-        };
+    useTakeoverListeners({ enabled: holding, element: containerRef, detector, onTakeover: takeover });
 
-        // registered after the pointerSource subscription, so the pointer norm is already known
-        element.addEventListener('pointerdown', takeover, { passive: true });
-        element.addEventListener('touchstart', takeover, { passive: true });
-        element.addEventListener('pointermove', onMove, { passive: true });
-        return () => {
-            element.removeEventListener('pointerdown', takeover);
-            element.removeEventListener('touchstart', takeover);
-            element.removeEventListener('pointermove', onMove);
-        };
-    }, [active, composed, detector]);
+    const resume = useCallback(() => {
+        detector.reset();
+        composed.resume(RESUME_BLEND_MS);
+        setTakenOver(false);
+        callbacks.current.onResume?.();
+    }, [composed, detector]);
+
+    useResumeAfterIdle({
+        enabled: takenOver && resumable && resumeAfterMs !== undefined && !reducedMotion,
+        element: containerRef,
+        idleMs: resumeAfterMs ?? 0,
+        initiallyPressed: heldAtTakeover,
+        onIdle: resume,
+    });
 
     const restart = useCallback(() => {
         detector.reset();
+        composed.reset();
         if (playing && !reducedMotion) composed.engage();
-        else composed.reset();
         setTakenOver(false);
+        setScrubbed(false);
         setDone(false);
         player.restart();
     }, [composed, detector, player, playing, reducedMotion]);
 
-    return { containerRef, source: composed.source, frame, reducedMotion, takenOver, restart };
+    const { seek: seekPlayer } = player;
+    const seek = useCallback(
+        (tSeconds: number) => {
+            setDone(false);
+            setScrubbed(true);
+            setTakenOver(false);
+            seekPlayer(tSeconds);
+        },
+        [seekPlayer]
+    );
+
+    return { containerRef, source: composed.source, frame, reducedMotion, takenOver, restart, resume, position, duration, seek };
 };

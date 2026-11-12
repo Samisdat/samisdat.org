@@ -4,7 +4,8 @@ import { styled } from '@linaria/react';
 import { useEffect, useRef } from 'react';
 
 import { GhostOverlay, type PhaseLabels } from './GhostOverlay';
-import { useInteractionGhost, type UseInteractionGhostOptions } from './useInteractionGhost';
+import { scriptDevice } from './script';
+import { useInteractionGhost, type InteractionGhost as GhostState, type UseInteractionGhostOptions } from './useInteractionGhost';
 
 import type { NormSource } from '@samisdat/tools';
 import type { ReactNode } from 'react';
@@ -21,6 +22,40 @@ const Hint = styled.p`
     color: var(--color-text-subtle);
 `;
 
+type StageProps = {
+    ghost: GhostState;
+    script: UseInteractionGhostOptions['script'];
+    children: (source: NormSource) => ReactNode;
+    hint?: ReactNode;
+    aspectRatio?: number;
+    labels?: PhaseLabels;
+};
+
+/** Demo + overlay for an already running ghost (`useInteractionGhost`). */
+export const GhostStage = ({ ghost, script, children, hint, aspectRatio = 3 / 2, labels }: StageProps) => {
+    const { containerRef, source, frame, reducedMotion, takenOver } = ghost;
+
+    return (
+        <div>
+            <Stage ref={containerRef}>
+                {children(source)}
+                {!takenOver && (
+                    <GhostOverlay
+                        finger={frame.finger}
+                        phase={frame.phase}
+                        aspectRatio={aspectRatio}
+                        still={reducedMotion ? script : undefined}
+                        labels={labels}
+                        kind={scriptDevice(script)}
+                        norm={frame.norm}
+                    />
+                )}
+            </Stage>
+            {hint && <Hint>{hint}</Hint>}
+        </div>
+    );
+};
+
 export type InteractionGhostProps = UseInteractionGhostOptions & {
     /** Receives the source to pass to the demo's `source` prop. */
     children: (source: NormSource) => ReactNode;
@@ -28,7 +63,7 @@ export type InteractionGhostProps = UseInteractionGhostOptions & {
     hint?: ReactNode;
     /** width / height of the demo, needed so markers are not distorted (default 3/2). */
     aspectRatio?: number;
-    /** Text of the aria-hidden Tap / Pan label next to the marker. */
+    /** Text of the aria-hidden phase label next to the marker. */
     labels?: PhaseLabels;
     /** Increment to play again from the start and give the ghost control back. */
     restartToken?: number;
@@ -38,8 +73,9 @@ export type InteractionGhostProps = UseInteractionGhostOptions & {
  * Plays `script` over the demo and hands control to the person as soon as they touch or move the pointer.
  * `<InteractionGhost script={s} playing>{(source) => <Demo source={source} />}</InteractionGhost>`
  */
-export const InteractionGhost = ({ children, hint, aspectRatio = 3 / 2, labels, restartToken = 0, ...options }: InteractionGhostProps) => {
-    const { containerRef, source, frame, reducedMotion, takenOver, restart } = useInteractionGhost(options);
+export const InteractionGhost = ({ children, hint, aspectRatio, labels, restartToken = 0, ...options }: InteractionGhostProps) => {
+    const ghost = useInteractionGhost(options);
+    const { restart } = ghost;
     const restartRef = useRef(restart);
     const lastToken = useRef(restartToken);
     useEffect(() => {
@@ -52,20 +88,14 @@ export const InteractionGhost = ({ children, hint, aspectRatio = 3 / 2, labels, 
     }, [restartToken]);
 
     return (
-        <div>
-            <Stage ref={containerRef}>
-                {children(source)}
-                {!takenOver && (
-                    <GhostOverlay
-                        finger={frame.finger}
-                        phase={frame.phase}
-                        aspectRatio={aspectRatio}
-                        still={reducedMotion ? options.script : undefined}
-                        labels={labels}
-                    />
-                )}
-            </Stage>
-            {hint && <Hint>{hint}</Hint>}
-        </div>
+        <GhostStage
+            ghost={ghost}
+            script={options.script}
+            hint={hint}
+            aspectRatio={aspectRatio}
+            labels={labels}
+        >
+            {children}
+        </GhostStage>
     );
 };

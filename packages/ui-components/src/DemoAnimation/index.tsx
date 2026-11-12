@@ -65,7 +65,7 @@ export const DemoAnimation = ({ children, playbackControl, playOnce = false, ref
             </DemoCanvas>
             <PlaybackControl
                 {...playbackControl}
-                notice={reducedMotion ? REDUCED_MOTION_NOTICE : undefined}
+                notice={playbackControl.notice ?? (reducedMotion ? REDUCED_MOTION_NOTICE : undefined)}
             />
         </>
     );

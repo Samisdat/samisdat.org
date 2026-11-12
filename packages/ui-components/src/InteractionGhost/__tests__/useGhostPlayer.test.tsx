@@ -25,7 +25,7 @@ const render = (props: Props) => act(() => root.render(<Probe {...props} />));
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 
 beforeEach(() => {
-    vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout'] });
+    vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout', 'clearTimeout'] });
     root = createRoot(document.createElement('div'));
 });
 

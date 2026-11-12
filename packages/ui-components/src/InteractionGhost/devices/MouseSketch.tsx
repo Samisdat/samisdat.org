@@ -6,7 +6,7 @@ export const MouseSketch = ({ frame }: SketchProps) => {
     const { norm, press } = frame;
     const mx = 44 + norm.x * 32;
     const my = 26 + norm.y * 12;
-    const wave = ripple(press?.age ?? Infinity, 0.5, 6);
+    const wave = ripple(press?.age ?? Infinity, 500, 6);
 
     return (
         <>

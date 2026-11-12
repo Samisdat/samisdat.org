@@ -39,7 +39,7 @@ export const SketchSvg = ({ dimmed, children }: { dimmed: boolean; children: Rea
     </Svg>
 );
 
-/** Ripple radius/opacity from the age (s) of the last press; hidden once finished. */
+/** Ripple radius/opacity from the age (ms) of the last press; hidden once finished. */
 export const ripple = (age: number, duration: number, growth: number, from = 2) => {
     const k = Math.min(1, age / duration);
 
