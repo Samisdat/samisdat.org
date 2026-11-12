@@ -1,17 +1,17 @@
 'use client';
 
 import { GhostDemo } from '@samisdat/ui-components/DemoAnimation/GhostDemo';
-import { trackpadDemoScript } from '@samisdat/ui-components/InteractionGhost';
 
+import { GHOST_HINT, scriptForDevice, type GhostDeviceProps } from './ghostDevice';
 import { DemoParallaxSectors } from './Sectors';
 
-const HINT = 'Bewege den Zeiger oder tippe auf die Demo, um selbst zu steuern.';
-
-/** Sectors demo with the trackpad ghost; MDX cannot pass render props. */
-export const DemoGhostSectors = () => (
+/** Sectors demo with a device recording; MDX cannot pass render props. */
+export const DemoGhostSectors = ({ device, resumeAfterMs, loop }: GhostDeviceProps) => (
     <GhostDemo
-        script={trackpadDemoScript}
-        hint={HINT}
+        script={scriptForDevice(device)}
+        hint={GHOST_HINT}
+        resumeAfterMs={resumeAfterMs}
+        loop={loop}
     >
         {(source) => <DemoParallaxSectors source={source} />}
     </GhostDemo>

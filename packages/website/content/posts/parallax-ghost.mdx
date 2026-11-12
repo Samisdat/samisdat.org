@@ -2,44 +2,66 @@
 title: Parallax Ghost
 date: 2026-11-11T00:00:00.000Z
 published: false
-description: Ein Ghost spielt Trackpad-Gesten über Parallax-Demos ab, bis du selbst übernimmst – Testbett für Marker, Spur und Steuerung.
+description: Ein Ghost spielt Aufzeichnungen von Trackpad, Maus, Touch und Kippen über Parallax-Demos ab, bis du selbst übernimmst – Testbett für Marker, Spur und Steuerung.
 ---
 
-Parallax-Demos reagieren auf den Zeiger. Wer nur liest, sieht davon nichts. Der Ghost spielt deshalb eine kurze Geste vor: ein Marker tippt und zieht über die Demo, hinterlässt Spur und Ripple, und die Szene folgt ihm. Sobald du den Zeiger bewegst oder die Demo berührst, übernimmst du und der Ghost verschwindet.
+Parallax-Demos reagieren auf den Zeiger. Wer nur liest, sieht davon nichts. Der Ghost spielt deshalb eine kurze Geste vor: ein Marker tippt, klickt, zieht oder kippt über die Demo, hinterlässt Spur und Ripple, und die Szene folgt ihm. Sobald du den Zeiger bewegst oder die Demo berührst, übernimmst du und der Ghost verschwindet.
 
-Die Wiedergabe startet einmal, wenn die Demo in den Viewport scrollt. Mit Play, Pause, Reset und Tempo darunter steuerst du sie selbst.
+Die Wiedergabe startet einmal, wenn die Demo in den Viewport scrollt. Die Control Bar darunter zeigt das Gerät als Skizze und eine Zeitleiste mit den Schritten der Aufnahme; mit Play, Pause und Reset steuerst du sie selbst, per Zeitleiste springst du an eine Stelle.
 
-## Sectors
+## Trackpad
 
-<DemoGhostSectors />
+Das Trackpad ist der Standard: ein runder Punkt tippt und zieht.
+
+<DemoGhostSectors device="pad" resumeAfterMs={3500} loop />
+
+## Maus
+
+Ein Pfeil bewegt sich über die Demo und klickt, ohne zu ziehen.
+
+<DemoGhostSectors device="mouse" resumeAfterMs={3500} loop />
+
+## Touch
+
+Der Finger tippt und wischt, die Szene folgt dem Wisch.
+
+<DemoGhostSectors device="touch" resumeAfterMs={3500} loop />
+
+## Kippen
+
+Das Gerät wird gekippt: Die Libelle rollt, die Szene folgt der Neigung.
+
+<DemoGhostSectors device="tilt" resumeAfterMs={3500} loop />
 
 ## Hills
 
-<DemoGhostHills />
+Dasselbe Prinzip auf dem Hills-Bild, hier mit der Trackpad-Aufnahme.
+
+<DemoGhostHills device="pad" resumeAfterMs={3500} loop />
+
+## Wiederaufnahme und Loop
+
+Zwei Optionen, beide standardmäßig aus. `resumeAfterMs` lässt den Ghost nach so vielen Millisekunden Ruhe nach deiner Übernahme weiterspielen (Blend von 0,5 s zurück in die Aufnahme); ohne die Option bleibt es bei „Du steuerst.“ und Play startet eine neue Runde. `loop` wiederholt die Aufnahme endlos, `onDone` feuert dann nie. Hier sind beide eingeschaltet: Bewege den Zeiger über eine Demo, warte gut drei Sekunden, und der Ghost übernimmt wieder.
 
 ## Skriptformat
 
-Beide Demos spielen dasselbe Skript. Koordinaten sind normalisiert: `[0, 0]` ist die Mitte, `[-1, -1]` oben links, `[1, 1]` unten rechts. Pans laufen als Spline durch die Wegpunkte.
+Alle Demos spielen deklarative Skripte. Koordinaten sind normalisiert: `[0, 0]` ist die Mitte, `[-1, -1]` oben links, `[1, 1]` unten rechts. `pan`, `move` und `tilt` laufen als Spline durch die Wegpunkte; bei `tilt` entspricht `y` der Neigung beta und `x` gamma (je `± 0,52 rad`). `device` bestimmt Skizze und Marker.
 
 ```ts
-const script = [
-  { tap: [0.55, -0.5] },
-  {
-    pan: [
-      [-0.6, 0.45],
-      [-0.1, -0.2],
-      [0.6, 0.3],
-    ],
-    ms: 1600,
-  },
+const script = defineScript('mouse', [
+  { move: [[-0.6, 0.4], [0, -0.2], [0.5, 0.3]], ms: 1400 },
+  { click: [0.5, 0.3] },
   { wait: 600 },
-];
+]);
+
+// pad / touch: { tap: [x, y] }, { pan: [[x, y], …], ms }
+// tilt:        { tilt: [[x, y], …], ms }
 ```
 
 ## Reduced Motion
 
-Bei `prefers-reduced-motion: reduce` startet nichts von selbst. Statt der Animation zeigt die Demo ein Standbild der Geste (Tap als gestrichelter Zielkreis, Pan als Pfad mit Pfeil) und einen Hinweis. Erst ein Klick auf Play spielt den Ghost ab.
+Bei `prefers-reduced-motion: reduce` startet nichts von selbst. Statt der Animation zeigt die Demo ein Standbild der Geste (Tap als gestrichelter Zielkreis, Pan als Pfad mit Pfeil) und einen Hinweis. Erst Play oder ein Sprung auf der Zeitleiste spielt den Ghost ab.
 
 ## Tastatur
 
-Die Demo selbst reagiert nur auf Zeiger und Touch. Der Ghost-Marker ist `aria-hidden`, die Hinweistexte stehen als normaler Text daneben. Pause, Play, Reset und das Tempo sind echte Buttons und ein Slider und lassen sich per Tastatur bedienen.
+Die Demo selbst reagiert nur auf Zeiger und Touch. Marker und Gerätesketch sind `aria-hidden`, die Hinweistexte stehen als normaler Text daneben. Die Control Bar ist vollständig per Tastatur erreichbar: Pause, Play und Reset sind Buttons, die Zeitleiste ist ein Slider und lässt sich mit den Pfeiltasten (Pos1/Ende für Anfang/Ende) verschieben; der Timecode steht als Wert am Slider.
