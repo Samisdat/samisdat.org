@@ -58,7 +58,7 @@ const Device = styled.div`
 `;
 
 const Controls = styled.div`
-    flex: 1 1 12rem;
+    flex: 1 1 8rem;
     min-width: 0;
     display: flex;
     flex-direction: column;

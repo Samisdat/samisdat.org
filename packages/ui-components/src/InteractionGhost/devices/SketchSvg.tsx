@@ -4,11 +4,17 @@ import type { ReactNode } from 'react';
 
 const Svg = styled.svg`
     display: block;
-    width: 112px;
-    height: auto;
+    /* fills the height of the control bar; the width follows from the aspect ratio */
+    height: 6rem;
+    width: auto;
     aspect-ratio: 88 / 52;
     color: inherit;
     transition: opacity 0.3s ease;
+
+    /* on phones the controls wrap below the sketch, keep it compact there */
+    @media (max-width: 480px) {
+        height: 4rem;
+    }
 
     .sk {
         fill: none;
@@ -34,7 +40,12 @@ const Svg = styled.svg`
 `;
 
 export const SketchSvg = ({ dimmed, children }: { dimmed: boolean; children: ReactNode }) => (
-    <Svg viewBox="0 0 88 52" aria-hidden="true" focusable="false" style={{ opacity: dimmed ? 0.35 : 1 }}>
+    <Svg
+        viewBox="0 0 88 52"
+        aria-hidden="true"
+        focusable="false"
+        style={{ opacity: dimmed ? 0.35 : 1 }}
+    >
         {children}
     </Svg>
 );
