@@ -5,7 +5,11 @@ import { useEffect, useRef } from 'react';
 
 import { GhostOverlay, type PhaseLabels } from './GhostOverlay';
 import { scriptDevice } from './script';
-import { useInteractionGhost, type InteractionGhost as GhostState, type UseInteractionGhostOptions } from './useInteractionGhost';
+import {
+    useInteractionGhost,
+    type InteractionGhost as GhostState,
+    type UseInteractionGhostOptions,
+} from './useInteractionGhost';
 
 import type { NormSource } from '@samisdat/tools';
 import type { ReactNode } from 'react';
@@ -47,7 +51,6 @@ export const GhostStage = ({ ghost, script, children, hint, aspectRatio = 3 / 2,
                         still={reducedMotion ? script : undefined}
                         labels={labels}
                         kind={scriptDevice(script)}
-                        norm={frame.norm}
                     />
                 )}
             </Stage>
@@ -73,7 +76,14 @@ export type InteractionGhostProps = UseInteractionGhostOptions & {
  * Plays `script` over the demo and hands control to the person as soon as they touch or move the pointer.
  * `<InteractionGhost script={s} playing>{(source) => <Demo source={source} />}</InteractionGhost>`
  */
-export const InteractionGhost = ({ children, hint, aspectRatio, labels, restartToken = 0, ...options }: InteractionGhostProps) => {
+export const InteractionGhost = ({
+    children,
+    hint,
+    aspectRatio,
+    labels,
+    restartToken = 0,
+    ...options
+}: InteractionGhostProps) => {
     const ghost = useInteractionGhost(options);
     const { restart } = ghost;
     const restartRef = useRef(restart);

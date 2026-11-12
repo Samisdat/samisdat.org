@@ -7,7 +7,6 @@ import { scriptPaths } from './scriptPaths';
 import { Trail } from './Trail';
 
 import type { Finger, Phase, Script } from './script';
-import type { Norm } from '@samisdat/tools';
 
 const Svg = styled.svg`
     position: absolute;
@@ -42,10 +41,8 @@ export type GhostOverlayProps = {
     /** Shows the static path overview of this script instead of the live ghost. */
     still?: Script;
     labels?: PhaseLabels;
-    /** Device the marker stands for (default 'touch'). */
+    /** Device the marker stands for (default 'touch'); 'tilt' draws no marker. */
     kind?: GhostMarkerKind;
-    /** Current scene norm; the tilt marker rolls its ball with it. */
-    norm?: Norm;
 };
 
 /** Trail history, derived while rendering (no extra commit per frame). */
@@ -68,7 +65,6 @@ export const GhostOverlay = ({
     still,
     labels = DEFAULT_PHASE_LABELS,
     kind = 'touch',
-    norm,
 }: GhostOverlayProps) => {
     const height = VIEW_WIDTH / aspectRatio;
     const toSvg = (x: number, y: number): XY => ({ x: (x + 1) * (VIEW_WIDTH / 2), y: (y + 1) * (height / 2) });
@@ -93,7 +89,7 @@ export const GhostOverlay = ({
     }
 
     const tilting = kind === 'tilt';
-    // the tilt ring sits in the middle of the demo, the ball rolls with the norm
+    // tilting has no marker; its phase label sits in the middle of the demo
     const at = tilting ? { x: VIEW_WIDTH / 2, y: height / 2 } : toSvg(finger.x, finger.y);
 
     return (
@@ -114,7 +110,6 @@ export const GhostOverlay = ({
                 down={finger.down}
                 kind={kind}
                 age={finger.age / 1000}
-                norm={norm}
             />
             {phase && finger.presence > 0 && (
                 <text

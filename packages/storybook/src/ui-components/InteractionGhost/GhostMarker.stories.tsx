@@ -14,10 +14,10 @@ const meta = {
         presence: { control: { type: 'range', min: 0, max: 1, step: 0.01 } },
         x: { control: { type: 'range', min: 10, max: 120, step: 1 } },
         y: { control: { type: 'range', min: 10, max: 85, step: 1 } },
-        kind: { control: 'inline-radio', options: ['pad', 'touch', 'mouse', 'tilt'] },
+        kind: { control: 'inline-radio', options: ['pad', 'touch', 'mouse'] },
     },
     decorators: [
-        (Story) => (
+        Story => (
             <Stage>
                 <Story />
             </Stage>
@@ -35,11 +35,10 @@ export const Touch: Story = { args: { kind: 'touch', down: true, age: 0.2 } };
 export const Pad: Story = { args: { kind: 'pad' } };
 export const Mouse: Story = { args: { kind: 'mouse' } };
 export const MouseDown: Story = { args: { kind: 'mouse', down: true, age: 0.15 } };
-export const Tilt: Story = { args: { kind: 'tilt', norm: { x: 0.6, y: -0.4 } } };
 export const CustomColor: Story = {
     args: { kind: 'mouse' },
     decorators: [
-        (Story) => (
+        Story => (
             <g style={{ ['--ghost-color' as string]: 'var(--color-ink-ruby)' }}>
                 <Story />
             </g>
