@@ -13,7 +13,55 @@ Die Wiedergabe startet einmal, wenn die Demo in den Viewport scrollt. Die Contro
 
 Das Trackpad ist der Standard: ein runder Punkt tippt und zieht.
 
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+
 <DemoGhostSectors device="pad" resumeAfterMs={3500} loop />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+
+{/*prettier-ignore*/}
+
+```js
+const { clientX: x, clientY: y } = event;
+const position = { x, y };
+
+console.log(position);
+// !placeholder pixelX 0.00
+// !placeholder pixelY 0.00#2
+{ x: 0.00, y: 0.00 }
+
+const relative: Position = {
+  x: position.x / element.width,
+  y: position.y / element.height 
+};
+
+const normalised = {
+  x: (relative.x - 0.5) * 2,
+  y: (relative.y - 0.5) * 2,
+};
+
+console.log(normalised);
+// !placeholder normX 0.00
+// !placeholder normY 0.00#2
+{ x: 0.00, y: 0.00 }
+/**
+ * {x:-1, y:-1} is top left, {y:0,y:0} and
+ * {1,1} ist bottom right
+ */
+```
+
+    </Stack>
+
+  </Stack>
+</DemoContext>
 
 ## Maus
 
