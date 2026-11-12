@@ -88,21 +88,22 @@ export const GhostOverlay = ({
         );
     }
 
-    const tilting = kind === 'tilt';
-    // tilting has no marker; its phase label sits in the middle of the demo
-    const at = tilting ? { x: VIEW_WIDTH / 2, y: height / 2 } : toSvg(finger.x, finger.y);
+    // tilting has no contact point: no marker, trail or label, the scene and the sketch in the bar carry it
+    if (kind === 'tilt') {
+        return null;
+    }
+
+    const at = toSvg(finger.x, finger.y);
 
     return (
         <Svg
             aria-hidden="true"
             viewBox={`0 0 ${VIEW_WIDTH} ${height}`}
         >
-            {!tilting && (
-                <Trail
-                    points={trail}
-                    presence={finger.presence}
-                />
-            )}
+            <Trail
+                points={trail}
+                presence={finger.presence}
+            />
             <GhostMarker
                 x={at.x}
                 y={at.y}

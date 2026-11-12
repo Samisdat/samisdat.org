@@ -82,16 +82,10 @@ const LEVEL: V3[] = Array.from({ length: 25 }, (_, i) => [
     PD + 0.1,
 ]);
 
-const deg = (rad: number) => {
-    const d = Math.round((rad * 180) / Math.PI);
-
-    return `${d < 0 ? '−' : '+'}${Math.abs(d)}°`;
-};
-
 export const TiltSketch = ({ frame }: SketchProps) => {
     const beta = frame.tilt?.beta ?? frame.norm.y * MAX_TILT;
     const gamma = frame.tilt?.gamma ?? frame.norm.x * MAX_TILT;
-    // the wireframe turns twice as far as recorded, so the small sketch shows the movement; the numbers stay real
+    // the wireframe turns twice as far as recorded, so the small sketch shows the movement
     const [cb, sb, cg, sg] = [
         Math.cos(beta * EXAGGERATION),
         Math.sin(beta * EXAGGERATION),
@@ -109,7 +103,8 @@ export const TiltSketch = ({ frame }: SketchProps) => {
         const [a, b, c] = rot(p);
         const k = 110 / (110 - c);
 
-        return [36 + a * k, 26 + b * k, k];
+        // centered in the 88 x 52 box now that no numbers sit beside it
+        return [44 + a * k, 26 + b * k, k];
     };
     const points = (list: V3[]) =>
         list
@@ -144,16 +139,6 @@ export const TiltSketch = ({ frame }: SketchProps) => {
                 cy={ball[1]}
                 r={1.2 * ball[2]}
             />
-            <text
-                className="sk-text"
-                x={60}
-                y={22}
-            >{`β ${deg(beta)}`}</text>
-            <text
-                className="sk-text"
-                x={60}
-                y={31}
-            >{`γ ${deg(gamma)}`}</text>
         </>
     );
 };
