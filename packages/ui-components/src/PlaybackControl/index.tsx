@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
 import { PlayPauseButton } from './PlayPauseButton';
 import { Row, SpeedControls } from './SpeedControls';
@@ -16,7 +16,7 @@ const Icon = styled.span`
 
 const Styling = styled.div`
     border: 1px solid var(--color-border-default);
-    padding: 1rem;
+    padding: 0.5rem;
     font-family: var(--font-code);
     font-weight: bold;
     background-color: var(--color-ink-gold);
@@ -40,12 +40,70 @@ const Styling = styled.div`
     row-gap: 0.5rem;
 `;
 
-const Notice = styled.div`
+/* Recording variant: sketch and controls share the first row, the notice spans both columns below.
+   No row gap, the notice brings its own padding, so a collapsed notice adds no height. */
+const RecordingBar = styled(Styling)`
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    row-gap: 0;
+`;
+
+/* The notice sits in a grid row that grows from 0fr to 1fr, so the bar changes height instead of popping. */
+const NoticeSlot = styled.div`
     flex: 0 0 100%;
-    margin-top: 0.5rem;
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+
+    &[data-open='true'] {
+        grid-template-rows: 1fr;
+    }
+
+    @starting-style {
+        &[data-open='true'] {
+            grid-template-rows: 0fr;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        transition: none;
+    }
+`;
+
+const NoticeClip = styled.div`
+    min-height: 0;
+    overflow: hidden;
+`;
+
+const Notice = styled.div`
+    padding-top: 0.5rem;
     font-size: 0.85em;
     opacity: 0.8;
 `;
+
+/** Keeps the last text while the slot collapses, so it does not vanish before the height has animated. */
+const NoticeText = ({ notice }: { notice?: string }) => {
+    const [text, setText] = useState(notice ?? '');
+
+    if (notice && notice !== text) setText(notice);
+    if (!text) return null;
+
+    return (
+        <NoticeSlot
+            data-open={Boolean(notice)}
+            aria-hidden={!notice}
+            onTransitionEnd={event => {
+                // once collapsed, drop the slot so the bar's row gap does not leave a trace
+                if (!notice && event.propertyName === 'grid-template-rows') setText('');
+            }}
+        >
+            <NoticeClip>
+                <Notice>{text}</Notice>
+            </NoticeClip>
+        </NoticeSlot>
+    );
+};
 
 const ExtraRow = styled.div`
     flex: 0 0 100%;
@@ -91,7 +149,7 @@ const Timecode = styled.span`
 
 const Footer = ({ notice, extra }: Pick<PlaybackControlProps, 'notice' | 'extra'>) => (
     <>
-        {notice && <Notice>{notice}</Notice>}
+        <NoticeText notice={notice} />
         {extra && <ExtraRow>{extra}</ExtraRow>}
     </>
 );
@@ -186,7 +244,7 @@ export const PlaybackControl = ({
     }
 
     return (
-        <Styling>
+        <RecordingBar>
             {device && <Device aria-hidden="true">{device}</Device>}
             <Controls>
                 <ControlRow>
@@ -205,6 +263,6 @@ export const PlaybackControl = ({
                 )}
             </Controls>
             {footer}
-        </Styling>
+        </RecordingBar>
     );
 };

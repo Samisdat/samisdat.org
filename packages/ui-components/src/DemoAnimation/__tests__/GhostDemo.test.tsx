@@ -4,9 +4,8 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GhostDemo, type GhostDemoProps } from '../GhostDemo';
 
-import type { Norm, NormSource } from '@samisdat/tools';
-
 import type { Script } from '../../InteractionGhost/script';
+import type { Norm, NormSource } from '@samisdat/tools';
 
 (globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }).IS_REACT_ACT_ENVIRONMENT = true;
 
@@ -27,7 +26,7 @@ let norms: Norm[];
 let latestSource: NormSource | undefined;
 let host: HTMLDivElement;
 
-const button = (name: RegExp) => [...host.querySelectorAll('button')].find((b) => name.test(b.textContent ?? ''))!;
+const button = (name: RegExp) => [...host.querySelectorAll('button')].find(b => name.test(b.textContent ?? ''))!;
 const click = (name: RegExp) => act(() => button(name).click());
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms));
 
@@ -49,7 +48,9 @@ const mount = (props: Partial<GhostDemoProps> = {}) =>
     );
 
 beforeEach(() => {
-    vi.useFakeTimers({ toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout', 'clearTimeout'] });
+    vi.useFakeTimers({
+        toFake: ['requestAnimationFrame', 'cancelAnimationFrame', 'performance', 'setTimeout', 'clearTimeout'],
+    });
     vi.stubGlobal('IntersectionObserver', MockObserver);
     vi.stubGlobal('matchMedia', () => ({
         matches: false,
@@ -118,7 +119,13 @@ describe('GhostDemo', () => {
     describe('control bar wiring', () => {
         const stage = () => host.querySelector('[data-testid="demo"]')!.parentElement!;
         const slider = () => host.querySelector<HTMLInputElement>('input[type="range"]')!;
-        const text = () => host.textContent ?? '';
+        // a collapsing notice keeps its text but is aria-hidden, so only visible-to-assistive text counts
+        const text = () => {
+            const copy = host.cloneNode(true) as HTMLElement;
+            copy.querySelectorAll('[aria-hidden="true"]').forEach(node => node.remove());
+
+            return copy.textContent ?? '';
+        };
         const seek = (to: number) =>
             act(() => {
                 const setter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')!.set!;
@@ -140,9 +147,10 @@ describe('GhostDemo', () => {
         });
 
         it('seek sets position and scene without taking over', () => {
-            latestSource!.subscribe((n) => norms.push(n));
+            latestSource!.subscribe(n => norms.push(n));
             seek(1.2);
-            expect(text()).toContain('00:01.20');
+            // the timecode is aria-hidden, so it is not part of text()
+            expect(host.textContent).toContain('00:01.20');
             expect(norms.at(-1)).toEqual({ x: 0.5, y: 0.5 });
             expect(text()).not.toContain('Du steuerst');
             expect(button(/Play/)).toBeTruthy();
