@@ -8,7 +8,8 @@ const Pill = styled.rect`
 
 const Label = styled.text`
     fill: var(--ghost-color, var(--ghost-kind-color));
-    font: 600 3.6px sans-serif;
+    font-size: 3.6px;
+    font-weight: 600;
     font-family: inherit;
 `;
 
@@ -25,8 +26,17 @@ const HEIGHT = 5.6;
 /** Pill with a short label; takes its color from the surrounding marker group. */
 export const NameTag = ({ x, y, label = 'Demo' }: NameTagProps) => (
     <g aria-hidden="true">
-        <Pill x={x} y={y} width={WIDTH} height={HEIGHT} rx={HEIGHT / 2} />
-        <Label x={x + 2.6} y={y + 4}>
+        <Pill
+            x={x}
+            y={y}
+            width={WIDTH}
+            height={HEIGHT}
+            rx={HEIGHT / 2}
+        />
+        <Label
+            x={x + 2.6}
+            y={y + 4}
+        >
             {label}
         </Label>
     </g>
