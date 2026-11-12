@@ -1,26 +1,17 @@
 import { styled } from '@linaria/react';
-import { ChangeEvent, MouseEvent, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { RangeSlider } from './RangeSlider';
+import { PlayPauseButton } from './PlayPauseButton';
+import { Row, SpeedControls } from './SpeedControls';
+import { formatTimecode, Timeline, type Mark, type TimelineProps } from './Timeline';
+
+export { PlayPauseButton };
+export type { Mark, TimelineProps };
 
 const Icon = styled.span`
     display: inline-block;
     width: 1ch;
     text-align: center;
-`;
-
-export const PlayPauseButton = styled.button`
-    /* ghost button */
-    appearance: none;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: inherit;
-    text-align: inherit;
-    cursor: pointer;
-    background-color: transparent;
 `;
 
 const Styling = styled.div`
@@ -49,39 +40,6 @@ const Styling = styled.div`
     row-gap: 0.5rem;
 `;
 
-const Row = styled.div`
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-`;
-
-const SpeedRow = styled(Row)`
-    flex: 1 1 22rem;
-    min-width: 0;
-
-    /* Below ~320px the label no longer fits next to the slider, so it wraps */
-    flex-wrap: wrap;
-    row-gap: 0.5rem;
-`;
-
-const SliderWrap = styled.span`
-    display: flex;
-    align-items: center;
-    flex: 1 1 8rem;
-    min-width: 8rem;
-
-    & > input {
-        flex: 1 1 auto;
-        min-width: 0;
-    }
-`;
-
-const SpeedLabel = styled.span`
-    display: inline-block;
-    flex: none;
-    white-space: pre;
-`;
-
 const Notice = styled.div`
     flex: 0 0 100%;
     margin-top: 0.5rem;
@@ -94,19 +52,42 @@ const ExtraRow = styled.div`
     margin-top: 0.5rem;
 `;
 
-const formatSpeed = (speed: number) => `${Number(speed.toFixed(2))}x`;
+const Device = styled.div`
+    flex: none;
+    color: inherit;
+`;
 
-const countDecimals = (value: number) => Math.min(2, (String(value).split('.')[1] ?? '').length);
+const Controls = styled.div`
+    flex: 1 1 12rem;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
-/** Width in ch of the longest label the slider range can produce. */
-const getLabelWidth = (min: number, max: number, step: number) => {
-    const decimals = Math.max(countDecimals(step), countDecimals(min));
-    const digits = Math.max(String(Math.trunc(min)).length, String(Math.trunc(max)).length);
-    const number = digits + (decimals > 0 ? decimals + 1 : 0);
+    /* Rows size to their content; the speed row's wrap basis only applies in the horizontal layout */
+    && > * {
+        flex: 0 0 auto;
+    }
+`;
 
-    // " Speed (" + number + "x)"
-    return 8 + number + 2;
-};
+const ControlRow = styled(Row)`
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+`;
+
+const Timecode = styled.span`
+    margin-left: auto;
+    padding-left: 1ch;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+`;
+
+const Footer = ({ notice, extra }: Pick<PlaybackControlProps, 'notice' | 'extra'>) => (
+    <>
+        {notice && <Notice>{notice}</Notice>}
+        {extra && <ExtraRow>{extra}</ExtraRow>}
+    </>
+);
 
 export interface PlaybackControlProps {
     isPlaying: boolean;
@@ -119,6 +100,10 @@ export interface PlaybackControlProps {
     notice?: string;
     /** Slot for a demo-specific control (e.g. a checkbox) rendered below the playback row. */
     extra?: ReactNode;
+    /** Sketch rendered left of the rows; inherits currentColor. */
+    device?: ReactNode;
+    /** Adds a seekable timeline row with a timecode and event marks. */
+    timeline?: TimelineProps;
     onPlay: () => void;
     onPause: () => void;
     onReset: () => void;
@@ -135,94 +120,84 @@ export const PlaybackControl = ({
     resetControl: _resetControl = true,
     notice,
     extra,
+    device,
+    timeline,
     onPlay,
     onPause,
     onReset,
     onSpeedChange,
 }: PlaybackControlProps) => {
-    const handleSpeedChange = (e: ChangeEvent<HTMLInputElement>) => {
-        onSpeedChange(Number(e.target.value));
-    };
+    const playRow = (
+        <>
+            {isPlaying ? (
+                <PlayPauseButton
+                    type="button"
+                    onClick={onPause}
+                >
+                    [ <Icon>⏸</Icon> Pause ]
+                </PlayPauseButton>
+            ) : (
+                <PlayPauseButton
+                    type="button"
+                    onClick={onPlay}
+                >
+                    [ <Icon>▶</Icon> Play ]
+                </PlayPauseButton>
+            )}
+            <PlayPauseButton
+                type="button"
+                onClick={onReset}
+            >
+                [ ↺ Reset ]
+            </PlayPauseButton>
+        </>
+    );
 
-    const handleSpeedIncrement = (e: MouseEvent<HTMLButtonElement>) => {
-        const direction = e.currentTarget.value;
-        const delta = direction === 'increment' ? speedStep : -speedStep;
-        onSpeedChange(Math.min(speedMax, Math.max(speedMin, speed + delta)));
-    };
+    const footer = (
+        <Footer
+            notice={notice}
+            extra={extra}
+        />
+    );
 
-    const getSpeedControls = () => {
-        if (!speedControl) {
-            return null;
-        }
-
+    if (!device && !timeline) {
         return (
-            <SpeedRow>
-                <PlayPauseButton
-                    type="button"
-                    value="decrement"
-                    onClick={handleSpeedIncrement}
-                >
-                    [ - ]
-                </PlayPauseButton>
-                <SliderWrap>
-                    [
-                    <RangeSlider
-                        aria-label="Speed"
-                        onChange={handleSpeedChange}
-                        step={speedStep}
-                        min={speedMin}
-                        max={speedMax}
-                        value={speed}
+            <Styling>
+                <Row>{playRow}</Row>
+                {speedControl && (
+                    <SpeedControls
+                        speed={speed}
+                        speedMin={speedMin}
+                        speedMax={speedMax}
+                        speedStep={speedStep}
+                        onSpeedChange={onSpeedChange}
                     />
-                    ]
-                </SliderWrap>
-                <PlayPauseButton
-                    type="button"
-                    value="increment"
-                    onClick={handleSpeedIncrement}
-                >
-                    [ + ]
-                </PlayPauseButton>
-                <SpeedLabel
-                    style={{
-                        width: `${getLabelWidth(speedMin, speedMax, speedStep)}ch`,
-                    }}
-                >
-                    {' '}
-                    Speed ({formatSpeed(speed)})
-                </SpeedLabel>
-            </SpeedRow>
+                )}
+                {footer}
+            </Styling>
         );
-    };
+    }
 
     return (
         <Styling>
-            <Row>
-                {isPlaying ? (
-                    <PlayPauseButton
-                        type="button"
-                        onClick={onPause}
-                    >
-                        [ <Icon>⏸</Icon> Pause ]
-                    </PlayPauseButton>
-                ) : (
-                    <PlayPauseButton
-                        type="button"
-                        onClick={onPlay}
-                    >
-                        [ <Icon>▶</Icon> Play ]
-                    </PlayPauseButton>
+            {device && <Device aria-hidden="true">{device}</Device>}
+            <Controls>
+                <ControlRow>
+                    {playRow}
+                    {timeline && <Timecode aria-hidden="true">{formatTimecode(timeline.position)}</Timecode>}
+                </ControlRow>
+                {timeline && <Timeline {...timeline} />}
+                {speedControl && (
+                    <SpeedControls
+                        speed={speed}
+                        speedMin={speedMin}
+                        speedMax={speedMax}
+                        speedStep={speedStep}
+                        onSpeedChange={onSpeedChange}
+                    />
                 )}
-                <PlayPauseButton
-                    type="button"
-                    onClick={onReset}
-                >
-                    [ ↺ Reset ]
-                </PlayPauseButton>
-            </Row>
-            {getSpeedControls()}
-            {notice && <Notice>{notice}</Notice>}
-            {extra && <ExtraRow>{extra}</ExtraRow>}
+            </Controls>
+            {footer}
         </Styling>
     );
 };

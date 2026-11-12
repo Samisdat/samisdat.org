@@ -39,6 +39,10 @@ const Styling = styled.input`
         background: var(--color-surface-default);
     }
 
+    &:focus-visible {
+        outline: none;
+    }
+
     &:focus-visible::-webkit-slider-thumb {
         outline: 2px solid var(--color-surface-default);
         outline-offset: 2px;
