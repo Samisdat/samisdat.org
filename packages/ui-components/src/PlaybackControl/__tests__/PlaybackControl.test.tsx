@@ -61,24 +61,10 @@ describe('PlaybackControl', () => {
         expect(host.textContent).toContain('00:03.42');
         expect(host.textContent).toContain('Takeover');
         expect(host.querySelector('input[aria-label="Speed"]')).toBeNull();
-        // marks sit on the track as three decorative elements, no label while the position is outside every mark
+        // marks sit on the track as three decorative elements; their names are shown by the overlay, not the bar
         expect(host.querySelectorAll('div[aria-hidden="true"] > span')).toHaveLength(3);
         expect(host.textContent).not.toContain('Click');
         expect(host.textContent).not.toContain('Pan');
-    });
-
-    it('shows only the label of the mark around the position', () => {
-        act(() =>
-            root.render(
-                <PlaybackControl
-                    {...base}
-                    timeline={{ position: 2.5, duration: 6, marks, onSeek: () => {} }}
-                />
-            )
-        );
-
-        expect(host.textContent).toContain('Pan');
-        expect(host.textContent).not.toContain('Click');
     });
 
     it('exposes the timecode as aria-valuetext and calls onSeek', () => {

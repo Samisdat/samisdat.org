@@ -14,9 +14,6 @@ export interface TimelineProps {
     onSeek: (position: number) => void;
 }
 
-/** Seconds a point mark keeps its label visible. */
-const POINT_LABEL_SECONDS = 0.8;
-
 export const formatTimecode = (seconds: number) => {
     const total = Math.floor(Math.max(0, seconds) * 100 + 1e-6);
     const hundredths = String(total % 100).padStart(2, '0');
@@ -73,19 +70,6 @@ const Bar = styled.span`
 
 const percent = (seconds: number, duration: number) =>
     duration > 0 ? Math.min(100, Math.max(0, (seconds / duration) * 100)) : 0;
-
-const getRange = (mark: Mark) => ('at' in mark ? [mark.at, mark.at + POINT_LABEL_SECONDS] : [mark.from, mark.to]);
-
-/** Label of the mark the position currently sits in, if it has one. */
-export const activeMarkLabel = (marks: Mark[], position: number) => {
-    const active = marks.find(mark => {
-        const [start, end] = getRange(mark);
-
-        return mark.label && position >= start && position < end;
-    });
-
-    return active?.label;
-};
 
 const MarkView = ({ mark, duration }: { mark: Mark; duration: number }) =>
     'at' in mark ? (

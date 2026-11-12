@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { PlayPauseButton } from './PlayPauseButton';
 import { Row, SpeedControls } from './SpeedControls';
-import { activeMarkLabel, formatTimecode, Timeline, type Mark, type TimelineProps } from './Timeline';
+import { formatTimecode, Timeline, type Mark, type TimelineProps } from './Timeline';
 
 export { PlayPauseButton };
 export type { Mark, TimelineProps };
@@ -61,6 +61,7 @@ const Device = styled.div`
 const Controls = styled.div`
     flex: 1 1 8rem;
     min-width: 0;
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -76,16 +77,16 @@ const ControlRow = styled(Row)`
     row-gap: 0.25rem;
 `;
 
-const MarkLabel = styled.span`
+const Timecode = styled.span`
     margin-left: auto;
     padding-left: 1ch;
     font-weight: 500;
-`;
-
-const Timecode = styled.span`
-    padding-left: 1ch;
-    font-weight: 500;
     font-variant-numeric: tabular-nums;
+
+    /* the buttons keep their row; without room for the time it is dropped instead of wrapping */
+    @container (max-width: 19rem) {
+        display: none;
+    }
 `;
 
 const Footer = ({ notice, extra }: Pick<PlaybackControlProps, 'notice' | 'extra'>) => (
@@ -190,14 +191,7 @@ export const PlaybackControl = ({
             <Controls>
                 <ControlRow>
                     {playRow}
-                    {timeline && (
-                        <>
-                            <MarkLabel aria-hidden="true">
-                                {activeMarkLabel(timeline.marks, timeline.position)}
-                            </MarkLabel>
-                            <Timecode aria-hidden="true">{formatTimecode(timeline.position)}</Timecode>
-                        </>
-                    )}
+                    {timeline && <Timecode aria-hidden="true">{formatTimecode(timeline.position)}</Timecode>}
                 </ControlRow>
                 {timeline && <Timeline {...timeline} />}
                 {speedControl && (
