@@ -8,4 +8,5 @@ export { DemoParallaxSectors } from './Sectors';
 export { DemoParallaxScroll } from './Scroll';
 
 export { DemoGhostHills } from './GhostHills';
+export { DemoGhostRecorder } from './GhostRecorderDemo';
 export { DemoGhostSectors } from './GhostSectors';

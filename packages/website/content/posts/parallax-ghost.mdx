@@ -110,6 +110,12 @@ const script = defineScript('mouse', [
 
 Bei `prefers-reduced-motion: reduce` startet nichts von selbst. Statt der Animation zeigt die Demo ein Standbild der Geste (Tap als gestrichelter Zielkreis, Pan als Pfad mit Pfeil) und einen Hinweis. Erst Play oder ein Sprung auf der Zeitleiste spielt den Ghost ab.
 
+## Aufnehmen
+
+Eigene Pfade lassen sich aufnehmen. Wähle Trackpad/Touch oder Maus, starte die Aufnahme und bewege dich über die Demo; ein Zug mit gedrückter Taste wird ein `pan`, eine Bewegung ohne Taste ein `move`, ein Klick ein `click`, längere Pausen ein `wait`. Der Regler vereinfacht den Pfad auf wenige Wegpunkte (die Roh-Spur bleibt gestrichelt darunter sichtbar), und das fertige Skript lässt sich kopieren und abspielen. Das Werkzeug erscheint nur in der Entwicklung, nicht in der Produktion.
+
+<DemoGhostRecorder />
+
 ## Tastatur
 
 Die Demo selbst reagiert nur auf Zeiger und Touch. Marker und Gerätesketch sind `aria-hidden`, die Hinweistexte stehen als normaler Text daneben. Die Control Bar ist vollständig per Tastatur erreichbar: Pause, Play und Reset sind Buttons, die Zeitleiste ist ein Slider und lässt sich mit den Pfeiltasten (Pos1/Ende für Anfang/Ende) verschieben; der Timecode steht als Wert am Slider.
