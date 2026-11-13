@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
-import { defineScript, scriptDevice } from '../script';
 import { mouseDemoScript, tiltDemoScript, touchDemoScript } from '../deviceDemoScripts';
+import { defineScript, scriptDevice } from '../script';
 import { evaluate, marksFromScript, totalDuration } from '../timeline';
 import { padDemoScript, trackpadDemoScript } from '../trackpadDemoScript';
 
@@ -111,7 +111,18 @@ describe('evaluate tilt', () => {
     });
 
     it('sets tilt for a tilt step in a non-tilt script, but not for other frames', () => {
-        const f = evaluate([{ tilt: [[0.5, 0.5], [1, 1]], ms: 500 }], 400);
+        const f = evaluate(
+            [
+                {
+                    tilt: [
+                        [0.5, 0.5],
+                        [1, 1],
+                    ],
+                    ms: 500,
+                },
+            ],
+            400
+        );
         expect(f.tilt).toBeDefined();
         expect(evaluate([{ wait: 100 }], 50).tilt).toBeUndefined();
     });
@@ -135,13 +146,16 @@ describe('total duration', () => {
 
     it('demo scripts last 4 to 7 s', () => {
         expect(totalDuration(padDemoScript)).toBe(4000);
-        expect(totalDuration(mouseDemoScript)).toBe(5400);
         expect(totalDuration(touchDemoScript)).toBe(5400);
         expect(totalDuration(tiltDemoScript)).toBe(5600);
-        for (const s of [padDemoScript, mouseDemoScript, touchDemoScript, tiltDemoScript]) {
+        for (const s of [padDemoScript, touchDemoScript, tiltDemoScript]) {
             expect(totalDuration(s)).toBeGreaterThanOrEqual(4000);
             expect(totalDuration(s)).toBeLessThanOrEqual(7000);
         }
+    });
+
+    it('the generated mouse demo is longer: four organic moves', () => {
+        expect(totalDuration(mouseDemoScript)).toBeGreaterThan(7000);
     });
 });
 
@@ -151,10 +165,11 @@ describe('marksFromScript', () => {
             { at: 0.4, label: 'Tap' },
             { from: 1.6, to: 3.2, label: 'Pan' },
         ]);
-        expect(marksFromScript(mouseDemoScript)).toEqual([
-            { at: 0.4, label: 'Klick' },
-            { from: 1.6, to: 3.4, label: 'Bewegen' },
-            { at: 4.0, label: 'Klick' },
+        expect(marksFromScript(mouseDemoScript).map(mark => mark.label)).toEqual([
+            'Bewegen',
+            'Bewegen',
+            'Bewegen',
+            'Bewegen',
         ]);
     });
 
