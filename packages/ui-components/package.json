@@ -47,7 +47,7 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^8.0.10",
+    "@babel/runtime": "^8.1.0",
     "@fortawesome/fontawesome-svg-core": "catalog:",
     "@fortawesome/free-regular-svg-icons": "catalog:",
     "@fortawesome/free-solid-svg-icons": "catalog:",
