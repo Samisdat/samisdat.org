@@ -60,6 +60,7 @@
     "culori": "^4.0.2",
     "fs-extra": "catalog:",
     "normalize.css": "catalog:",
+    "qrcode-generator": "^2.0.4",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-shiki": "^0.11.2",
