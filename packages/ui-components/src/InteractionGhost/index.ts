@@ -12,3 +12,5 @@ export { TAKEOVER_DISTANCE } from './takeover';
 export { RESUME_BLEND_MS, TAKEOVER_BLEND_MS } from './composedSource';
 export { RIPPLE_MS, type PhaseLabels } from './GhostOverlay';
 export type { ClickStep, Device, Finger, Frame, MoveStep, PanStep, Phase, Point, Press, Script, Step, TapStep, Tilt, TiltStep, WaitStep } from './script';
+export { GhostRecorder, normFromPointer, recordScript, scriptToSnippet, type GhostRecorderProps } from './recorder';
+export type { RecordedEvent, RecordedEventType, RecordOptions } from './recorder';
