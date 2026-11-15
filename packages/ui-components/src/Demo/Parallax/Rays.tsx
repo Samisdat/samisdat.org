@@ -1,14 +1,15 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 
 import { DemoAnimation } from '../../DemoAnimation';
 import { SPEED_MULTIPLIER_PROPS } from '../../PlaybackControl/useSpeedDuration';
 import { MapView } from './rays/MapView';
 import { panoramaTheme } from './rays/panoramaTheme';
+import { resetRide, rideStyle, setRideSpeed, useRideSync } from './rays/ride';
 import { XMIN } from './rays/scene';
-import { createRaysState, useRaysClock } from './rays/state';
+import { createRaysState } from './rays/state';
 import { WindowView } from './rays/WindowView';
 
 /* Semantic tokens only; the demo is dark by design (force-theme-dark). */
@@ -123,24 +124,23 @@ const Styling = styled.div`
 `;
 
 /**
- * Train passing trees, a house and hills: top-down map with sight rays and the angle each ray swept in the
- * last half second, and below it the window view of the same scene.
+ * Train passing trees, a house and hills: the window view, and below it the top-down map with sight rays and
+ * the angle each ray swept in the last half second.
  */
 export const DemoParallaxRays = ({ variant = 'tokens' }: { variant?: 'tokens' | 'panorama' }) => {
     const ids = [useId(), useId()];
-    const [state] = useState(() => createRaysState(false));
+    const ref = useRef<HTMLDivElement | null>(null);
+    const [state] = useState(() => createRaysState());
     const [isPlaying, setIsPlaying] = useState(false);
     const [speed, setSpeed] = useState(1);
 
-    useRaysClock(state);
+    useRideSync(state, ref, isPlaying);
     useEffect(() => {
-        state.setPlaying(isPlaying);
-    }, [isPlaying, state]);
-    useEffect(() => {
-        state.setSpeed(speed);
-    }, [speed, state]);
+        setRideSpeed(ref.current, speed);
+    }, [speed]);
 
     const onReset = () => {
+        resetRide(ref.current);
         state.set(XMIN, 1);
         setIsPlaying(false);
         setSpeed(1);
@@ -159,9 +159,20 @@ export const DemoParallaxRays = ({ variant = 'tokens' }: { variant?: 'tokens' | 
                 onReset,
             }}
         >
-            <Styling className={`force-theme-dark ${variant === 'panorama' ? panoramaTheme : ''}`} data-variant={variant}>
-                <MapView state={state} titleId={ids[0]} />
-                <WindowView state={state} titleId={ids[1]} panorama={variant === 'panorama'} />
+            <Styling
+                ref={ref}
+                className={`force-theme-dark ${rideStyle} ${variant === 'panorama' ? panoramaTheme : ''}`}
+                style={{ animationPlayState: isPlaying ? 'running' : 'paused' }}
+                data-variant={variant}
+            >
+                <WindowView
+                    titleId={ids[1]}
+                    panorama={variant === 'panorama'}
+                />
+                <MapView
+                    state={state}
+                    titleId={ids[0]}
+                />
             </Styling>
         </DemoAnimation>
     );

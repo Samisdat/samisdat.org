@@ -137,3 +137,25 @@ export const cone = (tx: number, length = 900) => {
 
     return `M${ex},${ey}L${edge(LOOK - HALF)}L${edge(LOOK + HALF)}Z`;
 };
+
+/** Middle and half range of the ride: the train position is `NORM_MID + NORM_HALF * u` for a norm u in -1..1. */
+export const NORM_MID = (XMIN + XMAX) / 2;
+export const NORM_HALF = (XMAX - XMIN) / 2;
+
+/**
+ * Shift of a layer or sprite in the window for a ride norm u in -1..1: `400 + k * (ds - NORM_HALF * u)` with
+ * k = F / d and ds = s - NORM_MID. The CSS driven window evaluates exactly this with calc().
+ */
+export const shiftFromNorm = (u: number, s: number, d: number) => 400 + (F / d) * (s - NORM_MID - NORM_HALF * u);
+
+/** One way along the tracks, in ms. */
+export const RIDE_MS = ((XMAX - XMIN) / V) * 1000;
+
+/** Train position and direction after `ms` of the ride, which goes there and back without a jump. */
+export const rideAt = (ms: number) => {
+    const phase = ((ms % (2 * RIDE_MS)) + 2 * RIDE_MS) % (2 * RIDE_MS);
+
+    return phase < RIDE_MS
+        ? { tx: XMIN + (V * phase) / 1000, dir: 1 }
+        : { tx: XMAX - (V * (phase - RIDE_MS)) / 1000, dir: -1 };
+};

@@ -1,7 +1,28 @@
 import { describe, expect, it } from 'vitest';
 
 import { buildContours } from '../rays/contours';
-import { cone, F, HALF, HILLS, layerPath, layerX, OBJECTS, OY, project, sight, terrain, wedgeArc, XMAX, XMIN, YB } from '../rays/scene';
+import {
+    cone,
+    F,
+    HALF,
+    HILLS,
+    layerPath,
+    layerX,
+    NORM_HALF,
+    NORM_MID,
+    OBJECTS,
+    OY,
+    project,
+    RIDE_MS,
+    rideAt,
+    shiftFromNorm,
+    sight,
+    terrain,
+    wedgeArc,
+    XMAX,
+    XMIN,
+    YB,
+} from '../rays/scene';
 import { createRaysState } from '../rays/state';
 
 const wedgeAngle = (tx: number, index: number) => {
@@ -69,55 +90,38 @@ describe('contours', () => {
     });
 });
 
-describe('rays state', () => {
-    it('advances only while playing and drives there and back', () => {
-        const state = createRaysState(false);
-        state.tick(1);
-        expect(state.tx).toBe(XMIN);
+describe('ride', () => {
+    it('goes there and back without a jump', () => {
+        expect(rideAt(0)).toEqual({ tx: XMIN, dir: 1 });
+        expect(rideAt(1000).tx).toBeCloseTo(XMIN + 110);
+        expect(RIDE_MS).toBe(8000);
 
-        state.setPlaying(true);
-        state.tick(1);
-        expect(state.tx).toBeCloseTo(XMIN + 110);
+        // turns around at XMAX, one step later it is as far back as it was before
+        expect(rideAt(RIDE_MS - 50).tx).toBeCloseTo(XMAX - 5.5);
+        expect(rideAt(RIDE_MS).dir).toBe(-1);
+        expect(rideAt(RIDE_MS + 50).tx).toBeCloseTo(XMAX - 5.5);
 
-        // turns around at XMAX and keeps the overshoot: 5.5 units too far come back as 5.5 units in
-        state.set(XMAX - 1);
-        state.tick(0.05);
-        expect(state.dir).toBe(-1);
-        expect(state.tx).toBeCloseTo(XMAX - 4.5);
-
-        state.tick(0.05);
-        expect(state.tx).toBeCloseTo(XMAX - 10);
-
-        // and again at XMIN
-        state.set(XMIN + 1);
-        state.tick(0.05);
-        expect(state.dir).toBe(1);
-        expect(state.tx).toBeCloseTo(XMIN + 4.5);
+        // and again at XMIN, then it repeats
+        expect(rideAt(2 * RIDE_MS)).toEqual({ tx: XMIN, dir: 1 });
+        expect(rideAt(2 * RIDE_MS + 1000).tx).toBeCloseTo(XMIN + 110);
     });
 
-    it('scales the speed', () => {
-        const state = createRaysState(true);
-        state.setSpeed(2);
-        state.tick(1);
-        expect(state.tx).toBeCloseTo(XMIN + 220);
+    it('notifies subscribers of the state, also right away', () => {
+        const state = createRaysState();
+        const seen: number[] = [];
+        const stop = state.subscribe(tx => seen.push(tx));
+        state.set(100, -1);
+        stop();
+        state.set(200);
+
+        expect(seen).toEqual([XMIN, 100]);
+        expect(state.dir).toBe(-1);
     });
 
     it('wedges trail the movement in both directions', () => {
         const forward = sight(300, OBJECTS[2], 1).wedge;
         const back = sight(300, OBJECTS[2], -1).wedge;
         expect(forward).not.toBe(back);
-    });
-
-    it('notifies subscribers right away and on change, and stops after unsubscribe', () => {
-        const state = createRaysState(true);
-        const seen: number[] = [];
-        const off = state.subscribe(tx => seen.push(tx));
-        state.tick(0.1);
-        off();
-        state.tick(0.1);
-
-        expect(seen).toHaveLength(2);
-        expect(seen[0]).toBe(XMIN);
     });
 });
 
@@ -131,5 +135,17 @@ describe('hill layers', () => {
         expect(path.startsWith(`M-500,${Math.round(YB * 100) / 100}`)).toBe(true);
         expect(path.endsWith('Z')).toBe(true);
         expect(path).not.toBe(layerPath(narrow));
+    });
+});
+
+describe('ride norm', () => {
+    it('shiftFromNorm matches the layer shift at the same train position', () => {
+        for (const u of [-1, -0.3, 0, 0.7, 1]) {
+            for (const hill of HILLS) {
+                expect(shiftFromNorm(u, hill.s, hill.d)).toBeCloseTo(layerX(NORM_MID + NORM_HALF * u, hill), 6);
+            }
+        }
+        expect(NORM_MID + NORM_HALF * -1).toBe(XMIN);
+        expect(NORM_MID + NORM_HALF).toBe(XMAX);
     });
 });
