@@ -20,19 +20,19 @@ catalog:
   '@types/react-dom': ^19.3.0
 
   # Next.js
-  next: ^16.4.3
+  next: ^16.4.6
 
   # TypeScript
   typescript: ^6.0.3
 
   # Linaria/wyw-in-js
-  '@linaria/core': ^8.2.0
-  '@linaria/react': ^8.2.0
-  '@wyw-in-js/nextjs': ^2.7.0
-  '@wyw-in-js/vite': ^2.7.0
+  '@linaria/core': ^8.3.0
+  '@linaria/react': ^8.3.0
+  '@wyw-in-js/nextjs': ^2.7.1
+  '@wyw-in-js/vite': ^2.7.1
 
   # Prettier
-  prettier: ^3.9.10
+  prettier: ^3.10.1
   prettier-plugin-multiline-arrays: ^4.1.11
   prettier-plugin-organize-imports: ^4.3.0
 
@@ -44,7 +44,7 @@ catalog:
   '@fortawesome/react-fontawesome': ^3.5.0
 
   # Shiki
-  shiki: ^4.5.0
+  shiki: ^4.6.0
 
   # Shared utils
   normalize.css: ^8.0.1
@@ -52,10 +52,10 @@ catalog:
   '@types/node': ^26
 
   # Testing
-  vitest: ^5.0.5
-  '@vitest/browser-playwright': ^5.0.5
-  '@vitest/coverage-v8': ^5.0.5
-  playwright: ^1.64.1
+  vitest: ^5.1.0
+  '@vitest/browser-playwright': ^5.1.0
+  '@vitest/coverage-v8': ^5.1.0
+  playwright: ^1.65.0
 
 allowBuilds:
   es5-ext: true
