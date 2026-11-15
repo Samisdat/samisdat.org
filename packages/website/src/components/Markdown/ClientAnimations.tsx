@@ -83,6 +83,8 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Parallax/GhostRecorderDemo').then(mod => ({
             default: mod.DemoGhostRecorder,
         })),
+    DemoParallaxRays: () =>
+        import('@samisdat/ui-components/Demo/Parallax/Rays').then(mod => ({ default: mod.DemoParallaxRays })),
     DemoParallaxCircles: () =>
         import('@samisdat/ui-components/Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
     DemoParallaxCirclesScroll: () =>
@@ -143,6 +145,7 @@ export const DemoParallaxHills = demos.DemoParallaxHills;
 export const DemoGhostSectors = demos.DemoGhostSectors;
 export const DemoGhostHills = demos.DemoGhostHills;
 export const DemoGhostRecorder = demos.DemoGhostRecorder;
+export const DemoParallaxRays = demos.DemoParallaxRays;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
 export const DemoParallaxCirclesScroll = demos.DemoParallaxCirclesScroll;
 export const DemoParallaxHillsHybrid = demos.DemoParallaxHillsHybrid;

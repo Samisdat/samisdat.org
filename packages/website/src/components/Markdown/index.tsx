@@ -97,6 +97,7 @@ const baseComponents = {
     DemoGhostSectors: ClientDemos.DemoGhostSectors,
     DemoGhostHills: ClientDemos.DemoGhostHills,
     DemoGhostRecorder: ClientDemos.DemoGhostRecorder,
+    DemoParallaxRays: ClientDemos.DemoParallaxRays,
     DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
     DemoParallaxCirclesScroll: ClientDemos.DemoParallaxCirclesScroll,
     DemoParallaxHillsHybrid: ClientDemos.DemoParallaxHillsHybrid,
