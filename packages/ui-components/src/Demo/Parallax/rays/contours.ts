@@ -1,7 +1,7 @@
 import { terrain } from './scene';
 
-const S0 = 180;
-const S1 = 640;
+const S0 = 160;
+const S1 = 700;
 const D0 = 140;
 const D1 = 330;
 const STEP = 4;

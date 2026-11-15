@@ -25,7 +25,8 @@ export const OY = 315;
 export const WINDOW_S = 0.5;
 
 export const OBJECTS: SceneObject[] = [
-    { k: 'hill', s: 400, d: 228 },
+    { k: 'hill', s: 510, d: 228 },
+    { k: 'hill', s: 290, d: 235 },
     { k: 'house', s: 390, d: 120 },
     { k: 'tree', s: 150, d: 70 },
     { k: 'tree', s: 260, d: 85 },
@@ -36,16 +37,18 @@ export const OBJECTS: SceneObject[] = [
 /** wedge radius per kind, deliberately different so the wedges do not cover each other */
 export const WEDGE_RADIUS: Record<Kind, number> = { tree: 40, house: 72, hill: 110 };
 
+/** The wide hill with its two shoulders sits 290 from the right edge, the narrow, deep one 290 from the left. */
 const BUMPS = [
-    { s: 400, d: 228, h: 34, rs: 62, rd: 34 },
-    { s: 478, d: 250, h: 25, rs: 40, rd: 28 },
-    { s: 330, d: 252, h: 18, rs: 46, rd: 26 },
+    { s: 510, d: 228, h: 34, rs: 62, rd: 34 },
+    { s: 588, d: 250, h: 25, rs: 40, rd: 28 },
+    { s: 440, d: 252, h: 18, rs: 46, rd: 26 },
+    { s: 290, d: 235, h: 30, rs: 34, rd: 52 },
 ];
 
 /** Height field: three gaussian hills plus a slight modulation so the contour lines do not look too smooth. */
-export const terrain = (s: number, d: number) => {
+export const terrain = (s: number, d: number, bumps = BUMPS) => {
     let h = 0;
-    for (const b of BUMPS) {
+    for (const b of bumps) {
         const u = (s - b.s) / b.rs;
         const v = (d - b.d) / b.rd;
         h += b.h * Math.exp(-u * u - v * v);
@@ -75,10 +78,13 @@ export const wedgeArc = (cx: number, cy: number, r: number, a1: number, a2: numb
     );
 };
 
-/** Sight ray of an object from the eye now, and the angle it swept during the last half second. */
-export const sight = (tx: number, o: SceneObject) => {
+/**
+ * Sight ray of an object from the eye now, and the angle it swept during the last half second.
+ * `dir` is the direction of travel (1 forward, -1 back), so the wedge always trails the movement.
+ */
+export const sight = (tx: number, o: SceneObject, dir = 1) => {
     const eye = P(tx, 0);
-    const before = P(tx - V * WINDOW_S, 0);
+    const before = P(tx - dir * V * WINDOW_S, 0);
     const target = P(o.s, o.d);
     const now = Math.atan2(target[1] - eye[1], target[0] - eye[0]);
     const then = Math.atan2(target[1] - before[1], target[0] - before[0]);
@@ -89,17 +95,28 @@ export const sight = (tx: number, o: SceneObject) => {
 /** Where an object appears in the window: x on screen and the scale of its sprite. */
 export const project = (tx: number, o: SceneObject) => ({ x: 400 + (F * (o.s - tx)) / o.d, scale: F / o.d });
 
+/** The two hills as fixed layers: each with its own bumps and the depth it is drawn at. */
+export const HILLS = [
+    { s: 510, d: 228, bumps: BUMPS.slice(0, 3) },
+    { s: 290, d: 235, bumps: BUMPS.slice(3) },
+];
+
+export type Hill = (typeof HILLS)[number];
+
+/** Half the width of a layer path in px; wide enough for the broadest hill. */
+const LAYER_HALF = 500;
+
 /**
- * Silhouette of the terrain between the depths dA and dB, seen from the window. For every column the
- * view ray is sampled in depth, the highest projected terrain wins.
+ * Silhouette of one hill seen abeam, drawn once around x = 0. The layer is never recomputed while the train
+ * drives: it is only shifted sideways by `layerX`.
  */
-export const ridge = (tx: number, dA: number, dB: number) => {
-    let path = `M0,${round(YB)}`;
-    for (let x = 0; x <= 800; x += 5) {
-        const k = (x - 400) / F;
+export const layerPath = (hill: Hill) => {
+    let path = `M${-LAYER_HALF},${round(YB)}`;
+    for (let x = -LAYER_HALF; x <= LAYER_HALF; x += 5) {
+        const k = x / F;
         let ym = YB;
-        for (let d = dA; d <= dB; d += 3) {
-            const h = terrain(tx + k * d, d);
+        for (let d = hill.d - 70; d <= hill.d + 70; d += 3) {
+            const h = terrain(hill.s + k * d, d, hill.bumps);
             if (h < 0.5) continue;
             const y = HOR - (F * (h - EYE)) / d;
             if (y < ym) ym = y;
@@ -107,8 +124,11 @@ export const ridge = (tx: number, dA: number, dB: number) => {
         path += `L${x},${round(ym)}`;
     }
 
-    return `${path}L800,${round(YB)}Z`;
+    return `${path}L${LAYER_HALF},${round(YB)}Z`;
 };
+
+/** Horizontal shift of a hill layer in the window: the only thing that changes while driving. */
+export const layerX = (tx: number, hill: Hill) => 400 + (F * (hill.s - tx)) / hill.d;
 
 /** The view cone as a triangle from the eye. */
 export const cone = (tx: number, length = 900) => {

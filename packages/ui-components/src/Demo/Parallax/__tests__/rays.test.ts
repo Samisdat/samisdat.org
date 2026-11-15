@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { buildContours } from '../rays/contours';
-import { cone, F, HALF, OBJECTS, OY, project, ridge, sight, terrain, wedgeArc, XMAX, XMIN, YB } from '../rays/scene';
+import { cone, F, HALF, HILLS, layerPath, layerX, OBJECTS, OY, project, sight, terrain, wedgeArc, XMAX, XMIN, YB } from '../rays/scene';
 import { createRaysState } from '../rays/state';
 
 const wedgeAngle = (tx: number, index: number) => {
@@ -19,8 +19,16 @@ describe('rays scene', () => {
     });
 
     it('terrain peaks near the hill and vanishes far away', () => {
-        expect(terrain(400, 228)).toBeGreaterThan(25);
+        expect(terrain(510, 228)).toBeGreaterThan(25);
+        expect(terrain(290, 235)).toBeGreaterThan(22);
         expect(terrain(0, 0)).toBeCloseTo(0, 5);
+    });
+
+    it('the two hills sit the same distance from the opposite edges', () => {
+        const hills = OBJECTS.filter(o => o.k === 'hill');
+        expect(hills).toHaveLength(2);
+        expect(hills[0].s).toBe(800 - hills[1].s);
+        expect(hills[0].s).toBeGreaterThan(400);
     });
 
     it('an object on the cone axis projects onto the centre line', () => {
@@ -49,13 +57,6 @@ describe('rays scene', () => {
         const path = cone(400);
         expect(path.startsWith('M400,315L')).toBe(true);
     });
-
-    it('ridge is a closed path from the foot line and rises where the hill is', () => {
-        const at = (tx: number) => ridge(tx, 150, 330);
-        expect(at(400).startsWith(`M0,${Math.round(YB * 100) / 100}`)).toBe(true);
-        expect(at(400).endsWith('Z')).toBe(true);
-        expect(at(400)).not.toBe(at(XMIN));
-    });
 });
 
 describe('contours', () => {
@@ -69,7 +70,7 @@ describe('contours', () => {
 });
 
 describe('rays state', () => {
-    it('advances only while playing and loops at XMAX', () => {
+    it('advances only while playing and drives there and back', () => {
         const state = createRaysState(false);
         state.tick(1);
         expect(state.tx).toBe(XMIN);
@@ -78,9 +79,33 @@ describe('rays state', () => {
         state.tick(1);
         expect(state.tx).toBeCloseTo(XMIN + 110);
 
+        // turns around at XMAX and keeps the overshoot: 5.5 units too far come back as 5.5 units in
         state.set(XMAX - 1);
         state.tick(0.05);
-        expect(state.tx).toBe(XMIN);
+        expect(state.dir).toBe(-1);
+        expect(state.tx).toBeCloseTo(XMAX - 4.5);
+
+        state.tick(0.05);
+        expect(state.tx).toBeCloseTo(XMAX - 10);
+
+        // and again at XMIN
+        state.set(XMIN + 1);
+        state.tick(0.05);
+        expect(state.dir).toBe(1);
+        expect(state.tx).toBeCloseTo(XMIN + 4.5);
+    });
+
+    it('scales the speed', () => {
+        const state = createRaysState(true);
+        state.setSpeed(2);
+        state.tick(1);
+        expect(state.tx).toBeCloseTo(XMIN + 220);
+    });
+
+    it('wedges trail the movement in both directions', () => {
+        const forward = sight(300, OBJECTS[2], 1).wedge;
+        const back = sight(300, OBJECTS[2], -1).wedge;
+        expect(forward).not.toBe(back);
     });
 
     it('notifies subscribers right away and on change, and stops after unsubscribe', () => {
@@ -93,5 +118,18 @@ describe('rays state', () => {
 
         expect(seen).toHaveLength(2);
         expect(seen[0]).toBe(XMIN);
+    });
+});
+
+describe('hill layers', () => {
+    it('shift with the train: a nearer layer faster, the shape stays fixed', () => {
+        const [main, narrow] = HILLS;
+        expect(layerX(main.s, main)).toBeCloseTo(400);
+        const shift = (h: typeof main) => layerX(0, h) - layerX(100, h);
+        expect(shift(main)).toBeGreaterThan(shift(narrow));
+        const path = layerPath(main);
+        expect(path.startsWith(`M-500,${Math.round(YB * 100) / 100}`)).toBe(true);
+        expect(path.endsWith('Z')).toBe(true);
+        expect(path).not.toBe(layerPath(narrow));
     });
 });

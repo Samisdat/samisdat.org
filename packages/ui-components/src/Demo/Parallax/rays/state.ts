@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import { V, XMAX, XMIN } from './scene';
 
-type Listener = (tx: number) => void;
+type Listener = (tx: number, dir: number) => void;
 
 /**
  * Shared state of the demo: the train position and whether it runs. Views subscribe and write straight
@@ -10,39 +10,58 @@ type Listener = (tx: number) => void;
  */
 export type RaysState = {
     tx: number;
+    /** direction of travel: 1 forward, -1 back */
+    dir: number;
     playing: boolean;
+    /** playback multiplier */
+    speed: number;
     subscribe: (listener: Listener) => () => void;
-    /** advance by dt seconds (only while playing) */
+    /** advance by dt seconds (only while playing); the train drives there and back */
     tick: (dt: number) => void;
-    set: (tx: number) => void;
+    set: (tx: number, dir?: number) => void;
     setPlaying: (playing: boolean) => void;
+    setSpeed: (speed: number) => void;
 };
 
 export const createRaysState = (playing: boolean): RaysState => {
     const listeners = new Set<Listener>();
     const state: RaysState = {
         tx: XMIN,
+        dir: 1,
         playing,
+        speed: 1,
         subscribe: listener => {
             listeners.add(listener);
-            listener(state.tx);
+            listener(state.tx, state.dir);
 
             return () => {
                 listeners.delete(listener);
             };
         },
-        set: tx => {
+        set: (tx, dir = state.dir) => {
             state.tx = tx;
-            listeners.forEach(listener => listener(tx));
+            state.dir = dir;
+            listeners.forEach(listener => listener(tx, dir));
         },
         setPlaying: playing => {
             state.playing = playing;
+        },
+        setSpeed: speed => {
+            state.speed = speed;
         },
         tick: dt => {
             if (!state.playing) {
                 return;
             }
-            state.set(state.tx + V * dt > XMAX ? XMIN : state.tx + V * dt);
+            const next = state.tx + state.dir * V * dt * state.speed;
+            // turn around at both ends, keeping the overshoot so the speed stays even
+            if (next > XMAX) {
+                state.set(2 * XMAX - next, -1);
+            } else if (next < XMIN) {
+                state.set(2 * XMIN - next, 1);
+            } else {
+                state.set(next);
+            }
         },
     };
 
@@ -73,5 +92,5 @@ export const useRaysView = (state: RaysState, view: Listener) => {
     useEffect(() => {
         latest.current = view;
     });
-    useEffect(() => state.subscribe(tx => latest.current(tx)), [state]);
+    useEffect(() => state.subscribe((tx, dir) => latest.current(tx, dir)), [state]);
 };

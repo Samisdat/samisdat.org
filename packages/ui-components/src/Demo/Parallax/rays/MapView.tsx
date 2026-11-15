@@ -59,11 +59,11 @@ export const MapView = ({ state, titleId }: { state: RaysState; titleId: string 
     const wedges = useRef<(SVGPathElement | null)[]>([]);
     const rays = useRef<(SVGLineElement | null)[]>([]);
 
-    useRaysView(state, tx => {
+    useRaysView(state, (tx, dir) => {
         setAttrs(coneRef.current, coneAttrs(tx));
         setAttrs(trainRef.current, trainAttrs(tx));
         OBJECTS.forEach((o, i) => {
-            setAttrs(wedges.current[i], { d: sight(tx, o).wedge });
+            setAttrs(wedges.current[i], { d: sight(tx, o, dir).wedge });
             setAttrs(rays.current[i], rayAttrs(tx, o));
         });
     });
