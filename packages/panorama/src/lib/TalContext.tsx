@@ -1,20 +1,8 @@
 import { usePrefersReducedMotion } from '@samisdat/tools';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import * as SunCalc from 'suncalc';
+import { computeSunTimes, type SunTimes } from './sunTimes';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
-
-export interface SunTimes {
-    sunrise: number;
-    sunset: number;
-    dawn: number;
-    dusk: number;
-    currentTime: number;
-    isDay: boolean;
-    skyOpacity: number;
-    windowOpacity: number;
-}
+export type { SunTimes };
 
 interface TalContextType {
     animate: boolean;
@@ -37,45 +25,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
 
-    const sunTimes = useMemo(() => {
-        const times = SunCalc.getTimes(time, LAT, LNG);
-        // At Wuppertal latitude (51°N), sun always rises/sets, but handle null for safety
-        const sunrise = times.sunrise?.getTime() ?? new Date(time).setHours(6, 0, 0, 0);
-        const sunset = times.sunset?.getTime() ?? new Date(time).setHours(18, 0, 0, 0);
-        const dawn = times.dawn?.getTime() ?? new Date(time).setHours(5, 0, 0, 0);
-        const dusk = times.dusk?.getTime() ?? new Date(time).setHours(19, 0, 0, 0);
-        const currentTime = time.getTime();
-        const isDay = currentTime >= sunrise && currentTime < sunset;
-
-        const dawnDuration = sunrise - dawn;
-        const duskDuration = dusk - sunset;
-
-        let skyOpacity = 1;
-        if (currentTime < dawn) skyOpacity = 1;
-        else if (currentTime < sunrise) skyOpacity = 1 - (currentTime - dawn) / dawnDuration;
-        else if (currentTime < sunset) skyOpacity = 0;
-        else if (currentTime < dusk) skyOpacity = (currentTime - sunset) / duskDuration;
-
-        let windowOpacity = 0;
-        if (currentTime >= sunset && currentTime < dusk) {
-            windowOpacity = (currentTime - sunset) / duskDuration;
-        } else if (currentTime >= dusk || currentTime < dawn) {
-            windowOpacity = 1;
-        } else if (currentTime >= dawn && currentTime < sunrise) {
-            windowOpacity = 1 - (currentTime - dawn) / dawnDuration;
-        }
-
-        return {
-            sunrise,
-            sunset,
-            dawn,
-            dusk,
-            currentTime,
-            isDay,
-            skyOpacity,
-            windowOpacity,
-        };
-    }, [time]);
+    const sunTimes = useMemo(() => computeSunTimes(time), [time]);
 
     useEffect(() => {
         const timer = setTimeout(() => {
