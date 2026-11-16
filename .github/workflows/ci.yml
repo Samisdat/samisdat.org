@@ -53,6 +53,11 @@ jobs:
           pnpm --filter @samisdat/wtal-panorama test:ci
           pnpm --filter @samisdat/website test:ci
           pnpm --filter @samisdat/storybook test:ci
+          pnpm --filter @samisdat/color-scheme test:ci
+          pnpm --filter @samisdat/tools test:ci
+
+      - name: Combined coverage summary
+        run: node scripts/coverage-summary.mjs | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Publish codeprose coverage to Qlty
         if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository

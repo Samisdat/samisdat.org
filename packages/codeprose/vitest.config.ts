@@ -7,7 +7,14 @@ export default defineConfig({
         environment: 'node',
         coverage: {
             provider: 'v8',
-            reporter: ['text', 'lcov'],
+            reporter: ['text', 'lcov', 'json-summary'],
+            // Ratchet: measured value minus ~1 point. May only go up.
+            thresholds: {
+                statements: 42,
+                branches: 43,
+                functions: 34,
+                lines: 43,
+            },
             include: ['src/**/*.{ts,tsx}'],
             exclude: ['**/*.test.{ts,tsx}', '**/*.stories.{ts,tsx}', '**/dist/**'],
         },

@@ -12,9 +12,22 @@ export default defineConfig({
     test: {
         coverage: {
             provider: 'v8',
-            reporter: ['text', 'lcov'],
+            reporter: ['text', 'lcov', 'json-summary'],
+            // Ratchet: measured value minus ~1 point. May only go up.
+            thresholds: {
+                statements: 62,
+                branches: 42,
+                functions: 54,
+                lines: 61,
+            },
             include: ['../ui-components/src/**/*.{ts,tsx}'],
-            exclude: ['**/*.stories.{ts,tsx}'],
+            exclude: [
+                '**/*.stories.{ts,tsx}',
+                // Test doubles, not shipped code.
+                '**/__mocks__/**',
+                // Design token constants; data only.
+                '../ui-components/src/tokens/**',
+            ],
             allowExternal: true,
         },
         projects: [

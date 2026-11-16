@@ -16,6 +16,8 @@
     "lint:fix": "oxlint --type-aware --fix .",
     "lint:css": "stylelint \"**/*.{ts,tsx}\" --ignore-path .gitignore",
     "test": "pnpm -r test",
+    "coverage": "pnpm -r --no-bail --if-present test:ci; status=$?; node scripts/coverage-summary.mjs; exit $status",
+    "coverage:report": "node scripts/coverage-summary.mjs",
     "lint:colors": "./scripts/lint-colors.sh",
     "lint:tokens": "pnpm --filter @samisdat/color-scheme build && pnpm --filter @samisdat/color-scheme lint && git diff --exit-code -- packages/color-scheme/generated && test -z \"$(git ls-files --others --exclude-standard -- packages/color-scheme/generated)\"",
     "dev:tokens": "pnpm --filter @samisdat/color-scheme dev",
