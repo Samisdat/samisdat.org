@@ -43,6 +43,16 @@ const Styling = styled.div`
 
     & circle.yellow {
         fill: var(--color-ink-gold);
+
+        [data-theme='light'] & {
+            fill: var(--color-ink-jade);
+        }
+
+        @media (prefers-color-scheme: light) {
+            :root:not([data-theme]) & {
+                fill: var(--color-ink-jade);
+            }
+        }
     }
 `;
 
