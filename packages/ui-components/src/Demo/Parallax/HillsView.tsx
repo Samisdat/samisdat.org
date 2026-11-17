@@ -1,11 +1,12 @@
 'use client';
 
 import { styled } from '@linaria/react';
+import { Ref } from 'react';
 
 import { HillsBank } from './HillsBank';
 import { ParallaxLayer } from './HillsLayer';
 
-const Styling = styled.div`
+const Svg = styled.svg`
     aspect-ratio: 450/600;
 
     --hills-layer-dark: #0c1d22;
@@ -15,7 +16,7 @@ const Styling = styled.div`
     --hills-sky-50: #a2b49a;
     --hills-sky-100: #84a38f;
 
-    & svg {
+    svg {
         width: 100%;
         height: 100%;
         fill-rule: evenodd;
@@ -122,43 +123,42 @@ const Defs = () => (
     </defs>
 );
 
-export const HillsView = () => (
-    <Styling>
-        <svg
-            viewBox="0 0 450 600"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            xmlSpace="preserve"
-        >
-            <Defs />
-            <g id="heaven">
-                <rect
-                    className={'heaven'}
-                    x={0}
-                    y={0}
-                    width={768}
-                    height={768}
+export const HillsView = ({ ref }: { ref?: Ref<SVGSVGElement> }) => (
+    <Svg
+        ref={ref}
+        viewBox="0 0 450 600"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        xmlSpace="preserve"
+    >
+        <Defs />
+        <g id="heaven">
+            <rect
+                className={'heaven'}
+                x={0}
+                y={0}
+                width={768}
+                height={768}
+            />
+            <ParallaxLayer depth={-8}>
+                <circle
+                    className={'sun'}
+                    cx="225"
+                    cy="123.496"
+                    r="106.191"
                 />
-                <ParallaxLayer depth={-8}>
-                    <circle
-                        className={'sun'}
-                        cx="225"
-                        cy="123.496"
-                        r="106.191"
-                    />
-                </ParallaxLayer>
-            </g>
-
-            <ParallaxLayer
-                depth={-7}
-                mix={12}
-            >
-                <path d="M609,161.61l-195,-0c-63.013,-0 -90.589,-29.421 -189.038,-30c-95.788,-0.564 -125.975,30 -188.962,30l-195,-0l-0,389.55l768,0l-0,-389.55Z" />
             </ParallaxLayer>
-            <Rows rows={BACK_ROWS} />
-            <HillsBank />
-            <Rows rows={FRONT_ROWS} />
-        </svg>
-    </Styling>
+        </g>
+
+        <ParallaxLayer
+            depth={-7}
+            mix={12}
+        >
+            <path d="M609,161.61l-195,-0c-63.013,-0 -90.589,-29.421 -189.038,-30c-95.788,-0.564 -125.975,30 -188.962,30l-195,-0l-0,389.55l768,0l-0,-389.55Z" />
+        </ParallaxLayer>
+        <Rows rows={BACK_ROWS} />
+        <HillsBank />
+        <Rows rows={FRONT_ROWS} />
+    </Svg>
 );

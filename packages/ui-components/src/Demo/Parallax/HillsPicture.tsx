@@ -12,13 +12,9 @@ type HillsPictureProps = {
 
 /** The hills image alone (no grid), so an overlay can sit exactly on it. */
 export const HillsPicture = ({ source }: HillsPictureProps) => {
-    const ref = useRef<HTMLDivElement | null>(null);
+    const ref = useRef<SVGSVGElement | null>(null);
 
     useParallax(ref, {}, source);
 
-    return (
-        <div ref={ref}>
-            <HillsView />
-        </div>
-    );
+    return <HillsView ref={ref} />;
 };
