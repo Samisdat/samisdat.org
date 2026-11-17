@@ -37,7 +37,7 @@ Bei klassischen, gemalten Trickfilmen fällt unser Gehirn da seit fast 90 Jahren
 
 ## Pointer-Bewegung
 
-Zuerst brauchen wir einen Weg, um den Effekt zu steuern.
+Es gibt verschiedene Möglichkeiten, um den Effekt interaktiv zu machen und die Ebenen zu steuern.
 So richtig ins Web gebracht wurde der FX vor 15 Jahren durch [eine Kampagne von Nike](https://web.archive.org/web/20110307053513/http://www.nikebetterworld.com/). Dort wurde die Scroll Position genutzt.
 
 Ich starte aber erst mal simpler mit der Bewegung des Pointer bzw. sogar nur mit dessen Position.
@@ -92,7 +92,7 @@ console.log(normalised);
   </Stack>
 </DemoContext>
 
-blabla zu normalisierung
+Das reicht schon an Steuerung: Zwei Zahlen in Javascript jeweils zwischen `-1` und `1`.
 
 <DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
   <Stack
@@ -106,8 +106,59 @@ blabla zu normalisierung
 
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
-      bla
-    </Stack>
+
+```html
+<svg
+  style="
+    // !placeholder normX 0.0
+    --parallax-x: 0.0;
+    // !placeholder normY 0.0
+    --parallax-y: 0.0;
+  "
+>
+  <circle style="--depth:-1"
+      // !collapse(1:4)
+      class="red parallax"
+      cx="200"
+      cy="125"
+      r="100"
+  />
+  <circle style="--depth:0"
+      // !collapse(1:4)
+      class="yellow parallax"
+      cx="200"
+      cy="205"
+      r="100"
+  />
+  <circle style="--depth:1"
+      // !collapse(1:4)
+      class="blue parallax"
+      cx="200"
+      cy="275"
+      r="100"
+  />
+</svg>
+```
+
+{/*prettier-ignore*/}
+
+```css
+.parallax {
+    transition: transform 10ms ease;
+    transform: 
+      translateX(
+        calc(
+          150px * var(--parallax-x) * var(--depth))
+      )
+      translateY(
+        calc(
+          150px * var(--parallax-y) * var(--depth)
+        )
+      );
+}
+```
+
+      </Stack>
 
   </Stack>
 </DemoContext>
