@@ -2,7 +2,7 @@
 
 import { RefObject, useEffect } from 'react';
 
-import { type Norm, type NormSource, pointerSource } from '../norm';
+import { type Norm, type NormSource, type ParallaxElement, pointerSource } from '../norm';
 import { createParallaxWriter } from './parallaxWriter';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
@@ -21,7 +21,7 @@ export type UseParallaxOptions = {
  * Writes only in a frame that follows a change; while nothing moves, nothing runs.
  */
 export const useParallax = (
-    ref: RefObject<HTMLDivElement | null>,
+    ref: RefObject<ParallaxElement | null>,
     { scroll = false }: UseParallaxOptions = {},
     source?: NormSource
 ) => {

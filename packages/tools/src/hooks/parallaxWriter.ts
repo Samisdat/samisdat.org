@@ -1,3 +1,5 @@
+import type { ParallaxElement } from '../norm';
+
 type Options = {
     /** Also write `--scroll` (0..1): how far the element has scrolled out of view. */
     scroll: boolean;
@@ -16,7 +18,7 @@ export type ParallaxWriter = {
  * Writes `--parallax-x` / `--parallax-y` (and `--scroll`) on an element, one frame after something changed.
  * Several changes within a frame write once, and while nothing changes no frame is requested at all.
  */
-export const createParallaxWriter = (el: HTMLElement, { scroll, reduceMotion }: Options): ParallaxWriter => {
+export const createParallaxWriter = (el: ParallaxElement, { scroll, reduceMotion }: Options): ParallaxWriter => {
     let x = 0;
     let y = 0;
     let frame: number | null = null;

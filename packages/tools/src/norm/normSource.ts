@@ -9,6 +9,9 @@ export type NormSource = {
     subscribe: (listener: NormListener) => () => void;
 };
 
+/** An HTML or SVG element that can take pointer listeners and inline custom properties. */
+export type ParallaxElement = Element & GlobalEventHandlers & ElementCSSInlineStyle;
+
 /** Maps client coordinates to norm inside `rect`; `null` for a zero-sized rect. Clamped to -1..1. */
 export const pointerToNorm = (
     clientX: number,
@@ -24,7 +27,7 @@ export const pointerToNorm = (
 };
 
 /** Norm of pointermove / pointerdown on `element`; listeners are attached lazily per subscriber. */
-export const pointerSource = (element: HTMLElement): NormSource => ({
+export const pointerSource = (element: ParallaxElement): NormSource => ({
     subscribe: (listener) => {
         const handle = (event: PointerEvent) => {
             const norm = pointerToNorm(event.clientX, event.clientY, element.getBoundingClientRect());
