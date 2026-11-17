@@ -1,25 +1,23 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { CSSProperties } from 'react';
+import { CSSProperties, Ref } from 'react';
 
-const Styling = styled.div`
-    svg {
-        width: 100%;
-        height: 100%;
-        fill-rule: evenodd;
-        clip-rule: evenodd;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-miterlimit: 1.5;
-        display: block;
-        border-radius: 0.5rem;
-        border: 1px solid var(--color-border-default);
-        background-color: var(--color-surface-raised);
+const Svg = styled.svg`
+    width: 100%;
+    height: 100%;
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-miterlimit: 1.5;
+    display: block;
+    border-radius: 0.5rem;
+    border: 1px solid var(--color-border-default);
+    background-color: var(--color-surface-raised);
 
-        &:hover {
-            border-color: var(--color-text-subtle);
-        }
+    &:hover {
+        border-color: var(--color-text-subtle);
     }
 
     & .parallax {
@@ -55,42 +53,41 @@ const Styling = styled.div`
     }
 `;
 
-export const CirclesView = () => (
-    <Styling>
-        <svg
-            viewBox="0 0 400 400"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            xmlnsXlink="http://www.w3.org/1999/xlink"
-            xmlSpace="preserve"
-        >
-            <rect
-                x="0"
-                y="0"
-                width="400"
-                height="400"
-            />
+export const CirclesView = ({ ref }: { ref?: Ref<SVGSVGElement> }) => (
+    <Svg
+        ref={ref}
+        viewBox="0 0 400 400"
+        version="1.1"
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+        xmlSpace="preserve"
+    >
+        <rect
+            x="0"
+            y="0"
+            width="400"
+            height="400"
+        />
 
-            <circle
-                className={'red parallax'}
-                style={{ '--depth': -1 } as CSSProperties}
-                cx="200"
-                cy="125"
-                r="100"
-            />
-            <circle
-                className={'yellow'}
-                cx="200"
-                cy="205"
-                r="100"
-            />
-            <circle
-                className={'blue parallax'}
-                style={{ '--depth': 1 } as CSSProperties}
-                cx="200"
-                cy="275"
-                r="100"
-            />
-        </svg>
-    </Styling>
+        <circle
+            className={'red parallax'}
+            style={{ '--depth': -1 } as CSSProperties}
+            cx="200"
+            cy="125"
+            r="100"
+        />
+        <circle
+            className={'yellow'}
+            cx="200"
+            cy="205"
+            r="100"
+        />
+        <circle
+            className={'blue parallax'}
+            style={{ '--depth': 1 } as CSSProperties}
+            cx="200"
+            cy="275"
+            r="100"
+        />
+    </Svg>
 );
