@@ -12,6 +12,8 @@ const Svg = styled.svg`
     stroke-linejoin: round;
     stroke-miterlimit: 1.5;
     display: block;
+    /* vertical swipes keep scrolling the page, horizontal drags go to the demo */
+    touch-action: pan-y;
     border-radius: 0.5rem;
     border: 1px solid var(--color-border-default);
     background-color: var(--color-surface-raised);
@@ -77,7 +79,8 @@ export const CirclesView = ({ ref }: { ref?: Ref<SVGSVGElement> }) => (
             r="100"
         />
         <circle
-            className={'yellow'}
+            className={'yellow parallax'}
+            style={{ '--depth': 0 } as CSSProperties}
             cx="200"
             cy="205"
             r="100"
