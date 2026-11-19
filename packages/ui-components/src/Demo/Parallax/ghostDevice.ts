@@ -20,6 +20,8 @@ export type GhostDeviceProps = {
     device?: Device;
     resumeAfterMs?: number;
     loop?: boolean;
+    /** Checkerboard canvas around the demo (default true). */
+    canvas?: boolean;
 };
 
 export const scriptForDevice = (device: Device = 'pad') => scripts[device];

@@ -16,7 +16,8 @@ const Icon = styled.span`
 
 const Styling = styled.div`
     border: 1px solid var(--color-border-default);
-    padding: 0.5rem;
+    border-radius: 0.75rem;
+    padding: 0.5rem 0.75rem;
     font-family: var(--font-code);
     font-weight: bold;
     background-color: var(--color-ink-gold);

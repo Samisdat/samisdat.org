@@ -30,6 +30,8 @@ export type GhostDemoProps = Pick<InteractionGhostProps, 'script' | 'aspectRatio
     resumeAfterMs?: number;
     /** Wrap around at the end instead of finishing. */
     loop?: boolean;
+    /** Checkerboard canvas around the demo (default true). */
+    canvas?: boolean;
 };
 
 const seconds = (ms: number) => String(ms / 1000).replace('.', ',');
@@ -40,7 +42,7 @@ const takeoverNotice = (resumeAfterMs?: number) =>
         : `Du steuerst. Die Aufnahme läuft nach ${seconds(resumeAfterMs)} s Ruhe weiter.`;
 
 /**
- * DemoAnimation (play once) + InteractionGhost. The ghost sits directly around the demo, inside the canvas padding.
+ * DemoAnimation (play once) + InteractionGhost. The ghost sits directly around the demo, inside the canvas padding (if there is a canvas).
  * Play/Pause/Reset/Timeline of the PlaybackControl drive the ghost; done and takeover pause it (unless
  * `resumeAfterMs` lets it continue), Play then starts a new round.
  */
@@ -55,6 +57,7 @@ export const GhostDemo = ({
     speedControl = false,
     resumeAfterMs,
     loop = false,
+    canvas,
 }: GhostDemoProps) => {
     const [isPlaying, setIsPlaying] = useState(false);
     const [speed, setSpeed] = useState(initialSpeed);
@@ -102,6 +105,7 @@ export const GhostDemo = ({
         <div>
             <DemoAnimation
                 playOnce
+                canvas={canvas}
                 playbackControl={{
                     speedMin: 0.25,
                     speedMax: 3,
