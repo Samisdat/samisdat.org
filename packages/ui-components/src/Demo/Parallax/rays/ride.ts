@@ -35,7 +35,7 @@ export const rideStyle = css`
     animation: rays-tx ${RIDE_MS}ms linear infinite alternate;
 
     & .shift {
-        transform: translate(calc((400 + var(--k) * (var(--ds) - ${NORM_HALF} * var(--rays-tx))) * 1px), var(--y, 0px))
+        transform: translate(calc((400 + var(--k) * (var(--ds) - ${NORM_HALF} * var(--rays-tx))) * 1px), var(--y, 0))
             scale(var(--scale, 1));
     }
 `;

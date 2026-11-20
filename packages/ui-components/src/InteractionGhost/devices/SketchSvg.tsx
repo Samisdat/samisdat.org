@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 
 const Svg = styled.svg`
     display: block;
+
     /* matches the two rows of the control bar; the width follows from the aspect ratio set per box */
     height: 3.5rem;
     width: auto;
@@ -11,7 +12,7 @@ const Svg = styled.svg`
     transition: opacity 0.3s ease;
 
     /* the wide landscape sketches would push the buttons into two lines on a phone, so they get smaller there */
-    @media (max-width: 480px) {
+    @media (width <= 480px) {
         &[data-landscape='true'] {
             height: 2rem;
         }

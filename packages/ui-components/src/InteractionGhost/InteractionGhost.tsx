@@ -16,6 +16,7 @@ import type { ReactNode } from 'react';
 
 const Stage = styled.div`
     position: relative;
+
     /* vertical swipes keep scrolling the page, horizontal drags go to the demo */
     touch-action: pan-y;
 `;

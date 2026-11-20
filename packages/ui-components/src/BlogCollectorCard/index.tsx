@@ -42,7 +42,6 @@ const CardFaces = styled.div`
     position: relative;
     aspect-ratio: 5 / 7;
     width: 100%;
-
     transform-style: preserve-3d;
     transition: --progress 1.1s cubic-bezier(0.5, 0, 0.2, 1);
     will-change: transform;
@@ -66,13 +65,12 @@ const Face = styled.div`
     grid-template-rows: minmax(0, 1fr);
     grid-template-columns: minmax(0, 1fr);
     backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     border-radius: 5cqw;
     padding: 3.2cqw;
     overflow: hidden;
     box-shadow:
         inset 0 0 0 0.5cqw var(--color-border-default),
-        0 2cqw 6cqw rgb(15 5 29 / 0.35);
+        0 2cqw 6cqw rgb(15 5 29 / 35%);
 `;
 const FrontFace = styled(Face)``;
 
@@ -94,6 +92,7 @@ const FlipCard = styled.button`
     border-radius: 5cqw;
     color: inherit;
     font: inherit;
+
     /* Keyboard-only control: pointer events go to the faces, so the back can scroll */
     pointer-events: none;
 

@@ -72,6 +72,7 @@ const Chips = styled.ul`
 
 const Facts = styled.dl`
     display: grid;
+
     /* The label column is as wide as the longest label, shared by all rows via subgrid */
     grid-template-columns: auto minmax(0, 1fr);
     column-gap: 2cqw;

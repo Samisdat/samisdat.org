@@ -37,7 +37,6 @@ const ShieldStyling = styled.div`
         position: absolute;
         inset: 0;
         mask: ${SHIELD_MASK};
-        -webkit-mask: ${SHIELD_MASK};
     }
 
     /* Out of flow: in flow its height would stretch the shield past its 5:6 aspect ratio */
