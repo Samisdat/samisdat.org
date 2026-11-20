@@ -1,6 +1,6 @@
 import type { ScholionRef } from './types.js';
 
-const SCHOLION_RE = /scholion:(\w+)=(\S+)/g;
+const SCHOLION_RE = /scholion:([\w-]+)=(\S+)/g;
 
 export function parseScholionMeta(meta: string): ScholionRef[] {
     const refs: ScholionRef[] = [];
