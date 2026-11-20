@@ -22,6 +22,7 @@ import { FC, HTMLAttributes, useMemo } from 'react';
 
 import { Code } from '../Code';
 import { Link } from '../Link';
+import { Quote } from '../Quote';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import { TypeSpecimen } from '../TypeSpecimen';
@@ -68,6 +69,7 @@ const baseComponents = {
         />
     ),
     a: (props: any) => <Link {...props} />,
+    Quote: (props: any) => <Quote {...props} />,
     pre: (props: any) => <Code {...props} />,
     DemoContext: (props: any) => <DemoContext {...props} />,
     DemoBox: (props: any) => {
