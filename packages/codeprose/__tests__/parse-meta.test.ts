@@ -16,6 +16,18 @@ describe('parseScholionMeta', () => {
         expect(refs[1]).toMatchObject({ id: 'repeat', pattern: 'repeatCount', line: 10 });
     });
 
+    it('parses a kebab-case id', () => {
+        expect(parseScholionMeta('css scholion:css-calc=translateX')).toEqual([
+            { id: 'css-calc', pattern: 'translateX', line: undefined, occurrence: undefined },
+        ]);
+    });
+
+    it('parses #all', () => {
+        const [ref] = parseScholionMeta('html scholion:depth=--depth#all');
+        expect(ref).toMatchObject({ id: 'depth', pattern: '--depth', all: true });
+        expect(ref.occurrence).toBeUndefined();
+    });
+
     it('parses @line hint', () => {
         const [ref] = parseScholionMeta('scholion:repeat=repeatCount@10');
         expect(ref.pattern).toBe('repeatCount');
