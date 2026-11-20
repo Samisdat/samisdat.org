@@ -15,6 +15,14 @@ overrides:
   # LanguageRegistration types incompatible with ours. Keep in sync with the
   # catalog entry.
   react-shiki>shiki: ^4.6.0
+  # security (GHSA-3g3m-2fjr-6pw4): @joshwooding/vite-plugin-react-docgen-typescript,
+  # pulled in by @storybook/react-vite, uses glob 13. Remove once it depends on glob >=14.0.2.
+  glob: ^14.0.2
+  # security (GHSA-g3hv-75wg-m249): @linaria/react and @linaria/core still resolve
+  # @wyw-in-js/shared and processor-utils 2.7.1 (minimatch 9). 2.7.2 uses minimatch ^11.
+  # Remove once @linaria/* depends on @wyw-in-js >=2.7.2.
+  '@wyw-in-js/shared': ^2.7.2
+  '@wyw-in-js/processor-utils': ^2.7.2
 
 catalog:
   # React ecosystem - shared across all packages
