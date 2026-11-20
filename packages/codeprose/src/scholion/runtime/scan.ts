@@ -46,14 +46,17 @@ function codeSnapshot(a: HTMLAnchorElement, id: string): { html: string; lineNum
     return { html: clone.outerHTML, lineNum: lineEl.dataset.line ?? null };
 }
 
-function textSnapshot(d: HTMLElement): string {
+function textSnapshot(d: HTMLElement, id: string): string {
     const clone = d.cloneNode(true) as Element;
     clone.removeAttribute('id');
-    // The peek is aria-hidden and sits inside a button: no nested links
-    clone.querySelectorAll('a.ref-target').forEach(node => {
+    // Paragraphs with several refs nest the other refs' anchors: no duplicate ids in the peek
+    clone.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+    clone.querySelectorAll('[data-explains]').forEach(node => node.removeAttribute('data-explains'));
+    // The peek is aria-hidden and sits inside a button: no nested links. Only the own target is marked.
+    clone.querySelectorAll<HTMLElement>('a.ref-target').forEach(node => {
         const span = document.createElement('span');
         span.innerHTML = node.innerHTML;
-        span.className = 'ref-target scholion-peek__token';
+        if (node.dataset.ref === id) span.className = 'ref-target scholion-peek__token';
         node.replaceWith(span);
     });
     return clone.outerHTML;
@@ -86,7 +89,7 @@ export function scanRefs(root: ParentNode): Registry {
             color,
             codeHtml: code.html,
             lineNum: code.lineNum,
-            textHtml: textSnapshot(d),
+            textHtml: textSnapshot(d, id),
         };
     }
 
