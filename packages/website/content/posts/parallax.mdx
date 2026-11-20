@@ -6,39 +6,90 @@ description: Mausbewegung wird in normalisierte Koordinaten umgerechnet und trei
 image: true
 ---
 
+<Stack
+  container
+  directionSmall="column"
+  directionMedium="row"
+  sticky
+  style={{ marginBottom: "2rem" }}
+>
+  <Stack orderSmall={2} orderMedium={1}>
+
+<DemoParallaxRays variant="panorama" />
+
+  </Stack>
+  <Stack orderSmall={1} orderMedium={2}>
+
+Wer schon mal im Zug quer zur Fahrtrichtung aus dem Fenster die Landschaft hat vorbeiziehen lassen, kennt den Effekt:
+Der Baum in der Nähe fliegt nur so vorbei, der Hügel in der Ferne scheint sich deutlich langsamer zu bewegen.
+
+Relativ zum fahrenden Zug haben der Baum und der Hügel die gleiche Geschwindigkeit.
+Aber je näher, desto höher die Winkelgeschwindigkeit, und das Hirn bastelt daraus verschiedene wahrgenommene Geschwindigkeiten.
+
+Zeichentrickfilme, Computerspiele oder Webseiten nutzen den Parallax-Effekt quasi auf dem Rückweg:
+Eine Grafik in verschiedene Ebenen aufteilen, die Ebenen relativ zueinander bewegen, und das Gehirn erfindet die Tiefeninformationen dazu.
+
+Bei klassischen, gemalten Trickfilmen fällt unser Gehirn da seit fast 90 Jahren herein: Schon in Disney-Klassikern wie _Bambi_ gleitet der Blick durch einen Wald, der aus nichts anderem besteht als aus flachen, gemalten Ebenen.
+[In diesem nerdigen Film](https://www.youtube.com/watch?v=YdHTlUGN1zw) aus den 1950er(!) gibt Walt Disney den Erklärbären für eine riesige Apparatur, in der bis zu sieben auf Glas gemalte Bildebenen übereinander lagen und unterschiedlich schnell unter der Kamera bewegt wurden.
+
+  </Stack>
+</Stack>
+
+## Pointer-Bewegung
+
+Es gibt verschiedene Möglichkeiten, um den Effekt interaktiv zu machen und die Ebenen zu steuern.
+So richtig ins Web gebracht wurde der FX vor 15 Jahren durch [eine Kampagne von Nike](https://web.archive.org/web/20110307053513/http://www.nikebetterworld.com/). Dort wurde die Scroll Position genutzt.
+
+Ich starte aber erst mal simpler mit der Bewegung des Pointer bzw. sogar nur mit dessen Position.
+
 <DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
   <Stack
     container
     directionSmall="column"
     directionMedium="row"
+    sticky
   >
     <Stack orderSmall={2} orderMedium={1}>
 
-<DemoParallaxSectors />
+<DemoGhostSectors
+    device="pad"
+    resumeAfterMs={3500}
+    loop
+    canvas={false}
+/>
 
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
 
-<p>Mouse Position</p>
+{/*prettier-ignore*/}
 
-```json
-{
-    // !placeholder pixelX "0.00"
-    "x": "0.00",
-    // !placeholder pixelY "0.00"
-    "y": "0.00"
-}
-```
+```js
+const { clientX: x, clientY: y } = event;
+const position = { x, y };
 
-<p>Normalisiert</p>
+console.log(position);
+// !placeholder pixelX 0.00
+// !placeholder pixelY 0.00#2
+{ x: 0.00, y: 0.00 }
 
-```json
-{
-    // !placeholder normX "0.00"
-    "x": "0.00",
-    // !placeholder normY "0.00"
-    "y": "0.00"
-}
+const relative: Position = {
+  x: position.x / element.width,
+  y: position.y / element.height 
+};
+
+const normalised = {
+  x: (relative.x - 0.5) * 2,
+  y: (relative.y - 0.5) * 2,
+};
+
+console.log(normalised);
+// !placeholder normX 0.00
+// !placeholder normY 0.00#2
+{ x: 0.00, y: 0.00 }
+/**
+ * {x:-1, y:-1} is top left, {y:0,y:0} and
+ * {1,1} ist bottom right
+ */
 ```
 
     </Stack>
@@ -46,84 +97,95 @@ image: true
   </Stack>
 </DemoContext>
 
-```tsx
-<svg>
-    <circle
-        className={'red parallax'}
-        cx="200"
-        cy="125"
-        r="100"
-        style={
-            {
-                ['--depth' as string]: String(-1),
-            } as CSSProperties
-        }
-    />
-    <circle
-        className={'yellow'}
-        cx="200"
-        cy="205"
-        r="100"
-    />
-    <circle
-        className={'blue parallax'}
-        cx="200"
-        cy="275"
-        r="100"
-        style={
-            {
-                ['--depth' as string]: String(1),
-            } as CSSProperties
-        }
-    />
+## Ebenen
+
+Zur Steuerung hab ich jetzt die Mausbewegung per Javascript in zwei Zahlen zwischen `-1` und `1` übersetzt.
+Ich weiß also sowohl für die X als auch für die Y-Achse wo die Mause relativ ist.
+
+Jetzt muss ich noch Ebenen aufbauen. Unten ein sehr einfaches Beispiel mit nur drei Ebenen.
+
+Den Ebenen gebe ich eine CSS Prop [`--depth`](#depth). Eine markiere ich mich `-1` als hinten und eine mit `+1` als vorne.
+
+Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`--parallax-x`](#parallax-x) und [`--parallax-y`](#parallax-y)
+
+Pro Ebene berechne ich dann [`-parallax` und `depth`](#css-calc) in CSS wie weit ich die Ebene herrumschieben muss.
+
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+      <DemoGhostCircles device="pad" resumeAfterMs={3500} loop canvas={false} />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+
+```html scholion:depth=--depth#all scholion:parallax-x=--parallax-x scholion:parallax-y=--parallax-y
+<svg
+  style="
+    // !placeholder normX 0.0
+    --parallax-x: 0.0;
+    // !placeholder normY 0.0
+    --parallax-y: 0.0;
+  "
+>
+  <circle style="--depth:-1"
+      // !collapse(1:4)
+      class="red parallax"
+      cx="200"
+      cy="125"
+      r="100"
+  />
+  <circle
+      // !collapse(1:4)
+      class="yellow parallax"
+      cx="200"
+      cy="205"
+      r="100"
+  />
+  <circle style="--depth:1"
+      // !collapse(1:4)
+      class="blue parallax"
+      cx="200"
+      cy="275"
+      r="100"
+  />
 </svg>
 ```
 
-            <Grid container>
-                <Grid
-                    small={8}
-                    medium={4}
-                >
+{/*prettier-ignore*/}
 
-```typescript
-const doParallax = () => {
-    const element = ref.current;
-    const { x, y } = coordsRef.current;
-
-    element.style.setProperty('--parallax-x', String(x));
-
-    element.style.setProperty('--parallax-y', String(y));
-};
-
-useAnimationFrame(doParallax);
-```
-
-                </Grid>
-
-                <Grid
-                    small={8}
-                    medium={4}
-                    orderSmall={1}
-                >
-
-<DemoParallaxCircles />
-
- </Grid></Grid>
-
-```css
+```css scholion:css-calc=translateX
 .parallax {
     transition: transform 10ms ease;
-    transform: translateX(calc(150px * var(--parallax-x) * var(--depth)))
-        translateY(calc(150px * var(--parallax-y) * var(--depth)));
+    transform:
+      translateX(
+        calc(
+          150px *var(--parallax-x)* var(--depth))
+      )
+      translateY(
+        calc(
+          150px *var(--parallax-y)* var(--depth)
+        )
+      );
 }
-```
+
+````
+
+      </Stack>
+
+  </Stack>
+</DemoContext>
+
+Das sind erstaunlich wenig _bewegliche_ Teile und ich hab eine okayische Trennung:
+Javascript rechnet und dann hab ich einen kleinen imperativen Teil, wenn ich die `--parallax-x` und `--parallax-y` in das `style`-Attribut des `svg` schreibe.
+Nach diesem Bruch geht das CSS und die eigentliche Animation dann aber fast deklarativ weiter.
+
+Mit der Methode habe ich den Effekt im Panorama oben gemacht und auch diese kleine Landschaft.
+
+## Hügel
 
 <DemoParallaxHills />
-
-<Sandbox
-    name={'hills'}
-    visibleFiles={['/src/App.tsx', '/src/parallax.css']}
-    activeFile={'/src/App.tsx'}
-/>
-
-Lorem Ipsum

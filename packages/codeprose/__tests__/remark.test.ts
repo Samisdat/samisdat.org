@@ -37,6 +37,25 @@ describe('remarkScholion', () => {
         expect(html).toContain('id="desc-anim"');
     });
 
+    it('explains several refs of one paragraph, each with its own anchor', async () => {
+        const html = await process(
+            [
+                '```css scholion:a-x=aaa scholion:b-y=bbb',
+                'aaa bbb',
+                '```',
+                '',
+                'Erst [`aaa`](#a-x) und [`bbb`](#b-y) im Satz.',
+            ].join('\n')
+        );
+        expect(html.match(/<p[^>]*data-explains/g)).toHaveLength(1);
+        for (const id of ['a-x', 'b-y']) {
+            expect(html).toContain(`id="explain-${id}"`);
+            expect(html).toContain(`data-explains="${id}"`);
+            expect(html).toContain(`id="desc-${id}"`);
+            expect(html).toContain(`href="#ref-${id}"`);
+        }
+    });
+
     it('keeps the fragment link as a ref-target link to the code token', async () => {
         const html = await process(FIXTURE);
         expect(html).toMatch(/<a [^>]*class="ref-target"[^>]*>/);

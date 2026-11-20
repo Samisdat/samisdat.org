@@ -1,105 +1,41 @@
 'use client';
 
-import { styled } from '@linaria/react';
-import { useParallax } from '@samisdat/tools';
-import { CSSProperties, useRef } from 'react';
+import { type NormSource, pointerSource, useParallax } from '@samisdat/tools';
+import { useMemo, useRef } from 'react';
 
-const Styling = styled.div`
-    svg {
-        width: 100%;
-        height: 100%;
-        fill-rule: evenodd;
-        clip-rule: evenodd;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-miterlimit: 1.5;
-        display: block;
-        border-radius: 0.5rem;
-        border: 1px solid var(--color-border-default);
-        background-color: var(--color-surface-raised);
+import { useDemoContext } from '../DemoContext';
+import { CirclesView } from './CirclesView';
 
-        &:hover {
-            border-color: var(--color-text-subtle);
-        }
-    }
+type DemoParallaxCirclesProps = {
+    /** Drives the demo instead of the pointer on the svg. */
+    source?: NormSource;
+};
 
-    & .parallax {
-        transition: transform 10ms ease;
-        transform: translateX(calc(150px * var(--parallax-x) * var(--depth)))
-            translateY(calc(150px * var(--parallax-y) * var(--depth)));
-    }
+export const DemoParallaxCircles = ({ source: external }: DemoParallaxCirclesProps = {}) => {
+    const ref = useRef<SVGSVGElement | null>(null);
+    const setValue = useDemoContext()?.setValue;
 
-    & rect {
-        fill: var(--color-surface-raised);
-    }
+    // The pointer (or the given source) drives the parallax; every norm is also mirrored into the code block placeholders
+    const source = useMemo<NormSource | undefined>(
+        () =>
+            setValue
+                ? {
+                      subscribe: listener => {
+                          const el = ref.current;
+                          if (!el) return () => {};
 
-    & circle.red {
-        fill: var(--color-ink-ruby);
-    }
-
-    & circle.blue {
-        fill: var(--color-ink-sapphire);
-    }
-
-    & circle.yellow {
-        fill: var(--color-ink-gold);
-
-        [data-theme='light'] & {
-            fill: var(--color-ink-jade);
-        }
-
-        @media (prefers-color-scheme: light) {
-            :root:not([data-theme]) & {
-                fill: var(--color-ink-jade);
-            }
-        }
-    }
-`;
-
-export const DemoParallaxCircles = () => {
-    const ref = useRef<HTMLDivElement | null>(null);
-
-    useParallax(ref);
-
-    return (
-        <>
-            <Styling ref={ref}>
-                <svg
-                    viewBox="0 0 400 400"
-                    version="1.1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlnsXlink="http://www.w3.org/1999/xlink"
-                    xmlSpace="preserve"
-                >
-                    <rect
-                        x="0"
-                        y="0"
-                        width="400"
-                        height="400"
-                    />
-
-                    <circle
-                        className={'red parallax'}
-                        style={{ '--depth': -1 } as CSSProperties}
-                        cx="200"
-                        cy="125"
-                        r="100"
-                    />
-                    <circle
-                        className={'yellow'}
-                        cx="200"
-                        cy="205"
-                        r="100"
-                    />
-                    <circle
-                        className={'blue parallax'}
-                        style={{ '--depth': 1 } as CSSProperties}
-                        cx="200"
-                        cy="275"
-                        r="100"
-                    />
-                </svg>
-            </Styling>
-        </>
+                          return (external ?? pointerSource(el)).subscribe(norm => {
+                              setValue('normX', norm.x.toFixed(2));
+                              setValue('normY', norm.y.toFixed(2));
+                              listener(norm);
+                          });
+                      },
+                  }
+                : external,
+        [setValue, external]
     );
+
+    useParallax(ref, {}, source);
+
+    return <CirclesView ref={ref} />;
 };

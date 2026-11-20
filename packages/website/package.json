@@ -89,7 +89,7 @@
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
-    "@types/mdx": "^2.0.13",
+    "@types/mdx": "^2.0.14",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
@@ -101,6 +101,7 @@
     "prettier-plugin-organize-imports": "catalog:",
     "tsx": "^4.23.15",
     "typescript": "catalog:",
+    "typescript-styled-plugin": "^0.18.3",
     "vitest": "catalog:"
   }
 }

@@ -3,10 +3,14 @@
 import { styled } from '@linaria/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
+import { type Norm, type NormSource, pointerSource } from '@samisdat/tools';
+
 import { useDemoContext } from '../DemoContext';
 
 const Styling = styled.div`
     aspect-ratio: 15/10;
+    /* vertical swipes keep scrolling the page, horizontal drags go to the demo */
+    touch-action: pan-y;
 
     & svg {
         border-radius: 0.5rem;
@@ -45,42 +49,31 @@ const Styling = styled.div`
 type Position = { x: number; y: number };
 type Coord = {
     pixel: Position;
-    relative: Position;
-    norm: Position;
+    norm: Norm;
 };
 
-export const DemoParallaxSectors = () => {
+type DemoParallaxSectorsProps = {
+    /** Drives the demo instead of the pointer on the container. */
+    source?: NormSource;
+};
+
+export const DemoParallaxSectors = ({ source }: DemoParallaxSectorsProps = {}) => {
     const ctx = useDemoContext();
     const ref = useRef<HTMLDivElement>(null);
 
     const [coords, setCoords] = useState<Coord>(() => {
         const start: Position = { x: 0, y: 0 };
-        return { pixel: start, relative: start, norm: start };
+        return { pixel: start, norm: start };
     });
 
-    const handlePointerMove = useCallback((event: PointerEvent) => {
-        const el = ref.current;
-        if (!el) return;
-
-        const rect = el.getBoundingClientRect();
-        if (rect.width === 0 || rect.height === 0) return;
-
+    const handleNorm = useCallback((norm: Norm) => {
+        const rect = ref.current?.getBoundingClientRect();
         const pixel: Position = {
-            x: Math.max(0, event.clientX - rect.left),
-            y: Math.max(0, event.clientY - rect.top),
+            x: rect ? (norm.x / 2 + 0.5) * rect.width : 0,
+            y: rect ? (norm.y / 2 + 0.5) * rect.height : 0,
         };
 
-        const relative: Position = {
-            x: Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width)),
-            y: Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height)),
-        };
-
-        const norm = {
-            x: (relative.x - 0.5) * 2,
-            y: (relative.y - 0.5) * 2,
-        };
-
-        setCoords({ pixel, relative, norm });
+        setCoords({ pixel, norm });
     }, []);
 
     const setValue = ctx?.setValue;
@@ -92,11 +85,12 @@ export const DemoParallaxSectors = () => {
     }, [coords, setValue]);
 
     useEffect(() => {
+        if (source) return source.subscribe(handleNorm);
+
         const el = ref.current;
         if (!el) return;
-        el.addEventListener('pointermove', handlePointerMove, { passive: true });
-        return () => el.removeEventListener('pointermove', handlePointerMove);
-    }, [handlePointerMove]);
+        return pointerSource(el).subscribe(handleNorm);
+    }, [handleNorm, source]);
 
     return (
         <Styling ref={ref}>

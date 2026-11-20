@@ -40,6 +40,8 @@ export const scholionStyles = `
   /* The inline <code> would bring its own turquoise; the target carries the token color of its ref */
   .ref-target code {
     color: inherit;
+    /* a token like --parallax-x must not break at its hyphens */
+    white-space: nowrap;
   }
 
   .ref-target {

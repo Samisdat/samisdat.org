@@ -40,7 +40,7 @@ export const globalStyles = css`
       --typo-h5-size: 1.25rem;
       --typo-h6-size: 1rem;
       --header-height: calc(100vw * 500 / 1280);
-      --navi-height: 3.2rem;
+      --navi-height: 2.3rem;
 
       /* Both themes share one token set that mixes dark and light by --theme-mix (see tokens/themes.ts).
          --theme-light switches 0/1 with the theme and is transitioned (on html below), --theme-progress
@@ -56,7 +56,7 @@ export const globalStyles = css`
 
     @media (min-width: ${breakpoints.medium}) {
       :root {
-        --navi-height: 4rem;
+        --navi-height: 3.1rem;
       }
     }
 
