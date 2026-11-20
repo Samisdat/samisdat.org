@@ -51,13 +51,17 @@ Ich starte aber erst mal simpler mit der Bewegung des Pointer bzw. sogar nur mit
   >
     <Stack orderSmall={2} orderMedium={1}>
 
-<DemoGhostSectors device="pad" resumeAfterMs={3500} loop canvas={false} />
+<DemoGhostSectors
+    device="pad"
+    resumeAfterMs={3500}
+    loop
+    canvas={false}
+/>
 
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
 
-{/*prettier-ignore*/}
-
+{/* prettier-ignore */}
 ```js
 const { clientX: x, clientY: y } = event;
 const position = { x, y };
@@ -92,7 +96,18 @@ console.log(normalised);
   </Stack>
 </DemoContext>
 
-Das reicht schon an Steuerung: Zwei Zahlen in Javascript jeweils zwischen `-1` und `1`.
+## Ebenen
+
+Zur Steuerung hab ich jetzt die Mausbewegung per Javascript in zwei Zahlen zwischen `-1` und `1` übersetzt.
+Ich weiß also sowohl für die X als auch für die Y-Achse wo die Mause relativ ist.
+
+Jetzt muss ich noch Ebenen aufbauen. Unten ein sehr einfaches Beispiel mit nur drei Ebenen.
+
+Den Ebenen gebe ich eine CSS Prop [`--depth`](#depth). Eine markiere ich mich `-1` als hinten und eine mit `+1` als vorne.
+
+Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`--parallax-x`](#parallax-x) und [`--parallax-y`](#parallax-y)
+
+[Aus der Kombination von `-parallax` und `depth`](#css-calc) berechne ich dann in CSS wie weit ich die Ebene herrumschieben muss.
 
 <DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
   <Stack
@@ -107,7 +122,7 @@ Das reicht schon an Steuerung: Zwei Zahlen in Javascript jeweils zwischen `-1` u
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
 
-```html
+```html scholion:depth=--depth#all scholion:parallax-x=--parallax-x scholion:parallax-y=--parallax-y
 <svg
   style="
     // !placeholder normX 0.0
@@ -140,28 +155,30 @@ Das reicht schon an Steuerung: Zwei Zahlen in Javascript jeweils zwischen `-1` u
 </svg>
 ```
 
-{/*prettier-ignore*/}
-
-```css
+{/* prettier-ignore */}
+```css scholion:css-calc=translateX
 .parallax {
     transition: transform 10ms ease;
-    transform: 
+    transform:
       translateX(
         calc(
-          150px * var(--parallax-x) * var(--depth))
+          150px *var(--parallax-x)* var(--depth))
       )
       translateY(
         calc(
-          150px * var(--parallax-y) * var(--depth)
+          150px *var(--parallax-y)* var(--depth)
         )
       );
 }
-```
+
+````
 
       </Stack>
 
   </Stack>
 </DemoContext>
+
+Das sind ersteunlich wenig _bewegliche_ Teile.
 
 ```tsx
 <svg>
