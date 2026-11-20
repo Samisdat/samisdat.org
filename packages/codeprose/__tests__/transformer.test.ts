@@ -70,4 +70,17 @@ describe('scholionTransformer', () => {
         const html = await process('```js\nconst x = 1\n```');
         expect(html).not.toContain('data-ref=');
     });
+
+    it('#all marks every match; only the first one carries the id the prose side links to', async () => {
+        const html = await process(
+            ['```html scholion:depth=--depth#all', '<a style="--depth:-1" />', '<b style="--depth:0" --depth />', '```'].join(
+                '\n'
+            )
+        );
+        expect(html.match(/data-ref="depth"/g)).toHaveLength(3);
+        expect(html.match(/id="ref-depth"/g)).toHaveLength(1);
+        expect(html).toContain('id="ref-depth-2"');
+        expect(html).toContain('id="ref-depth-3"');
+        expect(html.match(/href="#explain-depth"/g)).toHaveLength(3);
+    });
 });

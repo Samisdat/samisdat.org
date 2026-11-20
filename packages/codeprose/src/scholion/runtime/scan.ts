@@ -1,5 +1,8 @@
 export type RefEntry = {
+    /** First code target: the prose side links here, peeks and the return chip point at it */
     a: HTMLAnchorElement;
+    /** Every code target of the ref (`#all`), `a` first */
+    as: HTMLAnchorElement[];
     /** Text-side targets (`.ref-target`) of this ref */
     cs: Element[];
     /** Explanation block (`[data-explains]`) */
@@ -72,7 +75,8 @@ export function scanRefs(root: ParentNode): Registry {
     const refs: Record<string, RefEntry> = {};
 
     for (const id of ids) {
-        const a = root.querySelector<HTMLAnchorElement>(`a.ref[data-ref="${id}"]`);
+        const as = [...root.querySelectorAll<HTMLAnchorElement>(`a.ref[data-ref="${id}"]`)];
+        const a = as[0];
         const b = root.querySelector<HTMLElement>(`[data-explains="${id}"]`);
         const d = root.querySelector<HTMLElement>(`#desc-${id}`);
         if (!a || !b || !d) continue;
@@ -82,6 +86,7 @@ export function scanRefs(root: ParentNode): Registry {
 
         refs[id] = {
             a,
+            as,
             cs: [...root.querySelectorAll(`.ref-target[data-ref="${id}"]`)],
             b,
             d,

@@ -11,11 +11,13 @@ export function parseScholionMeta(meta: string): ScholionRef[] {
         const raw = m[2];
         const lineM = raw.match(/@(\d+)$/);
         const occM = raw.match(/#(\d+)$/);
+        const all = /#all$/.test(raw);
         refs.push({
             id,
-            pattern: raw.replace(/[@#]\d+$/, ''),
+            pattern: raw.replace(/[@#]\d+$|#all$/, ''),
             line: lineM ? parseInt(lineM[1], 10) : undefined,
             occurrence: occM ? parseInt(occM[1], 10) : undefined,
+            ...(all && { all }),
         });
     }
     return refs;

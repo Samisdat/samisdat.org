@@ -22,6 +22,12 @@ describe('parseScholionMeta', () => {
         ]);
     });
 
+    it('parses #all', () => {
+        const [ref] = parseScholionMeta('html scholion:depth=--depth#all');
+        expect(ref).toMatchObject({ id: 'depth', pattern: '--depth', all: true });
+        expect(ref.occurrence).toBeUndefined();
+    });
+
     it('parses @line hint', () => {
         const [ref] = parseScholionMeta('scholion:repeat=repeatCount@10');
         expect(ref.pattern).toBe('repeatCount');
