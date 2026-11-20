@@ -79,8 +79,7 @@ export const CirclesView = ({ ref }: { ref?: Ref<SVGSVGElement> }) => (
             r="100"
         />
         <circle
-            className={'yellow parallax'}
-            style={{ '--depth': 0 } as CSSProperties}
+            className={'yellow'}
             cx="200"
             cy="205"
             r="100"
