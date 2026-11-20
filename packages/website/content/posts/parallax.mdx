@@ -61,7 +61,8 @@ Ich starte aber erst mal simpler mit der Bewegung des Pointer bzw. sogar nur mit
     </Stack>
     <Stack orderSmall={1} orderMedium={2}>
 
-{/* prettier-ignore */}
+{/*prettier-ignore*/}
+
 ```js
 const { clientX: x, clientY: y } = event;
 const position = { x, y };
@@ -107,7 +108,7 @@ Den Ebenen gebe ich eine CSS Prop [`--depth`](#depth). Eine markiere ich mich `-
 
 Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`--parallax-x`](#parallax-x) und [`--parallax-y`](#parallax-y)
 
-[Aus der Kombination von `-parallax` und `depth`](#css-calc) berechne ich dann in CSS wie weit ich die Ebene herrumschieben muss.
+Pro Ebene berechne ich dann [`-parallax` und `depth`](#css-calc) in CSS wie weit ich die Ebene herrumschieben muss.
 
 <DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
   <Stack
@@ -138,7 +139,7 @@ Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`
       cy="125"
       r="100"
   />
-  <circle style="--depth:0"
+  <circle
       // !collapse(1:4)
       class="yellow parallax"
       cx="200"
@@ -155,7 +156,8 @@ Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`
 </svg>
 ```
 
-{/* prettier-ignore */}
+{/*prettier-ignore*/}
+
 ```css scholion:css-calc=translateX
 .parallax {
     transition: transform 10ms ease;
@@ -178,70 +180,12 @@ Und stöpsele die aktuelle, normaliserte Mausbewegung auch als CSS Props ein: [`
   </Stack>
 </DemoContext>
 
-Das sind ersteunlich wenig _bewegliche_ Teile.
+Das sind erstaunlich wenig _bewegliche_ Teile und ich hab eine okayische Trennung:
+Javascript rechnet und dann hab ich einen kleinen imperativen Teil, wenn ich die `--parallax-x` und `--parallax-y` in das `style`-Attribut des `svg` schreibe.
+Nach diesem Bruch geht das CSS und die eigentliche Animation dann aber fast deklarativ weiter.
 
-```tsx
-<svg>
-    <circle
-        className={'red parallax'}
-        cx="200"
-        cy="125"
-        r="100"
-        style={
-            {
-                ['--depth' as string]: String(-1),
-            } as CSSProperties
-        }
-    />
-    <circle
-        className={'yellow'}
-        cx="200"
-        cy="205"
-        r="100"
-    />
-    <circle
-        className={'blue parallax'}
-        cx="200"
-        cy="275"
-        r="100"
-        style={
-            {
-                ['--depth' as string]: String(1),
-            } as CSSProperties
-        }
-    />
-</svg>
-```
+Mit der Methode habe ich den Effekt im Panorama oben gemacht und auch diese kleine Landschaft.
 
-```typescript
-const doParallax = () => {
-    const element = ref.current;
-    const { x, y } = coordsRef.current;
-
-    element.style.setProperty('--parallax-x', String(x));
-
-    element.style.setProperty('--parallax-y', String(y));
-};
-
-useAnimationFrame(doParallax);
-```
-
-```css
-.parallax {
-    transition: transform 10ms ease;
-    transform: translateX(calc(150px * var(--parallax-x) * var(--depth)))
-        translateY(calc(150px * var(--parallax-y) * var(--depth)));
-}
-```
-
-## Zeiger und Touch-Drag
-
-<DemoParallaxHills />
-
-Lorem Ipsum
-
-Bonus Level
-
-Schöner Effekt auf Mobilen Geräten, aber permissons nerven
+## Hügel
 
 <DemoParallaxHills />
