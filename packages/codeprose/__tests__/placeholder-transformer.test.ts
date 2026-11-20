@@ -8,6 +8,7 @@ import { describe, expect, it } from 'vitest';
 
 import { collapseTransformer } from '../src/annotations/collapse-transformer.ts';
 import { placeholderTransformer } from '../src/annotations/placeholder-transformer.ts';
+import { scholionTransformer } from '../src/scholion/transformer.ts';
 
 async function process(md: string): Promise<string> {
     const result = await unified()
@@ -19,12 +20,32 @@ async function process(md: string): Promise<string> {
     return String(result);
 }
 
+async function processWithScholion(md: string): Promise<string> {
+    const result = await unified()
+        .use(remarkParse)
+        .use(remarkRehype)
+        .use(rehypePrettyCode, {
+            transformers: [placeholderTransformer(), scholionTransformer(), collapseTransformer()],
+        })
+        .use(rehypeStringify)
+        .process(md);
+    return String(result);
+}
+
 const block = (lang: string, ...lines: string[]) => ['```' + lang, ...lines, '```'].join('\n');
 
 const marked = (html: string, key: string) =>
     [...html.matchAll(new RegExp(`<span[^>]*data-placeholder="${key}"[^>]*>([^<]*)</span>`, 'g'))].map(m => m[1]);
 
 describe('placeholderTransformer', () => {
+    it('still marks the value on a line that holds a scholion ref', async () => {
+        const html = await processWithScholion(
+            block('css scholion:px=--parallax-x', '// !placeholder normX 0.0', '--parallax-x: 0.0;')
+        );
+        expect(marked(html, 'normX')).toEqual(['0.0']);
+        expect(html).toContain('data-ref="px"');
+    });
+
     it('marks a double-quoted value and keeps the quotes outside the span', async () => {
         const html = await process(block('json', '{', '// !placeholder normX "0.00"', '"x": "0.00"', '}'));
         expect(marked(html, 'normX')).toEqual(['0.00']);
