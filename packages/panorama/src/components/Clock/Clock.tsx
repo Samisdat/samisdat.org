@@ -1,8 +1,14 @@
 'use client';
 
-import { CSSProperties } from 'react';
+import { CSSProperties, useEffect, useRef, useState } from 'react';
 
 import { useTal } from '@/lib/TalContext';
+
+import { SpeedRing } from './SpeedRing';
+
+const CLOCK_X = 300;
+const CLOCK_Y = 390;
+const CLOCK_SIZE = 62;
 
 const ClockFace = () => (
     <>
@@ -34,46 +40,87 @@ export const Clock = () => {
     const minutes = time.getMinutes();
     const hours = time.getHours();
 
-    return (
-        <svg
-            aria-hidden="true"
-            focusable="false"
-            className="clock"
-            x={220}
-            y={420}
-            suppressHydrationWarning
-            style={
-                {
-                    ['--hour' as string]: String(hours),
-                    ['--minute' as string]: String(minutes),
-                    ['--second' as string]: String(seconds),
-                } as CSSProperties
+    const [open, setOpen] = useState(false);
+    const group = useRef<SVGGElement | null>(null);
+
+    // Touch has no hover: a tap on the clock shows the ring, a tap elsewhere hides it again
+    useEffect(() => {
+        if (!open) {
+            return undefined;
+        }
+
+        const close = (event: PointerEvent) => {
+            if (event.target instanceof Node && !group.current?.contains(event.target)) {
+                setOpen(false);
             }
+        };
+
+        document.addEventListener('pointerdown', close);
+
+        return () => {
+            document.removeEventListener('pointerdown', close);
+        };
+    }, [open]);
+
+    return (
+        <g
+            ref={group}
+            className="clockGroup"
+            data-open={open}
         >
-            <ClockFace />
-            <line
-                className="clockHandHour"
-                x1="31"
-                y1="31"
-                x2="31"
-                y2="15"
+            <SpeedRing
+                cx={CLOCK_X + CLOCK_SIZE / 2}
+                cy={CLOCK_Y + CLOCK_SIZE / 2}
             />
-            <line
-                className="clockHandMinute"
-                x1="31"
-                y1="31"
-                x2="31"
-                y2="10"
-            />
-            {100 >= timeFactor && (
+            <svg
+                aria-hidden="true"
+                focusable="false"
+                className="clock"
+                x={CLOCK_X}
+                y={CLOCK_Y}
+                onClick={() => {
+                    setOpen(current => !current);
+                }}
+                suppressHydrationWarning
+                style={
+                    {
+                        ['--hour' as string]: String(hours),
+                        ['--minute' as string]: String(minutes),
+                        ['--second' as string]: String(seconds),
+                    } as CSSProperties
+                }
+            >
+                <circle
+                    className="clockHit"
+                    cx={31}
+                    cy={31}
+                    r={31}
+                />
+                <ClockFace />
                 <line
-                    className="clockHandSecond"
+                    className="clockHandHour"
                     x1="31"
                     y1="31"
                     x2="31"
-                    y2="8"
+                    y2="15"
                 />
-            )}
-        </svg>
+                <line
+                    className="clockHandMinute"
+                    x1="31"
+                    y1="31"
+                    x2="31"
+                    y2="10"
+                />
+                {100 >= timeFactor && (
+                    <line
+                        className="clockHandSecond"
+                        x1="31"
+                        y1="31"
+                        x2="31"
+                        y2="8"
+                    />
+                )}
+            </svg>
+        </g>
     );
 };

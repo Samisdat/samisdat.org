@@ -31,7 +31,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());
-    const [timeFactor, setTimeFactor] = useState(1000); // Default: 10x Geschwindigkeit
+    const [timeFactor, setTimeFactor] = useState(1); // 1 = normal time, the speed ring raises it
 
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);

@@ -48,16 +48,9 @@ export const Panorama = (): ReactElement => {
 
     useParallax(ref, { scroll: true });
 
-    const { sunTimes } = useTal();
-    const { windowOpacity } = sunTimes;
+    const { windowOpacity } = useTal().sunTimes;
 
-    const applyTwilight = () => {
-        if (null === ref.current) {
-            return;
-        }
-
-        ref.current.style.setProperty('--twilight', String(windowOpacity));
-    };
+    const applyTwilight = () => ref.current?.style.setProperty('--twilight', String(windowOpacity));
 
     useAnimationFrame(applyTwilight);
 
@@ -71,120 +64,123 @@ export const Panorama = (): ReactElement => {
                     height="100%"
                     viewBox="0 0 1700 500"
                 >
-                    <Heaven />
-                    <ParallaxLayer
-                        scrollspeed={15}
-                        depth={-7}
-                    >
-                        <WaterTowerLichtscheid />
-                        <Hill010 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={14}
-                        depth={-6}
-                    >
-                        <University />
-                        <Hill020 />
-                        <Hill040 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={13}
-                        depth={-5}
-                    >
-                        <WaterTowerNaechstebreck />
-                        <Hill030 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={12}
-                        depth={-4}
-                    >
-                        <Tower2 />
-                        <Hill050 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={11}
-                        depth={-3}
-                    >
-                        <Tower1 />
-                        <Hill1110 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={10}
-                        depth={-2}
-                    >
-                        <Elisenturm />
-                        <Hardt />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={9}
-                        depth={-1}
-                    >
-                        <BeyenburgerDom />
-                        <Hill2800 />
-                    </ParallaxLayer>
+                    {/* the scenery is decorative; the clock with its speed ring is not */}
+                    <g aria-hidden="true">
+                        <Heaven />
+                        <ParallaxLayer
+                            scrollspeed={15}
+                            depth={-7}
+                        >
+                            <WaterTowerLichtscheid />
+                            <Hill010 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={14}
+                            depth={-6}
+                        >
+                            <University />
+                            <Hill020 />
+                            <Hill040 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={13}
+                            depth={-5}
+                        >
+                            <WaterTowerNaechstebreck />
+                            <Hill030 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={12}
+                            depth={-4}
+                        >
+                            <Tower2 />
+                            <Hill050 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={11}
+                            depth={-3}
+                        >
+                            <Tower1 />
+                            <Hill1110 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={10}
+                            depth={-2}
+                        >
+                            <Elisenturm />
+                            <Hardt />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={9}
+                            depth={-1}
+                        >
+                            <BeyenburgerDom />
+                            <Hill2800 />
+                        </ParallaxLayer>
 
-                    <ParallaxLayer
-                        scrollspeed={8}
-                        depth={0}
-                    >
-                        <Track />
-                    </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={8}
+                            depth={0}
+                        >
+                            <Track />
+                        </ParallaxLayer>
 
-                    <ParallaxLayer
-                        scrollspeed={7}
-                        depth={1}
-                    >
-                        <Hill2900 />
-                        <RedChurch />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={6}
-                        depth={2}
-                    >
-                        <LilaChurch />
-                        <LilaChurchHill />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={5}
-                        depth={3}
-                    >
-                        <Hill100 />
-                        <GreenHouse />
-                        <BlueHouse />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={4}
-                        depth={4}
-                    >
-                        <SchauspielHaus />
-                        <Hill3200 />
-                        <SchauspielHausCanopy />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={3}
-                        depth={5}
-                    >
-                        <VohwinkelBack />
-                        <Vohwinkel />
-                        <Hill3800 />
-                    </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={7}
+                            depth={1}
+                        >
+                            <Hill2900 />
+                            <RedChurch />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={6}
+                            depth={2}
+                        >
+                            <LilaChurch />
+                            <LilaChurchHill />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={5}
+                            depth={3}
+                        >
+                            <Hill100 />
+                            <GreenHouse />
+                            <BlueHouse />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={4}
+                            depth={4}
+                        >
+                            <SchauspielHaus />
+                            <Hill3200 />
+                            <SchauspielHausCanopy />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={3}
+                            depth={5}
+                        >
+                            <VohwinkelBack />
+                            <Vohwinkel />
+                            <Hill3800 />
+                        </ParallaxLayer>
 
-                    <ParallaxLayer
-                        scrollspeed={2}
-                        depth={6}
-                        cap={true}
-                    >
-                        <GelberTurm />
-                        <Hill4100 />
-                    </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={1}
-                        depth={7}
-                        cap={true}
-                    >
-                        <GreenTower />
-                        <BeforeGreenTower />
-                    </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={2}
+                            depth={6}
+                            cap={true}
+                        >
+                            <GelberTurm />
+                            <Hill4100 />
+                        </ParallaxLayer>
+                        <ParallaxLayer
+                            scrollspeed={1}
+                            depth={7}
+                            cap={true}
+                        >
+                            <GreenTower />
+                            <BeforeGreenTower />
+                        </ParallaxLayer>
+                    </g>
 
                     <Activity mode={reduceMotion ? 'hidden' : 'visible'}>
                         <Clock />
