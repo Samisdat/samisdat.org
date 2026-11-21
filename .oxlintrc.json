@@ -179,19 +179,6 @@
       }
     },
     {
-      "files": ["packages/panorama/src/components/Heaven/Heaven.tsx"],
-      "rules": {
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 106,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
       "files": ["packages/panorama/src/components/Panorama.tsx"],
       "rules": {
         "max-lines-per-function": [

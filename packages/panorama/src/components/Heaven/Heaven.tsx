@@ -3,11 +3,14 @@
 import { useEffect, useRef, useState } from 'react';
 import * as SunCalc from 'suncalc';
 
-import { useTal } from '@/lib/TalContext';
+import { type SunTimes, useTal } from '@/lib/TalContext';
 
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
+import { Stars } from './Stars';
 import { Sun } from './Sun';
+
+import type { Star } from '@/lib/stars';
 
 const LAT = 51.2562;
 const LNG = 7.1508;
@@ -17,7 +20,33 @@ interface Point {
     y: number;
 }
 
-export const Heaven = () => {
+/** Progress (0..1) of the sun across the day or of the moon across the night, on the fixed arc. */
+const getCelestialProgress = (time: Date, { sunrise, sunset, currentTime, isDay }: SunTimes) => {
+    if (isDay) {
+        const dayDuration = sunset - sunrise;
+        return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
+    } else {
+        if (currentTime >= sunset) {
+            const nextDay = new Date(time);
+            nextDay.setDate(nextDay.getDate() + 1);
+            const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise?.getTime() ?? sunrise;
+            const nightDuration = nextSunrise - sunset;
+            return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
+        } else {
+            const prevDay = new Date(time);
+            prevDay.setDate(prevDay.getDate() - 1);
+            const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset?.getTime() ?? sunset;
+            const nightDuration = sunrise - prevSunset;
+            return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
+        }
+    }
+};
+
+interface HeavenProps {
+    stars?: readonly Star[];
+}
+
+export const Heaven = ({ stars }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, sunTimes } = useTal();
@@ -28,28 +57,9 @@ export const Heaven = () => {
         y: 306,
     });
 
-    const { sunrise, sunset, currentTime, isDay, skyOpacity } = sunTimes;
+    const { isDay, skyOpacity } = sunTimes;
 
-    const celestialProgress = (() => {
-        if (isDay) {
-            const dayDuration = sunset - sunrise;
-            return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
-        } else {
-            if (currentTime >= sunset) {
-                const nextDay = new Date(time);
-                nextDay.setDate(nextDay.getDate() + 1);
-                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise?.getTime() ?? sunrise;
-                const nightDuration = nextSunrise - sunset;
-                return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
-            } else {
-                const prevDay = new Date(time);
-                prevDay.setDate(prevDay.getDate() - 1);
-                const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset?.getTime() ?? sunset;
-                const nightDuration = sunrise - prevSunset;
-                return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
-            }
-        }
-    })();
+    const celestialProgress = getCelestialProgress(time, sunTimes);
 
     useEffect(() => {
         if (!pathRef.current) return;
@@ -114,6 +124,7 @@ export const Heaven = () => {
                 opacity={skyOpacity}
                 suppressHydrationWarning
             />
+            {stars && stars.length > 0 && <Stars stars={stars} />}
             <ParallaxLayer
                 scrollspeed={15}
                 depth={-7}

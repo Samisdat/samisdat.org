@@ -379,3 +379,32 @@
 .panorama .clock .clockHandSecond {
     transform: rotate(calc(360deg * var(--second) / 60));
 }
+
+/* Twinkle of the brightest stars: steady most of the time, a short quick flash. */
+.panorama .star-flash {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: star-flash 8s ease-out infinite;
+}
+
+@keyframes star-flash {
+    0%,
+    86%,
+    100% {
+        transform: scale(1);
+        filter: none;
+    }
+    92% {
+        transform: scale(var(--k));
+        filter: brightness(1.6);
+    }
+    96% {
+        transform: scale(1.15);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panorama .star-flash {
+        animation: none;
+    }
+}
