@@ -5,11 +5,9 @@ import { Activity, ReactElement, useRef } from 'react';
 
 import { GelberTurm } from '@/components/Buildings/GelberTurm';
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
-import { GreenTower } from '@/components/Buildings/GreenTower';
 import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
 import { Clock } from '@/components/Clock/Clock';
 import { Heaven } from '@/components/Heaven/Heaven';
-import { BeforeGreenTower } from '@/components/Hills/BeforeGreenTower';
 import { Hardt } from '@/components/Hills/Hardt';
 import { Hill100 } from '@/components/Hills/Hill0100';
 import { Hill1110 } from '@/components/Hills/Hill1100';
@@ -33,6 +31,7 @@ import { University } from './Buildings/University';
 import { Vohwinkel } from './Buildings/Vohwinkel';
 import { WaterTowerLichtscheid } from './Buildings/WaterTowerLichtscheid';
 import { WaterTowerNaechstebreck } from './Buildings/WaterTowerNaechstebreck';
+import { FrontLayer } from './FrontLayer';
 import { Hill010 } from './Hills/Hill010';
 import { Hill020 } from './Hills/Hill020';
 import { Hill030 } from './Hills/Hill030';
@@ -177,14 +176,7 @@ export const Panorama = (): ReactElement => {
                         <GelberTurm />
                         <Hill4100 />
                     </ParallaxLayer>
-                    <ParallaxLayer
-                        scrollspeed={1}
-                        depth={7}
-                        cap={true}
-                    >
-                        <GreenTower />
-                        <BeforeGreenTower />
-                    </ParallaxLayer>
+                    <FrontLayer />
 
                     <Activity mode={reduceMotion ? 'hidden' : 'visible'}>
                         <Clock />

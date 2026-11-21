@@ -379,3 +379,85 @@
 .panorama .clock .clockHandSecond {
     transform: rotate(calc(360deg * var(--second) / 60));
 }
+
+/* Clouds: flat silhouettes in three tones (body, underside, rim). The tones fade from day to night with --night. */
+.panorama .clouds {
+    --d-b: oklch(0.97 0.004 250);
+    --d-s: oklch(0.84 0.05 240);
+    --d-r: oklch(1 0 0);
+    --n-b: oklch(0.3 0.05 268);
+    --n-s: oklch(0.22 0.07 275);
+    --n-r: oklch(0.5 0.05 262);
+    animation: cloudsIn 1.2s ease-out;
+}
+.panorama .clouds.tone-mix {
+    --d-b: oklch(0.9 0.008 255);
+    --d-s: oklch(0.74 0.025 258);
+    --d-r: oklch(0.96 0.005 255);
+    --n-b: oklch(0.27 0.045 268);
+    --n-s: oklch(0.2 0.06 273);
+    --n-r: oklch(0.44 0.045 262);
+}
+.panorama .clouds.tone-overcast {
+    --d-b: oklch(0.78 0.01 260);
+    --d-s: oklch(0.63 0.02 265);
+    --d-r: oklch(0.86 0.008 260);
+    --n-b: oklch(0.24 0.04 270);
+    --n-s: oklch(0.18 0.055 275);
+    --n-r: oklch(0.38 0.04 265);
+}
+.panorama .clouds.tone-grey {
+    --d-b: oklch(0.72 0.012 262);
+    --d-s: oklch(0.58 0.02 268);
+    --d-r: oklch(0.8 0.01 262);
+    --n-b: oklch(0.22 0.04 272);
+    --n-s: oklch(0.16 0.05 278);
+    --n-r: oklch(0.34 0.04 268);
+}
+.panorama .cloudBody {
+    fill: color-mix(in oklch, var(--n-b) calc(var(--night) * 100%), var(--d-b));
+}
+.panorama .cloudShade {
+    fill: color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s));
+}
+.panorama .cloudRim {
+    fill: color-mix(in oklch, var(--n-r) calc(var(--night) * 100%), var(--d-r));
+}
+.panorama .cloudTint {
+    fill: color-mix(in oklch, oklch(0.1 0.03 260) calc(var(--night) * 100%), oklch(0.42 0.02 265));
+    opacity: calc(var(--tint) * (1 - var(--night) * 0.65));
+}
+.panorama .cloudDrift {
+    animation: cloudDrift var(--duration) linear infinite;
+}
+@keyframes cloudDrift {
+    to {
+        transform: translateX(-1700px);
+    }
+}
+@keyframes cloudsIn {
+    from {
+        opacity: 0;
+    }
+}
+
+/* Rain falls over the whole panorama */
+.panorama .rain line {
+    stroke: color-mix(in oklch, oklch(0.62 0.05 255) calc(var(--twilight, 0) * 100%), oklch(0.9 0.02 250));
+    stroke-linecap: round;
+}
+.panorama .rainFall {
+    animation: rainFall var(--duration) linear infinite;
+}
+@keyframes rainFall {
+    to {
+        transform: translate(var(--run), 500px);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .panorama .cloudDrift,
+    .panorama .rainFall,
+    .panorama .clouds {
+        animation: none;
+    }
+}

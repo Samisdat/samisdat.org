@@ -2,6 +2,9 @@ import { usePrefersReducedMotion } from '@samisdat/tools';
 import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import * as SunCalc from 'suncalc';
 
+import { useWeather } from './useWeather';
+import { Weather } from './weather';
+
 const LAT = 51.2562;
 const LNG = 7.1508;
 
@@ -22,6 +25,7 @@ interface TalContextType {
     timeFactor: number;
     setTimeFactor: (factor: number) => void;
     sunTimes: SunTimes;
+    weather: Weather;
 }
 
 const TalContext = createContext<TalContextType | undefined>(undefined);
@@ -36,6 +40,8 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
+
+    const weather = useWeather(time);
 
     const sunTimes = useMemo(() => {
         const times = SunCalc.getTimes(time, LAT, LNG);
@@ -112,8 +118,8 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }, [timeFactor, reduceMotion]);
 
     const value = useMemo(
-        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes }),
-        [animate, time, timeFactor, setTimeFactor, sunTimes]
+        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes, weather }),
+        [animate, time, timeFactor, setTimeFactor, sunTimes, weather]
     );
 
     return <TalContext.Provider value={value}>{children}</TalContext.Provider>;

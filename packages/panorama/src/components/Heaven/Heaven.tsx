@@ -5,8 +5,10 @@ import * as SunCalc from 'suncalc';
 
 import { useTal } from '@/lib/TalContext';
 
+import { Clouds } from '../Clouds/Clouds';
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
+import { SkyGradient } from './SkyGradient';
 import { Sun } from './Sun';
 
 const LAT = 51.2562;
@@ -20,7 +22,7 @@ interface Point {
 export const Heaven = () => {
     const pathRef = useRef<SVGPathElement>(null);
 
-    const { time, sunTimes } = useTal();
+    const { time, sunTimes, weather } = useTal();
 
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({
@@ -68,31 +70,7 @@ export const Heaven = () => {
     return (
         <g id={'heaven'}>
             <defs>
-                <linearGradient
-                    id="dayskyGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                >
-                    <stop
-                        offset="0%"
-                        style={{ stopColor: '#0376BF' }}
-                    />
-                    <stop
-                        offset="10%"
-                        style={{ stopColor: '#0376BF' }}
-                    />
-                    <stop
-                        offset="60%"
-                        style={{ stopColor: '#A8D0F5' }}
-                    />
-
-                    <stop
-                        offset="100%"
-                        style={{ stopColor: '#A8D0F5' }}
-                    />
-                </linearGradient>
+                <SkyGradient />
 
                 <path
                     ref={pathRef}
@@ -132,6 +110,11 @@ export const Heaven = () => {
                     />
                 )}
             </ParallaxLayer>
+
+            <Clouds
+                weather={weather}
+                night={skyOpacity}
+            />
         </g>
     );
 };
