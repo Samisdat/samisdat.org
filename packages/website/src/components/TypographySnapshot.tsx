@@ -109,7 +109,6 @@ export const TypographySnapshot: FC<{ data: Data }> = ({ data }) => {
                     value={id}
                     options={data.presets.map(({ id: value, label }) => ({ value, label }))}
                     onChange={setId}
-                    variant="chips"
                 />
                 <FontLine>
                     Headline: {names.head} · Text: {names.body} · Mono: {names.mono} · Akzent: {names.em}
