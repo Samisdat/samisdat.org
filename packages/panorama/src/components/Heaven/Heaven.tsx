@@ -5,7 +5,6 @@ import * as SunCalc from 'suncalc';
 
 import { useTal } from '@/lib/TalContext';
 
-import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { Sun } from './Sun';
 
@@ -114,24 +113,20 @@ export const Heaven = () => {
                 opacity={skyOpacity}
                 suppressHydrationWarning
             />
-            <ParallaxLayer
-                scrollspeed={15}
-                depth={-7}
-            >
-                {isDay && (
-                    <Sun
-                        x={sunPosition.x}
-                        y={sunPosition.y}
-                    />
-                )}
+            {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
+            {isDay && (
+                <Sun
+                    x={sunPosition.x}
+                    y={sunPosition.y}
+                />
+            )}
 
-                {!isDay && (
-                    <Moon
-                        x={moonPosition.x}
-                        y={moonPosition.y}
-                    />
-                )}
-            </ParallaxLayer>
+            {!isDay && (
+                <Moon
+                    x={moonPosition.x}
+                    y={moonPosition.y}
+                />
+            )}
         </g>
     );
 };
