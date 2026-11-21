@@ -18,9 +18,9 @@ interface Drops {
 }
 
 const DROPS: Record<Exclude<RainIntensity, 'none'>, Drops> = {
-    light: { count: 70, length: 26, angle: 8, width: 1.6, opacity: 0.45, duration: 1.1 },
-    steady: { count: 210, length: 32, angle: 10, width: 1.8, opacity: 0.55, duration: 0.8 },
-    heavy: { count: 480, length: 44, angle: 16, width: 2, opacity: 0.6, duration: 0.55 },
+    light: { count: 90, length: 46, angle: 9, width: 1, opacity: 0.5, duration: 1.2 },
+    steady: { count: 260, length: 64, angle: 12, width: 1.1, opacity: 0.55, duration: 0.9 },
+    heavy: { count: 520, length: 92, angle: 16, width: 1.3, opacity: 0.6, duration: 0.6 },
 };
 
 const random = (seed: number) => () => {
@@ -31,21 +31,22 @@ const random = (seed: number) => () => {
 
 const strokes = (drops: Drops, seed: number) => {
     const next = random(seed);
-    const run = drops.length * Math.tan((drops.angle * Math.PI) / 180);
+    const slope = Math.tan((drops.angle * Math.PI) / 180);
 
     return Array.from({ length: drops.count }, (_, index) => {
         const x = -200 + next() * (SKY_WIDTH + 400);
         const y = next() * HEIGHT;
+        const length = drops.length * (0.45 + 0.75 * next());
 
         return (
             <line
                 key={index}
                 x1={x}
                 y1={y}
-                x2={x - run}
-                y2={y + drops.length}
+                x2={x - length * slope}
+                y2={y + length}
                 strokeWidth={drops.width}
-                opacity={drops.opacity * (0.55 + 0.45 * next())}
+                opacity={drops.opacity * (0.4 + 0.6 * next())}
             />
         );
     });

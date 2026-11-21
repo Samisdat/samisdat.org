@@ -1,10 +1,10 @@
 import { CSSProperties } from 'react';
 
-import { cloudShapes } from '@/generated/clouds';
 import { Weather } from '@/lib/weather';
 
 import { ParallaxLayer } from '../ParallaxLayer';
 import { CloudLayer, layersFor, SKY_WIDTH } from './cloudLayout';
+import { cloudShapes, Lobe } from './cloudShapes';
 
 /** How much the sky behind the clouds darkens, by cover. */
 const TINT: Record<Weather['cover'], number> = { clear: 0, light: 0, cloudy: 0.05, mostly: 0.22, overcast: 0.5 };
@@ -16,27 +16,48 @@ const TONE: Record<Weather['cover'], string> = {
     overcast: 'overcast',
 };
 
+const Ellipse = ({ cx, cy, rx, ry }: Lobe) => (
+    <ellipse
+        cx={cx}
+        cy={cy}
+        rx={rx}
+        ry={ry}
+    />
+);
+
+/** The sunlit side of a lobe: a bit smaller and pushed to the upper left. */
+const lit = ({ cx, cy, rx, ry }: Lobe): Lobe => ({ cx: cx - rx * 0.2, cy: cy - ry * 0.38, rx: rx * 0.7, ry: ry * 0.62 });
+
 const LayerClouds = ({ layer }: { layer: CloudLayer }) => (
     <>
-        {layer.clouds.map(({ shape, x, y, scale }) => (
-            <g
-                key={`${shape}-${x}-${y}`}
-                transform={`translate(${x} ${y}) scale(${scale})`}
-            >
-                <path
-                    className="cloudBody"
-                    d={cloudShapes[shape].body}
-                />
-                <path
-                    className="cloudShade"
-                    d={cloudShapes[shape].shade}
-                />
-                <path
-                    className="cloudRim"
-                    d={cloudShapes[shape].rim}
-                />
-            </g>
-        ))}
+        {layer.clouds.map(({ shape, x, y, scale }) => {
+            const { lens, lobes } = cloudShapes[shape];
+
+            return (
+                <g
+                    key={`${shape}-${x}-${y}`}
+                    transform={`translate(${x} ${y}) scale(${scale})`}
+                >
+                    <g className="cloudShade">
+                        <Ellipse {...lens} />
+                        {lobes.map((lobe) => (
+                            <Ellipse
+                                key={`${lobe.cx}-${lobe.cy}`}
+                                {...lobe}
+                            />
+                        ))}
+                    </g>
+                    <g className="cloudBody">
+                        {lobes.map((lobe) => (
+                            <Ellipse
+                                key={`${lobe.cx}-${lobe.cy}`}
+                                {...lit(lobe)}
+                            />
+                        ))}
+                    </g>
+                </g>
+            );
+        })}
     </>
 );
 
@@ -49,10 +70,6 @@ interface CloudsProps {
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
 export const Clouds = ({ weather, night }: CloudsProps) => {
     const { cover, rain } = weather;
-
-    if ('clear' === cover) {
-        return null;
-    }
 
     const tone = 'none' === rain ? TONE[cover] : 'grey';
 

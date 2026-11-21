@@ -1,5 +1,7 @@
-import { CloudShapeName } from '@/generated/clouds';
 import { Cover } from '@/lib/weather';
+
+import { CloudShapeName } from './cloudShapes';
+import { random } from './random';
 
 export const SKY_WIDTH = 1700;
 
@@ -25,7 +27,7 @@ interface LayerSpec {
 }
 
 const SPECS: Record<Cover, LayerSpec[]> = {
-    clear: [],
+    clear: [{ count: 2, shapes: ['cumMed', 'stratus'], scale: [1, 1.15], y: [20, 90], duration: 320 }],
     light: [{ count: 3, shapes: ['fairSmall', 'cumMed'], scale: [0.9, 1.1], y: [30, 150], duration: 240 }],
     cloudy: [
         { count: 5, shapes: ['fairSmall', 'cumMed', 'stratus'], scale: [0.8, 1], y: [20, 140], duration: 260 },
@@ -41,15 +43,6 @@ const SPECS: Record<Cover, LayerSpec[]> = {
         { count: 8, shapes: ['rain', 'cumMed', 'stratus'], scale: [1.7, 2.3], y: [40, 170], duration: 200 },
         { count: 7, shapes: ['rain', 'cumMed', 'stratus'], scale: [1.8, 2.4], y: [110, 230], duration: 130 },
     ],
-};
-
-const random = (seed: number) => () => {
-    let t = (seed += 0x6d2b79f5);
-
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
 };
 
 const between = ([from, to]: [number, number], value: number) => from + (to - from) * value;
