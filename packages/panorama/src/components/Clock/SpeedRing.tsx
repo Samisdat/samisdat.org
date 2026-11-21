@@ -6,62 +6,41 @@ import { arcTo, pointAt, useSpeedRing } from './useSpeedRing';
 
 const FULL_ARC = arcTo(SPEED_STEPS);
 
-const Tortoise = () => (
-    <>
-        <path d="M4 21C4 12.5 9.5 8 16 8s12 4.5 12 13z" />
-        <circle
-            cx="29.2"
-            cy="17.6"
-            r="3"
-        />
-        <rect
-            x="7"
-            y="20"
-            width="5"
-            height="5"
-            rx="1.4"
-        />
-        <rect
-            x="19"
-            y="20"
-            width="5"
-            height="5"
-            rx="1.4"
-        />
-        <path d="M4 20.5 1 22.6l3 .9z" />
-        <path
-            className="speedRingCut"
-            d="M16 8.6v11.6M10.4 11.6 12 20M21.6 11.6 20 20M5.6 18h20.8"
-        />
-    </>
-);
+// Icons "turtle" and "rabbit" from Lucide (ISC), see THIRD-PARTY-NOTICES.txt. 24 x 24 grid, drawn as strokes.
+const TURTLE = [
+    'm12 10 2 4v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3a8 8 0 1 0-16 0v3a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-3l2-4h4Z',
+    'M4.82 7.9 8 10',
+    'M15.18 7.9 12 10',
+    'M16.93 10H20a2 2 0 0 1 0 4H2',
+];
 
-const Hare = () => (
+const RABBIT = [
+    'M13 16a3 3 0 0 1 2.24 5',
+    'M18 12h.01',
+    'M18 21h-8a4 4 0 0 1-4-4 7 7 0 0 1 7-7h.2L9.6 6.4a1 1 0 1 1 2.8-2.8L15.8 7h.2c3.3 0 6 2.7 6 6v1a2 2 0 0 1-2 2h-1a3 3 0 0 0-3 3',
+    'M20 8.54V4a2 2 0 1 0-4 0v3',
+    'M7.612 12.524a3 3 0 1 0-1.6 4.3',
+];
+
+/** The outline underneath keeps the white stroke readable on bright sky. */
+const Glyph = ({ paths }: { paths: string[] }) => (
     <>
-        <ellipse
-            cx="14"
-            cy="20.5"
-            rx="9.5"
-            ry="5.2"
-        />
-        <circle
-            cx="25"
-            cy="16"
-            r="4"
-        />
-        <path d="M22.6 13.2C20.6 5.4 23.6 3 24.8 4c1.2 1.6 1.4 5.6 1.4 9.4zM26.2 13.2C26.6 6.4 29.4 4 30.6 5c.8 1.8-.6 5.4-2 9z" />
-        <circle
-            cx="4.6"
-            cy="18.4"
-            r="2.6"
-        />
-        <path d="M10 24 4.6 28.6h6.4zM19 25l7 3.6h-7z" />
-        <circle
-            className="speedRingEye"
-            cx="26.6"
-            cy="15.2"
-            r=".9"
-        />
+        <g className="speedRingGlyphOutline">
+            {paths.map(d => (
+                <path
+                    key={d}
+                    d={d}
+                />
+            ))}
+        </g>
+        <g className="speedRingGlyph">
+            {paths.map(d => (
+                <path
+                    key={d}
+                    d={d}
+                />
+            ))}
+        </g>
     </>
 );
 
@@ -71,7 +50,7 @@ interface SpeedRingProps {
     cy: number;
 }
 
-/** Ring around the clock: tortoise (normal time) to hare (fast). Shows on hover, on tap on the clock and on focus. */
+/** Ring around the clock: turtle (normal time) to rabbit (fast). Shows on hover, on tap on the clock and on focus. */
 export const SpeedRing = ({ cx, cy }: SpeedRingProps) => {
     const { step, ...handlers } = useSpeedRing(cx, cy);
 
@@ -92,7 +71,7 @@ export const SpeedRing = ({ cx, cy }: SpeedRingProps) => {
             >
                 <circle
                     className="speedRingHit"
-                    r={78}
+                    r={67}
                 />
                 <path
                     className="speedRingHalo"
@@ -108,25 +87,25 @@ export const SpeedRing = ({ cx, cy }: SpeedRingProps) => {
                 />
                 <svg
                     className="speedRingAnimal"
-                    x={-80}
-                    y={50}
+                    x={-77}
+                    y={46}
                     width={34}
                     height={34}
-                    viewBox="0 0 32 32"
+                    viewBox="0 0 24 24"
                     aria-hidden="true"
                 >
-                    <Tortoise />
+                    <Glyph paths={TURTLE} />
                 </svg>
                 <svg
                     className="speedRingAnimal"
-                    x={46}
-                    y={50}
+                    x={43}
+                    y={46}
                     width={34}
                     height={34}
-                    viewBox="0 0 32 32"
+                    viewBox="0 0 24 24"
                     aria-hidden="true"
                 >
-                    <Hare />
+                    <Glyph paths={RABBIT} />
                 </svg>
                 <g
                     className="speedRingKnob"
@@ -155,14 +134,14 @@ export const SpeedRing = ({ cx, cy }: SpeedRingProps) => {
             </g>
             <text
                 className="speedRingText"
-                y={60}
+                y={62}
                 aria-hidden="true"
             >
                 {formatFactor(factor)}
             </text>
             <text
                 className="speedRingText speedRingTextSmall"
-                y={76}
+                y={74}
                 aria-hidden="true"
             >
                 {formatEquivalence(factor)}

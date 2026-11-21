@@ -1,21 +1,11 @@
-/** Number of positions on the speed ring, 0 is normal time. */
-export const SPEED_STEPS = 100;
+/** Time factors the ring snaps to: normal time, then roughly 10 s, 1 min, 5 min, 15 min, 30 min, 1 h and 2 h per second. */
+const FACTORS = [1, 10, 60, 300, 900, 1800, 3600, 7200];
 
-const MAX_EXPONENT = 3.2;
+/** Highest position on the speed ring, 0 is normal time. */
+export const SPEED_STEPS = FACTORS.length - 1;
 
-/**
- * Time factor for a position on the ring. Position 0 is normal time; from position 1 the factor grows
- * exponentially from 2 to about 3170 (roughly 53 minutes per second), so normal speed is easy to hit.
- */
-export const factorAt = (step: number): number => {
-    const clamped = Math.max(0, Math.min(SPEED_STEPS, Math.round(step)));
-
-    if (0 === clamped) {
-        return 1;
-    }
-
-    return Math.round(2 * 10 ** (((clamped - 1) / (SPEED_STEPS - 1)) * MAX_EXPONENT));
-};
+/** Time factor for a position on the ring. Fixed stops instead of a continuous scale, so every stop makes a visible difference. */
+export const factorAt = (step: number): number => FACTORS[Math.max(0, Math.min(SPEED_STEPS, Math.round(step)))];
 
 export const formatFactor = (factor: number): string => (1 === factor ? 'Normal' : `×${factor}`);
 

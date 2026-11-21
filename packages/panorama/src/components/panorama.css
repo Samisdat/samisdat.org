@@ -380,10 +380,11 @@
     transform: rotate(calc(360deg * var(--second) / 60));
 }
 
-/* Speed ring around the clock: tortoise (normal time) to hare (fast) */
+/* Speed ring around the clock: turtle (normal time) to rabbit (fast) */
 .panorama {
-    --speed-ring: var(--color-ink-rose, oklch(80.7% 0.189 326.9));
-    --speed-ring-halo: oklch(18% 0.05 300 / 72%);
+    --speed-ring: #fff;
+    --speed-ring-outline: var(--panorama-aubergine);
+    --speed-ring-halo: oklch(0.22 0.05 300 / 85%);
 }
 .panorama .clockHit {
     fill: transparent;
@@ -423,17 +424,17 @@
     stroke-width: 8;
 }
 .panorama .speedRingAnimal {
-    color: var(--speed-ring);
-    fill: currentcolor;
-}
-.panorama .speedRingCut {
     fill: none;
-    stroke: oklch(18% 0.05 300);
-    stroke-width: 1.6;
     stroke-linecap: round;
+    stroke-linejoin: round;
 }
-.panorama .speedRingEye {
-    fill: oklch(18% 0.05 300);
+.panorama .speedRingGlyphOutline {
+    stroke: var(--speed-ring-outline);
+    stroke-width: 5;
+}
+.panorama .speedRingGlyph {
+    stroke: var(--speed-ring);
+    stroke-width: 2;
 }
 .panorama .speedRingKnob {
     cursor: grab;
@@ -443,7 +444,7 @@
 }
 .panorama .speedRingHandle {
     fill: var(--speed-ring);
-    stroke: var(--speed-ring-halo);
+    stroke: var(--speed-ring-outline);
     stroke-width: 4;
 }
 .panorama .speedRingFocus {

@@ -8,12 +8,11 @@ describe('factorAt', () => {
     });
 
     it('leaves normal time with the first step', () => {
-        expect(factorAt(1)).toBe(2);
+        expect(factorAt(1)).toBe(10);
     });
 
-    it('reaches about 53 minutes per second at the last step', () => {
-        expect(factorAt(SPEED_STEPS)).toBeGreaterThan(3000);
-        expect(factorAt(SPEED_STEPS)).toBeLessThan(3300);
+    it('ends at two hours per second', () => {
+        expect(factorAt(SPEED_STEPS)).toBe(7200);
     });
 
     it('never decreases', () => {
@@ -31,16 +30,16 @@ describe('factorAt', () => {
 describe('formatFactor', () => {
     it('names normal time and prefixes everything else with ×', () => {
         expect(formatFactor(1)).toBe('Normal');
-        expect(formatFactor(21)).toBe('×21');
+        expect(formatFactor(60)).toBe('×60');
     });
 });
 
 describe('formatEquivalence', () => {
     it('uses seconds, minutes and hours with a decimal comma', () => {
         expect(formatEquivalence(1)).toBe('1 s = 1 s');
-        expect(formatEquivalence(21)).toBe('1 s = 21 s');
+        expect(formatEquivalence(10)).toBe('1 s = 10 s');
         expect(formatEquivalence(150)).toBe('1 s = 2,5 min');
-        expect(formatEquivalence(3170)).toBe('1 s = 53 min');
+        expect(formatEquivalence(900)).toBe('1 s = 15 min');
         expect(formatEquivalence(7200)).toBe('1 s = 2,0 h');
     });
 });

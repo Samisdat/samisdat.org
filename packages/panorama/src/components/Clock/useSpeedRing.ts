@@ -3,7 +3,7 @@ import { KeyboardEvent, PointerEvent, useState } from 'react';
 import { useTal } from '@/lib/TalContext';
 import { factorAt, SPEED_STEPS } from '@/lib/timeFactor';
 
-export const RADIUS = 60;
+export const RADIUS = 51;
 const START_ANGLE = 135;
 const SWEEP = 270;
 
@@ -30,8 +30,8 @@ const KEY_STEPS: Record<string, number> = {
     ArrowUp: 1,
     ArrowLeft: -1,
     ArrowDown: -1,
-    PageUp: 10,
-    PageDown: -10,
+    PageUp: 2,
+    PageDown: -2,
 };
 
 /** Position on the ring (0 = normal time) and the pointer and keyboard handlers that move it. */
