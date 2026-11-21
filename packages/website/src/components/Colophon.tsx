@@ -26,5 +26,15 @@ const YEAR = new Date().getFullYear();
 export const Colophon: FC<HTMLAttributes<HTMLElement>> = props => (
     <FooterWrapper {...props}>
         © {YEAR} samisdat.org · <Link href="/impressum">Impressum</Link> · <Link href="/datenschutz">Datenschutz</Link>
+        <br />
+        Sterne: <a href="https://www.astronexus.com/hyg">HYG-Datenbank</a> (
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>,{' '}
+        <Link
+            href="/stars/LICENSE.txt"
+            prefetch={false}
+        >
+            Änderungen
+        </Link>
+        )
     </FooterWrapper>
 );

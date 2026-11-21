@@ -4,11 +4,11 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { Container } from '@samisdat/ui-components/Container';
 import { BottomDockContainer, DockProvider, TopDockContainer } from '@samisdat/ui-components/Docks';
-import { WtalPanorama } from '@samisdat/wtal-panorama';
 import { Analytics } from '@vercel/analytics/next';
 
 import { Colophon } from '@/components/Colophon';
 import { Page } from '@/components/Page';
+import { SkyPanorama } from '@/components/SkyPanorama';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import { presetSizeStyle } from '@/lib/typography/data';
 import { FLUID_ROOT_VARS } from '@/lib/typography/fluid';
@@ -21,8 +21,8 @@ config.autoAddCss = false;
 import '@samisdat/ui-components/globalStyle';
 
 import { Navi } from '@/components/Navi';
-import { SkipLink } from '@/components/SkipLink';
 import { Scrolling } from '@/components/Scrolling';
+import { SkipLink } from '@/components/SkipLink';
 
 export const metadata: Metadata = {
     title: {
@@ -69,7 +69,7 @@ export default function RootLayout({
                 <DockProvider>
                     <Page>
                         <SkipLink />
-                        <WtalPanorama />
+                        <SkyPanorama />
                         <Navi />
                         <main
                             id="main"
