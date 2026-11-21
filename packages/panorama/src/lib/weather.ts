@@ -8,8 +8,8 @@ export interface Weather {
 
 export const CLEAR: Weather = { cover: 'clear', rain: 'none' };
 
-const covers: Cover[] = ['clear', 'light', 'cloudy', 'mostly', 'overcast'];
-const rains: Rain[] = ['none', 'light', 'steady', 'heavy'];
+export const COVERS: readonly Cover[] = ['clear', 'light', 'cloudy', 'mostly', 'overcast'];
+export const RAINS: readonly Rain[] = ['none', 'light', 'steady', 'heavy'];
 
 /** The weather of a day: twenty slots, so a day is drawn with these odds. */
 const SLOTS: Weather[] = [
@@ -43,7 +43,7 @@ export const weatherForDay = (date: Date): Weather => SLOTS[hash(dayKey(date)) %
 export const parseWeather = (text: string | null): Weather | null => {
     const [cover, rain = 'none', ...rest] = (text ?? '').split('-');
 
-    if (rest.length > 0 || !covers.includes(cover as Cover) || !rains.includes(rain as Rain)) {
+    if (rest.length > 0 || !COVERS.includes(cover as Cover) || !RAINS.includes(rain as Rain)) {
         return null;
     }
 

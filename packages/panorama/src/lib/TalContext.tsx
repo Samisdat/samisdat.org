@@ -30,7 +30,7 @@ interface TalContextType {
 
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
-export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weather }> = ({ children, weather: forced }) => {
     const reduceMotion = usePrefersReducedMotion();
     const [animate, setAnimate] = useState<boolean>(false);
 
@@ -41,7 +41,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
 
-    const weather = useWeather(time);
+    const weather = useWeather(time, forced);
 
     const sunTimes = useMemo(() => {
         const times = SunCalc.getTimes(time, LAT, LNG);
