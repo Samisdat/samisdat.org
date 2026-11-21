@@ -3,7 +3,6 @@ import './panorama.css';
 import { useAnimationFrame, useParallax, usePrefersReducedMotion } from '@samisdat/tools';
 import { Activity, ReactElement, useRef } from 'react';
 
-import { GelberTurm } from '@/components/Buildings/GelberTurm';
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
 import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
 import { Clock } from '@/components/Clock/Clock';
@@ -15,7 +14,6 @@ import { Hill2800 } from '@/components/Hills/Hill2800';
 import { Hill2900 } from '@/components/Hills/Hill2900';
 import { Hill3200 } from '@/components/Hills/Hill3200';
 import { Hill3800 } from '@/components/Hills/Hill3800';
-import { Hill4100 } from '@/components/Hills/Hill4100';
 import { LilaChurchHill } from '@/components/Hills/LilaChurchHill';
 import { VohwinkelBack } from '@/components/Hills/VohwinkelBack';
 import { useTal } from '@/lib/TalContext';
@@ -168,14 +166,6 @@ export const Panorama = (): ReactElement => {
                         <Hill3800 />
                     </ParallaxLayer>
 
-                    <ParallaxLayer
-                        scrollspeed={2}
-                        depth={6}
-                        cap={true}
-                    >
-                        <GelberTurm />
-                        <Hill4100 />
-                    </ParallaxLayer>
                     <FrontLayer />
 
                     <Activity mode={reduceMotion ? 'hidden' : 'visible'}>
