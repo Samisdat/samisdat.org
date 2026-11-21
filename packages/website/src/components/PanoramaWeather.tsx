@@ -2,7 +2,7 @@
 
 import { Segmented } from '@samisdat/ui-components/Segmented';
 import { COVERS, RAINS, type Cover, type Rain, WtalPanorama } from '@samisdat/wtal-panorama';
-import { useEffect, useState } from 'react';
+import { useState, useSyncExternalStore } from 'react';
 
 type CoverChoice = Cover | 'auto';
 
@@ -17,22 +17,16 @@ const RAIN_LABELS: Record<Rain, string> = { none: 'Kein Regen', light: 'Leicht',
 
 const COVER_OPTIONS = [
     { value: 'auto' as CoverChoice, label: 'Tageswetter' },
-    ...COVERS.map((cover) => ({ value: cover as CoverChoice, label: COVER_LABELS[cover] })),
+    ...COVERS.map(cover => ({ value: cover as CoverChoice, label: COVER_LABELS[cover] })),
 ];
-const RAIN_OPTIONS = RAINS.map((rain) => ({ value: rain, label: RAIN_LABELS[rain] }));
+const RAIN_OPTIONS = RAINS.map(rain => ({ value: rain, label: RAIN_LABELS[rain] }));
 
 /** Shown while developing, or on any page with `?weather-picker`. */
-const usePickerEnabled = () => {
-    const [enabled, setEnabled] = useState(false);
+const subscribeNothing = () => () => {};
+const pickerEnabled = () =>
+    'production' !== process.env.NODE_ENV || new URLSearchParams(window.location.search).has('weather-picker');
 
-    useEffect(() => {
-        setEnabled(
-            'production' !== process.env.NODE_ENV || new URLSearchParams(window.location.search).has('weather-picker')
-        );
-    }, []);
-
-    return enabled;
-};
+const usePickerEnabled = () => useSyncExternalStore(subscribeNothing, pickerEnabled, () => false);
 
 /** The panorama, with segments underneath to switch through every cover and rain. */
 export const PanoramaWeather = () => {
