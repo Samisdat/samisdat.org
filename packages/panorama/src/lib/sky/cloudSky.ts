@@ -1,4 +1,4 @@
-import type { Cover } from './weather';
+import type { Cover } from '../weather';
 
 /** Sky cover in eighths (oktas): 0 is clear, 8 is fully covered. */
 export type Oktas = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
