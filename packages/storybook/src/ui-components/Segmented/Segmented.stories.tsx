@@ -1,5 +1,6 @@
 import { Segmented as SegmentedComponent } from '@samisdat/ui-components/Segmented';
 import { useState } from 'react';
+import { expect, userEvent, within } from 'storybook/test';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -35,6 +36,22 @@ export const Segmented: Story = {
                 onChange={setValue}
             />
         );
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const group = canvas.getByRole('group', { name: 'Gemessen auf' });
+        const raised = within(group).getByLabelText('raised · highlight · selection');
+        await expect(raised).toBeChecked();
+
+        // Pointer: picking another option moves the selection.
+        await userEvent.click(within(group).getByLabelText('code'));
+        await expect(within(group).getByLabelText('code')).toBeChecked();
+        await expect(raised).not.toBeChecked();
+
+        // Keyboard: arrow keys move the selection inside the radio group.
+        await userEvent.keyboard('{ArrowLeft}');
+        await expect(raised).toBeChecked();
+        await expect(raised).toHaveFocus();
     },
 };
 
@@ -143,6 +160,15 @@ export const Chips: Story = {
                 />
             </div>
         );
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const group = canvas.getByRole('group', { name: 'Typography preset' });
+        await expect(group).toHaveAttribute('data-variant', 'chips');
+
+        await userEvent.click(within(group).getByLabelText('garamond'));
+        await expect(within(group).getByLabelText('garamond')).toBeChecked();
+        await expect(within(group).getByLabelText('plex')).not.toBeChecked();
     },
 };
 
