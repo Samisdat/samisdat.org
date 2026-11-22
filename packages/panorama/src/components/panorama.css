@@ -426,6 +426,19 @@
     stroke: color-mix(in oklch, var(--n-s) calc(var(--night) * 80%), oklch(0.4 0.03 265));
     stroke-width: 2;
 }
+/* Thin high clouds are see-through and pale; the colour work can set tones per type through the palettes prop */
+.panorama .cloudLayer.type-cirrus {
+    opacity: 0.6;
+}
+.panorama .cloudLayer.type-cirrocumulus {
+    opacity: 0.7;
+}
+.panorama .cloudLayer.type-altocumulus {
+    opacity: 0.92;
+}
+.panorama .cloudLayer.type-nimbostratus {
+    opacity: 0.95;
+}
 .panorama .cloudTint {
     fill: color-mix(in oklch, oklch(0.1 0.03 260) calc(var(--night) * 100%), oklch(0.42 0.02 265));
     opacity: calc(var(--tint) * (1 - var(--night) * 0.65));

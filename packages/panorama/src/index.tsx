@@ -5,6 +5,9 @@ import { TalProvider } from './lib/TalContext';
 import { Weather } from './lib/weather';
 
 export { COVERS, RAINS } from './lib/weather';
+export { percentToOktas, skyFromCover, skyFromPercent } from './lib/sky';
+export type { Oktas, Sky, SkyBand } from './lib/sky';
+export type { CloudPalette, CloudType } from './components/Clouds/cloudTypes';
 export type { Cover, Rain, Weather } from './lib/weather';
 
 interface WtalPanoramaProps {

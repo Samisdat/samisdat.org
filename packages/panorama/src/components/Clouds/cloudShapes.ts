@@ -32,6 +32,10 @@ const SPECS = {
     cumTower: { width: 280, height: 234, count: 10, dome: 1, seed: 11 },
     stratus: { width: 530, height: 81, count: 14, dome: 0.35, seed: 5 },
     rain: { width: 420, height: 122, count: 12, dome: 0.5, seed: 13 },
+    altoLump: { width: 170, height: 46, count: 6, dome: 0.5, seed: 17 },
+    altoBand: { width: 300, height: 44, count: 9, dome: 0.3, seed: 19 },
+    stratoLump: { width: 360, height: 62, count: 10, dome: 0.3, seed: 23 },
+    stratoRoll: { width: 520, height: 70, count: 14, dome: 0.2, seed: 29 },
 } satisfies Record<string, ShapeSpec>;
 
 export type CloudShapeName = keyof typeof SPECS;

@@ -1,8 +1,11 @@
 'use client';
 
 import { Segmented } from '@samisdat/ui-components/Segmented';
-import { COVERS, RAINS, type Cover, type Rain, WtalPanorama } from '@samisdat/wtal-panorama';
-import { useState, useSyncExternalStore } from 'react';
+import { COVERS, RAINS, type Cover, type Rain, type Weather, WtalPanorama } from '@samisdat/wtal-panorama';
+import { useEffect, useState, useSyncExternalStore } from 'react';
+
+import { readWeather } from '@/lib/weather/readWeather';
+import { weatherOfReading } from '@/lib/weather/toPanoramaWeather';
 
 type CoverChoice = Cover | 'auto';
 
@@ -19,6 +22,29 @@ const COVER_OPTIONS = [
     { value: 'auto' as CoverChoice, label: 'Tageswetter' },
     ...COVERS.map(cover => ({ value: cover as CoverChoice, label: COVER_LABELS[cover] })),
 ];
+/** The measured weather, or `undefined` while loading, on a fallback, and when `?weather=` overrides it. */
+const useLiveWeather = (): Weather | undefined => {
+    const [live, setLive] = useState<Weather>();
+
+    useEffect(() => {
+        if (new URLSearchParams(window.location.search).has('weather')) {
+            return;
+        }
+
+        const controller = new AbortController();
+
+        void readWeather(fetch, controller.signal).then((reading) => {
+            if (!controller.signal.aborted) {
+                setLive(weatherOfReading(reading));
+            }
+        });
+
+        return () => controller.abort();
+    }, []);
+
+    return live;
+};
+
 const RAIN_OPTIONS = RAINS.map(rain => ({ value: rain, label: RAIN_LABELS[rain] }));
 
 /** Shown while developing, or on any page with `?weather-picker`. */
@@ -31,12 +57,13 @@ const usePickerEnabled = () => useSyncExternalStore(subscribeNothing, pickerEnab
 /** The panorama, with segments underneath to switch through every cover and rain. */
 export const PanoramaWeather = () => {
     const enabled = usePickerEnabled();
+    const live = useLiveWeather();
     const [cover, setCover] = useState<CoverChoice>('auto');
     const [rain, setRain] = useState<Rain>('none');
 
     return (
         <>
-            <WtalPanorama weather={enabled && 'auto' !== cover ? { cover, rain } : undefined} />
+            <WtalPanorama weather={enabled && 'auto' !== cover ? { cover, rain } : live} />
             {enabled && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1rem', padding: '0.5rem 1rem' }}>
                     <Segmented

@@ -1,9 +1,13 @@
+import type { Sky } from './sky';
+
 export type Cover = 'clear' | 'light' | 'cloudy' | 'mostly' | 'overcast';
 export type Rain = 'none' | 'light' | 'steady' | 'heavy';
 
 export interface Weather {
     cover: Cover;
     rain: Rain;
+    /** Cover per altitude band. Without it the layers follow from `cover`. */
+    sky?: Sky;
 }
 
 export const CLEAR: Weather = { cover: 'clear', rain: 'none' };
