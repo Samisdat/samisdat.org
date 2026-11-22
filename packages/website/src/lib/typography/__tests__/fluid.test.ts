@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { PRESET_DATA } from '../data';
-import { deriveSizes, fluidCss, sizeAt } from '../fluid';
+import { deriveSizes, fixed, fluidCss, parsePx, sizeAt } from '../fluid';
 
 describe('deriveSizes', () => {
     it('keeps body and h1 as the maximum and the body floor at 18px', () => {
@@ -66,5 +66,23 @@ describe('presets', () => {
             expect(body.size.min).toBeGreaterThanOrEqual(Math.min(body.size.max, 18));
             expect(mono.size.min).toBeGreaterThanOrEqual(Math.min(mono.size.max, 16));
         }
+    });
+});
+
+describe('parsePx', () => {
+    it('parses integer and decimal px values', () => {
+        expect(parsePx('18px')).toBe(18);
+        expect(parsePx('17.5px')).toBe(17.5);
+    });
+
+    it.each(['1.2rem', '18', '-4px', 'px', ' 18px'])('rejects %j', value => {
+        expect(() => parsePx(value)).toThrow('expected a px size');
+    });
+});
+
+describe('fixed', () => {
+    it('has the same min and max, so it renders as a plain rem length', () => {
+        expect(fixed(20)).toEqual({ min: 20, max: 20 });
+        expect(fluidCss(fixed(20))).toBe('1rem');
     });
 });
