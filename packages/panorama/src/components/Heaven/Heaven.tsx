@@ -1,16 +1,16 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import * as SunCalc from 'suncalc';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { getSkyState } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { Sun } from './Sun';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
+// y of both end points of #sunAndMoonPath; the arc height is scaled around this line.
+const ARC_BASELINE_Y = 275.894;
 
 interface Point {
     x: number;
@@ -28,28 +28,9 @@ export const Heaven = () => {
         y: 306,
     });
 
-    const { sunrise, sunset, currentTime, isDay, skyOpacity } = sunTimes;
+    const { skyOpacity } = sunTimes;
 
-    const celestialProgress = (() => {
-        if (isDay) {
-            const dayDuration = sunset - sunrise;
-            return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
-        } else {
-            if (currentTime >= sunset) {
-                const nextDay = new Date(time);
-                nextDay.setDate(nextDay.getDate() + 1);
-                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise?.getTime() ?? sunrise;
-                const nightDuration = nextSunrise - sunset;
-                return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
-            } else {
-                const prevDay = new Date(time);
-                prevDay.setDate(prevDay.getDate() - 1);
-                const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset?.getTime() ?? sunset;
-                const nightDuration = sunrise - prevSunset;
-                return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
-            }
-        }
-    })();
+    const { isDay, arcProgress: celestialProgress, arcHeightFactor } = useMemo(() => getSkyState(time), [time]);
 
     useEffect(() => {
         if (!pathRef.current) return;
@@ -58,12 +39,18 @@ export const Heaven = () => {
         const distance = pathLength * celestialProgress;
         const point = pathRef.current.getPointAtLength(distance);
 
+        // Only the height scales with the season; both end points lie on the baseline and stay put.
+        const scaled = {
+            x: point.x,
+            y: ARC_BASELINE_Y - (ARC_BASELINE_Y - point.y) * arcHeightFactor,
+        };
+
         if (isDay) {
-            setSunPosition({ x: point.x, y: point.y });
+            setSunPosition(scaled);
         } else {
-            setMoonPosition({ x: point.x, y: point.y });
+            setMoonPosition(scaled);
         }
-    }, [celestialProgress, isDay]);
+    }, [celestialProgress, arcHeightFactor, isDay]);
 
     return (
         <g id={'heaven'}>
