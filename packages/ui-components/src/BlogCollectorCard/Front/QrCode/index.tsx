@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react';
+import { aubergine, linen } from '@samisdat/color-scheme/primitives';
 
 import { QrCode } from './QrCodeSvg';
 
@@ -25,13 +26,13 @@ const ScanStyling = styled.div`
         height: 20cqw;
         max-width: 100%;
         padding: 1.2cqw;
-        background: #fffcf7;
+        background: ${linen[50]};
         box-shadow: 0 0 0 0.3cqw var(--color-border-muted);
     }
 
     /* Scanners need dark modules on a light plate in both themes, so these do not follow the tokens */
     path {
-        fill: #1e142e;
+        fill: ${aubergine[950]};
     }
 `;
 
