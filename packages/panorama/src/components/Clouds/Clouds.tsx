@@ -36,17 +36,26 @@ interface CloudsProps {
     night: number;
     /** Colours per cloud type, to replace the default day and night tones. */
     palettes?: Partial<Record<CloudType, CloudPalette>>;
+    /** Low sunlight on the clouds: its colour and strength (0..1). */
+    glow?: { color: string; amount: number };
 }
 
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
-export const Clouds = ({ weather, night, palettes }: CloudsProps) => {
+export const Clouds = ({ weather, night, palettes, glow }: CloudsProps) => {
     const { cover, rain } = weather;
     const tone = 'none' === rain ? TONE[cover] : 'grey';
 
     return (
         <g
             className={`clouds tone-${tone}`}
-            style={{ ['--night' as string]: String(night), ['--tint' as string]: String(TINT[cover]) } as CSSProperties}
+            style={
+                {
+                    ['--night' as string]: String(night),
+                    ['--tint' as string]: String(TINT[cover]),
+                    ['--glow' as string]: String(glow?.amount ?? 0),
+                    ['--glow-c' as string]: glow?.color ?? 'transparent',
+                } as CSSProperties
+            }
         >
             {TINT[cover] > 0 && (
                 <rect

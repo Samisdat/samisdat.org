@@ -1,5 +1,11 @@
-/** The day sky: deep blue at the top, light blue towards the horizon. */
-export const SkyGradient = () => (
+import { SkyPalette } from '@/lib/sky';
+
+interface SkyGradientProps {
+    palette: Pick<SkyPalette, 'zenith' | 'horizon' | 'glowBand'>;
+}
+
+/** The sky: zenith colour on top, horizon colour in the middle, the glow band of the low sun at the bottom. */
+export const SkyGradient = ({ palette }: SkyGradientProps) => (
     <linearGradient
         id="dayskyGradient"
         x1="0%"
@@ -9,20 +15,23 @@ export const SkyGradient = () => (
     >
         <stop
             offset="0%"
-            style={{ stopColor: '#0376BF' }}
+            stopColor={palette.zenith}
         />
         <stop
             offset="10%"
-            style={{ stopColor: '#0376BF' }}
+            stopColor={palette.zenith}
         />
         <stop
-            offset="60%"
-            style={{ stopColor: '#A8D0F5' }}
+            offset="30%"
+            stopColor={palette.horizon}
         />
-
+        <stop
+            offset="58%"
+            stopColor={palette.glowBand}
+        />
         <stop
             offset="100%"
-            style={{ stopColor: '#A8D0F5' }}
+            stopColor={palette.glowBand}
         />
     </linearGradient>
 );
