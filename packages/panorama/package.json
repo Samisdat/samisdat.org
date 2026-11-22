@@ -27,7 +27,8 @@
     "dist",
     "src/components/panorama.css",
     "src/generated",
-    "CHANGELOG.md"
+    "CHANGELOG.md",
+    "THIRD-PARTY-NOTICES.txt"
   ],
   "scripts": {
     "dev": "next dev",
