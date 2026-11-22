@@ -42,7 +42,9 @@
     "contrast:baseline": "tsx scripts/contrast-baseline.ts",
     "compare:themes": "tsx scripts/theme-compare/index.ts",
     "names:inks": "tsx scripts/name-distance.ts",
-    "snapshot": "tsx scripts/snapshot/index.ts"
+    "snapshot": "tsx scripts/snapshot/index.ts",
+    "test": "vitest",
+    "test:ci": "vitest run --coverage"
   },
   "devDependencies": {
     "@terrazzo/cli": "^2.10.0",
@@ -52,9 +54,11 @@
     "@terrazzo/token-tools": "^2.10.0",
     "@types/culori": "^4.0.1",
     "@types/node": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
     "culori": "^4.0.2",
     "shiki": "catalog:",
     "tsx": "^4.23.15",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

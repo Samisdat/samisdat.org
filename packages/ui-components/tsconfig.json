@@ -17,6 +17,9 @@
     "plugins": [
       {
         "name": "next"
+      },
+      {
+        "name": "typescript-styled-plugin"
       }
     ],
     "paths": {

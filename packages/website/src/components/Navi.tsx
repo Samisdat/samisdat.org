@@ -141,7 +141,7 @@ export const Navi: FC<HTMLAttributes<HTMLDivElement>> = () => (
     <>
         <StickyShell>
             <Bar className="force-theme-dark">
-                <Container padding={space[0.5]}>
+                <Container>
                     <Stack
                         directionSmall="row"
                         align="center"

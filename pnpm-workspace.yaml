@@ -11,6 +11,18 @@ overrides:
   # security: patched versions of transitive dependencies
   fast-uri: ^3.1.9
   happy-dom: ^21.0.4
+  # react-shiki pins shiki exactly (4.5.0); a second shiki copy makes its
+  # LanguageRegistration types incompatible with ours. Keep in sync with the
+  # catalog entry.
+  react-shiki>shiki: ^4.6.0
+  # security (GHSA-3g3m-2fjr-6pw4): @joshwooding/vite-plugin-react-docgen-typescript,
+  # pulled in by @storybook/react-vite, uses glob 13. Remove once it depends on glob >=14.0.2.
+  glob: ^14.0.2
+  # security (GHSA-g3hv-75wg-m249): @linaria/react and @linaria/core still resolve
+  # @wyw-in-js/shared and processor-utils 2.7.1 (minimatch 9). 2.7.2 uses minimatch ^11.
+  # Remove once @linaria/* depends on @wyw-in-js >=2.7.2.
+  '@wyw-in-js/shared': ^2.7.2
+  '@wyw-in-js/processor-utils': ^2.7.2
 
 catalog:
   # React ecosystem - shared across all packages
@@ -20,19 +32,19 @@ catalog:
   '@types/react-dom': ^19.3.0
 
   # Next.js
-  next: ^16.4.3
+  next: ^16.4.6
 
   # TypeScript
   typescript: ^6.0.3
 
   # Linaria/wyw-in-js
-  '@linaria/core': ^8.2.0
-  '@linaria/react': ^8.2.0
-  '@wyw-in-js/nextjs': ^2.7.0
-  '@wyw-in-js/vite': ^2.7.0
+  '@linaria/core': ^8.3.0
+  '@linaria/react': ^8.3.0
+  '@wyw-in-js/nextjs': ^2.7.2
+  '@wyw-in-js/vite': ^2.7.2
 
   # Prettier
-  prettier: ^3.9.10
+  prettier: ^3.10.1
   prettier-plugin-multiline-arrays: ^4.1.11
   prettier-plugin-organize-imports: ^4.3.0
 
@@ -44,18 +56,18 @@ catalog:
   '@fortawesome/react-fontawesome': ^3.5.0
 
   # Shiki
-  shiki: ^4.5.0
+  shiki: ^4.6.0
 
   # Shared utils
   normalize.css: ^8.0.1
   fs-extra: ^11.4.1
-  '@types/node': ^26
+  '@types/node': ^26.6.4
 
   # Testing
-  vitest: ^5.0.5
-  '@vitest/browser-playwright': ^5.0.5
-  '@vitest/coverage-v8': ^5.0.5
-  playwright: ^1.64.1
+  vitest: ^5.1.0
+  '@vitest/browser-playwright': ^5.1.0
+  '@vitest/coverage-v8': ^5.1.0
+  playwright: ^1.65.1
 
 allowBuilds:
   es5-ext: true

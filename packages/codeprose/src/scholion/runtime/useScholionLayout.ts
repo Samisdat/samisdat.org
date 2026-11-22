@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type Dispatch } from 'react';
 
-import { computeWire, inView, wantPeek, type Want, type Wire } from './layout';
+import { computeRefWires, inView, wantPeek, type Want, type Wire, type WireItem } from './layout';
 import { isActive, type ScholionEvent, type ScholionState } from './state';
 
 import type { Docks } from './dockNode';
@@ -12,21 +12,31 @@ export type Layout = {
     want: Want | null;
     /** Drawable wires of active refs, by id */
     wires: Record<string, Wire>;
+    /** Wires to the further code targets of a ref (`#all`); never peeked, drawn while both ends are in view */
+    extras: Record<string, Wire[]>;
 };
 
-export const emptyLayout: Layout = { pr: null, want: null, wires: {} };
+export const emptyLayout: Layout = { pr: null, want: null, wires: {}, extras: {} };
 
 const samePoint = (a: { x: number; y: number }, b: { x: number; y: number }) => a.x === b.x && a.y === b.y;
 
 export function sameLayout(a: Layout, b: Layout): boolean {
     if (a === b) return true;
     if (a.pr !== b.pr || a.want?.kind !== b.want?.kind || a.want?.pos !== b.want?.pos) return false;
-    const ka = Object.keys(a.wires);
-    if (ka.length !== Object.keys(b.wires).length) return false;
+    return sameWires(a.wires, b.wires) && sameWires(a.extras, b.extras);
+}
+
+const sameWire = (a: Wire, b: Wire) => a.dashed === b.dashed && samePoint(a.P, b.P) && samePoint(a.Q, b.Q);
+
+function sameWires<T extends Wire | Wire[]>(a: Record<string, T>, b: Record<string, T>): boolean {
+    const ka = Object.keys(a);
+    if (ka.length !== Object.keys(b).length) return false;
     return ka.every(id => {
-        const wa = a.wires[id];
-        const wb = b.wires[id];
-        return !!wb && wa.dashed === wb.dashed && samePoint(wa.P, wb.P) && samePoint(wa.Q, wb.Q);
+        const wa = a[id];
+        const wb = b[id];
+        if (!wb) return false;
+        if (Array.isArray(wa)) return wa.length === (wb as Wire[]).length && wa.every((w, i) => sameWire(w, (wb as Wire[])[i]));
+        return sameWire(wa, wb as Wire);
     });
 }
 
@@ -81,23 +91,18 @@ export function useScholionLayout(
             }
         }
 
-        const wires: Record<string, Wire> = {};
+        const items: Record<string, WireItem> = {};
         for (const id of ids) {
             if (!isActive(state, id)) continue;
-            const { a, c } = geo[id];
-            const wire = computeWire({
-                a,
-                c,
+            items[id] = {
+                ...geo[id],
                 preRect: refs[id].pre?.getBoundingClientRect() ?? null,
-                want: pr === id ? want : null,
-                peek: peekGeo,
-                vh,
-                topEdge,
-            });
-            if (wire) wires[id] = wire;
+                targets: refs[id].as.slice(1),
+            };
         }
+        const { wires, extras } = computeRefWires({ items, pr, want, peek: peekGeo, vh, topEdge });
 
-        const next: Layout = { pr, want, wires };
+        const next: Layout = { pr, want, wires, extras };
         setLayout(prev => (sameLayout(prev, next) ? prev : next));
 
         // Auto-hide the chip when the return target scrolls back into view

@@ -9,7 +9,14 @@ export default defineConfig({
         environment: 'node',
         coverage: {
             provider: 'v8',
-            reporter: ['text', 'lcov'],
+            reporter: ['text', 'lcov', 'json-summary'],
+            // Ratchet: measured value minus ~1 point. May only go up.
+            thresholds: {
+                statements: 26,
+                branches: 20,
+                functions: 15,
+                lines: 27,
+            },
             include: ['src/**/*.{ts,tsx}'],
             exclude: [
                 '**/*.test.{ts,tsx}',
@@ -18,6 +25,13 @@ export default defineConfig({
                 '**/.storybook/**',
                 '**/dist/**',
                 '**/build/**',
+                // Next route files (pages, layouts, route handlers); exercised by smoke tests, not unit tests.
+                'src/app/**',
+                // next/font declarations: static config consumed by the Next compiler.
+                'src/lib/typography/fonts-*.ts',
+                // Template file maps read from disk at import time; data only.
+                'src/components/Sandbox/templates/**',
+                'src/components/Sandbox/templates.ts',
             ],
         },
     },
