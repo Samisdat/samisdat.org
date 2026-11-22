@@ -282,6 +282,11 @@
     fill: var(--panorama-crater-gray);
 }
 
+/* The dark part of the moon stays faintly visible (earthshine) */
+.moonEarthshine {
+    opacity: 0.14;
+}
+
 .sun {
     fill: var(--panorama-neon-yellow);
 }
