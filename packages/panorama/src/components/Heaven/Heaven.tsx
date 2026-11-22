@@ -22,9 +22,10 @@ interface Point {
 
 interface HeavenProps {
     stars?: readonly Star[];
+    generatedClouds?: boolean;
 }
 
-export const Heaven = ({ stars }: HeavenProps) => {
+export const Heaven = ({ stars, generatedClouds }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, weather } = useTal();
@@ -108,6 +109,7 @@ export const Heaven = ({ stars }: HeavenProps) => {
 
             <Clouds
                 weather={weather}
+                generated={generatedClouds}
                 night={palette.night}
                 glow={{ color: palette.cloudLight, amount: palette.glow }}
             />

@@ -32,6 +32,8 @@ const paletteVars = ({ day, night }: CloudPalette = {}): Record<string, string> 
 
 interface CloudsProps {
     weather: Weather;
+    /** Noise-filtered clouds instead of the hand-drawn lobes. */
+    generated?: boolean;
     /** 0 by day, 1 at night, in between at dusk and dawn. */
     night: number;
     /** Colours per cloud type, to replace the default day and night tones. */
@@ -41,7 +43,7 @@ interface CloudsProps {
 }
 
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
-export const Clouds = ({ weather, night, palettes, glow }: CloudsProps) => {
+export const Clouds = ({ weather, generated, night, palettes, glow }: CloudsProps) => {
     const { cover, rain } = weather;
     const tone = 'none' === rain ? TONE[cover] : 'grey';
 
@@ -78,9 +80,15 @@ export const Clouds = ({ weather, night, palettes, glow }: CloudsProps) => {
                             className="cloudDrift"
                             style={{ ['--duration' as string]: `${layer.duration}s` } as CSSProperties}
                         >
-                            <CloudItems layer={layer} />
+                            <CloudItems
+                                layer={layer}
+                                generated={generated}
+                            />
                             <g transform={`translate(${SKY_WIDTH} 0)`}>
-                                <CloudItems layer={layer} />
+                                <CloudItems
+                                    layer={layer}
+                                    generated={generated}
+                                />
                             </g>
                         </g>
                     </g>

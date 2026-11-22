@@ -42,9 +42,11 @@ import type { Star } from '@/lib/stars';
 
 interface PanoramaProps {
     stars?: readonly Star[];
+    /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
+    generatedClouds?: boolean;
 }
 
-export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, generatedClouds }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     const reduceMotion = usePrefersReducedMotion();
@@ -69,7 +71,10 @@ export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
                 >
                     {/* the scenery is decorative; the clock with its speed ring is not */}
                     <g aria-hidden="true">
-                        <Heaven stars={stars} />
+                        <Heaven
+                            stars={stars}
+                            generatedClouds={generatedClouds}
+                        />
                         <ParallaxLayer
                             scrollspeed={15}
                             depth={-7}
