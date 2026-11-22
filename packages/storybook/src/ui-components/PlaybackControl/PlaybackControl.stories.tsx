@@ -1,4 +1,5 @@
 import { PlaybackControl } from '@samisdat/ui-components/PlaybackControl';
+import { useState } from 'react';
 import { expect, userEvent, within } from 'storybook/test';
 import { fn } from 'storybook/test';
 
@@ -166,5 +167,68 @@ export const WithNotice: Story = {
         // Verify notice is displayed
         const notice = canvas.getByText(/reduced motion aktiv/i);
         expect(notice).toBeInTheDocument();
+    },
+};
+
+const DeviceSketch = () => (
+    <svg
+        viewBox="0 0 88 52"
+        width="112"
+        height="66"
+    >
+        <rect
+            x="31"
+            y="2"
+            width="26"
+            height="48"
+            rx="4.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="0.8"
+            strokeDasharray="1.8 1.2"
+        />
+        <circle
+            cx="44"
+            cy="26"
+            r="2.4"
+            fill="currentColor"
+        />
+    </svg>
+);
+
+const marks = [
+    { at: 0.6, label: 'Tap' },
+    { from: 1.7, to: 3.0, label: 'Pan' },
+    { from: 3.6, to: 4.6, label: 'Tilt' },
+];
+
+export const WithDeviceAndTimeline: Story = {
+    args: {
+        isPlaying: true,
+        speed: 1,
+        speedControl: false,
+        notice: 'You are in control. The recording resumes after 3.5 s of rest.',
+        onPlay: fn(),
+        onPause: fn(),
+        onReset: fn(),
+        onSpeedChange: fn(),
+    },
+    render: (args) => {
+        const [position, setPosition] = useState(3.42);
+
+        return (
+            <PlaybackControl
+                {...args}
+                device={<DeviceSketch />}
+                timeline={{ position, duration: 6.4, marks, onSeek: setPosition }}
+            />
+        );
+    },
+    play: async ({ canvasElement }) => {
+        const canvas = within(canvasElement);
+        const slider = canvas.getByRole('slider', { name: 'Position in der Aufzeichnung' });
+
+        expect(slider).toHaveAttribute('aria-valuetext', '00:03.42');
+        expect(canvas.queryByRole('slider', { name: /speed/i })).toBeNull();
     },
 };

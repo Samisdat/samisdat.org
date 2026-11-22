@@ -153,12 +153,13 @@ tokyonight.load({
     set({ "@module", "@namespace" }, { fg = s("variable") })
     set({ "Added", "diffAdded", "@diff.plus" }, { fg = s("diff-plus") })
     set({ "Removed", "diffRemoved", "@diff.minus" }, { fg = s("diff-minus") })
-    -- word highlights and search: inverted (text.default as fill, syntax.background as text).
-    -- tokyonight puts references on fg_gutter (border.muted), which is barely darker than the text.
-    local inverted = { fg = t["syntax.background"], bg = t["text.default"] }
+    -- Search: inverted. Word highlights (references, illuminate, cursorword) sit on the highlight fill and keep
+    -- the syntax foreground; the cursor colour must differ from both, or the insert-mode cursor vanishes on them.
     set({ "LspReferenceText", "LspReferenceRead", "LspReferenceWrite", "IlluminatedWordText", "IlluminatedWordRead",
-      "IlluminatedWordWrite", "illuminatedWord", "illuminatedCurWord", "Search" }, inverted)
-    set({ "IncSearch", "CurSearch" }, vim.tbl_extend("force", inverted, { bold = true }))
+      "IlluminatedWordWrite", "illuminatedWord", "illuminatedCurWord", "MiniCursorword", "MiniCursorwordCurrent" }, { bg = t["highlight"] })
+    set({ "Search" }, { fg = t["syntax.background"], bg = t["text.default"] })
+    set({ "IncSearch", "CurSearch" }, { fg = t["syntax.background"], bg = t["status.warning"], bold = true })
+    set({ "Cursor", "lCursor", "CursorIM" }, { fg = t["syntax.background"], bg = t["ink.turquoise"] })
     set({ "PmenuSel" }, { bg = t["nvim.cursorline"] })
     set({ "PmenuMatchSel" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })
     set({ "Folded" }, { fg = t["status.info"], bg = t["nvim.cursorline"] })

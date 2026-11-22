@@ -93,6 +93,54 @@ export function computeWire({
     return null;
 }
 
+/** Wires to the further code targets of a ref (`#all`): plain wires, drawn while both ends are in view. */
+export function computeExtraWires({
+    targets,
+    c,
+    preRect,
+    vh,
+    topEdge = 0,
+}: {
+    targets: Element[];
+    c: Rect | null;
+    preRect: Rect | null;
+    vh: number;
+    topEdge?: number;
+}): Wire[] {
+    return targets
+        .map(el => computeWire({ a: el.getBoundingClientRect(), c, preRect, want: null, peek: null, vh, topEdge }))
+        .filter((w): w is Wire => w !== null);
+}
+
+export type WireItem = { a: Rect; c: Rect | null; preRect: Rect | null; targets: Element[] };
+
+/** Wires of all active refs: the main wire (which may carry the peek) plus the plain ones to further targets. */
+export function computeRefWires({
+    items,
+    pr,
+    want,
+    peek,
+    vh,
+    topEdge = 0,
+}: {
+    items: Record<string, WireItem>;
+    pr: string | null;
+    want: Want | null;
+    peek: { rect: Rect; token: Rect | null } | null;
+    vh: number;
+    topEdge?: number;
+}): { wires: Record<string, Wire>; extras: Record<string, Wire[]> } {
+    const wires: Record<string, Wire> = {};
+    const extras: Record<string, Wire[]> = {};
+    for (const [id, { a, c, preRect, targets }] of Object.entries(items)) {
+        const others = computeExtraWires({ targets, c, preRect, vh, topEdge });
+        if (others.length) extras[id] = others;
+        const wire = computeWire({ a, c, preRect, want: pr === id ? want : null, peek, vh, topEdge });
+        if (wire) wires[id] = wire;
+    }
+    return { wires, extras };
+}
+
 export function wirePath(P: Point, Q: Point): string {
     const dy = Math.sign(Q.y - P.y || 1) * Math.max(Math.abs((Q.y - P.y) * 0.5), 18);
     return `M${P.x},${P.y} C${P.x},${P.y + dy} ${Q.x},${Q.y - dy} ${Q.x},${Q.y}`;

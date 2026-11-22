@@ -21,7 +21,8 @@ import { remarkSandboxCollector } from './remarkSandboxCollector';
 const shikiOptions = {
     theme: shikiTheme,
     keepBackground: false,
-    transformers: [scholionTransformer(), placeholderTransformer(), collapseTransformer()],
+    // The placeholder only marks plain-text lines, so it runs before the scholion wraps tokens in anchors
+    transformers: [placeholderTransformer(), scholionTransformer(), collapseTransformer()],
     getHighlighter: (options: Parameters<typeof getSingletonHighlighter>[0]) =>
         getSingletonHighlighter({
             ...options,

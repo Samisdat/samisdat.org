@@ -57,6 +57,14 @@ function wrapRef(codeEl: Element, ref: ScholionRef): void {
         throw new Error(`scholion: ref "${ref.id}" – "${ref.pattern}" not found in code block`);
     }
 
+    if (ref.all) {
+        // Document order decides the ids; wrapping runs back to front so the offsets of earlier matches stay valid
+        [...matches].reverse().forEach((match, i) => {
+            wrapSpansInLine(match.lineEl, match.matchStart, match.matchEnd, ref, matches.length - 1 - i);
+        });
+        return;
+    }
+
     let target: LineMatch;
     if (ref.line !== undefined) {
         if (matches.length > 1) {
@@ -86,7 +94,13 @@ function wrapRef(codeEl: Element, ref: ScholionRef): void {
     wrapSpansInLine(target.lineEl, target.matchStart, target.matchEnd, ref);
 }
 
-function wrapSpansInLine(lineEl: Element, matchStart: number, matchEnd: number, ref: ScholionRef): void {
+function wrapSpansInLine(
+    lineEl: Element,
+    matchStart: number,
+    matchEnd: number,
+    ref: ScholionRef,
+    index = 0
+): void {
     type SpanInfo = { idx: number; charStart: number; charEnd: number };
     const infos: SpanInfo[] = [];
     let offset = 0;
@@ -126,7 +140,8 @@ function wrapSpansInLine(lineEl: Element, matchStart: number, matchEnd: number, 
         type: 'element',
         tagName: 'a',
         properties: {
-            id: `ref-${ref.id}`,
+            // the prose side links to the first target only; the others just need a unique id
+            id: index === 0 ? `ref-${ref.id}` : `ref-${ref.id}-${index + 1}`,
             className: ['ref'],
             'data-ref': ref.id,
             href: `#explain-${ref.id}`,

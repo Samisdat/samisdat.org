@@ -1,8 +1,9 @@
 'use client';
 
-import { RefObject, useCallback, useEffect, useRef } from 'react';
+import { RefObject, useEffect } from 'react';
 
-import { useAnimationFrame } from './useAnimationFrame';
+import { type Norm, type NormSource, type ParallaxElement, pointerSource } from '../norm';
+import { createParallaxWriter } from './parallaxWriter';
 import { usePrefersReducedMotion } from './usePrefersReducedMotion';
 
 export type ParallaxCoords = { x: number; y: number };
@@ -14,73 +15,51 @@ export type UseParallaxOptions = {
 
 /**
  * Writes the pointer position inside `ref` as `--parallax-x` / `--parallax-y` (-1..1) on the element.
+ * Also works on touch: `touch-action: pan-y` keeps vertical swipes scrolling, a tap or horizontal drag sets the position.
+ * Pass a `source` to drive it from something other than the pointer (default: pointer on `ref`).
  * Does nothing for users who prefer reduced motion.
+ * Writes only in a frame that follows a change; while nothing moves, nothing runs.
  */
-export const useParallax = (ref: RefObject<HTMLDivElement | null>, { scroll = false }: UseParallaxOptions = {}) => {
+export const useParallax = (
+    ref: RefObject<ParallaxElement | null>,
+    { scroll = false }: UseParallaxOptions = {},
+    source?: NormSource
+) => {
     const reduceMotion = usePrefersReducedMotion();
-
-    const lastCoordsRef = useRef<ParallaxCoords>({ x: 0, y: 0 });
-
-    const doParallax = useCallback(() => {
-        if (null === ref.current) {
-            return;
-        }
-
-        const { x, y } = lastCoordsRef.current;
-
-        ref.current.style.setProperty('--parallax-x', String(x));
-        ref.current.style.setProperty('--parallax-y', String(y));
-
-        if (!scroll) {
-            return;
-        }
-
-        const boundingClientRect = ref.current.getBoundingClientRect();
-
-        const scrolled = reduceMotion ? 0 : Math.min(Math.abs(boundingClientRect.y) / boundingClientRect.height, 1);
-
-        ref.current.style.setProperty('--scroll', String(scrolled));
-    }, [ref, reduceMotion, scroll]);
-
-    useAnimationFrame(doParallax);
-
-    const handlePointerMove = useCallback(
-        (event: PointerEvent) => {
-            if (reduceMotion) {
-                return;
-            }
-
-            const el = ref.current;
-            if (!el) return;
-
-            const rect = el.getBoundingClientRect();
-            if (rect.width === 0 || rect.height === 0) return;
-
-            const relativeX = Math.min(1, Math.max(0, (event.clientX - rect.left) / rect.width));
-            const relativeY = Math.min(1, Math.max(0, (event.clientY - rect.top) / rect.height));
-
-            const x = (relativeX - 0.5) * 2;
-            const y = (relativeY - 0.5) * 2;
-
-            const prev = lastCoordsRef.current;
-            if (prev.x === x && prev.y === y) return;
-
-            lastCoordsRef.current = { x, y };
-        },
-        [ref, reduceMotion]
-    );
-
-    useEffect(() => {
-        if (reduceMotion) {
-            lastCoordsRef.current = { x: 0, y: 0 };
-        }
-    }, [reduceMotion]);
 
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
 
-        el.addEventListener('pointermove', handlePointerMove, { passive: true });
-        return () => el.removeEventListener('pointermove', handlePointerMove);
-    }, [handlePointerMove, ref]);
+        const writer = createParallaxWriter(el, { scroll, reduceMotion });
+        const handleNorm = ({ x, y }: Norm) => {
+            if (!reduceMotion) writer.set(x, y);
+        };
+
+        let unsubscribe: () => void;
+        if (source) {
+            unsubscribe = source.subscribe(handleNorm);
+        } else {
+            // touch: vertical swipes keep scrolling the page, horizontal drags and taps drive the parallax
+            el.style.touchAction = 'pan-y';
+            const stop = pointerSource(el).subscribe(handleNorm);
+            unsubscribe = () => {
+                el.style.touchAction = '';
+                stop();
+            };
+        }
+
+        if (scroll) {
+            // capture, so scrolling inside any container counts
+            window.addEventListener('scroll', writer.refresh, { capture: true, passive: true });
+            window.addEventListener('resize', writer.refresh, { passive: true });
+        }
+
+        return () => {
+            unsubscribe();
+            window.removeEventListener('scroll', writer.refresh, { capture: true });
+            window.removeEventListener('resize', writer.refresh);
+            writer.dispose();
+        };
+    }, [ref, reduceMotion, scroll, source]);
 };
