@@ -1,6 +1,7 @@
 import { DemoSmilDisc } from '@samisdat/ui-components/Demo/Smil/Disc';
 
 import { viewportModes } from '../../../../.storybook/chromaticModes';
+import { exercisePlayback } from '../playbackPlay';
 
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -18,3 +19,8 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {};
+
+/** Autoplay in view, pause/play by pointer and keyboard, speed controls, reset. */
+export const Playback: Story = {
+    play: exercisePlayback(),
+};
