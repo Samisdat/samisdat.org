@@ -38,7 +38,13 @@ import { Hill050 } from './Hills/Hill050';
 import { ParallaxLayer } from './ParallaxLayer';
 import { Track } from './Track/Track';
 
-export const Panorama = (): ReactElement => {
+import type { Star } from '@/lib/stars';
+
+interface PanoramaProps {
+    stars?: readonly Star[];
+}
+
+export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     const reduceMotion = usePrefersReducedMotion();
@@ -68,7 +74,7 @@ export const Panorama = (): ReactElement => {
                     height="100%"
                     viewBox="0 0 1700 500"
                 >
-                    <Heaven />
+                    <Heaven stars={stars} />
                     <ParallaxLayer
                         scrollspeed={15}
                         depth={-7}

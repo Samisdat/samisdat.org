@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
+import type { Star } from '@/lib/stars';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
@@ -19,7 +20,11 @@ interface Point {
     y: number;
 }
 
-export const Heaven = () => {
+interface HeavenProps {
+    stars?: readonly Star[];
+}
+
+export const Heaven = ({ stars }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, weather } = useTal();
@@ -77,7 +82,12 @@ export const Heaven = () => {
                 height="500"
                 fill="url(#dayskyGradient)"
             />
-            <Stars amount={palette.stars} />
+            {stars && stars.length > 0 && (
+                <Stars
+                    stars={stars}
+                    amount={palette.stars}
+                />
+            )}
             {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
             {isDay && (
                 <Sun

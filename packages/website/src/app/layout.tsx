@@ -21,8 +21,8 @@ config.autoAddCss = false;
 import '@samisdat/ui-components/globalStyle';
 
 import { Navi } from '@/components/Navi';
-import { SkipLink } from '@/components/SkipLink';
 import { Scrolling } from '@/components/Scrolling';
+import { SkipLink } from '@/components/SkipLink';
 
 export const metadata: Metadata = {
     title: {

@@ -4,6 +4,7 @@ import { Segmented } from '@samisdat/ui-components/Segmented';
 import { COVERS, RAINS, type Cover, type Rain, type Weather, WtalPanorama } from '@samisdat/wtal-panorama';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
+import { useStars } from '@/lib/useStars';
 import { readWeather } from '@/lib/weather/readWeather';
 import { weatherOfReading } from '@/lib/weather/toPanoramaWeather';
 
@@ -58,12 +59,16 @@ const usePickerEnabled = () => useSyncExternalStore(subscribeNothing, pickerEnab
 export const PanoramaWeather = () => {
     const enabled = usePickerEnabled();
     const live = useLiveWeather();
+    const stars = useStars();
     const [cover, setCover] = useState<CoverChoice>('auto');
     const [rain, setRain] = useState<Rain>('none');
 
     return (
         <>
-            <WtalPanorama weather={enabled && 'auto' !== cover ? { cover, rain } : live} />
+            <WtalPanorama
+                weather={enabled && 'auto' !== cover ? { cover, rain } : live}
+                stars={stars}
+            />
             {enabled && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1rem', padding: '0.5rem 1rem' }}>
                     <Segmented

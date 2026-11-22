@@ -15,7 +15,8 @@
     "test:ci": "vitest run --coverage",
     "sandbox:create": "tsx scripts/create-sandbox.ts",
     "snapshot:typography": "tsx scripts/snapshot-typography.ts",
-    "preview:link": "tsx scripts/preview-link.ts"
+    "preview:link": "tsx scripts/preview-link.ts",
+    "generate:stars": "tsx scripts/generate-stars.ts"
   },
   "dependencies": {
     "@codesandbox/sandpack-react": "^2.20.0",
