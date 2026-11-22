@@ -14,10 +14,11 @@ export const BrowserChrome = styled.div`
     border-radius: 2.8cqw;
     background: var(--color-surface-raised);
     overflow: hidden;
+
     /* Ring like the card edge, then a drop shadow that lifts the screenshot off the card */
     box-shadow:
         0 0 0 0.5cqw var(--color-border-default),
-        0 1.6cqw 2cqw rgb(15 5 29 / 0.45);
+        0 1.6cqw 2cqw rgb(15 5 29 / 45%);
 
     img {
         display: block;

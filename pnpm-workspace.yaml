@@ -40,8 +40,8 @@ catalog:
   # Linaria/wyw-in-js
   '@linaria/core': ^8.3.0
   '@linaria/react': ^8.3.0
-  '@wyw-in-js/nextjs': ^2.7.1
-  '@wyw-in-js/vite': ^2.7.1
+  '@wyw-in-js/nextjs': ^2.7.2
+  '@wyw-in-js/vite': ^2.7.2
 
   # Prettier
   prettier: ^3.10.1
@@ -67,7 +67,7 @@ catalog:
   vitest: ^5.1.0
   '@vitest/browser-playwright': ^5.1.0
   '@vitest/coverage-v8': ^5.1.0
-  playwright: ^1.65.0
+  playwright: ^1.65.1
 
 allowBuilds:
   es5-ext: true

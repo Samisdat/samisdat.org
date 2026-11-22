@@ -8,9 +8,9 @@ const Scroller = styled.div`
     position: absolute;
     inset: 0;
     overflow: scroll;
-    overscroll-behavior-x: contain;
+    overscroll-behavior: contain none;
+
     /* no rubber-band, the page takes over via forwardVerticalOverscroll */
-    overscroll-behavior-y: none;
     scrollbar-width: none;
 
     &::-webkit-scrollbar {

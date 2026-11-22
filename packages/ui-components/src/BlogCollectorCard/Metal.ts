@@ -40,6 +40,7 @@ export const metal = css`
         inset: 0;
         z-index: -1;
         pointer-events: none;
+
         --c: calc(120% - var(--progress) * 240% - var(--parallax-x) * 60% - var(--shift, 0%) * 1.5);
         --a: calc(105deg + var(--parallax-y) * 25deg);
     }

@@ -28,46 +28,57 @@ const Styling = styled.div`
     & .sky {
         fill: var(--color-surface-emphasis);
     }
+
     & .ground {
         fill: var(--color-surface-subtle);
     }
+
     & .horizon,
     & .rail line {
         stroke: var(--color-border-muted);
     }
+
     & .frame {
         fill: none;
         stroke: var(--color-border-default);
         stroke-width: 4;
     }
+
     & .axis,
     & .cone {
         stroke: var(--color-ink-turquoise);
         stroke-dasharray: 5 5;
     }
+
     & .axis {
         stroke-opacity: 0.6;
     }
+
     & .cone {
         fill: var(--color-ink-turquoise);
         fill-opacity: 0.07;
         stroke-opacity: 0.5;
     }
+
     & .contour {
         fill: none;
         stroke: var(--color-ink-amethyst);
         stroke-opacity: 0.3;
     }
+
     & .contour.index {
         stroke-opacity: 0.6;
         stroke-width: 1.5;
     }
+
     & .rail line {
         stroke-width: 1.5;
     }
+
     & .train rect {
         fill: var(--color-ink-turquoise);
     }
+
     & .train circle {
         fill: var(--color-ink-gold);
     }
@@ -77,47 +88,60 @@ const Styling = styled.div`
     & .crown {
         fill: var(--color-ink-jade);
     }
+
     & .k-house .wedge,
     & .house-mark rect,
     & .wall {
         fill: var(--color-ink-lapis);
     }
+
     & .k-hill .wedge,
     & .hill-mark {
         fill: var(--color-ink-amethyst);
     }
+
     & .wedge {
         fill-opacity: 0.5;
     }
+
     & .ray {
         stroke-width: 1.5;
         stroke-opacity: 0.7;
     }
+
     & .k-tree .ray {
         stroke: var(--color-ink-jade);
     }
+
     & .k-house .ray,
     & .house-mark line {
         stroke: var(--color-ink-lapis);
     }
+
     & .k-hill .ray {
         stroke: var(--color-ink-amethyst);
     }
+
     & .trunk {
         fill: var(--color-ink-copper);
     }
+
     & .roof {
         fill: var(--color-ink-steel);
     }
+
     & .opening {
         fill: var(--color-surface-emphasis);
     }
+
     & .ridge {
         fill: var(--color-ink-amethyst);
     }
+
     & .ridge.far {
         fill-opacity: 0.4;
     }
+
     & .ridge.near {
         fill-opacity: 0.75;
     }

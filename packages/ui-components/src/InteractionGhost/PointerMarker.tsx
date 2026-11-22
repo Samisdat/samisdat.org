@@ -4,6 +4,7 @@ import { NameTag } from './NameTag';
 
 const Group = styled.g`
     --ghost-kind-color: var(--color-ink-sapphire);
+
     pointer-events: none;
 `;
 

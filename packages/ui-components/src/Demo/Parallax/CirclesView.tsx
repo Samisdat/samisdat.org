@@ -12,6 +12,7 @@ const Svg = styled.svg`
     stroke-linejoin: round;
     stroke-miterlimit: 1.5;
     display: block;
+
     /* vertical swipes keep scrolling the page, horizontal drags go to the demo */
     touch-action: pan-y;
     border-radius: 0.5rem;

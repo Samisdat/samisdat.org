@@ -116,7 +116,7 @@ const Device = styled.div`
     color: inherit;
     margin-right: 1rem;
 
-    @media (max-width: 480px) {
+    @media (width <= 480px) {
         margin-right: 0.5rem;
     }
 `;

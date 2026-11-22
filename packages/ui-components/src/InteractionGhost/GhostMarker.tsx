@@ -5,6 +5,7 @@ import { PointerMarker } from './PointerMarker';
 
 const Group = styled.g`
     --ghost-kind-color: var(--color-text-emphasis);
+
     fill: var(--ghost-color, var(--ghost-kind-color));
     pointer-events: none;
 `;

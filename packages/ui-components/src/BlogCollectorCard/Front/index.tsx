@@ -51,7 +51,6 @@ const DomainBanner = styled(Banner)`
     --notch: 3cqw;
 
     position: absolute;
-
     left: 17%;
     right: 17%;
     bottom: 43.5cqw;
