@@ -6,7 +6,6 @@ import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
-import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
 import { Stars } from './Stars';
@@ -79,27 +78,23 @@ export const Heaven = () => {
                 fill="url(#dayskyGradient)"
             />
             <Stars amount={palette.stars} />
-            <ParallaxLayer
-                scrollspeed={15}
-                depth={-7}
-            >
-                {isDay && (
-                    <Sun
-                        x={sunPosition.x}
-                        y={sunPosition.y}
-                        color={palette.sun}
-                        scale={palette.sunScale}
-                        glow={palette.glow}
-                    />
-                )}
+            {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
+            {isDay && (
+                <Sun
+                    x={sunPosition.x}
+                    y={sunPosition.y}
+                    color={palette.sun}
+                    scale={palette.sunScale}
+                    glow={palette.glow}
+                />
+            )}
 
-                {!isDay && (
-                    <Moon
-                        x={moonPosition.x}
-                        y={moonPosition.y}
-                    />
-                )}
-            </ParallaxLayer>
+            {!isDay && (
+                <Moon
+                    x={moonPosition.x}
+                    y={moonPosition.y}
+                />
+            )}
 
             <Clouds
                 weather={weather}
