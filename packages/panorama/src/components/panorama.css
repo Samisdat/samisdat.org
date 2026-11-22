@@ -270,8 +270,8 @@
     fill: var(--panorama-pine-green);
 }
 
-.night {
-    fill: var(--panorama-midnight-blue);
+.stars circle {
+    fill: oklch(0.98 0.01 90);
 }
 
 .moon {
@@ -414,11 +414,20 @@
     --n-s: oklch(0.23 0.055 275);
     --n-r: oklch(0.34 0.04 268);
 }
+/* --glow / --glow-c: the low sun lights the undersides red, the crowns only a little */
 .panorama .cloudBody {
-    fill: color-mix(in oklch, var(--n-b) calc(var(--night) * 100%), var(--d-b));
+    fill: color-mix(
+        in oklch,
+        var(--glow-c) calc(var(--glow) * 25%),
+        color-mix(in oklch, var(--n-b) calc(var(--night) * 100%), var(--d-b))
+    );
 }
 .panorama .cloudShade {
-    fill: color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s));
+    fill: color-mix(
+        in oklch,
+        var(--glow-c) calc(var(--glow) * 75%),
+        color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s))
+    );
 }
 /* Rain and overcast banks are outlined, so the stacked lobes read as layers */
 .panorama .clouds.tone-overcast .cloudShade ellipse,

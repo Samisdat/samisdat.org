@@ -1,18 +1,19 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
-import * as SunCalc from 'suncalc';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
+import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
 import { ParallaxLayer } from '../ParallaxLayer';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
+import { Stars } from './Stars';
 import { Sun } from './Sun';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
+// y of both end points of #sunAndMoonPath; the arc height is scaled around this line.
+const ARC_BASELINE_Y = 275.894;
 
 interface Point {
     x: number;
@@ -22,7 +23,7 @@ interface Point {
 export const Heaven = () => {
     const pathRef = useRef<SVGPathElement>(null);
 
-    const { time, sunTimes, weather } = useTal();
+    const { time, weather } = useTal();
 
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({
@@ -30,28 +31,14 @@ export const Heaven = () => {
         y: 306,
     });
 
-    const { sunrise, sunset, currentTime, isDay, skyOpacity } = sunTimes;
+    const sky = useMemo(() => getSkyState(time), [time]);
+    const { isDay, arcProgress: celestialProgress, arcHeightFactor } = sky;
 
-    const celestialProgress = (() => {
-        if (isDay) {
-            const dayDuration = sunset - sunrise;
-            return Math.max(0, Math.min(1, (currentTime - sunrise) / dayDuration));
-        } else {
-            if (currentTime >= sunset) {
-                const nextDay = new Date(time);
-                nextDay.setDate(nextDay.getDate() + 1);
-                const nextSunrise = SunCalc.getTimes(nextDay, LAT, LNG).sunrise?.getTime() ?? sunrise;
-                const nightDuration = nextSunrise - sunset;
-                return Math.max(0, Math.min(1, (currentTime - sunset) / nightDuration));
-            } else {
-                const prevDay = new Date(time);
-                prevDay.setDate(prevDay.getDate() - 1);
-                const prevSunset = SunCalc.getTimes(prevDay, LAT, LNG).sunset?.getTime() ?? sunset;
-                const nightDuration = sunrise - prevSunset;
-                return Math.max(0, Math.min(1, (currentTime - prevSunset) / nightDuration));
-            }
-        }
-    })();
+    // The colours follow the real sun altitude; the season comes from the arc height of the day.
+    const palette = useMemo(
+        () => skyPalette(sky.sunAltitudeDeg, seasonFromArcHeight(arcHeightFactor)),
+        [sky.sunAltitudeDeg, arcHeightFactor]
+    );
 
     useEffect(() => {
         if (!pathRef.current) return;
@@ -60,17 +47,23 @@ export const Heaven = () => {
         const distance = pathLength * celestialProgress;
         const point = pathRef.current.getPointAtLength(distance);
 
+        // Only the height scales with the season; both end points lie on the baseline and stay put.
+        const scaled = {
+            x: point.x,
+            y: ARC_BASELINE_Y - (ARC_BASELINE_Y - point.y) * arcHeightFactor,
+        };
+
         if (isDay) {
-            setSunPosition({ x: point.x, y: point.y });
+            setSunPosition(scaled);
         } else {
-            setMoonPosition({ x: point.x, y: point.y });
+            setMoonPosition(scaled);
         }
-    }, [celestialProgress, isDay]);
+    }, [celestialProgress, arcHeightFactor, isDay]);
 
     return (
         <g id={'heaven'}>
             <defs>
-                <SkyGradient />
+                <SkyGradient palette={palette} />
 
                 <path
                     ref={pathRef}
@@ -85,13 +78,7 @@ export const Heaven = () => {
                 height="500"
                 fill="url(#dayskyGradient)"
             />
-            <path
-                className={'night'}
-                id="night"
-                d="M0,-0l0,500l1700,-0l0,-500l-1700,-0Z"
-                opacity={skyOpacity}
-                suppressHydrationWarning
-            />
+            <Stars amount={palette.stars} />
             <ParallaxLayer
                 scrollspeed={15}
                 depth={-7}
@@ -100,6 +87,9 @@ export const Heaven = () => {
                     <Sun
                         x={sunPosition.x}
                         y={sunPosition.y}
+                        color={palette.sun}
+                        scale={palette.sunScale}
+                        glow={palette.glow}
                     />
                 )}
 
@@ -113,7 +103,8 @@ export const Heaven = () => {
 
             <Clouds
                 weather={weather}
-                night={skyOpacity}
+                night={palette.night}
+                glow={{ color: palette.cloudLight, amount: palette.glow }}
             />
         </g>
     );

@@ -40,6 +40,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
+    const pinnedRef = useRef(false);
 
     const weather = useWeather(time, forced);
 
@@ -83,6 +84,19 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
         };
     }, [time]);
 
+    // `?time=2026-12-21T15:30:00Z` pins the clock for testing and screenshots.
+    useEffect(() => {
+        const pinned = new Date(new URLSearchParams(window.location.search).get('time') ?? '');
+
+        if (Number.isNaN(pinned.getTime())) {
+            return;
+        }
+
+        // The animation loop publishes the time; a pinned clock does not advance.
+        simulatedTimeRef.current = pinned.getTime();
+        pinnedRef.current = true;
+    }, []);
+
     useEffect(() => {
         const timer = setTimeout(() => {
             setAnimate(true);
@@ -99,7 +113,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
                 const deltaReal = now - lastRealTimeRef.current;
                 const deltaSim = deltaReal * timeFactor;
 
-                if (!reduceMotion) {
+                if (!reduceMotion && !pinnedRef.current) {
                     simulatedTimeRef.current += deltaSim;
                 }
 

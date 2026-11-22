@@ -65,10 +65,12 @@ interface CloudsProps {
     weather: Weather;
     /** 0 by day, 1 at night, in between at dusk and dawn. */
     night: number;
+    /** Low sunlight on the clouds: its colour and strength (0..1). */
+    glow?: { color: string; amount: number };
 }
 
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
-export const Clouds = ({ weather, night }: CloudsProps) => {
+export const Clouds = ({ weather, night, glow }: CloudsProps) => {
     const { cover, rain } = weather;
 
     const tone = 'none' === rain ? TONE[cover] : 'grey';
@@ -76,7 +78,14 @@ export const Clouds = ({ weather, night }: CloudsProps) => {
     return (
         <g
             className={`clouds tone-${tone}`}
-            style={{ ['--night' as string]: String(night), ['--tint' as string]: String(TINT[cover]) } as CSSProperties}
+            style={
+                {
+                    ['--night' as string]: String(night),
+                    ['--tint' as string]: String(TINT[cover]),
+                    ['--glow' as string]: String(glow?.amount ?? 0),
+                    ['--glow-c' as string]: glow?.color ?? 'transparent',
+                } as CSSProperties
+            }
         >
             {TINT[cover] > 0 && (
                 <rect
