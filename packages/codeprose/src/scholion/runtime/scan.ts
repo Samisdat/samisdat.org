@@ -1,5 +1,8 @@
 export type RefEntry = {
+    /** First code target: the prose side links here, peeks and the return chip point at it */
     a: HTMLAnchorElement;
+    /** Every code target of the ref (`#all`), `a` first */
+    as: HTMLAnchorElement[];
     /** Text-side targets (`.ref-target`) of this ref */
     cs: Element[];
     /** Explanation block (`[data-explains]`) */
@@ -46,14 +49,17 @@ function codeSnapshot(a: HTMLAnchorElement, id: string): { html: string; lineNum
     return { html: clone.outerHTML, lineNum: lineEl.dataset.line ?? null };
 }
 
-function textSnapshot(d: HTMLElement): string {
+function textSnapshot(d: HTMLElement, id: string): string {
     const clone = d.cloneNode(true) as Element;
     clone.removeAttribute('id');
-    // The peek is aria-hidden and sits inside a button: no nested links
-    clone.querySelectorAll('a.ref-target').forEach(node => {
+    // Paragraphs with several refs nest the other refs' anchors: no duplicate ids in the peek
+    clone.querySelectorAll('[id]').forEach(node => node.removeAttribute('id'));
+    clone.querySelectorAll('[data-explains]').forEach(node => node.removeAttribute('data-explains'));
+    // The peek is aria-hidden and sits inside a button: no nested links. Only the own target is marked.
+    clone.querySelectorAll<HTMLElement>('a.ref-target').forEach(node => {
         const span = document.createElement('span');
         span.innerHTML = node.innerHTML;
-        span.className = 'ref-target scholion-peek__token';
+        if (node.dataset.ref === id) span.className = 'ref-target scholion-peek__token';
         node.replaceWith(span);
     });
     return clone.outerHTML;
@@ -69,7 +75,8 @@ export function scanRefs(root: ParentNode): Registry {
     const refs: Record<string, RefEntry> = {};
 
     for (const id of ids) {
-        const a = root.querySelector<HTMLAnchorElement>(`a.ref[data-ref="${id}"]`);
+        const as = [...root.querySelectorAll<HTMLAnchorElement>(`a.ref[data-ref="${id}"]`)];
+        const a = as[0];
         const b = root.querySelector<HTMLElement>(`[data-explains="${id}"]`);
         const d = root.querySelector<HTMLElement>(`#desc-${id}`);
         if (!a || !b || !d) continue;
@@ -79,6 +86,7 @@ export function scanRefs(root: ParentNode): Registry {
 
         refs[id] = {
             a,
+            as,
             cs: [...root.querySelectorAll(`.ref-target[data-ref="${id}"]`)],
             b,
             d,
@@ -86,7 +94,7 @@ export function scanRefs(root: ParentNode): Registry {
             color,
             codeHtml: code.html,
             lineNum: code.lineNum,
-            textHtml: textSnapshot(d),
+            textHtml: textSnapshot(d, id),
         };
     }
 

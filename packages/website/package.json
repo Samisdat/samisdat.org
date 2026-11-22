@@ -76,7 +76,7 @@
     "react-dom": "catalog:",
     "rehype-accessible-emojis": "^0.3.2",
     "rehype-autolink-headings": "^7.1.0",
-    "rehype-pretty-code": "^0.14.5",
+    "rehype-pretty-code": "^0.14.6",
     "rehype-slug": "^6.0.0",
     "remark-breaks": "^4.0.0",
     "remark-frontmatter": "^5.0.0",
@@ -89,18 +89,19 @@
   },
   "devDependencies": {
     "@types/mdast": "^4.0.4",
-    "@types/mdx": "^2.0.13",
+    "@types/mdx": "^2.0.14",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "catalog:",
-    "baseline-browser-mapping": "^2.11.34",
+    "baseline-browser-mapping": "^2.11.38",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
     "tsx": "^4.23.15",
     "typescript": "catalog:",
+    "typescript-styled-plugin": "^0.18.3",
     "vitest": "catalog:"
   }
 }

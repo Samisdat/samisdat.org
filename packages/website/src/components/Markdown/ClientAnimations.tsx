@@ -75,8 +75,34 @@ const demoRegistry = {
         import('@samisdat/ui-components/Demo/Parallax/Sectors').then(mod => ({ default: mod.DemoParallaxSectors })),
     DemoParallaxHills: () =>
         import('@samisdat/ui-components/Demo/Parallax/Hills').then(mod => ({ default: mod.DemoParallaxHills })),
+    DemoGhostSectors: () =>
+        import('@samisdat/ui-components/Demo/Parallax/GhostSectors').then(mod => ({ default: mod.DemoGhostSectors })),
+    DemoGhostCircles: () =>
+        import('@samisdat/ui-components/Demo/Parallax/GhostCircles').then(mod => ({ default: mod.DemoGhostCircles })),
+    DemoGhostHills: () =>
+        import('@samisdat/ui-components/Demo/Parallax/GhostHills').then(mod => ({ default: mod.DemoGhostHills })),
+    DemoGhostRecorder: () =>
+        import('@samisdat/ui-components/Demo/Parallax/GhostRecorderDemo').then(mod => ({
+            default: mod.DemoGhostRecorder,
+        })),
+    DemoParallaxRays: () =>
+        import('@samisdat/ui-components/Demo/Parallax/Rays').then(mod => ({ default: mod.DemoParallaxRays })),
     DemoParallaxCircles: () =>
         import('@samisdat/ui-components/Demo/Parallax/Circles').then(mod => ({ default: mod.DemoParallaxCircles })),
+    DemoParallaxCirclesScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/CirclesScroll').then(mod => ({
+            default: mod.DemoParallaxCirclesScroll,
+        })),
+    DemoParallaxHillsHybrid: () =>
+        import('@samisdat/ui-components/Demo/Parallax/HillsHybrid').then(mod => ({
+            default: mod.DemoParallaxHillsHybrid,
+        })),
+    DemoParallaxHillsScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/HillsScroll').then(mod => ({
+            default: mod.DemoParallaxHillsScroll,
+        })),
+    DemoParallaxScroll: () =>
+        import('@samisdat/ui-components/Demo/Parallax/Scroll').then(mod => ({ default: mod.DemoParallaxScroll })),
 } as const satisfies Record<string, DemoLoader>;
 
 /**
@@ -118,4 +144,13 @@ export const DemoAnimationsMorphThumb = demos.DemoAnimationsMorphThumb;
 export const DemoAnimationsMorphCoffee = demos.DemoAnimationsMorphCoffee;
 export const DemoParallaxSectors = demos.DemoParallaxSectors;
 export const DemoParallaxHills = demos.DemoParallaxHills;
+export const DemoGhostSectors = demos.DemoGhostSectors;
+export const DemoGhostCircles = demos.DemoGhostCircles;
+export const DemoGhostHills = demos.DemoGhostHills;
+export const DemoGhostRecorder = demos.DemoGhostRecorder;
+export const DemoParallaxRays = demos.DemoParallaxRays;
 export const DemoParallaxCircles = demos.DemoParallaxCircles;
+export const DemoParallaxCirclesScroll = demos.DemoParallaxCirclesScroll;
+export const DemoParallaxHillsHybrid = demos.DemoParallaxHillsHybrid;
+export const DemoParallaxHillsScroll = demos.DemoParallaxHillsScroll;
+export const DemoParallaxScroll = demos.DemoParallaxScroll;

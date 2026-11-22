@@ -13,12 +13,17 @@
       "import": "./src/*/index.ts"
     }
   },
-  "scripts": {},
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run --coverage"
+  },
   "dependencies": {
     "react": "catalog:"
   },
   "devDependencies": {
     "@types/react": "catalog:",
-    "typescript": "catalog:"
+    "@vitest/coverage-v8": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   }
 }

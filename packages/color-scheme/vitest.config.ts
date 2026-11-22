@@ -9,7 +9,14 @@ export default defineConfig({
         exclude: ['**/node_modules/**'],
         coverage: {
             provider: 'v8',
-            reporter: ['text', 'lcov'],
+            reporter: ['text', 'lcov', 'json-summary'],
+            // Ratchet: measured value minus ~1 point. May only go up.
+            thresholds: {
+                statements: 0,
+                branches: 0,
+                functions: 0,
+                lines: 0,
+            },
             include: ['src/**/*.ts', 'scripts/**/*.ts'],
             exclude: ['**/__tests__/**'],
         },

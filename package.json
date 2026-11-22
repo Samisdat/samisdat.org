@@ -16,6 +16,8 @@
     "lint:fix": "oxlint --type-aware --fix .",
     "lint:css": "stylelint \"**/*.{ts,tsx}\" --ignore-path .gitignore",
     "test": "pnpm -r test",
+    "coverage": "pnpm -r --no-bail --if-present test:ci; status=$?; node scripts/coverage-summary.mjs; exit $status",
+    "coverage:report": "node scripts/coverage-summary.mjs",
     "lint:colors": "./scripts/lint-colors.sh",
     "lint:tokens": "pnpm --filter @samisdat/color-scheme build && pnpm --filter @samisdat/color-scheme lint && git diff --exit-code -- packages/color-scheme/generated && test -z \"$(git ls-files --others --exclude-standard -- packages/color-scheme/generated)\"",
     "dev:tokens": "pnpm --filter @samisdat/color-scheme dev",
@@ -28,12 +30,12 @@
     "chrome-remote-interface": "^0.34.0"
   },
   "devDependencies": {
-    "concurrently": "^10.0.6",
-    "oxfmt": "^0.75.0",
-    "oxlint": "^1.90.0",
-    "oxlint-tsgolint": "^7.0.2005",
+    "concurrently": "^10.0.7",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
+    "oxlint-tsgolint": "^7.0.2007",
     "postcss-styled-syntax": "^0.7.4",
-    "stylelint": "^17.15.0",
+    "stylelint": "^17.16.0",
     "stylelint-config-standard": "^40.0.0",
     "syncpack": "^15.3.3"
   },

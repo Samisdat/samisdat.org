@@ -1,0 +1,162 @@
+---
+title: Parallax
+date: 2026-01-19T00:00:00.000Z
+description: Mausbewegung wird in normalisierte Koordinaten umgerechnet und treibt einen Parallax-Effekt mit mehreren Ebenen – interaktiv im Browser.
+image: true
+---
+
+## Scroll-Container
+
+<DemoParallaxScroll />
+
+## Zeiger und Touch-Drag
+
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+
+<DemoParallaxSectors />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+
+{/*prettier-ignore*/}
+
+```js
+const { clientX: x, clientY: y } = event;
+const position = { x, y };
+
+console.log(position);
+// !placeholder pixelX 0.00
+// !placeholder pixelY 0.00#2
+{ x: 0.00, y: 0.00 }
+
+const relative: Position = {
+  x: position.x / element.width,
+  y: position.y / element.height 
+};
+
+const normalised = {
+  x: (relative.x - 0.5) * 2,
+  y: (relative.y - 0.5) * 2,
+};
+
+console.log(normalised);
+// !placeholder normX 0.00
+// !placeholder normY 0.00#2
+{ x: 0.00, y: 0.00 }
+/**
+ * {x:-1, y:-1} is top left, {y:0,y:0} and
+ * {1,1} ist bottom right
+ */
+```
+
+    </Stack>
+
+  </Stack>
+</DemoContext>
+
+blabla zu normalisierung
+
+## Zeiger und Touch-Drag
+
+<DemoContext pixelX="0.00" pixelY="0.00" normX="0.00" normY="0.00">
+  <Stack
+    container
+    directionSmall="column"
+    directionMedium="row"
+    sticky
+  >
+    <Stack orderSmall={2} orderMedium={1}>
+      <DemoParallaxCircles />
+
+    </Stack>
+    <Stack orderSmall={1} orderMedium={2}>
+      bla
+    </Stack>
+
+  </Stack>
+</DemoContext>
+
+```tsx
+<svg>
+    <circle
+        className={'red parallax'}
+        cx="200"
+        cy="125"
+        r="100"
+        style={
+            {
+                ['--depth' as string]: String(-1),
+            } as CSSProperties
+        }
+    />
+    <circle
+        className={'yellow'}
+        cx="200"
+        cy="205"
+        r="100"
+    />
+    <circle
+        className={'blue parallax'}
+        cx="200"
+        cy="275"
+        r="100"
+        style={
+            {
+                ['--depth' as string]: String(1),
+            } as CSSProperties
+        }
+    />
+</svg>
+```
+
+```typescript
+const doParallax = () => {
+    const element = ref.current;
+    const { x, y } = coordsRef.current;
+
+    element.style.setProperty('--parallax-x', String(x));
+
+    element.style.setProperty('--parallax-y', String(y));
+};
+
+useAnimationFrame(doParallax);
+```
+
+```css
+.parallax {
+    transition: transform 10ms ease;
+    transform: translateX(calc(150px * var(--parallax-x) * var(--depth)))
+        translateY(calc(150px * var(--parallax-y) * var(--depth)));
+}
+```
+
+## Scroll-Container
+
+<DemoParallaxCirclesScroll />
+
+## Zeiger und Touch-Drag
+
+<DemoParallaxHills />
+
+## Scroll-Container
+
+<DemoParallaxHillsScroll />
+
+## Horizontal scrollen, vertikal die Seite
+
+<DemoParallaxHillsHybrid />
+
+Lorem Ipsum
+
+Bonus Level
+
+Schöner Effekt auf Mobilen Geräten, aber permissons nerven
+
+<DemoParallaxHills />

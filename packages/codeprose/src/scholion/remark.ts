@@ -82,29 +82,37 @@ export const remarkScholion: Plugin<[], Root> = () => {
         // Pass 2: transform explanation paragraphs
         const explainedRefs = new Set<string>();
         visit(tree, 'paragraph', (node: Paragraph) => {
-            const firstRefId = findFirstScholionRef(node.children, refMap);
-            if (!firstRefId) return;
+            const [firstId, ...otherIds] = findScholionRefs(node.children, refMap);
+            if (!firstId) return;
 
-            explainedRefs.add(firstRefId);
+            const ids = [firstId, ...otherIds];
+            for (const id of ids) explainedRefs.add(id);
 
             // Annotate paragraph with explain attributes (paragraph handler uses data.hProperties)
             node.data = {
                 ...node.data,
                 hProperties: {
-                    id: `explain-${firstRefId}`,
-                    'data-explains': firstRefId,
+                    id: `explain-${firstId}`,
+                    'data-explains': firstId,
                     tabIndex: -1,
                 },
             };
 
-            // Wrap children in the description span (aria-describedby target of the code token)
-            const descSpan = makeHastNode(
-                'span',
-                { id: `desc-${firstRefId}` },
-                transformChildren(node.children, firstRefId)
+            // Every ref link in the paragraph becomes its target
+            const children = ids.reduce((acc, id) => transformChildren(acc, id), node.children);
+
+            // Wrap children in the description span (aria-describedby target of the code token). Further refs
+            // nest inside, each with its own explanation anchor and description, so the paragraph stays one.
+            const wrapped = otherIds.reduceRight<PhrasingContent[]>(
+                (inner, id) => [
+                    makeHastNode('span', { id: `explain-${id}`, 'data-explains': id, tabIndex: -1 }, [
+                        makeHastNode('span', { id: `desc-${id}` }, inner) as unknown as PhrasingContent,
+                    ]) as unknown as PhrasingContent,
+                ],
+                children
             );
 
-            node.children = [descSpan as unknown as PhrasingContent];
+            node.children = [makeHastNode('span', { id: `desc-${firstId}` }, wrapped) as unknown as PhrasingContent];
         });
 
         // Validate: refs without any explanation
@@ -125,12 +133,13 @@ export const remarkScholion: Plugin<[], Root> = () => {
     };
 };
 
-function findFirstScholionRef(children: PhrasingContent[], refMap: Map<string, ScholionRef>): string | null {
+function findScholionRefs(children: PhrasingContent[], refMap: Map<string, ScholionRef>): string[] {
+    const ids = new Set<string>();
     for (const child of children) {
         if (child.type === 'link') {
             const frag = child.url?.startsWith('#') ? child.url.slice(1) : null;
-            if (frag && refMap.has(frag)) return frag;
+            if (frag && refMap.has(frag)) ids.add(frag);
         }
     }
-    return null;
+    return [...ids];
 }

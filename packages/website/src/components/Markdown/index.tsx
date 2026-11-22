@@ -1,4 +1,5 @@
 import { SandpackFiles } from '@codesandbox/sandpack-react';
+import { BlogCollectorCard } from '@samisdat/ui-components/BlogCollectorCard';
 import {
     SnapshotCode,
     SnapshotCvd,
@@ -21,6 +22,7 @@ import { FC, HTMLAttributes, useMemo } from 'react';
 
 import { Code } from '../Code';
 import { Link } from '../Link';
+import { Quote } from '../Quote';
 import { Sandbox } from '../Sandbox';
 import { SandPackCSS } from '../Sandbox/SandPackCSS';
 import { TypeSpecimen } from '../TypeSpecimen';
@@ -67,6 +69,7 @@ const baseComponents = {
         />
     ),
     a: (props: any) => <Link {...props} />,
+    Quote: (props: any) => <Quote {...props} />,
     pre: (props: any) => <Code {...props} />,
     DemoContext: (props: any) => <DemoContext {...props} />,
     DemoBox: (props: any) => {
@@ -78,6 +81,7 @@ const baseComponents = {
     Stack: (props: any) => {
         return <Stack {...props} />;
     },
+    BlogCollectorCard: (props: any) => <BlogCollectorCard {...props} />,
     // Demo-Komponenten aus Registry: explizite Named Exports für MDX-Build-Zeit-Analyse
     DemoAnimationsCompare: ClientDemos.DemoAnimationsCompare,
     DemoAnimationsCssJs: ClientDemos.DemoAnimationsCssJs,
@@ -90,7 +94,16 @@ const baseComponents = {
     DemoSmilMorphHills: ClientDemos.DemoSmilMorphHills,
     DemoParallaxSectors: ClientDemos.DemoParallaxSectors,
     DemoParallaxHills: ClientDemos.DemoParallaxHills,
+    DemoGhostSectors: ClientDemos.DemoGhostSectors,
+    DemoGhostCircles: ClientDemos.DemoGhostCircles,
+    DemoGhostHills: ClientDemos.DemoGhostHills,
+    DemoGhostRecorder: ClientDemos.DemoGhostRecorder,
+    DemoParallaxRays: ClientDemos.DemoParallaxRays,
     DemoParallaxCircles: ClientDemos.DemoParallaxCircles,
+    DemoParallaxCirclesScroll: ClientDemos.DemoParallaxCirclesScroll,
+    DemoParallaxHillsHybrid: ClientDemos.DemoParallaxHillsHybrid,
+    DemoParallaxHillsScroll: ClientDemos.DemoParallaxHillsScroll,
+    DemoParallaxScroll: ClientDemos.DemoParallaxScroll,
     DemoSmilDisc: ClientDemos.DemoSmilDisc,
     DemoSmilCrank: ClientDemos.DemoSmilCrank,
     DemoSmilCrankFormula: ClientDemos.DemoSmilCrankFormula,

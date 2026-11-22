@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "test": "vitest",
+    "test:ci": "vitest run"
+  },
   "exports": {
     "./package.json": "./package.json",
     "./*": {
@@ -24,6 +28,18 @@
     "./Demo/Parallax/*": {
       "types": "./src/Demo/Parallax/*.tsx",
       "import": "./src/Demo/Parallax/*.tsx"
+    },
+    "./DemoAnimation/GhostDemo": {
+      "types": "./src/DemoAnimation/GhostDemo.tsx",
+      "import": "./src/DemoAnimation/GhostDemo.tsx"
+    },
+    "./InteractionGhost": {
+      "types": "./src/InteractionGhost/index.ts",
+      "import": "./src/InteractionGhost/index.ts"
+    },
+    "./InteractionGhost/*": {
+      "types": "./src/InteractionGhost/*.tsx",
+      "import": "./src/InteractionGhost/*.tsx"
     },
     "./style/globalStyle": {
       "types": "./src/style/globalstyle.ts",
@@ -47,7 +63,7 @@
     }
   },
   "dependencies": {
-    "@babel/runtime": "^8.0.10",
+    "@babel/runtime": "^8.1.2",
     "@fortawesome/fontawesome-svg-core": "catalog:",
     "@fortawesome/free-regular-svg-icons": "catalog:",
     "@fortawesome/free-solid-svg-icons": "catalog:",
@@ -60,18 +76,22 @@
     "culori": "^4.0.2",
     "fs-extra": "catalog:",
     "normalize.css": "catalog:",
+    "qrcode-generator": "^2.0.4",
     "react": "catalog:",
     "react-dom": "catalog:",
-    "react-shiki": "^0.11.2",
+    "react-shiki": "^0.11.3",
     "shiki": "catalog:"
   },
   "devDependencies": {
     "@types/culori": "^4.0.1",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
+    "happy-dom": "^21.0.4",
     "prettier": "catalog:",
     "prettier-plugin-multiline-arrays": "catalog:",
     "prettier-plugin-organize-imports": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "typescript-styled-plugin": "^0.18.3",
+    "vitest": "catalog:"
   }
 }

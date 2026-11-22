@@ -83,7 +83,7 @@
         "complexity": [
           "error",
           {
-            "max": 24
+            "max": 22
           }
         ]
       }
@@ -222,27 +222,6 @@
           "error",
           {
             "max": 143,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
-      "files": ["packages/ui-components/src/Demo/Parallax/Hills.tsx"],
-      "rules": {
-        "max-lines": [
-          "error",
-          {
-            "max": 267,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ],
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 211,
             "skipBlankLines": true,
             "skipComments": true
           }
