@@ -2,6 +2,7 @@
 
 import { css } from '@linaria/core';
 import { styled } from '@linaria/react';
+import { aubergine } from '@samisdat/color-scheme/primitives';
 import { useParallax } from '@samisdat/tools';
 import { useRef, useState } from 'react';
 
@@ -70,7 +71,7 @@ const Face = styled.div`
     overflow: hidden;
     box-shadow:
         inset 0 0 0 0.5cqw var(--color-border-default),
-        0 2cqw 6cqw rgb(15 5 29 / 35%);
+        0 2cqw 6cqw color-mix(in oklch, ${aubergine[950]} 35%, transparent);
 `;
 const FrontFace = styled(Face)``;
 
