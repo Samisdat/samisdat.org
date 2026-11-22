@@ -1,4 +1,5 @@
 import { css } from '@linaria/core';
+import { panoramaColors } from '@samisdat/wtal-panorama/colors';
 
 /**
  * Panorama variant: day sky, hills, house and map in the colours of the panorama in the page header.
@@ -8,20 +9,20 @@ import { css } from '@linaria/core';
 export const panoramaTheme = css`
     --p-sky-top: #0376bf;
     --p-sky-low: #a8d0f5;
-    --p-hill-far: var(--panorama-warm-olive, oklch(38% 0.12 115deg));
-    --p-hill-near: var(--panorama-forest-hill, oklch(40% 0.08 140deg));
-    --p-ground: var(--panorama-dark-moss, oklch(22% 0.06 120deg));
-    --p-wall: var(--panorama-apricot, oklch(80% 0.1 55deg));
-    --p-roof: var(--panorama-brick-red, oklch(38% 0.12 30deg));
-    --p-accent: var(--panorama-fire-red, oklch(65% 0.23 35deg));
-    --p-crown: var(--panorama-spring-green, oklch(50% 0.12 155deg));
-    --p-trunk: var(--panorama-copper-brown, oklch(54% 0.1 50deg));
-    --p-map: var(--panorama-moss-green-light, oklch(62% 0.06 135deg));
-    --p-line: var(--panorama-dark-moss, oklch(22% 0.06 120deg));
-    --p-rail: var(--panorama-slate-gray, oklch(45% 0.01 270deg));
-    --p-eye: var(--panorama-sunflower-yellow, oklch(78% 0.2 90deg));
-    --p-tree-ray: var(--panorama-emerald-dark, oklch(30% 0.15 160deg));
-    --p-hill-ray: var(--panorama-dark-ochre, oklch(50% 0.14 75deg));
+    --p-hill-far: var(--panorama-warm-olive, ${panoramaColors['warm-olive']});
+    --p-hill-near: var(--panorama-forest-hill, ${panoramaColors['forest-hill']});
+    --p-ground: var(--panorama-dark-moss, ${panoramaColors['dark-moss']});
+    --p-wall: var(--panorama-apricot, ${panoramaColors['apricot']});
+    --p-roof: var(--panorama-brick-red, ${panoramaColors['brick-red']});
+    --p-accent: var(--panorama-fire-red, ${panoramaColors['fire-red']});
+    --p-crown: var(--panorama-spring-green, ${panoramaColors['spring-green']});
+    --p-trunk: var(--panorama-copper-brown, ${panoramaColors['copper-brown']});
+    --p-map: var(--panorama-moss-green-light, ${panoramaColors['moss-green-light']});
+    --p-line: var(--panorama-dark-moss, ${panoramaColors['dark-moss']});
+    --p-rail: var(--panorama-slate-gray, ${panoramaColors['slate-gray']});
+    --p-eye: var(--panorama-sunflower-yellow, ${panoramaColors['sunflower-yellow']});
+    --p-tree-ray: var(--panorama-emerald-dark, ${panoramaColors['emerald-dark']});
+    --p-hill-ray: var(--panorama-dark-ochre, ${panoramaColors['dark-ochre']});
 
     /* window view */
     && .sky {

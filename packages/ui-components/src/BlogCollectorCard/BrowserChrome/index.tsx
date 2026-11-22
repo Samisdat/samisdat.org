@@ -1,4 +1,5 @@
 import { styled } from '@linaria/react';
+import { aubergine } from '@samisdat/color-scheme/primitives';
 
 import { light } from '../light';
 
@@ -18,7 +19,7 @@ export const BrowserChrome = styled.div`
     /* Ring like the card edge, then a drop shadow that lifts the screenshot off the card */
     box-shadow:
         0 0 0 0.5cqw var(--color-border-default),
-        0 1.6cqw 2cqw rgb(15 5 29 / 45%);
+        0 1.6cqw 2cqw color-mix(in oklch, ${aubergine[950]} 45%, transparent);
 
     img {
         display: block;
@@ -35,7 +36,7 @@ export const BrowserChrome = styled.div`
     ${light(`
         box-shadow:
             0 0 0 0.5cqw var(--color-border-default),
-            0 1.6cqw 2cqw rgb(30 20 46 / 0.35);
+            0 1.6cqw 2cqw color-mix(in oklch, ${aubergine[950]} 35%, transparent);
     `)}
 
     /* With a light screenshot both images are rendered and the theme picks one */
