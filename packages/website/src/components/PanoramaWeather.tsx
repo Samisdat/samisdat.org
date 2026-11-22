@@ -68,6 +68,7 @@ export const PanoramaWeather = () => {
             <WtalPanorama
                 weather={enabled && 'auto' !== cover ? { cover, rain } : live}
                 stars={stars}
+                generatedClouds={'development' === process.env.NODE_ENV}
             />
             {enabled && (
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1rem', padding: '0.5rem 1rem' }}>

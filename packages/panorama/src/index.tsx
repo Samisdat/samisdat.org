@@ -17,16 +17,21 @@ interface WtalPanoramaProps {
     weather?: Weather;
     /** The star catalogue; without it the sky has no stars. */
     stars?: readonly Star[];
+    /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
+    generatedClouds?: boolean;
 }
 
-export const WtalPanorama = ({ weather, stars }: WtalPanoramaProps) => (
+export const WtalPanorama = ({ weather, stars, generatedClouds }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
         {/* decorative; display: contents keeps the layout untouched */}
         <div
             aria-hidden="true"
             style={{ display: 'contents' }}
         >
-            <Panorama stars={stars} />
+            <Panorama
+                stars={stars}
+                generatedClouds={generatedClouds}
+            />
         </div>
     </TalProvider>
 );
