@@ -26,5 +26,21 @@ const YEAR = new Date().getFullYear();
 export const Colophon: FC<HTMLAttributes<HTMLElement>> = props => (
     <FooterWrapper {...props}>
         © {YEAR} samisdat.org · <Link href="/impressum">Impressum</Link> · <Link href="/datenschutz">Datenschutz</Link>
+        <br />
+        Wetterdaten von{' '}
+        <a
+            href="https://open-meteo.com/"
+            rel="noopener"
+        >
+            Open-Meteo.com
+        </a>{' '}
+        (
+        <a
+            href="https://creativecommons.org/licenses/by/4.0/"
+            rel="noopener"
+        >
+            CC BY 4.0
+        </a>
+        )
     </FooterWrapper>
 );
