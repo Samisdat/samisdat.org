@@ -117,12 +117,15 @@ export const Inks: Story = {
         const canvas = within(canvasElement);
 
         await expect(canvas.getByRole('heading', { name: 'Tinten' })).toBeVisible();
-        const surfaces = canvas.getAllByRole('radio');
-        await expect(surfaces[0]).toBeChecked();
+        // Scoped to the block's own control: the frame's Dark/Light switch is a radio group too
+        const surfaces = within(canvas.getByRole('group', { name: 'Gemessen auf' }));
+        const initial = surfaces.getByLabelText('default');
+        const raised = surfaces.getByLabelText('raised');
+        await expect(initial).toBeChecked();
 
-        await userEvent.click(surfaces[1]);
-        await expect(surfaces[1]).toBeChecked();
-        await expect(surfaces[0]).not.toBeChecked();
+        await userEvent.click(raised);
+        await expect(raised).toBeChecked();
+        await expect(initial).not.toBeChecked();
     },
 };
 
@@ -173,7 +176,8 @@ export const Cvd: Story = {
     ),
     play: async ({ canvasElement }) => {
         const canvas = within(canvasElement);
-        const visions = canvas.getAllByRole('radio');
+        // Scoped to the block's own control: the frame's Dark/Light switch is a radio group too
+        const visions = within(canvas.getByRole('group', { name: 'Sehtyp' })).getAllByRole('radio');
         const checked = visions.find(v => (v as HTMLInputElement).checked);
 
         const other = visions.find(v => v !== checked)!;
