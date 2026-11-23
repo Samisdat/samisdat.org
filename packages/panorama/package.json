@@ -31,7 +31,7 @@
   ],
   "scripts": {
     "dev": "next dev",
-    "dev:lib": "tsup src/index.tsx --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
+    "dev:lib": "tsup src/index.tsx src/generated/colors.ts --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom --watch",
     "build": "next build",
     "build:colors": "tsx scripts/build-colors.ts",
     "build:lib": "tsup src/index.tsx src/generated/colors.ts --format cjs,esm --dts --tsconfig tsconfig.lib.json --external react --external react-dom",
