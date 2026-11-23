@@ -10,6 +10,8 @@ import type { ReactNode } from 'react';
 export { COVERS, RAINS } from './lib/weather';
 export { percentToOktas, skyFromCover, skyFromPercent } from './lib/sky';
 export type { Oktas, Sky, SkyBand } from './lib/sky';
+export { MoonPhaseIcon } from './components/MoonPhaseIcon';
+export { useSkyJump } from './lib/useSkyJump';
 export type { CloudPalette, CloudType } from './components/Clouds/cloudTypes';
 export type { Cover, Rain, Weather } from './lib/weather';
 export type { Star };

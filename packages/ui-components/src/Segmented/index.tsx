@@ -1,7 +1,7 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { useId, useRef } from 'react';
+import { type ReactNode, useId, useRef } from 'react';
 
 import { useScrollFades } from './useScrollFades';
 
@@ -80,12 +80,18 @@ const SegmentedRoot = styled.fieldset`
     }
 
     span {
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 0.25rem 0.7rem;
         border-radius: 999px;
         font-size: 0.8125rem;
         font-weight: 600;
         color: var(--cs-text-secondary, var(--color-text-secondary));
+    }
+
+    span.icon {
+        padding-inline: 0.5rem;
     }
 
     input:checked + span {
@@ -103,7 +109,8 @@ export type SegmentedProps<T extends string> = {
     /** Accessible group name, rendered as a visually hidden legend. */
     label: string;
     value: T;
-    options: readonly { value: T; label: string }[];
+    /** An option with an `icon` shows only the icon; `label` stays its accessible name and tooltip. */
+    options: readonly { value: T; label: string; icon?: ReactNode }[];
     onChange: (value: T) => void;
 };
 
@@ -126,8 +133,10 @@ export function Segmented<T extends string>({ label, value, options, onChange }:
                             value={o.value}
                             checked={o.value === value}
                             onChange={() => onChange(o.value)}
+                            aria-label={o.icon ? o.label : undefined}
+                            title={o.icon ? o.label : undefined}
                         />
-                        <span>{o.label}</span>
+                        <span className={o.icon ? 'icon' : undefined}>{o.icon ?? o.label}</span>
                     </label>
                 ))}
             </div>

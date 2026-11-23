@@ -1,5 +1,18 @@
 'use client';
 
+import { faCloud as faCloudOutline } from '@fortawesome/free-regular-svg-icons';
+import {
+    faBan,
+    faCloud,
+    faCloudBolt,
+    faCloudRain,
+    faCloudShowersHeavy,
+    faCloudSun,
+    faSmog,
+    faSun,
+    type IconDefinition,
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Segmented } from '@samisdat/ui-components/Segmented';
 import { COVERS, RAINS, type Cover, type Rain, type Weather, WtalPanorama } from '@samisdat/wtal-panorama';
 import { useEffect, useState, useSyncExternalStore } from 'react';
@@ -7,6 +20,8 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import { useStars } from '@/lib/useStars';
 import { readWeather } from '@/lib/weather/readWeather';
 import { weatherOfReading } from '@/lib/weather/toPanoramaWeather';
+
+import { SkyJumpSegments } from './SkyJumpSegments';
 
 type CoverChoice = Cover | 'auto';
 
@@ -19,10 +34,25 @@ const COVER_LABELS: Record<Cover, string> = {
 };
 const RAIN_LABELS: Record<Rain, string> = { none: 'Kein Regen', light: 'Leicht', steady: 'Stetig', heavy: 'Stark' };
 
-const COVER_OPTIONS = [
-    { value: 'auto' as CoverChoice, label: 'Tageswetter' },
-    ...COVERS.map(cover => ({ value: cover as CoverChoice, label: COVER_LABELS[cover] })),
-];
+const COVER_ICONS: Record<Cover, IconDefinition> = {
+    clear: faSun,
+    light: faCloudSun,
+    cloudy: faCloudOutline,
+    mostly: faCloud,
+    overcast: faSmog,
+};
+const RAIN_ICONS: Record<Rain, IconDefinition> = {
+    none: faBan,
+    light: faCloudRain,
+    steady: faCloudShowersHeavy,
+    heavy: faCloudBolt,
+};
+
+const COVER_OPTIONS = COVERS.map(cover => ({
+    value: cover as CoverChoice,
+    label: COVER_LABELS[cover],
+    icon: <FontAwesomeIcon icon={COVER_ICONS[cover]} />,
+}));
 /** The measured weather, or `undefined` while loading, on a fallback, and when `?weather=` overrides it. */
 const useLiveWeather = (): Weather | undefined => {
     const [live, setLive] = useState<Weather>();
@@ -34,7 +64,7 @@ const useLiveWeather = (): Weather | undefined => {
 
         const controller = new AbortController();
 
-        void readWeather(fetch, controller.signal).then((reading) => {
+        void readWeather(fetch, controller.signal).then(reading => {
             if (!controller.signal.aborted) {
                 setLive(weatherOfReading(reading));
             }
@@ -46,7 +76,11 @@ const useLiveWeather = (): Weather | undefined => {
     return live;
 };
 
-const RAIN_OPTIONS = RAINS.map(rain => ({ value: rain, label: RAIN_LABELS[rain] }));
+const RAIN_OPTIONS = RAINS.map(rain => ({
+    value: rain,
+    label: RAIN_LABELS[rain],
+    icon: <FontAwesomeIcon icon={RAIN_ICONS[rain]} />,
+}));
 
 /** Shown while developing, or on any page with `?weather-picker`. */
 const subscribeNothing = () => () => {};
@@ -83,6 +117,7 @@ export const PanoramaWeather = () => {
                             options={RAIN_OPTIONS}
                             onChange={setRain}
                         />
+                        <SkyJumpSegments />
                     </>
                 )
             }

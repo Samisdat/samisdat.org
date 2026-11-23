@@ -18,6 +18,8 @@ interface TalContextType {
     setPaused: (paused: boolean) => void;
     /** Normal speed, running, and the clock back on the real time. */
     reset: () => void;
+    /** Moves the simulated clock to this moment; the speed and a pause stay as they are. */
+    jumpTo: (moment: Date) => void;
     sunTimes: SunTimes;
     weather: Weather;
 }
@@ -104,9 +106,27 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
         setTime(new Date(simulatedTimeRef.current));
     }, []);
 
+    const jumpTo = useCallback((moment: Date) => {
+        simulatedTimeRef.current = moment.getTime();
+        setAtRealTime(false);
+        setTime(new Date(moment));
+    }, []);
+
     const value = useMemo(
-        () => ({ animate, time, timeFactor, setTimeFactor, atRealTime, paused, setPaused, reset, sunTimes, weather }),
-        [animate, time, timeFactor, atRealTime, paused, reset, sunTimes, weather]
+        () => ({
+            animate,
+            time,
+            timeFactor,
+            setTimeFactor,
+            atRealTime,
+            paused,
+            setPaused,
+            reset,
+            jumpTo,
+            sunTimes,
+            weather,
+        }),
+        [animate, time, timeFactor, atRealTime, paused, reset, jumpTo, sunTimes, weather]
     );
 
     return <TalContext.Provider value={value}>{children}</TalContext.Provider>;
