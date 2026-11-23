@@ -766,9 +766,18 @@
     color: var(--tc-ink-soft);
 }
 .panorama .timeControlFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     padding-block: 12px 10px;
     border-top: 1.5px dashed oklch(0.22 0.05 300 / 35%);
     font-weight: 500;
+    /* Segmented controls inside the overlay take the ink-on-yellow colours */
+    --cs-border-muted: oklch(0.22 0.05 300 / 35%);
+    --cs-text-secondary: var(--tc-ink-soft);
+    --cs-surface-raised: var(--tc-ink);
+    --cs-text-emphasis: var(--tc-sun);
+    --cs-border-focus: var(--tc-ink);
 }
 @media (prefers-reduced-motion: reduce) {
     .panorama .timeControlPanel,

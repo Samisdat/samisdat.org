@@ -1,7 +1,7 @@
 import './panorama.css';
 
 import { useAnimationFrame, useParallax } from '@samisdat/tools';
-import { ReactElement, useRef } from 'react';
+import { ReactElement, ReactNode, useRef } from 'react';
 
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
 import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
@@ -42,11 +42,12 @@ import type { Star } from '@/lib/stars';
 
 interface PanoramaProps {
     stars?: readonly Star[];
+    controls?: ReactNode;
     /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
     generatedClouds?: boolean;
 }
 
-export const Panorama = ({ stars, generatedClouds }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, generatedClouds, controls }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useParallax(ref, { scroll: true });
@@ -171,7 +172,7 @@ export const Panorama = ({ stars, generatedClouds }: PanoramaProps): ReactElemen
 
                     <FrontLayer />
                 </svg>
-                <TimeControl />
+                <TimeControl footer={controls} />
             </div>
         </>
     );
