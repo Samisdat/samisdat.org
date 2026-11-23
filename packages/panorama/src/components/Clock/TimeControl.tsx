@@ -1,7 +1,7 @@
 'use client';
 
 import { usePrefersReducedMotion } from '@samisdat/tools';
-import { useEffect, useId, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useId, useRef, useState } from 'react';
 
 import { useTal } from '@/lib/TalContext';
 import { factorAt, formatEquivalence, SPEED_STEPS, stepOf } from '@/lib/timeFactor';
@@ -134,7 +134,7 @@ const SpeedRow = () => {
 
 interface TimeControlProps {
     /** Optional row below the controls, e.g. the weather. The shape only grows downwards. */
-    footer?: React.ReactNode;
+    footer?: ReactNode;
 }
 
 /** The clock in the top left corner; a click opens the overlay with pause, reset and the speed slider. */

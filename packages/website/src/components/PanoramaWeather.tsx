@@ -55,7 +55,7 @@ const pickerEnabled = () =>
 
 const usePickerEnabled = () => useSyncExternalStore(subscribeNothing, pickerEnabled, () => false);
 
-/** The panorama, with segments underneath to switch through every cover and rain. */
+/** The panorama; its time control overlay carries segments to switch through every cover and rain. */
 export const PanoramaWeather = () => {
     const enabled = usePickerEnabled();
     const live = useLiveWeather();
@@ -64,27 +64,27 @@ export const PanoramaWeather = () => {
     const [rain, setRain] = useState<Rain>('none');
 
     return (
-        <>
-            <WtalPanorama
-                weather={enabled && 'auto' !== cover ? { cover, rain } : live}
-                stars={stars}
-            />
-            {enabled && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem 1rem', padding: '0.5rem 1rem' }}>
-                    <Segmented
-                        label="Bewölkung"
-                        value={cover}
-                        options={COVER_OPTIONS}
-                        onChange={setCover}
-                    />
-                    <Segmented
-                        label="Regen"
-                        value={rain}
-                        options={RAIN_OPTIONS}
-                        onChange={setRain}
-                    />
-                </div>
-            )}
-        </>
+        <WtalPanorama
+            weather={enabled && 'auto' !== cover ? { cover, rain } : live}
+            stars={stars}
+            controls={
+                enabled && (
+                    <>
+                        <Segmented
+                            label="Bewölkung"
+                            value={cover}
+                            options={COVER_OPTIONS}
+                            onChange={setCover}
+                        />
+                        <Segmented
+                            label="Regen"
+                            value={rain}
+                            options={RAIN_OPTIONS}
+                            onChange={setRain}
+                        />
+                    </>
+                )
+            }
+        />
     );
 };

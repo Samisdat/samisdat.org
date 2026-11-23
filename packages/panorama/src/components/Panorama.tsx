@@ -1,7 +1,7 @@
 import './panorama.css';
 
 import { useAnimationFrame, useParallax } from '@samisdat/tools';
-import { ReactElement, useRef } from 'react';
+import { ReactElement, ReactNode, useRef } from 'react';
 
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
 import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
@@ -42,9 +42,10 @@ import type { Star } from '@/lib/stars';
 
 interface PanoramaProps {
     stars?: readonly Star[];
+    controls?: ReactNode;
 }
 
-export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, controls }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useParallax(ref, { scroll: true });
@@ -173,7 +174,7 @@ export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
 
                     <FrontLayer />
                 </svg>
-                <TimeControl />
+                <TimeControl footer={controls} />
             </div>
         </>
     );

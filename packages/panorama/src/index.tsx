@@ -5,6 +5,7 @@ import { TalProvider } from './lib/TalContext';
 
 import type { Star } from './lib/stars';
 import type { Weather } from './lib/weather';
+import type { ReactNode } from 'react';
 
 export { COVERS, RAINS } from './lib/weather';
 export { percentToOktas, skyFromCover, skyFromPercent } from './lib/sky';
@@ -18,10 +19,15 @@ interface WtalPanoramaProps {
     weather?: Weather;
     /** The star catalogue; without it the sky has no stars. */
     stars?: readonly Star[];
+    /** Extra controls, shown in the footer of the time control overlay. */
+    controls?: ReactNode;
 }
 
-export const WtalPanorama = ({ weather, stars }: WtalPanoramaProps) => (
+export const WtalPanorama = ({ weather, stars, controls }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
-        <Panorama stars={stars} />
+        <Panorama
+            stars={stars}
+            controls={controls}
+        />
     </TalProvider>
 );
