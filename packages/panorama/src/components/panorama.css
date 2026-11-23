@@ -507,108 +507,11 @@
     }
 }
 
-/* Speed ring around the clock: turtle (normal time) to rabbit (fast) */
-.panorama {
-    --speed-ring: #fff;
-    --speed-ring-outline: var(--panorama-aubergine);
-    --speed-ring-halo: oklch(0.22 0.05 300 / 85%);
-}
-.panorama .clockHit {
-    fill: transparent;
-    cursor: pointer;
-}
-.panorama .speedRing {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-}
-.panorama:hover .speedRing,
-.panorama .clockGroup[data-open='true'] .speedRing,
-.panorama .speedRing:focus-within {
-    opacity: 1;
-    pointer-events: auto;
-}
-.panorama .speedRingHit {
-    fill: transparent;
-}
-.panorama .speedRingHalo,
-.panorama .speedRingTrack,
-.panorama .speedRingFill {
-    fill: none;
-    stroke-linecap: round;
-}
-.panorama .speedRingHalo {
-    stroke: var(--speed-ring-halo);
-    stroke-width: 15;
-}
-.panorama .speedRingTrack {
-    stroke: var(--speed-ring);
-    stroke-opacity: 0.32;
-    stroke-width: 8;
-}
-.panorama .speedRingFill {
-    stroke: var(--speed-ring);
-    stroke-width: 8;
-}
-.panorama .speedRingAnimal {
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-.panorama .speedRingGlyphOutline {
-    stroke: var(--speed-ring-outline);
-    stroke-width: 5;
-}
-.panorama .speedRingGlyph {
-    stroke: var(--speed-ring);
-    stroke-width: 2;
-}
-.panorama .speedRingKnob {
-    cursor: grab;
-}
-.panorama .speedRingKnob:focus {
-    outline: none;
-}
-.panorama .speedRingHandle {
-    fill: var(--speed-ring);
-    stroke: var(--speed-ring-outline);
-    stroke-width: 4;
-}
-.panorama .speedRingFocus {
-    fill: none;
-    stroke: var(--speed-ring);
-    stroke-width: 2.5;
-    opacity: 0;
-}
-.panorama .speedRingKnob:focus-visible .speedRingFocus {
-    opacity: 1;
-}
-.panorama .speedRingText {
-    fill: #fff;
-    font:
-        700 15px ui-monospace,
-        'SF Mono',
-        Menlo,
-        Consolas,
-        monospace;
-    text-anchor: middle;
-    stroke: var(--speed-ring-halo);
-    stroke-width: 3.5;
-    paint-order: stroke;
-    pointer-events: none;
-}
-.panorama .speedRingTextSmall {
-    font-size: 10.5px;
-    font-weight: 500;
-}
 @media (prefers-reduced-motion: reduce) {
     .panorama .star-flash,
     .panorama .cloudDrift,
     .panorama .rainFall,
     .panorama .clouds {
         animation: none;
-    }
-    .panorama .speedRing {
-        transition: none;
     }
 }
