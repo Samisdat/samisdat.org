@@ -8,28 +8,35 @@ interface SkyGradientProps {
 export const SkyGradient = ({ palette }: SkyGradientProps) => (
     <linearGradient
         id="dayskyGradient"
+        // The palette follows the clock, which differs by milliseconds between server and browser.
+        suppressHydrationWarning
         x1="0%"
         y1="0%"
         x2="0%"
         y2="100%"
     >
         <stop
+            suppressHydrationWarning
             offset="0%"
             stopColor={palette.zenith}
         />
         <stop
+            suppressHydrationWarning
             offset="10%"
             stopColor={palette.zenith}
         />
         <stop
+            suppressHydrationWarning
             offset="30%"
             stopColor={palette.horizon}
         />
         <stop
+            suppressHydrationWarning
             offset="58%"
             stopColor={palette.glowBand}
         />
         <stop
+            suppressHydrationWarning
             offset="100%"
             stopColor={palette.glowBand}
         />

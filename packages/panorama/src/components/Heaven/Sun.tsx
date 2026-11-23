@@ -15,6 +15,7 @@ const RADIUS = 25;
 
 export const Sun: FC<SunProps> = ({ x, y, color, scale = 1, glow = 0 }) => (
     <>
+        {/* The scale follows the clock, which differs by a few milliseconds between the server and the browser */}
         {glow > 0 && (
             <circle
                 cx={x}
@@ -22,6 +23,7 @@ export const Sun: FC<SunProps> = ({ x, y, color, scale = 1, glow = 0 }) => (
                 r={RADIUS * scale * 1.9}
                 fill={color}
                 opacity={glow * 0.28}
+                suppressHydrationWarning
             />
         )}
         <circle
@@ -30,6 +32,7 @@ export const Sun: FC<SunProps> = ({ x, y, color, scale = 1, glow = 0 }) => (
             cy={y}
             r={RADIUS * scale}
             style={color ? { fill: color } : undefined}
+            suppressHydrationWarning
         />
     </>
 );

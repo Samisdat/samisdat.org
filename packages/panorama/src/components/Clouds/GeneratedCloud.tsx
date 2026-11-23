@@ -24,6 +24,8 @@ export interface GeneratedCloudProps {
     relief?: number;
     /** Cuts a flat underside, like a cumulus resting on one layer of air. */
     flatBase?: boolean;
+    /** Id of the filter and its parts; unique per render if left out. A cloud in its own image may share one. */
+    id?: string;
 }
 
 interface ReliefProps {
@@ -34,6 +36,9 @@ interface ReliefProps {
 
 /** Brightness of the steepest shaded slope against a lit one. */
 const DARKEST = 0.72;
+/** Maps the light to `DARKEST` in the shade and to 1 from the middle up (clamped), the same on every colour channel. */
+const SLOPE = 2 * (1 - DARKEST);
+const TINT_MATRIX = `${SLOPE} 0 0 0 ${DARKEST} 0 ${SLOPE} 0 0 ${DARKEST} 0 0 ${SLOPE} 0 ${DARKEST} 0 0 0 1 0`;
 
 /** Lights the distorted shape from the upper left; shaded slopes multiply the colour darker. */
 const Relief = ({ strength, wide }: ReliefProps) => (
@@ -68,22 +73,12 @@ const Relief = ({ strength, wide }: ReliefProps) => (
                 elevation={50}
             />
         </feDiffuseLighting>
-        <feComponentTransfer
+        <feColorMatrix
             in="light"
+            type="matrix"
+            values={TINT_MATRIX}
             result="tinted"
-        >
-            {['R', 'G', 'B'].map(channel => {
-                const Func = { R: 'feFuncR', G: 'feFuncG', B: 'feFuncB' }[channel] as 'feFuncR';
-
-                return (
-                    <Func
-                        key={channel}
-                        type="table"
-                        tableValues={`${DARKEST} 1 1`}
-                    />
-                );
-            })}
-        </feComponentTransfer>
+        />
         <feBlend
             in="shape"
             in2="tinted"
@@ -207,8 +202,10 @@ export const GeneratedCloud = ({
     shade = '#8a9bb5',
     relief = 14,
     flatBase = false,
+    id: fixedId,
 }: GeneratedCloudProps) => {
-    const id = `cloud-${useId().replace(/:/g, '')}`;
+    const uniqueId = `cloud-${useId().replace(/:/g, '')}`;
+    const id = fixedId ?? uniqueId;
     const margin = cloudMargin(scale, blur);
     const shapeProps = { fill: `url(#${id}-fill)`, filter: `url(#${id})` };
 

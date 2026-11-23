@@ -53,6 +53,8 @@ export const Clouds = ({ weather, generated, night, palettes, glow }: CloudsProp
     return (
         <g
             className={`clouds tone-${tone}`}
+            // The sky values follow the clock, which differs by milliseconds between server and browser.
+            suppressHydrationWarning
             style={
                 {
                     ['--night' as string]: String(night),

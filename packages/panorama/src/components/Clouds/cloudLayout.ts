@@ -60,12 +60,22 @@ const SEEDS: Record<CloudType, number> = {
 
 const between = ([from, to]: [number, number], value: number) => from + (to - from) * value;
 
-/** Which `count` of `slots` places hold a cloud; the rest are the gaps. */
-const filledSlots = (slots: number, count: number, next: () => number): number[] =>
-    Array.from({ length: slots }, (_, index) => index)
-        .sort(() => next() - 0.5)
-        .slice(0, count)
-        .sort((a, b) => a - b);
+/**
+ * Which `count` of `slots` places hold a cloud; the rest are the gaps. A seeded Fisher-Yates shuffle: sorting with a
+ * random comparator gives different orders in Node and in the browser, and the server and the client would place the
+ * clouds differently.
+ */
+const filledSlots = (slots: number, count: number, next: () => number): number[] => {
+    const order = Array.from({ length: slots }, (_, index) => index);
+
+    for (let index = order.length - 1; index > 0; index -= 1) {
+        const other = Math.floor(next() * (index + 1));
+
+        [order[index], order[other]] = [order[other], order[index]];
+    }
+
+    return order.slice(0, count).sort((a, b) => a - b);
+};
 
 const layerOf = (type: Exclude<CloudType, 'nimbostratus'>, oktas: Oktas): CloudLayer => {
     const spec = SPECS[type];

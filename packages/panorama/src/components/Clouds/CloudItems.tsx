@@ -99,6 +99,7 @@ const GeneratedPlaced = ({ type, cloud }: { type: Exclude<CloudType, 'nimbostrat
                             cx={width / 2}
                             cy={height / 2}
                             seed={seed}
+                            id="cloud"
                         />
                     </svg>
                 )
