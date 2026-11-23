@@ -1,10 +1,10 @@
-import type { Rain } from '@/lib/weather';
-import type { Oktas, Sky } from '@/lib/sky';
-
-import type { CloudType } from './cloudTypes';
 import { CloudShapeName } from './cloudShapes';
 import { random } from './random';
 import { ThinShapeName } from './thinShapes';
+
+import type { CloudType } from './cloudTypes';
+import type { Oktas, Sky } from '@/lib/sky';
+import type { Rain } from '@/lib/weather';
 
 export const SKY_WIDTH = 1700;
 
@@ -37,7 +37,13 @@ interface LayerSpec {
 
 const SPECS: Record<Exclude<CloudType, 'nimbostratus'>, LayerSpec> = {
     cirrus: { shapes: ['cirrusA', 'cirrusB', 'cirrusC'], slots: 6, scale: [1, 1.6], y: [-10, 60], duration: 460 },
-    cirrocumulus: { shapes: ['cirrocumulusA', 'cirrocumulusB'], slots: 5, scale: [1, 1.4], y: [30, 110], duration: 380 },
+    cirrocumulus: {
+        shapes: ['cirrocumulusA', 'cirrocumulusB'],
+        slots: 5,
+        scale: [1, 1.4],
+        y: [30, 110],
+        duration: 380,
+    },
     altocumulus: { shapes: ['altoLump', 'altoBand'], slots: 7, scale: [0.9, 1.3], y: [40, 130], duration: 300 },
     cumulus: { shapes: ['fairSmall', 'cumMed', 'cumTower'], slots: 5, scale: [0.85, 1.1], y: [60, 170], duration: 230 },
     stratocumulus: { shapes: ['stratoLump', 'stratoRoll'], slots: 8, scale: [1.1, 1.5], y: [90, 190], duration: 170 },
@@ -65,7 +71,7 @@ const layerOf = (type: Exclude<CloudType, 'nimbostratus'>, oktas: Oktas): CloudL
     const spec = SPECS[type];
     const next = random(SEEDS[type] * 100 + oktas);
     const count = Math.ceil((oktas / 8) * spec.slots);
-    const clouds = filledSlots(spec.slots, count, next).map((slot) => ({
+    const clouds = filledSlots(spec.slots, count, next).map(slot => ({
         shape: spec.shapes[Math.floor(next() * spec.shapes.length)],
         x: ((slot + 0.1 + next() * 0.8) / spec.slots) * SKY_WIDTH - 150,
         y: between(spec.y, next()),

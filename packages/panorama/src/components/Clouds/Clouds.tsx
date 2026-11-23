@@ -27,7 +27,10 @@ const paletteVars = ({ day, night }: CloudPalette = {}): Record<string, string> 
         '--n-s': night?.shade,
     };
 
-    return Object.fromEntries(Object.entries(vars).filter(([, value]) => undefined !== value)) as Record<string, string>;
+    return Object.fromEntries(Object.entries(vars).filter(([, value]) => undefined !== value)) as Record<
+        string,
+        string
+    >;
 };
 
 interface CloudsProps {

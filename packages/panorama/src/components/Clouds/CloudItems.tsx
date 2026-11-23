@@ -13,7 +13,12 @@ const Ellipse = ({ cx, cy, rx, ry }: Lobe) => (
 );
 
 /** The sunlit side of a lobe: a bit smaller and pushed to the upper left. */
-const lit = ({ cx, cy, rx, ry }: Lobe): Lobe => ({ cx: cx - rx * 0.2, cy: cy - ry * 0.38, rx: rx * 0.7, ry: ry * 0.62 });
+const lit = ({ cx, cy, rx, ry }: Lobe): Lobe => ({
+    cx: cx - rx * 0.2,
+    cy: cy - ry * 0.38,
+    rx: rx * 0.7,
+    ry: ry * 0.62,
+});
 
 const isThin = (shape: PlacedCloud['shape']): shape is ThinShapeName => shape in thinShapes;
 
@@ -26,7 +31,7 @@ const Cloud = ({ shape, x, y, scale }: PlacedCloud) => {
                 className="cloudBody"
                 transform={transform}
             >
-                {thinShapes[shape].lobes.map((lobe) => (
+                {thinShapes[shape].lobes.map(lobe => (
                     <Ellipse
                         key={`${lobe.cx}-${lobe.cy}`}
                         {...lobe}
@@ -42,7 +47,7 @@ const Cloud = ({ shape, x, y, scale }: PlacedCloud) => {
         <g transform={transform}>
             <g className="cloudShade">
                 <Ellipse {...lens} />
-                {lobes.map((lobe) => (
+                {lobes.map(lobe => (
                     <Ellipse
                         key={`${lobe.cx}-${lobe.cy}`}
                         {...lobe}
@@ -50,7 +55,7 @@ const Cloud = ({ shape, x, y, scale }: PlacedCloud) => {
                 ))}
             </g>
             <g className="cloudBody">
-                {lobes.map((lobe) => (
+                {lobes.map(lobe => (
                     <Ellipse
                         key={`${lobe.cx}-${lobe.cy}`}
                         {...lit(lobe)}
@@ -69,7 +74,7 @@ export const CloudItems = ({ layer }: { layer: CloudLayer }) => {
 
     return (
         <>
-            {layer.clouds.map((cloud) => (
+            {layer.clouds.map(cloud => (
                 <Cloud
                     key={`${cloud.shape}-${cloud.x}-${cloud.y}`}
                     {...cloud}

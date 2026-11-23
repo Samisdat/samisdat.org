@@ -1,8 +1,9 @@
 'use client';
 
 import { Panorama } from './components/Panorama';
-import type { Star } from './lib/stars';
 import { TalProvider } from './lib/TalContext';
+
+import type { Star } from './lib/stars';
 import type { Weather } from './lib/weather';
 
 export { COVERS, RAINS } from './lib/weather';
@@ -21,12 +22,6 @@ interface WtalPanoramaProps {
 
 export const WtalPanorama = ({ weather, stars }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
-        {/* decorative; display: contents keeps the layout untouched */}
-        <div
-            aria-hidden="true"
-            style={{ display: 'contents' }}
-        >
-            <Panorama stars={stars} />
-        </div>
+        <Panorama stars={stars} />
     </TalProvider>
 );

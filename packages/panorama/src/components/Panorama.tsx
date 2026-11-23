@@ -1,11 +1,11 @@
 import './panorama.css';
 
-import { useAnimationFrame, useParallax, usePrefersReducedMotion } from '@samisdat/tools';
-import { Activity, ReactElement, useRef } from 'react';
+import { useAnimationFrame, useParallax } from '@samisdat/tools';
+import { ReactElement, useRef } from 'react';
 
 import { GreenHouse } from '@/components/Buildings/GreenHouse';
 import { SchauspielHaus, SchauspielHausCanopy } from '@/components/Buildings/SchauspielHaus';
-import { Clock } from '@/components/Clock/Clock';
+import { TimeControl } from '@/components/Clock/TimeControl';
 import { Heaven } from '@/components/Heaven/Heaven';
 import { Hardt } from '@/components/Hills/Hardt';
 import { Hill100 } from '@/components/Hills/Hill0100';
@@ -47,8 +47,6 @@ interface PanoramaProps {
 export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
-    const reduceMotion = usePrefersReducedMotion();
-
     useParallax(ref, { scroll: true });
 
     const { sunTimes } = useTal();
@@ -71,6 +69,7 @@ export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
                 className={'panorama'}
             >
                 <svg
+                    aria-hidden="true"
                     height="100%"
                     viewBox="0 0 1700 500"
                 >
@@ -173,11 +172,8 @@ export const Panorama = ({ stars }: PanoramaProps): ReactElement => {
                     </ParallaxLayer>
 
                     <FrontLayer />
-
-                    <Activity mode={reduceMotion ? 'hidden' : 'visible'}>
-                        <Clock />
-                    </Activity>
                 </svg>
+                <TimeControl />
             </div>
         </>
     );

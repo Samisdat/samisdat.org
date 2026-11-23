@@ -137,7 +137,6 @@ export const TypeSpecimen: FC<TypeSpecimenProps> = ({ initial, syncUrl = false }
                     value={id}
                     options={PRESETS.map(({ id: value, label }) => ({ value, label }))}
                     onChange={select}
-                    variant="chips"
                 />
             </SwitcherSlot>
             <FontLine>

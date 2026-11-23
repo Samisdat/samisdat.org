@@ -37,12 +37,15 @@
     "unist-util-visit": "^5.2.0"
   },
   "devDependencies": {
+    "@testing-library/dom": "catalog:",
+    "@testing-library/react": "catalog:",
     "@types/hast": "^3.0.5",
     "@types/mdast": "^4.0.4",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",
     "@types/unist": "^3.0.3",
     "@vitest/coverage-v8": "catalog:",
+    "happy-dom": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:",
     "rehype-pretty-code": "^0.14.6",
