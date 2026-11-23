@@ -25,6 +25,8 @@
     --panorama-sky-blue: oklch(0.65 0.18 215);
     --panorama-midnight-blue: oklch(0.12 0.03 255);
     --panorama-midnight-indigo: oklch(0.2 0.12 275);
+    --panorama-window-light: oklch(0.88 0.15 85);
+    --panorama-installation-light: oklch(0.98 0.01 100);
     --panorama-moss-green-light: oklch(0.62 0.06 135);
     --panorama-moss-green: oklch(0.42 0.07 130);
     --panorama-moss-olive: oklch(0.32 0.07 125);
@@ -241,6 +243,12 @@
     fill: var(--panorama-moss-green-light);
 }
 
+/* A few clear lines of the university's light installation, white at night, fading in with dusk. */
+.university-installation {
+    fill: var(--panorama-installation-light);
+    opacity: var(--twilight, 0);
+}
+
 .vohwinkel-roof,
 .vohwinkel-window {
     fill: var(--panorama-brick-red);
@@ -372,6 +380,34 @@
 }
 .panorama .clock .clockHandSecond {
     transform: rotate(calc(360deg * var(--second) / 60));
+}
+
+/* Windows: dark by day, warm light at night. --twilight (0 day, 1 night) is set on .panorama and fades with dusk and dawn. */
+.panorama .window,
+.panorama .windows,
+.panorama [class*='-window'] {
+    fill: color-mix(in oklch, var(--panorama-window-light) calc(var(--twilight, 0) * 100%), var(--window-day));
+}
+
+.beyenburger-dom-window,
+.townhall-window,
+.vohwinkel-window {
+    --window-day: var(--panorama-brick-red);
+}
+
+.blue-house-window,
+.lila-church-window,
+.schauspielhaus-window,
+.tower-dark.window {
+    --window-day: var(--panorama-aubergine);
+}
+
+.elisenturm-window {
+    --window-day: var(--panorama-apricot);
+}
+
+.green-tower-window {
+    --window-day: var(--panorama-moss-green);
 }
 
 /* Clouds: flat scalloped silhouettes, a lit white crown on a shaded mass (body, shade). The tones fade from day to night with --night. */
