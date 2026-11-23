@@ -1,5 +1,6 @@
 import { usePrefersReducedMotion } from '@samisdat/tools';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
 import { computeSunTimes, type SunTimes } from './sunTimes';
 
 export type { SunTimes };
@@ -9,17 +10,28 @@ interface TalContextType {
     time: Date;
     timeFactor: number;
     setTimeFactor: (factor: number) => void;
+    /** False once the clock has moved away from the real time. */
+    atRealTime: boolean;
+    paused: boolean;
+    setPaused: (paused: boolean) => void;
+    /** Normal speed, running, and the clock back on the real time. */
+    reset: () => void;
     sunTimes: SunTimes;
 }
+
+/** How far the clock may be off the real time and still count as on it. */
+const REAL_TIME_TOLERANCE_MS = 1500;
 
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
 export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const reduceMotion = usePrefersReducedMotion();
+    const [paused, setPaused] = useState(false);
+    const [atRealTime, setAtRealTime] = useState(true);
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());
-    const [timeFactor, setTimeFactor] = useState(1000); // Default: 10x Geschwindigkeit
+    const [timeFactor, setTimeFactor] = useState(1); // 1 = normal time
 
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);
@@ -43,10 +55,11 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 const deltaReal = now - lastRealTimeRef.current;
                 const deltaSim = deltaReal * timeFactor;
 
-                if (!reduceMotion) {
+                if (!reduceMotion && !paused) {
                     simulatedTimeRef.current += deltaSim;
                 }
 
+                setAtRealTime(Math.abs(simulatedTimeRef.current - Date.now()) < REAL_TIME_TOLERANCE_MS);
                 setTime(() => {
                     return new Date(simulatedTimeRef.current);
                 });
@@ -59,11 +72,19 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return () => {
             if (lastFrameRef.current) cancelAnimationFrame(lastFrameRef.current);
         };
-    }, [timeFactor, reduceMotion]);
+    }, [timeFactor, reduceMotion, paused]);
+
+    const reset = useCallback(() => {
+        simulatedTimeRef.current = Date.now();
+        setTimeFactor(1);
+        setPaused(false);
+        setAtRealTime(true);
+        setTime(new Date(simulatedTimeRef.current));
+    }, []);
 
     const value = useMemo(
-        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes }),
-        [animate, time, timeFactor, setTimeFactor, sunTimes]
+        () => ({ animate, time, timeFactor, setTimeFactor, atRealTime, paused, setPaused, reset, sunTimes }),
+        [animate, time, timeFactor, atRealTime, paused, reset, sunTimes]
     );
 
     return <TalContext.Provider value={value}>{children}</TalContext.Provider>;
