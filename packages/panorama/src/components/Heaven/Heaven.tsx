@@ -21,6 +21,37 @@ interface Point {
     y: number;
 }
 
+interface MoonHoleProps {
+    /** Centre of the moon while it is up. */
+    moon?: { x: number; y: number };
+}
+
+/** The moon is opaque, but its dark side is drawn translucent: this mask cuts the moon's disc out of the stars. */
+const MoonHole = ({ moon }: MoonHoleProps) => (
+    <mask
+        id="starsBehindMoon"
+        maskUnits="userSpaceOnUse"
+        x="0"
+        y="0"
+        width="1700"
+        height="500"
+    >
+        <rect
+            width="1700"
+            height="500"
+            fill="#fff"
+        />
+        {moon && (
+            <circle
+                cx={moon.x}
+                cy={moon.y}
+                r="25"
+                fill="#000"
+            />
+        )}
+    </mask>
+);
+
 interface HeavenProps {
     stars?: readonly Star[];
     generatedClouds?: boolean;
@@ -71,6 +102,8 @@ export const Heaven = ({ stars, generatedClouds }: HeavenProps) => {
             <defs>
                 <SkyGradient palette={palette} />
 
+                <MoonHole moon={isDay ? undefined : moonPosition} />
+
                 <path
                     ref={pathRef}
                     id="sunAndMoonPath"
@@ -85,10 +118,12 @@ export const Heaven = ({ stars, generatedClouds }: HeavenProps) => {
                 fill="url(#dayskyGradient)"
             />
             {stars && stars.length > 0 && (
-                <Stars
-                    stars={stars}
-                    amount={palette.stars}
-                />
+                <g mask="url(#starsBehindMoon)">
+                    <Stars
+                        stars={stars}
+                        amount={palette.stars}
+                    />
+                </g>
             )}
             {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
             {isDay && (
