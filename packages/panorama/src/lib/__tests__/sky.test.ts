@@ -34,7 +34,7 @@ describe('skyFromPercent', () => {
 
 describe('skyFromCover', () => {
     it('gets denser with every cover', () => {
-        const total = COVERS.map((cover) => Object.values(skyFromCover(cover)).reduce((sum, okta) => sum + okta, 0));
+        const total = COVERS.map(cover => Object.values(skyFromCover(cover)).reduce((sum, okta) => sum + okta, 0));
 
         expect(total).toEqual([...total].sort((a, b) => a - b));
     });

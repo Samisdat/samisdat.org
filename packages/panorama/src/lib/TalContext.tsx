@@ -1,41 +1,43 @@
 import { usePrefersReducedMotion } from '@samisdat/tools';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
-import * as SunCalc from 'suncalc';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
+import { computeSunTimes, type SunTimes } from './sunTimes';
 import { useWeather } from './useWeather';
 import { Weather } from './weather';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
-
-export interface SunTimes {
-    sunrise: number;
-    sunset: number;
-    dawn: number;
-    dusk: number;
-    currentTime: number;
-    isDay: boolean;
-    skyOpacity: number;
-    windowOpacity: number;
-}
+export type { SunTimes };
 
 interface TalContextType {
     animate: boolean;
     time: Date;
     timeFactor: number;
     setTimeFactor: (factor: number) => void;
+    /** False once the clock has moved away from the real time. */
+    atRealTime: boolean;
+    paused: boolean;
+    setPaused: (paused: boolean) => void;
+    /** Normal speed, running, and the clock back on the real time. */
+    reset: () => void;
     sunTimes: SunTimes;
     weather: Weather;
 }
 
+/** How far the clock may be off the real time and still count as on it. */
+const REAL_TIME_TOLERANCE_MS = 1500;
+
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
-export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weather }> = ({ children, weather: forced }) => {
+export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weather }> = ({
+    children,
+    weather: forced,
+}) => {
     const reduceMotion = usePrefersReducedMotion();
+    const [paused, setPaused] = useState(false);
+    const [atRealTime, setAtRealTime] = useState(true);
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());
-    const [timeFactor, setTimeFactor] = useState(1); // 1 = normal time, the speed ring raises it
+    const [timeFactor, setTimeFactor] = useState(1); // 1 = normal time
 
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);
@@ -44,45 +46,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
 
     const weather = useWeather(time, forced);
 
-    const sunTimes = useMemo(() => {
-        const times = SunCalc.getTimes(time, LAT, LNG);
-        // At Wuppertal latitude (51°N), sun always rises/sets, but handle null for safety
-        const sunrise = times.sunrise?.getTime() ?? new Date(time).setHours(6, 0, 0, 0);
-        const sunset = times.sunset?.getTime() ?? new Date(time).setHours(18, 0, 0, 0);
-        const dawn = times.dawn?.getTime() ?? new Date(time).setHours(5, 0, 0, 0);
-        const dusk = times.dusk?.getTime() ?? new Date(time).setHours(19, 0, 0, 0);
-        const currentTime = time.getTime();
-        const isDay = currentTime >= sunrise && currentTime < sunset;
-
-        const dawnDuration = sunrise - dawn;
-        const duskDuration = dusk - sunset;
-
-        let skyOpacity = 1;
-        if (currentTime < dawn) skyOpacity = 1;
-        else if (currentTime < sunrise) skyOpacity = 1 - (currentTime - dawn) / dawnDuration;
-        else if (currentTime < sunset) skyOpacity = 0;
-        else if (currentTime < dusk) skyOpacity = (currentTime - sunset) / duskDuration;
-
-        let windowOpacity = 0;
-        if (currentTime >= sunset && currentTime < dusk) {
-            windowOpacity = (currentTime - sunset) / duskDuration;
-        } else if (currentTime >= dusk || currentTime < dawn) {
-            windowOpacity = 1;
-        } else if (currentTime >= dawn && currentTime < sunrise) {
-            windowOpacity = 1 - (currentTime - dawn) / dawnDuration;
-        }
-
-        return {
-            sunrise,
-            sunset,
-            dawn,
-            dusk,
-            currentTime,
-            isDay,
-            skyOpacity,
-            windowOpacity,
-        };
-    }, [time]);
+    const sunTimes = useMemo(() => computeSunTimes(time), [time]);
 
     // `?time=2026-12-21T15:30:00Z` pins the clock for testing and screenshots.
     useEffect(() => {
@@ -113,10 +77,11 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
                 const deltaReal = now - lastRealTimeRef.current;
                 const deltaSim = deltaReal * timeFactor;
 
-                if (!reduceMotion && !pinnedRef.current) {
+                if (!reduceMotion && !paused && !pinnedRef.current) {
                     simulatedTimeRef.current += deltaSim;
                 }
 
+                setAtRealTime(Math.abs(simulatedTimeRef.current - Date.now()) < REAL_TIME_TOLERANCE_MS);
                 setTime(() => {
                     return new Date(simulatedTimeRef.current);
                 });
@@ -129,11 +94,19 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
         return () => {
             if (lastFrameRef.current) cancelAnimationFrame(lastFrameRef.current);
         };
-    }, [timeFactor, reduceMotion]);
+    }, [timeFactor, reduceMotion, paused]);
+
+    const reset = useCallback(() => {
+        simulatedTimeRef.current = Date.now();
+        setTimeFactor(1);
+        setPaused(false);
+        setAtRealTime(true);
+        setTime(new Date(simulatedTimeRef.current));
+    }, []);
 
     const value = useMemo(
-        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes, weather }),
-        [animate, time, timeFactor, setTimeFactor, sunTimes, weather]
+        () => ({ animate, time, timeFactor, setTimeFactor, atRealTime, paused, setPaused, reset, sunTimes, weather }),
+        [animate, time, timeFactor, atRealTime, paused, reset, sunTimes, weather]
     );
 
     return <TalContext.Provider value={value}>{children}</TalContext.Provider>;

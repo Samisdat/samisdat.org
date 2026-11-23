@@ -1,25 +1,32 @@
-/** Time factors the ring snaps to: normal time, then roughly 10 s, 1 min, 5 min, 15 min, 30 min, 1 h and 2 h per second. */
-const FACTORS = [1, 10, 60, 300, 900, 1800, 3600, 7200];
+/** Time factors of the speed slider: normal time, then up to one hour per second. */
+export const FACTORS = [1, 2, 5, 10, 30, 60, 120, 300, 600, 1800, 3600] as const;
 
-/** Highest position on the speed ring, 0 is normal time. */
+/** Highest slider position, 0 is normal time. */
 export const SPEED_STEPS = FACTORS.length - 1;
 
-/** Time factor for a position on the ring. Fixed stops instead of a continuous scale, so every stop makes a visible difference. */
+/** Time factor for a slider position. Fixed stops instead of a continuous scale, so every stop makes a visible difference. */
 export const factorAt = (step: number): number => FACTORS[Math.max(0, Math.min(SPEED_STEPS, Math.round(step)))];
 
-export const formatFactor = (factor: number): string => (1 === factor ? 'Normal' : `×${factor}`);
+/** Slider position of a time factor; a factor between two stops snaps to the lower one. */
+export const stepOf = (factor: number): number => {
+    const index = FACTORS.findLastIndex(candidate => candidate <= factor);
 
-const decimal = (value: number, digits: number): string => value.toFixed(digits).replace('.', ',');
+    return Math.max(0, index);
+};
 
-/** What one second on the clock corresponds to, e.g. `1 s = 2,5 min`. */
+/** What one second on the clock corresponds to, e.g. `1 s = 5 min im Panorama`. */
 export const formatEquivalence = (factor: number): string => {
+    if (1 === factor) {
+        return '1 s im Panorama = 1 s';
+    }
+
     if (factor < 60) {
-        return `1 s = ${factor} s`;
+        return `1 s = ${factor} s im Panorama`;
     }
 
     if (factor < 3600) {
-        return `1 s = ${decimal(factor / 60, factor < 600 ? 1 : 0)} min`;
+        return `1 s = ${factor / 60} min im Panorama`;
     }
 
-    return `1 s = ${decimal(factor / 3600, 1)} h`;
+    return `1 s = ${factor / 3600} h im Panorama`;
 };

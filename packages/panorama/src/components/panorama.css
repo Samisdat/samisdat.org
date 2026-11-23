@@ -359,17 +359,6 @@
 }
 
 .panorama .clock .clockHandHour,
-.panorama .clock .clockHandMinute {
-    stroke: #fff;
-    stroke-width: 3;
-    stroke-miterlimit: 10;
-    stroke-linecap: round;
-}
-.panorama .clock .clockHandSecond {
-    stroke: #d53a1f;
-    stroke-width: 1;
-}
-.panorama .clock .clockHandHour,
 .panorama .clock .clockHandMinute,
 .panorama .clock .clockHandSecond {
     transform-box: fill-box;
@@ -507,100 +496,6 @@
     }
 }
 
-/* Speed ring around the clock: turtle (normal time) to rabbit (fast) */
-.panorama {
-    --speed-ring: #fff;
-    --speed-ring-outline: var(--panorama-aubergine);
-    --speed-ring-halo: oklch(0.22 0.05 300 / 85%);
-}
-.panorama .clockHit {
-    fill: transparent;
-    cursor: pointer;
-}
-.panorama .speedRing {
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s;
-}
-.panorama:hover .speedRing,
-.panorama .clockGroup[data-open='true'] .speedRing,
-.panorama .speedRing:focus-within {
-    opacity: 1;
-    pointer-events: auto;
-}
-.panorama .speedRingHit {
-    fill: transparent;
-}
-.panorama .speedRingHalo,
-.panorama .speedRingTrack,
-.panorama .speedRingFill {
-    fill: none;
-    stroke-linecap: round;
-}
-.panorama .speedRingHalo {
-    stroke: var(--speed-ring-halo);
-    stroke-width: 15;
-}
-.panorama .speedRingTrack {
-    stroke: var(--speed-ring);
-    stroke-opacity: 0.32;
-    stroke-width: 8;
-}
-.panorama .speedRingFill {
-    stroke: var(--speed-ring);
-    stroke-width: 8;
-}
-.panorama .speedRingAnimal {
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-}
-.panorama .speedRingGlyphOutline {
-    stroke: var(--speed-ring-outline);
-    stroke-width: 5;
-}
-.panorama .speedRingGlyph {
-    stroke: var(--speed-ring);
-    stroke-width: 2;
-}
-.panorama .speedRingKnob {
-    cursor: grab;
-}
-.panorama .speedRingKnob:focus {
-    outline: none;
-}
-.panorama .speedRingHandle {
-    fill: var(--speed-ring);
-    stroke: var(--speed-ring-outline);
-    stroke-width: 4;
-}
-.panorama .speedRingFocus {
-    fill: none;
-    stroke: var(--speed-ring);
-    stroke-width: 2.5;
-    opacity: 0;
-}
-.panorama .speedRingKnob:focus-visible .speedRingFocus {
-    opacity: 1;
-}
-.panorama .speedRingText {
-    fill: #fff;
-    font:
-        700 15px ui-monospace,
-        'SF Mono',
-        Menlo,
-        Consolas,
-        monospace;
-    text-anchor: middle;
-    stroke: var(--speed-ring-halo);
-    stroke-width: 3.5;
-    paint-order: stroke;
-    pointer-events: none;
-}
-.panorama .speedRingTextSmall {
-    font-size: 10.5px;
-    font-weight: 500;
-}
 @media (prefers-reduced-motion: reduce) {
     .panorama .star-flash,
     .panorama .cloudDrift,
@@ -608,7 +503,278 @@
     .panorama .clouds {
         animation: none;
     }
-    .panorama .speedRing {
+}
+
+/* Time control: the clock in the top left corner, the yellow overlay hangs below as one shape with the disc. */
+.panorama .timeControl {
+    --tc-x: 14px;
+    --tc-d: 84px;
+    --tc-sun: oklch(0.84 0.14 85);
+    --tc-ink: var(--panorama-aubergine);
+    --tc-ink-soft: oklch(0.42 0.06 85);
+    --tc-rim: oklch(0.65 0.1 290);
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    text-align: left;
+    pointer-events: none;
+    filter: drop-shadow(1.5px 0 0 var(--tc-rim)) drop-shadow(-1.5px 0 0 var(--tc-rim))
+        drop-shadow(0 1.5px 0 var(--tc-rim)) drop-shadow(0 -1.5px 0 var(--tc-rim))
+        drop-shadow(0 12px 22px oklch(0.15 0.05 300 / 45%));
+}
+@media (max-width: 520px) {
+    .panorama .timeControl {
+        --tc-d: 64px;
+    }
+}
+.panorama .timeControl[data-open='false'] {
+    /* the outline and shadow belong to the yellow shape; closed, they would show through the clock face */
+    filter: none;
+}
+.panorama .timeControlShape {
+    position: absolute;
+    left: var(--tc-x);
+    top: var(--tc-x);
+    width: min(372px, calc(100% - 2 * var(--tc-x)));
+}
+.panorama .timeControlDisc {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: var(--tc-d);
+    height: var(--tc-d);
+    border-radius: 50%;
+    background: var(--tc-sun);
+    pointer-events: auto;
+    transition: background-color 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .timeControlDisc {
+    background-color: transparent;
+}
+.panorama .timeControlClock {
+    width: 62px;
+    height: 62px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--tc-ink);
+    cursor: pointer;
+    transition: color 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .timeControlClock {
+    color: #fff;
+}
+.panorama .timeControlClock:focus-visible,
+.panorama .timeControlButton:focus-visible,
+.panorama .timeControlSlider:focus-visible {
+    outline: 2px solid var(--tc-ink);
+    outline-offset: 2px;
+}
+.panorama .timeControl[data-open='false'] .timeControlClock:focus-visible {
+    outline-color: var(--tc-sun);
+}
+.panorama .timeControlClock .clock {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.panorama .timeControlClock .clockFace {
+    fill: transparent;
+    transition: fill 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .clockFace {
+    fill: oklch(0.2 0.06 300 / 8%);
+}
+.panorama .clock .clockHandHour,
+.panorama .clock .clockHandMinute {
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke-linecap: round;
+}
+.panorama .clock .clockHandSecond {
+    stroke: var(--panorama-fire-red);
+    stroke-width: 1;
+}
+.panorama .timeControl[data-open='false'] .clockHandSecond {
+    stroke: var(--tc-sun);
+}
+.panorama .clock .clockPause {
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+.panorama .clock .clockPause[data-paused='true'] {
+    opacity: 1;
+}
+.panorama .timeControlPanel {
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    left: 0;
+    top: calc(var(--tc-d) / 2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 4px;
+    border-radius: 0 18px 18px 18px;
+    background: var(--tc-sun);
+    color: var(--tc-ink);
+    font:
+        800 15px/1 ui-monospace,
+        'SF Mono',
+        Menlo,
+        Consolas,
+        monospace;
+    pointer-events: auto;
+    transform-origin: calc(var(--tc-d) / 2) 0;
+    transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.3, 1),
+        opacity 0.16s ease,
+        visibility 0s;
+}
+.panorama .timeControl[data-open='false'] .timeControlPanel {
+    opacity: 0;
+    transform: scale(0.4);
+    visibility: hidden;
+    transition:
+        transform 0.16s ease-in,
+        opacity 0.12s ease,
+        visibility 0s 0.16s;
+}
+.panorama .timeControlRow {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding-block: 12px 10px;
+    white-space: pre;
+}
+.panorama .timeControlTop {
+    min-height: calc(var(--tc-d) / 2);
+    padding: 0 36px 0 calc(var(--tc-d) - 16px + 8px);
+    justify-content: space-between;
+    gap: 8px;
+}
+.panorama .timeControlTime {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--tc-ink-soft);
+}
+.panorama .timeControlButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: pre;
+    cursor: pointer;
+}
+.panorama .timeControlClose {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+.panorama .timeControlClose:hover {
+    background: oklch(0.22 0.05 300 / 10%);
+}
+.panorama .timeControlClose:focus-visible {
+    outline: 2px solid var(--tc-ink);
+    outline-offset: 2px;
+}
+.panorama .timeControlClose svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+.panorama .timeControlButton:hover {
+    background: oklch(0.22 0.05 300 / 10%);
+}
+.panorama .timeControlButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+    background: transparent;
+}
+.panorama .timeControlButton svg {
+    width: 0.8em;
+    height: 0.8em;
+    fill: currentColor;
+}
+.panorama .timeControlSlider {
+    flex: 1 1 auto;
+    min-width: 56px;
+    height: 24px;
+    margin: 0;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+}
+.panorama .timeControlSlider::-webkit-slider-runnable-track {
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--tc-ink);
+}
+.panorama .timeControlSlider::-moz-range-track {
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--tc-ink);
+}
+.panorama .timeControlSlider::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -5.75px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--tc-ink);
+    appearance: none;
+}
+.panorama .timeControlSlider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--tc-ink);
+}
+.panorama .timeControlLabel {
+    margin-left: 1ch;
+    font-variant-numeric: tabular-nums;
+}
+.panorama .timeControlEquivalence {
+    padding-bottom: 10px;
+    font-size: 0.82em;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--tc-ink-soft);
+}
+.panorama .timeControlFooter {
+    padding-block: 12px 10px;
+    border-top: 1.5px dashed oklch(0.22 0.05 300 / 35%);
+    font-weight: 500;
+}
+@media (prefers-reduced-motion: reduce) {
+    .panorama .timeControlPanel,
+    .panorama .timeControlDisc,
+    .panorama .timeControlClock,
+    .panorama .clockFace {
         transition: none;
     }
 }

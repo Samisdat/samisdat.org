@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { getSkyState } from '../skyModel';
 import { seasonFromArcHeight, skyPalette } from '../skyPalette';
 
-const channels = (value: string) => [1, 3, 5].map((i) => parseInt(value.slice(i, i + 2), 16));
+const channels = (value: string) => [1, 3, 5].map(i => parseInt(value.slice(i, i + 2), 16));
 const luma = (value: string) => {
     const [r, g, b] = channels(value);
     return 0.2126 * r + 0.7152 * g + 0.0722 * b;

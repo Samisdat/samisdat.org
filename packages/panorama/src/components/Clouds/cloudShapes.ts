@@ -52,7 +52,12 @@ const shapeOf = ({ width, height, count, dome, seed }: ShapeSpec): CloudShape =>
         const bump = Math.exp(-(((t - center) / 0.25) ** 2));
         const ry = top * (0.28 + 0.72 * (dome * bump + (1 - dome) * 0.7)) * (0.9 + 0.2 * next());
 
-        lobes.push({ cx: width * (0.07 + 0.86 * t), cy: height - lensRy - ry * 0.55, rx: ry * (0.95 + next() * 0.3), ry });
+        lobes.push({
+            cx: width * (0.07 + 0.86 * t),
+            cy: height - lensRy - ry * 0.55,
+            rx: ry * (0.95 + next() * 0.3),
+            ry,
+        });
     }
 
     // Small bumps along the upper rim of every lobe: the cauliflower edge.
@@ -61,7 +66,12 @@ const shapeOf = ({ width, height, count, dome, seed }: ShapeSpec): CloudShape =>
             const angle = Math.PI * (1.1 + next() * 0.8);
             const r = ry * (0.24 + next() * 0.14);
 
-            lobes.push({ cx: cx + Math.cos(angle) * rx * 0.92, cy: cy + Math.sin(angle) * ry * 0.92, rx: r * 1.15, ry: r });
+            lobes.push({
+                cx: cx + Math.cos(angle) * rx * 0.92,
+                cy: cy + Math.sin(angle) * ry * 0.92,
+                rx: r * 1.15,
+                ry: r,
+            });
         }
     });
 

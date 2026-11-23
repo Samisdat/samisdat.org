@@ -5,8 +5,8 @@ export default defineConfig({
         name: 'color-scheme',
         globals: true,
         environment: 'node',
-        // No tests yet; keeps the package measured so its denominator shows up in the combined figure.
-        passWithNoTests: true,
+        include: ['**/__tests__/**/*.test.ts'],
+        exclude: ['**/node_modules/**'],
         coverage: {
             provider: 'v8',
             reporter: ['text', 'lcov', 'json-summary'],
@@ -17,9 +17,8 @@ export default defineConfig({
                 functions: 0,
                 lines: 0,
             },
-            // Library code only. scripts/ and plugins/ are build and lint CLIs run through tsx/terrazzo.
-            include: ['src/**/*.ts'],
-            exclude: ['**/*.test.ts', '**/node_modules/**'],
+            include: ['src/**/*.ts', 'scripts/**/*.ts'],
+            exclude: ['**/__tests__/**'],
         },
     },
 });

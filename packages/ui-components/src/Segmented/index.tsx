@@ -1,7 +1,9 @@
 'use client';
 
 import { styled } from '@linaria/react';
-import { useId } from 'react';
+import { useId, useRef } from 'react';
+
+import { useScrollFades } from './useScrollFades';
 
 /**
  * Inside ColorSchemeSnapshot the frozen `--cs-*` tokens win; everywhere else
@@ -9,13 +11,53 @@ import { useId } from 'react';
  */
 const SegmentedRoot = styled.fieldset`
     display: inline-flex;
-    flex-wrap: wrap;
-    gap: 2px;
+    max-inline-size: 100%;
     margin: 0;
-    padding: 3px;
+    padding: 0;
     border: 1px solid var(--cs-border-muted, var(--color-border-muted));
     border-radius: 999px;
     min-inline-size: 0;
+
+    /* One row, never wraps: overflow scrolls inside the pill. Padding leaves room for the focus ring. */
+    .scroller {
+        display: flex;
+        flex: 1;
+        gap: 2px;
+        min-inline-size: 0;
+        padding: 3px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        scroll-padding-inline: 2rem;
+        border-radius: inherit;
+    }
+
+    .scroller::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scroller > label {
+        flex: none;
+    }
+
+    /* Fade only on the side that still hides content */
+    .scroller[data-fade-start='true'] {
+        mask-image: linear-gradient(to right, transparent, #000 1.5rem);
+    }
+
+    .scroller[data-fade-end='true'] {
+        mask-image: linear-gradient(to left, transparent, #000 1.5rem);
+    }
+
+    .scroller[data-fade-start='true'][data-fade-end='true'] {
+        mask-image: linear-gradient(to right, transparent, #000 1.5rem, #000 calc(100% - 1.5rem), transparent);
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+        .scroller {
+            scroll-behavior: smooth;
+        }
+    }
 
     legend {
         position: absolute;
@@ -55,22 +97,6 @@ const SegmentedRoot = styled.fieldset`
         outline: 2px solid var(--cs-border-focus, var(--color-border-focus));
         outline-offset: 1px;
     }
-
-    /* Many options: no shared outline, every option is its own pill, wrapping is plain text flow */
-    &[data-variant='chips'] {
-        gap: 6px;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-    }
-
-    &[data-variant='chips'] span {
-        border: 1px solid var(--cs-border-muted, var(--color-border-muted));
-    }
-
-    &[data-variant='chips'] input:checked + span {
-        border-color: var(--cs-text-emphasis, var(--color-text-emphasis));
-    }
 `;
 
 export type SegmentedProps<T extends string> = {
@@ -79,30 +105,32 @@ export type SegmentedProps<T extends string> = {
     value: T;
     options: readonly { value: T; label: string }[];
     onChange: (value: T) => void;
-    /**
-     * "pill" (default): one shared pill outline, for a few options on one row.
-     * "chips": separate pills without a container, for many options that wrap.
-     */
-    variant?: 'pill' | 'chips';
 };
 
-export function Segmented<T extends string>({ label, value, options, onChange, variant = 'pill' }: SegmentedProps<T>) {
+export function Segmented<T extends string>({ label, value, options, onChange }: SegmentedProps<T>) {
     const name = useId();
+    const scrollerRef = useRef<HTMLDivElement>(null);
+    useScrollFades(scrollerRef, value, options.length);
     return (
-        <SegmentedRoot data-variant={variant}>
+        <SegmentedRoot>
             <legend>{label}</legend>
-            {options.map(o => (
-                <label key={o.value}>
-                    <input
-                        type="radio"
-                        name={name}
-                        value={o.value}
-                        checked={o.value === value}
-                        onChange={() => onChange(o.value)}
-                    />
-                    <span>{o.label}</span>
-                </label>
-            ))}
+            <div
+                className="scroller"
+                ref={scrollerRef}
+            >
+                {options.map(o => (
+                    <label key={o.value}>
+                        <input
+                            type="radio"
+                            name={name}
+                            value={o.value}
+                            checked={o.value === value}
+                            onChange={() => onChange(o.value)}
+                        />
+                        <span>{o.label}</span>
+                    </label>
+                ))}
+            </div>
         </SegmentedRoot>
     );
 }

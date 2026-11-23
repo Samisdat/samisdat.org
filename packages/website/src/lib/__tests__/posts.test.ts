@@ -87,6 +87,37 @@ published: true
             expect(fs.readFileSync).not.toHaveBeenCalled();
         });
 
+        it('rejects slugs that could leave the posts directory without touching the filesystem', async () => {
+            const { loadPost } = await import('../posts');
+
+            expect(loadPost('../secret')).toBeNull();
+            expect(loadPost('a/b')).toBeNull();
+            expect(fs.existsSync).not.toHaveBeenCalled();
+        });
+
+        it('keeps a known typography preset from the frontmatter', async () => {
+            const { loadPost } = await import('../posts');
+            vi.mocked(fs.existsSync).mockReturnValue(true);
+            vi.mocked(fs.readFileSync).mockReturnValue(
+                '---\ntitle: T\ndate: 2024-01-15\npublished: true\ntypography: editorial\n---\n# C'
+            );
+
+            expect(loadPost('typo')?.frontmatter.typography).toBe('editorial');
+        });
+
+        it('warns about an unknown typography preset and drops it instead of failing the build', async () => {
+            const { loadPost } = await import('../posts');
+            const warn = vi.spyOn(console, 'warn').mockImplementation(() => {});
+            vi.mocked(fs.existsSync).mockReturnValue(true);
+            vi.mocked(fs.readFileSync).mockReturnValue(
+                '---\ntitle: T\ndate: 2024-01-15\npublished: true\ntypography: comic-sans\n---\n# C'
+            );
+
+            expect(loadPost('typo')?.frontmatter.typography).toBeUndefined();
+            expect(warn).toHaveBeenCalledWith(expect.stringContaining('comic-sans'));
+            warn.mockRestore();
+        });
+
         it('throws ZodError for invalid frontmatter - missing title', async () => {
             const { loadPost } = await import('../posts');
 

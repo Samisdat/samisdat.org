@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
-import type { Star } from '@/lib/stars';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
@@ -11,6 +10,8 @@ import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
 import { Stars } from './Stars';
 import { Sun } from './Sun';
+
+import type { Star } from '@/lib/stars';
 
 // y of both end points of #sunAndMoonPath; the arc height is scaled around this line.
 const ARC_BASELINE_Y = 275.894;

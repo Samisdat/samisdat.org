@@ -111,7 +111,7 @@ const CloudPerf = () => {
             <pre>{JSON.stringify({ ...params, ...result })}</pre>
         </main>
     );
-}
+};
 
 export default function CloudPerfPage() {
     return (
