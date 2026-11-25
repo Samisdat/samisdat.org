@@ -97,6 +97,15 @@ export const PanoramaWeather = () => {
     const [cover, setCover] = useState<CoverChoice>('auto');
     const [rain, setRain] = useState<Rain>('none');
 
+    // Rain falls from clouds: with a clear sky (or the measured weather) it would not show, so the cover goes to overcast.
+    const chooseRain = (next: Rain) => {
+        setRain(next);
+
+        if ('none' !== next && ('clear' === cover || 'auto' === cover)) {
+            setCover('overcast');
+        }
+    };
+
     return (
         <WtalPanorama
             weather={enabled && 'auto' !== cover ? { cover, rain } : live}
@@ -114,7 +123,7 @@ export const PanoramaWeather = () => {
                             label="Regen"
                             value={rain}
                             options={RAIN_OPTIONS}
-                            onChange={setRain}
+                            onChange={chooseRain}
                         />
                         <SkyJumpSegments />
                     </>
