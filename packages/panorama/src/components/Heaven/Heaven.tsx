@@ -7,6 +7,7 @@ import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
 import { ArcGuides } from './ArcGuides';
+import { DuskGlow } from './DuskGlow';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
 import { Stars } from './Stars';
@@ -62,7 +63,7 @@ interface HeavenProps {
 export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
-    const { time, weather } = useTal();
+    const { time, weather, sunTimes } = useTal();
 
     const [sunPosition, setSunPosition] = useState<Point>({ x: 146.43, y: 306 });
     const [moonPosition, setMoonPosition] = useState<Point>({
@@ -124,10 +125,14 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                     <Stars
                         stars={stars}
                         amount={palette.stars}
-                    />
                         reveal={palette.starReveal}
+                    />
                 </g>
             )}
+            <DuskGlow
+                morning={sunTimes.currentTime < (sunTimes.sunrise + sunTimes.sunset) / 2}
+                amount={palette.glow}
+            />
             {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
             {isDay && (
                 <Sun

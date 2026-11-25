@@ -494,6 +494,13 @@
     }
 }
 
+/* The glow on the horizon at dusk and dawn: a yellow core in a red halo; DuskGlow blurs them (values of the design). */
+.panorama .dusk-core {
+    fill: #f0ff5e;
+}
+.panorama .dusk-halo {
+    fill: #f16453;
+}
 /* Rain falls over the whole panorama */
 .panorama .rain line {
     stroke: color-mix(in oklch, oklch(0.62 0.05 255) calc(var(--twilight, 0) * 100%), oklch(0.9 0.02 250));
