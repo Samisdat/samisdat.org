@@ -7,6 +7,7 @@ import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
 import { SUN_X } from '../Clouds/cloudLight';
+import { seasonalPoint } from './arcPoint';
 import { DuskGlow } from './DuskGlow';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
@@ -14,9 +15,6 @@ import { Stars } from './Stars';
 import { Sun } from './Sun';
 
 import type { Star } from '@/lib/stars';
-
-// y of both end points of #sunAndMoonPath; the arc height is scaled around this line.
-const ARC_BASELINE_Y = 275.894;
 
 interface Point {
     x: number;
@@ -88,11 +86,8 @@ export const Heaven = ({ stars }: HeavenProps) => {
         const distance = pathLength * celestialProgress;
         const point = pathRef.current.getPointAtLength(distance);
 
-        // Only the height scales with the season; both end points lie on the baseline and stay put.
-        const scaled = {
-            x: point.x,
-            y: ARC_BASELINE_Y - (ARC_BASELINE_Y - point.y) * arcHeightFactor,
-        };
+        // Only the height scales with the season; both ends of the path stay put.
+        const scaled = seasonalPoint(point, arcHeightFactor);
 
         if (isDay) {
             setSunPosition(scaled);
@@ -111,7 +106,7 @@ export const Heaven = ({ stars }: HeavenProps) => {
                 <path
                     ref={pathRef}
                     id="sunAndMoonPath"
-                    d="M432.747,275.894c-0,-0 -0.819,-23.505 -0.693,-55.807c0.409,-105.344 187.757,-167.513 419.022,-167.513c231.264,0 418.626,81.505 419.021,188.513c0.126,34.091 0.305,34.807 0.305,34.807"
+                    d="M432.054,220.087c0.409,-105.344 187.757,-167.513 419.022,-167.513c231.264,0 418.626,81.505 419.021,188.513c0.126,34.091 0.305,34.807 0.305,34.807"
                 />
             </defs>
 
