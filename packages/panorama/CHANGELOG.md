@@ -12,6 +12,7 @@
 
 ### Changed
 
+- On a phone the time control is smaller and sits in the bottom right corner, where the hill leaves room; its overlay opens to the left.
 - Cumulus, stratocumulus, altocumulus and cirrocumulus are drawn by a new generator in the look of hand-drawn
   comic clouds: a row of round lobes with sharp notches, a round crown, pointed tails and a lens-shaped darker
   underside, all as exact SVG arcs. Every placed cloud has its own shape, the same sky always draws the same clouds.

@@ -569,7 +569,7 @@
 }
 @media (max-width: 520px) {
     .panorama .timeControl {
-        --tc-d: 52px;
+        --tc-d: 38px;
         --tc-x: 6px;
     }
 }
@@ -823,6 +823,27 @@
     --cs-surface-raised: var(--tc-ink);
     --cs-text-emphasis: var(--tc-sun);
     --cs-border-focus: var(--tc-ink);
+}
+/* On a phone the clock sits in the bottom right corner, where the hill leaves room; the overlay opens to the left. */
+@media (max-width: 520px) {
+    .panorama .timeControlShape {
+        left: auto;
+        right: var(--tc-x);
+    }
+    .panorama .timeControlDisc {
+        margin-left: auto;
+    }
+    .panorama .timeControlPanel {
+        border-radius: 18px 0 18px 18px;
+        transform-origin: calc(100% - var(--tc-d) / 2) 0;
+    }
+    .panorama .timeControlTop {
+        padding: 0 calc(var(--tc-d) - 16px + 8px) 0 36px;
+    }
+    .panorama .timeControlClose {
+        right: auto;
+        left: 8px;
+    }
 }
 @media (prefers-reduced-motion: reduce) {
     .panorama .timeControlPanel,
