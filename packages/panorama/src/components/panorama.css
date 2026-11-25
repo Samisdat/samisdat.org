@@ -52,7 +52,9 @@
     width: 100%;
     aspect-ratio: 1280/500;
     text-align: center;
-    overflow: hidden;
+    /* The scenery is cropped on the sides; the time control may hang down over the page. */
+    overflow-x: clip;
+    overflow-y: visible;
 }
 
 .panorama > svg {
@@ -540,7 +542,7 @@
     }
 }
 
-/* Time control: the clock in the top left corner, the yellow overlay hangs below as one shape with the disc. */
+/* Time control: the clock in the bottom left corner, the yellow overlay hangs below as one shape with the disc. */
 .panorama .timeControl {
     --tc-x: 14px;
     --tc-d: 84px;
@@ -549,8 +551,11 @@
     --tc-ink-soft: oklch(0.42 0.06 85);
     --tc-rim: oklch(0.65 0.1 290);
     position: absolute;
+    /* The clock face is a share of the disc. */
+    --tc-clock: calc(var(--tc-d) * 0.74);
     inset: 0;
-    z-index: 1;
+    /* Above the page header (z-index 10): the overlay hangs down over the page. */
+    z-index: 11;
     text-align: left;
     pointer-events: none;
     filter: drop-shadow(1.5px 0 0 var(--tc-rim)) drop-shadow(-1.5px 0 0 var(--tc-rim))
@@ -559,7 +564,8 @@
 }
 @media (max-width: 520px) {
     .panorama .timeControl {
-        --tc-d: 64px;
+        --tc-d: 52px;
+        --tc-x: 6px;
     }
 }
 .panorama .timeControl[data-open='false'] {
@@ -569,7 +575,8 @@
 .panorama .timeControlShape {
     position: absolute;
     left: var(--tc-x);
-    top: var(--tc-x);
+    /* The disc sits in the bottom left corner; the panel hangs down from it, over the page, not over the panorama. */
+    top: calc(100% - var(--tc-x) - var(--tc-d));
     width: min(372px, calc(100% - 2 * var(--tc-x)));
 }
 .panorama .timeControlDisc {
@@ -588,10 +595,12 @@
     background-color: transparent;
 }
 .panorama .timeControlClock {
-    width: 62px;
-    height: 62px;
-    padding: 0;
+    box-sizing: border-box;
+    width: var(--tc-d);
+    height: var(--tc-d);
+    padding: calc((var(--tc-d) - var(--tc-clock)) / 2);
     border: 0;
+/* The button is as big as the disc, the clock face sits in its middle: a touch target of at least 44 px on a phone. */
     border-radius: 50%;
     background: transparent;
     color: var(--tc-ink);
@@ -650,6 +659,7 @@
     border: 0;
     position: absolute;
     left: 0;
+    box-sizing: border-box;
     top: calc(var(--tc-d) / 2);
     width: 100%;
     display: flex;

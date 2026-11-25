@@ -33,6 +33,8 @@
 - Cloud tones: the day body and underside follow the hand-drawn clouds (`#d7d7d7` / `#a7bed0`), the night tones are
   darker. The other cover tones moved by the same amount.
 - Stars at dusk: the three brightest ones above the horizon show through twilight, the others come in one by one with nautical twilight, when the afterglow has faded. Only the brightest stars flash, on small screens the stars are smaller and their tints paler.
+- Time control: the disc sits in the bottom left corner of the panorama and its overlay hangs down over the page, above the page header, so the panorama stays visible while the time is changed. On phones the disc is smaller (52 px) and closer to the edge, and still a touch target of that size; the overlay fits the width.
+- The low sun lights only the clouds near where it sets or rises: every cloud catches the light by its horizontal distance to that place, with a soft falloff, so the clouds on the far side stay in the cool dusk tone.
 
 ### Removed
 
