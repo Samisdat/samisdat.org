@@ -6,6 +6,7 @@ import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
+import { ArcGuides } from './ArcGuides';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
 import { Stars } from './Stars';
@@ -55,9 +56,11 @@ const MoonHole = ({ moon }: MoonHoleProps) => (
 interface HeavenProps {
     stars?: readonly Star[];
     generatedClouds?: boolean;
+    /** Draw the sun and moon path for the parallax extremes. */
+    arcGuides?: boolean;
 }
 
-export const Heaven = ({ stars, generatedClouds }: HeavenProps) => {
+export const Heaven = ({ stars, generatedClouds, arcGuides }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, weather } = useTal();
@@ -149,6 +152,13 @@ export const Heaven = ({ stars, generatedClouds }: HeavenProps) => {
                 night={palette.night}
                 glow={{ color: palette.cloudLight, amount: palette.glow }}
             />
+
+            {arcGuides && (
+                <ArcGuides
+                    baseline={ARC_BASELINE_Y}
+                    heightFactor={arcHeightFactor}
+                />
+            )}
         </g>
     );
 };

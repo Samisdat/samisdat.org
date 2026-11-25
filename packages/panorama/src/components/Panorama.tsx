@@ -45,9 +45,11 @@ interface PanoramaProps {
     controls?: ReactNode;
     /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
     generatedClouds?: boolean;
+    /** Draw the sun and moon path for the parallax extremes. */
+    arcGuides?: boolean;
 }
 
-export const Panorama = ({ stars, generatedClouds, controls }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, generatedClouds, arcGuides, controls }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useParallax(ref, { scroll: true });
@@ -72,6 +74,7 @@ export const Panorama = ({ stars, generatedClouds, controls }: PanoramaProps): R
                     <Heaven
                         stars={stars}
                         generatedClouds={generatedClouds}
+                        arcGuides={arcGuides}
                     />
                     <ParallaxLayer
                         scrollspeed={15}

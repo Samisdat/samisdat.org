@@ -24,6 +24,12 @@ import { weatherOfReading } from '@/lib/weather/toPanoramaWeather';
 import { SkyJumpSegments } from './SkyJumpSegments';
 
 type CoverChoice = Cover | 'auto';
+type ArcChoice = 'off' | 'on';
+
+const ARC_OPTIONS = [
+    { value: 'off' as ArcChoice, label: 'Bahn aus' },
+    { value: 'on' as ArcChoice, label: 'Bahn an' },
+];
 
 const COVER_LABELS: Record<Cover, string> = {
     clear: 'Klar',
@@ -96,12 +102,14 @@ export const PanoramaWeather = () => {
     const stars = useStars();
     const [cover, setCover] = useState<CoverChoice>('auto');
     const [rain, setRain] = useState<Rain>('none');
+    const [arcGuides, setArcGuides] = useState<ArcChoice>('off');
 
     return (
         <WtalPanorama
             weather={enabled && 'auto' !== cover ? { cover, rain } : live}
             stars={stars}
             generatedClouds={'development' === process.env.NODE_ENV}
+            arcGuides={enabled && 'on' === arcGuides}
             controls={
                 enabled && (
                     <>
@@ -118,6 +126,12 @@ export const PanoramaWeather = () => {
                             onChange={setRain}
                         />
                         <SkyJumpSegments />
+                        <Segmented
+                            label="Sonnen- und Mondbahn"
+                            value={arcGuides}
+                            options={ARC_OPTIONS}
+                            onChange={setArcGuides}
+                        />
                     </>
                 )
             }

@@ -25,13 +25,16 @@ interface WtalPanoramaProps {
     controls?: ReactNode;
     /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
     generatedClouds?: boolean;
+    /** Draw the sun and moon path for the parallax extremes, a development aid. */
+    arcGuides?: boolean;
 }
 
-export const WtalPanorama = ({ weather, stars, generatedClouds, controls }: WtalPanoramaProps) => (
+export const WtalPanorama = ({ weather, stars, generatedClouds, arcGuides, controls }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
         <Panorama
             stars={stars}
             generatedClouds={generatedClouds}
+            arcGuides={arcGuides}
             controls={controls}
         />
     </TalProvider>
