@@ -8,8 +8,6 @@
 
 ### Added
 
-- `WtalPanorama` takes `arcGuides`, a development aid: it draws the sun and moon path for the parallax extremes
-  (0/0, -1/-1, -1/1, 1/-1, 1/1) of the back layer.
 - A static glow on the horizon at dusk and dawn: a yellow core in a red halo, two blurred ellipses behind the hills where the sun sets and rises, independent of the parallax. They fade in and out with the twilight.
 
 ### Changed

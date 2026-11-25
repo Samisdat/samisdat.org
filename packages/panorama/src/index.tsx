@@ -23,15 +23,12 @@ interface WtalPanoramaProps {
     stars?: readonly Star[];
     /** Extra controls, shown in the footer of the time control overlay. */
     controls?: ReactNode;
-    /** Draw the sun and moon path for the parallax extremes, a development aid. */
-    arcGuides?: boolean;
 }
 
-export const WtalPanorama = ({ weather, stars, arcGuides, controls }: WtalPanoramaProps) => (
+export const WtalPanorama = ({ weather, stars, controls }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
         <Panorama
             stars={stars}
-            arcGuides={arcGuides}
             controls={controls}
         />
     </TalProvider>

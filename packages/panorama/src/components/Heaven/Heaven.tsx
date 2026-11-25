@@ -7,7 +7,6 @@ import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
 import { SUN_X } from '../Clouds/cloudLight';
-import { ArcGuides } from './ArcGuides';
 import { DuskGlow } from './DuskGlow';
 import { Moon } from './Moon';
 import { SkyGradient } from './SkyGradient';
@@ -57,11 +56,9 @@ const MoonHole = ({ moon }: MoonHoleProps) => (
 
 interface HeavenProps {
     stars?: readonly Star[];
-    /** Draw the sun and moon path for the parallax extremes. */
-    arcGuides?: boolean;
 }
 
-export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
+export const Heaven = ({ stars }: HeavenProps) => {
     const pathRef = useRef<SVGPathElement>(null);
 
     const { time, weather, sunTimes } = useTal();
@@ -160,13 +157,6 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                 glow={{ color: palette.cloudLight, amount: palette.glow }}
                 sunX={morning ? SUN_X.sunrise : SUN_X.sunset}
             />
-
-            {arcGuides && (
-                <ArcGuides
-                    baseline={ARC_BASELINE_Y}
-                    heightFactor={arcHeightFactor}
-                />
-            )}
         </g>
     );
 };

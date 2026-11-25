@@ -14,11 +14,9 @@ import type { Star } from '@/lib/stars';
 interface PanoramaProps {
     stars?: readonly Star[];
     controls?: ReactNode;
-    /** Draw the sun and moon path for the parallax extremes. */
-    arcGuides?: boolean;
 }
 
-export const Panorama = ({ stars, arcGuides, controls }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, controls }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useParallax(ref, { scroll: true });
@@ -40,10 +38,7 @@ export const Panorama = ({ stars, arcGuides, controls }: PanoramaProps): ReactEl
                     height="100%"
                     viewBox="0 0 1700 500"
                 >
-                    <Heaven
-                        stars={stars}
-                        arcGuides={arcGuides}
-                    />
+                    <Heaven stars={stars} />
                     <Landscape />
                 </svg>
                 <TimeControl footer={controls} />
