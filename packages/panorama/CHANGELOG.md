@@ -43,6 +43,7 @@
 
 ### Fixed
 
+- Heavy rain no longer makes the browser work so hard that Chrome flickers: the drops of one opacity are drawn as one path instead of one element each (about ten times less layout and paint work per frame, same look).
 - The sun keeps its size at dawn and dusk: the flat halo circle that moved with it and made it look bigger is gone; the glow on the horizon stays.
 - `suncalc` is now a runtime dependency (it was a devDependency and got bundled into `dist`).
 - Removed the unused `astronomy-engine` dependency.

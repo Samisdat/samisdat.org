@@ -29,24 +29,32 @@ const random = (seed: number) => () => {
     return seed / 4294967296;
 };
 
+/** Drops of one opacity share a path: one element instead of hundreds keeps the browser's work per frame small. */
+const OPACITY_STEPS = 3;
+
 const strokes = (drops: Drops, seed: number) => {
     const next = random(seed);
     const slope = Math.tan((drops.angle * Math.PI) / 180);
+    const paths = Array.from({ length: OPACITY_STEPS }, () => '');
 
-    return Array.from({ length: drops.count }, (_, index) => {
+    for (let index = 0; index < drops.count; index++) {
         const x = -200 + next() * (SKY_WIDTH + 400);
         const y = next() * HEIGHT;
         const length = drops.length * (0.45 + 0.75 * next());
+        const step = Math.min(OPACITY_STEPS - 1, Math.floor(next() * OPACITY_STEPS));
+
+        paths[step] += `M${x.toFixed(1)} ${y.toFixed(1)}l${(-length * slope).toFixed(1)} ${length.toFixed(1)}`;
+    }
+
+    return paths.map((d, step) => {
+        const opacity = (drops.opacity * (0.4 + (0.6 * (step + 0.5)) / OPACITY_STEPS)).toFixed(2);
 
         return (
-            <line
-                key={index}
-                x1={x}
-                y1={y}
-                x2={x - length * slope}
-                y2={y + length}
+            <path
+                key={opacity}
+                d={d}
                 strokeWidth={drops.width}
-                opacity={drops.opacity * (0.4 + 0.6 * next())}
+                opacity={opacity}
             />
         );
     });
