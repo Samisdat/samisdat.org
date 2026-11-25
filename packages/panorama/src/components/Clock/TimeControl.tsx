@@ -39,10 +39,8 @@ const PlayIcon = () => (
     </svg>
 );
 
-const two = (value: number) => String(value).padStart(2, '0');
-
 const PlaybackRow = () => {
-    const { time, timeFactor, paused, setPaused, reset, atRealTime } = useTal();
+    const { timeFactor, paused, setPaused, reset, atRealTime } = useTal();
     const canReset = 0 !== stepOf(timeFactor) || paused || !atRealTime;
 
     return (
@@ -70,13 +68,6 @@ const PlaybackRow = () => {
                     ↺ Reset
                 </button>{' '}
                 ]
-            </span>
-            <span
-                className="timeControlTime"
-                aria-label="Uhrzeit im Panorama"
-                suppressHydrationWarning
-            >
-                {two(time.getHours())}:{two(time.getMinutes())}
             </span>
         </div>
     );

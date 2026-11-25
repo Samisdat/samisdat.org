@@ -41,6 +41,7 @@
 - The noise-filter clouds and the old ellipse lobes for the bump cloud types.
 - The grey nimbostratus deck that came with rain. The rain falls as before, under the same clouds as without it.
 - The sun no longer grows towards the horizon; its disc and halo keep their size.
+- The digital time readout in the time control; the clock face shows the time.
 
 ### Fixed
 
