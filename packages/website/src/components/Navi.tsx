@@ -92,7 +92,7 @@ const IconNav = styled.nav`
 
     & a:hover,
     & a:focus-visible {
-        color: var(--color-ink-rose);
+        color: var(--color-ink-copper);
     }
 
     & svg {
