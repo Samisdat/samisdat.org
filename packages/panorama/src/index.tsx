@@ -23,15 +23,12 @@ interface WtalPanoramaProps {
     stars?: readonly Star[];
     /** Extra controls, shown in the footer of the time control overlay. */
     controls?: ReactNode;
-    /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
-    generatedClouds?: boolean;
 }
 
-export const WtalPanorama = ({ weather, stars, generatedClouds, controls }: WtalPanoramaProps) => (
+export const WtalPanorama = ({ weather, stars, controls }: WtalPanoramaProps) => (
     <TalProvider weather={weather}>
         <Panorama
             stars={stars}
-            generatedClouds={generatedClouds}
             controls={controls}
         />
     </TalProvider>

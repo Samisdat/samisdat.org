@@ -43,11 +43,9 @@ import type { Star } from '@/lib/stars';
 interface PanoramaProps {
     stars?: readonly Star[];
     controls?: ReactNode;
-    /** Draw the clouds with the noise filter instead of the hand-drawn lobes. */
-    generatedClouds?: boolean;
 }
 
-export const Panorama = ({ stars, generatedClouds, controls }: PanoramaProps): ReactElement => {
+export const Panorama = ({ stars, controls }: PanoramaProps): ReactElement => {
     const ref = useRef<HTMLDivElement | null>(null);
 
     useParallax(ref, { scroll: true });
@@ -69,10 +67,7 @@ export const Panorama = ({ stars, generatedClouds, controls }: PanoramaProps): R
                     height="100%"
                     viewBox="0 0 1700 500"
                 >
-                    <Heaven
-                        stars={stars}
-                        generatedClouds={generatedClouds}
-                    />
+                    <Heaven stars={stars} />
                     <ParallaxLayer
                         scrollspeed={15}
                         depth={-7}

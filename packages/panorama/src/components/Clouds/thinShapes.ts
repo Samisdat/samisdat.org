@@ -1,5 +1,12 @@
-import { Lobe } from './cloudShapes';
 import { random } from './random';
+
+/** A flat ellipse of a thin cloud. */
+export interface Lobe {
+    cx: number;
+    cy: number;
+    rx: number;
+    ry: number;
+}
 
 export interface ThinShape {
     width: number;

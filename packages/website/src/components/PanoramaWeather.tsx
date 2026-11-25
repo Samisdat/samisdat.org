@@ -101,7 +101,6 @@ export const PanoramaWeather = () => {
         <WtalPanorama
             weather={enabled && 'auto' !== cover ? { cover, rain } : live}
             stars={stars}
-            generatedClouds={'development' === process.env.NODE_ENV}
             controls={
                 enabled && (
                     <>
