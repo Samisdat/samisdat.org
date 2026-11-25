@@ -2,25 +2,22 @@ import { describe, expect, it } from 'vitest';
 
 import { moonShape, moonView } from '../moonPhase';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
-
 describe('moonView', () => {
     it('is dark at the new moon of 6 January 2000', () => {
-        const view = moonView(new Date('2000-01-06T18:14:00Z'), LAT, LNG);
+        const view = moonView(new Date('2000-01-06T18:14:00Z'));
 
         expect(view.fraction).toBeLessThan(0.01);
     });
 
     it('is full at the full moon of 21 January 2000', () => {
-        const view = moonView(new Date('2000-01-21T04:40:00Z'), LAT, LNG);
+        const view = moonView(new Date('2000-01-21T04:40:00Z'));
 
         expect(view.fraction).toBeGreaterThan(0.99);
     });
 
     it('is half lit at the quarters, waxing first and waning second', () => {
-        const first = moonView(new Date('2000-01-14T13:34:00Z'), LAT, LNG);
-        const last = moonView(new Date('2000-01-28T07:57:00Z'), LAT, LNG);
+        const first = moonView(new Date('2000-01-14T13:34:00Z'));
+        const last = moonView(new Date('2000-01-28T07:57:00Z'));
 
         expect(first.fraction).toBeCloseTo(0.5, 1);
         expect(first.waxing).toBe(true);
@@ -29,7 +26,7 @@ describe('moonView', () => {
     });
 
     it('keeps the rotation within a half turn', () => {
-        const { rotation } = moonView(new Date('2026-11-21T21:00:00Z'), LAT, LNG);
+        const { rotation } = moonView(new Date('2026-11-21T21:00:00Z'));
 
         expect(rotation).toBeGreaterThanOrEqual(-180);
         expect(rotation).toBeLessThanOrEqual(180);

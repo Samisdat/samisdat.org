@@ -10,13 +10,15 @@ export interface MoonView {
     rotation: number;
 }
 
-/** Phase, fraction and tilt of the moon as the observer sees it. */
-export const moonView = (date: Date, lat: number, lng: number): MoonView => {
+/**
+ * Phase, fraction and tilt of the moon as seen when it crosses the meridian. The tilt does not follow the moon along
+ * its path (that would add the parallactic angle): the moon runs on a painted arc, so it keeps its tilt all night.
+ */
+export const moonView = (date: Date): MoonView => {
     const { phase, fraction, angle, waxing } = SunCalc.getMoonIllumination(date);
-    const { parallacticAngle } = SunCalc.getMoonPosition(date, lat, lng);
 
-    // suncalc gives the zenith angle of the bright limb anticlockwise, SVG rotates clockwise.
-    const clockwise = -(angle - parallacticAngle);
+    // suncalc gives the angle of the bright limb anticlockwise, SVG rotates clockwise.
+    const clockwise = -angle;
     const home = waxing ? 90 : 270;
     const rotation = ((clockwise - home + 540) % 360) - 180;
 

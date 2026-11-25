@@ -3,8 +3,6 @@ import { FC, useMemo } from 'react';
 import { moonShape, moonView } from '@/lib/moonPhase';
 import { useTal } from '@/lib/TalContext';
 
-const LAT = 51.2562;
-const LNG = 7.1508;
 const MINUTE = 60_000;
 
 interface MoonProps {
@@ -20,7 +18,7 @@ export const Moon: FC<MoonProps> = ({ x, y }) => {
     const minute = Math.floor(time.getTime() / MINUTE);
 
     const { shape, rotation } = useMemo(() => {
-        const view = moonView(new Date(minute * MINUTE), LAT, LNG);
+        const view = moonView(new Date(minute * MINUTE));
 
         return { shape: moonShape(view.phase), rotation: view.rotation };
     }, [minute]);
