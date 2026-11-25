@@ -85,162 +85,162 @@
 }
 
 .panorama .alter-markt {
-    fill: var(--panorama-slate-gray);
+    fill: color-mix(in oklab, var(--panorama-slate-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .beyenburger-dom-base {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .panorama .beyenburger-dom-roof {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .panorama .beyenburger-dom-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .panorama .beyenburger-dom-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .blue-house-light {
-    fill: var(--panorama-aqua-gray);
+    fill: color-mix(in oklab, var(--panorama-aqua-gray), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-dark {
-    fill: var(--panorama-steel-blue);
+    fill: color-mix(in oklab, var(--panorama-steel-blue), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-roof {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .bridge-zoo-dark {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 .bridge-zoo-light {
-    fill: var(--panorama-terracotta);
+    fill: color-mix(in oklab, var(--panorama-terracotta), black calc(var(--dark, 0) * 100%));
 }
 .bridge-zoo-front {
-    fill: var(--panorama-copper-brown);
+    fill: color-mix(in oklab, var(--panorama-copper-brown), black calc(var(--dark, 0) * 100%));
 }
 
 .elisenturm-base,
 .elisenturm-window {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .elisenturm-dark {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .gelber-turm-base {
-    fill: var(--panorama-sunflower-yellow);
+    fill: color-mix(in oklab, var(--panorama-sunflower-yellow), black calc(var(--dark, 0) * 100%));
 }
 .gelber-turm-light {
-    fill: var(--panorama-golden-ochre);
+    fill: color-mix(in oklab, var(--panorama-golden-ochre), black calc(var(--dark, 0) * 100%));
 }
 .gelber-turm-dark {
-    fill: var(--panorama-dark-ochre);
+    fill: color-mix(in oklab, var(--panorama-dark-ochre), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-light1 {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-roof,
 .green-house-dark1 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-light2 {
-    fill: var(--panorama-moss-olive);
+    fill: color-mix(in oklab, var(--panorama-moss-olive), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-dark2 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .green-tower-base {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
 }
 
 .green-tower-window,
 .green-tower-dark {
-    fill: var(--panorama-moss-green);
+    fill: color-mix(in oklab, var(--panorama-moss-green), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-base {
-    fill: var(--panorama-dusty-rose);
+    fill: color-mix(in oklab, var(--panorama-dusty-rose), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-roof,
 .lila-church-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .oligsmuehle {
-    fill: var(--panorama-slate-gray);
+    fill: color-mix(in oklab, var(--panorama-slate-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .red-church-base {
-    fill: var(--panorama-crimson-dark);
+    fill: color-mix(in oklab, var(--panorama-crimson-dark), black calc(var(--dark, 0) * 100%));
 }
 .red-church-light {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .red-church-front {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus {
-    fill: var(--panorama-sunflower-yellow);
+    fill: color-mix(in oklab, var(--panorama-sunflower-yellow), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus-canopy {
-    fill: var(--panorama-golden-ochre);
+    fill: color-mix(in oklab, var(--panorama-golden-ochre), black calc(var(--dark, 0) * 100%));
 }
 
 .tower-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .tower-dark,
 .tower2-dark {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .towerlight,
 .tower2-light {
-    fill: var(--panorama-mauve-gray);
+    fill: color-mix(in oklab, var(--panorama-mauve-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .townhall-light {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 .townhall-dark {
-    fill: var(--panorama-bright-red);
+    fill: color-mix(in oklab, var(--panorama-bright-red), black calc(var(--dark, 0) * 100%));
 }
 .townhall-roof {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 .townhall-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .university-base {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 .university-dark {
-    fill: var(--panorama-moss-olive);
+    fill: color-mix(in oklab, var(--panorama-moss-olive), black calc(var(--dark, 0) * 100%));
 }
 .university-light {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
 }
 
 /* A few clear lines of the university's light installation, white at night, fading in with dusk. */
@@ -251,31 +251,31 @@
 
 .vohwinkel-roof,
 .vohwinkel-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .vohwinkel-dark {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .vohwinkel-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .water-tower-dark {
-    fill: var(--panorama-wine-red);
+    fill: color-mix(in oklab, var(--panorama-wine-red), black calc(var(--dark, 0) * 100%));
 }
 .water-tower-base {
-    fill: var(--panorama-crimson-dark);
+    fill: color-mix(in oklab, var(--panorama-crimson-dark), black calc(var(--dark, 0) * 100%));
 }
 .water-tower-light {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 
 .wupper {
-    fill: var(--panorama-river-blue);
+    fill: color-mix(in oklab, var(--panorama-river-blue), black calc(var(--dark, 0) * 100%));
 }
 .shore {
-    fill: var(--panorama-pine-green);
+    fill: color-mix(in oklab, var(--panorama-pine-green), black calc(var(--dark, 0) * 100%));
 }
 
 .stars circle {
@@ -283,11 +283,11 @@
 }
 
 .moon {
-    fill: var(--panorama-moon-gray);
+    fill: color-mix(in oklab, var(--panorama-moon-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .crater {
-    fill: var(--panorama-crater-gray);
+    fill: color-mix(in oklab, var(--panorama-crater-gray), black calc(var(--dark, 0) * 100%));
 }
 
 /* The dark part of the moon stays faintly visible (earthshine) */
@@ -296,17 +296,18 @@
 }
 
 .sun {
-    fill: var(--panorama-neon-yellow);
+    fill: color-mix(in oklab, var(--panorama-neon-yellow), black calc(var(--dark, 0) * 100%));
 }
 
 .hardt {
-    fill: var(--panorama-forest-green);
+    fill: color-mix(in oklab, var(--panorama-forest-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill010 {
-    fill: var(--panorama-mustard-yellow);
+    fill: color-mix(in oklab, var(--panorama-mustard-yellow), black calc(var(--dark, 0) * 100%));
 }
 
+/* The foremost hills stay as they are: they carry on into the page below the panorama. */
 .hill-before-green-tower,
 .hill4100 {
     fill: var(--panorama-aubergine);
@@ -314,52 +315,52 @@
 
 .vohwinkel-back,
 .hill2900 {
-    fill: var(--panorama-emerald-dark);
+    fill: color-mix(in oklab, var(--panorama-emerald-dark), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-hill,
 .hill3200 {
-    fill: var(--panorama-forest-hill);
+    fill: color-mix(in oklab, var(--panorama-forest-hill), black calc(var(--dark, 0) * 100%));
 }
 
 .hill3800,
 .hill2800 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .hill3300,
 .hill100,
 .hill2250,
 .hill2200 {
-    fill: var(--panorama-pine-dark);
+    fill: color-mix(in oklab, var(--panorama-pine-dark), black calc(var(--dark, 0) * 100%));
 }
 
 .hill1110 {
-    fill: var(--panorama-olive-moss);
+    fill: color-mix(in oklab, var(--panorama-olive-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .hill050 {
-    fill: var(--panorama-deep-pine);
+    fill: color-mix(in oklab, var(--panorama-deep-pine), black calc(var(--dark, 0) * 100%));
 }
 
 .hill040 {
-    fill: var(--panorama-spring-green);
+    fill: color-mix(in oklab, var(--panorama-spring-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill030 {
-    fill: var(--panorama-olive-green);
+    fill: color-mix(in oklab, var(--panorama-olive-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill020 {
-    fill: var(--panorama-warm-olive);
+    fill: color-mix(in oklab, var(--panorama-warm-olive), black calc(var(--dark, 0) * 100%));
 }
 
 .track {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .car {
-    fill: var(--panorama-sky-blue);
+    fill: color-mix(in oklab, var(--panorama-sky-blue), black calc(var(--dark, 0) * 100%));
     stroke: var(--panorama-midnight-indigo);
     stroke-width: 3;
     width: 81px;
@@ -380,6 +381,11 @@
 }
 .panorama .clock .clockHandSecond {
     transform: rotate(calc(360deg * var(--second) / 60));
+}
+
+/* Night darkens the layers towards black, the nearer the darker: --dark is 0 by day and, at night, 20% on the farthest layer up to 50% on the nearest. Lit windows keep their colour. */
+.panorama .parallax-scroll {
+    --dark: calc(var(--twilight, 0) * (0.2 + (var(--depth) + 7) / 14 * 0.3));
 }
 
 /* Windows: dark by day, warm light at night. --twilight (0 day, 1 night) is set on .panorama and fades with dusk and dawn. */
@@ -509,7 +515,7 @@
         transform: translate(var(--run), 500px);
     }
 }
-/* Twinkle of the brightest stars: steady most of the time, a short quick flash. */
+/* Twinkle of the brightest stars: steady most of the time, then a short dip and a quick flash in brightness. The size never changes. */
 .panorama .star-flash {
     animation: star-flash 8s ease-out infinite;
 }
