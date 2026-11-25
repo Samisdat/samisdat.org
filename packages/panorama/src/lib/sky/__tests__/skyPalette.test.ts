@@ -22,7 +22,6 @@ describe('skyPalette', () => {
         expect(day.glow).toBe(0);
         expect(day.stars).toBe(0);
         expect(day.night).toBe(0);
-        expect(day.sunScale).toBe(1);
     });
 
     it('is dark with no glow and all stars after astronomical twilight', () => {
@@ -54,10 +53,18 @@ describe('skyPalette', () => {
         expect(skyPalette(-6).stars).toBeLessThan(1);
     });
 
-    it('makes the sun bigger and redder towards the horizon', () => {
+    it('brings in the stars beyond the brightest few only with nautical twilight', () => {
+        expect(skyPalette(2).starReveal).toBe(0);
+        expect(skyPalette(-4).starReveal).toBe(0);
+        expect(skyPalette(-6).starReveal).toBe(0);
+        expect(skyPalette(-9).starReveal).toBeCloseTo(0.5);
+        expect(skyPalette(-12).starReveal).toBe(1);
+        expect(skyPalette(-30).starReveal).toBe(1);
+    });
+
+    it('makes the sun redder towards the horizon', () => {
         const high = skyPalette(40);
         const low = skyPalette(0);
-        expect(low.sunScale).toBeGreaterThan(high.sunScale);
         expect(redness(low.sun)).toBeGreaterThan(redness(high.sun));
     });
 

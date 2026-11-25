@@ -134,7 +134,6 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                     x={sunPosition.x}
                     y={sunPosition.y}
                     color={palette.sun}
-                    scale={palette.sunScale}
                     glow={palette.glow}
                 />
             )}

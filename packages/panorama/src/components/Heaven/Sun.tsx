@@ -5,22 +5,20 @@ interface SunProps {
     y: number;
     /** Fill colour; falls back to the stylesheet colour. */
     color?: string;
-    /** Radius factor, larger near the horizon. */
-    scale?: number;
     /** 0..1: strength of the flat halo around the disc. */
     glow?: number;
 }
 
 const RADIUS = 25;
 
-export const Sun: FC<SunProps> = ({ x, y, color, scale = 1, glow = 0 }) => (
+export const Sun: FC<SunProps> = ({ x, y, color, glow = 0 }) => (
     <>
-        {/* The scale follows the clock, which differs by a few milliseconds between the server and the browser */}
+        {/* The colour and the glow follow the clock, which differs by a few milliseconds between the server and the browser */}
         {glow > 0 && (
             <circle
                 cx={x}
                 cy={y}
-                r={RADIUS * scale * 1.9}
+                r={RADIUS * 1.9}
                 fill={color}
                 opacity={glow * 0.28}
                 suppressHydrationWarning
@@ -30,7 +28,7 @@ export const Sun: FC<SunProps> = ({ x, y, color, scale = 1, glow = 0 }) => (
             className={'sun'}
             cx={x}
             cy={y}
-            r={RADIUS * scale}
+            r={RADIUS}
             style={color ? { fill: color } : undefined}
             suppressHydrationWarning
         />

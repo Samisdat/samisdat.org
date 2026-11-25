@@ -22,18 +22,16 @@ export interface SkyPalette {
     glowBand: string;
     /** Colour of the sun disc, hex. */
     sun: string;
-    /** Sun radius relative to its size at high altitude, 1..~1.55. */
-    sunScale: number;
     /** 0..1: how strongly the horizon glows (sun halo and light on cloud undersides). */
     glow: number;
     /** Colour of the low sunlight on the clouds, hex. */
     cloudLight: string;
     /** 0 by day, 1 at night; drives the cloud tones. */
     night: number;
-    /** 0..1: how many stars show besides the brightest few; 0 until nautical twilight, 1 at its end. */
-    starReveal: number;
     /** 0..1: how bright the stars are, 0 in daylight, 1 when astronomically dark. */
     stars: number;
+    /** 0..1: how many stars show besides the brightest few; 0 until nautical twilight, 1 at its end. */
+    starReveal: number;
 }
 
 /** A value for winter and one for summer; the season blends between them. */
@@ -45,7 +43,6 @@ interface Key {
     horizon: Rgb;
     glowBand: Seasonal;
     sun: Seasonal;
-    sunScale: number;
     glow: number;
     cloudLight: Seasonal;
     stars: number;
@@ -65,7 +62,6 @@ const KEYS: readonly Key[] = [
         ...SKY_DAY,
         glowBand: SKY_DAY.horizon,
         sun: SUN_DAY,
-        sunScale: 1,
         glow: 0,
         cloudLight: hex('#FFE9C8'),
         stars: 0,
@@ -75,7 +71,6 @@ const KEYS: readonly Key[] = [
         ...SKY_DAY,
         glowBand: SKY_DAY.horizon,
         sun: hex('#F5D21C'),
-        sunScale: 1.05,
         glow: 0,
         cloudLight: hex('#FFE0B0'),
         stars: 0,
@@ -86,7 +81,6 @@ const KEYS: readonly Key[] = [
         horizon: hex('#BFD3EA'),
         glowBand: [hex('#F2BE86'), hex('#F8D79A')],
         sun: [hex('#FFA630'), hex('#FFC52E')],
-        sunScale: 1.25,
         glow: 0.4,
         cloudLight: [hex('#FF9A5A'), hex('#FFC080')],
         stars: 0,
@@ -97,7 +91,6 @@ const KEYS: readonly Key[] = [
         horizon: hex('#E3B5A0'),
         glowBand: [hex('#F2764F'), hex('#F6A45C')],
         sun: [hex('#F5401C'), hex('#FF7A22')],
-        sunScale: 1.55,
         glow: 1,
         cloudLight: [hex('#FF5238'), hex('#FF8A4A')],
         stars: 0,
@@ -108,7 +101,6 @@ const KEYS: readonly Key[] = [
         horizon: hex('#B07DA0'),
         glowBand: [hex('#D0506E'), hex('#E88A6A')],
         sun: [hex('#E03A2A'), hex('#F5642A')],
-        sunScale: 1.55,
         glow: 0.75,
         cloudLight: [hex('#E8506A'), hex('#F57A62')],
         stars: 0.5,
@@ -119,7 +111,6 @@ const KEYS: readonly Key[] = [
         horizon: hex('#6B6AA8'),
         glowBand: [hex('#9A4888'), hex('#C0707E')],
         sun: [hex('#E03A2A'), hex('#F5642A')],
-        sunScale: 1.55,
         glow: 0.45,
         cloudLight: [hex('#B8508C'), hex('#D8707E')],
         stars: 0.6,
@@ -130,7 +121,6 @@ const KEYS: readonly Key[] = [
         horizon: hex('#3A4A8A'),
         glowBand: [hex('#4E4486'), hex('#6E5688')],
         sun: [hex('#E03A2A'), hex('#F5642A')],
-        sunScale: 1.55,
         glow: 0.15,
         cloudLight: [hex('#6A4C90'), hex('#8A5C90')],
         stars: 0.75,
@@ -141,27 +131,25 @@ const KEYS: readonly Key[] = [
         horizon: hex('#1E2C5E'),
         glowBand: hex('#2A3568'),
         sun: hex('#E03A2A'),
-        sunScale: 1.55,
         glow: 0.03,
         cloudLight: hex('#3A3A78'),
         stars: 0.9,
     },
     {
-/** Sun altitudes where nautical twilight starts and ends. */
-const NAUTICAL_START = -6;
-const NAUTICAL_END = -12;
-
         alt: -18,
         zenith: hex('#060F22'),
         horizon: hex('#0A1630'),
         glowBand: hex('#0E1A38'),
         sun: hex('#E03A2A'),
-        sunScale: 1.55,
         glow: 0,
         cloudLight: hex('#2A2A60'),
         stars: 1,
     },
 ];
+
+/** Sun altitudes where nautical twilight starts and ends. */
+const NAUTICAL_START = -6;
+const NAUTICAL_END = -12;
 
 const clamp01 = (value: number) => Math.max(0, Math.min(1, value));
 
@@ -211,7 +199,6 @@ const bracket = (altitudeDeg: number): [Key, Key, number] => {
 /** Palette for a sun altitude in degrees. `season` runs from -1 (winter) to 1 (summer), see {@link seasonFromArcHeight}. */
 export const skyPalette = (altitudeDeg: number, season = 0): SkyPalette => {
     const [a, b, t] = bracket(altitudeDeg);
-        starReveal: smooth(clamp01((NAUTICAL_START - altitudeDeg) / (NAUTICAL_START - NAUTICAL_END))),
     const s = Math.max(-1, Math.min(1, season));
     const rgb = (pick: (key: Key) => Seasonal) => toHex(mixRgb(resolve(pick(a), s), resolve(pick(b), s), t));
 
@@ -220,10 +207,10 @@ export const skyPalette = (altitudeDeg: number, season = 0): SkyPalette => {
         horizon: rgb(key => key.horizon),
         glowBand: rgb(key => key.glowBand),
         sun: rgb(key => key.sun),
-        sunScale: mix(a.sunScale, b.sunScale, t),
         glow: mix(a.glow, b.glow, t),
         cloudLight: rgb(key => key.cloudLight),
         night: smooth(clamp01((0 - altitudeDeg) / 14)),
         stars: mix(a.stars, b.stars, t),
+        starReveal: smooth(clamp01((NAUTICAL_START - altitudeDeg) / (NAUTICAL_START - NAUTICAL_END))),
     };
 };
