@@ -37,12 +37,16 @@ export const starTint = (ci: number) => {
     return '#ffcebd';
 };
 
+/** The faintest magnitude that shows at the start of the reveal; no star but the brightest few is that bright. */
+const MAGNITUDE_REVEAL_START = -1.5;
+
 /**
- * How many of the `above` stars in the window show: the brightest few at dusk, then more with `reveal` (0..1) until all
- * show. The catalogue is sorted by brightness, so the first ones are the ones to keep.
+ * Whether a star shows at dusk: the brightest few in the window always, the others once the reveal (0..1) has got
+ * down to their magnitude. The magnitude is the star's own, so a star keeps its place while others rotate in and out.
+ * `rank` is the star's place by brightness among those in the window (0 = brightest).
  */
-export const starLimit = (above: number, reveal: number) =>
-    Math.min(above, DUSK_STARS + Math.round(reveal * Math.max(0, above - DUSK_STARS)));
+export const starShows = (rank: number, mag: number, reveal: number) =>
+    rank < DUSK_STARS || mag <= MAGNITUDE_REVEAL_START + reveal * (MAGNITUDE_FAINTEST - MAGNITUDE_REVEAL_START);
 
 /** Deterministic pseudo random number in [0, 1) from an index. */
 const random = (index: number) => {

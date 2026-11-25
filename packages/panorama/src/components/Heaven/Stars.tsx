@@ -6,7 +6,7 @@ import { LAT, LNG } from '@/lib/location';
 import { canEnterWindow, starPositions, type Star } from '@/lib/stars';
 import { useTal } from '@/lib/TalContext';
 
-import { FLASH_MAGNITUDE, flashStyle, RADIUS, starLimit, starOpacity, starRadius, starTint } from './starStyle';
+import { FLASH_MAGNITUDE, flashStyle, RADIUS, starOpacity, starRadius, starShows, starTint } from './starStyle';
 
 /** Where the sky window sits in the 1700 x 500 viewBox. Calibrated by eye against the hills. */
 const SKY = { left: 0, width: 1700, horizonY: 250, topY: 10 };
@@ -53,15 +53,14 @@ interface StarsProps {
     reveal: number;
 }
 
-/** Writes the stars of the window into the circles: only the brightest `limit` of them show. */
-const placeStars = (circles: HTMLCollection, buffer: Float32Array, written: Float32Array, reveal: number) => {
-    let above = 0;
-
-    for (let i = 0; i < buffer.length; i += 2) {
-        if (!Number.isNaN(buffer[i])) above += 1;
-    }
-
-    const limit = starLimit(above, reveal);
+/** Writes the stars of the window into the circles; at dusk only the bright ones show. */
+const placeStars = (
+    stars: readonly Star[],
+    circles: HTMLCollection,
+    buffer: Float32Array,
+    written: Float32Array,
+    reveal: number
+) => {
     let rank = 0;
 
     for (let i = 0; i < buffer.length / 2; i++) {
@@ -69,7 +68,7 @@ const placeStars = (circles: HTMLCollection, buffer: Float32Array, written: Floa
         const u = buffer[i * 2];
         const v = buffer[i * 2 + 1];
         const wasShown = !Number.isNaN(written[i * 2]);
-        const shows = !Number.isNaN(u) && rank < limit;
+        const shows = !Number.isNaN(u) && starShows(rank, stars[i][2], reveal);
 
         if (!Number.isNaN(u)) rank += 1;
 
@@ -139,7 +138,7 @@ export const Stars = ({ stars, amount, reveal }: StarsProps) => {
 
         starPositions(candidates, time, LAT, LNG, buffer);
 
-        placeStars(group.children, buffer, written, reveal);
+        placeStars(candidates, group.children, buffer, written, reveal);
     }, [time, visible, candidates, reveal]);
 
     return (

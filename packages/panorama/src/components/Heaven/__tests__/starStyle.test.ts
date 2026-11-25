@@ -1,19 +1,21 @@
 import { describe, expect, it } from 'vitest';
 
-import { starLimit } from '../starStyle';
+import { starShows } from '../starStyle';
 
-describe('starLimit', () => {
-    it('keeps the 3 brightest stars while twilight has not got to nautical', () => {
-        expect(starLimit(120, 0)).toBe(3);
+describe('starShows', () => {
+    it('keeps the 3 brightest stars of the window while twilight has not got to nautical', () => {
+        expect(starShows(0, 0.5, 0)).toBe(true);
+        expect(starShows(2, 1.5, 0)).toBe(true);
+        expect(starShows(3, 1.5, 0)).toBe(false);
     });
 
-    it('lets the others in by the reveal until all show', () => {
-        expect(starLimit(120, 0.5)).toBe(62);
-        expect(starLimit(120, 1)).toBe(120);
+    it('lets the fainter stars in by the reveal until all show', () => {
+        expect(starShows(40, 3, 0.5)).toBe(false);
+        expect(starShows(40, 3, 0.7)).toBe(true);
+        expect(starShows(900, 4.5, 1)).toBe(true);
     });
 
-    it('never shows more stars than are in the window', () => {
-        expect(starLimit(2, 0)).toBe(2);
-        expect(starLimit(0, 1)).toBe(0);
+    it('does not depend on how many stars are in the window', () => {
+        expect(starShows(10, 2, 0.5)).toBe(starShows(500, 2, 0.5));
     });
 });
