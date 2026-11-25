@@ -1,6 +1,6 @@
 /**
  * Look of a star (variant "Kontrastreich"): flat discs, size and opacity from the magnitude,
- * colour from the catalogue colour index, a quick flash on the brightest ones.
+ * colour from the catalogue colour index, a quick flash in brightness on the brightest ones.
  */
 import type { CSSProperties } from 'react';
 
@@ -11,7 +11,6 @@ const MAGNITUDE_FAINTEST = 5.5;
 const MAGNITUDE_RANGE = 5;
 export const RADIUS = { min: 0.7, max: 1.6 };
 const OPACITY = { min: 0.3, max: 1 };
-const FLASH_SCALE = { min: 1.6, max: 2.6 };
 
 const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
 
@@ -42,7 +41,6 @@ const random = (index: number) => {
 /** Own duration and (negative) delay per star, so the flashes never line up. */
 export const flashStyle = (index: number): CSSProperties =>
     ({
-        '--k': (FLASH_SCALE.min + random(index) * (FLASH_SCALE.max - FLASH_SCALE.min)).toFixed(2),
         animationDuration: `${(6 + random(index) * 6).toFixed(1)}s`,
         animationDelay: `-${(random(index + 9) * 7).toFixed(1)}s`,
     }) as CSSProperties;
