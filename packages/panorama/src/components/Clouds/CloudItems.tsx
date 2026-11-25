@@ -5,6 +5,7 @@ import { CloudLayer, PlacedCloud } from './cloudLayout';
 import { cloudShapes, Lobe } from './cloudShapes';
 import { cloudMargin, GeneratedCloud } from './GeneratedCloud';
 import { generatedCloudPresets } from './generatedCloudPresets';
+import { GeneratedDeck } from './GeneratedDeck';
 import { Nimbostratus } from './Nimbostratus';
 import { thinShapes, ThinShapeName } from './thinShapes';
 
@@ -121,7 +122,7 @@ const GeneratedPlaced = ({ type, cloud }: { type: Exclude<CloudType, 'nimbostrat
 /** One drift tile of a layer. */
 export const CloudItems = ({ layer, generated }: { layer: CloudLayer; generated?: boolean }) => {
     if ('nimbostratus' === layer.type) {
-        return <Nimbostratus />;
+        return generated ? <GeneratedDeck /> : <Nimbostratus />;
     }
 
     if (generated) {
