@@ -84,8 +84,12 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
                 }
 
                 setAtRealTime(Math.abs(simulatedTimeRef.current - Date.now()) < REAL_TIME_TOLERANCE_MS);
-                setTime(() => {
-                    return new Date(simulatedTimeRef.current);
+                // Only a new second is published: everything that reads the time renders again with it, and a
+                // new Date on every frame would render the whole panorama 60 to 120 times a second.
+                setTime(previous => {
+                    const second = Math.floor(simulatedTimeRef.current / 1000) * 1000;
+
+                    return previous.getTime() === second ? previous : new Date(second);
                 });
             }
             lastRealTimeRef.current = now;

@@ -41,6 +41,7 @@
 
 - `suncalc` is now a runtime dependency (it was a devDependency and got bundled into `dist`).
 - Removed the unused `astronomy-engine` dependency.
+- The panorama no longer renders again on every animation frame, but when the second changes (more at high clock speeds).
 
 ## [2.0.0] - 2026-10-07
 
