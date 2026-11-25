@@ -410,38 +410,39 @@
     --window-day: var(--panorama-moss-green);
 }
 
-/* Clouds: flat scalloped silhouettes, a lit white crown on a shaded mass (body, shade). The tones fade from day to night with --night. */
+/* Clouds: a light body of round lobes with a dark, lens-shaped underside (body, shade), after assets/clouds-hand.svg. The tones fade from day to night with --night. */
 .panorama .clouds {
-    --d-b: oklch(0.97 0.004 250);
-    --d-s: oklch(0.84 0.05 240);
+    /* #d7d7d7 and #a7bed0, the hand-drawn clouds' colours */
+    --d-b: oklch(0.874 0 0);
+    --d-s: oklch(0.792 0.034 241);
     --d-r: oklch(1 0 0);
-    --n-b: oklch(0.42 0.055 266);
-    --n-s: oklch(0.29 0.07 272);
+    --n-b: oklch(0.33 0.05 266);
+    --n-s: oklch(0.23 0.06 272);
     --n-r: oklch(0.5 0.05 262);
     animation: cloudsIn 1.2s ease-out;
 }
 .panorama .clouds.tone-mix {
-    --d-b: oklch(0.9 0.008 255);
-    --d-s: oklch(0.74 0.025 258);
+    --d-b: oklch(0.81 0.008 255);
+    --d-s: oklch(0.7 0.025 258);
     --d-r: oklch(0.96 0.005 255);
-    --n-b: oklch(0.38 0.05 267);
-    --n-s: oklch(0.27 0.065 272);
+    --n-b: oklch(0.29 0.045 267);
+    --n-s: oklch(0.21 0.055 272);
     --n-r: oklch(0.44 0.045 262);
 }
 .panorama .clouds.tone-overcast {
-    --d-b: oklch(0.78 0.01 260);
-    --d-s: oklch(0.63 0.02 265);
+    --d-b: oklch(0.7 0.01 260);
+    --d-s: oklch(0.59 0.02 265);
     --d-r: oklch(0.86 0.008 260);
-    --n-b: oklch(0.34 0.045 268);
-    --n-s: oklch(0.25 0.06 273);
+    --n-b: oklch(0.25 0.04 268);
+    --n-s: oklch(0.19 0.05 273);
     --n-r: oklch(0.38 0.04 265);
 }
 .panorama .clouds.tone-grey {
-    --d-b: oklch(0.72 0.012 262);
-    --d-s: oklch(0.58 0.02 268);
+    --d-b: oklch(0.65 0.012 262);
+    --d-s: oklch(0.55 0.02 268);
     --d-r: oklch(0.8 0.01 262);
-    --n-b: oklch(0.32 0.045 270);
-    --n-s: oklch(0.23 0.055 275);
+    --n-b: oklch(0.23 0.04 270);
+    --n-s: oklch(0.17 0.045 275);
     --n-r: oklch(0.34 0.04 268);
 }
 /* --glow / --glow-c: the low sun lights the undersides red, the crowns only a little */
