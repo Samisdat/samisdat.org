@@ -43,14 +43,15 @@
 
 ### Fixed
 
+- The sun keeps its size at dawn and dusk: the flat halo circle that moved with it and made it look bigger is gone; the glow on the horizon stays.
 - `suncalc` is now a runtime dependency (it was a devDependency and got bundled into `dist`).
 - Removed the unused `astronomy-engine` dependency.
 - The panorama no longer renders again on every animation frame, but when the second changes (more at high clock speeds).
+- The sun shows over the hill when it rises, not a while after: the path of the sun and the moon starts higher. The season scales the arc over the line between its ends now, so both ends stay put all year.
 
 ## [2.0.0] - 2026-10-07
 
 ### Breaking Changes
-- The sun shows over the hill when it rises, not a while after: the path of the sun and the moon starts higher. The season scales the arc over the line between its ends now, so both ends stay put all year.
 
 - CSS custom properties renamed from `--color-*` to `--panorama-*` in `panorama.css` and `colors.css`.
   Any consumer referencing e.g. `var(--color-deep-pine)` must update to `var(--panorama-deep-pine)`.

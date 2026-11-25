@@ -135,7 +135,6 @@ export const Heaven = ({ stars }: HeavenProps) => {
                     x={sunPosition.x}
                     y={sunPosition.y}
                     color={palette.sun}
-                    glow={palette.glow}
                 />
             )}
 
