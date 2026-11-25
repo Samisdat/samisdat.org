@@ -68,9 +68,9 @@ describe('layersFor', () => {
         expect(count(7)).toBeLessThan(8);
     });
 
-    it('adds a nimbostratus deck where it rains', () => {
+    it('adds no layer of its own where it rains', () => {
         const types = layersFor({ high: 0, mid: 4, low: 4 }, 'steady').map(({ type }) => type);
 
-        expect(types).toEqual(['altocumulus', 'nimbostratus', 'stratocumulus']);
+        expect(types).toEqual(['altocumulus', 'stratocumulus']);
     });
 });

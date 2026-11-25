@@ -2,7 +2,7 @@ import { edgeY, HalfEllipse, round } from './arcOutline';
 import { CloudParts, drawCloud } from './cloudOutline';
 import { random } from './random';
 
-/** Cloud types the bump generator draws. Cirrus, nimbostratus and storm clouds get their own generators later. */
+/** Cloud types the bump generator draws. Cirrus and storm clouds get their own generators later. */
 export type BumpCloudType = 'cumulus' | 'stratocumulus' | 'altocumulus' | 'cirrocumulus';
 
 type Range = readonly [number, number];

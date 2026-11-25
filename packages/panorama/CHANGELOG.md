@@ -35,6 +35,7 @@
 ### Removed
 
 - The noise-filter clouds and the old ellipse lobes for the bump cloud types.
+- The grey nimbostratus deck that came with rain. The rain falls as before, under the same clouds as without it.
 
 ### Fixed
 

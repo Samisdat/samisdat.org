@@ -1,4 +1,4 @@
-export type CloudType = 'cirrus' | 'cirrocumulus' | 'altocumulus' | 'cumulus' | 'stratocumulus' | 'nimbostratus';
+export type CloudType = 'cirrus' | 'cirrocumulus' | 'altocumulus' | 'cumulus' | 'stratocumulus';
 
 /**
  * Colours of one cloud type. Every value is optional and any CSS colour; what is missing keeps the

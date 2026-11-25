@@ -44,7 +44,7 @@ interface LayerSpec {
 /** Cirrus keeps its fixed, scaled streaks; the other types come from the bump generator, which sizes them itself. */
 const CIRRUS = { shapes: ['cirrusA', 'cirrusB', 'cirrusC'] as ThinShapeName[], scale: [1, 1.6] as [number, number] };
 
-const SPECS: Record<Exclude<CloudType, 'nimbostratus'>, LayerSpec> = {
+const SPECS: Record<CloudType, LayerSpec> = {
     // The highest clouds drift fastest: the wind picks up with the height.
     cirrus: { slots: 6, y: [-10, 60], duration: 120 },
     cirrocumulus: { slots: 5, y: [30, 110], duration: 380 },
@@ -59,7 +59,6 @@ const SEEDS: Record<CloudType, number> = {
     altocumulus: 3,
     cumulus: 4,
     stratocumulus: 5,
-    nimbostratus: 6,
 };
 
 const between = ([from, to]: [number, number], value: number) => from + (to - from) * value;
@@ -91,7 +90,7 @@ const cirrusAt = (xs: number[], spec: LayerSpec, next: () => number): PlacedThin
     }));
 
 /** The clouds of a layer; their shapes come from the layer's own sequence, so a sky always looks the same. */
-const layerOf = (type: Exclude<CloudType, 'nimbostratus'>, oktas: Oktas): CloudLayer => {
+const layerOf = (type: CloudType, oktas: Oktas): CloudLayer => {
     const spec = SPECS[type];
     const next = random(SEEDS[type] * 100 + oktas);
     const count = Math.ceil((oktas / 8) * spec.slots);
@@ -111,14 +110,11 @@ const layerOf = (type: Exclude<CloudType, 'nimbostratus'>, oktas: Oktas): CloudL
 /** Low clouds: separate cumulus while the sky is mostly open, stratocumulus lumps once it closes up. */
 const lowType = (oktas: Oktas): 'cumulus' | 'stratocumulus' => (oktas <= 2 ? 'cumulus' : 'stratocumulus');
 
-/** Rain falls from a nimbostratus deck, which is at least almost closed. */
-const NIMBOSTRATUS_OKTAS: Record<Exclude<Rain, 'none'>, Oktas> = { light: 6, steady: 7, heavy: 8 };
-
 const cache = new Map<string, CloudLayer[]>();
 
 /**
- * The cloud layers of a sky, back to front: high (cirrus, cirrocumulus), mid (altocumulus), the
- * nimbostratus deck where it rains, low (cumulus or stratocumulus). Layers without cloud are left out.
+ * The cloud layers of a sky, back to front: high (cirrus, cirrocumulus), mid (altocumulus), low (cumulus or
+ * stratocumulus). Layers without cloud are left out.
  * Placed with fixed seeds, so the same sky always looks the same.
  */
 export const layersFor = ({ high, mid, low }: Sky, rain: Rain = 'none'): CloudLayer[] => {
@@ -138,10 +134,6 @@ export const layersFor = ({ high, mid, low }: Sky, rain: Rain = 'none'): CloudLa
 
         if (mid > 0) {
             layers.push(layerOf('altocumulus', mid));
-        }
-
-        if ('none' !== rain) {
-            layers.push({ type: 'nimbostratus', oktas: NIMBOSTRATUS_OKTAS[rain], clouds: [], duration: 360 });
         }
 
         if (low > 0) {

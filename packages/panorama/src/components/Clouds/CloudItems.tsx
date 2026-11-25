@@ -1,5 +1,4 @@
 import { CloudLayer, isBump, PlacedThin } from './cloudLayout';
-import { Nimbostratus } from './Nimbostratus';
 import { thinShapes } from './thinShapes';
 
 const ThinCloud = ({ shape, x, y, scale }: PlacedThin) => (
@@ -19,12 +18,8 @@ const ThinCloud = ({ shape, x, y, scale }: PlacedThin) => (
     </g>
 );
 
-/** One drift tile of a layer that drifts as a whole: the cirrus streaks, or the nimbostratus deck. */
+/** One drift tile of a layer that drifts as a whole: the cirrus streaks. */
 export const CloudItems = ({ layer }: { layer: CloudLayer }) => {
-    if ('nimbostratus' === layer.type) {
-        return <Nimbostratus />;
-    }
-
     return (
         <>
             {layer.clouds
