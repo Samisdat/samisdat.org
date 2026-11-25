@@ -4,8 +4,14 @@
  */
 import type { CSSProperties } from 'react';
 
-/** Stars brighter than this flash. */
-export const FLASH_MAGNITUDE = 3.8;
+/**
+ * Stars brighter than this flash. Every flashing star is an animation of its own that the browser lifts onto a
+ * compositor layer, so only the very brightest ones flash: at 3.8 it were 45 extra layers at dusk.
+ */
+export const FLASH_MAGNITUDE = 2;
+
+/** The stars that show through the whole of twilight, the brightest ones above the horizon. */
+const DUSK_STARS = 3;
 
 const MAGNITUDE_FAINTEST = 5.5;
 const MAGNITUDE_RANGE = 5;
@@ -21,15 +27,22 @@ export const starRadius = (mag: number) => RADIUS.min + (RADIUS.max - RADIUS.min
 
 export const starOpacity = (mag: number) => OPACITY.min + (OPACITY.max - OPACITY.min) * Math.sqrt(brightness(mag));
 
-/** Blue-white, white, linen, peach, salmon by B-V colour index. */
+/** Pale blue, white, linen, peach, rose by B-V colour index; the tints are only a hint, halfway to white. */
 export const starTint = (ci: number) => {
-    if (ci < 0.2) return '#b9d2ff';
+    if (ci < 0.2) return '#dce9ff';
     if (ci < 0.6) return '#ffffff';
-    if (ci < 1.0) return '#fff0d6';
-    if (ci < 1.4) return '#ffc79a';
+    if (ci < 1.0) return '#fff8eb';
+    if (ci < 1.4) return '#ffe3cd';
 
-    return '#ff9d7a';
+    return '#ffcebd';
 };
+
+/**
+ * How many of the `above` stars in the window show: the brightest few at dusk, then more with `reveal` (0..1) until all
+ * show. The catalogue is sorted by brightness, so the first ones are the ones to keep.
+ */
+export const starLimit = (above: number, reveal: number) =>
+    Math.min(above, DUSK_STARS + Math.round(reveal * Math.max(0, above - DUSK_STARS)));
 
 /** Deterministic pseudo random number in [0, 1) from an index. */
 const random = (index: number) => {

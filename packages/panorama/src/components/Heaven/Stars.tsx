@@ -6,12 +6,12 @@ import { LAT, LNG } from '@/lib/location';
 import { canEnterWindow, starPositions, type Star } from '@/lib/stars';
 import { useTal } from '@/lib/TalContext';
 
-import { FLASH_MAGNITUDE, flashStyle, RADIUS, starOpacity, starRadius, starTint } from './starStyle';
+import { FLASH_MAGNITUDE, flashStyle, RADIUS, starLimit, starOpacity, starRadius, starTint } from './starStyle';
 
 /** Where the sky window sits in the 1700 x 500 viewBox. Calibrated by eye against the hills. */
 const SKY = { left: 0, width: 1700, horizonY: 250, topY: 10 };
 /** Smallest on-screen radius in CSS pixels. Below this size all radii are scaled up together, so stars do not vanish on small screens. */
-const MIN_RADIUS_PX = 0.5;
+const MIN_RADIUS_PX = 0.3;
 /** Skip DOM writes for moves smaller than this (viewBox units); real-time movement is tiny. */
 const EPSILON = 0.05;
 
@@ -49,9 +49,54 @@ interface StarsProps {
     stars: readonly Star[];
     /** 0..1, how dark the sky is, see skyPalette. */
     amount: number;
+    /** 0..1, how many stars show besides the brightest few, see skyPalette. */
+    reveal: number;
 }
 
-export const Stars = ({ stars, amount }: StarsProps) => {
+/** Writes the stars of the window into the circles: only the brightest `limit` of them show. */
+const placeStars = (circles: HTMLCollection, buffer: Float32Array, written: Float32Array, reveal: number) => {
+    let above = 0;
+
+    for (let i = 0; i < buffer.length; i += 2) {
+        if (!Number.isNaN(buffer[i])) above += 1;
+    }
+
+    const limit = starLimit(above, reveal);
+    let rank = 0;
+
+    for (let i = 0; i < buffer.length / 2; i++) {
+        const circle = circles[i];
+        const u = buffer[i * 2];
+        const v = buffer[i * 2 + 1];
+        const wasShown = !Number.isNaN(written[i * 2]);
+        const shows = !Number.isNaN(u) && rank < limit;
+
+        if (!Number.isNaN(u)) rank += 1;
+
+        if (!shows) {
+            if (wasShown) {
+                circle.setAttribute('visibility', 'hidden');
+                written[i * 2] = NaN;
+            }
+            continue;
+        }
+
+        const x = SKY.left + u * SKY.width;
+        const y = SKY.horizonY - v * (SKY.horizonY - SKY.topY);
+
+        if (wasShown && Math.abs(x - written[i * 2]) < EPSILON && Math.abs(y - written[i * 2 + 1]) < EPSILON) {
+            continue;
+        }
+
+        circle.setAttribute('cx', x.toFixed(2));
+        circle.setAttribute('cy', y.toFixed(2));
+        if (!wasShown) circle.setAttribute('visibility', 'visible');
+        written[i * 2] = x;
+        written[i * 2 + 1] = y;
+    }
+};
+
+export const Stars = ({ stars, amount, reveal }: StarsProps) => {
     const { time } = useTal();
     const groupRef = useRef<SVGGElement>(null);
     const [boost, setBoost] = useState(1);
@@ -94,34 +139,8 @@ export const Stars = ({ stars, amount }: StarsProps) => {
 
         starPositions(candidates, time, LAT, LNG, buffer);
 
-        for (let i = 0; i < candidates.length; i++) {
-            const circle = group.children[i];
-            const u = buffer[i * 2];
-            const v = buffer[i * 2 + 1];
-            const wasShown = !Number.isNaN(written[i * 2]);
-
-            if (Number.isNaN(u)) {
-                if (wasShown) {
-                    circle.setAttribute('visibility', 'hidden');
-                    written[i * 2] = NaN;
-                }
-                continue;
-            }
-
-            const x = SKY.left + u * SKY.width;
-            const y = SKY.horizonY - v * (SKY.horizonY - SKY.topY);
-
-            if (wasShown && Math.abs(x - written[i * 2]) < EPSILON && Math.abs(y - written[i * 2 + 1]) < EPSILON) {
-                continue;
-            }
-
-            circle.setAttribute('cx', x.toFixed(2));
-            circle.setAttribute('cy', y.toFixed(2));
-            if (!wasShown) circle.setAttribute('visibility', 'visible');
-            written[i * 2] = x;
-            written[i * 2 + 1] = y;
-        }
-    }, [time, visible, candidates]);
+        placeStars(group.children, buffer, written, reveal);
+    }, [time, visible, candidates, reveal]);
 
     return (
         <g

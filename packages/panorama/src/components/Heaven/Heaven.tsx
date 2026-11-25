@@ -125,6 +125,7 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                         stars={stars}
                         amount={palette.stars}
                     />
+                        reveal={palette.starReveal}
                 </g>
             )}
             {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}

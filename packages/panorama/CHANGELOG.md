@@ -31,6 +31,7 @@
 - With reduced motion the bump clouds stand still, as the other clouds do.
 - Cloud tones: the day body and underside follow the hand-drawn clouds (`#d7d7d7` / `#a7bed0`), the night tones are
   darker. The other cover tones moved by the same amount.
+- Stars at dusk: the three brightest ones above the horizon show through twilight, the others come in one by one with nautical twilight, when the afterglow has faded. Only the brightest stars flash, on small screens the stars are smaller and their tints paler.
 
 ### Removed
 

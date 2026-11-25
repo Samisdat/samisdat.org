@@ -30,7 +30,9 @@ export interface SkyPalette {
     cloudLight: string;
     /** 0 by day, 1 at night; drives the cloud tones. */
     night: number;
-    /** 0..1: how many stars show, 0 in daylight, 1 when astronomically dark. */
+    /** 0..1: how many stars show besides the brightest few; 0 until nautical twilight, 1 at its end. */
+    starReveal: number;
+    /** 0..1: how bright the stars are, 0 in daylight, 1 when astronomically dark. */
     stars: number;
 }
 
@@ -109,7 +111,7 @@ const KEYS: readonly Key[] = [
         sunScale: 1.55,
         glow: 0.75,
         cloudLight: [hex('#E8506A'), hex('#F57A62')],
-        stars: 0.15,
+        stars: 0.5,
     },
     {
         alt: -6,
@@ -120,7 +122,7 @@ const KEYS: readonly Key[] = [
         sunScale: 1.55,
         glow: 0.45,
         cloudLight: [hex('#B8508C'), hex('#D8707E')],
-        stars: 0.3,
+        stars: 0.6,
     },
     {
         alt: -9,
@@ -131,7 +133,7 @@ const KEYS: readonly Key[] = [
         sunScale: 1.55,
         glow: 0.15,
         cloudLight: [hex('#6A4C90'), hex('#8A5C90')],
-        stars: 0.6,
+        stars: 0.75,
     },
     {
         alt: -12,
@@ -142,9 +144,13 @@ const KEYS: readonly Key[] = [
         sunScale: 1.55,
         glow: 0.03,
         cloudLight: hex('#3A3A78'),
-        stars: 0.85,
+        stars: 0.9,
     },
     {
+/** Sun altitudes where nautical twilight starts and ends. */
+const NAUTICAL_START = -6;
+const NAUTICAL_END = -12;
+
         alt: -18,
         zenith: hex('#060F22'),
         horizon: hex('#0A1630'),
@@ -205,6 +211,7 @@ const bracket = (altitudeDeg: number): [Key, Key, number] => {
 /** Palette for a sun altitude in degrees. `season` runs from -1 (winter) to 1 (summer), see {@link seasonFromArcHeight}. */
 export const skyPalette = (altitudeDeg: number, season = 0): SkyPalette => {
     const [a, b, t] = bracket(altitudeDeg);
+        starReveal: smooth(clamp01((NAUTICAL_START - altitudeDeg) / (NAUTICAL_START - NAUTICAL_END))),
     const s = Math.max(-1, Math.min(1, season));
     const rgb = (pick: (key: Key) => Seasonal) => toHex(mixRgb(resolve(pick(a), s), resolve(pick(b), s), t));
 

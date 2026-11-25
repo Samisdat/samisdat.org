@@ -70,8 +70,8 @@ describe('skyPalette', () => {
     });
 
     it('hits the keyframes exactly on the twilight thresholds', () => {
-        expect(skyPalette(-6).stars).toBeCloseTo(0.3);
-        expect(skyPalette(-12).stars).toBeCloseTo(0.85);
+        expect(skyPalette(-6).stars).toBeCloseTo(0.6);
+        expect(skyPalette(-12).stars).toBeCloseTo(0.9);
         expect(skyPalette(-18).stars).toBe(1);
     });
 
