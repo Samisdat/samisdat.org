@@ -51,7 +51,8 @@ describe('layersFor', () => {
         expect(layers.map(({ type }) => type)).toEqual(['cirrus', 'cirrocumulus', 'altocumulus', 'stratocumulus']);
         expect(layers.map(({ oktas }) => oktas)).toEqual([4, 4, 3, 5]);
         expect(new Set(layers.map(({ duration }) => duration)).size).toBe(layers.length);
-        expect(layers[0].duration).toBeGreaterThan(layers[3].duration);
+        // The wind picks up with the height: the highest layer drifts fastest.
+        expect(layers[0].duration).toBeLessThan(layers[3].duration);
     });
 
     it('uses cumulus while the low sky is open, and keeps cirrocumulus for a denser high sky', () => {
@@ -59,7 +60,8 @@ describe('layersFor', () => {
     });
 
     it('fills more places with more eighths and leaves gaps below 8', () => {
-        const count = (low: 3 | 5 | 7) => layersFor({ high: 0, mid: 0, low })[0].clouds.length;
+        // Places, not clouds: a wide cloud may start as two halves on one place.
+        const count = (low: 3 | 5 | 7) => layersFor({ high: 0, mid: 0, low })[0].drift?.length ?? 0;
 
         expect(count(3)).toBeLessThan(count(5));
         expect(count(5)).toBeLessThan(count(7));

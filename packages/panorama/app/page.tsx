@@ -20,10 +20,7 @@ export default function Home() {
             <TalProvider>
                 <div className={styles.page}>
                     <main className={styles.main}>
-                        <Panorama
-                            stars={stars}
-                            generatedClouds
-                        />
+                        <Panorama stars={stars} />
                         <DigitalClock />
                         <TimeFactor />
                     </main>
