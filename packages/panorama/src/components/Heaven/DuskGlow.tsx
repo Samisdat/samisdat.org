@@ -1,3 +1,5 @@
+import { SUN_X } from '../Clouds/cloudLight';
+
 interface DuskGlowProps {
     /** True in the morning: the glow sits where the sun rises, otherwise where it sets. */
     morning: boolean;
@@ -6,7 +8,7 @@ interface DuskGlowProps {
 }
 
 /** Centre of the glow at sunrise and at sunset; the sunset side mirrors the sunrise side on the arc, but sits lower, the sunrise side higher. */
-const CENTER = { sunrise: { x: 455, y: 185 }, sunset: { x: 1248, y: 235 } };
+const CENTER = { sunrise: { x: SUN_X.sunrise, y: 185 }, sunset: { x: SUN_X.sunset, y: 235 } };
 
 /**
  * The glow of the sun on the horizon: a yellow core in a red halo, two blurred ellipses (colours in the stylesheet).

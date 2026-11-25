@@ -6,6 +6,7 @@ import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
 import { Clouds } from '../Clouds/Clouds';
+import { SUN_X } from '../Clouds/cloudLight';
 import { ArcGuides } from './ArcGuides';
 import { DuskGlow } from './DuskGlow';
 import { Moon } from './Moon';
@@ -71,6 +72,9 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
         y: 306,
     });
 
+    // Before solar noon the sun rises on the left, after it the sun sets on the right.
+    const morning = sunTimes.currentTime < (sunTimes.sunrise + sunTimes.sunset) / 2;
+
     const sky = useMemo(() => getSkyState(time), [time]);
     const { isDay, arcProgress: celestialProgress, arcHeightFactor } = sky;
 
@@ -130,7 +134,7 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                 </g>
             )}
             <DuskGlow
-                morning={sunTimes.currentTime < (sunTimes.sunrise + sunTimes.sunset) / 2}
+                morning={morning}
                 amount={palette.glow}
             />
             {/* Sun and moon are infinitely far away: no parallax layer, only their own path moves them */}
@@ -154,6 +158,7 @@ export const Heaven = ({ stars, arcGuides }: HeavenProps) => {
                 weather={weather}
                 night={palette.night}
                 glow={{ color: palette.cloudLight, amount: palette.glow }}
+                sunX={morning ? SUN_X.sunrise : SUN_X.sunset}
             />
 
             {arcGuides && (

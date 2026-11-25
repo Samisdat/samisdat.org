@@ -453,18 +453,23 @@
     --n-s: oklch(0.17 0.045 275);
     --n-r: oklch(0.34 0.04 268);
 }
-/* --glow / --glow-c: the low sun lights the undersides red, the crowns only a little */
-.panorama .cloudBody {
+/*
+ * --glow / --glow-c: the low sun lights the undersides red, the crowns only a little. --lit (0..1) is how much of it a
+ * cloud catches, by its distance to the sun; it sits on the cloud's path, so the fill is set on the path as well.
+ */
+.panorama .cloudBody,
+.panorama .cloudBody > * {
     fill: color-mix(
         in oklch,
-        var(--glow-c) calc(var(--glow) * 25%),
+        var(--glow-c) calc(var(--glow) * var(--lit, 1) * 25%),
         color-mix(in oklch, var(--n-b) calc(var(--night) * 100%), var(--d-b))
     );
 }
-.panorama .cloudShade {
+.panorama .cloudShade,
+.panorama .cloudShade > * {
     fill: color-mix(
         in oklch,
-        var(--glow-c) calc(var(--glow) * 75%),
+        var(--glow-c) calc(var(--glow) * var(--lit, 1) * 75%),
         color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s))
     );
 }
@@ -546,13 +551,13 @@
 .panorama .timeControl {
     --tc-x: 14px;
     --tc-d: 84px;
+    /* The clock face is a share of the disc. */
+    --tc-clock: calc(var(--tc-d) * 0.74);
     --tc-sun: oklch(0.84 0.14 85);
     --tc-ink: var(--panorama-aubergine);
     --tc-ink-soft: oklch(0.42 0.06 85);
     --tc-rim: oklch(0.65 0.1 290);
     position: absolute;
-    /* The clock face is a share of the disc. */
-    --tc-clock: calc(var(--tc-d) * 0.74);
     inset: 0;
     /* Above the page header (z-index 10): the overlay hangs down over the page. */
     z-index: 11;
@@ -594,13 +599,13 @@
 .panorama .timeControl[data-open='false'] .timeControlDisc {
     background-color: transparent;
 }
+/* The button is as big as the disc, the clock face sits in its middle: a touch target of at least 44 px on a phone. */
 .panorama .timeControlClock {
     box-sizing: border-box;
     width: var(--tc-d);
     height: var(--tc-d);
     padding: calc((var(--tc-d) - var(--tc-clock)) / 2);
     border: 0;
-/* The button is as big as the disc, the clock face sits in its middle: a touch target of at least 44 px on a phone. */
     border-radius: 50%;
     background: transparent;
     color: var(--tc-ink);
@@ -654,12 +659,12 @@
     opacity: 1;
 }
 .panorama .timeControlPanel {
+    box-sizing: border-box;
     min-width: 0;
     margin: 0;
     border: 0;
     position: absolute;
     left: 0;
-    box-sizing: border-box;
     top: calc(var(--tc-d) / 2);
     width: 100%;
     display: flex;

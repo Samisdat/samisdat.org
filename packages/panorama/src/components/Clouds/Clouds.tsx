@@ -42,10 +42,12 @@ interface CloudsProps {
     palettes?: Partial<Record<CloudType, CloudPalette>>;
     /** Low sunlight on the clouds: its colour and strength (0..1). */
     glow?: { color: string; amount: number };
+    /** Where the sun rises or sets on the horizon; the clouds near it catch the low sunlight. */
+    sunX: number;
 }
 
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
-export const Clouds = ({ weather, night, palettes, glow }: CloudsProps) => {
+export const Clouds = ({ weather, night, palettes, glow, sunX }: CloudsProps) => {
     const { cover, rain } = weather;
     const tone = 'none' === rain ? TONE[cover] : 'grey';
 
@@ -81,7 +83,10 @@ export const Clouds = ({ weather, night, palettes, glow }: CloudsProps) => {
                         style={paletteVars(palettes?.[layer.type]) as CSSProperties}
                     >
                         {layer.drift ? (
-                            <DriftingClouds layer={layer} />
+                            <DriftingClouds
+                                layer={layer}
+                                sunX={sunX}
+                            />
                         ) : (
                             <g
                                 className="cloudDrift"

@@ -1,9 +1,10 @@
-import { memo, useEffect, useMemo, useRef } from 'react';
+import { CSSProperties, memo, useEffect, useMemo, useRef } from 'react';
 
 import { spawner } from './bumpLayer';
 import { DriftState, Placement, positions, startDrift, step } from './cloudDrift';
 import { Flow, flowParts } from './cloudFlow';
 import { isBump, SKY_WIDTH } from './cloudLayout';
+import { litOfCloud } from './cloudLight';
 import { drawCloud } from './cloudOutline';
 
 import type { BumpCloudType } from './bumpCloud';
@@ -96,11 +97,31 @@ const place = (placements: Map<number, Placement>, elements: Elements) =>
         )
     );
 
+/** Writes how much of the low sun a cloud catches, by its distance to where the sun is; only when it has changed. */
+const light = (placements: Map<number, Placement>, elements: Elements, sunX: number, written: Map<number, number>) =>
+    placements.forEach((placement, id) => {
+        const lit = litOfCloud(placement.x, sunX);
+
+        if (written.get(id) === lit) {
+            return;
+        }
+
+        written.set(id, lit);
+        PARTS.forEach(part =>
+            COPIES.forEach(copy => elements.get(keyOf(id, part, copy))?.style.setProperty('--lit', String(lit)))
+        );
+    });
+
 /**
  * Runs the drift of a layer and keeps its clouds moving and changing, without rendering React again on every frame.
  * It starts over only for a new layer: the panorama renders again as the day goes on, and the clouds must keep going.
  */
-const useDrift = (layer: CloudLayer, clouds: PlacedBump[], elements: React.RefObject<Elements>) => {
+const useDrift = (
+    layer: CloudLayer,
+    clouds: PlacedBump[],
+    elements: React.RefObject<Elements>,
+    sunX: React.RefObject<number>
+) => {
     useEffect(() => {
         if (!layer.drift || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             return undefined;
@@ -110,6 +131,7 @@ const useDrift = (layer: CloudLayer, clouds: PlacedBump[], elements: React.RefOb
         let state: DriftState = startDrift(SKY_WIDTH, layer.drift, layer.oktas * 31 + layer.duration, spawn);
         const factor = speedUp();
         const shapes = shaper(clouds, redrawsAt(factor));
+        const written = new Map<number, number>();
         let last = performance.now();
         let t = 0;
         let frame = 0;
@@ -126,13 +148,14 @@ const useDrift = (layer: CloudLayer, clouds: PlacedBump[], elements: React.RefOb
 
             shapes.shape(t, seconds, placements, elements.current);
             place(placements, elements.current);
+            light(placements, elements.current, sunX.current, written);
             frame = requestAnimationFrame(tick);
         };
 
         frame = requestAnimationFrame(tick);
 
         return () => cancelAnimationFrame(frame);
-    }, [layer, clouds, elements]);
+    }, [layer, clouds, elements, sunX]);
 };
 
 /**
@@ -140,11 +163,17 @@ const useDrift = (layer: CloudLayer, clouds: PlacedBump[], elements: React.RefOb
  * let out on the lee side. All bodies are drawn first, then all undersides, so clouds that meet read as one cloud.
  */
 // Memoised: the panorama renders again with the clock, and the layer (cached per sky) stays the same.
-export const DriftingClouds = memo(function DriftingClouds({ layer }: { layer: CloudLayer }) {
+export const DriftingClouds = memo(function DriftingClouds({ layer, sunX }: { layer: CloudLayer; sunX: number }) {
     const elements = useRef<Elements>(new Map());
     const clouds = useMemo(() => layer.clouds.filter(isBump), [layer]);
+    // Where the sun is changes between morning and evening; the drift keeps going and reads it from here.
+    const sunRef = useRef(sunX);
 
-    useDrift(layer, clouds, elements);
+    useEffect(() => {
+        sunRef.current = sunX;
+    }, [sunX]);
+
+    useDrift(layer, clouds, elements, sunRef);
 
     return (
         <>
@@ -168,6 +197,7 @@ export const DriftingClouds = memo(function DriftingClouds({ layer }: { layer: C
                                         }
                                     }}
                                     transform={`translate(${wrap(cloud.x) + copy} ${cloud.y})`}
+                                    style={{ ['--lit' as string]: litOfCloud(wrap(cloud.x), sunX) } as CSSProperties}
                                     d={cloud[part]}
                                 />
                             );
