@@ -418,7 +418,7 @@
     --window-day: var(--panorama-moss-green);
 }
 
-/* Clouds: a light body of round lobes with a dark, lens-shaped underside (body, shade), after assets/clouds-hand.svg. The tones fade from day to night with --night. */
+/* Clouds: a light body of round lobes with a dark, lens-shaped underside (body, shade), after hand-drawn reference clouds. The tones fade from day to night with --night. */
 .panorama .clouds {
     /* #d7d7d7 and #a7bed0, the hand-drawn clouds' colours */
     --d-b: oklch(0.874 0 0);
@@ -473,7 +473,7 @@
         color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s))
     );
 }
-/* Thin high clouds are see-through and pale; the colour work can set tones per type through the palettes prop */
+/* Thin high clouds are see-through and pale */
 .panorama .cloudLayer.type-cirrus {
     opacity: 0.6;
 }
@@ -599,7 +599,7 @@
 .panorama .timeControl[data-open='false'] .timeControlDisc {
     background-color: transparent;
 }
-/* The button is as big as the disc, the clock face sits in its middle: a touch target of at least 44 px on a phone. */
+/* The button is as big as the disc, the clock face sits in its middle, so the touch target is the disc. */
 .panorama .timeControlClock {
     box-sizing: border-box;
     width: var(--tc-d);

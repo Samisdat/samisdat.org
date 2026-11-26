@@ -1,9 +1,9 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-    // The dev server is also opened from other devices over Tailscale; without this Next.js blocks its scripts there.
-    // One wildcard covers one level of the name only, so the tailnet is spelled out.
-    allowedDevOrigins: ['*.tailec0ee.ts.net'],
+    // The dev server can also be opened from other devices, for example over Tailscale; without this Next.js blocks
+    // its scripts there. Set ALLOWED_DEV_ORIGINS to a comma separated list of host names, one wildcard covers one level.
+    allowedDevOrigins: (process.env.ALLOWED_DEV_ORIGINS ?? '').split(',').filter(Boolean),
 };
 
 export default nextConfig;

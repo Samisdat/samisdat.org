@@ -2,12 +2,9 @@
 
 ## [Unreleased]
 
-### Breaking Changes
-
-- `WtalPanorama` no longer takes `generatedClouds`. There is one cloud renderer now; drop the prop.
-
 ### Added
 
+- `WtalPanorama` takes the optional props `weather`, `stars` and `controls`. The library exports `COVERS`, `RAINS`, `percentToOktas`, `skyFromCover`, `skyFromPercent`, `MoonPhaseIcon`, `useSkyJump`, `LAT`, `LNG` and the types `Cover`, `Rain`, `Weather`, `Oktas`, `Sky`, `SkyBand`, `CloudType` and `Star`.
 - A static glow on the horizon at dusk and dawn: a yellow core in a red halo, two blurred ellipses behind the hills where the sun sets and rises, independent of the parallax. They fade in and out with the twilight.
 
 ### Changed
@@ -32,7 +29,7 @@
 - Cloud tones: the day body and underside follow the hand-drawn clouds (`#d7d7d7` / `#a7bed0`), the night tones are
   darker. The other cover tones moved by the same amount.
 - Stars at dusk: the three brightest ones above the horizon show through twilight, the others come in one by one with nautical twilight, when the afterglow has faded. Only the brightest stars flash, on small screens the stars are smaller and their tints paler.
-- Time control: the disc sits in the bottom left corner of the panorama and its overlay hangs down over the page, above the page header, so the panorama stays visible while the time is changed. On phones the disc is smaller (52 px) and closer to the edge, and still a touch target of that size; the overlay fits the width.
+- Time control: the disc sits in the bottom left corner of the panorama and its overlay hangs down over the page, above the page header, so the panorama stays visible while the time is changed. On phones the disc is smaller (38 px) and moves to the bottom right corner; the overlay opens to the left and fits the width.
 - The low sun lights only the clouds near where it sets or rises: every cloud catches the light by its horizontal distance to that place, with a soft falloff, so the clouds on the far side stay in the cool dusk tone.
 
 ### Removed
@@ -48,7 +45,7 @@
 - Heavy rain no longer makes the browser work so hard that Chrome flickers: the drops of one opacity are drawn as one path instead of one element each (about ten times less layout and paint work per frame, same look).
 - The sun keeps its size at dawn and dusk: the flat halo circle that moved with it and made it look bigger is gone; the glow on the horizon stays.
 - `suncalc` is now a runtime dependency (it was a devDependency and got bundled into `dist`).
-- Removed the unused `astronomy-engine` dependency.
+- `astronomy-engine` is no longer a dependency of the library; it stays a devDependency for the test that checks the star positions.
 - The panorama no longer renders again on every animation frame, but when the second changes (more at high clock speeds).
 - The sun shows over the hill when it rises, not a while after: the path of the sun and the moon starts higher. The season scales the arc over the line between its ends now, so both ends stay put all year.
 
