@@ -6,7 +6,6 @@ import { Weather } from '@/lib/weather';
 import { ParallaxLayer } from '../ParallaxLayer';
 import { CloudItems } from './CloudItems';
 import { layersFor, SKY_WIDTH } from './cloudLayout';
-import { CloudPalette, CloudType } from './cloudTypes';
 import { DriftingClouds } from './DriftingClouds';
 
 /** How much the sky behind the clouds darkens, by cover. */
@@ -19,27 +18,10 @@ const TONE: Record<Weather['cover'], string> = {
     overcast: 'overcast',
 };
 
-/** A palette as the custom properties the cloud classes read; unset colours keep the tone's default. */
-const paletteVars = ({ day, night }: CloudPalette = {}): Record<string, string> => {
-    const vars: Record<string, string | undefined> = {
-        '--d-b': day?.body,
-        '--d-s': day?.shade,
-        '--n-b': night?.body,
-        '--n-s': night?.shade,
-    };
-
-    return Object.fromEntries(Object.entries(vars).filter(([, value]) => undefined !== value)) as Record<
-        string,
-        string
-    >;
-};
-
 interface CloudsProps {
     weather: Weather;
     /** 0 by day, 1 at night, in between at dusk and dawn. */
     night: number;
-    /** Colours per cloud type, to replace the default day and night tones. */
-    palettes?: Partial<Record<CloudType, CloudPalette>>;
     /** Low sunlight on the clouds: its colour and strength (0..1). */
     glow?: { color: string; amount: number };
     /** Where the sun rises or sets on the horizon; the clouds near it catch the low sunlight. */
@@ -47,7 +29,7 @@ interface CloudsProps {
 }
 
 /** Clouds drifting across the sky, in front of sun and moon, behind the hills. */
-export const Clouds = ({ weather, night, palettes, glow, sunX }: CloudsProps) => {
+export const Clouds = ({ weather, night, glow, sunX }: CloudsProps) => {
     const { cover, rain } = weather;
     const tone = 'none' === rain ? TONE[cover] : 'grey';
 
@@ -78,10 +60,7 @@ export const Clouds = ({ weather, night, palettes, glow, sunX }: CloudsProps) =>
                     scrollspeed={14 - index}
                     depth={-6 + index}
                 >
-                    <g
-                        className={`cloudLayer type-${layer.type}`}
-                        style={paletteVars(palettes?.[layer.type]) as CSSProperties}
-                    >
+                    <g className={`cloudLayer type-${layer.type}`}>
                         {layer.drift ? (
                             <DriftingClouds
                                 layer={layer}
