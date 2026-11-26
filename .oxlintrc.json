@@ -179,17 +179,6 @@
       }
     },
     {
-      "files": ["packages/panorama/src/lib/TalContext.tsx"],
-      "rules": {
-        "complexity": [
-          "error",
-          {
-            "max": 20
-          }
-        ]
-      }
-    },
-    {
       "files": ["packages/ui-components/src/Demo/Smil/Crank/index.tsx"],
       "rules": {
         "max-lines-per-function": [
