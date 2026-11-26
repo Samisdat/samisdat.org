@@ -1,6 +1,6 @@
 # ADR 0025: Sonne und Mond auf festem Bogen
 
-Datum: 2026-11-21 · Status: Vorgeschlagen
+Datum: 2026-11-21 · Status: Akzeptiert
 
 ## Kontext
 
@@ -37,8 +37,8 @@ Sterne kommen aus einem echten Katalog mit echter Sternzeit, in einer
 eigenen Projektion, unabhängig vom Bogen. Der Mond sitzt deshalb nicht
 zwischen den richtigen Sternen und kann echte Sterne an der falschen Stelle
 verdecken. Das wird in Kauf genommen. Sterne werden hinter dem Mond
-gezeichnet, damit die Scheibe sie überdeckt. Katalog und Lizenz sind noch
-nicht gewählt.
+gezeichnet, damit die Scheibe sie überdeckt. Katalog und Lizenz sind in
+ADR 0027 festgelegt.
 
 ## Begründung
 
@@ -62,8 +62,8 @@ nicht gewählt.
   Jahreszeiten, aber mit Verzerrung, ohne gestaltbaren Dämmerungsverlauf und
   mit einer festzulegenden Horizontlinie. Verworfen.
 - **Erfundene Sterne mit langsamer Drehung**: wäre konsistent mit dem Mond,
-  aber ohne den Reiz eines echten Himmels. Nicht gewählt, bleibt als
-  Rückfall, falls kein Katalog mit passender Lizenz zu finden ist.
+  aber ohne den Reiz eines echten Himmels. Nicht gewählt, weil mit HYG ein
+  Katalog mit passender Lizenz vorliegt (ADR 0027).
 
 ## Konsequenzen
 
