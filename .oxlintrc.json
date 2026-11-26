@@ -179,43 +179,6 @@
       }
     },
     {
-      "files": ["packages/panorama/src/components/Heaven/Heaven.tsx"],
-      "rules": {
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 106,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
-      "files": ["packages/panorama/src/components/Panorama.tsx"],
-      "rules": {
-        "max-lines-per-function": [
-          "error",
-          {
-            "max": 142,
-            "skipBlankLines": true,
-            "skipComments": true
-          }
-        ]
-      }
-    },
-    {
-      "files": ["packages/panorama/src/lib/TalContext.tsx"],
-      "rules": {
-        "complexity": [
-          "error",
-          {
-            "max": 20
-          }
-        ]
-      }
-    },
-    {
       "files": ["packages/ui-components/src/Demo/Smil/Crank/index.tsx"],
       "rules": {
         "max-lines-per-function": [

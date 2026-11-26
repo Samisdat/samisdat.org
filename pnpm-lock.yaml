@@ -263,6 +263,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 'catalog:'
         version: 5.1.1(@vitest/browser@5.1.1)(vitest@5.1.1)
+      astronomy-engine:
+        specifier: ^2.1.19
+        version: 2.1.19
       next:
         specifier: 'catalog:'
         version: 16.4.6(@babel/core@8.0.6)(@types/node@26.6.6)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
@@ -3676,6 +3679,9 @@ packages:
   astring@1.9.0:
     resolution: {integrity: sha512-LElXdjswlqjWrPpJFg1Fx4wpkOCxj1TDHlSV4PlaRxHGWko024xICaa97ZkMfs6DRKlCguiAI+rbXv5GWwXIkg==}
     hasBin: true
+
+  astronomy-engine@2.1.19:
+    resolution: {integrity: sha512-8yWKNf7UeNbH458h3sAJ6ZgAjE5jTXp/mNNRFoC20j2SHwZIjAQeEsBB2Q3uCFRaTCCJRv33K2XhkhZQMXoX6w==}
 
   axe-core@4.14.0:
     resolution: {integrity: sha512-9WTZxEjsZ7b13TH8JPmbV2z8CHbl80/2hm3XPEG4JgNdQLK81IBRXmSxHfMAOkSqQeRxT/0dwNDz2GOm3zzpcQ==}
@@ -8540,6 +8546,8 @@ snapshots:
   astral-regex@2.0.0: {}
 
   astring@1.9.0: {}
+
+  astronomy-engine@2.1.19: {}
 
   axe-core@4.14.0: {}
 

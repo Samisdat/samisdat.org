@@ -39,8 +39,9 @@ Build-Setup:
   nur den Build-Output (`dist/`).
 - Im Monorepo-Dev (`pnpm dev:all`) läuft tsup im Watch-Mode parallel zum
   Next.js-Dev-Server.
-- `astronomy-engine` ist die einzige Runtime-Dependency — hält das Bundle
-  klein.
+- `suncalc` ist die einzige Runtime-Dependency — hält das Bundle klein.
+  `astronomy-engine` ist nur noch eine devDependency und prüft in einem Test
+  die Sternpositionen.
 - Vor einem npm-Publish muss `pnpm build:lib` laufen (`prepublish`-Script).
 - Das Package ist aktuell `"private": false` — ein `npm publish` ist
   jederzeit möglich.

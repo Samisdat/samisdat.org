@@ -1,6 +1,10 @@
 import { usePrefersReducedMotion } from '@samisdat/tools';
-import React, { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+
 import { computeSunTimes, type SunTimes } from './sunTimes';
+import { testParam } from './testParams';
+import { useWeather } from './useWeather';
+import { Weather } from './weather';
 
 export type { SunTimes };
 
@@ -9,23 +13,56 @@ interface TalContextType {
     time: Date;
     timeFactor: number;
     setTimeFactor: (factor: number) => void;
+    /** False once the clock has moved away from the real time. */
+    atRealTime: boolean;
+    paused: boolean;
+    setPaused: (paused: boolean) => void;
+    /** Normal speed, running, and the clock back on the real time. */
+    reset: () => void;
+    /** Moves the simulated clock to this moment; the speed and a pause stay as they are. */
+    jumpTo: (moment: Date) => void;
     sunTimes: SunTimes;
+    weather: Weather;
 }
+
+/** How far the clock may be off the real time and still count as on it. */
+const REAL_TIME_TOLERANCE_MS = 1500;
 
 const TalContext = createContext<TalContextType | undefined>(undefined);
 
-export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weather }> = ({
+    children,
+    weather: forced,
+}) => {
     const reduceMotion = usePrefersReducedMotion();
+    const [paused, setPaused] = useState(false);
+    const [atRealTime, setAtRealTime] = useState(true);
     const [animate, setAnimate] = useState<boolean>(false);
 
     const [time, setTime] = useState(() => new Date());
-    const [timeFactor, setTimeFactor] = useState(1000); // Default: 10x Geschwindigkeit
+    const [timeFactor, setTimeFactor] = useState(1); // 1 = normal time
 
     const lastFrameRef = useRef<number | null>(null);
     const lastRealTimeRef = useRef(0);
     const simulatedTimeRef = useRef(time.getTime());
+    const pinnedRef = useRef(false);
+
+    const weather = useWeather(time, forced);
 
     const sunTimes = useMemo(() => computeSunTimes(time), [time]);
+
+    // `?time=2026-12-21T15:30:00Z` pins the clock for testing and screenshots.
+    useEffect(() => {
+        const pinned = new Date(testParam('time') ?? '');
+
+        if (Number.isNaN(pinned.getTime())) {
+            return;
+        }
+
+        // The animation loop publishes the time; a pinned clock does not advance.
+        simulatedTimeRef.current = pinned.getTime();
+        pinnedRef.current = true;
+    }, []);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -43,12 +80,17 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
                 const deltaReal = now - lastRealTimeRef.current;
                 const deltaSim = deltaReal * timeFactor;
 
-                if (!reduceMotion) {
+                if (!reduceMotion && !paused && !pinnedRef.current) {
                     simulatedTimeRef.current += deltaSim;
                 }
 
-                setTime(() => {
-                    return new Date(simulatedTimeRef.current);
+                setAtRealTime(Math.abs(simulatedTimeRef.current - Date.now()) < REAL_TIME_TOLERANCE_MS);
+                // Only a new second is published: everything that reads the time renders again with it, and a
+                // new Date on every frame would render the whole panorama 60 to 120 times a second.
+                setTime(previous => {
+                    const second = Math.floor(simulatedTimeRef.current / 1000) * 1000;
+
+                    return previous.getTime() === second ? previous : new Date(second);
                 });
             }
             lastRealTimeRef.current = now;
@@ -59,11 +101,37 @@ export const TalProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         return () => {
             if (lastFrameRef.current) cancelAnimationFrame(lastFrameRef.current);
         };
-    }, [timeFactor, reduceMotion]);
+    }, [timeFactor, reduceMotion, paused]);
+
+    const reset = useCallback(() => {
+        simulatedTimeRef.current = Date.now();
+        setTimeFactor(1);
+        setPaused(false);
+        setAtRealTime(true);
+        setTime(new Date(simulatedTimeRef.current));
+    }, []);
+
+    const jumpTo = useCallback((moment: Date) => {
+        simulatedTimeRef.current = moment.getTime();
+        setAtRealTime(false);
+        setTime(new Date(moment));
+    }, []);
 
     const value = useMemo(
-        () => ({ animate, time, timeFactor, setTimeFactor, sunTimes }),
-        [animate, time, timeFactor, setTimeFactor, sunTimes]
+        () => ({
+            animate,
+            time,
+            timeFactor,
+            setTimeFactor,
+            atRealTime,
+            paused,
+            setPaused,
+            reset,
+            jumpTo,
+            sunTimes,
+            weather,
+        }),
+        [animate, time, timeFactor, atRealTime, paused, reset, jumpTo, sunTimes, weather]
     );
 
     return <TalContext.Provider value={value}>{children}</TalContext.Provider>;

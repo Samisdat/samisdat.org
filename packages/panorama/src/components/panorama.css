@@ -25,6 +25,8 @@
     --panorama-sky-blue: oklch(0.65 0.18 215);
     --panorama-midnight-blue: oklch(0.12 0.03 255);
     --panorama-midnight-indigo: oklch(0.2 0.12 275);
+    --panorama-window-light: oklch(0.88 0.15 85);
+    --panorama-installation-light: oklch(0.98 0.01 100);
     --panorama-moss-green-light: oklch(0.62 0.06 135);
     --panorama-moss-green: oklch(0.42 0.07 130);
     --panorama-moss-olive: oklch(0.32 0.07 125);
@@ -50,7 +52,9 @@
     width: 100%;
     aspect-ratio: 1280/500;
     text-align: center;
-    overflow: hidden;
+    /* The scenery is cropped on the sides; the time control may hang down over the page. */
+    overflow-x: clip;
+    overflow-y: visible;
 }
 
 .panorama > svg {
@@ -83,217 +87,229 @@
 }
 
 .panorama .alter-markt {
-    fill: var(--panorama-slate-gray);
+    fill: color-mix(in oklab, var(--panorama-slate-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .beyenburger-dom-base {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .panorama .beyenburger-dom-roof {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .panorama .beyenburger-dom-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .panorama .beyenburger-dom-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .blue-house-light {
-    fill: var(--panorama-aqua-gray);
+    fill: color-mix(in oklab, var(--panorama-aqua-gray), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-dark {
-    fill: var(--panorama-steel-blue);
+    fill: color-mix(in oklab, var(--panorama-steel-blue), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-roof {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 .blue-house-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .bridge-zoo-dark {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 .bridge-zoo-light {
-    fill: var(--panorama-terracotta);
+    fill: color-mix(in oklab, var(--panorama-terracotta), black calc(var(--dark, 0) * 100%));
 }
 .bridge-zoo-front {
-    fill: var(--panorama-copper-brown);
+    fill: color-mix(in oklab, var(--panorama-copper-brown), black calc(var(--dark, 0) * 100%));
 }
 
 .elisenturm-base,
 .elisenturm-window {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .elisenturm-dark {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .gelber-turm-base {
-    fill: var(--panorama-sunflower-yellow);
+    fill: color-mix(in oklab, var(--panorama-sunflower-yellow), black calc(var(--dark, 0) * 100%));
 }
 .gelber-turm-light {
-    fill: var(--panorama-golden-ochre);
+    fill: color-mix(in oklab, var(--panorama-golden-ochre), black calc(var(--dark, 0) * 100%));
 }
 .gelber-turm-dark {
-    fill: var(--panorama-dark-ochre);
+    fill: color-mix(in oklab, var(--panorama-dark-ochre), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-light1 {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-roof,
 .green-house-dark1 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-light2 {
-    fill: var(--panorama-moss-olive);
+    fill: color-mix(in oklab, var(--panorama-moss-olive), black calc(var(--dark, 0) * 100%));
 }
 
 .green-house-dark2 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .green-tower-base {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
 }
 
 .green-tower-window,
 .green-tower-dark {
-    fill: var(--panorama-moss-green);
+    fill: color-mix(in oklab, var(--panorama-moss-green), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-base {
-    fill: var(--panorama-dusty-rose);
+    fill: color-mix(in oklab, var(--panorama-dusty-rose), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-roof,
 .lila-church-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .oligsmuehle {
-    fill: var(--panorama-slate-gray);
+    fill: color-mix(in oklab, var(--panorama-slate-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .red-church-base {
-    fill: var(--panorama-crimson-dark);
+    fill: color-mix(in oklab, var(--panorama-crimson-dark), black calc(var(--dark, 0) * 100%));
 }
 .red-church-light {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .red-church-front {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus {
-    fill: var(--panorama-sunflower-yellow);
+    fill: color-mix(in oklab, var(--panorama-sunflower-yellow), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus-window {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .schauspielhaus-canopy {
-    fill: var(--panorama-golden-ochre);
+    fill: color-mix(in oklab, var(--panorama-golden-ochre), black calc(var(--dark, 0) * 100%));
 }
 
 .tower-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .tower-dark,
 .tower2-dark {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 
 .towerlight,
 .tower2-light {
-    fill: var(--panorama-mauve-gray);
+    fill: color-mix(in oklab, var(--panorama-mauve-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .townhall-light {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 .townhall-dark {
-    fill: var(--panorama-bright-red);
+    fill: color-mix(in oklab, var(--panorama-bright-red), black calc(var(--dark, 0) * 100%));
 }
 .townhall-roof {
-    fill: var(--panorama-aubergine);
+    fill: color-mix(in oklab, var(--panorama-aubergine), black calc(var(--dark, 0) * 100%));
 }
 .townhall-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .university-base {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 .university-dark {
-    fill: var(--panorama-moss-olive);
+    fill: color-mix(in oklab, var(--panorama-moss-olive), black calc(var(--dark, 0) * 100%));
 }
 .university-light {
-    fill: var(--panorama-moss-green-light);
+    fill: color-mix(in oklab, var(--panorama-moss-green-light), black calc(var(--dark, 0) * 100%));
+}
+
+/* A few clear lines of the university's light installation, white at night, fading in with dusk. */
+.university-installation {
+    fill: var(--panorama-installation-light);
+    opacity: var(--twilight, 0);
 }
 
 .vohwinkel-roof,
 .vohwinkel-window {
-    fill: var(--panorama-brick-red);
+    fill: color-mix(in oklab, var(--panorama-brick-red), black calc(var(--dark, 0) * 100%));
 }
 
 .vohwinkel-dark {
-    fill: var(--panorama-fire-red);
+    fill: color-mix(in oklab, var(--panorama-fire-red), black calc(var(--dark, 0) * 100%));
 }
 .vohwinkel-light {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .water-tower-dark {
-    fill: var(--panorama-wine-red);
+    fill: color-mix(in oklab, var(--panorama-wine-red), black calc(var(--dark, 0) * 100%));
 }
 .water-tower-base {
-    fill: var(--panorama-crimson-dark);
+    fill: color-mix(in oklab, var(--panorama-crimson-dark), black calc(var(--dark, 0) * 100%));
 }
 .water-tower-light {
-    fill: var(--panorama-coral-light);
+    fill: color-mix(in oklab, var(--panorama-coral-light), black calc(var(--dark, 0) * 100%));
 }
 
 .wupper {
-    fill: var(--panorama-river-blue);
+    fill: color-mix(in oklab, var(--panorama-river-blue), black calc(var(--dark, 0) * 100%));
 }
 .shore {
-    fill: var(--panorama-pine-green);
+    fill: color-mix(in oklab, var(--panorama-pine-green), black calc(var(--dark, 0) * 100%));
 }
 
-.night {
-    fill: var(--panorama-midnight-blue);
+.stars circle {
+    fill: oklch(0.98 0.01 90);
 }
 
 .moon {
-    fill: var(--panorama-moon-gray);
+    fill: color-mix(in oklab, var(--panorama-moon-gray), black calc(var(--dark, 0) * 100%));
 }
 
 .crater {
-    fill: var(--panorama-crater-gray);
+    fill: color-mix(in oklab, var(--panorama-crater-gray), black calc(var(--dark, 0) * 100%));
+}
+
+/* The dark part of the moon stays faintly visible (earthshine) */
+.moonEarthshine {
+    opacity: 0.14;
 }
 
 .sun {
-    fill: var(--panorama-neon-yellow);
+    fill: color-mix(in oklab, var(--panorama-neon-yellow), black calc(var(--dark, 0) * 100%));
 }
 
 .hardt {
-    fill: var(--panorama-forest-green);
+    fill: color-mix(in oklab, var(--panorama-forest-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill010 {
-    fill: var(--panorama-mustard-yellow);
+    fill: color-mix(in oklab, var(--panorama-mustard-yellow), black calc(var(--dark, 0) * 100%));
 }
 
+/* The foremost hills stay as they are: they carry on into the page below the panorama. */
 .hill-before-green-tower,
 .hill4100 {
     fill: var(--panorama-aubergine);
@@ -301,69 +317,58 @@
 
 .vohwinkel-back,
 .hill2900 {
-    fill: var(--panorama-emerald-dark);
+    fill: color-mix(in oklab, var(--panorama-emerald-dark), black calc(var(--dark, 0) * 100%));
 }
 
 .lila-church-hill,
 .hill3200 {
-    fill: var(--panorama-forest-hill);
+    fill: color-mix(in oklab, var(--panorama-forest-hill), black calc(var(--dark, 0) * 100%));
 }
 
 .hill3800,
 .hill2800 {
-    fill: var(--panorama-dark-moss);
+    fill: color-mix(in oklab, var(--panorama-dark-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .hill3300,
 .hill100,
 .hill2250,
 .hill2200 {
-    fill: var(--panorama-pine-dark);
+    fill: color-mix(in oklab, var(--panorama-pine-dark), black calc(var(--dark, 0) * 100%));
 }
 
 .hill1110 {
-    fill: var(--panorama-olive-moss);
+    fill: color-mix(in oklab, var(--panorama-olive-moss), black calc(var(--dark, 0) * 100%));
 }
 
 .hill050 {
-    fill: var(--panorama-deep-pine);
+    fill: color-mix(in oklab, var(--panorama-deep-pine), black calc(var(--dark, 0) * 100%));
 }
 
 .hill040 {
-    fill: var(--panorama-spring-green);
+    fill: color-mix(in oklab, var(--panorama-spring-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill030 {
-    fill: var(--panorama-olive-green);
+    fill: color-mix(in oklab, var(--panorama-olive-green), black calc(var(--dark, 0) * 100%));
 }
 
 .hill020 {
-    fill: var(--panorama-warm-olive);
+    fill: color-mix(in oklab, var(--panorama-warm-olive), black calc(var(--dark, 0) * 100%));
 }
 
 .track {
-    fill: var(--panorama-apricot);
+    fill: color-mix(in oklab, var(--panorama-apricot), black calc(var(--dark, 0) * 100%));
 }
 
 .car {
-    fill: var(--panorama-sky-blue);
+    fill: color-mix(in oklab, var(--panorama-sky-blue), black calc(var(--dark, 0) * 100%));
     stroke: var(--panorama-midnight-indigo);
     stroke-width: 3;
     width: 81px;
     height: 11px;
 }
 
-.panorama .clock .clockHandHour,
-.panorama .clock .clockHandMinute {
-    stroke: #fff;
-    stroke-width: 3;
-    stroke-miterlimit: 10;
-    stroke-linecap: round;
-}
-.panorama .clock .clockHandSecond {
-    stroke: #d53a1f;
-    stroke-width: 1;
-}
 .panorama .clock .clockHandHour,
 .panorama .clock .clockHandMinute,
 .panorama .clock .clockHandSecond {
@@ -378,4 +383,473 @@
 }
 .panorama .clock .clockHandSecond {
     transform: rotate(calc(360deg * var(--second) / 60));
+}
+
+/* Night darkens the layers towards black, the nearer the darker: --dark is 0 by day and, at night, 20% on the farthest layer up to 50% on the nearest. Lit windows keep their colour. */
+.panorama .parallax-scroll {
+    --dark: calc(var(--twilight, 0) * (0.2 + (var(--depth) + 7) / 14 * 0.3));
+}
+
+/* Windows: dark by day, warm light at night. --twilight (0 day, 1 night) is set on .panorama and fades with dusk and dawn. */
+.panorama .window,
+.panorama .windows,
+.panorama [class*='-window'] {
+    fill: color-mix(in oklch, var(--panorama-window-light) calc(var(--twilight, 0) * 100%), var(--window-day));
+}
+
+.beyenburger-dom-window,
+.townhall-window,
+.vohwinkel-window {
+    --window-day: var(--panorama-brick-red);
+}
+
+.blue-house-window,
+.lila-church-window,
+.schauspielhaus-window,
+.tower-dark.window {
+    --window-day: var(--panorama-aubergine);
+}
+
+.elisenturm-window {
+    --window-day: var(--panorama-apricot);
+}
+
+.green-tower-window {
+    --window-day: var(--panorama-moss-green);
+}
+
+/* Clouds: a light body of round lobes with a dark, lens-shaped underside (body, shade), after hand-drawn reference clouds. The tones fade from day to night with --night. */
+.panorama .clouds {
+    /* #d7d7d7 and #a7bed0, the hand-drawn clouds' colours */
+    --d-b: oklch(0.874 0 0);
+    --d-s: oklch(0.792 0.034 241);
+    --d-r: oklch(1 0 0);
+    --n-b: oklch(0.33 0.05 266);
+    --n-s: oklch(0.23 0.06 272);
+    --n-r: oklch(0.5 0.05 262);
+    animation: cloudsIn 1.2s ease-out;
+}
+.panorama .clouds.tone-mix {
+    --d-b: oklch(0.81 0.008 255);
+    --d-s: oklch(0.7 0.025 258);
+    --d-r: oklch(0.96 0.005 255);
+    --n-b: oklch(0.29 0.045 267);
+    --n-s: oklch(0.21 0.055 272);
+    --n-r: oklch(0.44 0.045 262);
+}
+.panorama .clouds.tone-overcast {
+    --d-b: oklch(0.7 0.01 260);
+    --d-s: oklch(0.59 0.02 265);
+    --d-r: oklch(0.86 0.008 260);
+    --n-b: oklch(0.25 0.04 268);
+    --n-s: oklch(0.19 0.05 273);
+    --n-r: oklch(0.38 0.04 265);
+}
+.panorama .clouds.tone-grey {
+    --d-b: oklch(0.65 0.012 262);
+    --d-s: oklch(0.55 0.02 268);
+    --d-r: oklch(0.8 0.01 262);
+    --n-b: oklch(0.23 0.04 270);
+    --n-s: oklch(0.17 0.045 275);
+    --n-r: oklch(0.34 0.04 268);
+}
+/*
+ * --glow / --glow-c: the low sun lights the undersides red, the crowns only a little. --lit (0..1) is how much of it a
+ * cloud catches, by its distance to the sun; it sits on the cloud's path, so the fill is set on the path as well.
+ */
+.panorama .cloudBody,
+.panorama .cloudBody > * {
+    fill: color-mix(
+        in oklch,
+        var(--glow-c) calc(var(--glow) * var(--lit, 1) * 25%),
+        color-mix(in oklch, var(--n-b) calc(var(--night) * 100%), var(--d-b))
+    );
+}
+.panorama .cloudShade,
+.panorama .cloudShade > * {
+    fill: color-mix(
+        in oklch,
+        var(--glow-c) calc(var(--glow) * var(--lit, 1) * 75%),
+        color-mix(in oklch, var(--n-s) calc(var(--night) * 100%), var(--d-s))
+    );
+}
+/* Thin high clouds are see-through and pale */
+.panorama .cloudLayer.type-cirrus {
+    opacity: 0.6;
+}
+.panorama .cloudLayer.type-cirrocumulus {
+    opacity: 0.7;
+}
+.panorama .cloudLayer.type-altocumulus {
+    opacity: 0.92;
+}
+.panorama .cloudTint {
+    fill: color-mix(in oklch, oklch(0.1 0.03 260) calc(var(--night) * 100%), oklch(0.42 0.02 265));
+    opacity: calc(var(--tint) * (1 - var(--night) * 0.65));
+}
+.panorama .cloudDrift {
+    animation: cloudDrift var(--duration) linear infinite;
+}
+@keyframes cloudDrift {
+    to {
+        transform: translateX(-1700px);
+    }
+}
+@keyframes cloudsIn {
+    from {
+        opacity: 0;
+    }
+}
+
+/* The glow on the horizon at dusk and dawn: a yellow core in a red halo; DuskGlow blurs them (values of the design). */
+.panorama .dusk-core {
+    fill: #f0ff5e;
+}
+.panorama .dusk-halo {
+    fill: #f16453;
+}
+/* Rain falls over the whole panorama */
+.panorama .rain path {
+    stroke: color-mix(in oklch, oklch(0.62 0.05 255) calc(var(--twilight, 0) * 100%), oklch(0.9 0.02 250));
+    stroke-linecap: round;
+}
+.panorama .rainFall {
+    animation: rainFall var(--duration) linear infinite;
+}
+@keyframes rainFall {
+    to {
+        transform: translate(var(--run), 500px);
+    }
+}
+/* Twinkle of the brightest stars: steady most of the time, then a short dip and a quick flash in brightness. The size never changes. */
+.panorama .star-flash {
+    animation: star-flash 8s ease-out infinite;
+}
+
+@keyframes star-flash {
+    86% {
+        opacity: 0.35;
+    }
+    92% {
+        opacity: 1;
+    }
+    96% {
+        opacity: 0.6;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .panorama .star-flash,
+    .panorama .cloudDrift,
+    .panorama .rainFall,
+    .panorama .clouds {
+        animation: none;
+    }
+}
+
+/* Time control: the clock in the bottom left corner, the yellow overlay hangs below as one shape with the disc. */
+.panorama .timeControl {
+    --tc-x: 14px;
+    --tc-d: 84px;
+    /* The clock face is a share of the disc. */
+    --tc-clock: calc(var(--tc-d) * 0.74);
+    --tc-sun: oklch(0.84 0.14 85);
+    --tc-ink: var(--panorama-aubergine);
+    --tc-ink-soft: oklch(0.42 0.06 85);
+    --tc-rim: oklch(0.65 0.1 290);
+    position: absolute;
+    inset: 0;
+    /* Above the page header (z-index 10): the overlay hangs down over the page. */
+    z-index: 11;
+    text-align: left;
+    pointer-events: none;
+    filter: drop-shadow(1.5px 0 0 var(--tc-rim)) drop-shadow(-1.5px 0 0 var(--tc-rim))
+        drop-shadow(0 1.5px 0 var(--tc-rim)) drop-shadow(0 -1.5px 0 var(--tc-rim))
+        drop-shadow(0 12px 22px oklch(0.15 0.05 300 / 45%));
+}
+@media (max-width: 520px) {
+    .panorama .timeControl {
+        --tc-d: 38px;
+        --tc-x: 6px;
+    }
+}
+.panorama .timeControl[data-open='false'] {
+    /* the outline and shadow belong to the yellow shape; closed, they would show through the clock face */
+    filter: none;
+}
+.panorama .timeControlShape {
+    position: absolute;
+    left: var(--tc-x);
+    /* The disc sits in the bottom left corner; the panel hangs down from it, over the page, not over the panorama. */
+    top: calc(100% - var(--tc-x) - var(--tc-d));
+    width: min(372px, calc(100% - 2 * var(--tc-x)));
+}
+.panorama .timeControlDisc {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: var(--tc-d);
+    height: var(--tc-d);
+    border-radius: 50%;
+    background: var(--tc-sun);
+    pointer-events: auto;
+    transition: background-color 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .timeControlDisc {
+    background-color: transparent;
+}
+/* The button is as big as the disc, the clock face sits in its middle, so the touch target is the disc. */
+.panorama .timeControlClock {
+    box-sizing: border-box;
+    width: var(--tc-d);
+    height: var(--tc-d);
+    padding: calc((var(--tc-d) - var(--tc-clock)) / 2);
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--tc-ink);
+    cursor: pointer;
+    transition: color 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .timeControlClock {
+    color: #fff;
+}
+.panorama .timeControlClock:focus-visible,
+.panorama .timeControlButton:focus-visible,
+.panorama .timeControlSlider:focus-visible {
+    outline: 2px solid var(--tc-ink);
+    outline-offset: 2px;
+}
+.panorama .timeControl[data-open='false'] .timeControlClock:focus-visible {
+    outline-color: var(--tc-sun);
+}
+.panorama .timeControlClock .clock {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+.panorama .timeControlClock .clockFace {
+    fill: transparent;
+    transition: fill 0.18s ease;
+}
+.panorama .timeControl[data-open='false'] .clockFace {
+    fill: oklch(0.2 0.06 300 / 8%);
+}
+.panorama .clock .clockHandHour,
+.panorama .clock .clockHandMinute {
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-miterlimit: 10;
+    stroke-linecap: round;
+}
+.panorama .clock .clockHandSecond {
+    stroke: var(--panorama-fire-red);
+    stroke-width: 1;
+}
+.panorama .timeControl[data-open='false'] .clockHandSecond {
+    stroke: var(--tc-sun);
+}
+.panorama .clock .clockPause {
+    opacity: 0;
+    transition: opacity 0.15s;
+}
+.panorama .clock .clockPause[data-paused='true'] {
+    opacity: 1;
+}
+.panorama .timeControlPanel {
+    box-sizing: border-box;
+    min-width: 0;
+    margin: 0;
+    border: 0;
+    position: absolute;
+    left: 0;
+    top: calc(var(--tc-d) / 2);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px 4px;
+    border-radius: 0 18px 18px 18px;
+    background: var(--tc-sun);
+    color: var(--tc-ink);
+    font:
+        800 15px/1 ui-monospace,
+        'SF Mono',
+        Menlo,
+        Consolas,
+        monospace;
+    pointer-events: auto;
+    transform-origin: calc(var(--tc-d) / 2) 0;
+    transition:
+        transform 0.2s cubic-bezier(0.2, 0.8, 0.3, 1),
+        opacity 0.16s ease,
+        visibility 0s;
+}
+.panorama .timeControl[data-open='false'] .timeControlPanel {
+    opacity: 0;
+    transform: scale(0.4);
+    visibility: hidden;
+    transition:
+        transform 0.16s ease-in,
+        opacity 0.12s ease,
+        visibility 0s 0.16s;
+}
+.panorama .timeControlRow {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    padding-block: 12px 10px;
+    white-space: pre;
+}
+.panorama .timeControlTop {
+    min-height: calc(var(--tc-d) / 2);
+    padding: 0 36px 0 calc(var(--tc-d) - 16px + 8px);
+    justify-content: space-between;
+    gap: 8px;
+}
+.panorama .timeControlButton {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: pre;
+    cursor: pointer;
+}
+.panorama .timeControlClose {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+}
+.panorama .timeControlClose:hover {
+    background: oklch(0.22 0.05 300 / 10%);
+}
+.panorama .timeControlClose:focus-visible {
+    outline: 2px solid var(--tc-ink);
+    outline-offset: 2px;
+}
+.panorama .timeControlClose svg {
+    width: 12px;
+    height: 12px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+}
+.panorama .timeControlButton:hover {
+    background: oklch(0.22 0.05 300 / 10%);
+}
+.panorama .timeControlButton:disabled {
+    opacity: 0.4;
+    cursor: default;
+    background: transparent;
+}
+.panorama .timeControlButton svg {
+    width: 0.8em;
+    height: 0.8em;
+    fill: currentColor;
+}
+.panorama .timeControlSlider {
+    flex: 1 1 auto;
+    min-width: 56px;
+    height: 24px;
+    margin: 0;
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+    appearance: none;
+}
+.panorama .timeControlSlider::-webkit-slider-runnable-track {
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--tc-ink);
+}
+.panorama .timeControlSlider::-moz-range-track {
+    height: 2.5px;
+    border-radius: 2px;
+    background: var(--tc-ink);
+}
+.panorama .timeControlSlider::-webkit-slider-thumb {
+    width: 14px;
+    height: 14px;
+    margin-top: -5.75px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--tc-ink);
+    appearance: none;
+}
+.panorama .timeControlSlider::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--tc-ink);
+}
+.panorama .timeControlLabel {
+    margin-left: 1ch;
+    font-variant-numeric: tabular-nums;
+}
+.panorama .timeControlEquivalence {
+    padding-bottom: 10px;
+    font-size: 0.82em;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--tc-ink-soft);
+}
+.panorama .timeControlFooter {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-block: 12px 10px;
+    border-top: 1.5px dashed oklch(0.22 0.05 300 / 35%);
+    font-weight: 500;
+    /* Segmented controls inside the overlay take the ink-on-yellow colours */
+    --cs-border-muted: oklch(0.22 0.05 300 / 35%);
+    --cs-text-secondary: var(--tc-ink-soft);
+    --cs-surface-raised: var(--tc-ink);
+    --cs-text-emphasis: var(--tc-sun);
+    --cs-border-focus: var(--tc-ink);
+}
+/* On a phone the clock sits in the bottom right corner, where the hill leaves room; the overlay opens to the left. */
+@media (max-width: 520px) {
+    .panorama .timeControlShape {
+        left: auto;
+        right: var(--tc-x);
+    }
+    .panorama .timeControlDisc {
+        margin-left: auto;
+    }
+    .panorama .timeControlPanel {
+        border-radius: 18px 0 18px 18px;
+        transform-origin: calc(100% - var(--tc-d) / 2) 0;
+    }
+    .panorama .timeControlTop {
+        padding: 0 calc(var(--tc-d) - 16px + 8px) 0 36px;
+    }
+    .panorama .timeControlClose {
+        right: auto;
+        left: 8px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .panorama .timeControlPanel,
+    .panorama .timeControlDisc,
+    .panorama .timeControlClock,
+    .panorama .clockFace {
+        transition: none;
+    }
 }
