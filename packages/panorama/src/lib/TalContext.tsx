@@ -2,6 +2,7 @@ import { usePrefersReducedMotion } from '@samisdat/tools';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 import { computeSunTimes, type SunTimes } from './sunTimes';
+import { testParam } from './testParams';
 import { useWeather } from './useWeather';
 import { Weather } from './weather';
 
@@ -52,7 +53,7 @@ export const TalProvider: React.FC<{ children: React.ReactNode; weather?: Weathe
 
     // `?time=2026-12-21T15:30:00Z` pins the clock for testing and screenshots.
     useEffect(() => {
-        const pinned = new Date(new URLSearchParams(window.location.search).get('time') ?? '');
+        const pinned = new Date(testParam('time') ?? '');
 
         if (Number.isNaN(pinned.getTime())) {
             return;

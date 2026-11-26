@@ -5,8 +5,9 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { getSkyState, seasonFromArcHeight, skyPalette } from '@/lib/sky';
 import { useTal } from '@/lib/TalContext';
 
-import { Clouds } from '../Clouds/Clouds';
 import { SUN_X } from '../Clouds/cloudLight';
+import { Clouds } from '../Clouds/Clouds';
+import { VIEW_HEIGHT, VIEW_WIDTH } from '../viewBox';
 import { seasonalPoint } from './arcPoint';
 import { DuskGlow } from './DuskGlow';
 import { Moon } from './Moon';
@@ -33,12 +34,12 @@ const MoonHole = ({ moon }: MoonHoleProps) => (
         maskUnits="userSpaceOnUse"
         x="0"
         y="0"
-        width="1700"
-        height="500"
+        width={VIEW_WIDTH}
+        height={VIEW_HEIGHT}
     >
         <rect
-            width="1700"
-            height="500"
+            width={VIEW_WIDTH}
+            height={VIEW_HEIGHT}
             fill="#fff"
         />
         {moon && (
@@ -112,8 +113,8 @@ export const Heaven = ({ stars }: HeavenProps) => {
 
             <rect
                 x="0"
-                width="1700"
-                height="500"
+                width={VIEW_WIDTH}
+                height={VIEW_HEIGHT}
                 fill="url(#dayskyGradient)"
             />
             {stars && stars.length > 0 && (

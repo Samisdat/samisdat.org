@@ -6,10 +6,11 @@ import { LAT, LNG } from '@/lib/location';
 import { canEnterWindow, starPositions, type Star } from '@/lib/stars';
 import { useTal } from '@/lib/TalContext';
 
+import { VIEW_WIDTH } from '../viewBox';
 import { FLASH_MAGNITUDE, flashStyle, RADIUS, starOpacity, starRadius, starShows, starTint } from './starStyle';
 
-/** Where the sky window sits in the 1700 x 500 viewBox. Calibrated by eye against the hills. */
-const SKY = { left: 0, width: 1700, horizonY: 250, topY: 10 };
+/** Where the sky window sits in the viewBox. Calibrated by eye against the hills. */
+const SKY = { left: 0, width: VIEW_WIDTH, horizonY: 250, topY: 10 };
 /** Smallest on-screen radius in CSS pixels. Below this size all radii are scaled up together, so stars do not vanish on small screens. */
 const MIN_RADIUS_PX = 0.3;
 /** Skip DOM writes for moves smaller than this (viewBox units); real-time movement is tiny. */

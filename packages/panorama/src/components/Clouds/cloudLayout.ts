@@ -1,3 +1,4 @@
+import { VIEW_WIDTH } from '../viewBox';
 import { bumpLayer, PlacedBump } from './bumpLayer';
 import { random } from './random';
 import { ThinShapeName } from './thinShapes';
@@ -7,7 +8,7 @@ import type { CloudType } from './cloudTypes';
 import type { Oktas, Sky } from '@/lib/sky';
 import type { Rain } from '@/lib/weather';
 
-export const SKY_WIDTH = 1700;
+export const SKY_WIDTH = VIEW_WIDTH;
 
 /** A thin high cloud: one of the fixed cirrus shapes, scaled. */
 export interface PlacedThin {

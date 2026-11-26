@@ -3,9 +3,10 @@ import { CSSProperties } from 'react';
 import { useTal } from '@/lib/TalContext';
 import { Rain as RainIntensity } from '@/lib/weather';
 
+import { VIEW_HEIGHT } from '../viewBox';
 import { SKY_WIDTH } from './cloudLayout';
 
-const HEIGHT = 500;
+const HEIGHT = VIEW_HEIGHT;
 
 interface Drops {
     count: number;

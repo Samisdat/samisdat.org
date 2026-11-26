@@ -1,7 +1,9 @@
 import { CSSProperties, memo, useEffect, useMemo, useRef } from 'react';
 
+import { testParam } from '@/lib/testParams';
+
 import { spawner } from './bumpLayer';
-import { DriftState, Placement, positions, startDrift, step } from './cloudDrift';
+import { DriftState, Placement, positions, startDrift, step, wrap } from './cloudDrift';
 import { Flow, flowParts } from './cloudFlow';
 import { isBump, SKY_WIDTH } from './cloudLayout';
 import { litOfCloud } from './cloudLight';
@@ -14,7 +16,7 @@ import type { CloudLayer, PlacedBump } from './cloudLayout';
 const MAX_STEP = 0.1;
 
 /** `?cloudspeed=20` runs drift and life twenty times as fast, as in a time-lapse. */
-const speedUp = () => Number(new URLSearchParams(window.location.search).get('cloudspeed')) || 1;
+const speedUp = () => Number(testParam('cloudspeed')) || 1;
 
 const PARTS = ['body', 'shade'] as const;
 
@@ -27,7 +29,7 @@ const COPIES = [0, -SKY_WIDTH] as const;
  */
 const redrawsAt = (factor: number) => Math.min(7, 3 * factor);
 
-const wrap = (x: number) => ((x % SKY_WIDTH) + SKY_WIDTH) % SKY_WIDTH;
+const wrapSky = (x: number) => wrap(x, SKY_WIDTH);
 
 const keyOf = (id: number, part: string, copy: number) => `${id}-${part}-${copy}`;
 
@@ -196,8 +198,8 @@ export const DriftingClouds = memo(function DriftingClouds({ layer, sunX }: { la
                                             elements.current.delete(key);
                                         }
                                     }}
-                                    transform={`translate(${wrap(cloud.x) + copy} ${cloud.y})`}
-                                    style={{ ['--lit' as string]: litOfCloud(wrap(cloud.x), sunX) } as CSSProperties}
+                                    transform={`translate(${wrapSky(cloud.x) + copy} ${cloud.y})`}
+                                    style={{ ['--lit' as string]: litOfCloud(wrapSky(cloud.x), sunX) } as CSSProperties}
                                     d={cloud[part]}
                                 />
                             );

@@ -55,7 +55,7 @@ const PART = [0.15, 0.35] as const;
 const LIFE = [20, 60] as const;
 
 const between = ([from, to]: readonly [number, number], value: number) => from + (to - from) * value;
-const wrap = (x: number, width: number) => ((x % width) + width) % width;
+export const wrap = (x: number, width: number) => ((x % width) + width) % width;
 
 /** Where a group reaches, from its left to its right edge, in sky coordinates (not wrapped). */
 const reach = ({ x, members }: DriftGroup) => ({

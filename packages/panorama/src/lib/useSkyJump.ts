@@ -15,6 +15,9 @@ export const useSkyJump = () => {
         moonPhases: MOON_PHASES,
         jumpToDay: useCallback(() => jumpTo(timeOfDay(time, 'day')), [time, jumpTo]),
         jumpToNight: useCallback(() => jumpTo(timeOfDay(time, 'night')), [time, jumpTo]),
-        jumpToMoonPhase: useCallback((index: number) => jumpTo(nightOfMoonPhase(time, MOON_PHASES[index].phase)), [time, jumpTo]),
+        jumpToMoonPhase: useCallback(
+            (index: number) => jumpTo(nightOfMoonPhase(time, MOON_PHASES[index].phase)),
+            [time, jumpTo]
+        ),
     };
 };

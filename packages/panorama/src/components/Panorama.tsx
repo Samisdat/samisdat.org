@@ -8,6 +8,7 @@ import { Heaven } from '@/components/Heaven/Heaven';
 import { Landscape } from '@/components/Landscape';
 import { useTal } from '@/lib/TalContext';
 
+import { VIEW_HEIGHT, VIEW_WIDTH } from './viewBox';
 
 import type { Star } from '@/lib/stars';
 
@@ -36,7 +37,7 @@ export const Panorama = ({ stars, controls }: PanoramaProps): ReactElement => {
                 <svg
                     aria-hidden="true"
                     height="100%"
-                    viewBox="0 0 1700 500"
+                    viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
                 >
                     <Heaven stars={stars} />
                     <Landscape />

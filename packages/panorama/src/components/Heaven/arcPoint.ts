@@ -10,7 +10,8 @@ export const ARC_START: ArcPoint = { x: 432.054, y: 220.087 };
 export const ARC_END: ArcPoint = { x: 1270.402, y: 275.894 };
 
 /** The straight line from the start to the end of the path, at x. */
-const chordAt = (x: number) => ARC_START.y + ((ARC_END.y - ARC_START.y) * (x - ARC_START.x)) / (ARC_END.x - ARC_START.x);
+const chordAt = (x: number) =>
+    ARC_START.y + ((ARC_END.y - ARC_START.y) * (x - ARC_START.x)) / (ARC_END.x - ARC_START.x);
 
 /**
  * A point of the path with the season applied: the arc rises over the line between its ends by `heightFactor` of its

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 
+import { testParam } from './testParams';
 import { CLEAR, dayKey, parseWeather, Weather, weatherForDay } from './weather';
 
 /**
@@ -12,7 +13,7 @@ export const useWeather = (time: Date, forced?: Weather): Weather => {
     const day = dayKey(time);
 
     useEffect(() => {
-        const override = parseWeather(new URLSearchParams(window.location.search).get('weather'));
+        const override = parseWeather(testParam('weather'));
 
         setWeather(override ?? weatherForDay(new Date(time)));
         // The weather changes with the day, not with every frame of the clock
