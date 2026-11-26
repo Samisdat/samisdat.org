@@ -19,7 +19,7 @@ interface Kind {
     crown: Range;
 }
 
-/** Starting values from `assets/clouds-hand.svg`; the review page is where they get tuned. */
+/** Starting values measured from hand-drawn reference clouds. */
 export const BUMP_KINDS: Record<BumpCloudType, Kind> = {
     cumulus: { width: [160, 420], aspect: [3.8, 5.2], smallest: 6, shade: [0.3, 0.45], crown: [1.5, 3.99] },
     stratocumulus: { width: [300, 520], aspect: [5.5, 8], smallest: 8, shade: [0.35, 0.55], crown: [0, 1.99] },
